@@ -22,8 +22,16 @@ import Maps from "./views/examples/Maps.js";
 import Register from "./views/examples/Register.js";
 import Tables from "./views/examples/Tables.js";
 import Icons from "./views/examples/Icons.js";
+import Landing from "./views/examples/Landing.js";
 
 var routes = [
+  {
+    path: "/landing",
+    name: "Landing",
+    icon: "ni ni-circle-08 text-pink",
+    component: Landing,
+    layout: "/admin",
+  },
   {
     path: "/index",
     name: "Dashboard",

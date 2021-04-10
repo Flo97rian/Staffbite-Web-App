@@ -39,7 +39,7 @@ const AdminNavbar = () => {
             <img
               alt="..."
               src={
-                require("../../assets/img/brand/Staffbite Logo.jpeg").default
+                require("../../assets/img/brand/Staffbite_Logo.png").default
               }
             />
           </NavbarBrand>
@@ -54,7 +54,7 @@ const AdminNavbar = () => {
                     <img
                       alt="..."
                       src={
-                        require("../../assets/img/brand/Staffbite Logo.jpeg")
+                        require("../../assets/img/brand/Staffbite_Logo.png")
                           .default
                       }
                     />

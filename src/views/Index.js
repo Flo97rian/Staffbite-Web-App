@@ -15,23 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState } from "react";
-// node.js library that concatenates classes (strings)
-import classnames from "classnames";
+import React from "react";
 // reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  NavItem,
-  NavLink,
-  Nav,
-  Progress,
-  Table,
   Container,
-  Row,
-  Col,
 } from "reactstrap";
 
 
