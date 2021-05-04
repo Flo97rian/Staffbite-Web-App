@@ -17,21 +17,12 @@
 
 */
 import Index from "./views/Index.js";
-import Profile from "./views/examples/Profile.js";
-import Maps from "./views/examples/Maps.js";
-import Register from "./views/examples/Register.js";
-import Tables from "./views/examples/Tables.js";
-import Icons from "./views/examples/Icons.js";
-import Landing from "./views/examples/Landing.js";
+import SchichtplanVerwalten from "./views/MainViews/SchichtplanVerwalten";
+import MitarbeiterVerwalten from "./views/MainViews/MitarbeiterVerwalten";
+import SchichtplanErstellen from "./views/MainViews/SchichtplanErstellen";
+import Profil from "./views/MainViews/Profil";
 
 var routes = [
-  {
-    path: "/landing",
-    name: "Landing",
-    icon: "ni ni-circle-08 text-pink",
-    component: Landing,
-    layout: "/admin",
-  },
   {
     path: "/index",
     name: "Dashboard",
@@ -40,39 +31,32 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/icons",
+    path: "/profil",
+    name: "Profil",
+    icon: "ni ni-tv-2 text-primary",
+    component: Profil,
+    layout: "/admin",
+  },
+  {
+    path: "/schichtplanerstellen",
     name: "Schichtplan erstellen",
     icon: "ni ni-planet text-blue",
-    component: Icons,
+    component: SchichtplanErstellen,
     layout: "/admin",
   },
   {
-    path: "/maps",
+    path: "/schichtplanverwalten",
     name: "Schichtplan verwalten",
     icon: "ni ni-pin-3 text-orange",
-    component: Maps,
+    component: SchichtplanVerwalten,
     layout: "/admin",
   },
   {
-    path: "/tables",
+    path: "/mitarbeiterverwalten",
     name: "Mitarbeiter:innen verwalten",
     icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
+    component: MitarbeiterVerwalten,
     layout: "/admin",
-  },
-  {
-    path: "/user-profile",
-    name: "User Profile",
-    icon: "ni ni-single-02 text-yellow",
-    component: Profile,
-    layout: "/admin",
-  },
-  {
-    path: "/register",
-    name: "Register",
-    icon: "ni ni-circle-08 text-pink",
-    component: Register,
-    layout: "/auth",
-  },
+  }
 ];
 export default routes;

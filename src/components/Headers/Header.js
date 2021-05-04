@@ -64,7 +64,7 @@ const Header = () => {
                           tag="h5"
                           className="text-uppercase text-muted mb-0"
                         >
-                          Mitarbeiter
+                          Mitarbeiter:innen
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">15</span>
                       </div>
@@ -89,7 +89,7 @@ const Header = () => {
                           tag="h5"
                           className="text-uppercase text-muted mb-0"
                         >
-                          offene Schichten
+                          freie Schichten
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">3</span>
                       </div>

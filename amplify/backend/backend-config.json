@@ -1,6 +1,6 @@
 {
   "api": {
-    "staffbiteAPI": {
+    "staffbiteApiTest": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -9,7 +9,7 @@
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 7,
-              "description": "APIKEY7TAGE"
+              "description": "ApiTest"
             }
           },
           "additionalAuthenticationProviders": []
@@ -17,14 +17,7 @@
       }
     }
   },
-  "auth": {
-    "staffbitec99e94c0": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  },
+  "auth": {},
   "hosting": {
     "amplifyhosting": {
       "service": "amplifyhosting",

@@ -17,18 +17,10 @@
 */
 import React from "react";
 // nodejs library that concatenates classes
-import classnames from "classnames";
 import "../../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../assets/scss/argon-dashboard-react.scss";
-import promo1 from "../../assets/img/theme/promo-1.png";
-import img1 from "../../assets/img/theme/img-1-1200x1000.jpg";
-import ill2 from "../../assets/img/ill/ill-2.svg";
-import team1 from "../../assets/img/theme/team-1-800x800.jpg";
-import team2 from "../../assets/img/theme/team-2-800x800.jpg";
-import team3 from "../../assets/img/theme/team-3-800x800.jpg";
-import team4 from "../../assets/img/theme/team-4-800x800.jpg";
-import daniel from "../../assets/img/theme/Daniel Zellmann Profilbild.png";
+import daniel from "../../assets/img/theme/Daniel Zellmann Profilbild.jpeg";
 import florian from "../../assets/img/theme/Florian Zellmann Profilbild.jpg";
 import app from "../../assets/img/theme/App-Ansicht2.png";
 import laptop from "../../assets/img/theme/Schichtplan Uebersicht.jpeg";
@@ -36,16 +28,9 @@ import laptop from "../../assets/img/theme/Schichtplan Uebersicht.jpeg";
 
 // reactstrap components
 import {
-  Badge,
-  Button,
   Card,
   CardBody,
   CardImg,
-  FormGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Container,
   Row,
   Col
@@ -58,27 +43,6 @@ import {
 import DemoNavbar from "../../components/Navbars/DemoNavbar.js";
 import CardsFooter from "../../components/Footers/CardsFooter.js";
 
-// index page sections
-import Download from "../IndexSections/Download.js";
-import Hero from "../IndexSections/Hero.js";
-import Buttons from "../IndexSections/Buttons.js";
-import Inputs from "../IndexSections/Inputs.js";
-import CustomControls from "../IndexSections/CustomControls.js";
-import Menus from "../IndexSections/Menus.js";
-import Navbars from "../IndexSections/Navbars.js";
-import Tabs from "../IndexSections/Tabs.js";
-import Progress from "../IndexSections/Progress.js";
-import Pagination from "../IndexSections/Pagination.js";
-import Pills from "../IndexSections/Pills.js";
-import Labels from "../IndexSections/Labels.js";
-import Alerts from "../IndexSections/Alerts.js";
-import Typography from "../IndexSections/Typography.js";
-import Modals from "../IndexSections/Modals.js";
-import Datepicker from "../IndexSections/Datepicker.js";
-import TooltipPopover from "../IndexSections/TooltipPopover.js";
-import Carousel from "../IndexSections/Carousel.js";
-import Icons from "../IndexSections/Icons.js";
-import Login from "../IndexSections/Login.js";
 
 class Landing extends React.Component {
   state = {};
@@ -372,67 +336,11 @@ class Landing extends React.Component {
                         Wir suchen nach Tester:innen für unsere Software-Lösung
                       </p>
                       <p className="mt-0">
-                        Kontakt: mail@staffbite.de
+                        Wir freuen uns auf deine Nachricht!
                       </p>
-                      <FormGroup
-                        className={classnames("mt-5", {
-                          focused: this.state.nameFocused
-                        })}
-                      >
-                        <InputGroup className="input-group-alternative">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="ni ni-circle-08" />
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input
-                            placeholder="Dein Name"
-                            type="text"
-                            onFocus={e => this.setState({ nameFocused: true })}
-                            onBlur={e => this.setState({ nameFocused: false })}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                      <FormGroup
-                        className={classnames({
-                          focused: this.state.emailFocused
-                        })}
-                      >
-                        <InputGroup className="input-group-alternative">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="ni ni-email-83" />
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <Input
-                            placeholder="Deine E-Mail Adresse"
-                            type="email"
-                            onFocus={e => this.setState({ emailFocused: true })}
-                            onBlur={e => this.setState({ emailFocused: false })}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                      <FormGroup className="mb-4">
-                        <Input
-                          className="form-control-alternative"
-                          cols="80"
-                          name="name"
-                          placeholder="Schreib uns eine Nachricht.."
-                          rows="4"
-                          type="textarea"
-                        />
-                      </FormGroup>
-                      <div>
-                        <Button
-                          block
-                          className="btn-round"
-                          color="default"
-                          size="lg"
-                          type="button"
-                        >
-                          Nachricht senden
-                        </Button>
-                      </div>
+                      <p className="mt-0">
+                        Kontakt: info@staffbite.de
+                      </p>
                     </CardBody>
                   </Card>
                 </Col>
