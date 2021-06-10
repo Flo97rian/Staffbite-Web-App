@@ -17,6 +17,15 @@
           "appId": "d3p8gdtbc86r0o",
           "type": "manual"
         }
+      },
+      "auth": {
+        "staffbitec6f81604": {}
+      },
+      "function": {
+        "AdminQueries76779c06": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/AdminQueries76779c06-37755a77446f3846472b-build.zip"
+        }
       }
     }
   }

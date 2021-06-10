@@ -29,10 +29,10 @@ export default class SchichtenVerwaltet extends React.Component {
                                 <ListGroup>
                                     <ListGroup.Item action variant="primary"> {item.Datum}</ListGroup.Item>
                                     <ListGroup.Item action variant="primary"> {item.Wochentag}</ListGroup.Item>
-                                    <ListGroup.Item action variant={item.Schicht1Color}> {item.Schicht1}</ListGroup.Item>
-                                    <ListGroup.Item action variant={item.Schicht2Color}> {item.Schicht2}</ListGroup.Item>
-                                    <ListGroup.Item action variant={item.Schicht3Color}> {item.Schicht3}</ListGroup.Item>
-                                    <ListGroup.Item action variant={item.Schicht4Color}> {item.Schicht4}</ListGroup.Item>
+                                    <ListGroup.Item action variant={item.Schicht1Color}> {item.Schicht1Level}{item.SchichtLeitung}<br/>{item.Schicht1}</ListGroup.Item>
+                                    <ListGroup.Item action variant={item.Schicht2Color}> {item.Schicht2Level}{item.SchichtKueche}<br/>{item.Schicht2}</ListGroup.Item>
+                                    <ListGroup.Item action variant={item.Schicht3Color}> {item.Schicht3Level}{item.SchichtService}<br/>{item.Schicht3}</ListGroup.Item>
+                                    <ListGroup.Item action variant={item.Schicht4Color}> {item.Schicht4Level}{item.SchichtService}<br/>{item.Schicht4}</ListGroup.Item>
                                     <ListGroup.Item action variant="primary"> {item.Summe}</ListGroup.Item>
                                 </ListGroup>
                             </Col>
@@ -46,10 +46,10 @@ export default class SchichtenVerwaltet extends React.Component {
                                 <ListGroup>
                                     <ListGroup.Item action variant="primary"> {item.Datum}</ListGroup.Item>
                                     <ListGroup.Item action variant="primary"> {item.Wochentag}</ListGroup.Item>
-                                    <ListGroup.Item action variant={item.Schicht1Color}> {item.Schicht1}</ListGroup.Item>
-                                    <ListGroup.Item action variant={item.Schicht2Color}> {item.Schicht2}</ListGroup.Item>
-                                    <ListGroup.Item action variant={item.Schicht3Color}> {item.Schicht3}</ListGroup.Item>
-                                    <ListGroup.Item action variant={item.Schicht4Color}> {item.Schicht4}</ListGroup.Item>
+                                    <ListGroup.Item action variant={item.Schicht1Color}> {item.Schicht1Level}{item.SchichtKueche}<br/>{item.Schicht1}</ListGroup.Item>
+                                    <ListGroup.Item action variant={item.Schicht2Color}> {item.Schicht2Level}{item.SchichtService}<br/>{item.Schicht2}</ListGroup.Item>
+                                    <ListGroup.Item action variant={item.Schicht3Color}> {item.Schicht3Level}{item.SchichtKueche}<br/>{item.Schicht3}</ListGroup.Item>
+                                    <ListGroup.Item action variant={item.Schicht4Color}> {item.Schicht4Level}{item.SchichtService}<br/>{item.Schicht4}</ListGroup.Item>
                                     <ListGroup.Item action variant="primary"> {item.Summe}</ListGroup.Item>
                                 </ListGroup>
                             </Col>

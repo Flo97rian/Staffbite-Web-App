@@ -296,7 +296,6 @@ export default class TableContainer extends React.PureComponent {
                   </Col>
                   <Col xs={4}>
                     <ButtonMitarbeiterErstellen onClick={this.showModal}></ButtonMitarbeiterErstellen>{' '}
-                    <button onClick={this.showUser}>Moin</button>
                   </Col>
                   <Col xs={4}>
                   </Col>

@@ -40,14 +40,14 @@ export default class SchichtplanErstellen extends React.Component {
       SchichtErstellenModal: false,
       SchichtImportierenModal: false,
       Schichtplan: [
-        {Datum: "Datum", Wochentag: "Wochentag", Summe: "Summe", Schicht1: "9:00 - 15:00", Schicht1Color: "primary", Schicht2: "9:00 - 15:00", Schicht2Color: "primary", Schicht3: "12:00 - 18:00", Schicht3Color: "primary", Schicht4: "12:00 - 18:00", Schicht4Color: "primary"},
-        {Datum: "29.03.21", Wochentag: "Montag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
-        {Datum: "30.03.21", Wochentag: "Dienstag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
-        {Datum: "31.03.21", Wochentag: "Mittwoch", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
-        {Datum: "01.04.21", Wochentag: "Donnerstag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
-        {Datum: "02.04.21", Wochentag: "Freitag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
-        {Datum: "03.04.21", Wochentag: "Samstag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
-        {Datum: "04.04.21", Wochentag: "Sonntag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
+        {Datum: "Datum", Wochentag: "Wochentag", Summe: "Summe", Schicht1: "9:00 - 18:00", Schicht1Color: "primary", Schicht2: "9:00 - 18:00", Schicht2Color: "primary", Schicht3: "9:00 - 15:00", Schicht3Color: "primary", Schicht4: "12:00 - 18:00", Schicht4Color: "primary", SchichtKueche: <small>Küche</small>, SchichtService: <small>Service</small>, SchichtLeitung: <small>Leitung</small>},
+        {Datum: "07.06.21", Wochentag: "Montag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
+        {Datum: "08.06.21", Wochentag: "Dienstag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
+        {Datum: "09.06.21", Wochentag: "Mittwoch", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
+        {Datum: "10.06.21", Wochentag: "Donnerstag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
+        {Datum: "11.06.21", Wochentag: "Freitag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
+        {Datum: "12.06.21", Wochentag: "Samstag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
+        {Datum: "13.06.21", Wochentag: "Sonntag", Summe: "0", Schicht1: <br />, Schicht1Color: "secondary", Schicht2: <br />, Schicht2Color: "secondary", Schicht3: <br />, Schicht3Color: "secondary", Schicht4: <br />, Schicht4Color: "secondary"},
       
     ]
     }

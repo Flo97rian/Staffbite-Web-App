@@ -1,4 +1,7 @@
-type Mitarbeiter @model {
+type Mitarbeiter @model @auth (rules: 
+[{allow: groups, groups: ["Organisation"],
+operations: [create, update, delete]}])
+{
   id: ID!
   admin: ID!
   aktiv: Boolean
@@ -11,9 +14,4 @@ type Mitarbeiter @model {
   frei: Boolean
   erfahrung: String
   schichtenwoche: Float
-}
-
-type Schichtplan @model {
-  id: ID!
-  
 }

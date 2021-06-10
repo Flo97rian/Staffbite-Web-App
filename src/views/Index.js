@@ -27,7 +27,6 @@ import Header from "../components/Headers/Header.js";
 const Index = (props) => {
   return (
     <>
-      <Header />
       {/* Page content */}
       <Container className="mt--7" fluid>
       </Container>
