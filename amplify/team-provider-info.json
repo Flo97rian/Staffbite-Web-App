@@ -18,14 +18,22 @@
           "type": "manual"
         }
       },
-      "auth": {
-        "staffbitec6f81604": {}
-      },
       "function": {
         "AdminQueries76779c06": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
           "s3Key": "amplify-builds/AdminQueries76779c06-37755a77446f3846472b-build.zip"
+        },
+        "staffbite6712ed54CustomMessage": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/staffbite6712ed54CustomMessage-2b7579624a4f5a732b79-build.zip"
+        },
+        "staffbite6712ed54PostConfirmation": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/staffbite6712ed54PostConfirmation-4a64426f7158306b556a-build.zip"
         }
+      },
+      "auth": {
+        "staffbite1bcc57771bcc5777": {}
       }
     }
   }

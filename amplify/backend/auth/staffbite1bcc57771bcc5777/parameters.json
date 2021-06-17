@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "staffbitec6f81604_identitypool_c6f81604",
+    "identityPoolName": "staffbite1bcc5777_identitypool_1bcc5777",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "staffbc6f81604",
-    "userPoolName": "staffbitec6f81604_userpool_c6f81604",
+    "resourceNameTruncated": "staffb1bcc5777",
+    "userPoolName": "staffbite1bcc5777_userpool_1bcc5777",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "staffbc6f81604_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "staffb1bcc5777_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "c6f81604",
-    "resourceName": "staffbitec6f81604",
+    "sharedId": "1bcc5777",
+    "resourceName": "staffbite1bcc57771bcc5777",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -46,24 +46,20 @@
         ]
     },
     "useDefault": "manual",
+    "thirdPartyAuth": false,
     "usernameAttributes": [
-        "email, phone_number"
+        "email"
     ],
+    "userPoolGroups": false,
+    "adminQueries": false,
     "triggers": "{}",
-    "userPoolGroupList": [
-        "Organisation"
-    ],
+    "hostedUI": false,
+    "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "parentStack": {
         "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "dependsOn": [],
-    "thirdPartyAuth": false,
-    "userPoolGroups": true,
-    "adminQueries": true,
-    "hostedUI": false,
-    "adminQueryGroup": "Organisation",
-    "authProviders": []
+    "dependsOn": []
 }

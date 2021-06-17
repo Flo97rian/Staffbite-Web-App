@@ -15,31 +15,10 @@
           "additionalAuthenticationProviders": []
         }
       }
-    },
-    "AdminQueries": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "staffbitec6f81604",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "AdminQueries76779c06",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ]
     }
   },
   "auth": {
-    "staffbitec6f81604": {
+    "staffbite1bcc57771bcc5777": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -54,19 +33,15 @@
     }
   },
   "function": {
-    "AdminQueries76779c06": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
+    "staffbite6712ed54CustomMessage": {
       "build": true,
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "staffbitec6f81604",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ]
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "staffbite6712ed54PostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   }
 }
