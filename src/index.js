@@ -8,6 +8,7 @@ import "./assets/scss/argon-dashboard-react.scss";
 
 import AdminLayout from "./layouts/Admin.js";
 import AuthLayout from "./layouts/Auth.js";
+import UserLayout from "./layouts/User.js";
 import Landing from "./views/MainViews/Landing.js";
 import reportWebVitals from './reportWebVitals';
 
@@ -17,6 +18,8 @@ ReactDOM.render(
       <Route path="/" exact render={props => <Landing {...props} />} />
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+      <Route path="/user" render={(props) => <UserLayout {...props} />} />
+      
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')

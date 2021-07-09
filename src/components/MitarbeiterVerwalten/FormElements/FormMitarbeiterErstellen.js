@@ -29,7 +29,7 @@ export default class FormMitarbeiterErstellen extends React.PureComponent {
                     <br/>
                     <Row className="text-center">
                     <Col xs={12}>
-                        <Button onClick={this.props.handleSave}> Speichern</Button>
+                        <Button onClick={() => this.props.handleRegister(this.props.modalkey)}> Speichern</Button>
                     </Col>
                     </Row>
                 </form>

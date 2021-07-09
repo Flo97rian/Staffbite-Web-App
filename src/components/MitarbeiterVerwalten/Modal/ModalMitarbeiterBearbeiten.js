@@ -2,6 +2,7 @@ import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import {
     Col,
+    Row
 } from "reactstrap"
 import Button from 'react-bootstrap/Button';
 
@@ -25,12 +26,15 @@ export default class ModalMitarbeiterBearbeiten extends React.PureComponent {
                     <FormMitarbeiterBearbeiten mitarbeiterdaten={this.props.mitarbeiterdaten} {...this.props}></FormMitarbeiterBearbeiten>
                 </Modal.Body>
                 <Modal.Footer>
-                <Col xs={6}>
-                    </Col>
-                    <Col xs={6}>
-                        <Button onClick={() => this.props.handleUpdate(this.props.mitarbeiterdaten)}> Aktualisieren</Button>
-                        <Button onClick={() => this.props.onHide(this.props.modalkey)}> Schließen </Button>
-                    </Col>
+                        <Col xs={3}>
+                            <Button onClick={() => this.props.handleUpdate(this.props.mitarbeiterdaten)}> Aktualisieren</Button>
+                        </Col>
+                        <Col xs={3}>
+                            <Button variant="danger" onClick={() => this.props.handleDelete(this.props.mitarbeiterdaten.id)}> Löschen</Button>
+                        </Col>
+                        <Col xs={3}>
+                            <Button onClick={() => this.props.onHide(this.props.modalkey)}> Schließen </Button>
+                        </Col>
                 </Modal.Footer>
             </Modal>
         )

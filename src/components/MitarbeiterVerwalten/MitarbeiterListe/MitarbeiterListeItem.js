@@ -57,26 +57,6 @@ export default class MitarbeiterListeItem extends React.PureComponent {
                     }
                     <td>{this.props.schichtenwoche}</td>
                     <td>
-                    <UncontrolledDropdown>
-                    <DropdownToggle
-                    className="btn-icon-only text-light"
-                    href="#pablo"
-                    role="button"
-                    size="sm"
-                    color=""
-                    onClick={(e) => e.preventDefault()}
-                    >
-                    <i className="fas fa-ellipsis-v" />
-                    </DropdownToggle>
-                    <DropdownMenu className="dropdown-menu-arrow" right>
-                    <DropdownItem onClick={() => this.props.onClick(this.props.id)}>
-                        Bearbeiten
-                    </DropdownItem>
-                    <DropdownItem onClick={() => this.props.handleDelete(this.props.id)}>
-                        Löschen
-                    </DropdownItem>
-                    </DropdownMenu>
-                </UncontrolledDropdown>
                 </td>
                 </>
         );

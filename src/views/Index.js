@@ -22,7 +22,6 @@ import {
 } from "reactstrap";
 
 
-import Header from "../components/Headers/Header.js";
 
 const Index = (props) => {
   return (

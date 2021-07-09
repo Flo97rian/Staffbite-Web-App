@@ -9,7 +9,7 @@ export default class FormMitarbeiterBearbeiten extends React.PureComponent {
         return(
             <>
                 <form>
-                    <Switch type="switch" label="Aktiv" name="aktiv" value={this.props.mitarbeiterdaten["aktiv"]} onChange={(e) => this.props.onChange(e, "mitarbeiterBearbeiten")}></Switch>
+                    <Switch type="switch" label="Aktiv" name="aktiv" value={this.props.mitarbeiterdaten["name"]} onChange={(e) => this.props.onChange(e, "mitarbeiterBearbeiten")}></Switch>
                     <br/>
                     <InputString label="Name" name="name" placeholder={this.props.mitarbeiterdaten["name"]} onChange={(e) => this.props.onChange(e, "mitarbeiterBearbeiten")}></InputString>
                     <br/>

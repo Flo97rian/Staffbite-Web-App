@@ -18,11 +18,10 @@ export default class MitarbeiterTabelle extends React.Component {
                       <th scope="col">Überstunden</th>
                       <th scope="col">frei</th>
                       <th scope="col">Schichten/Woche</th>
-                      <th scope="col">Settings</th>
                     </thead>
                     <tbody>{this.props.loading ? <tr><td>"Mitarbeiter werden geladen"</td></tr> : 
                             this.props.mitarbeiter.map((ma) => 
-                            <tr className="text-center" key={ma.id}>
+                            <tr className="text-center" key={ma.id}  onClick={() => this.props.onClick(ma.id)}>
                                 <MitarbeiterListeItem 
                                 {...this.props}
                                 key= {ma.id}

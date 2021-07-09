@@ -23,17 +23,36 @@
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
           "s3Key": "amplify-builds/AdminQueries76779c06-37755a77446f3846472b-build.zip"
         },
-        "staffbite6712ed54CustomMessage": {
+        "staffbite90879d8e": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/staffbite6712ed54CustomMessage-2b7579624a4f5a732b79-build.zip"
-        },
-        "staffbite6712ed54PostConfirmation": {
-          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/staffbite6712ed54PostConfirmation-4a64426f7158306b556a-build.zip"
+          "s3Key": "amplify-builds/staffbite90879d8e-43724950377a32317234-build.zip"
         }
       },
       "auth": {
-        "staffbite1bcc57771bcc5777": {}
+        "staffbiteff38ca70": {
+          "userPoolId": "eu-central-1_e0g7ALwrg",
+          "userPoolName": "Staffbite-Benutzerpool",
+          "webClientId": "625p2f8lj1r8vii8l13467nijr",
+          "nativeClientId": "625p2f8lj1r8vii8l13467nijr",
+          "identityPoolId": "eu-central-1:2e1dd1e4-5524-4fec-a78b-0ffa01bf4d77",
+          "identityPoolName": "Staffbite",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteAuth_Role",
+          "authRoleName": "Cognito_StaffbiteAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteUnauth_Role",
+          "unauthRoleName": "Cognito_StaffbiteUnauth_Role"
+        }
+      },
+      "storage": {
+        "StaffbiteDynamoDB": {
+          "tableName": "Staffbite-DynamoDB",
+          "region": "eu-central-1",
+          "arn": "arn:aws:dynamodb:eu-central-1:643981031365:table/Staffbite-DynamoDB",
+          "partitionKeyName": "PK",
+          "partitionKeyType": "S",
+          "sortKeyName": "SK",
+          "sortKeyType": "S"
+        }
       }
     }
   }

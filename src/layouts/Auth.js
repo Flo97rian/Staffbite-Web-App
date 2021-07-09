@@ -18,10 +18,10 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 // reactstrap components
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row } from "reactstrap";
 // core components
 
-import routes from "../routes.js";
+import {adminroutes, userroutes} from "../routes.js";
 import Amplify from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut, AmplifyConfirmSignUp} from '@aws-amplify/ui-react';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
@@ -40,30 +40,15 @@ const Auth = () => {
         });
     }, []);
 
-    const getRoutes = (routes) => {
-      return routes.map((prop, key) => {
-        if (prop.layout === "/auth") {
-          return (
-            <Route
-              path={prop.layout + prop.path}
-              component={prop.component}
-              key={key}
-            />
-          );
-        } else {
-          return null;
-        }
-      });
-    };
-
-  return authState === AuthState.SignedIn && user ? (
+  return (
+    <>
+    { authState === AuthState.SignedIn && user ? (
       <div className="App">
           <div>Hello, {user.username}</div>
           <Container className="mt--8 pb-5">
           <Row className="justify-content-center">
             <Switch>
-              {getRoutes(routes)}
-              <Redirect from="*" to="/admin/index" />
+              { user.username == user.attributes["custom:TenantId"] ? <Redirect from="*" to="/admin/index" /> : <Redirect from="*" to="/user/index" />}
             </Switch>
           </Row>
         </Container>
@@ -76,16 +61,28 @@ const Auth = () => {
         slot="sign-up"
         formFields={[
           { type: "username", label: "Email *", placeholder: "Geben Sie eine gültige Email ein" },
-          { type: "password", label: "Passwort *", playceholder: "Geben Sie ein Passwort ein" }
+          { type: "password", label: "Passwort *", placeholder: "Geben Sie ein Passwort ein" },
         ]}
+        amplify-footer="Moin"
+        amplify-secondary-footer-content="1"
+        amplify-primary-footer-content="2"
         ></AmplifySignUp>
         <AmplifyConfirmSignUp
         headerText="Bestätige deine Registrierung"
         slot="confirm-sign-up"
+        formFields={[
+          { type: "username", label: "Email *", placeholder: "Geben Ihre gültige Email ein" },
+          { type: "code", label: "Bestätigungs-Code *", placeholder: "Geben Sie Ihren Bestätigungscode ein" },
+        ]}
+        footer="Moin"
+        secondary-footer-content="1"
+        primary-footer-content="2"
         >
         </AmplifyConfirmSignUp>
       </AmplifyAuthenticator>
-  );
+  )}
+    </>
+    )
 }
 
 export default Auth;

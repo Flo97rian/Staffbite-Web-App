@@ -12,13 +12,12 @@ import {
   } from "reactstrap";
 
 import _ from "lodash";
-import { Auth } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import { DataStore } from "@aws-amplify/datastore";
 import { Mitarbeiter } from "../../models";
 import MitarbeiterTabelle from "./MitarbeiterTabelle.js";
 import ButtonMitarbeiterErstellen from "./Modal/ButtonMitarbeiterErstellen.js";
 import OpenModal from "./Modal/OpenModal.js";
-import { UsernameAttributes } from "aws-amplify-react";
 
 export default class TableContainer extends React.PureComponent {
     constructor(props) {
@@ -31,37 +30,30 @@ export default class TableContainer extends React.PureComponent {
             mitarbeiterBearbeiten: {}
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSave = this.handleSave.bind(this);
         this.checkModalKey = this.checkModalKey.bind(this);
         this.checkTrue = this.checkTrue.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
         this.checkErstellen = this.checkErstellen.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
-        this.mitarbeiterSpeichern = this.mitarbeiterSpeichern.bind(this);
         this.mitarbeiterUpdate = this.mitarbeiterUpdate.bind(this);
         this.handleBearbeiten = this.handleBearbeiten.bind(this);
         this.handleSwitch = this.handleSwitch.bind(this);
         this.stateSwitch = this.stateSwitch.bind(this);
-        this.currentUser = this.currentUser.bind(this);
+        this.registerMitarbeiter = this.registerMitarbeiter.bind(this)
+        this.handleRegister = this.handleRegister.bind(this);
     }
 
-    currentUser() {
-    Auth.currentAuthenticatedUser({
-      bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-  }).then(user => console.log(user.attributes.sub))
-  .catch(err => console.log(err));
-}
 
     componentDidMount() {
         this.loadMitarbeiter();
           }
 
     
-    componentDidUpdate(prevState) {
-
+    componentDidUpdate(prevProps, prevState) {
+      console.log(this.state)
     if (prevState.loading !== this.state.loading) {
-        this.loadMitarbeiter();
+      this.loadMitarbeiter();
     }
     }
 
@@ -75,6 +67,7 @@ export default class TableContainer extends React.PureComponent {
       }})
     }
 
+
     // Schließt ein Modal im Bereich Mitarbeiter verwalten auf Basis der "id". (Mitarbeiter erstellen, Mitarbeiter bearbeiten)
     hideModal = (e) => {
       const key = e
@@ -82,14 +75,15 @@ export default class TableContainer extends React.PureComponent {
         this.setState({modal : {
           ...this.state.modal,
           [key]: val
-      }})
+      }});
     }
+
     // Filtert auf Basis der Id, die zugehörigen Mitarbeiterdaten
     handleFilter(idToSearch) {
       let key = this.state.mitarbeiter;
       let data = key.filter(item => {
           return item.id === idToSearch
-      })
+      });
       return data[0]
   }
     // Handling von Userinputs für die Erstellung eines neuen Mitarbeiters
@@ -105,10 +99,8 @@ export default class TableContainer extends React.PureComponent {
     }
 
     stateSwitch(value, event) {
-      console.log(value);
       if (value === "on") {
         const state = this.handleSwitch(event);
-        console.log(state);
         return state
       } else {
         return value
@@ -171,19 +163,25 @@ export default class TableContainer extends React.PureComponent {
     }
     // Löscht einen Mitarbeiter aus der Datenbank
     async loeschenMitarbeiter(e) {
-        const todelete = await DataStore.query(Mitarbeiter, e);
-        try{
-            await DataStore.delete(todelete);
-        } catch (error) {
-            return console.log("Error saving post", error);
-          }
+      const apiName = 'api00f496d2'; // replace this with your api name.
+      const path = '/employee/delete'; //replace this with the path you have configured on your API
+      const myInit = { // OPTIONAL
+          headers: {
+          Authorizer:`Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`,
+        },
+        queryStringParameters: {
+          id: e,
+        } // OPTIONAL
+      };
+      return await API.post(apiName, path, myInit)
+       .then(response => {
+          // Add your code here
+       });
         };
 
     handleUpdate(e) {
-      console.log(this.state)
       this.mitarbeiterUpdate(e);
       this.hideModal(e["id"]);
-      console.log(this.state);
       this.setState(state => {
         return {
             loading : state = true
@@ -191,97 +189,110 @@ export default class TableContainer extends React.PureComponent {
     })
     }
     // Aktualisiert einen Mitarbeiter in der Datenbank
-    async mitarbeiterUpdate(e) {
-        const original = await DataStore.query(Mitarbeiter, e["id"]);
+    async mitarbeiterUpdate() {
 
-        try {
-            await DataStore.save(
-            Mitarbeiter.copyOf(original, updated => {
-            updated.id = e["id"];
-            updated.aktiv =  this.state.mitarbeiterBearbeiten.aktiv;
-            updated.name = this.state.mitarbeiterBearbeiten.name;
-            updated.email = this.state.mitarbeiterBearbeiten.email;
-            updated.stundenlohn = Number( this.state.mitarbeiterBearbeiten.stundenlohn);
-            updated.zielmtleuro = Number(this.state.mitarbeiterBearbeiten.zielmtleuro);
-            updated.zielmtlh = Number( this.state.mitarbeiterBearbeiten.zielmtlh);
-            updated.ueberstunden =  this.state.mitarbeiterBearbeiten.ueberstunden;
-            updated.frei =  this.state.mitarbeiterBearbeiten.frei;
-            updated.erfahrung =  this.state.mitarbeiterBearbeiten.erfahrung;
-            updated.schichtenwoche = Number( this.state.mitarbeiterBearbeiten.schichtenwoche);
-            })
-        );
-        return console.log("Transfer commited");
-    
-        } catch (error) {
-        return console.log("Error saving post", error);
-        }
+      const apiName = 'api00f496d2'; // replace this with your api name.
+      const path = '/employee/update'; //replace this with the path you have configured on your API
+      const myInit = { // OPTIONAL
+          headers: {
+          Authorizer:`Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`,
+        },
+        queryStringParameters: {
+          email: this.state.mitarbeiterBearbeiten["email"],
+          aktiv: this.state.mitarbeiterBearbeiten["aktiv"],
+          name: this.state.mitarbeiterBearbeiten["name"],
+          frei: this.state.mitarbeiterBearbeiten["frei"],
+          stundenlohn: this.state.mitarbeiterBearbeiten["stundenlohn"],
+          zielmtleuro: this.state.mitarbeiterBearbeiten["zielmtleuro"],
+          zielmtlh: this.state.mitarbeiterBearbeiten["zielmtlh"],
+          ueberstunden: this.state.mitarbeiterBearbeiten["ueberstunden"],
+          erfahrung: this.state.mitarbeiterBearbeiten["erfahrung"],
+          schichtenwoche: this.state.mitarbeiterBearbeiten["schichtenwoche"],
+          id: this.state.mitarbeiterBearbeiten["id"],
+        } // OPTIONAL
+      };
+      return await API.post(apiName, path, myInit)
+       .then(response => {
+          // Add your code here
+       });
     };
 
     // Läd alle Mitarbeiter aus der Datenbank
     async loadMitarbeiter() {
-        let self = this
+      const apiName = 'api00f496d2'; // replace this with your api name.
+      const path = '/employee/getall'; //replace this with the path you have configured on your API
+      const myInit = { // OPTIONAL
+          headers: {
+          Authorizer:`Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
+        }}; 
 
-        let datastoreMitarbeiter = await DataStore.query(Mitarbeiter);
-        let mitarbeiter = _.map(datastoreMitarbeiter, item => {
+  return await API.get(apiName, path, myInit)
+   .then(response => {
+    let mitarbeiter = _.map(response.Items, item => {
+      return {
+          frei: item.frei["BOOL"],
+          name: item.name["S"],
+          aktiv: item.aktiv["BOOL"],
+          email: item.email["S"],
+          stundenlohn: item.stundenlohn["N"],
+          zielmtleuro: item.zielmtleuro["N"],
+          zielmtlh: item.zielmtlh["N"],
+          ueberstunden: item.ueberstunden["BOOL"],
+          id: item.SK["S"],
+          erfahrung: item.erfahrung["S"],
+          schichtenwoche: item.schichtenwoche["N"]
+      };
+      });
+        this.setState(state => {
+          return {
+            mitarbeiter : state = mitarbeiter,
+          }
+      });
+      this.setState(state => {
         return {
-            id: item.id,
-            email: item.email,
-            aktiv: item.aktiv,
-            name: item.name,
-            stundenlohn: item.stundenlohn,
-            zielmtleuro: item.zielmtleuro,
-            zielmtlh: item.zielmtlh,
-            ueberstunden: item.ueberstunden,
-            frei: item.frei,
-            erfahrung: item.erfahrung,
-            schichtenwoche: item.schichtenwoche
-        };
-        });
-        self.setState(state => {
-            return {
-                mitarbeiter : state = mitarbeiter,
-            }
-        })
-
-        self.setState(state => {
-            return {
-                loading : state = false
-            }
-        })
+          loading : state = false
+          }
+      });
+      // Add your code here
+   });
     };
 
-    handleSave() {
-      this.mitarbeiterSpeichern();
-      this.hideModal("showErstellen");
+
+    handleRegister(e) {
+      this.registerMitarbeiter(e)
+      console.log(e);
+      this.hideModal(e);
       this.setState(state => {
         return {
             loading : state = true
         }
     })
     }
-    //Speichert einen neuen Mitarbeiter in der Datenbank
-    async mitarbeiterSpeichern() {
-        try {
-          await DataStore.save(
-            new Mitarbeiter({
-              aktiv: true,
-              name: this.state.neuerMitarbeiter.name,
-              email: this.state.neuerMitarbeiter.email,
-              stundenlohn: Number(this.state.neuerMitarbeiter.stundenlohn),
-              zielmtleuro: Number(this.state.neuerMitarbeiter.zielmtleuro),
-              zielmtlh: Number(this.state.neuerMitarbeiter.zielmtlh),
-              ueberstunden: false,
-              frei: false,
-              erfahrung: this.state.neuerMitarbeiter.erfahrung,
-              schichtenwoche: Number(this.state.neuerMitarbeiter.schichtenwoche)
-          })
-      );
-        return console.log("Transfer commited");
-    
-      } catch (error) {
-        return console.log("Error saving post", error);
+
+    async registerMitarbeiter(e) {
+      const modalkey = e;
+      const apiName = 'api00f496d2'; // replace this with your api name.
+      const path = '/register'; //replace this with the path you have configured on your API
+      const myInit = { // OPTIONAL
+          headers: {
+          Authorizer:`Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`,
+        },
+        queryStringParameters: {
+          email: this.state.neuerMitarbeiter["email"],
+          name: this.state.neuerMitarbeiter["name"],
+          stundenlohn: this.state.neuerMitarbeiter["stundenlohn"],
+          zielmtleuro: this.state.neuerMitarbeiter["zielmtleuro"],
+          zielmtlh: this.state.neuerMitarbeiter["zielmtlh"],
+          ueberstunden: this.state.neuerMitarbeiter["ueberstunden"],
+          erfahrung: this.state.neuerMitarbeiter["erfahrung"],
+          schichtenwoche: this.state.neuerMitarbeiter["schichtenwoche"],
+        } // OPTIONAL
+      };
+      return await API.post(apiName, path, myInit)
+       .then(response => {
+          // Add your code here
+       });
       }
-    };
 
     render() {
         return(
@@ -306,7 +317,6 @@ export default class TableContainer extends React.PureComponent {
                     mitarbeiter={this.state.mitarbeiter} 
                     loading={this.state.loading}
                     onClick={this.showModal}
-                    handleDelete={this.handleDelete}
                     >
                     </MitarbeiterTabelle>
                 </Row>
@@ -355,12 +365,14 @@ export default class TableContainer extends React.PureComponent {
             show={this.state.modal}
             onHide={this.hideModal}
             onClick={this.showModal}
+            handleRegister={this.handleRegister}
             checkModalKey={this.checkModalKey}
             checkTrue={this.checkTrue}
             handleFilter={this.handleFilter}
             handleSave={this.handleSave}
             checkErstellen={this.checkErstellen}
             handleBearbeiten={this.handleBearbeiten}
+            handleDelete={this.handleDelete}
             ></OpenModal>
             </>
         );

@@ -15,11 +15,26 @@
           "additionalAuthenticationProviders": []
         }
       }
+    },
+    "api00f496d2": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "staffbite90879d8e",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
     }
   },
   "auth": {
-    "staffbite1bcc57771bcc5777": {
+    "staffbiteff38ca70": {
       "service": "Cognito",
+      "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
@@ -33,15 +48,18 @@
     }
   },
   "function": {
-    "staffbite6712ed54CustomMessage": {
+    "staffbite90879d8e": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "staffbite6712ed54PostConfirmation": {
-      "build": true,
+    }
+  },
+  "storage": {
+    "StaffbiteDynamoDB": {
+      "service": "DynamoDB",
+      "serviceType": "imported",
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "dependsOn": []
     }
   }
 }

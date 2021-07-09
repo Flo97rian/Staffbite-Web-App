@@ -6,8 +6,6 @@ async function signUp() {
             username,
             password,
             attributes: {
-                email,
-                'custom: Admin'
             }
         });
         console.log(user);

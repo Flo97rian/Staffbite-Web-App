@@ -21,20 +21,37 @@ import SchichtplanVerwalten from "./views/MainViews/SchichtplanVerwalten";
 import MitarbeiterVerwalten from "./views/MainViews/MitarbeiterVerwalten";
 import SchichtplanErstellen from "./views/MainViews/SchichtplanErstellen";
 import Profil from "./views/MainViews/Profil";
+import { defineLocale } from "moment-timezone";
 
-var routes = [
+var userroutes = [
+  {
+    path: "/index",
+    name: "Dashboard",
+    icon: "ni ni-bullet-list-67 text-red",
+    component: Index,
+    layout: "/user",
+  },
+  {
+    path: "/profil",
+    name: "Profil",
+    icon: "ni ni-bullet-list-67 text-red",
+    component: Profil,
+    layout: "/user",
+  },
+  {
+    path: "/Schichtplan",
+    name: "Schichtplan",
+    icon: "ni ni-bullet-list-67 text-red",
+    component: Profil,
+    layout: "/user",
+  },
+]
+var adminroutes = [
   {
     path: "/index",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Index,
-    layout: "/admin",
-  },
-  {
-    path: "/profil",
-    name: "Profil",
-    icon: "ni ni-tv-2 text-primary",
-    component: Profil,
     layout: "/admin",
   },
   {
@@ -59,4 +76,5 @@ var routes = [
     layout: "/admin",
   }
 ];
-export default routes;
+
+export {adminroutes, userroutes};
