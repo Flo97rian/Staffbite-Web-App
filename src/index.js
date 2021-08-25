@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Provider } from 'react-redux';
+import store from './store';
 
 import "./assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -12,16 +14,18 @@ import UserLayout from "./layouts/User.js";
 import Landing from "./views/MainViews/Landing.js";
 import reportWebVitals from './reportWebVitals';
 
+
 ReactDOM.render(
-  <BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
     <Switch>
       <Route path="/" exact render={props => <Landing {...props} />} />
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
       <Route path="/user" render={(props) => <UserLayout {...props} />} />
-      
     </Switch>
-  </BrowserRouter>,
+  </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 

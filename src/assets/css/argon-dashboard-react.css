@@ -4219,7 +4219,7 @@ input[type="button"].btn-block {
   position: relative;
   display: block;
   padding: 1rem 1rem;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   border: 1px solid #e9ecef; }
   .list-group-item:first-child {
     border-top-left-radius: inherit;
@@ -4650,7 +4650,7 @@ a.close.disabled {
 
 .tooltip {
   position: absolute;
-  z-index: 1070;
+  z-index: 1080;
   display: block;
   margin: 0;
   font-family: Open Sans, sans-serif;
@@ -16143,5 +16143,6 @@ button:focus, :focus {
 
 .table .badge i {
   margin-right: 10px; }
+
 
 /*# sourceMappingURL=argon-dashboard-react.css.map */

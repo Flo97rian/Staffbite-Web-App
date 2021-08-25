@@ -79,7 +79,7 @@ const Sidebar = (props) => {
             onClick={closeCollapse}
             activeClassName="active"
           >
-            <i className={prop.icon} />
+            <i className={prop.icon}/>
             {prop.name}
           </NavLink>
         </NavItem>
@@ -178,7 +178,8 @@ const Sidebar = (props) => {
           </UncontrolledDropdown>
         </Nav>
         {/* Collapse */}
-        <Collapse navbar isOpen={collapseOpen}>
+        <Collapse navbar isOpen={collapseOpen}
+>
           {/* Collapse header */}
           <div className="navbar-collapse-header d-md-none">
             <Row>

@@ -43,12 +43,15 @@ const Auth = () => {
   return (
     <>
     { authState === AuthState.SignedIn && user ? (
+      console.log(authState),
+      console.log(user),
+      console.log(user.attributes),
       <div className="App">
           <div>Hello, {user.username}</div>
           <Container className="mt--8 pb-5">
           <Row className="justify-content-center">
             <Switch>
-              { user.username == user.attributes["custom:TenantId"] ? <Redirect from="*" to="/admin/index" /> : <Redirect from="*" to="/user/index" />}
+              { user.attributes !== undefined ? (user.username == user.attributes["custom:TenantId"] ? <Redirect from="*" to="/admin/index" /> : <Redirect from="*" to="/user/index" />) : <Redirect from="*" to="/auth" />}
             </Switch>
           </Row>
         </Container>

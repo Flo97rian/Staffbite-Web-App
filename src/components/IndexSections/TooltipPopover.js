@@ -53,8 +53,10 @@ class TooltipPopover extends React.Component {
               placement="left"
               target="tooltip38321129"
               trigger="hover focus"
+              zIndex="10000"
+              style={{"position": "fixed","zIndex": "1000000000000 !important"}}
             >
-              Tooltip on left
+              <p style={{"position": "fixed", "zIndex": "100000000000000 !important"}}>Tooltip on left</p>
             </UncontrolledTooltip>
             <Button
               className="btn-tooltip"

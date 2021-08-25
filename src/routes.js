@@ -17,62 +17,71 @@
 
 */
 import Index from "./views/Index.js";
-import SchichtplanVerwalten from "./views/MainViews/SchichtplanVerwalten";
-import MitarbeiterVerwalten from "./views/MainViews/MitarbeiterVerwalten";
-import SchichtplanErstellen from "./views/MainViews/SchichtplanErstellen";
-import Profil from "./views/MainViews/Profil";
-import { defineLocale } from "moment-timezone";
+import Dashboard from "./views/MainViews/Admin/Dashboard.js";
+import Einstellungen from "./views/MainViews/Admin/Einstellungen";
+import SchichtplanVerwalten from "./views/MainViews/Admin/SchichtplanVerwalten";
+import MitarbeiterVerwalten from "./views/MainViews/Admin/MitarbeiterVerwalten";
+import SchichtplanErstellen from "./views/MainViews/Admin/SchichtplanErstellen";
+import SchichtplanBewerben from "./views/MainViews/User/SchichtplanBewerben.js";
+import UserProfil from "./views/MainViews/User/UserProfil.js";
 
 var userroutes = [
   {
     path: "/index",
-    name: "Dashboard",
-    icon: "ni ni-bullet-list-67 text-red",
+    name: "Übersicht",
+    icon: "ni ni-tv-2 text-blue",
     component: Index,
     layout: "/user",
   },
   {
     path: "/profil",
     name: "Profil",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Profil,
+    icon: "ni ni-ni ni-single-02 text-red",
+    component: UserProfil,
     layout: "/user",
   },
   {
     path: "/Schichtplan",
-    name: "Schichtplan",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Profil,
+    name: "Bewerben",
+    icon: "ni ni-calendar-grid-58 text-green",
+    component: SchichtplanBewerben,
     layout: "/user",
   },
 ]
 var adminroutes = [
   {
     path: "/index",
-    name: "Dashboard",
-    icon: "ni ni-tv-2 text-primary",
-    component: Index,
+    name: "Übersicht",
+    icon: "fa fa-home text-light",
+    component: Dashboard,
     layout: "/admin",
   },
   {
     path: "/schichtplanerstellen",
     name: "Schichtplan erstellen",
-    icon: "ni ni-planet text-blue",
+    icon: "ni ni-bullet-list-67 text-light",
     component: SchichtplanErstellen,
     layout: "/admin",
   },
   {
     path: "/schichtplanverwalten",
     name: "Schichtplan verwalten",
-    icon: "ni ni-pin-3 text-orange",
+    icon: "ni ni-calendar-grid-58 text-light",
     component: SchichtplanVerwalten,
     layout: "/admin",
   },
   {
     path: "/mitarbeiterverwalten",
     name: "Mitarbeiter:innen verwalten",
-    icon: "ni ni-bullet-list-67 text-red",
+    icon: "fa fa-users text-light",
     component: MitarbeiterVerwalten,
+    layout: "/admin",
+  },
+  {
+    path: "/einstellungen",
+    name: "Einstellungen",
+    icon: "ni ni-settings text-light",
+    component: Einstellungen,
     layout: "/admin",
   }
 ];
