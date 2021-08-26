@@ -3,7 +3,6 @@ import {
     Col,
     Row
 } from "reactstrap"
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InfoOverlay from "../../SchichtplanErstellen/FormElements/InfoOverlay";
 

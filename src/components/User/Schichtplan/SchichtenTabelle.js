@@ -8,7 +8,6 @@ import {
 }
 from "reactstrap";
 // core components
-import ListGroup from 'react-bootstrap/ListGroup';
 import SchichtplanElement from "./FormElements/SchichtplanElement";
 import { Badge } from "reactstrap";
 

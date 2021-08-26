@@ -55,5 +55,111 @@
         }
       }
     }
+  },
+  "test": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-staffbite-test-114647-authRole",
+      "UnauthRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-test-114647-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-test-114647-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-staffbite-test-114647-deployment",
+      "UnauthRoleName": "amplify-staffbite-test-114647-unauthRole",
+      "StackName": "amplify-staffbite-test-114647",
+      "StackId": "arn:aws:cloudformation:eu-central-1:643981031365:stack/amplify-staffbite-test-114647/5e02c120-0589-11ec-b567-020c4acf1050",
+      "AmplifyAppId": "d3p8gdtbc86r0o"
+    },
+    "categories": {
+      "auth": {
+        "staffbiteff38ca70": {
+          "userPoolId": "eu-central-1_e0g7ALwrg",
+          "userPoolName": "Staffbite-Benutzerpool",
+          "webClientId": "625p2f8lj1r8vii8l13467nijr",
+          "nativeClientId": "625p2f8lj1r8vii8l13467nijr",
+          "identityPoolId": "eu-central-1:2e1dd1e4-5524-4fec-a78b-0ffa01bf4d77",
+          "identityPoolName": "Staffbite",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteAuth_Role",
+          "authRoleName": "Cognito_StaffbiteAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteUnauth_Role",
+          "unauthRoleName": "Cognito_StaffbiteUnauth_Role"
+        }
+      },
+      "function": {
+        "staffbite90879d8e": {
+          "deploymentBucketName": "amplify-staffbite-test-114647-deployment",
+          "s3Key": "amplify-builds/staffbite90879d8e-43724950377a32317234-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3p8gdtbc86r0o",
+          "type": "manual"
+        }
+      },
+      "storage": {
+        "StaffbiteDynamoDB": {
+          "tableName": "Staffbite-DynamoDB",
+          "region": "eu-central-1",
+          "arn": "arn:aws:dynamodb:eu-central-1:643981031365:table/Staffbite-DynamoDB",
+          "partitionKeyName": "PK",
+          "partitionKeyType": "S",
+          "sortKeyName": "SK",
+          "sortKeyType": "S"
+        }
+      }
+    }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-staffbite-prod-115128-authRole",
+      "UnauthRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-prod-115128-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-prod-115128-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-staffbite-prod-115128-deployment",
+      "UnauthRoleName": "amplify-staffbite-prod-115128-unauthRole",
+      "StackName": "amplify-staffbite-prod-115128",
+      "StackId": "arn:aws:cloudformation:eu-central-1:643981031365:stack/amplify-staffbite-prod-115128/05929140-058a-11ec-8fb7-025516be86a2",
+      "AmplifyAppId": "d3p8gdtbc86r0o"
+    },
+    "categories": {
+      "auth": {
+        "staffbiteff38ca70": {
+          "userPoolId": "eu-central-1_e0g7ALwrg",
+          "userPoolName": "Staffbite-Benutzerpool",
+          "webClientId": "625p2f8lj1r8vii8l13467nijr",
+          "nativeClientId": "625p2f8lj1r8vii8l13467nijr",
+          "identityPoolId": "eu-central-1:2e1dd1e4-5524-4fec-a78b-0ffa01bf4d77",
+          "identityPoolName": "Staffbite",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteAuth_Role",
+          "authRoleName": "Cognito_StaffbiteAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteUnauth_Role",
+          "unauthRoleName": "Cognito_StaffbiteUnauth_Role"
+        }
+      },
+      "function": {
+        "staffbite90879d8e": {
+          "deploymentBucketName": "amplify-staffbite-prod-115128-deployment",
+          "s3Key": "amplify-builds/staffbite90879d8e-43724950377a32317234-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3p8gdtbc86r0o",
+          "type": "manual"
+        }
+      },
+      "storage": {
+        "StaffbiteDynamoDB": {
+          "tableName": "Staffbite-DynamoDB",
+          "region": "eu-central-1",
+          "arn": "arn:aws:dynamodb:eu-central-1:643981031365:table/Staffbite-DynamoDB",
+          "partitionKeyName": "PK",
+          "partitionKeyType": "S",
+          "sortKeyName": "SK",
+          "sortKeyType": "S"
+        }
+      }
+    }
   }
 }

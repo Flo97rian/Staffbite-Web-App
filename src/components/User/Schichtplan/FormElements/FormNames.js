@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 export default class FormNames extends React.PureComponent {
     typeofnames(names) {
         console.log(names)
-        if (Object.keys(names).length == 1) {
+        if (Object.keys(names).length === 1) {
             let obj = Object.keys(names)[0]
             return(
                  <option value={0}>{names[obj]}</option>

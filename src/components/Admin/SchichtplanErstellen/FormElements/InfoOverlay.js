@@ -1,11 +1,6 @@
 import React, {useRef, useReducer} from "react"
 import styled from "styled-components";
 import Overlay from "react-overlays/esm/Overlay";
-import {
-  Col,
-  Row,
-  Button
-} from "reactstrap"
 
 const Tooltip = styled("div")`
   position: absolute;

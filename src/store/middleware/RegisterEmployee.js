@@ -15,6 +15,6 @@ return async function registerEmployee(dispatch, getState) {
       }, // OPTIONAL
       body: neuerMitarbeiter
     };
-    const response = await API.post(apiName, path, myInit)
+    await API.post(apiName, path, myInit)
     }
 }

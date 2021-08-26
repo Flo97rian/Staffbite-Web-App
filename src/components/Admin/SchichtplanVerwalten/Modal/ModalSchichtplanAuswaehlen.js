@@ -7,7 +7,6 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import FormSchichtplanImportieren from "../../SchichtplanErstellen/FormElements/FormSchichtplanImportieren";
-import ModalSchichtAuswaehlen from "./ModalSchichtAuswaehlen";
 import store from "../../../../store";
 
 const ModalSchichtplanVeroeffentlichen = (props) => {

@@ -6,7 +6,6 @@ import {
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { options } from "headroom.js";
 import FormNames from "../FormElements/FormNames";
 
 export default class ModalSchichtBewerben extends React.PureComponent {

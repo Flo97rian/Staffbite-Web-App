@@ -10,6 +10,6 @@ export function thunkUpdateEmployee(updatedEmployee) {
           },
           body: updatedEmployee
         };
-        const response =  await API.post(apiName, path, myInit)
+        await API.post(apiName, path, myInit)
       }
 }

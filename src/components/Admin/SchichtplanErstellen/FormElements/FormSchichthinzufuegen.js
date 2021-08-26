@@ -1,8 +1,4 @@
 import React from "react";
-import {
-    Col,
-    Row
-} from "reactstrap"
 import InputString from "../../MitarbeiterVerwalten/FormElements/InputString";
 import InputTime from "./InputTime";
 import InputNumber from "../../MitarbeiterVerwalten/FormElements/InputNumber";

@@ -1,10 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Form from 'react-bootstrap/Form';
 import InfoOverlay from "../../SchichtplanErstellen/FormElements/InfoOverlay";
 import {
-    Col,
-    Row,
     Input,
 } from "reactstrap"
 

@@ -1,11 +1,9 @@
-import React, { useRef, useState, useReducer}from "react";
+import React from "react";
 import {
     Col,
-    Row,
-    Button
+    Row
 } from "reactstrap"
 import Switch from "./Switch";
-import InfoOverlay from "./InfoOverlay";
 
 export const FormPrioSchicht = (props) => {
     console.log(props.current)

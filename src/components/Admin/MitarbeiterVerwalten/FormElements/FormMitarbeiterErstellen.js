@@ -3,7 +3,6 @@ import {
     Col,
     Row
 } from "reactstrap"
-import Button from 'react-bootstrap/Button';
 import InputString from "./InputString";
 import InputNumber from "./InputNumber";
 import ControlErfahrung from "./ControlErfahrung";

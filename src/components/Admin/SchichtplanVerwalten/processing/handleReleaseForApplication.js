@@ -8,6 +8,8 @@ export const createShiftPlanForApplicationForNewDate = ({Plans, currentShiftPlan
     keys.shift()
     keys.forEach(key => plan.plan[0][key] = moment(NewDate, "DD.MM.YYYY").add(keys.indexOf(key), "d").locale("de").format("l"))
     plan.id = "PLAN#Freigeben#" + uuidv4()
+    plan.zeitraum = plan.plan[0]["Montag"] + " - " + plan.plan[0]["Sonntag"]
+    console.log(plan.zeitraum)
     return plan
   }
 

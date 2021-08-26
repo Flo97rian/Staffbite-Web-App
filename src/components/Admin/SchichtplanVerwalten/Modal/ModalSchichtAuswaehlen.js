@@ -6,10 +6,8 @@ import {
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import FormNames from "../FormElements/FormNames";
 import store from "../../../../store"
 import DragAndDrop from "../FormElements/DragAndDrop";
-import { refractorEmployees } from "../processing/GetShiftCount";
 
 const ModalSchichtAuswaehlen = (props) => {
     const tag = props.bewerber.col;

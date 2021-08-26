@@ -3,7 +3,6 @@ import {
     Button
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
-import { wrapperDeleteShiftPlan } from "../../../../store/middleware/DeleteShiftPlan"
 import FormSchichtBearbeiten from "../FormElements/FormSchichtBearbeiten";
 import store from "../../../../store"
 

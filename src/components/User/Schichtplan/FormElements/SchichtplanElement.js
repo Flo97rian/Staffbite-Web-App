@@ -1,6 +1,7 @@
 import React from "react";
 // core components
 import {
+    Badge,
     ListGroup,
     ListGroupItem
 } from "reactstrap"
@@ -11,15 +12,15 @@ export default class SchichtplanElement extends React.PureComponent {
         let col = this.props.col;
         let obj = e[index][col];
         let isFree = obj.frei;
-        let isPrio = obj.prio;
+        let hasPrio = Object.keys(obj).includes("prio")
         let hasApplicants =  Object.keys(obj).includes("applicants")
         let isDiscribeWeekDay = (col === "Wochentag");
         let role = this.props.applicantrole;
-        if (index == 0 || index == 1 || index == e.length - 1 ) {
+        if (index === 0 || index === 1 || index === e.length - 1 ) {
             return (<ListGroup>
                             <ListGroupItem style={{"marginBottom": "0"}} color="primary"><p style={{"margin": "0"}}>{obj}</p></ListGroupItem>
                     </ListGroup>
-        )}else if (!isFree && !isDiscribeWeekDay || !role.position["S"].includes(e[index]["Wochentag"].ShiftName) && !isDiscribeWeekDay) {
+        )}else if (!isFree && (!isDiscribeWeekDay || !role.position["S"].includes(e[index]["Wochentag"].ShiftName)) && !isDiscribeWeekDay) {
             return (<ListGroup>
                         <ListGroupItem style={{"marginBottom": "0"}} color="light"><p style={{"margin": "0"}}><br/><br/></p></ListGroupItem>
                     </ListGroup>

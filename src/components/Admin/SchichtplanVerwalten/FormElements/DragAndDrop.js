@@ -1,11 +1,6 @@
-import React, { useEffect, useState, useImperativeHandle} from "react";
+import React, { useState, useImperativeHandle} from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { refractorEmployees } from "../processing/GetShiftCount";
-import {
-    ListGroup,
-    ListGroupItem
-} from "reactstrap"
-import { isObjectLike } from "lodash";
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 // fake data generator
 const getItems = (employees, index) => {
@@ -29,7 +24,7 @@ const reorder = (list, startIndex, endIndex) => {
 const move = (source, destination, droppableSource, droppableDestination, empId, employees) => {
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
-  if (destClone[0].id == 0) {
+  if (Number(destClone[0].id) === 0) {
     const employee = sourceClone[droppableSource.index]
     const newid = droppableDestination.droppableId + empId.substring(1)
     destClone.splice(0,1, {id: newid, content: employee.content})
@@ -71,7 +66,7 @@ const getListStyle = isDraggingOver => ({
 });
 
 const getItemContent = (item, employees) => {
-  const idZero = item.id == 0 ? !0 : !1
+  const idZero = Number(item.id) === 0 ? !0 : !1
   const empName = item.content
   console.log(item, employees)
   if (!idZero) {
@@ -97,6 +92,26 @@ const DragAndDrop = React.forwardRef((props, ref) => {
   const [state, setState] = useState([getItems(props.applyed, 0), getItems(props.valid, 1), getItems(props.set, 2)]);
   const [Employees, setEmployees] = useState(props.employees)
   useImperativeHandle(ref, () => (state[2]), [state]);
+
+  const handleOnSearch = (string, results) => {
+    // onSearch will have as the first callback parameter
+    // the string searched and for the second the results.
+    console.log(string, results)
+  }
+
+  const handleOnHover = (result) => {
+    // the item hovered
+    console.log(result)
+  }
+
+  const handleOnSelect = (item) => {
+    // the item selected
+    console.log(item)
+  }
+
+  const handleOnFocus = () => {
+    console.log('Focused')
+  }
 
 
   function onDragEnd(result, employees) {
@@ -187,7 +202,7 @@ const DragAndDrop = React.forwardRef((props, ref) => {
                             }}
                           >
                             {getItemContent(item, Employees)}
-                            {ind == 2 && Employees[item.id.substring(1)] ? <span
+                            {Number(ind) === 2 && Employees[item.id.substring(1)] ? <span
                               className="ni ni-fat-remove"
                               onClick={() => handleDelete(ind, index, item)
                               }

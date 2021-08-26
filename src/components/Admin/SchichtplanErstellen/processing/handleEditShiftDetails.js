@@ -24,7 +24,7 @@
       }
     // fügt die Anzahl der benötigten Mitarbeiter:innen ein
     const editRequiredEmployees = ({plan, index, daysIsActive}) => {
-    for (const [key, value] of Object.entries(plan[index])) {if (key !== "Wochentag") {plan[index][key]["anzahl"] = daysIsActive.anzahl}}
+    for (const [key] of Object.entries(plan[index])) {if (key !== "Wochentag") {plan[index][key]["anzahl"] = daysIsActive.anzahl}}
     return plan
     }
     

@@ -22,9 +22,11 @@ import { thunkUpdateShiftPlan } from "../../../store/middleware/UpdateShiftPlan"
 import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 import { editShiftDetailsImportedShiftPlan } from "../SchichtplanErstellen/processing/handleEditShiftDetails";
-import { setApplicant } from "./processing/handleSetApplicant"
 import { refractorEmployees } from "./processing/GetShiftCount";
+import { setApplicantsInShiftPlan } from "./processing/handleUpdateSetApplicants";
 import ModalOpenButton from "../SchichtplanErstellen/FormElements/ModalOpenButton";
+import ButtonUpdateShiftPlan from "./FormElements/ButtonUpdateShiftPlan";
+import moment from "moment";
 
 const TableContainer = (props) => {
   const [daysIsActive, setDaysIsActive] = useState(null);
@@ -34,10 +36,8 @@ const TableContainer = (props) => {
   //REDUX-Filter für UI-Data
   const selectCurrentShiftPlan = state => state.currentShiftPlan.currentShiftPlan
   const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive
-  const selectShiftPlanIsImported = state => state.visibility.ShiftPlanIsImported
   const selectPlans = state => state.DB.plans
   const selectShiftSlot = state => state.shiftSlot
-  const selectNewShiftPlan = state => state.newShiftPlan.shiftplan
   const selectModal = state => state.modal
   const selectNewDate = state => state.date.start
   const selectEmployees = state => state.DB.employees;
@@ -45,11 +45,9 @@ const TableContainer = (props) => {
   //REDUX-Listener für UI-Data
   const ShiftPlanIsActive = useSelector(selectShiftPlanIsActive)
   const currentShiftPlan = useSelector(selectCurrentShiftPlan)
-  const ShiftPlanIsImported = useSelector(selectShiftPlanIsImported)
   const NewDate = useSelector(selectNewDate);
   const Plans = useSelector(selectPlans)
   const ShiftSlot = useSelector(selectShiftSlot);
-  const NewShiftPlan = useSelector(selectNewShiftPlan);
   const Modal = useSelector(selectModal);
   const Employees = useSelector(selectEmployees);
 
@@ -80,7 +78,6 @@ const TableContainer = (props) => {
   }
 
   // Handling des DragNDrop-Interfaces bei der Belegung von Schichten
-
   const onEmployeeChange = (state) => {
     setApplicants(state);
   }
@@ -114,16 +111,9 @@ const TableContainer = (props) => {
   }
 
   const handleSetApplicant = (modal, updateApplicant) => {
-    const PlansCopy = [...Plans]
-    PlansCopy[currentShiftPlan].plan[ShiftSlot.row][ShiftSlot.col].setApplicants = {}
-    updateApplicant.current.forEach( applicant => {
-      if (applicant.id !== "0") {
-        console.log(applicant.id)
-      PlansCopy[currentShiftPlan].plan[ShiftSlot.row][ShiftSlot.col].setApplicants[applicant.id.substring(1)] = applicant.content
-    }})
-    store.dispatch({type: "All/setPlans", payload: PlansCopy})
-    store.dispatch({type: "CLOSE", payload: modal})
+    setApplicantsInShiftPlan({Plans, currentShiftPlan, ShiftSlot, updateApplicant, modal})
   }
+
   // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter:innen)
   const handleEditShiftDetails = (index) => {
     editShiftDetailsImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive})
@@ -181,11 +171,11 @@ const TableContainer = (props) => {
                       </ButtonZurueck>
                     </Col>
                     <Col xs={6}>
-                      <ModalOpenButton
+                      <ButtonUpdateShiftPlan
                       title="Änderungen speichern"
                       trigger={Plans[currentShiftPlan].id.split("#").includes("Review")}
-
-                      ></ModalOpenButton>
+                      onClick={handleUpdatedShiftPlanToDB}
+                      />
                     <ModalOpenButton
                       title="Schichtplan freigeben"
                       trigger={Plans[currentShiftPlan].id.split("#").includes("Entwurf")}

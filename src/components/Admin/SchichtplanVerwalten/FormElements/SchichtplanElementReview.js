@@ -17,6 +17,7 @@ const SchichtplanElementReview = (props) => {
         let col = props.col;
         let obj = e[index][col];
         let isFree = obj.frei;
+        let hasPrio = Object.keys(obj).includes("prio")
         let hasApplicants =  Object.keys(obj).includes("setApplicants")
         let isDiscribeWeekDay = (col === "Wochentag");
         if (index === 0 || index === 1 || index === e.length - 1 ) {
@@ -39,7 +40,7 @@ const SchichtplanElementReview = (props) => {
             return (<ListGroup>
                         <ListGroupItem style={{"marginBottom": "0"}}  color="light"><p style={{"margin": "0"}}><br/><br/></p></ListGroupItem>
                     </ListGroup>
-        )} else if (isFree && hasApplicants && Object.keys(obj.setApplicants).length == 1 && !isDiscribeWeekDay) {
+        )} else if (isFree && hasApplicants && Object.keys(obj.setApplicants).length === 1 && !isDiscribeWeekDay) {
             return (<ListGroup>
                         <ListGroupItem style={{"marginBottom": "0"}}  color="success" onClick={(e, j) => setApplicant(index, col)}><p style={{"margin": "0"}}>{obj.setApplicants[Object.keys(obj.setApplicants)[0]]}<br/><br/></p></ListGroupItem>
                     </ListGroup>

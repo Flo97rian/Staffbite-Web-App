@@ -1,11 +1,9 @@
 // Button der 3 Mal belegt werden kann
 // Button um einen erstellten Schichtplan zu auszuwählen
 import React from "react";
-import Form from "react-bootstrap/Form";
 import { Row, Col } from "reactstrap";
 import Button from "react-bootstrap/Button";
 import DateRangePickerExample from "../../SchichtplanErstellen/FormElements/DateRangePickerExample";
-import Datepicker from "./DatePicker";
 import InfoOverlay from "../../SchichtplanErstellen/FormElements/InfoOverlay";
 
 export default class Abrechnung extends React.PureComponent {

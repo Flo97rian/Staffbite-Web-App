@@ -3,10 +3,7 @@ import {
     Col,
     Row
 } from "reactstrap"
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import DateRangePickerExample from "../../SchichtplanErstellen/FormElements/DateRangePickerExample";
-import InputNumber from "../../SchichtplanErstellen/FormElements/InputNumber";
 import InfoOverlay from "../../SchichtplanErstellen/FormElements/InfoOverlay";
 
 export default class FormSchichtplanFreigeben extends React.PureComponent {

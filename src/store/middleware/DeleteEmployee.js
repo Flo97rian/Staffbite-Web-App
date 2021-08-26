@@ -1,5 +1,4 @@
 import { API, Auth } from "aws-amplify";
-import _ from "lodash";    
   export function thunkDeleteEmployee(employeeId) {
     // Löscht einen Mitarbeiter aus der Datenbank
     return async function deleteEmployee(disptach, getState) {
@@ -13,6 +12,6 @@ import _ from "lodash";
           id: employeeId,
         } // OPTIONAL
       };
-      const response =  await API.post(apiName, path, myInit)
+      await API.post(apiName, path, myInit)
       }
   }

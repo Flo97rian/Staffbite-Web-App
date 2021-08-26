@@ -2,13 +2,9 @@ import React from "react";
 import classnames from "classnames";
 // reactstrap components
 import {
-  Card,
-  CardBody,
   NavItem,
   NavLink,
-  Nav,
-  TabContent,
-  TabPane
+  Nav
 } from "reactstrap";
 import Abrechnung from "./Abrechnung";
 import Unternehmensprofil from "./Unternehmensprofil";
@@ -25,11 +21,11 @@ class Navs extends React.Component {
     });
   };
   setNavPill() {
-    if (this.state.navPills == 1) {
+    if (this.state.navPills === 1) {
         return( <Abrechnung {...this.props}/>
-    )} else if (this.state.navPills == 2){
+    )} else if (this.state.navPills === 2){
       return( <SchichtplanEinstellungen {...this.props}/>
-    )} else if (this.state.navPills == 3){
+    )} else if (this.state.navPills === 3){
         return( <Unternehmensprofil {...this.props}/>
     )}
   }

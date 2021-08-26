@@ -1,20 +1,14 @@
 import React from "react";
 import moment from "moment";
-import { v4 as uuidv4 } from 'uuid';
 import 'moment/locale/de';
 import {
     Card,
-    Col,
     CardHeader,
     Row,
     CardBody,
   } from "reactstrap";
 
-import _, { forEach } from "lodash";
 import { API, Auth } from "aws-amplify";
-import Spinner from 'react-bootstrap/Spinner'
-import ButtonZurueck from "../SchichtplanVerwalten/FormElements/ButtonZurueck";
-import OpenModal from './Modal/OpenModal';
 import Navs from "./FormElements/NavPills";
 
 export default class EinstellungenContainer extends React.PureComponent {
@@ -63,7 +57,7 @@ export default class EinstellungenContainer extends React.PureComponent {
 
   // Funktion zum setzen eines State innerhalb des Modal-Objectes.
     setModalState(key, value) {
-    this.setState({ ["modal"] : {
+    this.setState({ modal : {
       [key]: value
   }})
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Card,
     Col,
@@ -9,7 +9,6 @@ import {
     PaginationLink,
     Row,
     CardBody,
-    Button
   } from "reactstrap";
   import Spinner from 'react-bootstrap/Spinner'
 

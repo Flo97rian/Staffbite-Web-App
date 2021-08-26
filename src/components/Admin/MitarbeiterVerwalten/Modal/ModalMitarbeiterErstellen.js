@@ -1,7 +1,6 @@
 import React from "react";
 import {
     Col,
-    Row,
     Button
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';

@@ -16,12 +16,11 @@
 
 */
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 // reactstrap components
 import { Container, Row } from "reactstrap";
 // core components
 
-import {adminroutes, userroutes} from "../routes.js";
 import Amplify from 'aws-amplify';
 import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut, AmplifyConfirmSignUp} from '@aws-amplify/ui-react';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
@@ -51,7 +50,7 @@ const Auth = () => {
           <Container className="mt--8 pb-5">
           <Row className="justify-content-center">
             <Switch>
-              { user.attributes !== undefined ? (user.username == user.attributes["custom:TenantId"] ? <Redirect from="*" to="/admin/index" /> : <Redirect from="*" to="/user/index" />) : <Redirect from="*" to="/auth" />}
+              { user.attributes !== undefined ? (user.username === user.attributes["custom:TenantId"] ? <Redirect from="*" to="/admin/index" /> : <Redirect from="*" to="/user/index" />) : <Redirect from="*" to="/auth" />}
             </Switch>
           </Row>
         </Container>

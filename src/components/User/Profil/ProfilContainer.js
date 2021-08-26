@@ -8,7 +8,6 @@ import {
     CardBody,
   } from "reactstrap";
 
-import _ from "lodash";
 import Button from 'react-bootstrap/Button';
 import { API, Auth } from "aws-amplify";
 

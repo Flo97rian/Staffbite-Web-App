@@ -1,9 +1,5 @@
 import React from "react";
 import Form from 'react-bootstrap/Form';
-import {
-    Col,
-    Row
-} from "reactstrap"
 
 export default class Input extends React.PureComponent {
     render() {

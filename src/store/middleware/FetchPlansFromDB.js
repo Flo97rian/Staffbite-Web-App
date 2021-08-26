@@ -11,13 +11,13 @@ export async function FetchFromDB(dispatch, getState) {
     };
     return await API.get(apiName, path, myInit)
      .then(response => {
-         console.log(response);
         let plans = _.map(response.Items, item => {
             return {
                 id: item.SK["S"],
                 name: item.name["S"],
                 plan: JSON.parse(item.data["S"]),
-                schichtentag: item.schichtentag["N"]
+                schichtentag: item.schichtentag["N"],
+                zeitraum: item.zeitraum["S"]
             };
         });
         // Add your code here

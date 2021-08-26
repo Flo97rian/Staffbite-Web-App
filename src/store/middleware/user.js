@@ -1,5 +1,4 @@
 import { Auth } from "@aws-amplify/auth";
-import store from "../../store";
 
 export async function user(dispatch, getState) {
     const jwtToken =  (await Auth.currentSession()).idToken.jwtToken;
@@ -8,6 +7,4 @@ export async function user(dispatch, getState) {
     dispatch({type: "jwt", payload: jwtToken});
     dispatch({type: "username", payload: username});
     dispatch({type: "tenantid", payload: tenantid});
-    console.log(jwtToken);
-    console.log((await Auth.currentSession()) )
 };

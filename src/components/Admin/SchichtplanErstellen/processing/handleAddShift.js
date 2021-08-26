@@ -68,11 +68,6 @@ import store from "../../../../store"
         return WeekDays
       }
 
-    const getNewShiftplanLength = (minus = 0) => {
-      let len = this.state.shiftplan.length + minus
-      return len
-    }
-
     const createNewShiftRowForNewPlan = ({shiftplan, daysIsActive}) => {
       let newShift = {};
       newShift["Wochentag"] = createNewWeekDayValues(daysIsActive)
@@ -108,8 +103,3 @@ import store from "../../../../store"
       }
       return WeekDays
     }
-
-    const setNewShiftPlan = () => {
-        let daysIsActive = {Wochentag: !0, Montag: !0, Dienstag: !0, Mittwoch: !0, Donnerstag: !0, Freitag: !0, Samstag: !0, Sonntag: !0}
-        this.setSingleState("daysIsActive", daysIsActive)
-      }
