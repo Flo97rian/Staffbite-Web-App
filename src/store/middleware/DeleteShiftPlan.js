@@ -1,4 +1,5 @@
 import { API, Auth } from "aws-amplify";
+import { FetchFromDB } from "./FetchPlansFromDB";
 
 export function thunkDeleteShiftPlan({index, Plans}) {
   return async function deleteShiftPlan(dispatch, getState) {
@@ -14,4 +15,5 @@ export function thunkDeleteShiftPlan({index, Plans}) {
     };
     const response = await API.post(apiName, path, myInit)
     console.log("response", response)
+    dispatch(FetchFromDB)
     }}

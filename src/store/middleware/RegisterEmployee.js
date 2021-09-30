@@ -1,5 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { checkerfahrung } from "../../components/Admin/MitarbeiterVerwalten/processing/CheckErfahrung";
+import { FetchEmployees } from "./FetchEmployees";
 export function thunkRegisterEmployee({employeeIsActive}) {
     const erfahrung = checkerfahrung({employeeIsActive})
     const neuerMitarbeiter = employeeIsActive
@@ -16,5 +17,6 @@ return async function registerEmployee(dispatch, getState) {
       body: neuerMitarbeiter
     };
     await API.post(apiName, path, myInit)
+    dispatch(FetchEmployees)
     }
 }

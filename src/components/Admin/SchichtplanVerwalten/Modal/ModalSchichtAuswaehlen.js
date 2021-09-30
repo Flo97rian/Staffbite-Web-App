@@ -50,7 +50,9 @@ const ModalSchichtAuswaehlen = (props) => {
                     applyed={applyedApplicants}
                     valid={validApplicants}
                     set={applicants}
+                    position={shiftname}
                     anzahl={shiftanzahl}
+                    currentPlan={props.plan}
                     {...props}
                     />
                 </Modal.Body>

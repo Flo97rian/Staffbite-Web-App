@@ -1,39 +1,44 @@
 import React from "react";
 import {
-    Col,
-    Row
+    Table,
+    Button
   } from "reactstrap";
-import { InputButton } from "./InputButton";
-import Form from 'react-bootstrap/Form';
+import { planIdColor } from "../../../Application/functions/PlanIdColor";
+import store from "../../../../store";
 
-export default class FormSchichtplanImportieren extends React.PureComponent {
-    render() {
+const FormSchichtplanImportieren = (props) => {
+    const setCurrentShiftPlan = (id) => {
+        store.dispatch({type: "SetCurrentShiftPlan", payload: id})
+        store.dispatch({type: "setShiftPlanIsActive"})
+        store.dispatch({type: "setShiftPlanIsImported"})
+    }
+
         return(
             <>
-                <form>
-                <Row className="text-center">
-                        <Col xs={2}>
-                            <Form.Label>Name</Form.Label>
-                        </Col>
-                        <Col xs={4}>
-                            <Form.Label>Zeitraum</Form.Label>
-                        </Col>
-                        <Col xs={2}>
-                            <Form.Label>Status</Form.Label>
-                        </Col>
-                        <Col xs={2}>
-                            <Form.Label>Importieren</Form.Label>
-                        </Col>
-                        <Col xs={2}>
-                            <Form.Label>Löschen</Form.Label>
-                        </Col>
-                    </Row>
-                    <br/>
-                {this.props.plaene ? this.props.plaene.map((item, index) => (
-                    <InputButton key={index} id={index} status={item.id} montag={item.plan[0].Montag} sonntag={item.plan[0].Sonntag} label={item.name} name={item.name}  {...this.props} placeholder=""></InputButton>
-                 )) : <></>}
-                </form>
-            </>
+            <Table borderless responsive>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Zeitraum</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {props.plaene ? props.plaene.map((item, index) => (
+        <tr>
+          <td><p>{item.name}</p></td>
+          <td><p> <i class="fa fa-calendar mr-2" aria-hidden="true"></i>{item.zeitraum.split(" - ")[0]} - {item.zeitraum.split(" - ")[1]}</p></td>
+          <td>{planIdColor(item.id)}</td>
+          <td>
+            <Button name={item.label} outline color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
+            <i className="fa fa-trash fa-2x text-danger" aria-hidden="true" onClick={() => props.onDelete(index)}></i>
+          </td>
+        </tr>
+        )) : <></>}
+      </tbody>
+    </Table>
+    </>
         )
     }
-}
+export default FormSchichtplanImportieren

@@ -1,74 +1,29 @@
 // Button der 3 Mal belegt werden kann
 // Button um einen erstellten Schichtplan zu auszuwählen
-import React from "react";
-import Form from "react-bootstrap/Form";
+import Switch from "../../../Application/functionalComponents/Switch";
 import Button from "react-bootstrap/Button";
-import { Row, Col } from "reactstrap";
-import InputForm from "./InputForm"
+import { Row, Col, Card, CardBody } from "reactstrap";
 
-export default class SchichtplanEinstellungen extends React.PureComponent {
-    render() {
+
+const SchichtplanEinstellungen = (props) => {
         return (
-            <>
-            <br/>
-            <Row className="text-center">
-                <Col xs={6}>
-                    <Form.Label>Name</Form.Label>
-                </Col>
-                <Col xs={6}>
-                    <InputForm {...this.props}/>
-                </Col>
+            <>     
+             <Row className="mt-6">
+            <Col xs={2}className="mt-4">
+                <h3 className="float-left pt-4 font-weight-bold text-lg">Einstellungen</h3>
+            </Col>
+            <Col xs={10}>
+                <Button className="float-right mt-4" variant="primary" onClick={() => props.onClick()}><p className="m-0 text-white">Änderungen speichern</p></Button>
+            </Col>
             </Row>
-            <br/>
-            <Row className="text-center">
-                <Col xs={6}>
-                    <Form.Label>Sollen Schichten bevorzugt befüllt werden?</Form.Label>
-                </Col>
-                <Col xs={6}>
-                    <InputForm {...this.props}/>
-                </Col>
-            </Row>
-            <br/>
-            <Row className="text-center">
-                <Col xs={6}>
-                    <Form.Label>Soll jede:r etwa gleichviele Schichten bekommen?</Form.Label>
-                </Col>
-                <Col xs={6}>
-                    <InputForm {...this.props}/>
-                </Col>
-            </Row>
-            <br/>
-            <Row className="text-center">
-                <Col xs={6}>
-                    <Form.Label>Mitarbeiter:inn darf freie Tage selbst bestimmen? Vlt. mit Begründung</Form.Label>
-                    <Form.Label>Auswahl Mini-Job, Werkstudent etc.</Form.Label>
-                    <Form.Label>Mitarebeiter:innen gleichmäßig auf Tag und Abendschicht verteilen?</Form.Label>
-                    <Form.Label>Mitarebeiter:innen gleichmäßig auf Tag und Abendschicht verteilen?</Form.Label>
-                    <Form.Label>Mitarebeiter:innen dürfen monatlichen Verdienst bis max. bzw. min. ändern?</Form.Label>
-                    <Form.Label>Mitarbeiter:innen tagen sich bis z.B. 14 Uhr ein oder ab 14 Uhr</Form.Label>
-                    <Form.Label>Mitarbeiter:innen dürfen eigenständig Schichten tauschen?</Form.Label>
-                </Col>
-                <Col xs={6}>
-                    <InputForm {...this.props}/>
-                </Col>
-            </Row>
-            <br/>
-            <Row className="text-center">
-                <Col xs={6}>
-                    <Form.Label>Logo</Form.Label>
-                </Col>
-                <Col xs={6}>
-                    <Form.Label></Form.Label>
-                </Col>
-            </Row>
-            <br/>
-            <Row>
-                <Col xs={10}></Col>
-                <Col xs={2}>
-                    <Button variant="primary" onClick={() => this.props.onClick()}>Änderungen speichern</Button>
-                </Col>
-            </Row>
+            <Card className="shadow">
+                <CardBody>
+                        <Switch info={true} type="switch" description={"Der Algorithmus kann die Wochenende priorisiert befüllen. Dies kann von Vorteil sein, wenn am Wochenende besonders viel betrieb ist."}label="Befüllung am Wochenende starten" name="reverse" value={props.org?.reverse ? props.org?.reverse["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                        <br/>
+                        <Switch info={true} type="switch" description={"Mitarbeiter:innen sollen in etwa gleich viele Tag/Abend-Schichten erhalten"} label="Tag/Abend-Schichten gleichmäßig verteilen" name="fair" value={props.org?.fair ? props.org?.fair["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                </CardBody>
+            </Card>
             </>
         );
     }
-}
+export default SchichtplanEinstellungen;

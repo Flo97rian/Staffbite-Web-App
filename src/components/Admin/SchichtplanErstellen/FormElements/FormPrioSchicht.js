@@ -3,10 +3,9 @@ import {
     Col,
     Row
 } from "reactstrap"
-import Switch from "./Switch";
+import Switch from "../../../Application/functionalComponents/Switch";
 
 export const FormPrioSchicht = (props) => {
-    console.log(props.current)
         return(
             <>
                 <Row>

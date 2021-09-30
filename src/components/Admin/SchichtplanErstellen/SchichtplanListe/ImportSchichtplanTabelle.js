@@ -10,6 +10,7 @@ from "reactstrap";
 // core components
 import { SchichtplanElement } from "./SchichtplanElement";
 import PlanId from "../../SchichtplanVerwalten/FormElements/PlanId";
+import TableDnD from "../../../Application/functionalComponents/TableDragAndDrop";
 
 const  ImportSchichtplanTabelle = (props) => {
         return (
@@ -22,44 +23,11 @@ const  ImportSchichtplanTabelle = (props) => {
             </Row>
             <br/>
                 <Row className="text-center" noGutters={true}>
-                <Table responsive={true} borderless={true} >
-                    <thead>
-                    </thead>
-                    <tbody>
-                {props.plaene[props.plan].plan.map((item, index) => (
-                    <>
-                    <tr>
-                        <td color="primary" style={{"padding": "0"}}>
-                            <SchichtplanElement wochentag={item.Wochentag} index={index} col="Wochentag" {...props}></SchichtplanElement>
-                        </td>
-                        <td style={{"padding": "0"}}>
-                            <SchichtplanElement wochentag={item.Montag} index={index} col="Montag" {...props}></SchichtplanElement>
-                        </td>
-                        <td style={{"padding": "0"}}>
-                            <SchichtplanElement wochentag={item.Dienstag} index={index} col="Dienstag" {...props}></SchichtplanElement>
-                        </td>
-                        <td style={{"padding": "0"}}>
-                            <SchichtplanElement wochentag={item.Mittwoch} index={index} col="Mittwoch" {...props}></SchichtplanElement>
-                        </td>
-                        <td style={{"padding": "0"}}>
-                            <SchichtplanElement wochentag={item.Donnerstag} index={index} col="Donnerstag" {...props}></SchichtplanElement>
-                        </td>
-                        <td style={{"padding": "0"}}>
-                            <SchichtplanElement wochentag={item.Freitag} index={index} col="Freitag" {...props}></SchichtplanElement>
-                        </td>
-                        <td style={{"padding": "0"}}>
-                            <SchichtplanElement wochentag={item.Samstag} index={index} col="Samstag" {...props}></SchichtplanElement>
-                        </td>
-                        <td style={{"padding": "0"}}>
-                            <SchichtplanElement wochentag={item.Sonntag} index={index} col="Sonntag" {...props}></SchichtplanElement>
-                        </td>
-                    </tr>
-                    </>
-                    ))}
-                    </tbody>
-                </Table> 
+                    <TableDnD
+                    {...props}
+                    ></TableDnD>
                 </Row>
-            </>
+                </>
         );
     }
 export default ImportSchichtplanTabelle;

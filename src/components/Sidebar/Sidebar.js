@@ -20,6 +20,7 @@ import React, { useState } from "react";
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
+import "./Sidebar.css"
 
 // reactstrap components
 import {
@@ -58,10 +59,12 @@ const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
+    console.log(props.location.pathname.indexOf(routeName))
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
   // toggles collapse between opened and closed (true/false)
   const toggleCollapse = () => {
+    console.log(data)
     setCollapseOpen((data) => !data);
   };
   // closes the collapse
@@ -77,9 +80,16 @@ const Sidebar = (props) => {
             to={prop.layout + prop.path}
             tag={NavLinkRRD}
             onClick={closeCollapse}
-            activeClassName="active"
+            activeClassName={"active"}
           >
-            <i className={prop.icon}/>
+            {activeRoute(prop.layout + prop.path) === "active" ?
+              <i
+              className={prop.icon + " " + prop.style}
+              />
+            :
+            <i
+            className={prop.icon}
+            />}
             {prop.name}
           </NavLink>
         </NavItem>
@@ -103,8 +113,8 @@ const Sidebar = (props) => {
 
   return (
     <Navbar
-      className="navbar-vertical fixed-left navbar-light bg-white"
-      expand="md"
+      className="navbar-vertical fixed-left bg-white"
+      expand="sm"
       id="sidenav-main"
     >
       <Container fluid>
@@ -122,12 +132,14 @@ const Sidebar = (props) => {
             <img
               alt={logo.imgAlt}
               className="navbar-brand-img"
+              height="40px"
+              width="120px"
               src={logo.imgSrc}
             />
           </NavbarBrand>
         ) : null}
         {/* User */}
-        <Nav className="align-items-center d-md-none">
+        <Nav className="align-items-left d-md-none">
           <UncontrolledDropdown nav>
             <DropdownToggle nav className="nav-link-icon">
               <i className="ni ni-bell-55" />
@@ -226,6 +238,39 @@ const Sidebar = (props) => {
           </Form>
           {/* Navigation */}
           <Nav navbar>{createLinks(routes)}</Nav>
+          <Nav className="align-items-right float-right text-dark d-none d-md-flex" navbar>
+            <UncontrolledDropdown nav>
+              <DropdownToggle className="pr-0" nav>
+                <Media className="align-items-center">
+                  <span className="fa fa-user-circle text-dark">
+                  </span>
+                  <Media className="ml-2 d-none d-lg-block">
+                    <span className="mb-0 text-sm text-dark font-weight-bold">
+                    
+                    </span>
+                  </Media>
+                </Media>
+              </DropdownToggle>
+              <DropdownMenu className="dropdown-menu-arrow" right>
+                <DropdownItem className="noti-title" header tag="div">
+                  <h6 className="text-overflow m-0">Willkommen!</h6>
+                </DropdownItem>
+                <DropdownItem to="/admin/profil" tag={Link}>
+                  <i className="ni ni-single-02" />
+                  <span>Mein Profil</span>
+                </DropdownItem>
+                <DropdownItem to="/admin/user-profile" tag={Link}>
+                  <i className="ni ni-settings-gear-65" />
+                  <span>Einstellungen</span>
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem href="/auth" onClick={() => signOut()}>
+                  <i className="ni ni-user-run" />
+                  <span>Ausloggen</span>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
         </Collapse>
       </Container>
     </Navbar>

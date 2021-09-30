@@ -7,15 +7,22 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import FormNames from "../FormElements/FormNames";
+import store from "../../../../store";
 
-export default class ModalSchichtBewerben extends React.PureComponent {
-    render() {
+const ModalSchichtBewerben = (props) => {
+    const tag = props.shiftslot.col;
+    const row = props.shiftslot.row;
+    const shiftplan = props.plaene[props.plan].plan
+    const applyedApplicants = shiftplan[row][tag].applicants
+    const shiftname = shiftplan[row]["Wochentag"].ShiftName
+    const shiftstart = shiftplan[row]["Wochentag"].ShiftStart
+    const shiftend = shiftplan[row]["Wochentag"].ShiftEnd
         return (
             <Modal 
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
-                    show={this.props.keytrue} onHide={() => this.props.onHide(this.props.modalkey)}
+                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
             >
                 <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
@@ -37,26 +44,26 @@ export default class ModalSchichtBewerben extends React.PureComponent {
                     <br/>
                     <Row className="text-center">
                         <Col xs={5}>
-                            <Form.Label>{this.props.bearbeiten.row.ShiftName}<br/>{this.props.bearbeiten.col}, {this.props.plaene[this.props.plan].plan[0][this.props.bearbeiten.col]} <br/>{this.props.bearbeiten.row.ShiftStart} - {this.props.bearbeiten.row.ShiftEnd}</Form.Label>
+                            <Form.Label>{shiftname}<br/>{tag}, {shiftplan[0][tag]} <br/>{shiftstart} - {shiftend}</Form.Label>
                         </Col>
                         <Col xs={5}>
-                            {this.props.plaene[this.props.plan].plan[this.props.bearbeiten.rowindex][this.props.bearbeiten.col]["applicants"]
+                            {applyedApplicants
                             ?
-                            <FormNames names={this.props.plaene[this.props.plan].plan[this.props.bearbeiten.rowindex][this.props.bearbeiten.col]["applicants"]}></FormNames>
+                            <FormNames names={applyedApplicants}></FormNames>
                             :
                             <Form.Label>Leer</Form.Label>
                             }
                         </Col>
                         <Col xs={2}>
-                            <Button variant="danger" onClick={() => this.props.onDelete(this.props.modalkey)}>X</Button>
+                            <Button variant="danger" onClick={() => props.onDelete(props.modalkey)}>X</Button>
                         </Col>
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="success" onClick={() => this.props.onBewerben(this.props.modalkey)}> Bewerben </Button>  
-                    <Button onClick={() => this.props.onHide(this.props.modalkey)}> Schließen </Button>
+                    <Button variant="success" onClick={() => props.onBewerben(props.modalkey)}> Bewerben </Button>  
+                    <Button onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
                 </Modal.Footer>
             </Modal>
         );
     }
-}
+export default ModalSchichtBewerben;

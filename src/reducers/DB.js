@@ -10,6 +10,11 @@ const DBReducer = (state = !1, action) => {
           ...state,
           plans: action.payload
         }
+      case "All/GetPlansForEmployee": 
+        return {
+          ...state,
+          plans: action.payload
+      }
       case "All/updateShiftPlanInDB": 
         return {
           ...state,
@@ -34,6 +39,11 @@ const DBReducer = (state = !1, action) => {
         return {
           ...state,
           employees: action.payload
+        }
+        case "All/GetOrgDetails": 
+        return {
+          ...state,
+          meta: action.payload
         }
       default:
         return state

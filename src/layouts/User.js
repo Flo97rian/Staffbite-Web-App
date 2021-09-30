@@ -44,7 +44,6 @@ const User = (props) => {
   const getRoutes = (userroutes) => {
     return userroutes.map((prop, key) => {
       if (prop.layout === "/user") {
-        console.log(prop.path);
         return (
           <Route
             path={prop.layout + prop.path}

@@ -17,7 +17,8 @@ export async function FetchFromDB(dispatch, getState) {
                 name: item.name["S"],
                 plan: JSON.parse(item.data["S"]),
                 schichtentag: item.schichtentag["N"],
-                zeitraum: item.zeitraum["S"]
+                zeitraum: item.zeitraum["S"],
+                tauschanfrage: JSON.parse(item.tauschanfrage["S"])
             };
         });
         // Add your code here

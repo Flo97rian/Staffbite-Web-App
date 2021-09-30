@@ -20,6 +20,7 @@ import React from "react";
 import "../../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../assets/scss/argon-dashboard-react.scss";
+import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import daniel from "../../assets/img/theme/Daniel Zellmann Profilbild.jpeg";
 import florian from "../../assets/img/theme/Florian Zellmann Profilbild.jpg";
 import app from "../../assets/img/theme/App-Ansicht2.png";
@@ -40,7 +41,6 @@ import {
 
 
 // core components
-import DemoNavbar from "../../components/Navbars/DemoNavbar.js";
 import CardsFooter from "../../components/Footers/CardsFooter.js";
 
 
@@ -58,14 +58,7 @@ class Landing extends React.Component {
           <div className="position-relative">
             {/* shape Hero */}
             <section className="section section-lg section-hero section-shaped pb-250" style={{background: "linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%)"}}>
-              <DemoNavbar/>
-              <div className="shape shape-style-1 shape-default">
-                <span className="span-150"></span> <span className="span-50"></span>
-                <span className="span-50"></span> <span className="span-75"></span>
-                <span className="span-100"></span> <span className="span-75"></span>
-                <span className="span-50"></span> <span className="span-100"></span>
-                <span className="span-50"></span> <span className="span-100"></span>
-              </div>
+            <LandingNavBar></LandingNavBar>
               <Container className="py-lg-md d-flex">
                 <div className="col px-0">
                   <Row>

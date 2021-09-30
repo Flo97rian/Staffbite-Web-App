@@ -20,7 +20,7 @@ const ModalSchichtplanImportBearbeiten = (props) => {
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FormSchichtBearbeiten {...props}></FormSchichtBearbeiten>
+                    <FormSchichtBearbeiten {...props} modalkey={props.modalkey}></FormSchichtBearbeiten>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button  outline color="danger" onClick={() => props.handleLoeschen(props.modalkey)}> Löschen </Button>

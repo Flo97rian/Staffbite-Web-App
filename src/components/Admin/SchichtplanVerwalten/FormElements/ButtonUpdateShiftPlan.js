@@ -9,7 +9,7 @@ export default class ButtonUpdateShiftPlan extends React.PureComponent {
             <>
                 {this.props.trigger
                 ? 
-                <Button variant="primary" onClick={() => this.props.onClick()}>{this.props.title}</Button> 
+                <Button color="primary" onClick={() => this.props.onClick()}>{this.props.title}</Button> 
                 :
                 <></>
                 }

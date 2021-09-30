@@ -7,7 +7,7 @@ import {
     Row,
     CardBody,
   } from "reactstrap";
-
+import SchichtenTabelle from "./SchichtenTabelle";
 import Button from 'react-bootstrap/Button';
 import { API, Auth } from "aws-amplify";
 
@@ -31,7 +31,6 @@ export default class ProfilContainer extends React.PureComponent {
         // Passiert, wenn zuvor ein Schichtplan geändert oder erstellt wurde
         // somit werden die Pläne local und in der Cloud syncron gehalten
         componentDidUpdate(prevProps, prevState) {
-        console.log(this.state);
         if (prevState.fetchEmployee !== this.state.fetchEmployee) {
             this.getUser(this.setSingleState)
         }
@@ -75,7 +74,6 @@ export default class ProfilContainer extends React.PureComponent {
                 // Add your code here
                 setSingleState("employee", response);
                 setSingleState("fetchEmployee", !1)
-                console.log(response);
                 });
             };
   
@@ -159,8 +157,10 @@ export default class ProfilContainer extends React.PureComponent {
                       Mitarbeiter:inn
                     </div>
                   </div>
+                  <SchichtenTabelle></SchichtenTabelle>
                 </CardBody>
               </Card>
+
             </Col>
       </>
     );

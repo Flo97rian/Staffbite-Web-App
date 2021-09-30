@@ -1,25 +1,42 @@
 import React from "react";
-import Form from 'react-bootstrap/Form';
 import {
     Col,
-    Row
+    Row,
+    Button
 } from "reactstrap"
-import Button from 'react-bootstrap/Button';
+import store from "../../../../store";
+import UserPlanId from "./UserPlanId";
 
-export default class InputButton extends React.PureComponent {
-    render() {
+const InputButton = (props) => {
+    const selectButton = (label) => {
+        console.log(label)
+        if (label[1] === "Freigeben") {
+            return <Button name={props.label} outline color="success" onClick={() => setCurrentShiftPlan(props.id)}> Zur Bewerbung</Button>
+        } else {
+            return <Button name={props.label} outline color="success" onClick={() => setCurrentShiftPlan(props.id)}>Schichtplan einsehen</Button>
+        }
+    }
+
+    const setCurrentShiftPlan = (id) => {
+        store.dispatch({type: "SetCurrentShiftPlan", payload: id})
+        store.dispatch({type: "setShiftPlanIsActive"})
+        store.dispatch({type: "setShiftPlanIsImported"})
+    }
         return(
             <>
                 <Row className="text-center">
-                    <Col xs={6}>
-                        <Form.Label>{this.props.start} - {this.props.ende}</Form.Label>
+                    <Col xs={4}>
+                        <UserPlanId id={props.label}></UserPlanId>
                     </Col>
-                    <Col xs={6}>
-                    <Button name={this.props.label} variant="primary" onClick={() => this.props.onSelect(this.props.id)}> Zur Bewerbung</Button>{' '}
+                    <Col xs={4}>
+                        <p>{props.start} - {props.ende}</p>
+                    </Col>
+                    <Col xs={4}>
+                     {selectButton(props.label)}
                     </Col>
                 </Row>
                 <br/>
             </>
         )
     }
-}
+export default InputButton;

@@ -1,11 +1,13 @@
 import React from "react";
-import Button from 'react-bootstrap/Button';
+import {
+    Button
+} from "reactstrap";
 import store from "../../../../store";
 
 const ModalOpenButton = (props) => {
     const showButton = () => {
         return (
-        <Button variant="primary" onClick={() => {store.dispatch({type: "OPEN", payload: props.modal})}}>{props.title}</Button> 
+        <Button color="primary" className={props.class} onClick={() => {store.dispatch({type: "OPEN", payload: props.modal})}}>{props.title}</Button> 
         )}
         return (
             <>

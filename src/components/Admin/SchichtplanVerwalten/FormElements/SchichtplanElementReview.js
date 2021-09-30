@@ -1,55 +1,62 @@
 import React from "react";
 // core components
-import {
-    ListGroup,
-    ListGroupItem
-} from "reactstrap"
+import { 
+    DateOrWeekDayRow,
+    ShiftDescription,
+    MultipleApplicants,
+    ZeroApplicants,
+    CompanyClosed,
+    SingleApplicant,
+    setShiftDetails,
+    MultipleApplicantsWithOutUserWithPrio,
+    ZeroApplicantsWithOutUserWithPrio,
+    SingleApplicantWithOutUserWithPrio,
+    Default
+ } from "../../../Application/functionalComponents/SchichtplanElements";
 import store from "../../../../store";
 
+const setApplicant = (index, col) => {
+    store.dispatch({type: "OPEN", payload: "applyIsActive"})
+    store.dispatch({type: "setApplicantSlot", payload: { row: index, col: col}})
+}
+
 const SchichtplanElementReview = (props) => {
-
-    const setApplicant = (index, col) => {
-        store.dispatch({type: "OPEN", payload: "applyIsActive"})
-        store.dispatch({type: "setApplicantSlot", payload: { row: index, col: col}})
-    }
     const dataModal = (e) => {
-        let index = props.index;
-        let col = props.col;
-        let obj = e[index][col];
-        let isFree = obj.frei;
-        let hasPrio = Object.keys(obj).includes("prio")
-        let hasApplicants =  Object.keys(obj).includes("setApplicants")
-        let isDiscribeWeekDay = (col === "Wochentag");
+        const index = props.index;
+        const col = props.col;
+        const obj = e[index][col];
+        const isFree = obj.frei;
+        let anzahl = e[index].Montag.anzahl
+        const hasShiftName = Object.keys(obj).includes("ShiftName") ? !0 : !1
+        const hasApplicants =  Object.keys(obj).includes("setApplicants") && Object.keys(obj["setApplicants"]).length > 0 ? !0 : !1
+        const ApplicantsLength = hasApplicants ? Object.keys(obj.setApplicants).length : 0
+        const hasPrio = Object.keys(obj).includes("prio") && obj.prio ? !0 : !1
+        const FirstApplicant = hasApplicants ? obj.setApplicants[Object.keys(obj.setApplicants)[0]] : !1
+        const isDiscribeWeekDay = (col === "Wochentag");
         if (index === 0 || index === 1 || index === e.length - 1 ) {
-            return (<ListGroup>
-                            <ListGroupItem style={{"marginBottom": "0"}}  color="primary"><p style={{"margin": "0"}}>{obj}</p></ListGroupItem>
-                    </ListGroup>
-        )} else if (!isFree && isDiscribeWeekDay){
-            return (<ListGroup>
-                        <ListGroupItem style={{"marginBottom": "0"}}  color="primary"><p style={{"margin": "0"}}><small>{obj.ShiftName}</small><br/>{obj.ShiftStart} - {obj.ShiftEnd}</p></ListGroupItem>
-                    </ListGroup>
-        )}else if (!isFree && isDiscribeWeekDay){
-            return (<ListGroup>
-                        <ListGroupItem style={{"marginBottom": "0"}}  color="primary"><p style={{"margin": "0"}}><br/><br/></p></ListGroupItem>
-                    </ListGroup>
-        )} else if (isFree && hasApplicants && Object.keys(obj.setApplicants).length > 1 && !isDiscribeWeekDay) {
-            return (<ListGroup>
-                        <ListGroupItem style={{"marginBottom": "0"}}  color="success" onClick={(e, j) => setApplicant(index, col)}><p style={{"margin": "0"}}>{obj.setApplicants[Object.keys(obj.setApplicants)[0]]}<br/>+ {Object.keys(obj.setApplicants).length - 1} weitere</p></ListGroupItem>
-                    </ListGroup>
-        )}else if (!isFree && !isDiscribeWeekDay) {
-            return (<ListGroup>
-                        <ListGroupItem style={{"marginBottom": "0"}}  color="light"><p style={{"margin": "0"}}><br/><br/></p></ListGroupItem>
-                    </ListGroup>
-        )} else if (isFree && hasApplicants && Object.keys(obj.setApplicants).length === 1 && !isDiscribeWeekDay) {
-            return (<ListGroup>
-                        <ListGroupItem style={{"marginBottom": "0"}}  color="success" onClick={(e, j) => setApplicant(index, col)}><p style={{"margin": "0"}}>{obj.setApplicants[Object.keys(obj.setApplicants)[0]]}<br/><br/></p></ListGroupItem>
-                    </ListGroup>
-        )} else {
-            return (<ListGroup>
-                        <ListGroupItem style={{"marginBottom": "0"}}  color=""><p style={{"margin": "0"}}><br/><br/></p></ListGroupItem>
-                    </ListGroup>
-        )}
-
+            return DateOrWeekDayRow(obj)
+        } else if (!isFree && isDiscribeWeekDay){
+            return ShiftDescription(obj, anzahl)
+        } else if (isFree && isDiscribeWeekDay && !hasShiftName){
+            return setShiftDetails(obj, index)
+        } else if (hasPrio && ApplicantsLength > 1) {
+            return MultipleApplicantsWithOutUserWithPrio(index, col, FirstApplicant, ApplicantsLength, setApplicant)
+        }else if (hasPrio && ApplicantsLength === 1) {
+            console.log("here")
+            return SingleApplicantWithOutUserWithPrio(index, col, FirstApplicant, setApplicant)
+        } else if (hasPrio) {
+            return ZeroApplicantsWithOutUserWithPrio(index, col, setApplicant)
+        }  else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay) {
+            return MultipleApplicants(obj, index, col, ApplicantsLength, FirstApplicant, setApplicant)
+        } else if (!isFree && !isDiscribeWeekDay) {
+            return CompanyClosed()
+        } else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay) {
+            return SingleApplicant(index, col, FirstApplicant, setApplicant)
+        } else if (isFree && !hasApplicants && !isDiscribeWeekDay) {
+            return ZeroApplicants(index, col, setApplicant)
+        } else {
+            return Default()
+        }
     }
         return (
         <>
@@ -58,3 +65,4 @@ const SchichtplanElementReview = (props) => {
         );
     }
 export default SchichtplanElementReview;
+

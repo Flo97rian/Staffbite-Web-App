@@ -1,12 +1,10 @@
 import { API, Auth } from "aws-amplify";
 import { FetchFromDB } from "./FetchPlansFromDB";
 
-export function thunkUpdateShiftPlan({Plans, currentShiftPlan}) {
-  console.log("moinoi", Plans, currentShiftPlan)
+export function thunkUpdateShiftPlan(Plans, currentShiftPlan) {
   return async function updateShiftPlan(dispatch, getState) {
     const plans = { Plans }
-    const currentShiftplan = {currentShiftPlan}
-    console.log("moinniini")
+    const currentShiftplan = { currentShiftPlan }
     const apiName = 'api00f496d2'; // replace this with your api name.
     const path = '/schichtplan/update'; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
@@ -15,8 +13,7 @@ export function thunkUpdateShiftPlan({Plans, currentShiftPlan}) {
       },
       body: plans.Plans[currentShiftplan.currentShiftPlan]
     };
-    const response = await API.post(apiName, path, myInit)
-    console.log("response", response)
+    await API.post(apiName, path, myInit)
     dispatch(FetchFromDB)
     }
   }

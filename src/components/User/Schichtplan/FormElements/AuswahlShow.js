@@ -9,7 +9,7 @@ export default class AuswahlShow extends React.PureComponent {
             {this.props.bearbeiten
             ?
             <SchichtenTabelle
-            applicantrole={this.props.applicantrole}
+            currentUser={this.props.currentUser}
             plaene={this.props.plaene}
             bearbeiten={this.props.bearbeiten}
             plan={this.props.plan}

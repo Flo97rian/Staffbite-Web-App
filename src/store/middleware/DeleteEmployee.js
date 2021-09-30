@@ -1,4 +1,5 @@
 import { API, Auth } from "aws-amplify";
+import { FetchEmployees } from "./FetchEmployees";
   export function thunkDeleteEmployee(employeeId) {
     // Löscht einen Mitarbeiter aus der Datenbank
     return async function deleteEmployee(disptach, getState) {
@@ -13,5 +14,6 @@ import { API, Auth } from "aws-amplify";
         } // OPTIONAL
       };
       await API.post(apiName, path, myInit)
+      disptach(FetchEmployees)
       }
   }

@@ -27,11 +27,11 @@ import Header from "../../../components/Headers/Header.js";
 import DashboardContainer from "../../../components/Admin/Dashboard/DashboardContainer.js";
 
 
-export default class Dashboard extends React.Component {
+export default class AdminDashboard extends React.Component {
   render() {
     return (
     <>
-      <Header />
+    <Header/>
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -41,7 +41,7 @@ export default class Dashboard extends React.Component {
           </div>
         </Row>
       </Container>
-    </>
+      </>
     );
   }
 }

@@ -1,7 +1,11 @@
 import React from "react";
 import { 
     Badge,
-    Progress
+    Card,
+    CardBody,
+    Progress,
+    Col,
+    Row
 } from "reactstrap";
 
 
@@ -9,53 +13,73 @@ export default class MitarbeiterListeItem extends React.PureComponent {
     render() {
         return(
                 <>
-                    {this.props.aktiv ? 
-                    <td>
-                        <Badge color="" className="badge-dot">
-                            <i className="bg-success" />
-                        </Badge>
-                    </td> 
-                    :
-                    <td>
-                        <Badge color="" className="badge-dot">
-                            <i className="bg-warning" />
-                        </Badge>
-                    </td>
-                    }
-                    <td>{this.props.name}</td>
-                    <td>{this.props.position}</td>
-                    <td>{this.props.stundenlohn}€/h</td>
-                    <td>
-                        <div className="text-center">{this.props.akutellerverdienst}€ von {this.props.zielmtleuro}€</div>
-                        <Progress max="1" value={this.props.akutellerverdienst / this.props.zielmtleuro} color="success" style={{"width": "150px", "height": "10px", "marginRight": "0", "marginLeft": "0" }}/>
-                    </td>
-                    {this.props.frei ? 
-                    <td>
-                        <Badge color="" className="badge-dot">
-                            <i className="bg-success" />
-                        </Badge>
-                    </td> 
-                    :
-                    <td>
-                        <Badge color="" className="badge-dot">
-                            <i className="bg-warning" />
-                        </Badge>
-                    </td>
-                    }
-                    {this.props.ueberstunden ? 
-                    <td>
-                        <Badge color="" className="badge-dot">
-                            <i className="bg-success" />
-                        </Badge>
-                    </td> 
-                    :
-                    <td>
-                        <Badge color="" className="badge-dot">
-                            <i className="bg-warning" />
-                        </Badge>
-                    </td>
-                    }
-                    <td>{this.props.schichtenwoche}</td>
+                    <Card className="mb-1 mt-0">
+                        <CardBody className="p-1">
+                        <Row className="text-center">
+                            <Col xs={1}>
+                                {this.props.aktiv ? 
+                                <p className="mt-3">
+                                    <Badge color="" className="badge-dot">
+                                        <i className="bg-success" />
+                                    </Badge>
+                                </p> 
+                                :
+                                <p className="mt-3">
+                                    <Badge color="" className="badge-dot">
+                                        <i className="bg-warning" />
+                                    </Badge>
+                                </p>
+                                }
+                            </Col>
+                            <Col xs={2}>
+                                <p className="mt-3">{this.props.name}</p>
+                            </Col>
+                            <Col xs={2}>
+                                <p className="m-0 mt-1">{this.props.position}</p>
+                            </Col>
+                            <Col xs={2}>
+                                <p className="mt-3">{this.props.stundenlohn}€/h</p>
+                            </Col>
+                            <Col xs={2}>
+                                <p className="text-center mb-0 mt-2">{this.props.akutellerverdienst}€ von {this.props.zielmtleuro}€</p>
+                                <Progress max="1" value={this.props.akutellerverdienst / this.props.zielmtleuro} color="success" style={{"width": "150px", "height": "10px", "marginRight": "0", "marginLeft": "0" }}/>
+                            </Col>
+                            <Col xs={1}>
+                                {this.props.frei ? 
+                                <p className="mt-3">
+                                    <Badge color="" className="badge-dot">
+                                        <i className="bg-success" />
+                                    </Badge>
+                                </p> 
+                                :
+                                <p className="mt-3">
+                                    <Badge color="" className="badge-dot">
+                                        <i className="bg-warning" />
+                                    </Badge>
+                                </p>
+                                }
+                            </Col>
+                            <Col xs={1}>
+                                {this.props.ueberstunden ? 
+                                <p className="mt-3">
+                                    <Badge color="" className="badge-dot">
+                                        <i className="bg-success" />
+                                    </Badge>
+                                </p> 
+                                :
+                                <p className="mt-3">
+                                    <Badge color="" className="badge-dot">
+                                        <i className="bg-warning" />
+                                    </Badge>
+                                </p>
+                                }
+                            </Col>
+                            <Col xs={1}>
+                                <p className="mt-3">{this.props.schichtenwoche}</p>
+                            </Col>
+                            </Row>
+                        </CardBody>
+                    </Card>
                 </>
         );
     }

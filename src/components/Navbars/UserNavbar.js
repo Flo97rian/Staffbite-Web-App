@@ -30,9 +30,17 @@ import {
 } from "reactstrap";
 import { useSelector } from "react-redux";
 import store from "../../store";
+import { Auth } from 'aws-amplify';
 import { getUser } from "../../store/middleware/FetchUser";
 
 const UserNavbar = (props) => {
+  async function signOut() {
+    try {
+        await Auth.signOut();
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+}
 
   const selectUser = state => state.DB.user
 
@@ -60,7 +68,7 @@ const UserNavbar = (props) => {
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      {User ? <></>: <>{User.Item.name["S"]}</>}
+                      {User ? <>{User.name["S"]}</>: <></>}
                     </span>
                   </Media>
                 </Media>
@@ -78,7 +86,7 @@ const UserNavbar = (props) => {
                   <span>Einstellungen</span>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                <DropdownItem href="/auth" onClick={() => signOut()}>
                   <i className="ni ni-user-run" />
                   <span>Ausloggen</span>
                 </DropdownItem>

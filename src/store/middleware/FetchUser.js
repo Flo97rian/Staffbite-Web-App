@@ -9,5 +9,5 @@ export async function getUser(dispatch, getState) {
       } // OPTIONAL
     };
     const response = await API.get(apiName, path, myInit)
-    dispatch({type: "All/GetUser", payload: response})
+    dispatch({type: "All/GetUser", payload: response.Item})
     };

@@ -4,7 +4,7 @@ import {
     Row
 } from "reactstrap"
 import Form from 'react-bootstrap/Form';
-import InfoOverlay from "../../SchichtplanErstellen/FormElements/InfoOverlay";
+import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
 export default class FormBefuellungStarten extends React.PureComponent {
 

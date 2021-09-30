@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import 'moment/locale/de';
 
 import {
     Card,
+    CardHeader,
     Col,
     CardTitle,
     Row,
@@ -15,20 +16,18 @@ import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 import Spinner from 'react-bootstrap/Spinner'
 import store from "../../../store";
+import SchichtenTabelle from "../SchichtplanVerwalten/SchichtplanListe/SchichtplanTabelle";
 
 
 const DashboardContainer = (props) => {
+  const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
 
   //REDUX-Filter für UI-Data
-  const selectCurrentShiftPlan = state => state.currentShiftPlan.currentShiftPlan;
   const selectPlans = state => state.DB.plans;
-  const selectModal = state => state.modal;
   const selectEmployees = state => state.DB.employees;
 
   //REDUX-Listener für UI-Data
-  const currentShiftPlan = useSelector(selectCurrentShiftPlan);
   const Plans = useSelector(selectPlans);
-  const Modal = useSelector(selectModal);
   const Employees = useSelector(selectEmployees);
 
   // Initiales laden der aktuellen Users
@@ -37,136 +36,108 @@ const DashboardContainer = (props) => {
     store.dispatch(FetchEmployees)
   }, []);
 
-
-
-    const bla = () => {
-      var compareDate = moment(moment().format("L"), "DD.M.YYYY");  
-      var startDate   = moment(Plans[currentShiftPlan].zeitraum.split(" - ")[0], "DD.MM.YYYY");
-      var endDate     = moment(Plans[currentShiftPlan].zeitraum.split(" - ")[1], "DD.MM.YYYY");
-      console.log(compareDate.isBetween(startDate, endDate)) //false in this case
+  useEffect(() => {
+    if (Plans) {
+      getThisWeeksShiftPlan(Plans)
     }
+  }, [Plans])
+
+  const getShiftTradeCount = (Plans) => {
+    let shiftTradeCount = 0
+    Plans.forEach(plan => {
+      let planTradeCount = plan.tauschanfrage.length
+      shiftTradeCount += planTradeCount
+    })
+    return shiftTradeCount
+  }
+
+    const getThisWeeksShiftPlan = (Plans) => {
+      var compareDate = moment(moment().format("L"), "DD.M.YYYY");
+      Plans.forEach((plan, index) => {
+        var startDate   = moment(plan.zeitraum.split(" - ")[0], "DD.MM.YYYY");
+        var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
+        if (compareDate.isBetween(startDate, endDate) && plan.id.split("#").includes("Review")) {
+          setCurrentShiftPlan(index);
+        }
+        if (compareDate.isBetween(startDate, endDate) && plan.id.split("#").includes("Freigeben")) {
+          setCurrentShiftPlan(index);
+        }
+    })}
         return (
-          <Container fluid>
-            <div className="header-body">
-              {/* Card stats */}
+          <>
               <Row>
-                <Col lg="6" xl="3">
-                  <Card className="card-stats mb-4 mb-xl-0">
+                <Col lg="6" xl="6">
+                  <Card className="card-stats mb-4 mb-xl-0 shadow">
                       <CardBody>
                       <Row>
                         <div className="col">
                           <CardTitle
-                            tag="h5"
-                            className="text-uppercase text-muted mb-0"
+                            tag="h4"
+                            className="text-uppercase text-muted mb-4"
                           >
-                            aktive Mitarbeiter:innen
+                            Mitarbeiter
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                              {Employees ? Employees.length : <Spinner animation="grow" variant="light"/>}
+                          {Employees ? Object.keys(Employees).length : <Spinner animation="grow" variant="light"/>}
                           </span>
                         </div>
                         <Col className="col-auto">
-                          <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                            <i className="fas fa-chart-bar" />
-                          </div>
-                        </Col>
-                      </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-success mr-2">
-                          <i className="fa fa-arrow-up" /> 3.48%
-                        </span>{" "}
-                        <span className="text-nowrap">diesen Monat</span>
-                      </p>
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg="6" xl="3">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                        <div className="col">
-                          <CardTitle
-                            tag="h5"
-                            className="text-uppercase text-muted mb-0"
-                          >
-                            offene Schichten
-                          </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">2,356</span>
-                        </div>
-                        <Col className="col-auto">
-                          <div className="icon icon-shape bg-warning text-white rounded-circle shadow">
-                            <i className="ni ni-calendar-grid-58" />
-                          </div>
-                        </Col>
-                      </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-danger mr-2">
-                          <i className="fas fa-arrow-down" /> 3.48%
-                        </span>{" "}
-                        <span className="text-nowrap">diese Woche</span>
-                      </p>
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg="6" xl="3">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                    <CardBody>
-                      <Row>
-                        <div className="col">
-                          <CardTitle
-                            tag="h5"
-                            className="text-uppercase text-muted mb-0"
-                          >
-                            offene Tauschanfragen
-                          </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">924</span>
-                        </div>
-                        <Col className="col-auto">
-                          <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                          <div className="icon icon-shape bg-success text-white rounded-circle shadow">
                             <i className="fas fa-users" />
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-warning mr-2">
-                          <i className="fas fa-arrow-down" /> 1.10%
-                        </span>{" "}
-                        <span className="text-nowrap">Since yesterday</span>
-                      </p>
                     </CardBody>
                   </Card>
                 </Col>
-                <Col lg="6" xl="3">
-                  <Card className="card-stats mb-4 mb-xl-0">
+                <Col lg="6" xl="6">
+                  <Card className="card-stats mb-4 mb-xl-0 shadow">
                     <CardBody>
                       <Row>
                         <div className="col">
                           <CardTitle
-                            tag="h5"
-                            className="text-uppercase text-muted mb-0"
+                            tag="h4"
+                            className="text-uppercase text-muted mb-4"
                           >
-                            Performance
+                            Tauschanfragen
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">49,65%</span>
+                          <span className="h2 font-weight-bold mb-0">
+                          {Plans ? getShiftTradeCount(Plans) : <Spinner animation="grow" variant="light"/>}
+                          </span>
                         </div>
                         <Col className="col-auto">
-                          <div className="icon icon-shape bg-info text-white rounded-circle shadow">
-                            <i className="fas fa-percent" />
+                          <div className="icon icon-shape bg-blue text-white rounded-circle shadow">
+                            <i className="ni ni-chat-round" />
                           </div>
                         </Col>
                       </Row>
-                      <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-success mr-2">
-                          <i className="fas fa-arrow-up" /> 12%
-                        </span>{" "}
-                        <span className="text-nowrap">Since last month</span>
-                      </p>
                     </CardBody>
                   </Card>
                 </Col>
               </Row>
-            </div>
-          </Container>
+            <Row>
+              <Col xs={3}>
+              <h3 className="float-left pt-5 font-weight-bold text-lg">aktueller Schichtplan</h3>
+              </Col>
+              <Col xs={9}>
+              </Col>
+              </Row>
+            <Card className="shadow">
+              <CardBody>
+                <Row className="text-center" noGutters={true}></Row>
+                { currentShiftPlan ?
+                <SchichtenTabelle
+                  plaene={Plans}
+                  plan={currentShiftPlan}
+                  bearbeiten={!0}
+                >
+                </SchichtenTabelle>
+                :
+                <></>
+                }
+                </CardBody>
+            </Card>
+        </>
 );
 }
 

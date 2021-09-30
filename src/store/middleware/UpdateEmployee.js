@@ -1,4 +1,5 @@
 import { API, Auth } from "aws-amplify";
+import { FetchEmployees } from "./FetchEmployees";
 export function thunkUpdateEmployee(updatedEmployee) { 
     // Aktualisiert einen Mitarbeiter in der Datenbank
     return async function updateEmployee(dispatch, getState) {
@@ -11,5 +12,6 @@ export function thunkUpdateEmployee(updatedEmployee) {
           body: updatedEmployee
         };
         await API.post(apiName, path, myInit)
+        dispatch(FetchEmployees)
       }
 }

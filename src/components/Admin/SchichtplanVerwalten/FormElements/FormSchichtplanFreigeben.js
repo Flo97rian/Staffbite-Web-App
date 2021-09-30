@@ -3,8 +3,8 @@ import {
     Col,
     Row
 } from "reactstrap"
-import DateRangePickerExample from "../../SchichtplanErstellen/FormElements/DateRangePickerExample";
-import InfoOverlay from "../../SchichtplanErstellen/FormElements/InfoOverlay";
+import Datepicker from "../../../Application/functionalComponents/DateRangePickerExample";
+import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
 export default class FormSchichtplanFreigeben extends React.PureComponent {
 
@@ -17,7 +17,7 @@ export default class FormSchichtplanFreigeben extends React.PureComponent {
                         <p>Details</p>
                         <br/>
                         <InfoOverlay infotitle={"Kalenderwoche"} description={"Wenn Sie den Schichtplan für eine andere Woche freigeben möchten, tragen Sie die jeweilige Woche hier ein. Tragen Sie nichts ein, wird der Plan für die bisher eingetragene Woche freigegeben"}/>
-                        <DateRangePickerExample {...this.props}/>  
+                        <Datepicker {...this.props}/>  
                         <br/>
                     </Col>
                     <Col xs={1} ></Col>

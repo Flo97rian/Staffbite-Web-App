@@ -17,6 +17,7 @@ import ButtonMitarbeiterErstellen from "./Modal/ButtonMitarbeiterErstellen.js";
 import OpenModal from "./Modal/OpenModal.js";
 import { thunkRegisterEmployee } from "../../../store/middleware/RegisterEmployee"
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees.js";
+import { FetchOrg } from "../../../store/middleware/FetchOrg"
 import store from "../../../store.js";
 import { useSelector } from "react-redux";
 import { thunkDeleteEmployee } from "../../../store/middleware/DeleteEmployee.js";
@@ -27,22 +28,22 @@ const TableContainer = (props) => {
     
   const selectEmployees = state => state.DB.employees;
   const selectModal = state => state.modal;
+  const selectMeta = state => state.DB.meta
 
   const Employees = useSelector(selectEmployees);
   const Modal = useSelector(selectModal);
+  const Meta = useSelector(selectMeta)
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
     store.dispatch(FetchEmployees)
+    store.dispatch(FetchOrg)
   }, []);
 
     // Filtert auf Basis der Id, die zugehörigen Mitarbeiterdaten
     const handleFilter = (idToSearch) => {
-      const key = Employees;
-      const data = key.filter(item => {
-          return item.id === idToSearch
-      });
-      return data[0]
+      const data = Employees[idToSearch]
+      return data
   }
 
  // Handling von Userinputs
@@ -106,23 +107,24 @@ const TableContainer = (props) => {
   }
 
         return(
-        <>
-            <Card className="shadow">
-              <CardHeader className="bg-transparent">
-                <h3 className="mb-0">Mitarbeiter:innen verwalten</h3>
-              </CardHeader>
-              <CardBody>
-                <Row className="text-center">
+        <> 
+        <Row>
+        <Col xs={3}>
+        <h3 className="float-left pt-5 font-weight-bold text-lg">Mitarbeiter:innen verwalten</h3>
+        </Col>
+        <Col xs={9}>
+          <ButtonMitarbeiterErstellen></ButtonMitarbeiterErstellen>{' '}
+        </Col>
+        </Row>
+                <Row className="text-center mt-0">
                   <Col xs={4}>
                   </Col>
                   <Col xs={4}>
-                    <ButtonMitarbeiterErstellen></ButtonMitarbeiterErstellen>{' '}
                   </Col>
                   <Col xs={4}>
                   </Col>
                 </Row>
-                <br />
-                  {!Employees ?
+                  {!Employees && !Meta ?
                   <>
                   <br/>   
                   <Row className="text-center">
@@ -132,55 +134,17 @@ const TableContainer = (props) => {
                     </Col>
                   </Row>
                   </> :
-                  <Row>
                     <MitarbeiterTabelle 
                     mitarbeiter={Employees}
+                    meta={Meta}
                     >
                     </MitarbeiterTabelle>
-                  </Row>
     }
-              </CardBody>
-              <CardFooter className="py-4">
-                <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0"
-                  >
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1"
-                      >
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
-              </CardFooter>
-            </Card>
             <OpenModal
             onChange={handleInputChange}
             handleUpdate={handleEmployeeUpdate}
             show={Modal}
+            meta={Meta}
             handleRegister={handleRegister}
             checkModalKey={getModalKey}
             checkTrue={getModalTrue}

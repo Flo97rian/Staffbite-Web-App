@@ -71,18 +71,15 @@ const Admin = (props) => {
 
   return (
     <>
-      <Sidebar
-        {...props}
-        routes={adminroutes}
-        logo={{
-          innerLink: "/admin/index",
-          imgSrc: require("../assets/img/brand/Staffbite_Logo.png").default,
-          imgAlt: "...",
-        }}
-      />
       <div className="main-content" ref={mainContent}>
         <AdminNavbar
           {...props}
+          routes={adminroutes}
+          logo={{
+            innerLink: "/admin/index",
+            imgSrc: require("../assets/img/brand/Staffbite_Logo.png").default,
+            imgAlt: "...",
+          }}
           brandText={getBrandText(props.location.pathname)}
         />
         <Switch>

@@ -8,7 +8,6 @@ import store from "../../../../store";
 
 
 export const ModalPrioSchicht = (props) => {
-    console.log(props)
         return (
             <>
             <Modal 

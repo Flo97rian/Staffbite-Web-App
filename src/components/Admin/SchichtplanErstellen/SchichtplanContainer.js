@@ -1,12 +1,13 @@
-import {React, useEffect, useState } from "react";
+import {React, useEffect, useState, useRef } from "react";
 import 'moment/locale/de';
 import {
     Card,
     Col,
     CardHeader,
     Row,
-    CardBody
+    CardBody,
   } from "reactstrap";
+
 
 import { useSelector } from "react-redux";
 import OpenModal from './Modal/OpenModal';
@@ -29,9 +30,13 @@ import { user } from "../../../store/middleware/user"
 import ButtonSaveUpdate from "./FormElements/ButtonSaveUpdate";
 import { thunkUploadShiftPlanToDB } from "../../../store/middleware/UploadShiftPlanToDB";
 import { thunkDeleteShiftPlan } from "../../../store/middleware/DeleteShiftPlan";
+import { handleSwitchShiftOrder } from "./processing/handleSwitchShiftOrder";
 
 const TableContainer = (props) => {
   const [daysIsActive, setDaysIsActive] = useState(null);
+  const [ActivePlanIndex, setActivePlanIndex] = useState({left: !1, right: !1});
+  const [ShiftSwitch, setShiftSwitch] = useState(!1)
+  const [ErrMsng, setErrMsng] = useState(!1)
 
   //REDUX-Filter für UI-Data
   const selectCurrentShiftPlan = state => state.currentShiftPlan.currentShiftPlan
@@ -51,12 +56,24 @@ const TableContainer = (props) => {
   const NewShiftPlan = useSelector(selectNewShiftPlan);
   const Modal = useSelector(selectModal);
 
+
   // Initiales laden der aktuellen Users
   useEffect(() => {
     store.dispatch(user)
     store.dispatch(FetchFromDB)
   }, []);
 
+  useEffect(() => {
+    if(Plans) {
+    let NoLeftNextShiftPlan = currentShiftPlan - 1 < 0 ? !0 : !1 
+    let NoRightNextShiftPlan = currentShiftPlan + 1 >= Plans.length ? !0 : !1 
+    setActivePlanIndex({...ActivePlanIndex, left: NoLeftNextShiftPlan, right: NoRightNextShiftPlan})
+    }
+  }, [currentShiftPlan]);
+
+  useEffect(() => {
+    console.log("changed")
+  }, [Plans]);
   //REDUX-Store Listener
     store.subscribe(() =>
     console.log('State after dispatch: ', store.getState())
@@ -76,6 +93,9 @@ const TableContainer = (props) => {
     setDaysIsActive({...daysIsActive, [key]: val })
   }
 
+  const shiftChange = (plan) => {
+    setShiftSwitch(plan);
+  }
   // Überprüfung von Userinputs, ob der Input vom Typ Switch ist
   const stateSwitch = (value, event) => {
     if (value !== "on") return value
@@ -99,9 +119,11 @@ const TableContainer = (props) => {
 
   // Diese Funktion sorgt für die Speicherung eines neuen Schichtplans und schließt im Anschluss das zugehörige Modal
   const handleNewShiftPlanSave = (modal) => {
+    const hasName = daysIsActive !== null && Object.keys(daysIsActive).includes("name")
+    if (hasName) {
     createNewShiftPlan(daysIsActive);
     store.dispatch({type: "CLOSE", payload: modal})
-  }
+  }}
   // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter:innen)
   const handleEditShiftDetails = (index) => {
     ShiftPlanIsImported ? editShiftDetailsImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive}) : editShiftDetailsNewShiftPlan({index, NewShiftPlan, daysIsActive});
@@ -123,7 +145,12 @@ const TableContainer = (props) => {
 
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleUpdatedShiftPlanToDB = () => {
-      store.dispatch(thunkUpdateShiftPlan({Plans, currentShiftPlan}))
+      let plans = Plans
+      if (ShiftSwitch !== null) {
+        let shiftswitch = handleSwitchShiftOrder(ShiftSwitch);
+        plans[currentShiftPlan].plan = shiftswitch
+      }
+      store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan))
   }
 
   //Diese Funktion fürgt einen neu erstelten Schichtplan der Datenbank hinzu
@@ -151,10 +178,9 @@ const TableContainer = (props) => {
               <CardBody>
                 <Row className="text-center" noGutters={true}>
                   <Col xs={1}>
-                    {ShiftPlanIsActive ? <span className="ni ni-bold-left" onClick={() => {store.dispatch({ type: "SwitchLeftcurrentShiftPlan"})}}></span> : <></>}
+                  {ShiftPlanIsActive ? (ActivePlanIndex.left ? <span className="ni ni-bold-left text-light"></span> : <span className="ni ni-bold-left" onClick={() => {store.dispatch({ type: "SwitchLeftcurrentShiftPlan"})}}></span>) : <></>}
                   </Col>
                   <Col xs={3} className="text-right">
-                  <i class="fas fa-pencil-square-o text-blue"></i>
                   <ButtonZurueck
                   titel="Zuück zur Auswahl"
                   onClickVal=""
@@ -179,7 +205,7 @@ const TableContainer = (props) => {
                     import={ShiftPlanIsImported}/>
                   </Col>
                   <Col xs={1}>
-                    {ShiftPlanIsActive ? <span className="ni ni-bold-right" onClick={() => {store.dispatch({ type: "SwitchRightcurrentShiftPlan", payload: Plans.length})}}></span> : <></>}
+                  {ShiftPlanIsActive ? (ActivePlanIndex.right ? <span className="ni ni-bold-right text-light"></span> : <span className="ni ni-bold-right" onClick={() => {store.dispatch({ type: "SwitchRightcurrentShiftPlan", payload: Plans.length})}}></span>) : <></>}
                   </Col>
                 </Row>
                 <br />
@@ -187,6 +213,7 @@ const TableContainer = (props) => {
                  <SchichtplanAuswahl
                   bearbeiten={ShiftPlanIsActive}
                   plaene={Plans}
+                  onSwitch={shiftChange}
                   plan={currentShiftPlan}
                   import={ShiftPlanIsImported}
                   Schichtplan={NewShiftPlan}
@@ -220,6 +247,7 @@ const TableContainer = (props) => {
             plaene={Plans}
             shift={currentShiftPlan}
             shiftSlot={ShiftSlot}
+            import={ShiftPlanIsImported}
             Schichtplan={NewShiftPlan}
             onDelete={handleDeleteShiftPlan}
             handleLoeschen={handleDeleteShift}

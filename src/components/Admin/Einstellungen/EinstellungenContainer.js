@@ -1,145 +1,85 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import { useSelector } from "react-redux";
 import moment from "moment";
 import 'moment/locale/de';
 import {
     Card,
     CardHeader,
     Row,
+    Col,
     CardBody,
   } from "reactstrap";
 
-import { API, Auth } from "aws-amplify";
 import Navs from "./FormElements/NavPills";
+import Spinner from 'react-bootstrap/Spinner'
+import { FetchOrg } from "../../../store/middleware/FetchOrg";
+import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile";
+import store from "../../../store";
 
-export default class EinstellungenContainer extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            fetchOrg: !0,
-            modal: {},
-        };
-        this.getDates = this.getDates.bind(this);
-        this.setSingleState = this.setSingleState.bind(this);
-        this.setMultiObjectState = this.setMultiObjectState.bind(this);
-        this.setObjectState = this.setObjectState.bind(this);
-        this.handleUpdateProfile = this.handleUpdateProfile.bind(this);
-      }
-      // Initiales Laden der Schichtpläne aus der Datenbank
-      componentDidMount() {
-        this.getOrg(this.setSingleState)
-          }
+const EinstellungenContainer = () => {
+  const [meta, setMeta] = useState(null)
+  const selectMeta = state => state.DB.meta
+  const selectDate = state => state.date
 
-    // Läd die Schichtpläne neu aus der Datenbank, wenn der Wert loading auf true geändert wurde.
-    // Passiert, wenn zuvor ein Schichtplan geändert oder erstellt wurde
-    // somit werden die Pläne local und in der Cloud syncron gehalten
-    componentDidUpdate(prevProps, prevState) {
-    console.log(this.state);
-    if (prevState.fetchOrg !== this.state.fetchOrg) {
-        this.getOrg(this.setSingleState)
+  //REDUX-Listener für UI-Data
+  const Meta = useSelector(selectMeta)
+  const Date = useSelector(selectDate)
+
+  useEffect(() => {
+      store.dispatch(FetchOrg)
+    }, []);
+
+  useEffect(() => {
+    if(Date.start !== undefined) {
+    let abrechnungStart = moment(Date.start.startDate).format("l")
+    let abrechnungEnde = moment(Date.ende.endDate).format("l")
+    setMeta({...meta, AbrechnungStart: abrechnungStart, AbrechnungEnde: abrechnungEnde })
     }
-    }
+  }, [Date]);
 
-   // Funktion zum setzen eines einzelnen States. Setzt den State key auf den Wert val
-   setSingleState(key, value) {
-    this.setState(state => {
-        return {
-            [key] : state = value
-        }
-    })
-  }
-  // Funktion zum setzen eines State innerhalb eines Objectes. Setzt für das Object a den State b auf c
-  setObjectState(target, key, value) {
-    this.setState({[target]: {
-      ...this.state[target],
-      [key]: value
-  }})
+  // Handling von Userinputs
+  const handleInputChange = (event) => {
+    let key = event.target.name;
+    console.log()
+    let val = stateSwitch(event.target.value, event);
+    setMeta({...meta, [key]: val })
   }
 
-  // Funktion zum setzen eines State innerhalb des Modal-Objectes.
-    setModalState(key, value) {
-    this.setState({ modal : {
-      [key]: value
-  }})
+  // Überprüfung von Userinputs, ob der Input vom Typ Switch ist
+  const stateSwitch = (value, event) => {
+    if (value !== "on") return value
+      let state = handleInputSwitch(event);
+      return state
   }
 
-  // Funktion zum setzen eines State innerhalb eines Objectes. Setzt für das Object a den State b auf c
-  setMultiObjectState(target, key, value, key2, value2) {
-    this.setState({[target]: {
-      ...this.state[target],
-      [key]: value,
-      [key2]: value2
-  }})
-  } 
-
-          // Handling von Userinputs für die Erstellung eines neuen Schichtplans
-    handleInputChange = (event, target) => {
-        this.setObjectState(target, event.target.name, event.target.value);
+    // Diese Funktion ändert den Wert eines Switches, je nach userinput
+    const handleInputSwitch = (event) => {
+      if (event.target.checked !== !0) return !1
+        return !0
     }
-    
-
-    getDates = (value1, key1, value2, key2) => {
-        let val1 = moment(value1, "DD.MM.YYYY").locale("de").format("l");
-        let val2 = moment(value2, "DD.MM.YYYY").locale("de").format("l");
-      this.setMultiObjectState("updateProfile", key1, val1, key2, val2)
+    const handleUpdateProfile = () => {
+      store.dispatch(thunkUpdateProfile(meta))
     }
-
-    handleUpdateProfile() {
-      this.updateProfile(this.setSingleState);
-    }
-
-    async updateProfile(setSingleState) {
-        console.log("moin")
-        console.log(this.state.updateProfile)
-        const apiName = 'api00f496d2'; // replace this with your api name.
-        const path = '/organisation/profile'; //replace this with the path you have configured on your API
-        const myInit = { // OPTIONAL
-            headers: {
-            Authorizer:`Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`,
-          },
-          body: this.state.updateProfile
-        };
-        await API.post(apiName, path, myInit)
-         .then(
-          setSingleState("fetchOrg", !0)
-            // Add your code here
-            );
-        };
-        async getOrg(setSingleState) {
-            const apiName = 'api00f496d2'; // replace this with your api name.
-            const path = '/organisation/get-profile'; //replace this with the path you have configured on your API
-            const myInit = { // OPTIONAL
-                headers: {
-                Authorizer:`Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`,
-              } // OPTIONAL
-            };
-            return await API.get(apiName, path, myInit)
-             .then(response => {
-                // Add your code here
-                setSingleState("org", response.Item);
-                setSingleState("fetchOrg", !1)
-                });
-            };
-    render() {
         return(
       <>
       <Row>
           <div className="col">
-            <Card className="shadow">
-              <CardHeader className="bg-transparent">
-                <h3 className="mb-0">Einstellungen</h3>
-              </CardHeader>
-                <CardBody>
+                  { !Meta ? 
+                  <Row className="text-center mt-2">
+                    <Col className="mt-2" xs={12}>
+                      <Spinner animation="grow" variant="light"/>
+                    </Col>
+                  </Row>
+                  : 
                     <Navs
-                    getDates={this.getDates}
-                    onChange={this.handleInputChange}
-                    onClick={this.handleUpdateProfile}
-                    org={this.state.org}
+                    onChange={handleInputChange}
+                    onClick={handleUpdateProfile}
+                    org={Meta}
                     ></Navs>
-                </CardBody>
-            </Card>
+                  }
           </div>
         </Row>
     </>
             );
         }
-    }
+export default EinstellungenContainer;

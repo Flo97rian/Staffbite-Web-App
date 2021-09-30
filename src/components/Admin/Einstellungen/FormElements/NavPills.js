@@ -41,14 +41,18 @@ class Navs extends React.Component {
           <NavItem>
             <NavLink
               aria-selected={this.state.navPills === 1}
-              className={classnames("mb-sm-3 mb-md-0", {
+              className={classnames("mb-sm-3 mb-md-0 text-muted", {
                 active: this.state.navPills === 1
               })}
               onClick={e => this.toggleNavs(e, "navPills", 1)}
               href="#pablo"
               role="tab"
             >
-              Abrechnungszeitraum
+              {this.state.navPills === 1 ? 
+              <p className="m-0 text-white">Abrechnungszeitraum</p>
+              :
+              <p className="m-0 text-muted">Abrechnungszeitraum</p>
+              }
             </NavLink>
           </NavItem>
           <NavItem>
@@ -61,7 +65,11 @@ class Navs extends React.Component {
               href="#pablo"
               role="tab"
             >
-              Schichtplan Einstellungen
+              {this.state.navPills === 2 ? 
+              <p className="m-0 text-white">Schichtplan Einstellungen</p>
+              :
+              <p className="m-0 text-muted">Schichtplan Einstellungen</p>
+              }
             </NavLink>
           </NavItem>
           <NavItem>
@@ -74,7 +82,11 @@ class Navs extends React.Component {
               href="#pablo"
               role="tab"
             >
-              Unternehmensprofil
+              {this.state.navPills === 3 ? 
+              <p className="m-0 text-white">Unternehmensprofil</p>
+              :
+              <p className="m-0 text-muted">Unternehmensprofil</p>
+              }
             </NavLink>
           </NavItem>
         </Nav>

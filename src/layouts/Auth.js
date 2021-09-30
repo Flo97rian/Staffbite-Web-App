@@ -15,24 +15,44 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import { Switch, Redirect } from "react-router-dom";
+import React, { useState, useEffect} from "react";
+import { Switch, Redirect, Route} from "react-router-dom";
 // reactstrap components
 import { Container, Row } from "reactstrap";
 // core components
 
 import Amplify from 'aws-amplify';
-import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut, AmplifyConfirmSignUp} from '@aws-amplify/ui-react';
+import { Auth } from 'aws-amplify';
+import SignUp from "../components/Auth/SignUp";
+import { Authenticator, SignIn, ConfirmSignUp, Greetings } from 'aws-amplify-react';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import awsconfig from '../aws-exports';
+import Login from "../components/Auth/Login"
+import { authroutes } from "../routes"
 
 Amplify.configure(awsconfig);
 
-const Auth = () => {
-    const [authState, setAuthState] = React.useState();
-    const [user, setUser] = React.useState();
+const AuthUI = () => {
+    const [authState, setAuthState] = useState();
+    const [user, setUser] = useState();
 
-    React.useEffect(() => {
+    const getRoutes = (adminroutes) => {
+      return authroutes.map((prop, key) => {
+        if (prop.layout === "/auth") {
+          return (
+            <Route
+              path={prop.layout + prop.path}
+              component={prop.component}
+              key={key}
+            />
+          );
+        } else {
+          return null;
+        }
+      });
+    };
+
+    useEffect(() => {
         return onAuthUIStateChange((nextAuthState, authData) => {
             setAuthState(nextAuthState);
             setUser(authData)
@@ -42,10 +62,7 @@ const Auth = () => {
   return (
     <>
     { authState === AuthState.SignedIn && user ? (
-      console.log(authState),
-      console.log(user),
-      console.log(user.attributes),
-      <div className="App">
+      <div className="App bg-white">
           <div>Hello, {user.username}</div>
           <Container className="mt--8 pb-5">
           <Row className="justify-content-center">
@@ -54,37 +71,17 @@ const Auth = () => {
             </Switch>
           </Row>
         </Container>
-          <AmplifySignOut />
       </div>
     ) : (
-      <AmplifyAuthenticator>
-        <AmplifySignUp
-        headerText="Registrierung"
-        slot="sign-up"
-        formFields={[
-          { type: "username", label: "Email *", placeholder: "Geben Sie eine gültige Email ein" },
-          { type: "password", label: "Passwort *", placeholder: "Geben Sie ein Passwort ein" },
-        ]}
-        amplify-footer="Moin"
-        amplify-secondary-footer-content="1"
-        amplify-primary-footer-content="2"
-        ></AmplifySignUp>
-        <AmplifyConfirmSignUp
-        headerText="Bestätige deine Registrierung"
-        slot="confirm-sign-up"
-        formFields={[
-          { type: "username", label: "Email *", placeholder: "Geben Ihre gültige Email ein" },
-          { type: "code", label: "Bestätigungs-Code *", placeholder: "Geben Sie Ihren Bestätigungscode ein" },
-        ]}
-        footer="Moin"
-        secondary-footer-content="1"
-        primary-footer-content="2"
-        >
-        </AmplifyConfirmSignUp>
-      </AmplifyAuthenticator>
+      <Authenticator hideDefault={true}>
+        <Switch>
+          {getRoutes(authroutes)}
+          <Redirect from="*" to="/auth" />
+        </Switch>
+      </Authenticator>
   )}
     </>
     )
 }
 
-export default Auth;
+export default AuthUI;

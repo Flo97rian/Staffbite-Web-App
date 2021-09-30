@@ -15,8 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // reactstrap components
 import {
   DropdownMenu,
@@ -26,13 +26,86 @@ import {
   Navbar,
   Nav,
   Container,
+  NavItem,
+  NavLink,
   Media,
+  NavbarBrand,
 } from "reactstrap";
 import { useSelector } from "react-redux";
 import store from "../../store";
+import { Auth } from 'aws-amplify';
 import { getAdmin } from "../../store/middleware/FetchAdmin"
+import {adminroutes} from "../../routes"
 
 const AdminNavbar = (props) => {
+  const [collapseOpen, setCollapseOpen] = useState();
+
+  // verifies if routeName is the one active (in browser input)
+  const activeRoute = (routeName) => {
+    console.log(props.location.pathname.indexOf(routeName))
+    return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+  };
+  // toggles collapse between opened and closed (true/false)
+  const toggleCollapse = () => {
+    setCollapseOpen((data) => !data);
+  };
+  // closes the collapse
+  const closeCollapse = () => {
+    setCollapseOpen(false);
+  };
+  const createLinks = (routes) => {
+    return routes.map((prop, key) => {
+      return (
+        <NavItem key={key}
+        className="mr-4">
+          <NavLink
+            to={prop.layout + prop.path}
+            tag={NavLinkRRD}
+            onClick={closeCollapse}
+            activeClassName={"active"}
+          >
+            {activeRoute(prop.layout + prop.path) === "active" ?
+            <p className="text-primary mt-2 mb-0">
+              <i
+              className={prop.icon + " " + prop.style + " " + "mr-2 text-primary"}
+              />
+              {prop.name}
+              </p>
+            :
+            <p className="text-muted mt-2 mb-0">
+              <i
+              className={prop.icon + " " + "mr-2 text-muted"}
+              />
+              {prop.name}
+              </p>
+          }
+          </NavLink>
+        </NavItem>
+      );
+    });
+  };
+
+  const { bgColor, routes, logo } = props;
+  let navbarBrandProps;
+  if (logo && logo.innerLink) {
+    navbarBrandProps = {
+      to: logo.innerLink,
+      tag: Link,
+    };
+  } else if (logo && logo.outterLink) {
+    navbarBrandProps = {
+      href: logo.outterLink,
+      target: "_blank",
+    };
+  }
+
+async function signOut() {
+    try {
+        await Auth.signOut();
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+}
 
     const selectUser = state => state.DB.user
 
@@ -44,26 +117,27 @@ const AdminNavbar = (props) => {
 
       return (
     <>
-      <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
+      <Navbar className="navbar-top bg-white fixed-top mr-2 shadow" expand="md" id="navbar-main" sticky="top">
         <Container fluid>
-          <Link
-            className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            to="/"
-          >
-            {props.brandText}
-          </Link>
-          <Nav className="align-items-center d-none d-md-flex" navbar>
+         {logo ? (
+          <NavbarBrand className="pt-0" {...navbarBrandProps}>
+            <img
+              alt={logo.imgAlt}
+              className="navbar-brand-img"
+              height="40px"
+              src={logo.imgSrc}
+            />
+          </NavbarBrand>
+        ) : null}
+          <Nav navbar>{createLinks(adminroutes)}</Nav>
+          <Nav className="align-items-center text-primary d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
-                <Media className="align-items-center">
-                  <span className="fa fa-user-circle">
-                  </span>
-                  <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">
-                    {User ? <>{User.Item.name["S"]}</>: <></>}
-                    </span>
-                  </Media>
-                </Media>
+              <p className="text-muted mt-2 mb-0">
+              <i className="fa fa-user-circle text-muted mr-2"
+              />
+              {User?.Item?.name ? <>{User.Item.name["S"]}</> : <></>}
+              </p>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
                 <DropdownItem className="noti-title" header tag="div">
@@ -78,7 +152,7 @@ const AdminNavbar = (props) => {
                   <span>Einstellungen</span>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                <DropdownItem href="/auth" onClick={() => signOut()}>
                   <i className="ni ni-user-run" />
                   <span>Ausloggen</span>
                 </DropdownItem>

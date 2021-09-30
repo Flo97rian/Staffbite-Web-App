@@ -3,23 +3,24 @@ import Form from 'react-bootstrap/Form';
 
 export default class FormNames extends React.PureComponent {
     typeofnames(names) {
-        console.log(names)
-        if (Object.keys(names).length === 1) {
-            let obj = Object.keys(names)[0]
+        if (Object.keys(names).length === 0) {
             return(
-                 <option value={0}>{names[obj]}</option>
+                <p>Leer</p>
+        )} else if (Object.keys(names).length === 1){
+            return(
+                <p>{names[Object.keys(names)[0]]}</p>
         )} else {
             let keys = Object.keys(names)
-            console.log(keys)
-            return( keys.map((item, index) => <option value={item}>{names[item]}</option>
-        ))}
+            return(
+                <Form.Control as="select">
+                    {keys.map((item, index) => <option value={item}>{names[item]}</option>)}
+                </Form.Control>
+        )}
     }
     render() {
         return(
             <>
-            <Form.Control as="select">
                  {this.typeofnames(this.props.names)}
-            </Form.Control>
             </>
         )
     }
