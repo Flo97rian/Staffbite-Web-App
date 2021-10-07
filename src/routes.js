@@ -21,7 +21,6 @@ import AdminDashboard from "./views/MainViews/Admin/Dashboard.js";
 import UserDashboard from "./views/MainViews/User/Dashboard.js";
 import Einstellungen from "./views/MainViews/Admin/Einstellungen";
 import MitarbeiterVerwalten from "./views/MainViews/Admin/MitarbeiterVerwalten";
-import SchichtplanContainerTest from "./components/Admin/test/SchichtplanContainerTest"
 import Schichtplan from "./views/MainViews/Admin/Schichtplan";
 import SchichtplanBewerben from "./views/MainViews/User/SchichtplanBewerben.js";
 import UserProfil from "./views/MainViews/User/UserProfil.js";
@@ -99,15 +98,7 @@ var adminroutes = [
     style: "text-primary",
     component: Einstellungen,
     layout: "/admin",
-  },
-  //{
-    //path: "/test",
-    //name: "Test",
-    //icon: "ni ni-settings",
-    //style: "text-blue",
-    //component: SchichtplanContainerTest,
-    //layout: "/admin",
-  //}
+  }
 ];
 
 export {authroutes, adminroutes, userroutes};

@@ -8,7 +8,7 @@ import {
 }
 from "reactstrap";
 // core components
-import NewTableDnD from "../../../Application/functionalComponents/NewPlanTableDragAndDrop";
+import TableDnD from "./SchichtplanDnDNeu";
 
 const NeuerSchichtplanTabelle = (props) => {
         return (
@@ -21,9 +21,9 @@ const NeuerSchichtplanTabelle = (props) => {
             </Row>
             <br/>
                 <Row className="text-center" noGutters={true}>
-                    <NewTableDnD
+                    <TableDnD
                     {...props}
-                    ></NewTableDnD>
+                    ></TableDnD>
                 </Row>
                 </>
         );

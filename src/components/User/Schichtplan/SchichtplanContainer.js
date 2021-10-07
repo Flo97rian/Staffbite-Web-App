@@ -3,7 +3,7 @@ import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansFo
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 import { getUser } from "../../../store/middleware/FetchUser";
 import { thunkUploadApplication } from "../../../store/middleware/UploadApplication";
-import { ButtonZurueck } from "../../Admin/SchichtplanVerwalten/FormElements/ButtonZurueck";
+import ButtonZurueck from "../../Admin/Schichtplan/FormElements/ButtonZurueck"
 import { thunkDeleteApplication } from "../../../store/middleware/DeleteApplication";
 import { useSelector } from "react-redux";
 import 'moment/locale/de';

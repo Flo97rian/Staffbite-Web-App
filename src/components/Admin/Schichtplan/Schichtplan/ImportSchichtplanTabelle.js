@@ -8,13 +8,11 @@ import {
 }
 from "reactstrap";
 // core components
-import { SchichtplanElement } from "../SchichtplanElement/SchichtplanElementEntwurf";
-import PlanId from "../../SchichtplanVerwalten/FormElements/PlanId";
+import PlanId from "../FormElements/PlanId"
 import SchichtplanDnDEntwurf from "./SchichtplanDnDEntwurf"
 import SchichtplanDnDFreigegeben from "./SchichtplanDnDFreigegeben"
 import SchichtplanDnDReview from "./SchichtplanDnDReview"
 import SchichtplanDnDVeröffentlicht from "./SchichtplanDnDVeröffentlicht"
-import TableDnD from "../../../Application/functionalComponents/TableDragAndDrop";
 
 const  ImportSchichtplanTabelle = (props) => {
     const id = props.plaene[props.plan].id

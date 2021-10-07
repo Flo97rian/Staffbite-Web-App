@@ -57,3 +57,5 @@ export const SchichtplanElementNeu = (props) => {
         </>
         );
     }
+
+export default SchichtplanElementNeu;
