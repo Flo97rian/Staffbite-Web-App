@@ -42,7 +42,6 @@ const AdminNavbar = (props) => {
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
-    console.log(props.location.pathname.indexOf(routeName))
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
   // toggles collapse between opened and closed (true/false)
@@ -111,6 +110,7 @@ async function signOut() {
 
     const User = useSelector(selectUser);
       // Initiales laden der aktuellen Users
+      
   useEffect(() => {
     store.dispatch(getAdmin)
   }, []);

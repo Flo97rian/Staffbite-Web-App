@@ -14,13 +14,13 @@ export default class Switch extends React.PureComponent {
                     <>
                         <InfoOverlay infotitle={this.props.label} description={this.props.description}/>
                         <Form>
-                        <Form.Check custom type="switch" defaultChecked={this.props.value} name={this.props.name} id={this.props.name} onChange={this.props.onChange}></Form.Check>
+                        <Form.Check custom type="switch" size="lg" defaultChecked={this.props.value} name={this.props.name} id={this.props.name} onChange={this.props.onChange}></Form.Check>
                         </Form>
                     </>
                     : 
                     <>
                         <Form>
-                            <Form.Check custom type="switch" defaultChecked={this.props.value} name={this.props.name} id={this.props.name} onChange={this.props.onChange}></Form.Check>
+                            <Form.Check custom type="switch" size="lg" defaultChecked={this.props.value} name={this.props.name} id={this.props.name} onChange={this.props.onChange}></Form.Check>
                         </Form>
                     </>
                     }              

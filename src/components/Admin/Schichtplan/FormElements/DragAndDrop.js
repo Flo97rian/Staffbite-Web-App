@@ -165,7 +165,6 @@ const DragAndDrop = React.forwardRef((props, ref) => {
       newState[sInd] = moved[0][sInd];
       newState[dInd] = moved[0][dInd];
       setState(newState);
-      console.log(newState)
     }
   }
 

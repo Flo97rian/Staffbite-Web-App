@@ -30,8 +30,6 @@ export const SchichtplanElementNeu = (props) => {
         let index = props.index;
         let currentItem = props.currentItem[col]
         let anzahl = props.anzahl
-        console.log(e)
-        console.log(currentItem)
         let hasFree = typeof currentItem === "object" && Object.keys(currentItem).includes("frei")
         let isFree = hasFree && currentItem.frei ? !0 : !1
         const hasShiftName = Object.keys(currentItem).includes("ShiftName") && currentItem.ShiftName !== undefined? !0 : !1

@@ -12,7 +12,6 @@ const SchichtBearbeiten = (props) => {
     const currentPlan = props.plan
     const row = Number(props.shiftSlot.row)
     const newplan = props.Schichtplan
-    console.log(Plans, currentPlan, row, newplan)
     const ShiftName = props.name
     const ShiftStart = props.start
     const ShiftEnde = props.ende

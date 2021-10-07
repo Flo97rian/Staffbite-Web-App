@@ -32,8 +32,6 @@ const SchichtplanImport = (props) => {
 
         return(
           <>
-          {props.bearbeiten ? <></> :
-            <>
               <Card className="mb-1 mt-0">
               <CardBody className="p-1">
               <Row className="text-center">
@@ -55,18 +53,19 @@ const SchichtplanImport = (props) => {
                   </Row>
               </CardBody>
           </Card>
-          {props.plaene ? props.plaene.map((item, index) => ID(props.status, item) ? 
-            (<Card className="mb-1 mt-0">
+          {props.plaene.map((item, index) => { 
+            if (ID(props.status, item)) {
+            return (<Card className="mb-1 mt-0" key={item.id} id={index}>
               <CardBody className="p-1">
                 <Row className="text-center">
                     <Col xs={3}>
                         <p className="mt-3">{item.name}</p>
                     </Col>
                     <Col xs={3}>
-                        <p className="mt-3"> <i class="fa fa-calendar mr-2" aria-hidden="true"></i>{item.zeitraum.split(" - ")[0]} - {item.zeitraum.split(" - ")[1]}</p>
+                        <p className="mt-3"><i className="fa fa-calendar mr-2"></i>{item.zeitraum.split(" - ")[0]} - {item.zeitraum.split(" - ")[1]}</p>
                     </Col>
                     <Col xs={2}>
-                        <p className="mt-3">{planIdColor(item.id)}</p>
+                        {planIdColor(item.id)}
                     </Col>
                     <Col xs={2}>
                       <Button className="mt-2" name={item.label} outline color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
@@ -76,16 +75,9 @@ const SchichtplanImport = (props) => {
                     </Col>
                     </Row>
               </CardBody>
-            </Card>
-          )
-          :
-          (<></>)
-          ) 
-          : 
-          <></>
-          }
-          </>
-        }
+            </Card>)}
+          return null
+          })}
         </>
         )
     }

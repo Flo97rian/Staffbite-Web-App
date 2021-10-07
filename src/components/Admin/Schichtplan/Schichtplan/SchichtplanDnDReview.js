@@ -108,7 +108,7 @@ const SchichtplanDnDReview = (props) => {
             >
               <tbody>
                 {Items.map((item, index) => ( item.id !== "0" && item.id !== "1" && item.id !== String(Items.length - 1) ?
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                  <Draggable key={index} draggableId={item.id} index={index}>
                      {(provided, snapshot) => (
                       <tr>
                         <td color="primary"

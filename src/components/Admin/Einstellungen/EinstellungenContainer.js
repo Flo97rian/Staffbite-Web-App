@@ -40,7 +40,6 @@ const EinstellungenContainer = () => {
   // Handling von Userinputs
   const handleInputChange = (event) => {
     let key = event.target.name;
-    console.log()
     let val = stateSwitch(event.target.value, event);
     setMeta({...meta, [key]: val })
   }
@@ -62,23 +61,19 @@ const EinstellungenContainer = () => {
     }
         return(
       <>
-      <Row>
-          <div className="col">
-                  { !Meta ? 
-                  <Row className="text-center mt-2">
-                    <Col className="mt-2" xs={12}>
-                      <Spinner animation="grow" variant="light"/>
-                    </Col>
-                  </Row>
-                  : 
-                    <Navs
-                    onChange={handleInputChange}
-                    onClick={handleUpdateProfile}
-                    org={Meta}
-                    ></Navs>
-                  }
-          </div>
-        </Row>
+      { !Meta ? 
+      <Row className="text-center mt-2">
+        <Col className="mt-2" xs={12}>
+          <Spinner animation="grow" variant="light"/>
+        </Col>
+      </Row>
+      : 
+        <Navs
+        onChange={handleInputChange}
+        onClick={handleUpdateProfile}
+        org={Meta}
+        ></Navs>
+      }
     </>
             );
         }

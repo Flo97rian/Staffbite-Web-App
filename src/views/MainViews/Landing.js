@@ -41,7 +41,7 @@ import {
 
 
 // core components
-import CardsFooter from "../../components/Footers/CardsFooter.js";
+import LandingFooter from "../../components/Footers/LandingFooter.js";
 
 
 class Landing extends React.Component {
@@ -54,14 +54,19 @@ class Landing extends React.Component {
   render() {
     return (
       <>
-        <main ref="main">
+        <main ref="main" className="mt-5">
           <div className="position-relative">
             {/* shape Hero */}
             <section className="section section-lg section-hero section-shaped pb-250" style={{background: "linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%)"}}>
-            <LandingNavBar></LandingNavBar>
+            <LandingNavBar
+              logo={{
+                innerLink: "/",
+                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
+                imgAlt: "...",
+                }}/>
               <Container className="py-lg-md d-flex">
                 <div className="col px-0">
-                  <Row>
+                  <Row className="mt-4">
                     <Col lg="6">
                       <h1 className="display-3 text-white">
                       Müde vom stundenlangen Schichtplan puzzeln?{" "}
@@ -83,7 +88,7 @@ class Landing extends React.Component {
                   y="0"
                 >
                   <polygon
-                    className="fill-white"
+                    className="fill-secondary"
                     points="2560 0 2560 100 0 100"
                   />
                 </svg>
@@ -168,10 +173,7 @@ class Landing extends React.Component {
               </Row>
             </Container>
           </section>
-          <br />
-          <br />
-          <br />
-          <section className="section section-lg" id={"sectionloesung"}>
+          <section className="section section-lg mt-8" id={"sectionloesung"}>
             <Container>
             <h2 className="display-3">Unsere Softwarelösung</h2>
                   <br />
@@ -189,7 +191,7 @@ class Landing extends React.Component {
                       <i className="ni ni-laptop" />
                     </div>
                     <h3>Für die Personalplaner:innen</h3>
-                    <p>
+                    <p className="lead">
                     Bei uns stehen Sie als Kunde im Mittelpunkt. Wir möchten, dass Sie eine einfache und übersichtliche Benutzeroberfläche erhalten. Ihre Wünsche und Vorstellungen sind dabei essenziell. Wir entwickeln die Benutzeroberfläche gemeinsam mit Personalplanern im Kieler Umland, um jene Funktionalität abzubilden, welche Woche für Woche auch tatsächlich benötigt wird.
                     </p>
                   </div>
@@ -198,7 +200,7 @@ class Landing extends React.Component {
             </Container>
           </section>
           <br />
-          <section className="section bg-secondary">
+          <section className="section bg-secondary mt-8">
             <Container>
               <Row className="row-grid align-items-center">
                 <Col md="6">
@@ -224,12 +226,9 @@ class Landing extends React.Component {
               </Row>
             </Container>
           </section>
-          <br />
-          <br />
-          <section className="section section-lg" >
-            <br />
-            <Container>
-              <Row className="justify-content-center text-center mb-lg">
+          <section className="section section-lg mt-6" id={"aboutus"}>
+            <Container className="mt-6 mb-6">
+              <Row className="justify-content-center text-center mb-lg mb-4 mt6">
                 <Col lg="8">
                   <h2 className="display-3">Über uns</h2>
                 </Col>
@@ -245,8 +244,8 @@ class Landing extends React.Component {
                     />
                     <div className="pt-4 text-center">
                       <h5 className="title">
-                        <span className="d-block mb-1">Daniel Zellmann</span>
-                        <small className="h6 text-muted">Masterstudent Business Management</small>
+                        <h3 className="d-block mb-1">Daniel Zellmann</h3>
+                        <small className="h6 lead">Masterstudent Business Management</small>
                       </h5>
                     </div>
                   </div>
@@ -261,8 +260,8 @@ class Landing extends React.Component {
                     />
                     <div className="pt-4 text-center">
                       <h5 className="title">
-                        <span className="d-block mb-1">Florian Zellmann</span>
-                        <small className="h6 text-muted">
+                        <h3 className="d-block mb-1">Florian Zellmann</h3>
+                        <small className="h6 lead">
                           Bachelorstudent BWL
                         </small>
                       </h5>
@@ -272,14 +271,13 @@ class Landing extends React.Component {
               </Row>
             </Container>
           </section>
-          <br />
-          <section className="section section-lg bg-gradient-default">
+          <section className="section section-lg bg-secondary mb-2 mt-2">
             <br />
             <Container className="pt-lg pb-300">
               <Row className="text-center justify-content-center">
                 <Col lg="10">
-                  <h2 className="display-3 text-white">Unsere Partner</h2>
-                  <p className="lead text-white">
+                  <h2 className="display-3">Unsere Partner</h2>
+                  <p className="lead">
                     Interessierte Unternehmen
                   </p>
                 </Col>
@@ -289,8 +287,8 @@ class Landing extends React.Component {
                   <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
                     <i className="ni ni-shop text-primary" />
                   </div>
-                  <h5 className="text-white mt-3">1</h5>
-                  <p className="text-white mt-3">
+                  <h5 className="lead mt-3">3</h5>
+                  <p className="lead mt-3">
                     Restaurant
                   </p>
                 </Col>
@@ -298,8 +296,8 @@ class Landing extends React.Component {
                   <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
                     <i className="ni ni-shop text-primary" />
                   </div>
-                  <h5 className="text-white mt-3">1</h5>
-                  <p className="text-white mt-3">
+                  <h5 className="lead mt-3">1</h5>
+                  <p className="lead mt-3">
                     Café
                   </p>
                 </Col>
@@ -307,8 +305,8 @@ class Landing extends React.Component {
                   <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
                     <i className="ni ni-bag-17  text-primary" />
                   </div>
-                  <h5 className="text-white mt-3">1</h5>
-                  <p className="text-white mt-3">
+                  <h5 className="lead mt-3">1</h5>
+                  <p className="lead mt-3">
                     Einzelhändler
                   </p>
                 </Col>
@@ -316,12 +314,11 @@ class Landing extends React.Component {
             </Container>
             {/* SVG separator */}
           </section>
-          <br />
-          <section className="section section-lg pt-lg-0 section-contact-us" id={"sectionkontakt"}>
-            <Container>
-              <Row className="justify-content-center mt--300">
+          <section className="section section-lg pt-lg-0 section-contact-us mt-4 mb-4" id={"sectionkontakt"}>
+            <Container className="mt-4 mb-4">
+              <Row className="justify-content-center mt--300 mb-4 mt-4">
                 <Col lg="8">
-                  <Card className="bg-gradient-secondary shadow">
+                  <Card className="bg-white shadow mb-4 mt-4">
                     <CardBody className="p-lg-5">
                       <h4 className="mb-1">Du hast noch Fragen?</h4>
                       <br />
@@ -341,7 +338,7 @@ class Landing extends React.Component {
             </Container>
           </section>
         </main>
-        <CardsFooter />
+        <LandingFooter/>
       </>
     );
   }

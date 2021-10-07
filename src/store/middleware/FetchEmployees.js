@@ -29,6 +29,5 @@ import _ from "lodash";
             position: item.position["S"]
         };
     });
-        console.log(employees)
         dispatch({type: "All/Employees", payload: employees})
       };

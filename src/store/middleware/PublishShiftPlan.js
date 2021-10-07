@@ -14,7 +14,6 @@ export function thunkPublishShiftPlan(plan) {
             body: shiftplan
         };
         const response = await API.post(apiName, path, myInit)
-        console.log("response", response)
         dispatch(FetchFromDB)
     }
 }

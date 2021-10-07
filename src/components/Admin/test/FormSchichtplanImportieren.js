@@ -38,11 +38,11 @@ const FormSchichtplanImportieren = (props) => {
       {props.plaene ? props.plaene.map((item, index) => (
         <tr>
           <td><p>{item.name}</p></td>
-          <td><p> <i class="fa fa-calendar mr-2" aria-hidden="true"></i>{item.zeitraum.split(" - ")[0]} - {item.zeitraum.split(" - ")[1]}</p></td>
+          <td><p> <i className="fa fa-calendar mr-2" aria-hidden="true"></i>{item.zeitraum.split(" - ")[0]} - {item.zeitraum.split(" - ")[1]}</p></td>
           <td>{planIdColor(item.id)}</td>
           <td>
             <Button name={item.label} outline color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
-            <i class="fa fa-trash fa-2x text-danger" aria-hidden="true" onClick={() => props.onDelete(index)}></i>
+            <i className="fa fa-trash fa-2x text-danger" aria-hidden="true" onClick={() => props.onDelete(index)}></i>
           </td>
         </tr>
         )) : <></>}

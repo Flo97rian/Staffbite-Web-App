@@ -52,9 +52,9 @@ const SchichtplanElementReview = (props) => {
         }  else if (isFree && hasApplicants && ApplicantsLength === 2 && !isDiscribeWeekDay) {
             return TwoSetApplicantsWithoutPrio(index, col, FirstApplicant, SecondApplicant, setApplicant)
         } else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay && hasPrio) {
-            return MultiSetApplicantsWithPrio(obj, index, col, ApplicantsLength, FirstApplicant, setApplicant)
+            return MultiSetApplicantsWithPrio(index, col, ApplicantsLength, FirstApplicant, setApplicant)
         }  else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay) {
-            return MultiSetApplicantsWithoutPrio(obj, index, col, ApplicantsLength, FirstApplicant, setApplicant)
+            return MultiSetApplicantsWithoutPrio(index, col, ApplicantsLength, FirstApplicant, setApplicant)
         } else if (!isFree && !isDiscribeWeekDay) {
             return CompanyClosed()
         } else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay && hasPrio) {

@@ -59,7 +59,6 @@ const TableContainer = () => {
     let NoLeftNextShiftPlan = currentShiftPlan - 1 < 0 ? !0 : !1 
     let NoRightNextShiftPlan = currentShiftPlan + 1 >= Plans.length ? !0 : !1 
     setActivePlanIndex({...ActivePlanIndex, left: NoLeftNextShiftPlan, right: NoRightNextShiftPlan})
-    console.log(ActivePlanIndex)
     }
   }, [currentShiftPlan]);
 

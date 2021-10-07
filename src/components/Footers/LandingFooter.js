@@ -1,12 +1,12 @@
 /*!
 
 =========================================================
-* Argon Dashboard React - v1.2.0
+* Argon Design System React - v1.1.0
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
+* Product Page: https://www.creative-tim.com/product/argon-design-system-react
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
 
 * Coded by Creative Tim
 
@@ -17,20 +17,21 @@
 */
 /*eslint-disable*/
 import React from "react";
+import { Link } from "react-router-dom";
+import landing from "../../assets/img/theme/landing.jpg";
+import profile from "../../assets/img/theme/profile.jpg";
+// reactstrap components
 import {
-  Navbar,
   NavItem,
   NavLink,
   Nav,
+  Navbar,
   Container,
-  Row,
-   Col
 } from "reactstrap";
-
-const AuthFooter = () => {
-  return (
-    <>
-      <Navbar className="navbar-bottom bg-white mt-6 fixed-bottom" expand="md" sticky="bottom">
+const LandingFooter = () => {
+    return (
+      <>
+      <Navbar className="navbar-bottom bg-white mt-6 pb-4" expand="md">
       <Container fluid>
          <Nav className="ml-2" navbar>
                 <NavItem>
@@ -64,8 +65,8 @@ const AuthFooter = () => {
             </Nav>
         </Container>
       </Navbar>
-    </>
-  );
-};
+      </>
+    );
+  }
 
-export default AuthFooter;
+export default LandingFooter;

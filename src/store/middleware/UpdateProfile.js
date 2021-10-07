@@ -3,7 +3,6 @@ import { FetchOrg } from "./FetchOrg";
 
 export function thunkUpdateProfile(profile) {
   return async function updateProfile(dispatch, getState) {
-    console.log(profile)
     const apiName = 'api00f496d2'; // replace this with your api name.
     const path = '/organisation/profile'; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL

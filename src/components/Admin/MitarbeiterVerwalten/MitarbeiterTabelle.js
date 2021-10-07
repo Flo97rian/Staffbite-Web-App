@@ -52,7 +52,7 @@ const MitarbeiterTabelle = (props) => {
                         </CardBody>
                     </Card>
                         { Object.keys(employees).map((ma, index) => (
-                                <div key={ma.id}  onClick={() => {store.dispatch({type: "OPEN", payload: ma})}}>
+                                <div key={index}  onClick={() => {store.dispatch({type: "OPEN", payload: ma})}}>
                                    <MitarbeiterListeItem 
                                    {...props}
                                    key= {ma}
@@ -72,7 +72,7 @@ const MitarbeiterTabelle = (props) => {
                                    ></MitarbeiterListeItem>
                                </div>
                                ))}
-                        </>
+                    </>
                   :
                         <>
                         <Card className="mb-1 mt-0">
@@ -100,7 +100,7 @@ const MitarbeiterTabelle = (props) => {
                         </CardBody>
                     </Card>
                             { Object.keys(employees).map((ma, index) => (
-                                  <div key={ma.id}  onClick={() => {store.dispatch({type: "OPEN", payload: ma})}}>
+                                  <div key={index}  onClick={() => {store.dispatch({type: "OPEN", payload: ma})}}>
                                      <MitarbeiterListeStandard 
                                      {...props}
                                      key= {ma}

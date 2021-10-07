@@ -9,7 +9,6 @@ import UserPlanId from "./UserPlanId";
 
 const InputButton = (props) => {
     const selectButton = (label) => {
-        console.log(label)
         if (label[1] === "Freigeben") {
             return <Button name={props.label} outline color="success" onClick={() => setCurrentShiftPlan(props.id)}> Zur Bewerbung</Button>
         } else {

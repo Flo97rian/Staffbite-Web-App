@@ -11,7 +11,6 @@ import ImportSchichtplanTabelle from "./ImportSchichtplanTabelle";
 
 export default class SchichtplanAuswahl extends React.Component {
     filter(a, b) {
-        console.log(a,b,"true")
         if (a === !0 && b === !0) {
             return( <ImportSchichtplanTabelle {...this.props}></ImportSchichtplanTabelle>)
         } else if (a === !0 && b === !1) {

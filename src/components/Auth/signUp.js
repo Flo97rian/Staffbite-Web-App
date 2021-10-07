@@ -31,13 +31,12 @@ import {
   InputGroup,
   Container,
   Row,
-  Col,
-  CardFooter
+  Col
 } from "reactstrap";
 
 // core components
-import DemoNavbar from "../Navbars/DemoNavbar";
-import SimpleFooter from "../Footers/SimpleFooter.js";
+import AuthNavbar from "../Navbars/AuthNavbar"
+import AuthFooter from "../Footers/AuthFooter"
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect, Link } from "react-router-dom";
@@ -52,13 +51,11 @@ const SignUp = () => {
 
 async function signUp() {
     try {
-        console.log(username, password)
         const { user } = await Auth.signUp({
             username,
             password,
         });
         setUser(user)
-        console.log(user)
     } catch (error) {
         console.log('error signing up:', error);
     }
@@ -69,7 +66,6 @@ async function confirmSignUp() {
       await Auth.confirmSignUp(username, code);
       setTenant(!0)
     } catch (error) {
-        console.log('error confirming sign up', error);
     }
 }
     useEffect(() => {
@@ -79,7 +75,6 @@ async function confirmSignUp() {
                     setUser(authData);
                   });
             }
-        console.log(authState, user)
         return onAuthUIStateChange((nextAuthState, authData) => {
             setAuthState(nextAuthState);
             setUser(authData)
@@ -90,8 +85,6 @@ async function confirmSignUp() {
      }, [user]);
 
      useEffect(() => {
-         console.log(authState)
-
     }, [authState]);
 
     const handleInputChange = (event) => {
@@ -104,7 +97,6 @@ async function confirmSignUp() {
         } else if ( key === "code") {
             setCode(val)
         }
-        console.log(key, val)
       }
 
     return (
@@ -113,14 +105,19 @@ async function confirmSignUp() {
         (
         tenant ? <Switch><Redirect from="*" to="/auth" /></Switch> :
             <>
-            <DemoNavbar />
-            <main className="bg-white">
+            <AuthNavbar 
+                logo={{
+                innerLink: "/",
+                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
+                imgAlt: "...",
+                }}/>
+            <main className="bg-secondary">
             <section className="section section-shaped section-lg">
                 <Container className="pt-lg-7">
                 <Row className="justify-content-center">
                     <Col lg="5">
-                    <Card className="bg-secondary shadow border-0 mb-4">
-                        <CardHeader className="bg-secondary pb-2">
+                    <Card className="bg-white shadow border-0 mb-4">
+                        <CardHeader className="bg-white pb-2">
                         <div className="text-muted text-center pt-4">
                             <h3>Bestätigungscode eingeben</h3>
                         </div>
@@ -162,19 +159,24 @@ async function confirmSignUp() {
                 </Container>
             </section>
             </main>
-            <SimpleFooter/>
+            <AuthFooter/>
             </>
         ) 
         :
             <>
-            <DemoNavbar />
-            <main className="bg-white">
+            <AuthNavbar 
+                logo={{
+                innerLink: "/",
+                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
+                imgAlt: "...",
+                }}/>
+            <main className="bg-secondary">
             <section className="section section-shaped section-lg">
                 <Container className="pt-lg-7">
                 <Row className="justify-content-center">
                     <Col lg="5">
-                    <Card className="bg-secondary shadow border-0 mb-4">
-                        <CardHeader className="bg-secondary pb-2">
+                    <Card className="bg-white shadow border-0 mb-4">
+                        <CardHeader className="bg-white pb-2">
                         <div className="text-muted text-center pt-4">
                             <h3>Registrieren</h3>
                         </div>
@@ -232,7 +234,7 @@ async function confirmSignUp() {
                 </Container>
             </section>
             </main>
-            <SimpleFooter/>
+            <AuthFooter/>
             </>
             }
         </>

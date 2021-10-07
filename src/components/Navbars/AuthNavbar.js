@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
+import { HashLink as Link } from 'react-router-hash-link';
 // reactstrap components
 import {
   UncontrolledCollapse,
@@ -30,69 +30,51 @@ import {
   Col,
 } from "reactstrap";
 
-const AdminNavbar = () => {
+const AdminNavbar = (props) => {
+
+  const { bgColor, routes, logo } = props;
+  let navbarBrandProps;
+  if (logo && logo.innerLink) {
+    navbarBrandProps = {
+      to: logo.innerLink,
+      tag: Link,
+    };
+  } else if (logo && logo.outterLink) {
+    navbarBrandProps = {
+      href: logo.outterLink,
+      target: "_blank",
+    };
+  }
   return (
     <>
-      <Navbar className="navbar-top navbar-horizontal navbar-dark" expand="md">
-        <Container className="px-4">
-          <NavbarBrand to="/" tag={Link}>
+      <Navbar className="navbar-top navbar-horizontal bg-white" expand="md" sticky>
+        <Container fluid>
+        {logo ? (
+          <NavbarBrand className="pt-0" {...navbarBrandProps}>
             <img
-              alt="..."
-              src={
-                require("../../assets/img/brand/Staffbite_Logo.png").default
-              }
+              alt={logo.imgAlt}
+              className="navbar-brand-img"
+              height="60px"
+              src={logo.imgSrc}
             />
           </NavbarBrand>
-          <button className="navbar-toggler" id="navbar-collapse-main">
-            <span className="navbar-toggler-icon" />
-          </button>
-          <UncontrolledCollapse navbar toggler="#navbar-collapse-main">
-            <div className="navbar-collapse-header d-md-none">
-              <Row>
-                <Col className="collapse-brand" xs="6">
-                  <Link to="/">
-                    <img
-                      alt="..."
-                      src={
-                        require("../../assets/img/brand/Staffbite_Logo.png")
-                          .default
-                      }
-                    />
-                  </Link>
-                </Col>
-                <Col className="collapse-close" xs="6">
-                  <button className="navbar-toggler" id="navbar-collapse-main">
-                    <span />
-                    <span />
-                  </button>
-                </Col>
-              </Row>
-            </div>
-            <Nav className="ml-auto" navbar>
+        ) : null}
+            <Nav className="ml-2 float-right" navbar>
               <NavItem>
                 <NavLink className="nav-link-icon" to="/" tag={Link}>
-                  <i className="ni ni-planet" />
-                  <span className="nav-link-inner--text">Dashboard</span>
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className="nav-link-icon" to="/auth/login" tag={Link}>
-                  <i className="ni ni-key-25" />
-                  <span className="nav-link-inner--text">Login</span>
+                  <span className="nav-link-inner--text text-muted">Home</span>
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
                   className="nav-link-icon"
-                  to="/admin/user-profile"
+                  to="/impressum"
                   tag={Link}
                 >
-                  <i className="ni ni-single-02" />
-                  <span className="nav-link-inner--text">Profile</span>
+                  <span className="nav-link-inner--text text-muted">Impressum</span>
                 </NavLink>
               </NavItem>
             </Nav>
-          </UncontrolledCollapse>
         </Container>
       </Navbar>
     </>

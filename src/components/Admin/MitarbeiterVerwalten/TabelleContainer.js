@@ -107,7 +107,16 @@ const TableContainer = (props) => {
   }
 
         return(
-        <> 
+        <>
+        { !Meta && !Employees ?
+        <Row className="text-center">
+          <br/>
+          <Col xs={12}>
+            <Spinner animation="grow" variant="light"/>
+          </Col>
+        </Row>
+        :
+        <>
         <Row>
         <Col xs={3}>
         <h3 className="float-left pt-5 font-weight-bold text-lg">Mitarbeiter:innen verwalten</h3>
@@ -139,7 +148,7 @@ const TableContainer = (props) => {
                     meta={Meta}
                     >
                     </MitarbeiterTabelle>
-    }
+                 }
             <OpenModal
             onChange={handleInputChange}
             handleUpdate={handleEmployeeUpdate}
@@ -152,6 +161,8 @@ const TableContainer = (props) => {
             handleDelete={handleDelete}
             ></OpenModal>
             </>
+          }
+        </>
         );
     }
 export default TableContainer;

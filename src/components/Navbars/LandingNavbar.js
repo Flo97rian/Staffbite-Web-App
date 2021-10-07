@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { HashLink } from 'react-router-hash-link';
 // reactstrap components
 import {
   UncontrolledCollapse,
@@ -15,116 +15,56 @@ import {
   Row,
   Col
 } from "reactstrap";
-import logo from "../../assets/img/brand/Staffbite_Logo.png";
 
-class LandingNavBar extends React.Component {
-  render() {
+const LandingNavBar = (props) =>  {
+  const { bgColor, routes, logo } = props;
+  let navbarBrandProps;
+  if (logo && logo.innerLink) {
+    navbarBrandProps = {
+      to: logo.innerLink,
+      tag: HashLink,
+    };
+  } else if (logo && logo.outterLink) {
+    navbarBrandProps = {
+      href: logo.outterLink,
+      target: "_blank",
+    };
+  }
     return (
       <>
-        {/* Navbar primary */}
-        <Navbar
-          className="navbar-horizontal navbar-dark bg-primary mt-4"
-          expand="lg"
-        >
-          <Container>
-            <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
+      <Navbar className="navbar-top navbar-horizontal fixed-top bg-white shadow" expand="md" sticky>
+        <Container fluid>
+        {logo ? (
+          <NavbarBrand className="pt-0" {...navbarBrandProps}>
             <img
-                  alt="..."
-                  src={logo}
-                  height="50px"
-                />
-            </NavbarBrand>
-            <button
-              aria-controls="navbar-primary"
-              aria-expanded={false}
-              aria-label="Toggle navigation"
-              className="navbar-toggler"
-              data-target="#navbar-primary"
-              data-toggle="collapse"
-              id="navbar-primary"
-              type="button"
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
-            <UncontrolledCollapse navbar toggler="#navbar-primary">
-              <div className="navbar-collapse-header">
-                <Row>
-                  <Col className="collapse-brand" xs="6">
-                    <Link to="/">
-                    </Link>
-                  </Col>
-                  <Col className="collapse-close" xs="6">
-                    <button
-                      aria-controls="navbar-primary"
-                      aria-expanded={false}
-                      aria-label="Toggle navigation"
-                      className="navbar-toggler"
-                      data-target="#navbar-primary"
-                      data-toggle="collapse"
-                      id="navbar-primary"
-                      type="button"
-                    >
-                      <span />
-                      <span />
-                    </button>
-                  </Col>
-                </Row>
-              </div>
-              <Nav className="ml-lg-auto" navbar>
-                <NavItem>
-                  <NavLink href="#pablo" onClick={e => e.preventDefault()}>
-                    Lösung <span className="sr-only">(current)</span>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#pablo" onClick={e => e.preventDefault()}>
-                    Team
-                  </NavLink>
-                </NavItem>
-                <UncontrolledDropdown nav>
-                  <NavLink
-                    aria-expanded={false}
-                    aria-haspopup={true}
-                    data-toggle="dropdown"
-                    href="#pablo"
-                    id="navbar-primary_dropdown_1"
-                    onClick={e => e.preventDefault()}
-                    role="button"
-                  >
-                    Kontakt
-                  </NavLink>
-                  <DropdownMenu
-                    aria-labelledby="navbar-primary_dropdown_1"
-                    right
-                  >
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Action
-                    </DropdownItem>
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Another action
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem
-                      href="#pablo"
-                      onClick={e => e.preventDefault()}
-                    >
-                      Something else here
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </Nav>
-            </UncontrolledCollapse>
-          </Container>
-        </Navbar>
+              alt={logo.imgAlt}
+              className="navbar-brand-img"
+              height="60px"
+              src={logo.imgSrc}
+            />
+          </NavbarBrand>
+        ) : null}
+            <Nav className="ml-2 float-right" navbar>
+              <NavItem>
+              <HashLink className="m-2" smooth to='/#sectionloesung' >
+                  <span className="nav-link-inner--text text-muted">Lösung</span>
+              </HashLink>
+              </NavItem>
+              <NavItem>
+                <HashLink className="m-2" smooth to='/#aboutus' >
+                  <span className="nav-link-inner--text text-muted">Team</span>
+                </HashLink>
+              </NavItem>
+              <NavItem>
+              <HashLink className="m-2" smooth to='/#sectionkontakt' >
+                  <span className="nav-link-inner--text text-muted">Impressum</span>
+                </HashLink>
+              </NavItem>
+            </Nav>
+        </Container>
+      </Navbar>
       </>
     );
   }
-}
 
 export default LandingNavBar;

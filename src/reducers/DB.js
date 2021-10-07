@@ -45,6 +45,11 @@ const DBReducer = (state = !1, action) => {
           ...state,
           meta: action.payload
         }
+        case "AlgResponse": 
+        return {
+          ...state,
+          status: action.payload
+        }
       default:
         return state
     }

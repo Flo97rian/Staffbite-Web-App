@@ -103,20 +103,12 @@ const SchichtplanContainer = () => {
   }, [currentShiftPlan]);
 
   useEffect(() => {
-    console.log("changed")
   }, [Plans]);
 
   useEffect(() => {
-    console.log("changed")
   }, [navIndex]);
 
-  //REDUX-Store Listener
-    store.subscribe(() =>
-    console.log('State after dispatch: ', store.getState())
-  )
-
   const handleNavChange = (index) => {
-    console.log(index)
     setNavIndex(index)
   }
   // Handling von Userinputs
@@ -166,7 +158,6 @@ const SchichtplanContainer = () => {
   }}
 
   const handleSetApplicant = (modal, updateApplicant) => {
-    console.log(":(", updateApplicant, ShiftSlot)
     setApplicantsInShiftPlan({Plans, currentShiftPlan, ShiftSlot, updateApplicant, modal})
   }
   // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter:innen)
@@ -230,7 +221,6 @@ const SchichtplanContainer = () => {
     let plan = Plans[currentShiftPlan]
     let currentId = plan.id
     let newId = currentId.replace(/Review/i, "Veröffentlicht");
-    console.log(plan.plan)
     plan.id = newId
     let index = currentShiftPlan
     store.dispatch(thunkDeleteShiftPlan({index, Plans}))
@@ -249,6 +239,15 @@ const SchichtplanContainer = () => {
   }
 
         return(
+        <>
+        { !Meta && !Employees && !Plans?
+        <Row className="text-center">
+          <br/>
+          <Col xs={12}>
+            <Spinner animation="grow" variant="light"/>
+          </Col>
+        </Row>
+        :
       <>
       { !ShiftPlanIsActive ?
         <Nav
@@ -275,9 +274,18 @@ const SchichtplanContainer = () => {
             trigger={Plans[currentShiftPlan].id.split("#").includes("Entwurf")}
             modal="showSchichtplanFreigeben"/>
           <ModalOpenButton
+            title="Schicht hinzufügen"
+            trigger={Plans[currentShiftPlan].id.split("#").includes("Entwurf")}
+            modal="showSchichthinzufuegen"/>
+          <ModalOpenButton
             title="Befüllung starten"
             trigger={Plans[currentShiftPlan].id.split("#").includes("Freigeben")}
             modal="showBefuellungStarten"/>
+          <ButtonUpdateShiftPlan
+            title="Schichtplan veröffentlichen"
+            trigger={Plans[currentShiftPlan].id.split("#").includes("Review")}
+            onClick={handlePublishShiftPlan}
+            />
           <ButtonUpdateShiftPlan
             title="Schichtplan veröffentlichen"
             trigger={Plans[currentShiftPlan].id.split("#").includes("Review")}
@@ -301,7 +309,7 @@ const SchichtplanContainer = () => {
       </Row>
       <Row>
           <div className="col">
-              {Plans && Meta ? <SchichtplanImport 
+              {Plans && Meta && !ShiftPlanIsActive ? <SchichtplanImport 
                 status={navIndex}
                 bearbeiten={ShiftPlanIsActive}
                 plaene={Plans}
@@ -376,6 +384,8 @@ const SchichtplanContainer = () => {
             onSaveBearbeiten={handleEditShiftDetails}
             handleSchichtBearbeiten={handleEditShiftDetails}
             ></OpenModal>
+    </>
+    }
     </>
             );
         }

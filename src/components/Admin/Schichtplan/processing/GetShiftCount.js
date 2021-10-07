@@ -4,7 +4,6 @@ export const getShiftCount = (employees, shiftplan) => {
         for (let [key, val] of Object.entries(element)) {
             if (val.setApplicants && Object.keys(val.setApplicants).length > 0) {
                 Object.keys(val.setApplicants).forEach(applicant => {
-                    console.log(employees, val.setApplicants)
                     Object.keys(employees[applicant]).includes("dummyshifts") ? employees[applicant].dummyshifts += 1 : employees[applicant].dummyshifts = 1
                 })
             }
@@ -13,7 +12,6 @@ export const getShiftCount = (employees, shiftplan) => {
 }
 
 export function refractorEmployees(employeesDB, shiftplan) {
-    console.log(employeesDB)
     let employees = {}
     for (let [key, value] of Object.entries(employeesDB)) {
         employees[key] = value

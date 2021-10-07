@@ -36,10 +36,9 @@ import {
 } from "reactstrap";
 
 // core components
-import DemoNavbar from "../Navbars/DemoNavbar";
-import SimpleFooter from "../Footers/SimpleFooter.js";
+import AuthFooter from "../Footers/AuthFooter"
+import AuthNavbar from "../Navbars/AuthNavbar"
 import { Link } from "react-router-dom";
-import { Authenticator, SignIn, SignUp, ConfirmSignUp, Greetings } from 'aws-amplify-react';
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect } from "react-router-dom";
@@ -56,14 +55,11 @@ const Login = () => {
                   Auth.currentAuthenticatedUser().then(authData => {
                     setAuthState(AuthState.SignedIn);
                     setUser(authData);
-                    console.log(authData)
                   });
             }
-        console.log(authState, user)
         return onAuthUIStateChange((nextAuthState, authData) => {
             setAuthState(nextAuthState);
             setUser(authData)
-            console.log(authData)
         });
     }, []);
 
@@ -76,26 +72,18 @@ const Login = () => {
     
     async function signIn() {
         try {
-            console.log(username, password)
             const user = await Auth.signIn(username, password);
-            console.log("neues passwort", newpassword)
-            console.log("neues passwort", !newpassword)
             if (Object.keys(user).includes("challengeName") && !newpassword) {
-                console.log("want to change", user)
                 setAuthState(AuthState.ResetPassword);
                 setUser(user);
             } else if (Object.keys(user).includes("challengeName") && newpassword !== null) {
                 changePassword(password, newpassword)
                 setAuthState();
             } else {
-                console.log(user)
                 setAuthState(AuthState.SignedIn);
                 setUser(user);
-                console.log(AuthState)
-                console.log(authState)
             }
         } catch (error) {
-            console.log('error signing in', error);
         }   
     }
 
@@ -122,25 +110,26 @@ const Login = () => {
                     newpassword,       // the new password
                 ).then(user => {
                     setUser(user);
-                    console.log(user);
                 }).catch(e => {
-                  console.log(e);
                 });
             } else {
                 // other situations
             }
         }).catch(e => {
-            console.log(e);
         });
       }
 
     const SignInAuthState = () => {
         if (authState === AuthState.ResetPassword && user) {
-            console.log("changetry")
             return (
                 <>
-                <DemoNavbar />
-                <main className="bg-white">
+                            <AuthNavbar 
+                logo={{
+                innerLink: "/",
+                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
+                imgAlt: "...",
+                }}/>
+                <main className="bg-secondary">
                 <section className="section section-shaped section-lg">
                     <Container className="pt-lg-7">
                     <Row className="justify-content-center">
@@ -205,11 +194,10 @@ const Login = () => {
                     </Container>
                 </section>
                 </main>
-                <SimpleFooter/>
+                <AuthFooter/>
                 </>
             )
         } else if (authState === AuthState.SignedIn && user) {
-            console.log("signtry")
             if (user.username === user.attributes["custom:TenantId"]) {
                 return (
                     <Switch>
@@ -223,17 +211,21 @@ const Login = () => {
                     </Switch>
                 )}
         } else {
-            console.log("standard")
             return (
                 <>
-            <DemoNavbar />
-            <main className="bg-white">
+            <AuthNavbar 
+                logo={{
+                innerLink: "/",
+                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
+                imgAlt: "...",
+                }}/>
+            <main className="bg-secondary">
             <section className="section section-shaped section-lg">
                 <Container className="pt-lg-7">
                 <Row className="justify-content-center">
                     <Col lg="5">
-                    <Card className="bg-secondary shadow border-0 mb-4">
-                        <CardHeader className="bg-secondary pb-2">
+                    <Card className="bg-white shadow border-0 mb-4">
+                        <CardHeader className="bg-white pb-2">
                         <div className="text-muted text-center pt-4">
                             <h3>Anmeldung</h3>
                         </div>
@@ -305,7 +297,7 @@ const Login = () => {
                 </Container>
             </section>
             </main>
-            <SimpleFooter/>
+            <AuthFooter/>
             </>
             )
         }

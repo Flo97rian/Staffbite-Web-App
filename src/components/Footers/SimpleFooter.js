@@ -33,7 +33,7 @@ class SimpleFooter extends React.Component {
   render() {
     return (
       <>
-<footer className="footer has-cards">
+      <footer className="footer has-cards">
           <Container className="container-lg">
           </Container>
           <Container>

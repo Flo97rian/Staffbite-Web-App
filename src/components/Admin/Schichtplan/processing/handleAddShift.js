@@ -54,9 +54,7 @@ import store from "../../../../store"
 
       const createWeekDayValues = ({daysIsActive}) => {
         let WochentagDetails = {}
-        console.log(daysIsActive)
         if(daysIsActive !== null) {
-        console.log(daysIsActive)
         const shiftname = Object.keys(daysIsActive).includes("rolle")
         const beginn = Object.keys(daysIsActive).includes("beginn")
         const ende = Object.keys(daysIsActive).includes("ende")
@@ -68,7 +66,6 @@ import store from "../../../../store"
         }} else {
           WochentagDetails["frei"] = !1
         }
-        console.log("wochentagdetails", WochentagDetails)
         return WochentagDetails
       }
 
@@ -93,7 +90,6 @@ import store from "../../../../store"
         WeekDaysDetails["Samstag"] = {frei: plans[currentShiftPlan].plan[2].Samstag.frei, anzahl: 0}
         WeekDaysDetails["Sonntag"] = {frei: plans[currentShiftPlan].plan[2].Sonntag.frei, anzahl: 0}
       }
-      console.log("WeekDateilas", WeekDaysDetails)
       return WeekDaysDetails
       }
 
@@ -101,9 +97,7 @@ import store from "../../../../store"
       let newShift = {};
       newShift["Wochentag"] = createNewWeekDayValues(daysIsActive)
       let MondayToSunday = createNewMondayToSunday({shiftplan, daysIsActive})
-      console.log(MondayToSunday)
       Object.keys(MondayToSunday).forEach(element => newShift[element] = MondayToSunday[element])
-      console.log(newShift)
       return newShift
     }
 
@@ -133,8 +127,6 @@ import store from "../../../../store"
       const hasAtLeastOneShift = shiftplan[2].Wochentag !== "Summe" ? !0 : !1;
       const anzahl = Object.keys(daysIsActive).includes("anzahl")
       if (hasAtLeastOneShift && anzahl) {
-        console.log("stage 1")
-            console.log("stage 2")
             WeekDaysDetails["Montag"] = {frei: shiftplan[2].Montag.frei, anzahl: daysIsActive.anzahl}
             WeekDaysDetails["Dienstag"] = {frei: shiftplan[2].Dienstag.frei, anzahl: daysIsActive.anzahl}
             WeekDaysDetails["Mittwoch"] = {frei: shiftplan[2].Mittwoch.frei, anzahl: daysIsActive.anzahl}
@@ -143,7 +135,6 @@ import store from "../../../../store"
             WeekDaysDetails["Samstag"] = {frei: shiftplan[2].Samstag.frei, anzahl: daysIsActive.anzahl}
             WeekDaysDetails["Sonntag"] = {frei: shiftplan[2].Sonntag.frei, anzahl: daysIsActive.anzahl}
       } else {
-        console.log("stage 3")
         WeekDaysDetails["Montag"] = {frei: !0, anzahl: 0}
         WeekDaysDetails["Dienstag"] = {frei: !0, anzahl: 0}
         WeekDaysDetails["Mittwoch"] = {frei: !0, anzahl: 0}
@@ -152,6 +143,5 @@ import store from "../../../../store"
         WeekDaysDetails["Samstag"] = {frei: !0, anzahl: 0}
         WeekDaysDetails["Sonntag"] = {frei: !0, anzahl: 0}
       }
-      console.log("stage4", WeekDaysDetails)
       return WeekDaysDetails
       }

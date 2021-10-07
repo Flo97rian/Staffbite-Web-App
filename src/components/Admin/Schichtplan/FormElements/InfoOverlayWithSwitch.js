@@ -83,7 +83,7 @@ const  InfoOverlayWithSwitch = (props) => {
     >
       <p className="mb-0">
       {infotitle}{' '}{' '}
-      <i class="fa fa-info-circle text-light"
+      <i className="fa fa-info-circle text-light"
       ref={triggerRef}
       onClick={handleClick} 
       ></i>

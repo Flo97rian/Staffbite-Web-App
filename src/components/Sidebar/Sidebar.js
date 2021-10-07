@@ -59,12 +59,10 @@ const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
-    console.log(props.location.pathname.indexOf(routeName))
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
   // toggles collapse between opened and closed (true/false)
   const toggleCollapse = () => {
-    console.log(data)
     setCollapseOpen((data) => !data);
   };
   // closes the collapse

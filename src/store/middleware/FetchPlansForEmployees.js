@@ -21,7 +21,6 @@ export async function FetchEmployeePlansFromDB(dispatch, getState) {
             };
         });
         // Add your code here
-        console.log(plans)
         dispatch({type: "All/GetPlansForEmployee", payload: plans})
         })
     }

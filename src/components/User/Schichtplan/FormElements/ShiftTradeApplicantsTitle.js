@@ -1,7 +1,6 @@
 const ApplicantTitle = (props) => {
 
     const title = (props) => {
-        console.log(props)
     const hasApplicants = Object.keys(props.item.applicants).lenght > 0
     if (hasApplicants) {
         const IncludesCurrentUser = Object.keys(props.item.applicants).includes(props.currentUser.SK["S"])

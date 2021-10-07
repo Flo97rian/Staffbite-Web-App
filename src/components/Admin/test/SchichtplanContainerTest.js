@@ -157,7 +157,7 @@ const TableContainerTest = (props) => {
                 <Col xs={4}></Col>
                 <Col xs={4} className="mb-2">
                 <ModalOpenButton
-                    class="float-right"
+                    className="float-right"
                     title="neuen Schichtplan erstellen"
                     trigger={!ShiftPlanIsActive}
                     modal="showSchichtplanErstellen"/>

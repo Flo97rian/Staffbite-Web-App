@@ -16,11 +16,12 @@ import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 import Spinner from 'react-bootstrap/Spinner'
 import store from "../../../store";
-import SchichtenTabelle from "../SchichtplanVerwalten/SchichtplanListe/SchichtplanTabelle";
+import ImportSchichtplanTabelle from "../Schichtplan/Schichtplan/ImportSchichtplanTabelle"
 
 
 const DashboardContainer = (props) => {
   const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
+  const [ShiftSwitch, setShiftSwitch] = useState(!1)
 
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
@@ -42,6 +43,9 @@ const DashboardContainer = (props) => {
     }
   }, [Plans])
 
+  const shiftChange = (plan) => {
+    setShiftSwitch(plan);
+  }
   const getShiftTradeCount = (Plans) => {
     let shiftTradeCount = 0
     Plans.forEach(plan => {
@@ -64,6 +68,14 @@ const DashboardContainer = (props) => {
         }
     })}
         return (
+          <>
+          { !Employees && !Plans ? 
+            <Row className="text-center mt-2">
+              <Col className="mt-2" xs={12}>
+                <Spinner animation="grow" variant="light"/>
+              </Col>
+            </Row>
+            : 
           <>
               <Row>
                 <Col lg="6" xl="6">
@@ -126,18 +138,23 @@ const DashboardContainer = (props) => {
               <CardBody>
                 <Row className="text-center" noGutters={true}></Row>
                 { currentShiftPlan ?
-                <SchichtenTabelle
+                <ImportSchichtplanTabelle
                   plaene={Plans}
                   plan={currentShiftPlan}
                   bearbeiten={!0}
+                  employees={Employees}
+                  onSwitch={shiftChange}
+                  import={!0}
                 >
-                </SchichtenTabelle>
+                </ImportSchichtplanTabelle>
                 :
                 <></>
                 }
                 </CardBody>
             </Card>
         </>
+      }
+      </>
 );
 }
 

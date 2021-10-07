@@ -8,10 +8,8 @@ export const setApplicantsInShiftPlan = ({Plans, currentShiftPlan, ShiftSlot, up
   }
 
   const addApllicantsToShiftPlan = ({Plans, currentShiftPlan, ShiftSlot, updateApplicant}) => {
-    console.log("wenn nicht current, dann fail? ", updateApplicant.current)
     const PlansCopy = [...Plans]
     PlansCopy[currentShiftPlan].plan[ShiftSlot.row][ShiftSlot.col].setApplicants = {}
-    console.log("was ist das ", PlansCopy)
     updateApplicant.current.forEach( applicant => {
       if (applicant.id !== "0") {
       PlansCopy[currentShiftPlan].plan[ShiftSlot.row][ShiftSlot.col].setApplicants[applicant.id.substring(1)] = applicant.content

@@ -10,7 +10,5 @@ import { API, Auth } from "aws-amplify";
           }}; 
   
         const response = await API.get(apiName, path, myInit)
-        console.log(response)
-        console.log("moin", response)
         dispatch({type: "All/GetOrgDetails", payload: response.Item})
       };
