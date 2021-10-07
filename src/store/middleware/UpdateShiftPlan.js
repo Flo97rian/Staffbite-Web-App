@@ -1,11 +1,12 @@
 import { API, Auth } from "aws-amplify";
 import { FetchFromDB } from "./FetchPlansFromDB";
+import constants from "../constants";
 
 export function thunkUpdateShiftPlan(Plans, currentShiftPlan) {
   return async function updateShiftPlan(dispatch, getState) {
     const plans = { Plans }
     const currentShiftplan = { currentShiftPlan }
-    const apiName = 'api00f496d2'; // replace this with your api name.
+    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
     const path = '/schichtplan/update'; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
         headers: {

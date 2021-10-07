@@ -2,6 +2,7 @@ import { API, Auth } from "aws-amplify";
 import { v4 as uuidv4 } from 'uuid';
 import moment from "moment";
 import { FetchFromDB } from "./FetchPlansFromDB";
+import constants from "../constants";
 
 export function thunkUploadShiftPlanToDB({daysIsActive, NewShiftPlan}) {
   return async function uploadShiftPlanToDB(dispatch, getState) {
@@ -9,7 +10,7 @@ export function thunkUploadShiftPlanToDB({daysIsActive, NewShiftPlan}) {
     const Zeitraum = moment(getState().date.start.startDate).locale("de").format("l") + " - " + moment(getState().date.ende.endDate).locale("de").format("l")
     const schichtentag = details.daysIsActive?.schichtentag ? details.daysIsActive["schichtentag"] : 0
     const plan = {NewShiftPlan}
-    const apiName = 'api00f496d2'; // replace this with your api name.
+    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
     const path = '/schichtplan/speichern'; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
         headers: {

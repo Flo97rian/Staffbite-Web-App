@@ -1,9 +1,10 @@
 import { API, Auth } from "aws-amplify";
 import { FetchEmployeePlansFromDB } from "./FetchPlansForEmployees";
+import constants from "../constants";
 
 export function thunkUpdateTradeShift(plan) {
   return async function updateTradeShift(dispatch, getState) {
-    const apiName = 'api00f496d2'; // replace this with your api name.
+    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
     const path = '/schichtplan/employee-post-trade'; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
         headers: {

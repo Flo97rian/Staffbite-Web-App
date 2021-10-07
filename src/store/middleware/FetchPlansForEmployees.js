@@ -1,7 +1,9 @@
 import _ from "lodash";
 import { Auth, API } from "aws-amplify";
+import constants from "../constants";
+
 export async function FetchEmployeePlansFromDB(dispatch, getState) {
-    const apiName = 'api00f496d2'; // replace this with your api name.
+    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
     const path = '/schichtplan/getfreigegeben'; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
         headers: {

@@ -1,9 +1,10 @@
 import { API, Auth } from "aws-amplify";
 import { FetchOrg } from "./FetchOrg";
+import constants from "../constants";
 
 export function thunkUpdateProfile(profile) {
   return async function updateProfile(dispatch, getState) {
-    const apiName = 'api00f496d2'; // replace this with your api name.
+    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
     const path = '/organisation/profile'; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
         headers: {
