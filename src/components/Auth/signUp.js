@@ -68,7 +68,7 @@ async function confirmSignUp() {
     } catch (error) {
     }
 }
-    useEffect(() => {
+    useEffect((authState) => {
        if(authState === undefined) {
                   Auth.currentAuthenticatedUser().then(authData => {
                     setAuthState(AuthState.SigningUp);

@@ -4,6 +4,14 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+type MitarbeiterMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type SchichtplanMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 export declare class Mitarbeiter {
   readonly id: string;
   readonly admin: string;
@@ -17,12 +25,16 @@ export declare class Mitarbeiter {
   readonly frei?: boolean;
   readonly erfahrung?: string;
   readonly schichtenwoche?: number;
-  constructor(init: ModelInit<Mitarbeiter>);
-  static copyOf(source: Mitarbeiter, mutator: (draft: MutableModel<Mitarbeiter>) => MutableModel<Mitarbeiter> | void): Mitarbeiter;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Mitarbeiter, MitarbeiterMetaData>);
+  static copyOf(source: Mitarbeiter, mutator: (draft: MutableModel<Mitarbeiter, MitarbeiterMetaData>) => MutableModel<Mitarbeiter, MitarbeiterMetaData> | void): Mitarbeiter;
 }
 
 export declare class Schichtplan {
   readonly id: string;
-  constructor(init: ModelInit<Schichtplan>);
-  static copyOf(source: Schichtplan, mutator: (draft: MutableModel<Schichtplan>) => MutableModel<Schichtplan> | void): Schichtplan;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Schichtplan, SchichtplanMetaData>);
+  static copyOf(source: Schichtplan, mutator: (draft: MutableModel<Schichtplan, SchichtplanMetaData>) => MutableModel<Schichtplan, SchichtplanMetaData> | void): Schichtplan;
 }

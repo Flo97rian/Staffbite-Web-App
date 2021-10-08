@@ -86,6 +86,22 @@ export const schema = {
                     "type": "Float",
                     "isRequired": false,
                     "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
                 }
             },
             "syncable": true,
@@ -106,6 +122,22 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
                 }
             },
             "syncable": true,
@@ -120,5 +152,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "eb9d08455c51f4edd7a5680dd0895525"
+    "version": "d265b703dca001c14435dc0c09e993b0"
 };
