@@ -1,7 +1,9 @@
 
 export default {
     env: {
-        name: "prod",
-        apiGatewayPath: 'api00f496d2',
+        //current api Gateway stage
+        //change it before publishing
+        name: "development",
+        apiGatewayPath: 'Staffbite-API',
     }
 };
