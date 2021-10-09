@@ -152,6 +152,18 @@ const DashboardContainer = (props) => {
                 }
                 </CardBody>
             </Card>
+            <Row>
+              <Col xs={3}>
+              <h3 className="float-left pt-5 font-weight-bold text-lg">aktuelles Reporting</h3>
+              </Col>
+              <Col xs={9}>
+              </Col>
+              </Row>
+            <Card className="shadow">
+              <CardBody>
+                <Row className="text-center" noGutters={true}></Row>
+                </CardBody>
+            </Card>
         </>
       }
       </>

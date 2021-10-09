@@ -39,9 +39,7 @@ import ButtonZurueck from "./FormElements/ButtonZurueck"
 import NeuerSchichtplanButton from "./FormElements/NeuerSchichtplanButton"
 import ButtonUpdateShiftPlan from "./FormElements/ButtonUpdateShiftPlan"
 import SetTradeShift from "../../Application/functionalComponents/setTradeShift"
-import ImportSchichtplanTabelle from "./Schichtplan/ImportSchichtplanTabelle"
 import SchichtplanImport from "./Form/SchichtplanImport"
-
 import store from "../../../store";
 
 const SchichtplanContainer = () => {

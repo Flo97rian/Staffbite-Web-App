@@ -1,21 +1,25 @@
 import { API, Auth } from "aws-amplify";
-import constants from "../constants";
 import { FetchEmployeePlansFromDB } from "./FetchPlansForEmployees";
-import { updateShiftPlan } from "../../components/User/Schichtplan/processing.js/handleDeleteApplication";
+import constants from "../constants";
 
-export function thunkDeleteApplication(Plans, ShiftSlot, currentShiftPlan, User) {
-    const currentShiftplan = {currentShiftPlan}
-  return async function deleteApplication(dispatch, getState) {
-    const plans = await updateShiftPlan(Plans, currentShiftplan.currentShiftPlan, ShiftSlot, User)
-    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
-    const path = '/schichtplan/update'; //replace this with the path you have configured on your API
-    const myInit = { // OPTIONAL
-        headers: {
-        Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,
-      },
-      body: plans[currentShiftPlan]
-    };
-    const response = await API.post(apiName, path, myInit)
-    dispatch(FetchEmployeePlansFromDB)
-    }
-  }
+export function thunkDeleteApplication({ShiftSlot, Plans, currentShiftPlan}) {
+    const plans = Plans
+    const shiftslot = ShiftSlot
+    const currentPlan = currentShiftPlan
+    return async function uploadApplication(dispatch, getState) {
+        const apiName = constants.env.apiGatewayPath; // replace this with your api name.
+        const path = '/schichtplan/delete-bewerbung'; //replace this with the path you have configured on your API
+        const myInit = { // OPTIONAL
+            headers: {
+                Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,
+        },
+        body: {
+            plan: plans[currentPlan].plan,
+            row: shiftslot.row,
+            id: plans[currentPlan].id,
+            col: shiftslot.col
+        }
+        };
+        await API.post(apiName, path, myInit)
+        dispatch(FetchEmployeePlansFromDB)
+}}

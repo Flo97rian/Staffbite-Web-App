@@ -50,7 +50,7 @@ const TableContainer = () => {
   // Initiales laden der aktuellen Users
   useEffect(() => {
     store.dispatch(FetchEmployeePlansFromDB)
-    store.dispatch(FetchEmployees)
+    //store.dispatch(FetchEmployees)
     store.dispatch(getUser)
   }, []);
 
@@ -87,7 +87,7 @@ const TableContainer = () => {
   }
 
   const handleDeleteApplication = (modal) => {
-    store.dispatch(thunkDeleteApplication(Plans, ShiftSlot, currentShiftPlan, User));
+    store.dispatch(thunkDeleteApplication({ShiftSlot, Plans, currentShiftPlan}));
     store.dispatch({type: "CLOSE", payload: modal});
   }
 
@@ -147,7 +147,7 @@ const TableContainer = () => {
             </Card>
           </div>
         </Row>
-        {currentShiftPlan && Plans[currentShiftPlan].tauschanfrage.length > 0 ?
+       {/* {currentShiftPlan && Plans[currentShiftPlan].tauschanfrage.length > 0 ?
         <Row className="mt-4">
           <div className="col">
             <Card className="shadow">
@@ -169,7 +169,7 @@ const TableContainer = () => {
         </Row>
         : 
         <></>
-        }
+        } */}
         <OpenModal
             show={Modal}
             plaene={Plans}
