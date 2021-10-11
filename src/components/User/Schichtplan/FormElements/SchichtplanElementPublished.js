@@ -5,10 +5,10 @@ import {
     DateOrWeekDayRow,
     ShiftDescription,
     CompanyClosed,
-    TradeShiftSingleSetApplicant,
-    TradeShiftMultiSetApplicant,
-    SingleSetApplicant,
-    MultiSetApplicant,
+    ShowMultipleApplicantsWithOutUser,
+    ShowSingleApplicantWithOutUser,
+    ShowSingleApplicantWithUser,
+    ShowMultipleApplicantsWithUser,
     ZeroSetApplicants,
     Default
 } from "../../../Application/functionalComponents/SchichtplanElements";
@@ -41,15 +41,15 @@ const SchichtplanElementPublished = (props) => {
             return CompanyClosed()
         } else if (!isFree && isDiscribeWeekDay){
             return ShiftDescription(obj, anzahl)
-        } else if (isFree && hasSetApplicants && ApplicantMatchesPosition && ShiftIncludesApplicant && ApplicantsLength > 1 && !isDiscribeWeekDay) {
-            return TradeShiftMultiSetApplicant(index, col, ApplicantName, ApplicantsLength, tradeShift)
-        } else if (isFree && hasSetApplicants && ApplicantMatchesPosition && ShiftIncludesApplicant && !isDiscribeWeekDay) {
-            return TradeShiftSingleSetApplicant(index, col, ApplicantName, tradeShift)
-        }else if (isFree && hasSetApplicants && ApplicantMatchesPosition && ApplicantsLength > 1 && !isDiscribeWeekDay) {
-            return MultiSetApplicant(FirstApplicant, ApplicantsLength)
-        } else if (isFree && hasSetApplicants && ApplicantMatchesPosition && !isDiscribeWeekDay) {
-            return SingleSetApplicant(FirstApplicant)
-        }  else if (isFree && !isDiscribeWeekDay) {
+        } else if (isFree && hasSetApplicants && ApplicantsLength > 1 && ShiftIncludesApplicant) {
+            return ShowMultipleApplicantsWithUser(ApplicantName, ApplicantsLength)
+        } else if (isFree && hasSetApplicants && ApplicantsLength > 1) {
+            return ShowMultipleApplicantsWithOutUser(FirstApplicant, ApplicantsLength)
+        }  else if (isFree && hasSetApplicants && ApplicantsLength === 1 && ShiftIncludesApplicant) {
+            return ShowSingleApplicantWithUser(ApplicantName)
+        }  else if (isFree && hasSetApplicants && ApplicantsLength === 1) {
+            return ShowSingleApplicantWithOutUser(FirstApplicant)
+        } else if (isFree && !isDiscribeWeekDay) {
             return Default(index, col)
         } else {
             return Default(index, col)}

@@ -21,6 +21,7 @@ import SchichtenTabelle from "../Schichtplan/SchichtenTabelle";
 const DashboardContainer = (props) => {
   const [ActivePlan, setActivePlan] = useState(!1);
   const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
+  const [userShiftCount, setUserShiftCount] = useState(0);
 
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
@@ -44,14 +45,28 @@ const DashboardContainer = (props) => {
     }
   }, [Plans])
 
+  useEffect(() => {
+    if (Plans!== undefined && currentShiftPlan !== null) {
+      getCountUsersCurrentShifts()
+    }
+  }, [currentShiftPlan])
 
+
+    const getCountUsersCurrentShifts = (count = 0) => {
+      let bewerbungen = JSON.parse(User.bewerbungen["S"])
+      let ShiftCount = bewerbungen[Plans[currentShiftPlan].zeitraum].length
+      if(ShiftCount > 0 ) {
+        count = ShiftCount
+      }
+      setUserShiftCount(count);
+    }
 
     const getThisWeeksShiftPlan = () => {
       var compareDate = moment(moment().format("L"), "DD.M.YYYY");
       Plans.forEach((plan, index) => {
         var startDate   = moment(plan.zeitraum.split(" - ")[0], "DD.MM.YYYY");
         var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
-        if (compareDate.isBetween(startDate, endDate) && plan.id.split("#").includes("Review")) {
+        if (compareDate.isBetween(startDate, endDate) && plan.id.split("#").includes("Veröffentlicht")) {
           setActivePlan(!0);
           setCurrentShiftPlan(index);
         }
@@ -61,35 +76,9 @@ const DashboardContainer = (props) => {
         }
     })}
         return (
-          <Container fluid>
-            <div className="header-body">
-              {/* Card stats */}
+          <>
               <Row>
-                <Col lg="6" xl="4">
-                  <Card className="card-stats mb-4 mb-xl-0">
-                      <CardBody>
-                      <Row>
-                        <div className="col">
-                          <CardTitle
-                            tag="h5"
-                            className="text-uppercase text-muted mb-4"
-                          >
-                            Dein Verdienst
-                          </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">
-                          {User ? User.akutellerverdienst["N"] : <></>}
-                          </span>
-                        </div>
-                        <Col className="col-auto">
-                          <div className="icon icon-shape bg-success text-white rounded-circle shadow">
-                            <i className="fas fa-users" />
-                          </div>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </Col>
-                <Col lg="6" xl="4">
+                <Col md="12"  lg="6" xl="6">
                   <Card className="card-stats mb-4 mb-xl-0">
                     <CardBody>
                       <Row>
@@ -98,10 +87,10 @@ const DashboardContainer = (props) => {
                             tag="h5"
                             className="text-uppercase text-muted mb-4"
                           >
-                            Deine Arbeitstunden
+                            Deine Bewerbungen
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                          {User ? User.akutellerverdienst["N"] : <></>}
+                          {userShiftCount ? userShiftCount : <></>}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -113,7 +102,7 @@ const DashboardContainer = (props) => {
                     </CardBody>
                   </Card>
                 </Col>
-                <Col lg="6" xl="4">
+                <Col md="12" lg="6" xl="6">
                   <Card className="card-stats mb-4 mb-xl-0">
                     <CardBody>
                       <Row>
@@ -138,13 +127,13 @@ const DashboardContainer = (props) => {
                   </Card>
                 </Col>
               </Row>
-            </div>
-            <br/>
-            <Card className="shadow">
-              <CardHeader className="bg-transparent">
-                <h3 className="mb-0">aktueller Schichtplan</h3>
-              </CardHeader>
-              <CardBody>
+            <Row >
+              <Col xs={3} className="mt-4">
+                <h3 className="float-left pt-4 font-weight-bold text-lg">aktueller Schichtplan</h3>
+              </Col>
+              <Col xs={9} className="mt-2">
+              </Col>
+            </Row>
                 <Row className="text-center" noGutters={true}></Row>
                 { ActivePlan ?
                 <SchichtenTabelle
@@ -157,9 +146,7 @@ const DashboardContainer = (props) => {
                 :
                 <></>
                 }
-                </CardBody>
-            </Card>
-          </Container>
+        </>
 );
 }
 

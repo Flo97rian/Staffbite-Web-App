@@ -19,6 +19,7 @@ import React from "react";
 // reactstrap components
 import {
   Container,
+  Row
 } from "reactstrap";
 // core components
 import Header from "../../../components/Headers/Header.js";
@@ -32,7 +33,11 @@ export default class UserProfil extends React.Component {
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
+        <Row>
+          <div className="col">
         <ProfilContainer></ProfilContainer>
+        </div>
+        </Row>
       </Container>
     </>
     );

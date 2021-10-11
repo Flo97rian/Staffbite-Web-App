@@ -71,18 +71,15 @@ const User = (props) => {
 
   return (
     <>
-      <Sidebar
-        {...props}
-        routes={userroutes}
-        logo={{
-          innerLink: "/user/index",
-          imgSrc: require("../assets/img/brand/Staffbite_Logo.png").default,
-          imgAlt: "...",
-        }}
-      />
       <div className="main-content" ref={mainContent}>
         <UserNavbar
           {...props}
+          routes={userroutes}
+          logo={{
+            innerLink: "/admin/index",
+            imgSrc: require("../assets/img/brand/Staffbite_Logo.png").default,
+            imgAlt: "...",
+          }}
           brandText={getBrandText(props.location.pathname)}
         />
         <Switch>

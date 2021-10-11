@@ -15,8 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // reactstrap components
 import {
   DropdownToggle,
@@ -25,22 +25,19 @@ import {
   UncontrolledDropdown,
   Navbar,
   Nav,
+  NavItem,
+  NavLink,
+  NavbarBrand,
   Container,
-  Media,
 } from "reactstrap";
 import { useSelector } from "react-redux";
 import store from "../../store";
 import { Auth } from 'aws-amplify';
 import { getUser } from "../../store/middleware/FetchUser";
+import { userroutes } from "../../routes";
 
 const UserNavbar = (props) => {
-  async function signOut() {
-    try {
-        await Auth.signOut();
-    } catch (error) {
-        console.log('error signing out: ', error);
-    }
-}
+  const [collapseOpen, setCollapseOpen] = useState();
 
   const selectUser = state => state.DB.user
 
@@ -49,39 +46,105 @@ const UserNavbar = (props) => {
   useEffect(() => {
     store.dispatch(getUser)
   }, []);
+  // verifies if routeName is the one active (in browser input)
+  const activeRoute = (routeName) => {
+    return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+  };
+  // toggles collapse between opened and closed (true/false)
+  const toggleCollapse = () => {
+    setCollapseOpen((data) => !data);
+  };
+  // closes the collapse
+  const closeCollapse = () => {
+    setCollapseOpen(false);
+  };
+  const createLinks = (routes) => {
+    return routes.map((prop, key) => {
+      return (
+        <NavItem key={key}
+        className="mr-4">
+          <NavLink
+            to={prop.layout + prop.path}
+            tag={NavLinkRRD}
+            onClick={closeCollapse}
+            activeClassName={"active"}
+          >
+            {activeRoute(prop.layout + prop.path) === "active" ?
+            <p className="text-primary mt-2 mb-0">
+              <i
+              className={prop.icon + " " + prop.style + " " + "mr-2 text-primary"}
+              />
+              {prop.name}
+              </p>
+            :
+            <p className="text-muted mt-2 mb-0">
+              <i
+              className={prop.icon + " " + "mr-2 text-muted"}
+              />
+              {prop.name}
+              </p>
+          }
+          </NavLink>
+        </NavItem>
+      );
+    });
+  };
+
+  const { bgColor, routes, logo } = props;
+  let navbarBrandProps;
+  if (logo && logo.innerLink) {
+    navbarBrandProps = {
+      to: logo.innerLink,
+      tag: Link,
+    };
+  } else if (logo && logo.outterLink) {
+    navbarBrandProps = {
+      href: logo.outterLink,
+      target: "_blank",
+    };
+  }
+
+async function signOut() {
+    try {
+        await Auth.signOut();
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+}
 
   return (
     <>
-      <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
+      <Navbar className="navbar-top bg-white fixed-top mr-2 shadow" expand="md" id="navbar-main" sticky="top">
         <Container fluid>
-          <Link
-            className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            to="/"
-          >
-            {props.brandText}
-          </Link>
-          <Nav className="align-items-center d-none d-md-flex" navbar>
+         {logo ? (
+          <NavbarBrand className="pt-0" {...navbarBrandProps}>
+            <img
+              alt={logo.imgAlt}
+              className="navbar-brand-img"
+              height="40px"
+              src={logo.imgSrc}
+            />
+          </NavbarBrand>
+        ) : null}
+          <Nav navbar>{createLinks(userroutes)}</Nav>
+          <Nav className="align-items-center text-primary d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
-                <Media className="align-items-center">
-                  <span className="avatar avatar-sm ni ni-single-02">
-                  </span>
-                  <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">
-                      {User ? <>{User.name["S"]}</>: <></>}
-                    </span>
-                  </Media>
-                </Media>
+              <p className="text-muted mt-2 mb-0">
+              <i className="fa fa-user-circle text-muted mr-2"
+              />
+              {User?.name ? <>{User.name["S"]}</> : <></>}
+              </p>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
                 <DropdownItem className="noti-title" header tag="div">
                   <h6 className="text-overflow m-0">Willkommen!</h6>
                 </DropdownItem>
-                <DropdownItem to="/user/profil" tag={Link}>
+                <DropdownItem to="/admin/profil" tag={Link}>
                   <i className="ni ni-single-02" />
                   <span>Mein Profil</span>
                 </DropdownItem>
-                <DropdownItem to="/user/user-profile" tag={Link}>
+                <DropdownItem to="/admin/user-profile" tag={Link}>
                   <i className="ni ni-settings-gear-65" />
                   <span>Einstellungen</span>
                 </DropdownItem>

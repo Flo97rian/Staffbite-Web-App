@@ -1,4 +1,7 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import { useSelector } from "react-redux";
+import store from "../../../store";
+import { getUser } from "../../../store/middleware/FetchUser";
 import 'moment/locale/de';
 import {
     Card,
@@ -11,74 +14,16 @@ import SchichtenTabelle from "./SchichtenTabelle";
 import Button from 'react-bootstrap/Button';
 import { API, Auth } from "aws-amplify";
 
-export default class ProfilContainer extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            fetchEmployee: !0,
-        };
-        this.setSingleState = this.setSingleState.bind(this);
-        this.setMultiObjectState = this.setMultiObjectState.bind(this);
-        this.setObjectState = this.setObjectState.bind(this);
-        this.getUser = this.getUser.bind(this);
-    }
-          // Initiales Laden der Schichtpläne aus der Datenbank
-          componentDidMount() {
-            this.getUser(this.setSingleState)
-            }
-    
-        // Läd die Schichtpläne neu aus der Datenbank, wenn der Wert loading auf true geändert wurde.
-        // Passiert, wenn zuvor ein Schichtplan geändert oder erstellt wurde
-        // somit werden die Pläne local und in der Cloud syncron gehalten
-        componentDidUpdate(prevProps, prevState) {
-        if (prevState.fetchEmployee !== this.state.fetchEmployee) {
-            this.getUser(this.setSingleState)
-        }
-        }
+const ProfilContainer = (props) => {
+  const selectUser = state => state.DB.user
 
-        // Funktion zum setzen eines einzelnen States. Setzt den State key auf den Wert val
-        setSingleState(key, value) {
-            this.setState(state => {
-                return {
-                    [key] : state = value
-                }
-            })
-        }
+  const User = useSelector(selectUser);
+    // Initiales laden der aktuellen Users
+  useEffect(() => {
+    store.dispatch(getUser)
+  }, []);
 
-        // Funktion zum setzen eines State innerhalb eines Objectes. Setzt für das Object a den State b auf c
-        setObjectState(target, key, value) {
-            this.setState({[target]: {
-            ...this.state[target],
-            [key]: value
-        }})
-        }
-
-        // Funktion zum setzen eines State innerhalb eines Objectes. Setzt für das Object a den State b auf c
-        setMultiObjectState(target, key, value, key2, value2) {
-            this.setState({[target]: {
-            ...this.state[target],
-            [key]: value,
-            [key2]: value2
-        }})
-        }
-        async getUser(setSingleState) {
-            const apiName = 'api00f496d2'; // replace this with your api name.
-            const path = '/employee/get'; //replace this with the path you have configured on your API
-            const myInit = { // OPTIONAL
-                headers: {
-                Authorizer:`Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`,
-              } // OPTIONAL
-            };
-            return await API.get(apiName, path, myInit)
-             .then(response => {
-                // Add your code here
-                setSingleState("employee", response);
-                setSingleState("fetchEmployee", !1)
-                });
-            };
-  
-    render() {
-      return (
+  return (
       <>
             <Col className="order-xl-2 mb-5 mb-xl-0" xl="12">
               <Card className="card-profile shadow">
@@ -126,30 +71,18 @@ export default class ProfilContainer extends React.PureComponent {
                   <Row>
                     <div className="col">
                       <div className="card-profile-stats d-flex justify-content-center mt-md-5">
-                      <div>
-                          <span className="heading">
-                          {this.state.fetchEmployee ? <></>: <>{this.state.employee.Item.akutellerverdienst["N"]}</>}
-                          </span>
-                          <span className="description">Verdienst</span>
-                        </div>
                         <div>
                           <span className="heading">
-                          {this.state.fetchEmployee ? <></>: <>{this.state.employee.Item.akutellerverdienst["N"] / this.state.employee.Item.stundenlohn["N"]}</>}
+                          {User ? <>{User.schichtenwoche["N"]}</>: <></>}
                           </span>
-                          <span className="description">gearbeitete Stunden</span>
-                        </div>
-                        <div>
-                          <span className="heading">
-                          {this.state.fetchEmployee ? <></>: <>{this.state.employee.Item.schichtenwoche["N"] * 4}</>}
-                          </span>
-                          <span className="description">voraussichtliche Schichten im Juli</span>
+                          <span className="description">voraussichtliche Schichten diesen Monat</span>
                         </div>
                       </div>
                     </div>
                   </Row>
                   <div className="text-center">
                     <h3>
-                    {this.state.fetchEmployee ? <></>: <>{this.state.employee.Item.name["S"]}</>}
+                    {User ? <>{User.name["S"]}</>: <></>}
                       <span className="font-weight-light"></span>
                     </h3>
                     <div className="h5 font-weight-300">
@@ -157,7 +90,6 @@ export default class ProfilContainer extends React.PureComponent {
                       Mitarbeiter:inn
                     </div>
                   </div>
-                  <SchichtenTabelle></SchichtenTabelle>
                 </CardBody>
               </Card>
 
@@ -165,5 +97,6 @@ export default class ProfilContainer extends React.PureComponent {
       </>
     );
   };
-  }
+
+  export default ProfilContainer;
   
