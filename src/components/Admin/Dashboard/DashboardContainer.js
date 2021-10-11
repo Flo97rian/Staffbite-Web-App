@@ -15,6 +15,7 @@ import {
 import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 import Spinner from 'react-bootstrap/Spinner'
+import Reporting from "./Form/Reporting";
 import store from "../../../store";
 import ImportSchichtplanTabelle from "../Schichtplan/Schichtplan/ImportSchichtplanTabelle"
 
@@ -159,11 +160,8 @@ const DashboardContainer = (props) => {
               <Col xs={9}>
               </Col>
               </Row>
-            <Card className="shadow">
-              <CardBody>
-                <Row className="text-center" noGutters={true}></Row>
-                </CardBody>
-            </Card>
+              <Reporting
+              Employees={Employees}/>
         </>
       }
       </>

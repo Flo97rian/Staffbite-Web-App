@@ -27,7 +27,8 @@ import _ from "lodash";
             ueberstunden: item.ueberstunden["BOOL"],
             erfahrung: item.erfahrung["S"],
             schichtenwoche: item.schichtenwoche["N"],
-            position: item.position["S"]
+            position: item.position["S"],
+            bewerbungen: JSON.parse(item.bewerbungen["S"])
         };
     });
         dispatch({type: "All/Employees", payload: employees})

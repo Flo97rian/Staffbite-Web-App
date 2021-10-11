@@ -100,7 +100,29 @@ export const SingleApplicantWithOutUser = (index, col, FirstApplicant, Click) =>
         <ListGroupItem className="mb-0" color="warning" onClick={(e, j) => Click(index, col)}><p className="m-0">{FirstApplicant}<br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
+export const ShowMultipleApplicantsWithUser = (ApplicantName, ApplicantsLength) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" color="success"><p className="m-0">{ApplicantName}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
+    </ListGroup>
+)}
 
+export const ShowSingleApplicantWithUser = (ApplicantName) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" color="success" ><p className="m-0">{ApplicantName}<br/><br/></p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const ShowMultipleApplicantsWithOutUser = (FirstApplicant, ApplicantsLength) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" color="warning"><p className="m-0">{FirstApplicant}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const ShowSingleApplicantWithOutUser = (FirstApplicant) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" color="warning"><p className="m-0">{FirstApplicant}<br/><br/></p></ListGroupItem>
+    </ListGroup>
+)}
 export const ZeroApplicants = (index, col, Click) => {
     return (<ListGroup>
        <ListGroupItem className="mb-0" color="" onClick={(e, j) => Click(index, col)}><p className="m-0"><br/><br/></p></ListGroupItem>

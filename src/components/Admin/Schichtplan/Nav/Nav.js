@@ -6,7 +6,7 @@ import {
   NavLink,
   Nav
 } from "reactstrap";
-import SchichtplanImport from "../Form/SchichtplanImport";
+
 
 class Navs extends React.Component {
   render() {
@@ -14,7 +14,7 @@ class Navs extends React.Component {
       <>
         <Nav
           className="nav-fill flex-column flex-sm-row mt-4 mb-4"
-          id="tabs-text"
+          id="tabs-admin-text"
           pills
           role="tablist"
         >

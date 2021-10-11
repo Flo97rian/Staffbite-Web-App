@@ -50,21 +50,21 @@ var userroutes = [
     layout: "/user",
   },
   {
+    path: "/Schichtplan",
+    name: "Schichtplan",
+    icon: "ni ni-calendar-grid-58",
+    style: "text-blue",
+    component: SchichtplanBewerben,
+    layout: "/user",
+  },
+  {
     path: "/profil",
     name: "Profil",
     icon: "ni ni-ni ni-single-02",
     style: "text-blue",
     component: UserProfil,
     layout: "/user",
-  },
-  {
-    path: "/Schichtplan",
-    name: "Bewerben",
-    icon: "ni ni-calendar-grid-58",
-    style: "text-blue",
-    component: SchichtplanBewerben,
-    layout: "/user",
-  },
+  }
 ]
 var adminroutes = [
   {
