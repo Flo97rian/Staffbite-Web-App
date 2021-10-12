@@ -1,11 +1,11 @@
 const loadingsReducer = (state = !1, action) => {
     switch (action.type) {
-      case "setfetchPlansFromDB": 
+      case "isFetchPlansFromDB": 
         return {
           ...state,
           "isFetchingPlansFromDB": !0
         }
-        case "stopfetchPlansFromDB": 
+        case "stopFetchPlansFromDB": 
         return {
           ...state,
           "isFetchingPlansFromDB": !1

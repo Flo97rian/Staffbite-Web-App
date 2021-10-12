@@ -28,7 +28,7 @@ const getItems = (employees = {}, index) => {
   const getEmployees = (employees, index, shiftname) => {
     const employeesCopy = {...employees}
     for (const [key, value] of Object.entries(employeesCopy)) {
-      const positionen = value.position.split(", ")
+      const positionen = value.position
       if ( !positionen.includes(shiftname)) {
         delete employeesCopy[key]
       }}

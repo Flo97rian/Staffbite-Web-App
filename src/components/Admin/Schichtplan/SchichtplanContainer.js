@@ -66,6 +66,7 @@ const SchichtplanContainer = () => {
   const selectModal = state => state.modal
   const selectLoadingAlg = state => state.loadings.isFetchingAlg
   const selectLoadingPublish = state => state.loadings.isFetchingPublish
+  const selectLoadingFetchingPlans = state => state.loadings.isFetchingPlansFromDB
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
@@ -81,6 +82,7 @@ const SchichtplanContainer = () => {
   const Modal = useSelector(selectModal);
   const LoadingAlg = useSelector(selectLoadingAlg);
   const LoadingPublish = useSelector(selectLoadingPublish);
+  const LoadingFetchingPlans = useSelector(selectLoadingFetchingPlans);
 
   useEffect(() => {
       store.dispatch(FetchFromDB)
@@ -102,6 +104,7 @@ const SchichtplanContainer = () => {
       const employees = refractorEmployees(Employees, Plans[currentShiftPlan].plan)
       setShiftEmployees(employees)
     }
+    console.log(ShiftPlanIsImported, ShiftPlanIsActive)
   }, [currentShiftPlan]);
 
   useEffect(() => {
@@ -183,11 +186,14 @@ const SchichtplanContainer = () => {
 
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleUpdatedShiftPlanToDB = () => {
-      let plans = Plans
+      let plans = [...Plans]
+      console.log(plans)
+      console.log(ShiftSwitch)
       if (ShiftSwitch !== null) {
         let shiftswitch = handleSwitchShiftOrder(ShiftSwitch);
-        plans[currentShiftPlan].plan = shiftswitch
+        plans[currentShiftPlan]["plan"] = shiftswitch
       }
+      store.dispatch({type: "isFetchPlansFromDB"})
       store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan))
   }
 
@@ -260,6 +266,7 @@ const SchichtplanContainer = () => {
       <h3 className="float-left pt-4 font-weight-bold text-lg">Schichtplan</h3>
       { LoadingAlg ? <Spinner color="success" /> : <></>}
       { LoadingPublish ? <Spinner color="success" /> : <></>}
+      { LoadingFetchingPlans ? <Spinner color="success" /> : <></>}
       </Col>
       <Col xs={10} className="mt-2">
       <ButtonSaveUpdate
@@ -304,7 +311,7 @@ const SchichtplanContainer = () => {
       </Row>
       <Row>
           <div className="col">
-              {Plans && Meta && !ShiftPlanIsActive ? <SchichtplanImport 
+              {Plans && Meta && !ShiftPlanIsActive && !LoadingFetchingPlans ? <SchichtplanImport 
                 status={navIndex}
                 bearbeiten={ShiftPlanIsActive}
                 plaene={Plans}
@@ -319,7 +326,7 @@ const SchichtplanContainer = () => {
                 :
                 <></>
                 }
-                  {ShiftPlanIsActive && Employees && Plans? 
+                  {ShiftPlanIsActive && Employees && Plans && !LoadingFetchingPlans ? 
                  <SchichtplanAuswahl
                   bearbeiten={ShiftPlanIsActive}
                   plaene={Plans}

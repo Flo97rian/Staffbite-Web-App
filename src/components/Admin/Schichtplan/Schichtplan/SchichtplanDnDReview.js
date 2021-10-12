@@ -46,6 +46,7 @@ const getListStyle = isDraggingOver => ({
 });
 
 const SchichtplanDnDReview = (props) => {
+  console.log("hier")
   const [Items, setItems] = useState(getItems(props.plaene[props.plan].plan))
   const [Valid, setItemsValid] = useState(!1)
 

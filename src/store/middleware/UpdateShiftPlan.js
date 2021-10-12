@@ -6,6 +6,8 @@ export function thunkUpdateShiftPlan(Plans, currentShiftPlan) {
   return async function updateShiftPlan(dispatch, getState) {
     const plans = { Plans }
     const currentShiftplan = { currentShiftPlan }
+    console.log(Plans)
+    console.log(currentShiftPlan)
     const apiName = constants.env.apiGatewayPath; // replace this with your api name.
     const path = '/schichtplan/update'; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
