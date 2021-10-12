@@ -1,9 +1,11 @@
 import React from "react";
 import {
     Col,
-    Row
+    Row,
+    Badge
 } from "reactstrap"
 import InputString from "../../../Application/functionalComponents/InputString";
+import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 import InputNumber from "../../../Application/functionalComponents/InputNumber";
 import ControlErfahrung from "./ControlErfahrung";
 
@@ -11,7 +13,7 @@ export default class FormMitarbeiterErstellen extends React.PureComponent {
     render() {
         return(
             <>
-            {this.props.meta.stundenerfassung["BOOL"] ?
+            {this.props.meta.stundenerfassung ?
             <>
                 <Row>
                 <Col xs={1}>
@@ -50,13 +52,52 @@ export default class FormMitarbeiterErstellen extends React.PureComponent {
                         <br/>
                         <InputNumber info={true} description={"Wählen Sie eine durchschnittliche Ansazhl für Schichten, die ein:e Mitarbeiter:inn erhalten soll"} label="Schichten/Woche" name="schichtenwoche"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputNumber>
                         <br/>
-                        <InputString info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr:e Mitarbeiter:inn geeignet ist"} label="Position" name="position" placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
+                        {this.props.showPositionHinzufuegen ?
+                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr:e neu:e Mitarbeiter:inn alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="Position" name="position"  placeholder="" onChange={(e) => this.props.handlePositionChange(e)}></InputString>
+                        :
+                        <InfoOverlay info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr:e Mitarbeiter:inn geeignet ist"} infotitle="Position"></InfoOverlay>
+                        }
+                        { this.props.employeeIsActive !== null && Object.keys(this.props.employeeIsActive).includes("position") ? 
+                        this.props.employeeIsActive["position"].map((item, index) => {
+                            return (
+                                <Badge key={index} className="mr-2 mt-2" color="primary" onClick={() => this.props.handleRemovePositions(item)}>{item}</Badge>
+                            )
+                        })
+                        :
+                        <></>
+                        }
+                        { this.props.meta.schichten !== null && this.props.employeeIsActive === null ? 
+                        this.props.meta.schichten.map((item, index) => {
+                            return (
+                                <Badge key={index} className="mr-2" color="light" onClick={() => this.props.handleSetPositions(item)}>{item}</Badge>
+                            )}
+                        )
+                        :
+                        <></>
+                        }
+                           { this.props.meta.schichten !== null && this.props.employeeIsActive !== null ? 
+                        this.props.meta.schichten.map((item, index) => (!this.props.employeeIsActive["position"].includes(item) ?
+                                <Badge key={index} className="mr-2" color="light" onClick={() => this.props.handleSetPositions(item)}>{item}</Badge>
+                        :
+                        <></>
+                        ))
+                        :
+                        <></>
+                        }
                         <br/>
+                        {this.props.showPositionHinzufuegen ?
+                        <>
+                        <Badge className="mt-2 mb-4 mr-2" color="success" onClick={() => this.props.handlePositionErstellen()}>Position erstellen</Badge>
+                        <Badge className="mt-2 mb-4" color="warning" onClick={() => this.props.handlePositionHinzufuegenClose()}>x</Badge>
+                        </>
+                        :
+                        <Badge className="mt-2 mb-4" color="light" onClick={() => this.props.handlePositionHinzufuegen()}>Position erstellen</Badge>
+                        }
                     </Col>
                     <Col xs={1}>
                     </Col>
                 </Row>
-            </>
+                </>
             }
             </>
         )

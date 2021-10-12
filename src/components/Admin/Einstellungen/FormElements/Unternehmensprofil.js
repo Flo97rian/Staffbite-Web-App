@@ -2,7 +2,7 @@
 // Button um einen erstellten Schichtplan zu auszuwählen
 import React from "react";
 import Form from "react-bootstrap/Form";
-import { Row, Col, Card, CardBody, Button } from "reactstrap";
+import { Row, Col, Card, CardBody, Button, Badge } from "reactstrap";
 import InputForm from "./InputForm"
 import Switch from "../../../Application/functionalComponents/Switch";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
@@ -26,6 +26,20 @@ export default class Unternehmensprofil extends React.PureComponent {
                 <br/>
                 <Switch info={true} type="switch" label="Stundenerfassung" description={"Mit dieser Einstellung können Sie die Stundenerfassung von Staffbite nutzen. Hinweis: Diese Funktion ist kostenpflichtig."} name="stundenerfassung" value={this.props.org?.stundenerfassung ? this.props.org?.stundenerfassung["BOOL"] : false} onChange={(e) => this.props.onChange(e, "meta")}></Switch>
                 </CardBody>
+                <br/>
+                <Row className="m-2 mb-4">
+                    <Col xs={12}>
+                    <InfoOverlay infotitle={"Schichten löschen"} description={"Löschen Sie mit einem Click"}></InfoOverlay>
+                    {this.props.org.schichten ? 
+                    this.props.org.schichten.map((item, index) => {
+                        return (
+                            <Badge key={index} className="ml-2 mt-2" color="warning" onClick={() => this.props.handleRemovePositions(item)}>{item}</Badge>
+                        )
+                    })
+                    :
+                    <></>}
+                    </Col>
+                    </Row>
             </Card>
             </>
         );

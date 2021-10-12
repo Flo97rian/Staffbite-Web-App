@@ -11,5 +11,14 @@ import constants from "../constants";
           }}; 
   
         const response = await API.get(apiName, path, myInit)
-        dispatch({type: "All/GetOrgDetails", payload: response.Item})
+        const org = {
+          name: response.Item.name["S"],
+          stundenerfassung: response.Item.stundenerfassung["BOOL"],
+          abrechnungstart: response.Item.AbrechnungStart["S"],
+          fair: response.Item.fair["BOOL"],
+          abrechnungende: response.Item.AbrechnungEnde["S"],
+          reverse: response.Item.reverse["BOOL"],
+          schichten: JSON.parse(response.Item.schichten["S"]),
+        }
+        dispatch({type: "All/GetOrgDetails", payload: org})
       };

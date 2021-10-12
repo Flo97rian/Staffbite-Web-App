@@ -35,7 +35,11 @@ export default class MitarbeiterListeItem extends React.PureComponent {
                                 <p className="mt-3">{this.props.name}</p>
                             </Col>
                             <Col xs={2}>
-                                <p className="m-0 mt-1">{this.props.position}</p>
+                                {this.props.position.map(item => {
+                                    return (
+                                        <Badge color="pirmary" className="mr-2">{item}</Badge>
+                                    )
+                                })}
                             </Col>
                             <Col xs={2}>
                                 <p className="mt-3">{this.props.stundenlohn}€/h</p>

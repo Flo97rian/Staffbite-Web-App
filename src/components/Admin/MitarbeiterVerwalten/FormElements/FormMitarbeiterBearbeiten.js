@@ -2,10 +2,12 @@ import React from "react";
 
 import {
     Col,
-    Row
+    Row,
+    Badge
 } from "reactstrap"
 import InputString from "../../../Application/functionalComponents/InputString";
 import InputNumber from "../../../Application/functionalComponents/InputNumber";
+import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 import ControlErfahrung from "./ControlErfahrung";
 import Switch from "../../../Application/functionalComponents/Switch";
 import Form from 'react-bootstrap/Form';
@@ -18,7 +20,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                     <>
                     <Row className="text-center">
                         <Col xs={12}>
-                            <Switch type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
+                            <Switch info={true} description={"Tragen Sie ein, ob ihr:e Mitarbeiter:inn direkt in die Schichtplannung mit aufgenommen werden soll"}   type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
                         </Col>
                     </Row>
                     <Row>
@@ -57,7 +59,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                 <>
                 <Row className="text-center">
                         <Col xs={12}>
-                            <Switch type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
+                            <Switch info={true} description={"Tragen Sie ein, ob ihr:e Mitarbeiter:inn direkt in die Schichtplannung mit aufgenommen werden soll"} type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
                         </Col>
                     </Row>
                     <Row>
@@ -67,7 +69,9 @@ const FormMitarbeiterBearbeiten = (props) => {
                         <br/>
                         <InputString label="E-Mail Adresse" name="email"  placeholder={employee["email"]} onChange={(e) => props.onChange(e)}></InputString>
                         <br/>
-                        <Switch type="switch" label="Frei" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
+                        <Switch info={true} description={"Tragen Sie hier ein, ob ihr Mitarbeiter gerade im Urlaub ist"} type="switch" label="Frei" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
+                        <br/>
+                        <Switch  info={true} description={"Tragen Sie hier ein, ob ihr Mitarbeiter aktuell Überstunden hat und diese abgebaut werden sollen. Mit dieser Einstellung wird dieser Mitarbeiter bewusst weniger im Schichtplan eingesetzt."} type="switch" label="Überstunden" name="ueberstunden" value={employee["ueberstunden"]} onChange={(e) => props.onChange(e)}></Switch>
                         <br/>
                         </Col>
                         <Col xs={2}></Col>
@@ -75,10 +79,40 @@ const FormMitarbeiterBearbeiten = (props) => {
                         <Form.Label><p>betriebliche Einstellungen</p></Form.Label>
                         <ControlErfahrung label="Erfahrung" name="erfahrung"  {...props} defaultVal={employee["erfahrung"]}></ControlErfahrung>
                         <br/>
-                        <InputString label="Position" name="position" placeholder={employee["position"]} onChange={(e) => props.onChange(e)}></InputString>
+                        {props.showPositionHinzufuegen ?
+                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr:e neu:e Mitarbeiter:inn alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="Position" name="position"  placeholder="" onChange={(e) => props.handlePositionChange(e)}></InputString>
+                        :
+                        <InfoOverlay info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr:e Mitarbeiter:inn geeignet ist"} infotitle="Position"></InfoOverlay>
+                        }
+                        <>
+                        { props.employeeIsActive !== null ? 
+                        props.employeeIsActive["position"].map((item, index) => {
+                            return (
+                                <Badge key={index} className="mr-2 mt-2" color="primary" onClick={() => props.handleRemovePositions(item)}>{item}</Badge>
+                            )
+                        })
+                        :
+                        <></>
+                        }
+                        { props.meta.schichten !== null ? 
+                        props.meta.schichten.map((item, index) => (!props.employeeIsActive["position"].includes(item) ?
+                                <Badge key={index} className="mr-2" color="light" onClick={() => props.handleSetPositions(item)}>{item}</Badge>
+                        :
+                        <></>
+                        ))
+                        :
+                        <></>
+                        }
                         <br/>
-                        <Switch type="switch" label="Überstunden" name="ueberstunden" value={employee["ueberstunden"]} onChange={(e) => props.onChange(e)}></Switch>
-                        <br/>
+                        {props.showPositionHinzufuegen ?
+                        <>
+                        <Badge className="mt-2 mb-4 mr-2" color="success" onClick={() => props.handlePositionErstellen()}>Position erstellen</Badge>
+                        <Badge className="mt-2 mb-4" color="warning" onClick={() => props.handlePositionHinzufuegenClose()}>x</Badge>
+                        </>
+                        :
+                        <Badge className="mt-2 mb-4" color="light" onClick={() => props.handlePositionHinzufuegen()}>Position erstellen</Badge>
+                        }
+                        </>
                         <InputNumber label="Schichten/Woche" name="schichtenwoche"  placeholder={employee["schichtenwoche"]} onChange={(e) => props.onChange(e)}></InputNumber>
                         <br/>
                         </Col>

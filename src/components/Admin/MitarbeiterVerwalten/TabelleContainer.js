@@ -22,9 +22,12 @@ import store from "../../../store.js";
 import { useSelector } from "react-redux";
 import { thunkDeleteEmployee } from "../../../store/middleware/DeleteEmployee.js";
 import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee.js";
+import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile.js";
 
 const TableContainer = (props) => {
   const [employeeIsActive, setemployeeIsActive] = useState(null);
+  const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1)
+  const [position, setPosition] = useState(null)
     
   const selectEmployees = state => state.DB.employees;
   const selectModal = state => state.modal;
@@ -40,6 +43,11 @@ const TableContainer = (props) => {
     store.dispatch(FetchOrg)
   }, []);
 
+    // Initiales laden der aktuellen Users
+    useEffect(() => {
+      console.log(employeeIsActive)
+    }, [employeeIsActive]);
+
     // Filtert auf Basis der Id, die zugehörigen Mitarbeiterdaten
     const handleFilter = (idToSearch) => {
       const data = Employees[idToSearch]
@@ -52,6 +60,11 @@ const TableContainer = (props) => {
     const val = stateSwitch(event.target.value, event);
     setemployeeIsActive({...employeeIsActive, [key]: val }) 
   }
+   // Handling von Userinputs
+ const handlePositionChange = (event) => {
+  const val = event.target.value
+  setPosition(val)
+}
 
  // Überprüfung von Userinputs, ob der Input vom Typ Switch ist
  const stateSwitch = (value, event) => {
@@ -81,6 +94,21 @@ const TableContainer = (props) => {
     return truemodal
   }
 
+  const handleSetPositions = (item) => {
+    let copyEmployeeIsActive = {...employeeIsActive}
+    if (!Object.keys(copyEmployeeIsActive).includes("position")) {
+      copyEmployeeIsActive["position"] = [item]
+    } else {
+      copyEmployeeIsActive.position.push(item)
+    }
+    console.log(copyEmployeeIsActive)
+    setemployeeIsActive(copyEmployeeIsActive)
+  }
+  const handleRemovePositions = (item) => {
+    let copyEmployeeIsActive = {...employeeIsActive}
+    copyEmployeeIsActive.position = copyEmployeeIsActive.position.filter(element => element !== item)
+    setemployeeIsActive(copyEmployeeIsActive)
+  }
   // Handling des Löschens von Mitarbeitern
   const handleDelete = (employeeId) => {
     store.dispatch(thunkDeleteEmployee(employeeId))
@@ -90,6 +118,15 @@ const TableContainer = (props) => {
   const handleEmployeeUpdate = (employee) => {
     const updatedEmployee = mergeEmployeeDetails(employee, employeeIsActive)
     store.dispatch(thunkUpdateEmployee(updatedEmployee));
+    let copyMeta = Meta
+    if (employeeIsActive.position !== Meta.schichten) {
+      employeeIsActive.position.forEach( pos => {
+        if (!Meta.schichten.includes(pos)) {
+          copyMeta.schichten.push(pos);
+        }
+      })
+      store.dispatch(thunkUpdateProfile(copyMeta))
+    }
     store.dispatch({type: "CLOSE", payload: employee["id"]})
   }
 
@@ -99,10 +136,40 @@ const TableContainer = (props) => {
     keys.forEach(element => { NewEmployeeDetails[element] = newDetails[element]});
     return NewEmployeeDetails
   }
+const handlePositionHinzufuegen = () => {
+  setShowPositionHinzufuegen(!showPositionHinzufuegen)
+}
+const handlePositionHinzufuegenClose = () => {
+  setShowPositionHinzufuegen(!showPositionHinzufuegen)
+}
 
+const handlePositionErstellen = () => {
+  console.log(position)
+  let copyEmployeeIsActive = {...employeeIsActive}
+  copyEmployeeIsActive.position.push(position)
+  setemployeeIsActive(copyEmployeeIsActive)
+  setPosition(null)
+  setShowPositionHinzufuegen(!showPositionHinzufuegen)
+}
+
+const setSelectEmployee = (ma) => {
+  console.log(ma)
+  setemployeeIsActive(Employees[ma])
+  store.dispatch({type: "OPEN", payload: ma})
+}
 
   const handleRegister = (modal) => {
     store.dispatch(thunkRegisterEmployee({employeeIsActive}))
+    let copyMeta = Meta
+    if (employeeIsActive.position !== Meta.schichten) {
+      employeeIsActive.position.forEach( pos => {
+        if (!Meta.schichten.includes(pos)) {
+          copyMeta.schichten.push(pos);
+        }
+      })
+      store.dispatch(thunkUpdateProfile(copyMeta))
+    }
+    console.log(copyMeta);
     store.dispatch({type: "CLOSE", payload: modal});
   }
 
@@ -144,6 +211,7 @@ const TableContainer = (props) => {
                   </Row>
                   </> :
                     <MitarbeiterTabelle 
+                    setSelectEmployee={setSelectEmployee}
                     mitarbeiter={Employees}
                     meta={Meta}
                     >
@@ -154,7 +222,15 @@ const TableContainer = (props) => {
             handleUpdate={handleEmployeeUpdate}
             show={Modal}
             meta={Meta}
+            employeeIsActive={employeeIsActive}
             handleRegister={handleRegister}
+            handlePositionChange={handlePositionChange}
+            handleSetPositions={handleSetPositions}
+            handleRemovePositions={handleRemovePositions}
+            showPositionHinzufuegen={showPositionHinzufuegen}
+            handlePositionErstellen={handlePositionErstellen}
+            handlePositionHinzufuegen={handlePositionHinzufuegen}
+            handlePositionHinzufuegenClose={handlePositionHinzufuegenClose}
             checkModalKey={getModalKey}
             checkTrue={getModalTrue}
             handleFilter={handleFilter}

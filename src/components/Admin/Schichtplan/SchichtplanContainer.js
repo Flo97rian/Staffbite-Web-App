@@ -65,9 +65,10 @@ const SchichtplanContainer = () => {
   const selectNewShiftPlan = state => state.newShiftPlan.shiftplan
   const selectModal = state => state.modal
   const selectLoadingAlg = state => state.loadings.isFetchingAlg
+  const selectLoadingPublish = state => state.loadings.isFetchingPublish
 
   //REDUX-Listener für UI-Data
-  const Meta = useSelector(selectMeta)
+  const Meta = useSelector(selectMeta);
   const Employees = useSelector(selectEmployees);
   const Date = useSelector(selectDate)
   const NewDate = useSelector(selectNewDate);
@@ -78,7 +79,8 @@ const SchichtplanContainer = () => {
   const ShiftSlot = useSelector(selectShiftSlot);
   const NewShiftPlan = useSelector(selectNewShiftPlan);
   const Modal = useSelector(selectModal);
-  const LoadingAlg = useSelector(selectLoadingAlg)
+  const LoadingAlg = useSelector(selectLoadingAlg);
+  const LoadingPublish = useSelector(selectLoadingPublish);
 
   useEffect(() => {
       store.dispatch(FetchFromDB)
@@ -218,6 +220,7 @@ const SchichtplanContainer = () => {
   }
   //Diese Funktion löscht einen ausgewählten Schichtplan in der Datenbank
   const handlePublishShiftPlan = () => {
+    store.dispatch({type: "startFetchingPublish"})
     store.dispatch(thunkPublishShiftPlan(Plans[currentShiftPlan]))
   }
   const handleReleaseForApplication = (modal) => {
@@ -256,6 +259,7 @@ const SchichtplanContainer = () => {
       <Col xs={2} className="mt-4">
       <h3 className="float-left pt-4 font-weight-bold text-lg">Schichtplan</h3>
       { LoadingAlg ? <Spinner color="success" /> : <></>}
+      { LoadingPublish ? <Spinner color="success" /> : <></>}
       </Col>
       <Col xs={10} className="mt-2">
       <ButtonSaveUpdate
