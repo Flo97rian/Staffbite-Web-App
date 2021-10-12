@@ -17,7 +17,7 @@ export function thunkPublishShiftPlan(plan) {
         }
         };
         const response = await API.post(apiName, path, myInit)
-
+        dispatch({type: "stopFetchingPublish"})
         dispatch(FetchFromDB)
     }
 }
