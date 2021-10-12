@@ -40,6 +40,11 @@ const DBReducer = (state = !1, action) => {
           ...state,
           employees: action.payload
         }
+        case "All/Report": 
+        return {
+          ...state,
+          report: action.payload
+        }
         case "All/GetOrgDetails": 
         return {
           ...state,

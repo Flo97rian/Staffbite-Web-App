@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     currentShiftPlan: currentShiftPlanReducer,
     date: datePickerReducer,
-    laodings: loadingsReducer,
+    loadings: loadingsReducer,
     visibility: visibilityReducer,
     newShiftPlan: newShiftPlanReducer,
     shiftSlot: ShiftSlotReducer

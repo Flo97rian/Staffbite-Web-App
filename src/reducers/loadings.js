@@ -20,6 +20,26 @@ const loadingsReducer = (state = !1, action) => {
           ...state,
           "isFetchingUserFromDB": !1
         }
+        case "isFetchingReport": 
+        return {
+          ...state,
+          "isFetchingReport": !0
+        }
+        case "stopFetchingReport": 
+        return {
+          ...state,
+          "isFetchingReport": !1
+        }
+        case "startFetchingAlg": 
+        return {
+          ...state,
+          "isFetchingAlg": !0
+        }
+        case "stopFetchingAlg": 
+        return {
+          ...state,
+          "isFetchingAlg": !1
+        }
       default:
         return state
     }

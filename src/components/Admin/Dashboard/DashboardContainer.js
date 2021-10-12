@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import 'moment/locale/de';
-
+import { Spinner } from "reactstrap";
+import { Line, Bar } from "react-chartjs-2";
 import {
     Card,
     CardHeader,
@@ -12,25 +12,46 @@ import {
     Container,
     CardBody,
   } from "reactstrap";
+
+  // core components
+import {
+  chartOptions,
+  parseOptions,
+  chartExample1,
+  chartExample2,
+} from "./Form/charts.js";
+
 import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
-import Spinner from 'react-bootstrap/Spinner'
 import Reporting from "./Form/Reporting";
 import store from "../../../store";
+import OpenModal from "./Modal/OpenModal";
 import ImportSchichtplanTabelle from "../Schichtplan/Schichtplan/ImportSchichtplanTabelle"
+import { thunkStartReport } from "../../../store/middleware/StartReport";
 
 
 const DashboardContainer = (props) => {
   const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
+  const [filter, setFilter] = useState(null);
+  const [filterIsActive, setFilterIsActive] = useState(!1)
   const [ShiftSwitch, setShiftSwitch] = useState(!1)
+  const [chartExample1Data, setChartExample1Data] = useState("data1");
 
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
   const selectEmployees = state => state.DB.employees;
+  const selectModal = state => state.modal
+  const selectDate = state => state.date
+  const selectReport = state => state.DB.report
+  const selectLoadingReport = state => state.loadings.isFetchingReport
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
   const Employees = useSelector(selectEmployees);
+  const Modal = useSelector(selectModal);
+  const Date = useSelector(selectDate)
+  const Report = useSelector(selectReport)
+  const LoadingReport = useSelector(selectLoadingReport)
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
@@ -38,11 +59,30 @@ const DashboardContainer = (props) => {
     store.dispatch(FetchEmployees)
   }, []);
 
+  const handleFilterIsActive = (modal) => {
+    store.dispatch({type: "isFetchingReport"})
+    store.dispatch(thunkStartReport(filter));
+    store.dispatch({type: "CLOSE", payload: modal})
+  }
+
   useEffect(() => {
     if (Plans) {
       getThisWeeksShiftPlan(Plans)
     }
   }, [Plans])
+
+  useEffect(() => {
+      if(Date.start !== undefined && Date.ende !== undefined) {
+        setFilter({
+          ...filter,
+          ["start"]: moment(Date.start.startDate).format("l"),
+          ["ende"]: moment(Date.ende.endDate).format("l")
+        })
+      }
+  }, [Date])
+
+  useEffect(() => {
+  }, [filter])
 
   const shiftChange = (plan) => {
     setShiftSwitch(plan);
@@ -55,7 +95,19 @@ const DashboardContainer = (props) => {
     })
     return shiftTradeCount
   }
-
+  // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
+  const getModalKey = (allmodals) => {
+    const modals = Object.entries(allmodals).map(([key, value]) =>  value ? key : null);
+    const modalfilter = modals.filter((modal) => typeof modal === "string");
+    const modal = modalfilter[0];
+    return modal;
+  }
+  // Untersucht, ob der Wert eines Modals auf true steht und gibt den Wert true zurück
+  const getModalTrue = (allmodals) => {
+    let modals = Object.entries(allmodals).map(([key, value]) => {return value})
+    let truemodal = modals.includes(true)
+    return truemodal
+  }
     const getThisWeeksShiftPlan = (Plans) => {
       var compareDate = moment(moment().format("L"), "DD.M.YYYY");
       Plans.forEach((plan, index) => {
@@ -68,6 +120,21 @@ const DashboardContainer = (props) => {
           setCurrentShiftPlan(index);
         }
     })}
+
+    const onFilter = (name) => {
+      if(filter !== null && Object.keys(filter).includes(name)) {
+        console.log(!filter[name])
+        setFilter({
+          ...filter,
+          [name]: !filter[name]
+        })
+      } else {
+        setFilter({
+          ...filter,
+          [name]: !0
+        })
+      }
+    }
         return (
           <>
           { !Employees && !Plans ? 
@@ -128,42 +195,73 @@ const DashboardContainer = (props) => {
                   </Card>
                 </Col>
               </Row>
-            <Row>
-              <Col xs={3}>
-              <h3 className="float-left pt-5 font-weight-bold text-lg">aktueller Schichtplan</h3>
-              </Col>
-              <Col xs={9}>
-              </Col>
-              </Row>
-            <Card className="shadow">
-              <CardBody>
-                <Row className="text-center" noGutters={true}></Row>
-                { currentShiftPlan ?
-                <ImportSchichtplanTabelle
-                  plaene={Plans}
-                  plan={currentShiftPlan}
-                  bearbeiten={!0}
-                  employees={Employees}
-                  onSwitch={shiftChange}
-                  import={!0}
-                >
-                </ImportSchichtplanTabelle>
-                :
+              { currentShiftPlan ?
+                <>
+                  <Row>
+                    <Col xs={3}>
+                    <h3 className="float-left pt-5 font-weight-bold text-lg">aktueller Schichtplan</h3>
+                    </Col>
+                    <Col xs={9}>
+                    </Col>
+                    </Row>
+                  <Card className="shadow">
+                    <CardBody>
+                      <Row className="text-center" noGutters={true}>
+                      <ImportSchichtplanTabelle
+                        plaene={Plans}
+                        plan={currentShiftPlan}
+                        bearbeiten={!0}
+                        employees={Employees}
+                        onSwitch={shiftChange}
+                        import={!0}
+                      >
+                      </ImportSchichtplanTabelle>
+                      </Row>
+                      </CardBody>
+                  </Card>
+                </>
+              :
                 <></>
-                }
-                </CardBody>
-            </Card>
+              }
             <Row>
               <Col xs={3}>
-              <h3 className="float-left pt-5 font-weight-bold text-lg">aktuelles Reporting</h3>
+              <h3 className="float-left pt-5 pr-2 font-weight-bold mr-2 text-lg">
+                aktuelles Reporting
+                { LoadingReport ? <Spinner color="success" /> : <></>}
+              </h3>
               </Col>
               <Col xs={9}>
               </Col>
               </Row>
               <Reporting
+              loadingReport={LoadingReport}
+              Report={Report}
+              filterIsActive={filterIsActive}
+              filter={filter}
               Employees={Employees}/>
         </>
+        
       }
+        <CardBody>
+          {/* Chart */}
+          <div className="chart">
+            <Line
+              data={chartExample1[chartExample1Data]}
+              options={chartExample1.options}
+              getDatasetAtEvent={(e) => console.log(e)}
+            />
+          </div>
+        </CardBody>
+        <OpenModal
+          show={Modal}
+          plaene={Plans}
+          plan={currentShiftPlan}
+          checkTrue={getModalTrue}
+          checkModalKey={getModalKey}
+          filter={filter}
+          onClickFilter={onFilter}
+          handleFilterIsActive={handleFilterIsActive}
+          ></OpenModal>
       </>
 );
 }

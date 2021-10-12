@@ -1,37 +1,47 @@
 import React from "react";
+import moment from "moment";
 import {
     Row,
     Col,
-    Button,
-    Card,
-    CardBody
   } from "reactstrap";
 
-const ReportingElement = (props) => {
+  const ReportingElement = (props) => {
         const showElement = () => {
-        let Employees = props.Employees
         let employee = props.employee
-        let filterZeitraum = !0;
-        let zeitraum = "4.10.2021 - 10.10.2021"
+        let Report = props.Report
+        console.log(Report)
+        console.log(employee)
+        let hasBewerbungen = Object.keys(Report[employee]).includes("bewerbungscount") && Report[employee]["bewerbungscount"] !== undefined
+        let hasSchichten = Object.keys(Report[employee]).includes("schichtencount")
         let showAll = !0
-        let EmployeesLenght = Object.keys(Employees).length
-        let filterBewerbungen = !1
-        let filterSchichten = !1
-        let filterWoche = !1
-        let filterMonat = !1
-        let filterJahr = !1
-        if (showAll && filterZeitraum)  {
-            console.log(Employees)
-                    if (Object.keys(Employees[employee].bewerbungen).lenght !== 0 && Object.keys(Employees[employee].bewerbungen).includes(zeitraum)) {
-                        console.log(Employees[employee].bewerbungen[zeitraum].length)
+        if (showAll && hasBewerbungen)  {
                         return (
-                            <>
-                            <p>Name: {Employees[employee].name}</p>
-                            <p>Bewerbungen diesen Zeitraum: {Employees[employee].bewerbungen[zeitraum].length}</p>
-                            </>
+                            <Row className="text-center mt-3">
+                                <Col xs={2}>
+                                    <p className="font-weight-bold">Name</p>
+                                </Col>
+                                <Col xs={5}>
+                                    <p>{props.Report[employee].name}</p>
+                                </Col>
+                                <Col xs={5}>
+                                    <p>{props.Report[employee].bewerbungscount}</p>
+                                </Col>
+                            </Row>
                         )
-                    }
-                    return (<></>)
+        } else if  (showAll && hasSchichten) {
+            return (
+                <Row className="text-center mt-3">
+                    <Col xs={2}>
+                        <p className="font-weight-bold">Name</p>
+                    </Col>
+                    <Col xs={5}>
+                        <p>{props.Report[employee].name}</p>
+                    </Col>
+                    <Col xs={5}>
+                        <p>{props.Report[employee].schichtencount}</p>
+                    </Col>
+                </Row>
+            )
         }
     }
         return (
