@@ -5,12 +5,12 @@ export const planIdColor = (id) => {
             <p className="mt-3" style={{"color": "#5e72e4"}}>Entwurf</p>
     )} else if (planid.includes("Freigeben")) {
         return (
-            <p className="mt-3" style={{"color": "#fb6340"}}>Freigegeben</p>
+            <p className="mt-3" style={{"color": "#fb6340"}}>Bewerbung</p>
     )} else if (planid.includes("Review")) {
         return (
-            <p className="mt-3" style={{"color": "#5e72e4"}}>Review</p>
+            <p className="mt-3" style={{"color": "#5e72e4"}}>Überprüfung</p>
     )} else if (id.includes("Veröffentlicht")) {
         return (
-            <p className="mt-3" style={{"color": "#2dce89"}}>Veröffentlicht</p>
+            <p className="mt-3" style={{"color": "#2dce89"}}>Schichtplan</p>
     )}
 }

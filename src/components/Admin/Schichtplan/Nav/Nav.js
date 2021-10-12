@@ -44,9 +44,9 @@ class Navs extends React.Component {
               role="tab"
             >             
              {this.props.navIndex === 2 ? 
-              <p className="m-0 text-white">Freigegeben</p>
+              <p className="m-0 text-white">Bewerbung</p>
               :
-              <p className="m-0 text-muted">Freigegeben</p>
+              <p className="m-0 text-muted">Bewerbung</p>
               }
             </NavLink>
           </NavItem>
@@ -60,9 +60,9 @@ class Navs extends React.Component {
               role="tab"
             >
               {this.props.navIndex === 3 ? 
-              <p className="m-0 text-white">Review</p>
+              <p className="m-0 text-white">Überprüfung</p>
               :
-              <p className="m-0 text-muted">Review</p>
+              <p className="m-0 text-muted">Überprüfung</p>
               }
             </NavLink>
           </NavItem>
@@ -76,9 +76,9 @@ class Navs extends React.Component {
               role="tab"
               >
               {this.props.navIndex === 4 ? 
-              <p className="m-0 text-white">Veröffentlicht</p>
+              <p className="m-0 text-white">Schichtplan</p>
               :
-              <p className="m-0 text-muted">Veröffentlicht</p>
+              <p className="m-0 text-muted">Schichtplan</p>
               }
             </NavLink>
           </NavItem>
