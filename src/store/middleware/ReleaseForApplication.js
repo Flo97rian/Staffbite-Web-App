@@ -11,7 +11,7 @@ export function thunkReleaseForApplication(plan) {
             headers: {
                 Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,
         },
-            body: shiftplan
+            id: shiftplan.id
         };
         const response = await API.post(apiName, path, myInit)
         dispatch(FetchFromDB)

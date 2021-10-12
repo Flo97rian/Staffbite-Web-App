@@ -11,7 +11,7 @@ import {
   } from "reactstrap";
 
 import Nav from "./Nav/Nav"
-import Spinner from 'react-bootstrap/Spinner'
+import { Spinner } from "reactstrap";
 import OpenModal from "./Modal/OpenModal"
 import { FetchOrg } from "../../../store/middleware/FetchOrg";
 import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile";
@@ -41,6 +41,8 @@ import ButtonUpdateShiftPlan from "./FormElements/ButtonUpdateShiftPlan"
 import SetTradeShift from "../../Application/functionalComponents/setTradeShift"
 import SchichtplanImport from "./Form/SchichtplanImport"
 import store from "../../../store";
+import { thunkPublishShiftPlan } from "../../../store/middleware/PublishShiftPlan";
+import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 
 const SchichtplanContainer = () => {
   const [meta, setMeta] = useState(null)
@@ -62,6 +64,7 @@ const SchichtplanContainer = () => {
   const selectShiftSlot = state => state.shiftSlot
   const selectNewShiftPlan = state => state.newShiftPlan.shiftplan
   const selectModal = state => state.modal
+  const selectLoadingAlg = state => state.loadings.isFetchingAlg
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta)
@@ -75,14 +78,13 @@ const SchichtplanContainer = () => {
   const ShiftSlot = useSelector(selectShiftSlot);
   const NewShiftPlan = useSelector(selectNewShiftPlan);
   const Modal = useSelector(selectModal);
+  const LoadingAlg = useSelector(selectLoadingAlg)
 
   useEffect(() => {
-      store.dispatch({ type: "ResetCurrentShiftPlan"})
-      store.dispatch({ type: "stopShiftPlanIsActive"})
-      store.dispatch({ type: "stopShiftPlanIsImported"})
       store.dispatch(FetchFromDB)
       store.dispatch(FetchOrg)
       store.dispatch(user)
+      store.dispatch(FetchEmployees)
     }, []);
 
   useEffect(() => {
@@ -216,13 +218,7 @@ const SchichtplanContainer = () => {
   }
   //Diese Funktion löscht einen ausgewählten Schichtplan in der Datenbank
   const handlePublishShiftPlan = () => {
-    let plan = Plans[currentShiftPlan]
-    let currentId = plan.id
-    let newId = currentId.replace(/Review/i, "Veröffentlicht");
-    plan.id = newId
-    let index = currentShiftPlan
-    store.dispatch(thunkDeleteShiftPlan({index, Plans}))
-    store.dispatch(thunkReleaseForApplication(plan))
+    store.dispatch(thunkPublishShiftPlan(Plans[currentShiftPlan]))
   }
   const handleReleaseForApplication = (modal) => {
     const response = handleApplication(Plans, currentShiftPlan, NewDate)
@@ -231,6 +227,7 @@ const SchichtplanContainer = () => {
   }
 
   const handleStartAlg = (modal) => {
+    store.dispatch({type: "startFetchingAlg"})
     const id = Plans[currentShiftPlan].id
     store.dispatch(thunkStartAlg(id))
     store.dispatch({type: "CLOSE", payload: modal})
@@ -258,6 +255,7 @@ const SchichtplanContainer = () => {
       <Row className="mt-6">
       <Col xs={2} className="mt-4">
       <h3 className="float-left pt-4 font-weight-bold text-lg">Schichtplan</h3>
+      { LoadingAlg ? <Spinner color="success" /> : <></>}
       </Col>
       <Col xs={10} className="mt-2">
       <ButtonSaveUpdate
@@ -279,11 +277,6 @@ const SchichtplanContainer = () => {
             title="Befüllung starten"
             trigger={Plans[currentShiftPlan].id.split("#").includes("Freigeben")}
             modal="showBefuellungStarten"/>
-          <ButtonUpdateShiftPlan
-            title="Schichtplan veröffentlichen"
-            trigger={Plans[currentShiftPlan].id.split("#").includes("Review")}
-            onClick={handlePublishShiftPlan}
-            />
           <ButtonUpdateShiftPlan
             title="Schichtplan veröffentlichen"
             trigger={Plans[currentShiftPlan].id.split("#").includes("Review")}
@@ -322,7 +315,7 @@ const SchichtplanContainer = () => {
                 :
                 <></>
                 }
-                  {ShiftPlanIsActive && Employees? 
+                  {ShiftPlanIsActive && Employees && Plans? 
                  <SchichtplanAuswahl
                   bearbeiten={ShiftPlanIsActive}
                   plaene={Plans}

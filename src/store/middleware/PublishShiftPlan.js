@@ -7,14 +7,17 @@ export function thunkPublishShiftPlan(plan) {
     return async function publishShiftPlan(dispatch, getState) {
         const shiftplan = plan
         const apiName = constants.env.apiGatewayPath; // replace this with your api name.
-        const path = '/schichtplan/freigeben'; //replace this with the path you have configured on your API
+        const path = '/schichtplan/veroeffentlichen'; //replace this with the path you have configured on your API
         const myInit = { // OPTIONAL
             headers: {
                 Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,
         },
-            body: shiftplan
+        body: {
+            id: shiftplan.id
+        }
         };
         const response = await API.post(apiName, path, myInit)
+
         dispatch(FetchFromDB)
     }
 }
