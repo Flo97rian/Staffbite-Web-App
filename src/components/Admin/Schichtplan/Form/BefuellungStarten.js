@@ -14,7 +14,7 @@ export default class BefuellungStarten extends React.PureComponent {
             <form>
                 <Row className="text-center">
                     <Col xs={6}>
-                        <Form.Label>Datum</Form.Label>
+                        <p>{this.props.plaene[this.props.plan].zeitraum}</p>
                     </Col>
                     <Col xs={6}> 
                         <InfoOverlay
