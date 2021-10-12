@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Spinner } from "reactstrap";
+import Chart from "chart.js";
+import classnames from "classnames";
 import { Line, Bar } from "react-chartjs-2";
 import {
     Card,
@@ -9,8 +11,12 @@ import {
     Col,
     CardTitle,
     Row,
+    NavLink,
+    NavItem,
+    Nav,
     Container,
     CardBody,
+    Button
   } from "reactstrap";
 
   // core components
@@ -34,6 +40,7 @@ const DashboardContainer = (props) => {
   const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
   const [filter, setFilter] = useState(null);
   const [filterIsActive, setFilterIsActive] = useState(!1)
+  const [activeNav, setActiveNav] = useState(1);
   const [ShiftSwitch, setShiftSwitch] = useState(!1)
   const [chartExample1Data, setChartExample1Data] = useState("data1");
 
@@ -87,6 +94,15 @@ const DashboardContainer = (props) => {
   const shiftChange = (plan) => {
     setShiftSwitch(plan);
   }
+  if (window.Chart) {
+    parseOptions(Chart, chartOptions());
+  }
+
+  const toggleNavs = (e, index) => {
+    e.preventDefault();
+    setActiveNav(index);
+    setChartExample1Data("data" + index);
+  };
   const getShiftTradeCount = (Plans) => {
     let shiftTradeCount = 0
     Plans.forEach(plan => {
@@ -134,6 +150,12 @@ const DashboardContainer = (props) => {
           [name]: !0
         })
       }
+    }
+
+    const handleResetReport = () => {
+      setFilter(null);
+      setFilterIsActive(!1);
+      store.dispatch({type: "All/Report", payload: !1})
     }
         return (
           <>
@@ -231,6 +253,7 @@ const DashboardContainer = (props) => {
               </h3>
               </Col>
               <Col xs={9}>
+                {Report ? <Button className="mt-4 float-right" onClick={() => {handleResetReport()}}><p className="pb-0 mb-0">Filter zurücksetzen</p></Button> : <></>}
               </Col>
               </Row>
               <Reporting
@@ -242,16 +265,55 @@ const DashboardContainer = (props) => {
         </>
         
       }
-        <CardBody>
-          {/* Chart */}
-          <div className="chart">
-            <Line
-              data={chartExample1[chartExample1Data]}
-              options={chartExample1.options}
-              getDatasetAtEvent={(e) => console.log(e)}
-            />
-          </div>
-        </CardBody>
+            {/* <Card className="bg-gradient-default shadow">
+              <CardHeader className="bg-transparent">
+                <Row className="align-items-center">
+                  <div className="col">
+                    <h6 className="text-uppercase text-light ls-1 mb-1">
+                      Bewerbungen
+                    </h6>
+                  </div>
+                  <div className="col">
+                    <Nav className="justify-content-end" pills>
+                      <NavItem>
+                        <NavLink
+                          className={classnames("py-2 px-3", {
+                            active: activeNav === 1,
+                          })}
+                          href="#pablo"
+                          onClick={(e) => toggleNavs(e, 1)}
+                        >
+                          <span className="d-none d-md-block">Monat</span>
+                          <span className="d-md-none">M</span>
+                        </NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink
+                          className={classnames("py-2 px-3", {
+                            active: activeNav === 2,
+                          })}
+                          data-toggle="tab"
+                          href="#pablo"
+                          onClick={(e) => toggleNavs(e, 2)}
+                        >
+                          <span className="d-none d-md-block">Woche</span>
+                          <span className="d-md-none">W</span>
+                        </NavLink>
+                      </NavItem>
+                    </Nav>
+                  </div>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div className="chart">
+                  <Line
+                    data={chartExample1[chartExample1Data]}
+                    options={chartExample1.options}
+                    getDatasetAtEvent={(e) => console.log(e)}
+                  />
+                </div>
+              </CardBody>
+            </Card> */}
         <OpenModal
           show={Modal}
           plaene={Plans}

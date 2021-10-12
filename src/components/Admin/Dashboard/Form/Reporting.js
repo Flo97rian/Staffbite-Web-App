@@ -68,8 +68,6 @@ const Reporting = (props) => {
                 </Row>
             </CardBody>
             </Card>
-                <Card className="mb-1 mt1-1">
-                    <CardBody className="p-1">
                         {Object.keys(props.Employees).map((employee, index) => 
                             <ReportingElement
                             filter={props.filter}
@@ -78,8 +76,6 @@ const Reporting = (props) => {
                             {...props}
                             ></ReportingElement>
                         )}
-                    </CardBody>
-                </Card>
             </>
             }
          </>
