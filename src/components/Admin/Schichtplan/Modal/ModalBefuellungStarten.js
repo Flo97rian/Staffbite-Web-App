@@ -1,9 +1,9 @@
 import React from "react";
 import {
     Col,
-    Row
+    Row,
+    Button
 } from "reactstrap"
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import BefuellungStarten from "../Form/BefuellungStarten";
@@ -35,8 +35,8 @@ const ModalBefuellungStarten = (props) => {
                     <br/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => props.startAlg(props.modalkey)}> Starten </Button>
-                    <Button onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
+                    <Button color="link" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
+                    <Button color="success" onClick={() => props.startAlg(props.modalkey)}> Ausführen </Button>
                 </Modal.Footer>
             </Modal>
         );
