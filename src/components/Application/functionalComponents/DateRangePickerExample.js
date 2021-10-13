@@ -30,7 +30,7 @@ const Datepicker = (props) => {
               <InputGroup className="input-group-alternative bg-secondary">
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="ni ni-calendar-grid-58" />
+                    <i className="fas fa-calendar" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <ReactDatetime
@@ -77,7 +77,7 @@ const Datepicker = (props) => {
               <InputGroup className="input-group-alternative">
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="ni ni-calendar-grid-58" />
+                    <i className="fas fa-calendar" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <ReactDatetime

@@ -23,7 +23,7 @@ class Datepicker extends React.Component {
               <InputGroup className="input-group-alternative">
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="ni ni-calendar-grid-58" />
+                    <i className="fas fa-calendar" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <ReactDatetime
@@ -70,7 +70,7 @@ class Datepicker extends React.Component {
               <InputGroup className="input-group-alternative">
                 <InputGroupAddon addonType="prepend">
                   <InputGroupText>
-                    <i className="ni ni-calendar-grid-58" />
+                    <i className="fas fa-calendar" />
                   </InputGroupText>
                 </InputGroupAddon>
                 <ReactDatetime

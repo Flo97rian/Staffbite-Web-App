@@ -125,7 +125,7 @@ class Landing extends React.Component {
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="py-5">
                           <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
-                            <i className="ni ni-calendar-grid-58" />
+                            <i className="fas fa-calendar" />
                           </div>
                           <h6 className="text-success text-uppercase">
                           Flexibel

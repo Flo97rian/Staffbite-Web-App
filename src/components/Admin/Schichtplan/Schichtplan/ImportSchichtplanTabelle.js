@@ -5,6 +5,7 @@ import {
   Row,
   Col,
   Table,
+  Badge,
 }
 from "reactstrap";
 // core components
@@ -60,6 +61,9 @@ const  ImportSchichtplanTabelle = (props) => {
                         </Col>
                 <Col xs={3}>
                     <p>Lengende</p>
+                    <Badge color="success">Bewerber</Badge>
+                    <Badge color="light"> kein Bewerber</Badge>
+                    <Badge color="dark"> kein Betrieb</Badge>
                 </Col>
             </Row>
             <br/>

@@ -100,7 +100,7 @@ class TabsSection extends React.Component {
                     href="#pablo"
                     role="tab"
                   >
-                    <i className="ni ni-calendar-grid-58 mr-2" />
+                    <i className="fas fa-calendar mr-2" />
                     Messages
                   </NavLink>
                 </NavItem>

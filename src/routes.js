@@ -44,7 +44,7 @@ var userroutes = [
   {
     path: "/index",
     name: "Übersicht",
-    icon: "ni ni-tv-2",
+    icon: "fas fa-home",
     style: "text-blue",
     component: UserDashboard,
     layout: "/user",
@@ -52,7 +52,7 @@ var userroutes = [
   {
     path: "/Schichtplan",
     name: "Schichtplan",
-    icon: "ni ni-calendar-grid-58",
+    icon: "fas fa-calendar",
     style: "text-blue",
     component: SchichtplanBewerben,
     layout: "/user",
@@ -60,7 +60,7 @@ var userroutes = [
   {
     path: "/profil",
     name: "Profil",
-    icon: "ni ni-ni ni-single-02",
+    icon: "fas fa-user",
     style: "text-blue",
     component: UserProfil,
     layout: "/user",
@@ -70,7 +70,7 @@ var adminroutes = [
   {
     path: "/index",
     name: "Übersicht",
-    icon: "fa fa-home",
+    icon: "fas fa-home",
     style: "text-primary",
     component: AdminDashboard,
     layout: "/admin",
@@ -78,7 +78,7 @@ var adminroutes = [
   {
     path: "/schichtplan",
     name: "Schichtplan",
-    icon: "ni ni-calendar-grid-58",
+    icon: "fas fa-calendar",
     style: "text-primary",
     component: Schichtplan,
     layout: "/admin",
@@ -86,7 +86,7 @@ var adminroutes = [
   {
     path: "/mitarbeiterverwalten",
     name: "Mitarbeiter",
-    icon: "fa fa-users",
+    icon: "fas fa-users",
     style: "text-primary",
     component: MitarbeiterVerwalten,
     layout: "/admin",
@@ -94,7 +94,7 @@ var adminroutes = [
   {
     path: "/einstellungen",
     name: "Einstellungen",
-    icon: "ni ni-settings",
+    icon: "fas fa-cog",
     style: "text-primary",
     component: Einstellungen,
     layout: "/admin",

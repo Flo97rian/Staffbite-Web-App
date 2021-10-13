@@ -230,7 +230,7 @@ const DragAndDrop = React.forwardRef((props, ref) => {
                           >
                             {getItemContent(item, Employees)}
                             {Number(ind) === 2 && Employees[item.id.substring(1)] ? <span
-                              className="ni ni-fat-remove"
+                              className="fas fa-user-times float-right"
                               onClick={() => handleDelete(ind, index, item)
                               }
                             >

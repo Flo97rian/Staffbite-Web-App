@@ -34,7 +34,7 @@ const SchichtplanImport = (props) => {
           <>
               <Card className="mb-1 mt-0">
               <CardBody className="p-1">
-              <Row className="text-center">
+              <Row className="text-left ml-2">
                   <Col xs={3}>
                       <p className="mt-3 font-weight-bold">Name</p>
                   </Col>
@@ -57,12 +57,12 @@ const SchichtplanImport = (props) => {
             if (ID(props.status, item)) {
             return (<Card className="mb-1 mt-0" key={item.id} id={index}>
               <CardBody className="p-1">
-                <Row className="text-center">
+                <Row className="text-left ml-2">
                     <Col xs={3}>
                         <p className="mt-3">{item.name}</p>
                     </Col>
                     <Col xs={3}>
-                        <p className="mt-3"><i className="fa fa-calendar mr-2"></i>{item.zeitraum.split(" - ")[0]} - {item.zeitraum.split(" - ")[1]}</p>
+                        <p className="mt-3"><i className="fas fa-calendar mr-2"></i>{item.zeitraum.split(" - ")[0]} - {item.zeitraum.split(" - ")[1]}</p>
                     </Col>
                     <Col xs={2}>
                         {planIdColor(item.id)}
@@ -71,7 +71,7 @@ const SchichtplanImport = (props) => {
                       <Button className="mt-2" name={item.label} outline color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
                     </Col>
                     <Col xs={2}>
-                    <i className="fa fa-trash fa-2x text-danger mt-3" aria-hidden="true" onClick={() => props.onDelete(index)}></i>
+                    <i className="fa fa-trash fa-2x text-danger mt-3 ml-4" aria-hidden="true" onClick={() => props.onDelete(index)}></i>
                     </Col>
                     </Row>
               </CardBody>

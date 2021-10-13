@@ -209,7 +209,7 @@ const DashboardContainer = (props) => {
                         </div>
                         <Col className="col-auto">
                           <div className="icon icon-shape bg-blue text-white rounded-circle shadow">
-                            <i className="ni ni-chat-round" />
+                            <i className="fas fa-comments" />
                           </div>
                         </Col>
                       </Row>

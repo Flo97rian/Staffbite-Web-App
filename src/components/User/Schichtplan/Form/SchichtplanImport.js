@@ -55,7 +55,7 @@ const SchichtplanImport = (props) => {
                         <p className="mt-3">{item.name}</p>
                     </Col>
                     <Col xs={3}>
-                        <p className="mt-3"><i className="fa fa-calendar mr-2"></i>{item.zeitraum.split(" - ")[0]} - {item.zeitraum.split(" - ")[1]}</p>
+                        <p className="mt-3"><i className="fas fa-calendar mr-2"></i>{item.zeitraum.split(" - ")[0]} - {item.zeitraum.split(" - ")[1]}</p>
                     </Col>
                     <Col xs={3}>
                         {planIdColor(item.id)}
