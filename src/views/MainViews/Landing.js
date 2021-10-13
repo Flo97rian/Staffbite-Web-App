@@ -22,6 +22,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../assets/scss/argon-dashboard-react.scss";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import daniel from "../../assets/img/theme/Daniel-Zellmann-Profilbild.jpg";
+import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-Beispiel.png"
 import florian from "../../assets/img/theme/Florian Zellmann Profilbild.jpg";
 import app from "../../assets/img/theme/App-Ansicht2.png";
 import laptop from "../../assets/img/theme/Schichtplan-Uebersicht.jpg";
@@ -66,7 +67,7 @@ class Landing extends React.Component {
                 }}/>
               <Container className="py-lg-md d-flex">
                 <div className="col px-0">
-                  <Row className="mt-4">
+                  <Row className="mt-6">
                     <Col lg="6">
                       <h1 className="display-3 text-white">
                       Müde vom stundenlangen Schichtplan puzzeln?{" "}
@@ -181,7 +182,7 @@ class Landing extends React.Component {
                 <Col className="order-md-2" md="6">
                   <img
                     alt="..."
-                    src={laptop}
+                    src={SchichtplanBeispiel}
                     style={{ width: "700px", height: "400px"}}
                   />
                 </Col>
