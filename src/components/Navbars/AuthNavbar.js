@@ -19,15 +19,12 @@ import React from "react";
 import { HashLink as Link } from 'react-router-hash-link';
 // reactstrap components
 import {
-  UncontrolledCollapse,
   NavbarBrand,
   Navbar,
   NavItem,
   NavLink,
   Nav,
   Container,
-  Row,
-  Col,
 } from "reactstrap";
 
 const AdminNavbar = (props) => {

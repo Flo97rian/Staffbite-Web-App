@@ -28,7 +28,6 @@ import {
   Container,
   NavItem,
   NavLink,
-  Media,
   NavbarBrand,
 } from "reactstrap";
 import { useSelector } from "react-redux";

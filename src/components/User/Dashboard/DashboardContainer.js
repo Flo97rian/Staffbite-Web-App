@@ -5,11 +5,9 @@ import 'moment/locale/de';
 
 import {
     Card,
-    CardHeader,
     Col,
     CardTitle,
     Row,
-    Container,
     CardBody,
   } from "reactstrap";
 import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansForEmployees";
@@ -41,7 +39,7 @@ const DashboardContainer = (props) => {
 
   useEffect(() => {
     if (Plans !== undefined && User !== undefined) {
-      getThisWeeksShiftPlan()
+      this.getThisWeeksShiftPlan()
     }
   }, [Plans])
 

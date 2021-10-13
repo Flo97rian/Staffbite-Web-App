@@ -1,6 +1,5 @@
 import { API, Auth } from "aws-amplify";
 import constants from "../constants";
-import _ from "lodash";
 
     // Läd alle Mitarbeiter aus der Datenbank
     export async function FetchEmployees(dispatch, getState) {

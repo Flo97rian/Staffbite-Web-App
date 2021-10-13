@@ -22,12 +22,9 @@ import { Container, Row } from "reactstrap";
 // core components
 
 import Amplify from 'aws-amplify';
-import { Auth } from 'aws-amplify';
-import SignUp from "../components/Auth/SignUp";
-import { Authenticator, SignIn, ConfirmSignUp, Greetings } from 'aws-amplify-react';
+import { Authenticator} from 'aws-amplify-react';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import awsconfig from '../aws-exports';
-import Login from "../components/Auth/Login"
 import { authroutes } from "../routes"
 
 Amplify.configure(awsconfig);

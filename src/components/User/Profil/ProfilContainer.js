@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import store from "../../../store";
 import { getUser } from "../../../store/middleware/FetchUser";
@@ -10,9 +10,7 @@ import {
     Row,
     CardBody,
   } from "reactstrap";
-import SchichtenTabelle from "./SchichtenTabelle";
 import Button from 'react-bootstrap/Button';
-import { API, Auth } from "aws-amplify";
 
 const ProfilContainer = (props) => {
   const selectUser = state => state.DB.user

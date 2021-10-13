@@ -22,7 +22,6 @@ import { Container } from "reactstrap";
 // core components
 import UserNavbar from "../components/Navbars/UserNavbar";
 import AdminFooter from "../components/Footers/AdminFooter.js";
-import Sidebar from "../components/Sidebar/Sidebar.js";
 
 import { userroutes } from "../routes.js";
 

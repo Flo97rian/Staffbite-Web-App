@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-    Card,
     Col,
-    CardHeader,
-    CardFooter,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
     Row,
-    CardBody,
   } from "reactstrap";
   import Spinner from 'react-bootstrap/Spinner'
 

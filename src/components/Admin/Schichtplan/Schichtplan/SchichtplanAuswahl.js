@@ -1,8 +1,5 @@
 import React from "react";
 import {
-    Row,
-    Col,
-    Button,
     Card,
     CardBody
   } from "reactstrap";

@@ -2,18 +2,11 @@ import React from "react";
 import { HashLink } from 'react-router-hash-link';
 // reactstrap components
 import {
-  UncontrolledCollapse,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
   NavbarBrand,
   Navbar,
   NavItem,
-  NavLink,
   Nav,
   Container,
-  Row,
-  Col
 } from "reactstrap";
 
 const LandingNavBar = (props) =>  {

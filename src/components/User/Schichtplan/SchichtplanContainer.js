@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansForEmployees";
-import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 import { getUser } from "../../../store/middleware/FetchUser";
 import { thunkUploadApplication } from "../../../store/middleware/UploadApplication";
 import Spinner from 'react-bootstrap/Spinner'
@@ -27,7 +26,6 @@ import ApplyTradeShift from "./FormElements/applyShiftTrade";
 import { handleSetApplicantTradeShift, handleCancelSetApplicantTradeShift } from "./processing.js/handleApplyForShiftTrade";
 
 const TableContainer = () => {
-  const [ActivePlan, setActivePlan] = useState(null);
   const [navIndex, setNavIndex] = useState(1);
 
   //REDUX-Filter für UI-Data

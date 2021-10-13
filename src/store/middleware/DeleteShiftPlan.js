@@ -14,6 +14,6 @@ export function thunkDeleteShiftPlan({index, Plans}) {
       },
       body: plans.Plans[shiftplanIndex.index].id
     };
-    const response = await API.post(apiName, path, myInit)
+    await API.post(apiName, path, myInit)
     dispatch(FetchFromDB)
     }}

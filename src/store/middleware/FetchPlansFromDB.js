@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { API, Auth } from "aws-amplify";
 import constants from "../constants";
 

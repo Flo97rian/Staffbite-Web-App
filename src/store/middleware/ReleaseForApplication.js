@@ -13,7 +13,7 @@ export function thunkReleaseForApplication(plan) {
         },
             id: shiftplan.id
         };
-        const response = await API.post(apiName, path, myInit)
+        await API.post(apiName, path, myInit)
         dispatch(FetchFromDB)
     }
 }

@@ -26,7 +26,7 @@ export function thunkUploadShiftPlanToDB({daysIsActive, NewShiftPlan}) {
         plan: plan.NewShiftPlan
       }
     };
-    const response = await API.post(apiName, path, myInit)
+    await API.post(apiName, path, myInit)
     dispatch(FetchFromDB)
     }
   }

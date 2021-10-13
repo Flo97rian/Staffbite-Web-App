@@ -5,7 +5,6 @@ import {
     Row,
     Col
 } from "reactstrap"
-import ApplicantTitle from "./ShiftTradeApplicantsTitle"
 import Form from 'react-bootstrap/Form';
 
 const ApplyTradeShift = (props) => {

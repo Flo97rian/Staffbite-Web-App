@@ -13,7 +13,7 @@ export function thunkStartAlg(id) {
       },
       body: planid
     };
-    const response = await API.post(apiName, path, myInit)
+    await API.post(apiName, path, myInit)
     dispatch(FetchFromDB)
     dispatch({type: "AlgResponse", payload: !0})
     dispatch({type: "stopFetchingAlg"})

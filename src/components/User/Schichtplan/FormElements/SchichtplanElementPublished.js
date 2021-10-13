@@ -1,6 +1,5 @@
 import React from "react";
 // core components
-import store from "../../../../store";
 import { 
     DateOrWeekDayRow,
     ShiftDescription,
@@ -9,14 +8,13 @@ import {
     ShowSingleApplicantWithOutUser,
     ShowSingleApplicantWithUser,
     ShowMultipleApplicantsWithUser,
-    ZeroSetApplicants,
     Default
 } from "../../../Application/functionalComponents/SchichtplanElements";
 
-const tradeShift = (index, col) => {
-    store.dispatch({type: "OPEN", payload: "tradeShift"})
-    store.dispatch({type: "setShiftSlot", payload: { row: index, col: col}})
-}
+// const tradeShift = (index, col) => {
+//     store.dispatch({type: "OPEN", payload: "tradeShift"})
+//     store.dispatch({type: "setShiftSlot", payload: { row: index, col: col}})
+// }
 
 const SchichtplanElementPublished = (props) => {
 
@@ -27,7 +25,7 @@ const SchichtplanElementPublished = (props) => {
         const isFree = obj.frei;
         const currentUser = props.currentUser;
         let anzahl = e[index].Montag.anzahl
-        const ApplicantMatchesPosition = currentUser.position["S"].includes(e[index]["Wochentag"].ShiftName)
+        //const ApplicantMatchesPosition = currentUser.position["S"].includes(e[index]["Wochentag"].ShiftName)
         const hasSetApplicants =  Object.keys(obj).includes("setApplicants") && Object.keys(obj["setApplicants"]).length > 0 ? !0 : !1
         const ShiftIncludesApplicant = hasSetApplicants ? Object.keys(obj["setApplicants"]).includes(currentUser.SK["S"]) : !1
         const ApplicantsLength = hasSetApplicants ? Object.keys(obj.setApplicants).length : 0
