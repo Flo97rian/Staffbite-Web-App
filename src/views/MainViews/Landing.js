@@ -24,8 +24,8 @@ import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import daniel from "../../assets/img/theme/Daniel-Zellmann-Profilbild.jpg";
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-Beispiel.png"
 import florian from "../../assets/img/theme/Florian Zellmann Profilbild.jpg";
-import app from "../../assets/img/theme/App-Ansicht2.png";
-import laptop from "../../assets/img/theme/Schichtplan-Uebersicht.jpg";
+import MitarbeiterAppBeispiel from "../../assets/img/theme/Mitarbeiter-App-Beispiel.png"
+import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.JPG"
 
 
 // reactstrap components
@@ -205,13 +205,20 @@ class Landing extends React.Component {
             <Container>
               <Row className="row-grid align-items-center">
                 <Col md="6">
+                <Row className="row-grid align-items-center">
+                <Col md="4">
+                  </Col>
+                  <Col md="4">
                   <Card className="bg-default shadow border-0">
                     <CardImg
                       alt="..."
-                      src={app}
-                      top
+                      src={MitarbeiterAppBeispiel}
+                      style={{ width: "200px", height: "390px"}}
                     />
                   </Card>
+                  </Col>
+                  <Col md="4"></Col>
+                  </Row>
                 </Col>
                 <Col md="6">
                   <div className="pl-md-5">
@@ -235,36 +242,25 @@ class Landing extends React.Component {
                 </Col>
               </Row>
               <Row>
-                <Col className="mb-5 mb-lg-0" lg="6" md="6">
+                <Col className="mb-5 mb-lg-0" lg="12" md="12">
                   <div className="px-4">
                     <img
                       alt="..."
                       className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                      src={daniel}
-                      style={{ width: "200px", height: "200px"}}
+                      src={Team}
                     />
                     <div className="pt-4 text-center">
-                      <h5 className="title">
-                        <h3 className="d-block mb-1">Daniel Zellmann</h3>
-                        <small className="h6 lead">Masterstudent Business Management</small>
-                      </h5>
-                    </div>
-                  </div>
-                </Col>
-                <Col className="mb-5 mb-lg-0" lg="6" md="6">
-                  <div className="px-4">
-                    <img
-                      alt="..."
-                      className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                      src={florian}
-                      style={{ width: "200px", height: "200px" }}
-                    />
-                    <div className="pt-4 text-center">
-                      <h5 className="title">
-                        <h3 className="d-block mb-1">Florian Zellmann</h3>
-                        <small className="h6 lead">
-                          Bachelorstudent BWL
-                        </small>
+                    <h5 className="title">
+                      <Row>
+                        <Col xs="6">
+                          <h3 className="d-block mb-1">Florian Zellmann</h3>
+                          <small className="h6 lead">Bachelorstudent BWL</small>
+                        </Col>
+                        <Col xs="6">
+                          <h3 className="d-block mb-1 ">Daniel Zellmann</h3>
+                          <small className="h6 lead">Masterstudent Business Management</small>
+                        </Col>
+                      </Row>
                       </h5>
                     </div>
                   </div>
