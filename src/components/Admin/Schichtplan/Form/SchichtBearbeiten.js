@@ -9,6 +9,9 @@ import InputNumber from "../../../Application/functionalComponents/InputNumber";
 
 const SchichtBearbeiten = (props) => {
     const row = Number(props.shiftSlot.row)
+    console.log(props.import)
+    console.log(props.Schichtplan)
+    console.log(props.shiftSlot)
     const shiftDetails = props.import ? props.plaene[props.plan].plan[row].Wochentag : props.Schichtplan[row].Wochentag
     const anzahl = props.import ? props.plaene[props.plan].plan[row].Montag : props.Schichtplan[row].Montag
         return(

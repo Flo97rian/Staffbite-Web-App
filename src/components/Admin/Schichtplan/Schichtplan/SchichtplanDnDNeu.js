@@ -5,7 +5,6 @@ import {
 } from "reactstrap";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import SchichtplanElementNeu from "../SchichtplanElement/SchichtplanElementNeu"
-import store from "../../../../store";
 import Spinner from 'react-bootstrap/Spinner'
 // fake data generator
 const getItems = (shiftsplan) => {
@@ -47,16 +46,12 @@ const getListStyle = isDraggingOver => ({
 });
 
 const TableDnD = (props) => {
-  const [Items, setItems] = useState(getItems(props.plaene[props.plan].plan))
+  const [Items, setItems] = useState(getItems(props.Schichtplan))
   const [Valid, setItemsValid] = useState(!1)
 
   useEffect(() => {
-      setItems(getItems(props.plaene[props.plan].plan));
-      }, [props.plaene]);
-
-  useEffect(() => {
-    setItems(getItems(props.plaene[props.plan].plan));
-    }, [props.plan]);
+      setItems(getItems(props.Schichtplan));
+      }, [props.Schichtplan]);
 
   useEffect(() => {
     props.onSwitch(Items)

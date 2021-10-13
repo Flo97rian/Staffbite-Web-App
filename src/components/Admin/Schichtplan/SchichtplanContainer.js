@@ -274,7 +274,7 @@ const SchichtplanContainer = () => {
           handleUpload={handleUploadShiftPlanToDB}
           trigger={ShiftPlanIsActive}
           import={ShiftPlanIsImported}/>
-      {ShiftPlanIsActive ?
+      {ShiftPlanIsActive && currentShiftPlan ?
         <>
           <ModalOpenButton
             title="Schichtplan freigeben"

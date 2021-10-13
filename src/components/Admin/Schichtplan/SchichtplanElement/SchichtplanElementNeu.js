@@ -22,6 +22,7 @@ export const SchichtplanElementNeu = (props) => {
 
     const editShift = (index) => {
         store.dispatch({type: "OPEN", payload: index})
+        store.dispatch({type: "setShiftSlot", payload: { row: index}})
     }
 
     const dataModal = (e) => {
