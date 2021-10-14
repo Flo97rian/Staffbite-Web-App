@@ -8,7 +8,7 @@ import {
 import Form from 'react-bootstrap/Form';
 
 const ApplyTradeShift = (props) => {
-    const Employees = props.employees
+    const Employees = props.user
     const currentPlan = props.plan[props.current]
     return (
         <>

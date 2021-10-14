@@ -75,7 +75,7 @@ const User = (props) => {
           {...props}
           routes={userroutes}
           logo={{
-            innerLink: "/admin/index",
+            innerLink: "/user/index",
             imgSrc: require("../assets/img/brand/Staffbite_Logo.png").default,
             imgAlt: "...",
           }}

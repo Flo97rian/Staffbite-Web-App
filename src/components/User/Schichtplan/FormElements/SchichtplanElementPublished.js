@@ -6,15 +6,16 @@ import {
     CompanyClosed,
     ShowMultipleApplicantsWithOutUser,
     ShowSingleApplicantWithOutUser,
-    ShowSingleApplicantWithUser,
-    ShowMultipleApplicantsWithUser,
+    TradeShiftSingleSetApplicant,
+    TradeShiftMultiSetApplicant,
     Default
 } from "../../../Application/functionalComponents/SchichtplanElements";
+import store from "../../../../store";
 
-// const tradeShift = (index, col) => {
-//     store.dispatch({type: "OPEN", payload: "tradeShift"})
-//     store.dispatch({type: "setShiftSlot", payload: { row: index, col: col}})
-// }
+const tradeShift = (index, col) => {
+     store.dispatch({type: "OPEN", payload: "tradeShift"})
+     store.dispatch({type: "setShiftSlot", payload: { row: index, col: col}})
+ }
 
 const SchichtplanElementPublished = (props) => {
 
@@ -40,11 +41,11 @@ const SchichtplanElementPublished = (props) => {
         } else if (!isFree && isDiscribeWeekDay){
             return ShiftDescription(obj, anzahl)
         } else if (isFree && hasSetApplicants && ApplicantsLength > 1 && ShiftIncludesApplicant) {
-            return ShowMultipleApplicantsWithUser(ApplicantName, ApplicantsLength)
+            return TradeShiftMultiSetApplicant(index, col, ApplicantName, ApplicantsLength, tradeShift)
         } else if (isFree && hasSetApplicants && ApplicantsLength > 1) {
             return ShowMultipleApplicantsWithOutUser(FirstApplicant, ApplicantsLength)
         }  else if (isFree && hasSetApplicants && ApplicantsLength === 1 && ShiftIncludesApplicant) {
-            return ShowSingleApplicantWithUser(ApplicantName)
+            return TradeShiftSingleSetApplicant(index, col, ApplicantName, tradeShift)
         }  else if (isFree && hasSetApplicants && ApplicantsLength === 1) {
             return ShowSingleApplicantWithOutUser(FirstApplicant)
         } else if (isFree && !isDiscribeWeekDay) {
