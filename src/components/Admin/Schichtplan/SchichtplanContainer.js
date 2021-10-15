@@ -10,73 +10,73 @@ import {
     CardBody,
   } from "reactstrap";
 
-import Nav from "./Nav/Nav"
+import Nav from "./Nav/Nav";
 import { Spinner } from "reactstrap";
-import OpenModal from "./Modal/OpenModal"
+import OpenModal from "./Modal/OpenModal";
 import { FetchOrg } from "../../../store/middleware/FetchOrg";
 import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile";
 import { createNewShiftPlan } from "./processing/createNewShiftPlan";
-import { editShiftDetailsImportedShiftPlan, editShiftDetailsNewShiftPlan } from "./processing/handleEditShiftDetails"
+import { editShiftDetailsImportedShiftPlan, editShiftDetailsNewShiftPlan } from "./processing/handleEditShiftDetails";
 import { addNewShiftToImportedShiftPlan, addShiftToNewShiftPlan } from "./processing/handleAddShift";
 import { deleteShiftFromImportedShiftPlan, deleteShiftFromNewShiftPlan } from "./processing/handleDeleteShift";
 import { setPrioShift, setNewPrioShift } from "./processing/handlePrio";
 import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
-import { thunkUpdateShiftPlan } from "../../../store/middleware/UpdateShiftPlan"
-import { user } from "../../../store/middleware/user"
+import { thunkUpdateShiftPlan } from "../../../store/middleware/UpdateShiftPlan";
+import { user } from "../../../store/middleware/user";
 import { thunkUploadShiftPlanToDB } from "../../../store/middleware/UploadShiftPlanToDB";
 import { thunkDeleteShiftPlan } from "../../../store/middleware/DeleteShiftPlan";
 import { handleSwitchShiftOrder } from "./processing/handleSwitchShiftOrder";
 import { refractorEmployees } from "./processing/GetShiftCount";
 import { thunkStartAlg } from "../../../store/middleware/StartAlg";
 import { thunkReleaseForApplication } from "../../../store/middleware/ReleaseForApplication";
-import { setApplicantsInShiftPlan } from "./processing/handleUpdateSetApplicants"
-import { handleCancelShfitTrade, handleSetShfitTrade } from "./processing/handleSetShiftTrade"
-import { handleApplication } from "./processing/handleReleaseForApplication"
-import SchichtplanAuswahl from "./Schichtplan/SchichtplanAuswahl"
-import ModalOpenButton from "./FormElements/ModalOpenButton"
-import ButtonSaveUpdate from "./FormElements/ButtonSaveUpdate"
-import ButtonZurueck from "./FormElements/ButtonZurueck"
-import NeuerSchichtplanButton from "./FormElements/NeuerSchichtplanButton"
-import ButtonUpdateShiftPlan from "./FormElements/ButtonUpdateShiftPlan"
-import SetTradeShift from "../../Application/functionalComponents/setTradeShift"
-import SchichtplanImport from "./Form/SchichtplanImport"
+import { setApplicantsInShiftPlan } from "./processing/handleUpdateSetApplicants";
+import { handleCancelShfitTrade, handleSetShfitTrade } from "./processing/handleSetShiftTrade";
+import { handleApplication } from "./processing/handleReleaseForApplication";
+import SchichtplanAuswahl from "./Schichtplan/SchichtplanAuswahl";
+import ModalOpenButton from "./FormElements/ModalOpenButton";
+import ButtonSaveUpdate from "./FormElements/ButtonSaveUpdate";
+import ButtonZurueck from "./FormElements/ButtonZurueck";
+import NeuerSchichtplanButton from "./FormElements/NeuerSchichtplanButton";
+import ButtonUpdateShiftPlan from "./FormElements/ButtonUpdateShiftPlan";
+import SetTradeShift from "../../Application/functionalComponents/setTradeShift";
+import SchichtplanImport from "./Form/SchichtplanImport";
 import store from "../../../store";
 import { thunkPublishShiftPlan } from "../../../store/middleware/PublishShiftPlan";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 
 const SchichtplanContainer = () => {
-  const [meta, setMeta] = useState(null)
+  const [meta, setMeta] = useState(null);
   const [daysIsActive, setDaysIsActive] = useState(null);
-  const [navIndex, setNavIndex] = useState(1)
+  const [navIndex, setNavIndex] = useState(1);
   const [ShiftEmployees, setShiftEmployees] = useState(null);
-  const [shiftDetails, setShiftDetails] = useState(false)
-  const [ShiftSwitch, setShiftSwitch] = useState(!1)
-  const [ErrMsng, setErrMsng] = useState(!1)
+  const [shiftDetails, setShiftDetails] = useState(false);
+  const [ShiftSwitch, setShiftSwitch] = useState(!1);
+  const [ErrMsng, setErrMsng] = useState(!1);
 
-  const selectMeta = state => state.DB.meta
+  const selectMeta = state => state.DB.meta;
   const selectEmployees = state => state.DB.employees;
-  const selectDate = state => state.date
-  const selectNewDate = state => state.date.start
-  const selectCurrentShiftPlan = state => state.currentShiftPlan.currentShiftPlan
-  const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive
-  const selectShiftPlanIsImported = state => state.visibility.ShiftPlanIsImported
-  const selectPlans = state => state.DB.plans
-  const selectShiftSlot = state => state.shiftSlot
-  const selectNewShiftPlan = state => state.newShiftPlan.shiftplan
-  const selectModal = state => state.modal
-  const selectLoadingAlg = state => state.loadings.isFetchingAlg
-  const selectLoadingPublish = state => state.loadings.isFetchingPublish
-  const selectLoadingFetchingPlans = state => state.loadings.isFetchingPlansFromDB
+  const selectDate = state => state.date;
+  const selectNewDate = state => state.date.start;
+  const selectCurrentShiftPlan = state => state.currentShiftPlan;
+  const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive;
+  const selectShiftPlanIsImported = state => state.visibility.ShiftPlanIsImported;
+  const selectPlans = state => state.DB.plans;
+  const selectShiftSlot = state => state.shiftSlot;
+  const selectNewShiftPlan = state => state.newShiftPlan.shiftplan;
+  const selectModal = state => state.modal;
+  const selectLoadingAlg = state => state.loadings.isFetchingAlg;
+  const selectLoadingPublish = state => state.loadings.isFetchingPublish;
+  const selectLoadingFetchingPlans = state => state.loadings.isFetchingPlansFromDB;
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
   const Employees = useSelector(selectEmployees);
-  const Date = useSelector(selectDate)
+  const Date = useSelector(selectDate);
   const NewDate = useSelector(selectNewDate);
-  const ShiftPlanIsActive = useSelector(selectShiftPlanIsActive)
-  const currentShiftPlan = useSelector(selectCurrentShiftPlan)
-  const ShiftPlanIsImported = useSelector(selectShiftPlanIsImported)
-  const Plans = useSelector(selectPlans)
+  const ShiftPlanIsActive = useSelector(selectShiftPlanIsActive);
+  const currentShiftPlan = useSelector(selectCurrentShiftPlan);
+  const ShiftPlanIsImported = useSelector(selectShiftPlanIsImported);
+  const Plans = useSelector(selectPlans);
   const ShiftSlot = useSelector(selectShiftSlot);
   const NewShiftPlan = useSelector(selectNewShiftPlan);
   const Modal = useSelector(selectModal);
@@ -85,26 +85,26 @@ const SchichtplanContainer = () => {
   const LoadingFetchingPlans = useSelector(selectLoadingFetchingPlans);
 
   useEffect(() => {
-      store.dispatch(FetchFromDB)
-      store.dispatch(FetchOrg)
-      store.dispatch(user)
-      store.dispatch(FetchEmployees)
+      store.dispatch(FetchFromDB);
+      store.dispatch(FetchOrg);
+      store.dispatch(user);
+      store.dispatch(FetchEmployees);
     }, []);
 
   useEffect(() => {
     if(Date.start !== undefined) {
-    let abrechnungStart = moment(Date.start.startDate).format("l")
-    let abrechnungEnde = moment(Date.ende.endDate).format("l")
-    setMeta({...meta, AbrechnungStart: abrechnungStart, AbrechnungEnde: abrechnungEnde })
+    let abrechnungStart = moment(Date.start.startDate).format("l");
+    let abrechnungEnde = moment(Date.ende.endDate).format("l");
+    setMeta({...meta, AbrechnungStart: abrechnungStart, AbrechnungEnde: abrechnungEnde });
     }
   }, [Date]);
 
   useEffect(() => {
     if(currentShiftPlan && Employees && Plans) {
-      const employees = refractorEmployees(Employees, Plans[currentShiftPlan].plan)
-      setShiftEmployees(employees)
+      console.log(currentShiftPlan);
+      const employees = refractorEmployees(Employees, Plans[currentShiftPlan].plan);
+      setShiftEmployees(employees);
     }
-    console.log(ShiftPlanIsImported, ShiftPlanIsActive)
   }, [currentShiftPlan]);
 
   useEffect(() => {
@@ -114,29 +114,31 @@ const SchichtplanContainer = () => {
   }, [navIndex]);
 
   const handleNavChange = (index) => {
-    setNavIndex(index)
-  }
+    setNavIndex(index);
+  };
+
   // Handling von Userinputs
   const handleInputChange = (event) => {
     let key = event.target.name;
     let val = stateSwitch(event.target.value, event);
-    setDaysIsActive({...daysIsActive, [key]: val })
-  }
+    setDaysIsActive({...daysIsActive, [key]: val });
+  };
+
   const shiftChange = (plan) => {
     setShiftSwitch(plan);
-  }
+  };
   // Überprüfung von Userinputs, ob der Input vom Typ Switch ist
   const stateSwitch = (value, event) => {
-    if (value !== "on") return value
+    if (value !== "on") return value;
       let state = handleInputSwitch(event);
-      return state
-  }
+      return state;
+  };
 
   // Diese Funktion ändert den Wert eines Switches, je nach userinput
   const handleInputSwitch = (event) => {
-    if (event.target.checked !== !0) return !1
-      return !0
-  }
+    if (event.target.checked !== !0) return !1;
+      return !0;
+  };
 
   // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
   const getModalKey = (allmodals) => {
@@ -144,107 +146,123 @@ const SchichtplanContainer = () => {
     const modalfilter = modals.filter((modal) => typeof modal === "string");
     const modal = modalfilter[0];
     return modal;
-  }
+  };
   // Untersucht, ob der Wert eines Modals auf true steht und gibt den Wert true zurück
   const getModalTrue = (allmodals) => {
-    let modals = Object.entries(allmodals).map(([key, value]) => {return value})
-    let truemodal = modals.includes(true)
-    return truemodal
-  }
+    let modals = Object.entries(allmodals).map(([key, value]) => {return value;});
+    let truemodal = modals.includes(true);
+    return truemodal;
+  };
+
   const handleUpdateProfile = () => {
-    store.dispatch(thunkUpdateProfile(meta))
-  }
+    store.dispatch(thunkUpdateProfile(meta));
+  };
   // Diese Funktion sorgt für die Speicherung eines neuen Schichtplans und schließt im Anschluss das zugehörige Modal
   const handleNewShiftPlanSave = (modal) => {
-    const hasName = daysIsActive !== null && Object.keys(daysIsActive).includes("name")
+    const hasName = daysIsActive !== null && "name" in daysIsActive ? !0 : !1;
     if (hasName) {
     createNewShiftPlan(daysIsActive);
-    store.dispatch({type: "CLOSE", payload: modal})
-  }}
+    store.dispatch({type: "CLOSE", payload: modal});
+  }};
 
   const handleSetApplicant = (modal, updateApplicant) => {
-    setApplicantsInShiftPlan({Plans, currentShiftPlan, ShiftSlot, updateApplicant, modal})
-  }
+    setApplicantsInShiftPlan({Plans, currentShiftPlan, ShiftSlot, updateApplicant, modal});
+  };
   // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter:innen)
   const handleEditShiftDetails = (index) => {
-    ShiftPlanIsImported ? editShiftDetailsImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive}) : editShiftDetailsNewShiftPlan({index, NewShiftPlan, daysIsActive});
-    store.dispatch({type: "CLOSE", payload: index})
-  }
+    if (ShiftPlanIsImported) {
+      editShiftDetailsImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive});
+    } else {
+      editShiftDetailsNewShiftPlan({index, NewShiftPlan, daysIsActive});
+    }
+    store.dispatch({type: "CLOSE", payload: index});
+  };
 
   //Dise Funktion sorgt für das Hinzufügen einer neuen Schicht zum jeweiligen Schichtplan
   const handleAddShift = (index) => {
-    ShiftPlanIsImported ? addNewShiftToImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive}) : addShiftToNewShiftPlan({index, NewShiftPlan, daysIsActive});
-    store.dispatch({type: "CLOSE", payload: index})
-  }
+    if (ShiftPlanIsImported) {
+      addNewShiftToImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive});
+    } else {
+      addShiftToNewShiftPlan({index, NewShiftPlan, daysIsActive});
+    }
+    store.dispatch({type: "CLOSE", payload: index});
+  };
 
   //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
   const handlePrioShiftToDB = (modal) => {
-    NewShiftPlan ? setNewPrioShift({NewShiftPlan, ShiftSlot, daysIsActive}) : setPrioShift({Plans, ShiftSlot, currentShiftPlan, daysIsActive});
+    if (NewShiftPlan) {
+      setNewPrioShift({NewShiftPlan, ShiftSlot, daysIsActive});
+    } else {
+      setPrioShift({Plans, ShiftSlot, currentShiftPlan, daysIsActive});
+    }
     store.dispatch(thunkUpdateShiftPlan);
-    store.dispatch({type: "CLOSE", payload: modal})
-  }
+    store.dispatch({type: "CLOSE", payload: modal});
+  };
 
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleUpdatedShiftPlanToDB = () => {
-      let plans = [...Plans]
-      console.log(plans)
-      console.log(ShiftSwitch)
+      let plans = [...Plans];
       if (ShiftSwitch !== null) {
         let shiftswitch = handleSwitchShiftOrder(ShiftSwitch);
-        plans[currentShiftPlan]["plan"] = shiftswitch
+        plans[currentShiftPlan]["plan"] = shiftswitch;
       }
-      store.dispatch({type: "isFetchPlansFromDB"})
-      store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan))
-  }
+      store.dispatch({type: "isFetchPlansFromDB"});
+      store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan));
+  };
 
   //Diese Funktion fürgt einen neu erstelten Schichtplan der Datenbank hinzu
   const handleUploadShiftPlanToDB = () => {
-    store.dispatch(thunkUploadShiftPlanToDB({daysIsActive, NewShiftPlan}))
-  }
+    store.dispatch(thunkUploadShiftPlanToDB({daysIsActive, NewShiftPlan}));
+  };
 
   //Diese Funktion löscht einen ausgewählten Schichtplan in der Datenbank
   const handleDeleteShiftPlan = (index) => {
-    store.dispatch(thunkDeleteShiftPlan({index, Plans}))
-  }
+    store.dispatch(thunkDeleteShiftPlan({index, Plans}));
+  };
 
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleShiftTradeToDB = (index) => {
-    let plans = Plans
-    plans[currentShiftPlan] = handleSetShfitTrade(Plans, currentShiftPlan, index, daysIsActive, Employees)
-    store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan))
-  }
+    let plans = Plans;
+    plans[currentShiftPlan] = handleSetShfitTrade(Plans, currentShiftPlan, index, daysIsActive, Employees);
+    store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan));
+  };
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleCancelShiftTradeToDB = (index) => {
-    let plans = Plans
-    plans[currentShiftPlan] = handleCancelShfitTrade(Plans, currentShiftPlan, index, daysIsActive, Employees)
-    store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan))
-  }
+    let plans = Plans;
+    plans[currentShiftPlan] = handleCancelShfitTrade(Plans, currentShiftPlan, index, daysIsActive, Employees);
+    store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan));
+  };
   //Diese Funktion löscht eine ausgewählte Schicht innerhalb eines ausgewählten Schichtplans
   const handleDeleteShift = (index) => {
-      ShiftPlanIsImported ? deleteShiftFromImportedShiftPlan({index, Plans, currentShiftPlan}) : deleteShiftFromNewShiftPlan({index, NewShiftPlan})
-      store.dispatch({type: "CLOSE", payload: index})
-  }
+    if (ShiftPlanIsImported) {
+      deleteShiftFromImportedShiftPlan({index, Plans, currentShiftPlan});
+    } else {
+      deleteShiftFromNewShiftPlan({index, NewShiftPlan});
+    }
+      store.dispatch({type: "CLOSE", payload: index});
+  };
   //Diese Funktion löscht einen ausgewählten Schichtplan in der Datenbank
   const handlePublishShiftPlan = () => {
-    store.dispatch({type: "startFetchingPublish"})
-    store.dispatch(thunkPublishShiftPlan(Plans[currentShiftPlan]))
-  }
+    store.dispatch({type: "startFetchingPublish"});
+    store.dispatch(thunkPublishShiftPlan(Plans[currentShiftPlan]));
+  };
+
   const handleReleaseForApplication = (modal) => {
-    const response = handleApplication(Plans, currentShiftPlan, NewDate)
-    if (!response) {setShiftDetails(!0)}
+    const response = handleApplication(Plans, currentShiftPlan, NewDate);
+    if (!response) {setShiftDetails(!0);}
     store.dispatch({type: "CLOSE", payload: modal});
-  }
+  };
 
   const handleStartAlg = (modal) => {
-    store.dispatch({type: "startFetchingAlg"})
-    const id = Plans[currentShiftPlan].id
-    store.dispatch(thunkStartAlg(id))
-    store.dispatch({type: "CLOSE", payload: modal})
-  }
+    store.dispatch({type: "startFetchingAlg"});
+    const id = Plans[currentShiftPlan].id;
+    store.dispatch(thunkStartAlg(id));
+    store.dispatch({type: "CLOSE", payload: modal});
+  };
 
         return(
         <>
-        { !Meta && !Employees && !Plans?
+        { !Meta && !Employees && !Plans ?
         <Row className="text-center">
           <br/>
           <Col xs={12}>
@@ -274,7 +292,7 @@ const SchichtplanContainer = () => {
           handleUpload={handleUploadShiftPlanToDB}
           trigger={ShiftPlanIsActive}
           import={ShiftPlanIsImported}/>
-      {ShiftPlanIsActive && currentShiftPlan ?
+      {ShiftPlanIsActive && currentShiftPlan !== !1 ?
         <>
           <ModalOpenButton
             title="Schichtplan freigeben"

@@ -25,6 +25,7 @@ import {
   CardBody,
   FormGroup,
   Form,
+  Alert, 
   Input,
   InputGroupAddon,
   InputGroupText,
@@ -46,6 +47,7 @@ import { Switch, Redirect } from "react-router-dom";
 const Login = () => {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
+    const [err, setErr] = useState(null)
     const [newpassword, setNewPassword] = useState(null);
     const [authState, setAuthState] = useState();
     const [user, setUser] = useState();
@@ -73,17 +75,19 @@ const Login = () => {
     async function signIn() {
         try {
             const user = await Auth.signIn(username, password);
-            if (Object.keys(user).includes("challengeName") && !newpassword) {
+            if ("challengeName" in user && !newpassword) {
                 setAuthState(AuthState.ResetPassword);
                 setUser(user);
-            } else if (Object.keys(user).includes("challengeName") && newpassword !== null) {
-                changePassword(password, newpassword)
+            } else if ("challengeName" in user && newpassword !== null) {
+                changePassword(password, newpassword);
                 setAuthState();
             } else {
                 setAuthState(AuthState.SignedIn);
                 setUser(user);
             }
         } catch (error) {
+            console.log(error);
+            setErr(error);
         }   
     }
 
@@ -219,6 +223,14 @@ const Login = () => {
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
                 imgAlt: "...",
                 }}/>
+                { err !== null && err.code === "NotAuthorizedException" ? 
+                <div>
+                <Alert color="warning" isOpen={!0} fade={false}>
+                    {err.message}
+                </Alert>
+                </div>
+                : <></>
+                }
             <main className="bg-secondary">
             <section className="section section-shaped section-lg">
                 <Container className="pt-lg-7">

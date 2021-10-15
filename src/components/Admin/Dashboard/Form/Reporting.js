@@ -1,9 +1,7 @@
 import React from "react";
-import moment from "moment";
 import {
     Row,
     Col,
-    Button,
     Card,
     Badge,
     CardBody
@@ -12,11 +10,11 @@ import {
   import store from "../../../../store";
 
 const Reporting = (props) => {
-    let hasFilter = props.filter !== null
-    let hasZeitraum = hasFilter && Object.keys(props.filter).includes("start") && Object.keys(props.filter).includes("ende")
-    let zeitraum = hasZeitraum ?  props.filter.start + " - " + props.filter.ende : !1
-    let hasFilterBewerbungen = hasFilter && Object.keys(props.filter).includes("bewerbungen") ? !0 : !1
-    let hasFilterSchichten = hasFilter && Object.keys(props.filter).includes("schichten") ? !0 : !1
+    var hasFilter = props.filter !== null;
+    var hasZeitraum = hasFilter && "start" in props.filter && "ende" in props.filter;
+    var zeitraum = hasZeitraum ?  props.filter.start + " - " + props.filter.ende : !1;
+    var hasFilterBewerbungen = hasFilter && "bewerbungen" in props.filter ? !0 : !1;
+    var hasFilterSchichten = hasFilter && "schichten" in props.filter ? !0 : !1;
         return (
             <>
             {!props.Report ? 

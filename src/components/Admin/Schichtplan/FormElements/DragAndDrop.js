@@ -4,39 +4,40 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // fake data generator
 const getItems = (employees = {}, index) => {
   if (  Object.keys(employees).length > 0) {
-    return employeesSet(employees, index)
+    return employeesSet(employees, index);
   } else {
-    return noEmployeesSet()
+    return noEmployeesSet();
   }};
 
   const noEmployeesSet = () => {
     const array = [{
       id: "0",
       content: "Leer"
-    }]
-    return array
-  }
+    }];
+    return array;
+  };
 
   const employeesSet = (employees, index) => {
     const array = Array.from({ length: Object.keys(employees).length }, (v, k) => k).map(k => ({
       id: index + Object.keys(employees)[k],
       content: employees[Object.keys(employees)[k]]
-    }))
-    return array
-  }
+    }));
+    return array;
+  };
 
   const getEmployees = (employees, index, shiftname) => {
-    const employeesCopy = {...employees}
+    const employeesCopy = {...employees};
     for (const [key, value] of Object.entries(employeesCopy)) {
-      const positionen = value.position
+      const positionen = value.position;
       if ( !positionen.includes(shiftname)) {
-        delete employeesCopy[key]
+        delete employeesCopy[key];
       }}
     const array = Array.from({ length: Object.keys(employeesCopy).length }, (v, k) => k).map(k => ({
       id: index + Object.keys(employeesCopy)[k],
       content: employees[Object.keys(employeesCopy)[k]].name
-    }))
-    return array};
+    }));
+    return array;
+  };
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -53,18 +54,18 @@ const move = (source, destination, droppableSource, droppableDestination, empId,
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
   if (Number(destClone[0].id) === 0) {
-    const employee = sourceClone[droppableSource.index]
-    const newid = droppableDestination.droppableId + empId.substring(1)
-    destClone.splice(0,1, {id: newid, content: employee.content})
+    const employee = sourceClone[droppableSource.index];
+    const newid = droppableDestination.droppableId + empId.substring(1);
+    destClone.splice(0,1, {id: newid, content: employee.content});
   } else {
-    const employee = sourceClone[droppableSource.index]
-    const newid = droppableDestination.droppableId + empId.substring(1)
-    destClone.splice(droppableDestination.index ,0, {id: newid, content: employee.content})
+    const employee = sourceClone[droppableSource.index];
+    const newid = droppableDestination.droppableId + empId.substring(1);
+    destClone.splice(droppableDestination.index ,0, {id: newid, content: employee.content});
   }
-  if (Object.keys(employees[empId.substring(1)]).includes("dummyshifts")){
-    employees[empId.substring(1)].dummyshifts = employees[empId.substring(1)].dummyshifts + 1
+  if ("dummyshifts" in employees[empId.substring(1)]){
+    employees[empId.substring(1)].dummyshifts = employees[empId.substring(1)].dummyshifts + 1;
   } else {
-    employees[empId.substring(1)].dummyshifts = 1
+    employees[empId.substring(1)].dummyshifts = 1;
   }
   const result = {};
   result[droppableSource.droppableId] = sourceClone;
@@ -94,16 +95,16 @@ const getListStyle = isDraggingOver => ({
 });
 
 const getItemContent = (item, employees) => {
-  const idZero = Number(item.id) === 0 ? !0 : !1
-  const empName = item.content
+  const idZero = Number(item.id) === 0 ? !0 : !1;
+  const empName = item.content;
   if (!idZero) {
-    const employeeHasShift = Object.keys(employees[item.id.substring(1)]).includes("dummyshifts") ? !0 : !1
-    const employeeShifDefined = employees[item.id.substring(1)].dummyshifts !== undefined ? !0 : !1
+    const employeeHasShift = "dummyshifts" in employees[item.id.substring(1)] ? !0 : !1;
+    const employeeShifDefined = employees[item.id.substring(1)].dummyshifts !== undefined ? !0 : !1;
     if (employeeHasShift && employeeShifDefined) {
-      const empErfahrung = employees[item.id.substring(1)].erfahrung
-      const empName = item.content
-      const empSchichtenWoche = employees[item.id.substring(1)].schichtenwoche
-      const empSchichtenBisher = employees[item.id.substring(1)].dummyshifts
+      const empErfahrung = employees[item.id.substring(1)].erfahrung;
+      const empName = item.content;
+      const empSchichtenWoche = employees[item.id.substring(1)].schichtenwoche;
+      const empSchichtenBisher = employees[item.id.substring(1)].dummyshifts;
       return <small>{empName}<br/><small>{ empErfahrung }{" "}{ empSchichtenBisher + "/" + empSchichtenWoche }</small></small>
     } else if (employees[item.id.substring(1)]) {
       const empErfahrung = employees[item.id.substring(1)].erfahrung
@@ -119,26 +120,6 @@ const DragAndDrop = React.forwardRef((props, ref) => {
   const [state, setState] = useState([getEmployees(props.employees, 0, props.position), getItems(props.applyed, 1), getItems(props.set, 2)]);
   const [Employees, setEmployees] = useState(props.employees)
   useImperativeHandle(ref, () => (state[2]), [state]);
-
-  const handleOnSearch = (string, results) => {
-    // onSearch will have as the first callback parameter
-    // the string searched and for the second the results.
-    console.log(string, results)
-  }
-
-  const handleOnHover = (result) => {
-    // the item hovered
-    console.log(result)
-  }
-
-  const handleOnSelect = (item) => {
-    // the item selected
-    console.log(item)
-  }
-
-  const handleOnFocus = () => {
-    console.log('Focused')
-  }
 
 
   function onDragEnd(result, employees) {

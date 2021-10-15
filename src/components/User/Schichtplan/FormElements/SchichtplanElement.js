@@ -26,43 +26,44 @@ const SchichtplanElement = (props) => {
         const index = props.index;
         const col = props.col;
         const obj = e[index][col];
+        const isObj = typeof obj === "object";
         const isFree = obj.frei;
         const currentUser = props.currentUser;
-        let anzahl = e[index].Montag.anzahl
-        const ApplicantMatchesPosition = currentUser.position["S"].includes(e[index]["Wochentag"].ShiftName)
-        const hasPrio = Object.keys(obj).includes("prio")
-        const ApplicantMatchesPrio = currentUser.erfahrung["S"].includes("Experte")
-        const hasApplicants =  Object.keys(obj).includes("applicants") && Object.keys(obj["applicants"]).length > 0 ? !0 : !1
-        const ShiftIncludesApplicant = hasApplicants ? Object.keys(obj["applicants"]).includes(currentUser.SK["S"]) : !1
-        const ApplicantsLength = hasApplicants ? Object.keys(obj.applicants).length : 0
-        const FirstApplicant = hasApplicants ? obj.applicants[Object.keys(obj.applicants)[0]] : !1
-        const ApplicantName = currentUser.name["S"]
+        let anzahl = e[index].Montag.anzahl;
+        const ApplicantMatchesPosition = currentUser.position["S"].includes(e[index]["Wochentag"].ShiftName);
+        const hasPrio = isObj && "prio" in obj ? !0 : !1;
+        const ApplicantMatchesPrio = "Experte" in currentUser.erfahrung.S;
+        const hasApplicants =  isObj && "applicants" in obj && Object.keys(obj["applicants"]).length > 0 ? !0 : !1;
+        const ShiftIncludesApplicant = hasApplicants ? currentUser.SK["S"] in obj.applicants : !1;
+        const ApplicantsLength = hasApplicants ? Object.keys(obj.applicants).length : 0;
+        const FirstApplicant = hasApplicants ? obj.applicants[Object.keys(obj.applicants)[0]] : !1;
+        const ApplicantName = currentUser.name.S;
         const isDiscribeWeekDay = (col === "Wochentag");
         if (index === 0 || index === 1) {
-            return DateOrWeekDayRow(obj)
+            return DateOrWeekDayRow(obj);
         } else if (index === e.length - 1 ) {
         } else if (!isFree && !isDiscribeWeekDay) {
-            return CompanyClosed()
+            return CompanyClosed();
         } else if (isFree && !ApplicantMatchesPosition && !isDiscribeWeekDay) {
-            return ApplicantDoesntMatchesPosition()
+            return ApplicantDoesntMatchesPosition();
         } else if (isFree && hasPrio && !ApplicantMatchesPrio) {
-            return ApplicantDoesntMatchesPrio()
+            return ApplicantDoesntMatchesPrio();
         } else if (!isFree && isDiscribeWeekDay){
-            return ShiftDescription(obj, anzahl)
+            return ShiftDescription(obj, anzahl);
         } else if (isFree && hasApplicants && ApplicantMatchesPosition && ShiftIncludesApplicant && ApplicantsLength > 1 && !isDiscribeWeekDay) {
-            return MultipleApplicantsWithUser(index, col, ApplicantName, ApplicantsLength, setApplicant)
+            return MultipleApplicantsWithUser(index, col, ApplicantName, ApplicantsLength, setApplicant);
         } else if (isFree && hasApplicants && ApplicantMatchesPosition && ShiftIncludesApplicant && !isDiscribeWeekDay) {
-            return SingleApplicantWithUser(index, col, ApplicantName, setApplicant)
+            return SingleApplicantWithUser(index, col, ApplicantName, setApplicant);
         }else if (isFree && hasApplicants && ApplicantMatchesPosition && ApplicantsLength > 1 && !isDiscribeWeekDay) {
-            return MultipleApplicantsWithOutUser(index, col, FirstApplicant, ApplicantsLength, setApplicant)
+            return MultipleApplicantsWithOutUser(index, col, FirstApplicant, ApplicantsLength, setApplicant);
         } else if (isFree && hasApplicants && ApplicantMatchesPosition && !isDiscribeWeekDay) {
-            return SingleApplicantWithOutUser(index, col, FirstApplicant, setApplicant)
+            return SingleApplicantWithOutUser(index, col, FirstApplicant, setApplicant);
         }  else if (isFree && !isDiscribeWeekDay) {
-            return ZeroApplicants(index, col, setApplicant)
+            return ZeroApplicants(index, col, setApplicant);
         } else {
-            return Default(index, col)}
-
-    }
+            return Default(index, col);
+        }
+    };
         return (
         <>
             {dataModal(props.plaene[props.plan].plan)}

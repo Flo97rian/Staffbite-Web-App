@@ -17,7 +17,7 @@ const InputButton = (props) => {
     }
 
     const setCurrentShiftPlan = (id) => {
-        store.dispatch({type: "SetCurrentShiftPlan", payload: id})
+        store.dispatch({type: "setCurrentShiftPlan", payload: id})
         store.dispatch({type: "setShiftPlanIsActive"})
         store.dispatch({type: "setShiftPlanIsImported"})
     }

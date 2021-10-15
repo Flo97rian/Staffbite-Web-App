@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useImperativeHandle} from "react";
+import React, { useState, useEffect } from "react";
 import {
   Col,
   Row,
 } from "reactstrap";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import SchichtplanElementReview from "../SchichtplanElement/SchichtplanElementReview"
-import Spinner from 'react-bootstrap/Spinner'
+import SchichtplanElementReview from "../SchichtplanElement/SchichtplanElementReview";
+import Spinner from 'react-bootstrap/Spinner';
 // fake data generator
 const getItems = (shiftsplan) => {
     const plan = shiftsplan.map((shift, index) => ({
@@ -18,8 +18,8 @@ const getItems = (shiftsplan) => {
     Freitag: shift.Freitag,
     Samstag: shift.Samstag,
     Sonntag: shift.Sonntag
-  }))
-return plan
+  }));
+return plan;
 };
 
 // a little function to help us with reordering the result
@@ -46,9 +46,8 @@ const getListStyle = isDraggingOver => ({
 });
 
 const SchichtplanDnDReview = (props) => {
-  console.log("hier")
-  const [Items, setItems] = useState(getItems(props.plaene[props.plan].plan))
-  const [Valid, setItemsValid] = useState(!1)
+  const [Items, setItems] = useState(getItems(props.plaene[props.plan].plan));
+  const [Valid, setItemsValid] = useState(!1);
 
   useEffect(() => {
       setItems(getItems(props.plaene[props.plan].plan));
@@ -59,7 +58,7 @@ const SchichtplanDnDReview = (props) => {
     }, [props.plan]);
 
   useEffect(() => {
-    props.onSwitch(Items)
+    props.onSwitch(Items);
     }, [Items]);
 
   function onDragEnd(result) {
@@ -82,7 +81,7 @@ const SchichtplanDnDReview = (props) => {
       result.source.index,
       result.destination.index
     );
-      setItems(items)
+      setItems(items);
   }
 
   // Normally you would want to split things out into separate components.
@@ -120,28 +119,28 @@ const SchichtplanDnDReview = (props) => {
                           snapshot.isDragging,
                           provided.draggableProps.style
                         )}>
-                            <SchichtplanElementReview wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                            <SchichtplanElementReview wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementReview wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                            <SchichtplanElementReview wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementReview wochentag={item.Dienstag} index={Number(item.id)} col="Dienstag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                            <SchichtplanElementReview wochentag={item.Dienstag} index={Number(item.id)} col="Dienstag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementReview wochentag={item.Mittwoch} index={Number(item.id)} col="Mittwoch" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                            <SchichtplanElementReview wochentag={item.Mittwoch} index={Number(item.id)} col="Mittwoch" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementReview wochentag={item.Donnerstag} index={Number(item.id)} col="Donnerstag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                            <SchichtplanElementReview wochentag={item.Donnerstag} index={Number(item.id)} col="Donnerstag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementReview wochentag={item.Freitag} index={Number(item.id)} col="Freitag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                            <SchichtplanElementReview wochentag={item.Freitag} index={Number(item.id)} col="Freitag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementReview wochentag={item.Samstag} index={Number(item.id)} col="Samstag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                            <SchichtplanElementReview wochentag={item.Samstag} index={Number(item.id)} col="Samstag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementReview wochentag={item.Sonntag} index={Number(item.id)} col="Sonntag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                            <SchichtplanElementReview wochentag={item.Sonntag} index={Number(item.id)} col="Sonntag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                         </td>
                     </tr>
                     )}
@@ -149,28 +148,28 @@ const SchichtplanDnDReview = (props) => {
                   :
                   <tr>
                     <td color="primary" style={{"padding": "0"}}>
-                        <SchichtplanElementReview wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                        <SchichtplanElementReview wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementReview wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                        <SchichtplanElementReview wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementReview wochentag={item.Dienstag} index={Number(item.id)} col="Dienstag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                        <SchichtplanElementReview wochentag={item.Dienstag} index={Number(item.id)} col="Dienstag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementReview wochentag={item.Mittwoch} index={Number(item.id)} col="Mittwoch" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                        <SchichtplanElementReview wochentag={item.Mittwoch} index={Number(item.id)} col="Mittwoch" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementReview wochentag={item.Donnerstag} index={Number(item.id)} col="Donnerstag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                        <SchichtplanElementReview wochentag={item.Donnerstag} index={Number(item.id)} col="Donnerstag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementReview wochentag={item.Freitag} index={Number(item.id)} col="Freitag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                        <SchichtplanElementReview wochentag={item.Freitag} index={Number(item.id)} col="Freitag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementReview wochentag={item.Samstag} index={Number(item.id)} col="Samstag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                        <SchichtplanElementReview wochentag={item.Samstag} index={Number(item.id)} col="Samstag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementReview wochentag={item.Sonntag} index={Number(item.id)} col="Sonntag" anzahl={Object.keys(Items[2].Montag).includes("anzahl") ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                        <SchichtplanElementReview wochentag={item.Sonntag} index={Number(item.id)} col="Sonntag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                     </td>
                 </tr>
                 ))}

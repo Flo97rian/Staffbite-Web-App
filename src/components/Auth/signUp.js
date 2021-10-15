@@ -26,6 +26,7 @@ import {
   FormGroup,
   Form,
   Input,
+  Alert,
   InputGroupAddon,
   InputGroupText,
   InputGroup,
@@ -40,16 +41,22 @@ import AuthFooter from "../Footers/AuthFooter"
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect, Link } from "react-router-dom";
+import PasswordChecklist from "react-password-checklist"
 
 const SignUp = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [passwordAgain, setPasswordAgain] = useState("")
+    const [isValid, setIsValid] = useState(!1)
+    const [err, setErr] = useState(null)
     const [authState, setAuthState] = useState();
     const [user, setUser] = useState();
     const [code, setCode] = useState();
     const [tenant, setTenant] = useState(!1);
 
 async function signUp() {
+    if(isValid) {
+    setErr(null);
     try {
         const { user } = await Auth.signUp({
             username,
@@ -58,6 +65,8 @@ async function signUp() {
         setUser(user)
     } catch (error) {
         console.log('error signing up:', error);
+        setErr(error)
+    }
     }
 }
 
@@ -94,6 +103,8 @@ async function confirmSignUp() {
             setUsername(val)
         } else if ( key === "password") {
             setPassword(val)
+        } else if ( key === "passwordAgain") {
+            setPasswordAgain(val)
         } else if ( key === "code") {
             setCode(val)
         }
@@ -170,6 +181,14 @@ async function confirmSignUp() {
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
                 imgAlt: "...",
                 }}/>
+                  { err !== null && err.code === "UsernameExistsException" ? 
+                <div>
+                <Alert color="warning" isOpen={!0} fade={false}>
+                    {err.message}
+                </Alert>
+                </div>
+                : <></>
+                }
             <main className="bg-secondary">
             <section className="section section-shaped section-lg">
                 <Container className="pt-lg-7">
@@ -209,6 +228,36 @@ async function confirmSignUp() {
                                 />
                             </InputGroup>
                             </FormGroup>
+                            <FormGroup>
+                            <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="ni ni-lock-circle-open" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                placeholder="Password wiederholen"
+                                type="password"
+                                name="passwordAgain"
+                                autoComplete="off"
+                                onChange={(e) => handleInputChange(e)}
+                                />
+                            </InputGroup>
+                            </FormGroup>
+                            <PasswordChecklist
+                                rules={["minLength","specialChar","number","capital","match"]}
+                                minLength={8}
+                                value={password}
+                                valueAgain={passwordAgain}
+                                onChange={(isValid) => setIsValid(isValid)}
+                                messages={{
+                                    minLength: "Mindestlänge 8",
+                                    specialChar: "Sonderzeichen",
+                                    number: "Zahl",
+                                    capital: "Großbuchstabe",
+                                    match: "Passwörter stimmen überein",
+                                }}
+                            />
                             <div className="text-center">
                             <Button
                                 className="my-4"

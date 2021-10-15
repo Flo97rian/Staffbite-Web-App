@@ -3,7 +3,7 @@ import {
     Col,
     Row,
     Badge
-} from "reactstrap"
+} from "reactstrap";
 import InputString from "../../../Application/functionalComponents/InputString";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 import InputNumber from "../../../Application/functionalComponents/InputNumber";
@@ -57,7 +57,7 @@ export default class FormMitarbeiterErstellen extends React.PureComponent {
                         :
                         <InfoOverlay info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr:e Mitarbeiter:inn geeignet ist"} infotitle="Position"></InfoOverlay>
                         }
-                        { this.props.employeeIsActive !== null && Object.keys(this.props.employeeIsActive).includes("position") ? 
+                        { this.props.employeeIsActive !== null && "position" in this.props.employeeIsActive ? 
                         this.props.employeeIsActive["position"].map((item, index) => {
                             return (
                                 <Badge key={index} className="mr-2 mt-2" color="primary" onClick={() => this.props.handleRemovePositions(item)}>{item}</Badge>

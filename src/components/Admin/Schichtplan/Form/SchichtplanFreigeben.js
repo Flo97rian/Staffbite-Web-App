@@ -6,9 +6,18 @@ import {
 import Datepicker from "../../../Application/functionalComponents/DateRangePickerExample";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
-export default class SchichtplanFreigeben extends React.PureComponent {
-
-    render() {
+const SchichtplanFreigeben = (props) => {
+        let plan = props.plaene[props.plan];
+        let currentStart = "1.1.2021"
+        let currentEnde = "7.1.2021"
+        if ( "zeitraum" in plan) {
+            let splitPlan = plan.zeitraum.split(" - ")
+            currentStart = splitPlan[0]
+            currentEnde = splitPlan[1]
+            console.log(plan)
+            console.log(currentStart)
+            console.log(currentEnde)
+        }
         return(
             <>  
                 <Row>
@@ -17,12 +26,13 @@ export default class SchichtplanFreigeben extends React.PureComponent {
                         <p>Details</p>
                         <br/>
                         <InfoOverlay infotitle={"Kalenderwoche"} description={"Wenn Sie den Schichtplan für eine andere Woche freigeben möchten, tragen Sie die jeweilige Woche hier ein. Tragen Sie nichts ein, wird der Plan für die bisher eingetragene Woche freigegeben"}/>
-                        <Datepicker {...this.props}/>  
+                        <Datepicker size="lg" getDates={props.getDates} start="WochenStart" ende="WochenEnde" placeholderAnfang={currentStart} placeholderEnde={currentEnde} />  
                         <br/>
                     </Col>
                     <Col xs={1} ></Col>
                 </Row>
             </>
         )
-    }
 }
+
+export default SchichtplanFreigeben;

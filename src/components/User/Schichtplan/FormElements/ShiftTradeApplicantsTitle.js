@@ -3,9 +3,9 @@ const ApplicantTitle = (props) => {
     const title = (props) => {
     const hasApplicants = Object.keys(props.item.applicants).lenght > 0
     if (hasApplicants) {
-        const IncludesCurrentUser = Object.keys(props.item.applicants).includes(props.currentUser.SK["S"])
-        const ApplicantsLength = Object.keys(props.item.applicants).lenght
-        const multipleApplicants = ApplicantsLength > 1
+        const IncludesCurrentUser = props.currentUser.SK["S"] in props.item.applicants;
+        const ApplicantsLength = Object.keys(props.item.applicants).length;
+        const multipleApplicants = ApplicantsLength > 1;
         if (IncludesCurrentUser && multipleApplicants) {
             return (<p className="pt-2">Keine Bewerber vorhanden</p>)
         } else if (IncludesCurrentUser && !multipleApplicants) {

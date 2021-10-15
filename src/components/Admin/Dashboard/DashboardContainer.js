@@ -3,18 +3,11 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { Spinner } from "reactstrap";
 import Chart from "chart.js";
-import classnames from "classnames";
-import { Line, Bar } from "react-chartjs-2";
 import {
     Card,
-    CardHeader,
     Col,
     CardTitle,
     Row,
-    NavLink,
-    NavItem,
-    Nav,
-    Container,
     CardBody,
     Button
   } from "reactstrap";
@@ -23,8 +16,6 @@ import {
 import {
   chartOptions,
   parseOptions,
-  chartExample1,
-  chartExample2,
 } from "./Form/charts.js";
 
 import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
@@ -32,98 +23,97 @@ import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 import Reporting from "./Form/Reporting";
 import store from "../../../store";
 import OpenModal from "./Modal/OpenModal";
-import ImportSchichtplanTabelle from "../Schichtplan/Schichtplan/ImportSchichtplanTabelle"
+import ImportSchichtplanTabelle from "../Schichtplan/Schichtplan/ImportSchichtplanTabelle";
 import { thunkStartReport } from "../../../store/middleware/StartReport";
 
 
 const DashboardContainer = (props) => {
   const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
   const [filter, setFilter] = useState(null);
-  const [filterIsActive, setFilterIsActive] = useState(!1)
-  const [activeNav, setActiveNav] = useState(1);
-  const [ShiftSwitch, setShiftSwitch] = useState(!1)
+  const [filterIsActive, setFilterIsActive] = useState(!1);
+  const [ShiftSwitch, setShiftSwitch] = useState(!1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
 
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
   const selectEmployees = state => state.DB.employees;
-  const selectModal = state => state.modal
-  const selectDate = state => state.date
-  const selectReport = state => state.DB.report
-  const selectLoadingReport = state => state.loadings.isFetchingReport
+  const selectModal = state => state.modal;
+  const selectDate = state => state.date;
+  const selectReport = state => state.DB.report;
+  const selectLoadingReport = state => state.loadings.isFetchingReport;
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
   const Employees = useSelector(selectEmployees);
   const Modal = useSelector(selectModal);
-  const Date = useSelector(selectDate)
-  const Report = useSelector(selectReport)
-  const LoadingReport = useSelector(selectLoadingReport)
+  const Date = useSelector(selectDate);
+  const Report = useSelector(selectReport);
+  const LoadingReport = useSelector(selectLoadingReport);
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
-    store.dispatch(FetchFromDB)
-    store.dispatch(FetchEmployees)
+    store.dispatch(FetchFromDB);
+    store.dispatch(FetchEmployees);
   }, []);
 
   const handleFilterIsActive = (modal) => {
-    store.dispatch({type: "isFetchingReport"})
+    store.dispatch({type: "isFetchingReport"});
     store.dispatch(thunkStartReport(filter));
-    store.dispatch({type: "CLOSE", payload: modal})
-  }
+    store.dispatch({type: "CLOSE", payload: modal});
+  };
 
   useEffect(() => {
     if (Plans) {
-      getThisWeeksShiftPlan(Plans)
+      getThisWeeksShiftPlan(Plans);
     }
-  }, [Plans])
+  }, [Plans]);
 
   useEffect(() => {
       if(Date.start !== undefined && Date.ende !== undefined) {
         setFilter({
           ...filter,
-          ["start"]: moment(Date.start.startDate).format("l"),
-          ["ende"]: moment(Date.ende.endDate).format("l")
-        })
+          start: moment(Date.start.startDate).format("l"),
+          ende: moment(Date.ende.endDate).format("l")
+        });
       }
-  }, [Date])
+  }, [Date]);
 
   useEffect(() => {
-  }, [filter])
+  }, [filter]);
 
   const shiftChange = (plan) => {
     setShiftSwitch(plan);
-  }
+  };
+
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
   }
 
   const toggleNavs = (e, index) => {
     e.preventDefault();
-    setActiveNav(index);
     setChartExample1Data("data" + index);
   };
   const getShiftTradeCount = (Plans) => {
-    let shiftTradeCount = 0
+    let shiftTradeCount = 0;
     Plans.forEach(plan => {
-      let planTradeCount = plan.tauschanfrage.length
-      shiftTradeCount += planTradeCount
-    })
-    return shiftTradeCount
-  }
+      let planTradeCount = plan.tauschanfrage.length;
+      shiftTradeCount += planTradeCount;
+    });
+    return shiftTradeCount;
+  };
   // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
   const getModalKey = (allmodals) => {
     const modals = Object.entries(allmodals).map(([key, value]) =>  value ? key : null);
     const modalfilter = modals.filter((modal) => typeof modal === "string");
     const modal = modalfilter[0];
     return modal;
-  }
+  };
   // Untersucht, ob der Wert eines Modals auf true steht und gibt den Wert true zurück
   const getModalTrue = (allmodals) => {
-    let modals = Object.entries(allmodals).map(([key, value]) => {return value})
-    let truemodal = modals.includes(true)
-    return truemodal
-  }
+    let modals = Object.entries(allmodals).map(([key, value]) => {return value;});
+    let truemodal = modals.includes(true);
+    return truemodal;
+  };
     const getThisWeeksShiftPlan = (Plans) => {
       var compareDate = moment(moment().format("L"), "DD.M.YYYY");
       Plans.forEach((plan, index) => {
@@ -135,28 +125,29 @@ const DashboardContainer = (props) => {
         if (compareDate.isBetween(startDate, endDate) && plan.id.split("#").includes("Freigeben")) {
           setCurrentShiftPlan(index);
         }
-    })}
+    });};
 
     const onFilter = (name) => {
-      if(filter !== null && Object.keys(filter).includes(name)) {
-        console.log(!filter[name])
+      console.log(name in filter);
+      if(filter !== null && name in filter) {
+        console.log(!filter[name]);
         setFilter({
           ...filter,
           [name]: !filter[name]
-        })
+        });
       } else {
         setFilter({
           ...filter,
           [name]: !0
-        })
+        });
       }
-    }
+    };
 
     const handleResetReport = () => {
       setFilter(null);
       setFilterIsActive(!1);
-      store.dispatch({type: "All/Report", payload: !1})
-    }
+      store.dispatch({type: "All/Report", payload: !1});
+    };
         return (
           <>
           { !Employees && !Plans ? 

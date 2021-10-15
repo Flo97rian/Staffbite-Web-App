@@ -15,6 +15,7 @@ export const createShiftPlanForApplicationForNewDate = ({Plans, currentShiftPlan
   }
 
 export const createShiftPlanForApplicationForSameDate = ({Plans, currentShiftPlan}) => {
+  console.log("hier")
     let plan = Plans[currentShiftPlan]
     plan.id = "PLAN#Freigeben#" + uuidv4()
     return plan
@@ -34,7 +35,13 @@ export const checkShiftHasDetails = (Plans, currentShiftPlan) => {
 export const handleApplication = (Plans, currentShiftPlan, NewDate) => {
     const shiftDetailsFilled = checkShiftHasDetails(Plans, currentShiftPlan)
     if (shiftDetailsFilled) {
-      const plan = NewDate !== !1 ?  createShiftPlanForApplicationForNewDate({Plans, currentShiftPlan, NewDate}) : createShiftPlanForApplicationForSameDate({Plans, currentShiftPlan});
+      let plan = null;
+      if (NewDate === undefined) {
+        plan = createShiftPlanForApplicationForSameDate({Plans, currentShiftPlan});
+      } else {
+        plan = createShiftPlanForApplicationForNewDate({Plans, currentShiftPlan, NewDate});
+      }
+      console.log(plan)
       store.dispatch(thunkReleaseForApplication(plan));
       return !0
     } else {

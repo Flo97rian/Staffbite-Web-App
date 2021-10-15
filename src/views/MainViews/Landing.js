@@ -21,11 +21,9 @@ import "../../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../assets/scss/argon-dashboard-react.scss";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
-import daniel from "../../assets/img/theme/Daniel-Zellmann-Profilbild.jpg";
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-Beispiel.png"
-import florian from "../../assets/img/theme/Florian Zellmann Profilbild.jpg";
 import MitarbeiterAppBeispiel from "../../assets/img/theme/Mitarbeiter-App-Beispiel.png"
-import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.JPG"
+import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.png"
 
 
 // reactstrap components
