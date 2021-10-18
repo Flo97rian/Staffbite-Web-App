@@ -33,6 +33,9 @@ const SchichtplanElementEntwurf = (props) => {
         let isObj = typeof currentItem === "object";
         let anzahl = props.anzahl;
         let hasFree = isObj && "frei" in currentItem;
+        if (isObj && "ende" in currentItem) {
+            console.log(typeof currentItem.ende)
+        }
         let isFree = hasFree && currentItem.frei ? !0 : !1;
         const hasShiftName = isObj && "ShiftName" in currentItem ? !0 : !1; 
         const hasPrio = isObj && "prio" in currentItem && currentItem.prio !== !1 ? !0 : !1;

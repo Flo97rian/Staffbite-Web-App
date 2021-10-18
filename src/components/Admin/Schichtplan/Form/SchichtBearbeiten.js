@@ -5,6 +5,7 @@ import {
 } from "reactstrap"
 import InputString from "../../../Application/functionalComponents/InputString";
 import InputTime from "../../../Application/functionalComponents/InputTime";
+import InputTimeWithSwitch from "../FormElements/InputTimeWithSwitch";
 import InputNumber from "../../../Application/functionalComponents/InputNumber";
 
 const SchichtBearbeiten = (props) => {
@@ -20,7 +21,7 @@ const SchichtBearbeiten = (props) => {
                         <br/>
                         <InputTime info={true} description={"Wählen Sie eine Uhrzeit, wann die Schicht beginnen soll"}label="Beginn" name="beginn"  placeholder={shiftDetails.ShiftStart} onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputTime>
                         <br/>
-                        <InputTime info={true} description={"Wählen Sie eine Uhrzeit, wann die Schicht enden soll"}label="Ende" name="ende"  placeholder={shiftDetails.ShiftEnd} onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputTime>
+                        <InputTimeWithSwitch info={true} description={"Wählen Sie eine Uhrzeit, wann die Schicht enden soll. Falls die Schicht ein variables Ende hat, betätigen Sie den Schalter rechts."} label="Ende" name="ende"  placeholder="" onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputTimeWithSwitch>
                         <br/>
                         <InputNumber info={true} description={"Wie viele Mitarbeiter benötigen Sie für diese Schicht"} label="Anzahl benötigter Mitarbeiter" name="anzahl"  placeholder={anzahl.anzahl} onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputNumber>
                         <br/>

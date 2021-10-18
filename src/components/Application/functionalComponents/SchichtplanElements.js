@@ -31,7 +31,7 @@ export const ShiftDescription = (obj, anzahl) => {
         <ListGroupItemText className="m-0 p-3">
             <small className="mb-2">{obj.ShiftName}</small>
             <br/>
-            {obj.ShiftStart} - {obj.ShiftEnd}
+            {obj.ShiftStart} - {typeof obj.ShiftEnd === "boolean" && obj.ShiftEnd ? <>open End</> : <>{obj.ShiftEnd}</>}
         </ListGroupItemText>
         </ListGroupItem>
     </ListGroup>
@@ -138,7 +138,7 @@ export const editShiftDetails = (obj, index, anzahl, Click) => {
         <ListGroupItemText className="m-0 p-3">
             <small className="mb-2">{obj.ShiftName}</small>
             <br/>
-            {obj.ShiftStart} - {obj.ShiftEnd}
+            {obj.ShiftStart} - {typeof obj.ShiftEnd === "boolean" && obj.ShiftEnd ? <>open End</> : <>{obj.ShiftEnd}</>}
         </ListGroupItemText>
         </ListGroupItem>
     </ListGroup>

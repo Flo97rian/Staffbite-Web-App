@@ -16,7 +16,7 @@ const SetTradeShift = (props) => {
                 <ListGroupItem className="mt-2">
                     <Row>
                         <Col xs={6}>
-                            <p className="pt-2">Tauschanfrage von <b>{Employees[item.trader].name}</b> für die Schicht <b>Frühschicht</b> am <b>Mittwoch</b></p>
+                            <p className="pt-2">Tauschanfrage von <b>{item.traderName}</b> für die Schicht <b>Frühschicht</b> am <b>Mittwoch</b></p>
                         </Col>
                         <Col xs={3}>
                             { Object.keys(item.applicants).length > 0 ?

@@ -116,6 +116,11 @@ const SchichtplanContainer = () => {
   }, [Plans]);
 
   useEffect(() => {
+    console.log(daysIsActive)
+  }, [daysIsActive]);
+
+
+  useEffect(() => {
   }, [navIndex]);
 
   const handleNavChange = (index) => {
@@ -405,7 +410,7 @@ const SchichtplanContainer = () => {
                 :
                 <></>
                 }
-                  {ShiftPlanIsActive && Employees && Plans && !LoadingFetchingPlans ? 
+                  {ShiftPlanIsActive && Employees && currentShiftPlan && Plans && !LoadingFetchingPlans ? 
                  <SchichtplanAuswahl
                   bearbeiten={ShiftPlanIsActive}
                   plaene={Plans}

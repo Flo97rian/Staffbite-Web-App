@@ -8,7 +8,8 @@ import SchichtplanElementFreigegeben from "../SchichtplanElement/SchichtplanElem
 import Spinner from 'react-bootstrap/Spinner';
 // fake data generator
 const getItems = (shiftsplan) => {
-    const plan = shiftsplan.map((shift, index) => ({
+  var getShiftplan = "S" in shiftsplan ? JSON.parse(shiftsplan["S"]) : shiftsplan
+    const plan = getShiftplan.map((shift, index) => ({
     id: String(index),
     Wochentag: shift.Wochentag,
     Montag: shift.Montag,

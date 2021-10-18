@@ -37,7 +37,7 @@ const SchichtplanElementFreigegeben = (props) => {
         const hasPrio = isObj && "prio" in obj && obj.prio !== !1  ? !0 : !1;
         const FirstApplicant = hasApplicants ? obj.applicants[Object.keys(obj.applicants)[0]] : !1;
         const isDiscribeWeekDay = (col === "Wochentag");
-        const hasShiftName = isObj &&"ShiftName" in obj;
+        const hasShiftName = isObj && "ShiftName" in obj;
         if (index === 0 || index === 1 || index === e.length - 1 ) {
             return DateOrWeekDayRow(obj);
         } else if (!isFree && isDiscribeWeekDay){
