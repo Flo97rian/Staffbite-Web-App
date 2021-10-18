@@ -8,7 +8,6 @@ import {
     CardBody
   }
   from "reactstrap";
-import store from "../../../store";
 
 // core components
 import MitarbeiterListeItem from "./MitarbeiterListe/MitarbeiterListeItem";
@@ -16,10 +15,10 @@ import MitarbeiterListeStandard from "./MitarbeiterListe/MitarbeiterListeStandar
 
 const MitarbeiterTabelle = (props) => {
     const employees = props.mitarbeiter
-
+    console.log(employees)
         return(
             <>
-                { props.meta?.stundenerfassung?.BOOL ? 
+                { props.meta?.stundenerfassung ? 
                 <>
                     <Card className="mb-1 mt-0">
                         <CardBody className="p-1">
@@ -51,7 +50,7 @@ const MitarbeiterTabelle = (props) => {
                             </Row>
                         </CardBody>
                     </Card>
-                        { Object.keys(employees).map((ma, index) => (
+                        { employees !== !1 ? Object.keys(employees).map((ma, index) => (
                                 <div key={index}  onClick={() => {props.setSelectEmployee(ma)}}>
                                    <MitarbeiterListeItem 
                                    {...props}
@@ -71,7 +70,10 @@ const MitarbeiterTabelle = (props) => {
                                    schichtenwoche={employees[ma].schichtenwoche}
                                    ></MitarbeiterListeItem>
                                </div>
-                               ))}
+                               ))
+                        : 
+                        <></>
+                        }
                     </>
                   :
                         <>
@@ -99,7 +101,7 @@ const MitarbeiterTabelle = (props) => {
                             </Row>
                         </CardBody>
                     </Card>
-                            { Object.keys(employees).map((ma, index) => (
+                            { employees !== !1 ? Object.keys(employees).map((ma, index) => (
                                   <div key={index}  onClick={() => {props.setSelectEmployee(ma)}}>
                                      <MitarbeiterListeStandard 
                                      {...props}
@@ -115,7 +117,10 @@ const MitarbeiterTabelle = (props) => {
                                      schichtenwoche={employees[ma].schichtenwoche}
                                      ></MitarbeiterListeStandard>
                                 </div>
-                                 ))}
+                                 ))
+                            :
+                            <></>
+                            }
                         </>
             }
         </>

@@ -223,9 +223,9 @@ class Landing extends React.Component {
                     <div className="icon icon-lg icon-shape icon-shape-primary shadow rounded-circle mb-5">
                       <i className="ni ni-mobile-button" />
                     </div>
-                    <h3>Für die Mitarbeiter:innen</h3>
+                    <h3>Für die Mitarbeiter</h3>
                     <p className="lead">
-                    Für Ihre Mitarbeiter:innen entwickeln wir eine kostenlose App, welche schlank und übersichtlich alle benötigten Informationen zur Bewerbung auf Schichten bündelt. Darüber hinaus werden wir eine Benachrichtigung implementieren, welche ihre Mitarbeiter:innen über Schichtplanänderungen informiert.
+                    Für Ihre Mitarbeiter entwickeln wir eine kostenlose App, welche schlank und übersichtlich alle benötigten Informationen zur Bewerbung auf Schichten bündelt. Darüber hinaus werden wir eine Benachrichtigung implementieren, welche ihre Mitarbeiter über Schichtplanänderungen informiert.
                     </p>
                   </div>
                 </Col>

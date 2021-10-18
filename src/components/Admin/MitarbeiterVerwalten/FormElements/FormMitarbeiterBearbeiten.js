@@ -69,7 +69,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                         <br/>
                         <InputString label="E-Mail Adresse" name="email"  placeholder={employee["email"]} onChange={(e) => props.onChange(e)}></InputString>
                         <br/>
-                        <Switch info={true} description={"Tragen Sie hier ein, ob ihr Mitarbeiter gerade im Urlaub ist"} type="switch" label="Frei" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
+                        <Switch info={true} description={"Tragen Sie hier ein, ob ihr Mitarbeiter gerade im Urlaub ist"} type="switch" label="Urlaub" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
                         <br/>
                         <Switch  info={true} description={"Tragen Sie hier ein, ob ihr Mitarbeiter aktuell Überstunden hat und diese abgebaut werden sollen. Mit dieser Einstellung wird dieser Mitarbeiter bewusst weniger im Schichtplan eingesetzt."} type="switch" label="Überstunden" name="ueberstunden" value={employee["ueberstunden"]} onChange={(e) => props.onChange(e)}></Switch>
                         <br/>

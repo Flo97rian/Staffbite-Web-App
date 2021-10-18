@@ -18,7 +18,7 @@ const ModalMitarbeiterErstellen = (props) => {
             >
                 <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Mitarbeiter:innen hinzufügen
+                    Mitarbeiter hinzufügen
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

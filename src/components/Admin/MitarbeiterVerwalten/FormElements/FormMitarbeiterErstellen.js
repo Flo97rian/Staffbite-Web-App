@@ -44,9 +44,9 @@ export default class FormMitarbeiterErstellen extends React.PureComponent {
                     <Col xs={1}>
                     </Col>
                     <Col xs={10}>
-                        <InputString label="Vorname, Nachname" name="name" placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
+                        <InputString label="Vorname, Nachname" name="name" placeholder="Max Mustermann" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                         <br/>
-                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr:e neu:e Mitarbeiter:inn alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="E-Mail Adresse" name="email"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
+                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr:e neu:e Mitarbeiter:inn alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="E-Mail Adresse" name="email"  placeholder="max@mustermann.de" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                         <br/>
                         <ControlErfahrung info={true} description={"Wählen Sie eine Qualifikation für ihre:n neue:n Mitarbeiter:inn. Die Qualifikation können Sie jederzeit ändern."} label="Erfahrung" name="erfahrung"  placeholder="" defaultVal="Anfänger" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></ControlErfahrung>
                         <br/>
@@ -76,7 +76,7 @@ export default class FormMitarbeiterErstellen extends React.PureComponent {
                         <></>
                         }
                            { this.props.meta.schichten !== null && this.props.employeeIsActive !== null ? 
-                        this.props.meta.schichten.map((item, index) => (!this.props.employeeIsActive["position"].includes(item) ?
+                        this.props.meta.schichten.map((item, index) => ( !("position" in this.props.employeeIsActive) || !(item in this.props.employeeIsActive["position"]) ?
                                 <Badge key={index} className="mr-2" color="light" onClick={() => this.props.handleSetPositions(item)}>{item}</Badge>
                         :
                         <></>

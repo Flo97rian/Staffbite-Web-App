@@ -29,12 +29,12 @@ const SchichtplanElementFreigegeben = (props) => {
         const index = props.index;
         const col = props.col;
         const obj = e[index][col];
-        const isFree = obj.frei;
+        const isFree = obj.frei ? !0 : !1;
         let isObj = typeof obj === "object";
         let anzahl = e[index].Montag.anzahl;
         const hasApplicants =  isObj && "applicants" in obj && Object.keys(obj.applicants).length > 0 ? !0 : !1;
         const ApplicantsLength = hasApplicants ? Object.keys(obj.applicants).length : 0;
-        const hasPrio = isObj && "prio" in obj && obj.prio ? !0 : !1;
+        const hasPrio = isObj && "prio" in obj && obj.prio !== !1  ? !0 : !1;
         const FirstApplicant = hasApplicants ? obj.applicants[Object.keys(obj.applicants)[0]] : !1;
         const isDiscribeWeekDay = (col === "Wochentag");
         const hasShiftName = isObj &&"ShiftName" in obj;

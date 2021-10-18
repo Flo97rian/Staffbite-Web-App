@@ -120,7 +120,7 @@ const SchichtplanDnDEntwurf = (props) => {
                           snapshot.isDragging,
                           provided.draggableProps.style
                         )}>
-                            <SchichtplanElementEntwurf wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
+                            <SchichtplanElementEntwurf wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={"anzahl" in Items[index].Montag ? Items[index].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
                         </td>
                         <td style={{"padding": "0"}}>
                             <SchichtplanElementEntwurf wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={"anzahl" in Items[2].Montag ? Items[2].Montag.anzahl : !1} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>

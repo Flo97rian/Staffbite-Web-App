@@ -38,7 +38,7 @@ const SchichtplanElementVeröffentlicht = (props) => {
         const hasShiftName = isObj && "ShiftName" in obj ? !0 : !1;
         const hasApplicants =  isObj && "setApplicants" in obj && Object.keys(obj["setApplicants"]).length > 0 ? !0 : !1;
         const ApplicantsLength = hasApplicants ? Object.keys(obj.setApplicants).length : 0;
-        const hasPrio = isObj && "prio" in obj && obj.prio ? !0 : !1;
+        const hasPrio = isObj && "prio" in obj && obj.prio !== !1 ? !0 : !1;
         const FirstApplicant = hasApplicants ? obj.setApplicants[Object.keys(obj.setApplicants)[0]] : !1;
         const SecondApplicant = hasApplicants && Object.keys(obj["setApplicants"]).length === 2 ? obj.setApplicants[Object.keys(obj.setApplicants)[1]] : !1;
         const isDiscribeWeekDay = (col === "Wochentag");

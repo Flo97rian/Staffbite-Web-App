@@ -2,6 +2,7 @@ import moment from "moment";
 import store from "../../../../store";
 
 export const createNewShiftPlan = (daysIsActive) => {
+    console.log(daysIsActive);
     const state = store.getState();
     var shiftplan = setNewShiftPlanInitalDays();
     var hasDate = state.date.start !== undefined;
@@ -60,9 +61,10 @@ function setNewShiftPlanShifts(daysIsActive) {
 
   function addActiveInactiveDay(shiftplan, daysIsActive) {
   var len = shiftplan.length;
+  console.log("hier", daysIsActive);
   Object.keys(shiftplan[1]).forEach(key => {
     for (var i = 2; i < len; i++) {
-      daysIsActive[key] !== undefined ? (daysIsActive[key] ? shiftplan[i][key].frei = !0 : shiftplan[i][key].frei = !1) : shiftplan[i][key].frei = !0;
+      daysIsActive[key] !== undefined ? (daysIsActive[key] ? shiftplan[i][key].frei = !1 : shiftplan[i][key].frei = !0) : shiftplan[i][key].frei = !0;
     }
   });
   return [...shiftplan];

@@ -28,5 +28,6 @@ export function thunkUploadShiftPlanToDB({daysIsActive, NewShiftPlan}) {
     };
     await API.post(apiName, path, myInit)
     dispatch(FetchFromDB)
+    dispatch({type: "stopFetchingSafe"});
     }
   }

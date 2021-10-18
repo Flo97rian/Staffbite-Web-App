@@ -22,7 +22,7 @@ const ModalMitarbeiterBearbeiten = (props) => {
                 <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     <h3>
-                        Mitarbeiter:innen bearbeiten
+                        Mitarbeiter bearbeiten
                     </h3>
                 </Modal.Title>
                 </Modal.Header>

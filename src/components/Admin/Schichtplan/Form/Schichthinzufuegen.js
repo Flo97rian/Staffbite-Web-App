@@ -21,7 +21,7 @@ export default class SchichtHinzufuegen extends React.PureComponent {
                     <br/>
                     <InputTimeWithSwitch info={true} description={"Wählen Sie eine Uhrzeit, wann die Schicht enden soll. Falls die Schicht ein variables Ende hat, betätigen Sie den Schalter rechts."} label="Ende" name="ende"  placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputTimeWithSwitch>
                     <br/>
-                    <InputNumber info={true} description={"Wie viele Mitarbeiter:innen benötigen Sie für diese Schicht"} label="Anzahl benötigter Mitarbeiter:innen" name="anzahl"  placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputNumber>
+                    <InputNumber info={true} description={"Wie viele Mitarbeiter benötigen Sie für diese Schicht"} label="Anzahl benötigter Mitarbeiter" name="anzahl"  placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputNumber>
                     <br/>
                 </Col>
                 <Col xs={1} ></Col>

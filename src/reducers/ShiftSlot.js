@@ -9,6 +9,8 @@ const ShiftSlotReducer = (state = !1, action) => {
           col: action.payload.col,
           prio: action.payload.prio
         }
+        case "ResetShiftSlot": 
+        return (!1)
         case "setApplicantSlot": 
         return {
           ...state,

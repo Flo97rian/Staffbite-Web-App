@@ -30,6 +30,26 @@ const loadingsReducer = (state = !1, action) => {
           ...state,
           "isFetchingReport": !1
         }
+        case "isFetchingMeta": 
+        return {
+          ...state,
+          "isFetchingMeta": !0
+        }
+        case "stopFetchingMeta": 
+        return {
+          ...state,
+          "isFetchingMeta": !1
+        }
+        case "startFetchingSafe": 
+        return {
+          ...state,
+          "isFetchingSafe": !0
+        }
+        case "stopFetchingSafe": 
+        return {
+          ...state,
+          "isFetchingSafe": !1
+        }
         case "startFetchingAlg": 
         return {
           ...state,

@@ -142,11 +142,11 @@ async function signOut() {
                 <DropdownItem className="noti-title" header tag="div">
                   <h6 className="text-overflow m-0">Willkommen!</h6>
                 </DropdownItem>
-                <DropdownItem to="/admin/profil" tag={Link}>
+                <DropdownItem to="/admin/einstellungen" tag={Link}>
                   <i className="ni ni-single-02" />
                   <span>Mein Profil</span>
                 </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
+                <DropdownItem to="/admin/einstellungen" tag={Link}>
                   <i className="ni ni-settings-gear-65" />
                   <span>Einstellungen</span>
                 </DropdownItem>

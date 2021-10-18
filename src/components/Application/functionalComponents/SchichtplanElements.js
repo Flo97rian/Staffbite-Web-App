@@ -156,11 +156,11 @@ export const setShiftDetailsErr = () => {
     </ListGroup>
 )}
 
-export const shiftHasPrio = (index, col, Click) => {
+export const shiftHasPrio = (index, col, Click, prio) => {
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" color="">
                 <ListGroupItemHeading className="m-0 p-0" color="">
-                    <i className="fa fa-heart fa-lg text-success float-right m-2" aria-hidden="true" onClick={() => Click(index, col, !0)}/>
+                    <i className="fa fa-heart fa-lg text-success float-right m-2" aria-hidden="true" onClick={() => Click(index, col, prio)}/>
                 </ListGroupItemHeading>
         <ListGroupItemText className="m-0 p-3">
                 <br/>
@@ -170,11 +170,11 @@ export const shiftHasPrio = (index, col, Click) => {
     </ListGroup>
 )}
 
-export const shiftSetPrio = (index, col, Click) => {
+export const shiftSetPrio = (index, col, Click, prio) => {
     return (<ListGroup>
          <ListGroupItem className="m-0 p-0" color="">
          <ListGroupItemHeading className="m-0 p-0" color="">
-                    <i className="fa fa-heart fa-lg text-light float-right m-2" aria-hidden="true" onClick={() => Click(index, col, !0)}/>
+                    <i className="fa fa-heart fa-lg text-light float-right m-2" aria-hidden="true" onClick={() => Click(index, col, prio)}/>
                 </ListGroupItemHeading>
                 <ListGroupItemText className="m-0 p-3">
                 <br/>

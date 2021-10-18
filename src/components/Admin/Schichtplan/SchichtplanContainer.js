@@ -8,6 +8,7 @@ import {
     Row,
     Col,
     CardBody,
+    Alert,
   } from "reactstrap";
 
 import Nav from "./Nav/Nav";
@@ -31,7 +32,7 @@ import { thunkStartAlg } from "../../../store/middleware/StartAlg";
 import { thunkReleaseForApplication } from "../../../store/middleware/ReleaseForApplication";
 import { setApplicantsInShiftPlan } from "./processing/handleUpdateSetApplicants";
 import { handleCancelShfitTrade, handleSetShfitTrade } from "./processing/handleSetShiftTrade";
-import { handleApplication } from "./processing/handleReleaseForApplication";
+import { checkShiftHasDetails, handleApplication } from "./processing/handleReleaseForApplication";
 import SchichtplanAuswahl from "./Schichtplan/SchichtplanAuswahl";
 import ModalOpenButton from "./FormElements/ModalOpenButton";
 import ButtonSaveUpdate from "./FormElements/ButtonSaveUpdate";
@@ -43,6 +44,7 @@ import SchichtplanImport from "./Form/SchichtplanImport";
 import store from "../../../store";
 import { thunkPublishShiftPlan } from "../../../store/middleware/PublishShiftPlan";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
+import { daysToWeeks } from "date-fns";
 
 const SchichtplanContainer = () => {
   const [meta, setMeta] = useState(null);
@@ -51,7 +53,7 @@ const SchichtplanContainer = () => {
   const [ShiftEmployees, setShiftEmployees] = useState(null);
   const [shiftDetails, setShiftDetails] = useState(false);
   const [ShiftSwitch, setShiftSwitch] = useState(!1);
-  const [ErrMsng, setErrMsng] = useState(!1);
+  const [ErrMsng, setErrMsng] = useState({MissingShiftDetails: !1});
 
   const selectMeta = state => state.DB.meta;
   const selectEmployees = state => state.DB.employees;
@@ -67,6 +69,7 @@ const SchichtplanContainer = () => {
   const selectLoadingAlg = state => state.loadings.isFetchingAlg;
   const selectLoadingPublish = state => state.loadings.isFetchingPublish;
   const selectLoadingFetchingPlans = state => state.loadings.isFetchingPlansFromDB;
+  const selectLoadingFetchingSafe = state => state.loadings.isFetchingSafe;
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
@@ -83,6 +86,7 @@ const SchichtplanContainer = () => {
   const LoadingAlg = useSelector(selectLoadingAlg);
   const LoadingPublish = useSelector(selectLoadingPublish);
   const LoadingFetchingPlans = useSelector(selectLoadingFetchingPlans);
+  const LoadingFetchingSafe = useSelector(selectLoadingFetchingSafe);
 
   useEffect(() => {
       store.dispatch(FetchFromDB);
@@ -119,6 +123,8 @@ const SchichtplanContainer = () => {
 
   // Handling von Userinputs
   const handleInputChange = (event) => {
+    console.log(daysIsActive);
+    console.log(event.target.value);
     let key = event.target.name;
     let val = stateSwitch(event.target.value, event);
     setDaysIsActive({...daysIsActive, [key]: val });
@@ -127,6 +133,7 @@ const SchichtplanContainer = () => {
   const shiftChange = (plan) => {
     setShiftSwitch(plan);
   };
+  
   // Überprüfung von Userinputs, ob der Input vom Typ Switch ist
   const stateSwitch = (value, event) => {
     if (value !== "on") return value;
@@ -165,26 +172,57 @@ const SchichtplanContainer = () => {
     store.dispatch({type: "CLOSE", payload: modal});
   }};
 
+  const handleCompanyIsClosed = (day) => {
+    if (daysIsActive === null) {
+    setDaysIsActive({...daysIsActive, [day]: !0 });
+    } else if (daysIsActive[day] === undefined ) {
+      setDaysIsActive({...daysIsActive, [day]: !0 });
+    } else if ( daysIsActive[day] ) {
+      delete daysIsActive[day]
+      setDaysIsActive({...daysIsActive});
+    }
+  }
+
+  const handleSelectPrio = (qualifikation) => {
+    let hasDaysIsActive = daysIsActive !== null
+    let hasQualifikation = hasDaysIsActive && daysIsActive.qualifikation !== null ? !0 : !1;
+    if (hasQualifikation && daysIsActive.qualifikation === qualifikation) {
+      delete daysIsActive.qualifikation
+      setDaysIsActive({...daysIsActive})
+    } else {
+      setDaysIsActive({...daysIsActive, qualifikation: qualifikation });
+    }
+  }
+
+  // const handleBack = () => {
+  //   if (NewShiftPlan) {
+  //     setErrMsng({...ErrMsng, SaveChangs: !0})
+  //   }
+  // }
   const handleSetApplicant = (modal, updateApplicant) => {
     setApplicantsInShiftPlan({Plans, currentShiftPlan, ShiftSlot, updateApplicant, modal});
   };
-  // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter:innen)
+  // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter)
   const handleEditShiftDetails = (index) => {
+    console.log(daysIsActive);
     if (ShiftPlanIsImported) {
       editShiftDetailsImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive});
     } else {
       editShiftDetailsNewShiftPlan({index, NewShiftPlan, daysIsActive});
     }
+    setDaysIsActive(null);
     store.dispatch({type: "CLOSE", payload: index});
   };
 
   //Dise Funktion sorgt für das Hinzufügen einer neuen Schicht zum jeweiligen Schichtplan
   const handleAddShift = (index) => {
+    console.log(daysIsActive);
     if (ShiftPlanIsImported) {
       addNewShiftToImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive});
     } else {
       addShiftToNewShiftPlan({index, NewShiftPlan, daysIsActive});
     }
+    setDaysIsActive(null);
     store.dispatch({type: "CLOSE", payload: index});
   };
 
@@ -196,6 +234,8 @@ const SchichtplanContainer = () => {
       setPrioShift({Plans, ShiftSlot, currentShiftPlan, daysIsActive});
     }
     store.dispatch(thunkUpdateShiftPlan);
+    store.dispatch({type: "ResetShiftSlot"})
+    setDaysIsActive(null);
     store.dispatch({type: "CLOSE", payload: modal});
   };
 
@@ -212,6 +252,7 @@ const SchichtplanContainer = () => {
 
   //Diese Funktion fürgt einen neu erstelten Schichtplan der Datenbank hinzu
   const handleUploadShiftPlanToDB = () => {
+    store.dispatch({type: "startFetchingSafe"});
     store.dispatch(thunkUploadShiftPlanToDB({daysIsActive, NewShiftPlan}));
   };
 
@@ -248,8 +289,13 @@ const SchichtplanContainer = () => {
   };
 
   const handleReleaseForApplication = (modal) => {
+    let shiftDetailsFilled = checkShiftHasDetails(Plans, currentShiftPlan)
+    if (shiftDetailsFilled) {
     const response = handleApplication(Plans, currentShiftPlan, NewDate);
     if (!response) {setShiftDetails(!0);}
+    } else {
+      setErrMsng({...ErrMsng, MissingShiftDetails: !0})
+    }
     store.dispatch({type: "CLOSE", payload: modal});
   };
 
@@ -271,6 +317,7 @@ const SchichtplanContainer = () => {
         </Row>
         :
       <>
+      { ErrMsng.MissingShiftDetails ? <Alert color="warning">Trage für jede Schicht die gewünschte Position, Beginn, Ende und Anzahl der Mitarbeiter ein</Alert> : <></>}
       { !ShiftPlanIsActive ?
         <Nav
           onNavChange={handleNavChange}
@@ -285,6 +332,7 @@ const SchichtplanContainer = () => {
       { LoadingAlg ? <Spinner color="success" /> : <></>}
       { LoadingPublish ? <Spinner color="success" /> : <></>}
       { LoadingFetchingPlans ? <Spinner color="success" /> : <></>}
+      { LoadingFetchingSafe ? <Spinner color="success" /> : <></>}
       </Col>
       <Col xs={10} className="mt-2">
       <ButtonSaveUpdate
@@ -390,9 +438,12 @@ const SchichtplanContainer = () => {
             Schichtplan={NewShiftPlan}
             employees={ShiftEmployees}
             import={ShiftPlanIsImported}
+            daysIsActive={daysIsActive}
             checkTrue={getModalTrue}
             checkModalKey={getModalKey}
+            handleSelectPrio={handleSelectPrio}
             startAlg = {handleStartAlg}
+            onCompanyClosed={handleCompanyIsClosed}
             onChange={handleInputChange}
             onSave={handleNewShiftPlanSave}
             handlePrio={handlePrioShiftToDB}

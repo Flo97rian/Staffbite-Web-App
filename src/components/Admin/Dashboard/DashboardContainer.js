@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Spinner } from "reactstrap";
@@ -93,12 +94,8 @@ const DashboardContainer = (props) => {
     e.preventDefault();
     setChartExample1Data("data" + index);
   };
-  const getShiftTradeCount = (Plans) => {
-    let shiftTradeCount = 0;
-    Plans.forEach(plan => {
-      let planTradeCount = plan.tauschanfrage.length;
-      shiftTradeCount += planTradeCount;
-    });
+  const getShiftTradeCount = (Plans, currentShiftPlan) => {
+    let shiftTradeCount = Plans[currentShiftPlan].tauschanfrage.length;
     return shiftTradeCount;
   };
   // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
@@ -108,6 +105,12 @@ const DashboardContainer = (props) => {
     const modal = modalfilter[0];
     return modal;
   };
+
+  const setCurrentPlan = (currentShiftPlan) => {
+    if (currentShiftPlan !== null) {
+      store.dispatch({type: "setCurrentShiftPlan", payload: currentShiftPlan});
+    }
+  }
   // Untersucht, ob der Wert eines Modals auf true steht und gibt den Wert true zurück
   const getModalTrue = (allmodals) => {
     let modals = Object.entries(allmodals).map(([key, value]) => {return value;});
@@ -160,7 +163,8 @@ const DashboardContainer = (props) => {
           <>
               <Row>
                 <Col lg="6" xl="6">
-                  <Card className="card-stats mb-4 mb-xl-0 shadow">
+                  <Link to="/admin/mitarbeiter" tag={Link}>
+                  <Card className="card-stats mb-4 mb-xl-0 shadow" to="admin/mitarbeiter">
                       <CardBody>
                       <Row>
                         <div className="col">
@@ -182,8 +186,10 @@ const DashboardContainer = (props) => {
                       </Row>
                     </CardBody>
                   </Card>
+                </Link>
                 </Col>
                 <Col lg="6" xl="6">
+                <Link to="/admin/schichtplan" tag={Link} onClick={() => setCurrentPlan(currentShiftPlan)}>
                   <Card className="card-stats mb-4 mb-xl-0 shadow">
                     <CardBody>
                       <Row>
@@ -195,7 +201,7 @@ const DashboardContainer = (props) => {
                             Tauschanfragen
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                          {Plans ? getShiftTradeCount(Plans) : <Spinner animation="grow" variant="light"/>}
+                          {Plans && currentShiftPlan ? getShiftTradeCount(Plans) : <>0</>}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -206,6 +212,7 @@ const DashboardContainer = (props) => {
                       </Row>
                     </CardBody>
                   </Card>
+                  </Link>
                 </Col>
               </Row>
               { currentShiftPlan ?
@@ -239,7 +246,7 @@ const DashboardContainer = (props) => {
             <Row>
               <Col xs={3}>
               <h3 className="float-left pt-5 pr-2 font-weight-bold mr-2 text-lg">
-                aktuelles Reporting
+                Reporting
                 { LoadingReport ? <Spinner color="success" /> : <></>}
               </h3>
               </Col>

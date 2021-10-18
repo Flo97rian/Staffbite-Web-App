@@ -25,7 +25,7 @@ const SchichtBearbeiten = (props) => {
                         <br/>
                         <InputTime info={true} description={"Wählen Sie eine Uhrzeit, wann die Schicht enden soll"}label="Ende" name="ende"  placeholder={shiftDetails.ShiftEnd} onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputTime>
                         <br/>
-                        <InputNumber info={true} description={"Wie viele Mitarbeiter:innen benötigen Sie für diese Schicht"} label="Anzahl benötigter Mitarbeiter:innen" name="anzahl"  placeholder={anzahl.anzahl} onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputNumber>
+                        <InputNumber info={true} description={"Wie viele Mitarbeiter benötigen Sie für diese Schicht"} label="Anzahl benötigter Mitarbeiter" name="anzahl"  placeholder={anzahl.anzahl} onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputNumber>
                         <br/>
                         </Col>
                     <Col xs={1} ></Col>

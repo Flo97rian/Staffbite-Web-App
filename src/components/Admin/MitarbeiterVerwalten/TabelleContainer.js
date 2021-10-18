@@ -20,7 +20,7 @@ import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile.js";
 const TableContainer = (props) => {
   const [employeeIsActive, setemployeeIsActive] = useState(null);
   const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1);
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState();
     
   const selectEmployees = state => state.DB.employees;
   const selectModal = state => state.modal;
@@ -38,8 +38,12 @@ const TableContainer = (props) => {
 
     // Initiales laden der aktuellen Users
     useEffect(() => {
+      console.log(employeeIsActive)
     }, [employeeIsActive]);
 
+    useEffect(() => {
+      console.log(Employees)
+    }, [Employees]);
     // Filtert auf Basis der Id, die zugehörigen Mitarbeiterdaten
     const handleFilter = (idToSearch) => {
       const data = Employees[idToSearch];
@@ -88,9 +92,16 @@ const TableContainer = (props) => {
 
   const handleSetPositions = (item) => {
     let copyEmployeeIsActive = {...employeeIsActive};
+    console.log("hier", copyEmployeeIsActive);
     if ("position" in copyEmployeeIsActive) {
-      copyEmployeeIsActive.position = [item];
-    } else {
+      console.log("a")
+      copyEmployeeIsActive.position = [...copyEmployeeIsActive.position, item];
+    } else if (!("position" in copyEmployeeIsActive)) {
+      console.log("b")
+      copyEmployeeIsActive["position"] = [item];
+    }
+    else {
+      console.log("c")
       copyEmployeeIsActive.position.push(item);
     }
     setemployeeIsActive(copyEmployeeIsActive);
@@ -138,10 +149,18 @@ const handlePositionHinzufuegenClose = () => {
 
 const handlePositionErstellen = () => {
   let copyEmployeeIsActive = {...employeeIsActive};
-  if (position in copyEmployeeIsActive) {
-    copyEmployeeIsActive.position.push(position);
-  } else {
-    copyEmployeeIsActive.position = [];
+  console.log(copyEmployeeIsActive);
+  if ("position" in copyEmployeeIsActive) {
+    if(!copyEmployeeIsActive.position.includes(position)) {
+      console.log("a", position, copyEmployeeIsActive.position)
+      copyEmployeeIsActive.position = [...copyEmployeeIsActive.position, position];
+    }
+  } else if (!("position" in copyEmployeeIsActive)) {
+    console.log("b")
+    copyEmployeeIsActive["position"] = [position];
+  }
+  else {
+    console.log("c")
     copyEmployeeIsActive.position.push(position);
   }
   setemployeeIsActive(copyEmployeeIsActive);
@@ -181,7 +200,7 @@ const setSelectEmployee = (ma) => {
         <>
         <Row>
         <Col xs={3}>
-        <h3 className="float-left pt-5 font-weight-bold text-lg">Mitarbeiter:innen verwalten</h3>
+        <h3 className="float-left pt-5 font-weight-bold text-lg">Mitarbeiter verwalten</h3>
         </Col>
         <Col xs={9}>
           <ButtonMitarbeiterErstellen></ButtonMitarbeiterErstellen>{' '}
@@ -195,22 +214,23 @@ const setSelectEmployee = (ma) => {
                   <Col xs={4}>
                   </Col>
                 </Row>
-                  {!Employees && !Meta ?
-                  <>
-                  <br/>   
-                  <Row className="text-center">
-                    <br/>
-                    <Col xs={12}>
-                      <Spinner animation="grow" variant="light"/>
-                    </Col>
-                  </Row>
-                  </> :
+                  {Employees && Meta ?
                     <MitarbeiterTabelle 
                     setSelectEmployee={setSelectEmployee}
                     mitarbeiter={Employees}
                     meta={Meta}
                     >
                     </MitarbeiterTabelle>
+                    :
+                    <>
+                    <br/>   
+                    <Row className="text-center">
+                      <br/>
+                      <Col xs={12}>
+                        <Spinner animation="grow" variant="light"/>
+                      </Col>
+                    </Row>
+                    </>
                  }
             <OpenModal
             onChange={handleInputChange}

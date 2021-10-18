@@ -33,8 +33,6 @@ export const checkShiftHasDetails = (Plans, currentShiftPlan) => {
 }
 
 export const handleApplication = (Plans, currentShiftPlan, NewDate) => {
-    const shiftDetailsFilled = checkShiftHasDetails(Plans, currentShiftPlan)
-    if (shiftDetailsFilled) {
       let plan = null;
       if (NewDate === undefined) {
         plan = createShiftPlanForApplicationForSameDate({Plans, currentShiftPlan});
@@ -43,8 +41,4 @@ export const handleApplication = (Plans, currentShiftPlan, NewDate) => {
       }
       console.log(plan)
       store.dispatch(thunkReleaseForApplication(plan));
-      return !0
-    } else {
-      return !1
     }
-}

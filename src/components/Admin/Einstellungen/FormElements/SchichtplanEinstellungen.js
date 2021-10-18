@@ -20,7 +20,7 @@ const SchichtplanEinstellungen = (props) => {
                 <CardBody>
                         <Switch info={true} type="switch" description={"Der Algorithmus kann die Wochenende priorisiert befüllen. Dies kann von Vorteil sein, wenn am Wochenende besonders viel betrieb ist."}label="Befüllung am Wochenende starten" name="reverse" value={props.org?.reverse ? props.org?.reverse["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
                         <br/>
-                        <Switch info={true} type="switch" description={"Mitarbeiter:innen sollen in etwa gleich viele Tag/Abend-Schichten erhalten"} label="Tag/Abend-Schichten gleichmäßig verteilen" name="fair" value={props.org?.fair ? props.org?.fair["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                        <Switch info={true} type="switch" description={"Mitarbeiter sollen in etwa gleich viele Tag/Abend-Schichten erhalten"} label="Tag/Abend-Schichten gleichmäßig verteilen" name="fair" value={props.org?.fair ? props.org?.fair["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
                 </CardBody>
             </Card>
             </>

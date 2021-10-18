@@ -33,7 +33,10 @@ export const SchichtplanElementNeu = (props) => {
         let hasFree = isObj  && "frei" in currentItem ? !0 : !1;
         let isFree = hasFree && currentItem.frei ? !0 : !1;
         const hasShiftName = isObj && "ShiftName" in currentItem && currentItem.ShiftName !== undefined? !0 : !1;
-        const hasPrio = isObj && "prio" in currentItem && currentItem.prio ? !0 : !1;
+        const hasPrio = isObj && "prio" in currentItem && currentItem.prio !== !1 ? !0 : !1;
+        if(hasPrio) {
+            console.log(currentItem);
+        }
         let isDiscribeWeekDay = (col === "Wochentag");
         if (index === 0 || index === 1 || index === ItemLength - 1 ) {
             return DateOrWeekDayRow(currentItem);

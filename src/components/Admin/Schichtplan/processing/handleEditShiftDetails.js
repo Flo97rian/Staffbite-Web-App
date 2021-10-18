@@ -2,6 +2,7 @@
 
     // // Bearbeiten einer Reihe, wenn der Schichtplan importiert wurde
     export const editShiftDetailsImportedShiftPlan = ({index, Plans, currentShiftPlan, daysIsActive}) => {
+    console.log(daysIsActive)
     let plan = [...Plans[currentShiftPlan].plan];
     let plans = [...Plans];
     plans[currentShiftPlan].plan = mergeEditedShiftDetails({plan, index, daysIsActive});
@@ -21,7 +22,7 @@
         return plan;
       };
 
-    // fügt die Anzahl der benötigten Mitarbeiter:innen ein
+    // fügt die Anzahl der benötigten Mitarbeiter ein
     const editRequiredEmployees = ({plan, index, daysIsActive}) => {
     for (const [key] of Object.entries(plan[index])) {
       if (key !== "Wochentag") {

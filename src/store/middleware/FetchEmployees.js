@@ -30,5 +30,6 @@ import constants from "../constants";
             bewerbungen: JSON.parse(item.bewerbungen.S)
         };
     });
+    console.log(response);
         dispatch({type: "All/Employees", payload: employees});
       }

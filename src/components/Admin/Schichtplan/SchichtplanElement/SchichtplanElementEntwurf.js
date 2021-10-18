@@ -14,9 +14,9 @@ import store from "../../../../store";
 
 const SchichtplanElementEntwurf = (props) => {
 
-    const setPrio = (index, col, bool) => {
+    const setPrio = (index, col, prio) => {
         store.dispatch({type: "OPEN", payload: "prioIsActive"});
-        store.dispatch({type: "setShiftSlot", payload: { row: index, col: col, prio: bool}});
+        store.dispatch({type: "setShiftSlot", payload: { row: index, col: col, prio: prio}});
     };
 
 
@@ -35,7 +35,11 @@ const SchichtplanElementEntwurf = (props) => {
         let hasFree = isObj && "frei" in currentItem;
         let isFree = hasFree && currentItem.frei ? !0 : !1;
         const hasShiftName = isObj && "ShiftName" in currentItem ? !0 : !1; 
-        const hasPrio = isObj && "prio" in currentItem && currentItem.prio ? !0 : !1;
+        const hasPrio = isObj && "prio" in currentItem && currentItem.prio !== !1 ? !0 : !1;
+        let prio = !1
+        if(hasPrio) {
+            prio = currentItem.prio
+        }
         let isDiscribeWeekDay = (col === "Wochentag");
         if (index === 0 || index === 1 || index === ItemLength - 1 ) {
             return DateOrWeekDayRow(currentItem);
@@ -48,9 +52,9 @@ const SchichtplanElementEntwurf = (props) => {
         } else if (!isFree && !isDiscribeWeekDay) {
             return CompanyClosed();
         } else if (hasPrio) {
-            return shiftHasPrio(index, col, setPrio);
+            return shiftHasPrio(index, col, setPrio, prio);
         } else {
-            return shiftSetPrio(index, col, setPrio);
+            return shiftSetPrio(index, col, setPrio, prio);
         }
 
     };

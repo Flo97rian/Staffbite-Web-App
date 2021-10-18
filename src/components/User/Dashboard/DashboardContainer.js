@@ -112,7 +112,7 @@ const DashboardContainer = (props) => {
                             Deine Tauschanfragen
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                          {User ? Number(User.akutellerverdienst["N"]) / Number(User.stundenlohn["N"]) : <>0</>}
+                          {User ? <>0</> : <>0</>}
                           </span>
                         </div>
                         <Col className="col-auto">
