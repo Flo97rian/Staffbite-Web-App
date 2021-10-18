@@ -29,12 +29,15 @@ export const SchichtplanElementNeu = (props) => {
         let index = props.index;
         let currentItem = props.currentItem[col];
         let isObj = typeof currentItem === "object";
-        let anzahl = props.anzahl;
         let hasFree = isObj  && "frei" in currentItem ? !0 : !1;
         let isFree = hasFree && currentItem.frei ? !0 : !1;
         const hasShiftName = isObj && "ShiftName" in currentItem && currentItem.ShiftName !== undefined? !0 : !1;
         const hasPrio = isObj && "prio" in currentItem && currentItem.prio !== !1 ? !0 : !1;
         if(hasPrio) {
+        }
+        let anzahl = !1;
+        if (typeof props.anzahl === "object" && "anzahl" in props.anzahl) {
+            anzahl = props.anzahl.anzahl
         }
         let isDiscribeWeekDay = (col === "Wochentag");
         if (index === 0 || index === 1 || index === ItemLength - 1 ) {

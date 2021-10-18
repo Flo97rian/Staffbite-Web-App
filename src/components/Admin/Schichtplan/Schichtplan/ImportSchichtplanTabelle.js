@@ -16,11 +16,11 @@ import SchichtplanDnDReview from "./SchichtplanDnDReview"
 import SchichtplanDnDVeröffentlicht from "./SchichtplanDnDVeröffentlicht"
 
 const  ImportSchichtplanTabelle = (props) => {
-    const id = props.plaene[props.plan].id
-    const idReview = id.split("#").includes("Review")
+    console.log("da?")
     const Montag = props.plaene[props.plan].zeitraum.split(" - ")[0]
     const Sonntag = props.plaene[props.plan].zeitraum.split(" - ")[1]
     const selectTable = () => {
+        console.log("moin");
         const id = props.plaene[props.plan].id
         const idReview = id.split("#").includes("Review")
         const idVeröffentlicht = id.split("#").includes("Veröffentlicht")
@@ -43,6 +43,7 @@ const  ImportSchichtplanTabelle = (props) => {
                 <SchichtplanDnDVeröffentlicht {...props}/>
             )
         }
+
 }
         return (
             <>

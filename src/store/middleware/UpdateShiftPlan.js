@@ -1,6 +1,7 @@
 import { API, Auth } from "aws-amplify";
 import { FetchFromDB } from "./FetchPlansFromDB";
 import constants from "../constants";
+import store from "../../store";
 
 export function thunkUpdateShiftPlan(Plans, currentShiftPlan) {
   return async function updateShiftPlan(dispatch, getState) {
@@ -16,5 +17,8 @@ export function thunkUpdateShiftPlan(Plans, currentShiftPlan) {
     };
     await API.post(apiName, path, myInit)
     dispatch(FetchFromDB)
+    dispatch({type: "stopShiftPlanIsActive"})
+    dispatch({type: "stopShiftPlanIsImported"})
+    dispatch({type: "ResetCurrentShiftPlan"})
     }
   }

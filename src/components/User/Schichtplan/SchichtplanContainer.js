@@ -50,6 +50,7 @@ const TableContainer = () => {
   useEffect(() => {
     store.dispatch({ type: "ResetCurrentShiftPlan"})
     store.dispatch({ type: "stopShiftPlanIsImported"})
+    store.dispatch({ type: "stopShiftPlanIsActive"})
     store.dispatch(FetchEmployeePlansFromDB)
     store.dispatch(getUser)
   }, []);
@@ -64,6 +65,8 @@ const TableContainer = () => {
     }, [navIndex]);
 
   useEffect(() => {
+    store.dispatch({ type: "startShiftPlanIsImported"})
+    store.dispatch({ type: "startShiftPlanIsActive"})
     }, [currentShiftPlan]);
 
   // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
@@ -146,8 +149,9 @@ const TableContainer = () => {
         </Col>
         </Row>
         <Row>
+          { Plans && User ?
             <div className="col">
-                {Plans && User && !ShiftPlanIsActive ? 
+                {!ShiftPlanIsActive ? 
                 <SchichtplanImport 
                   status={navIndex}
                   bearbeiten={ShiftPlanIsActive}
@@ -155,19 +159,17 @@ const TableContainer = () => {
                   plan={currentShiftPlan}
                   ></SchichtplanImport>
                   :
-                  <></>
-                  }
-                    {Plans && User && currentShiftPlan && ShiftPlanIsActive ?
                   <SchichtenTabelle 
                   bearbeiten={ShiftPlanIsActive}
                   plaene={Plans}
                   currentUser={User}
                   plan={currentShiftPlan}
                 />
-                   :
-                   <></>
-                  }
+                }
             </div>
+            :
+            <></>
+            }
           </Row>
             { Plans !== null && User !== null && currentShiftPlan && Plans[currentShiftPlan].tauschanfrage.length > 0 ?
         <Row className="mt-4">

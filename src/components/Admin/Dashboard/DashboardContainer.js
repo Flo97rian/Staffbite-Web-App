@@ -24,7 +24,7 @@ import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 import Reporting from "./Form/Reporting";
 import store from "../../../store";
 import OpenModal from "./Modal/OpenModal";
-import ImportSchichtplanTabelle from "../Schichtplan/Schichtplan/ImportSchichtplanTabelle";
+import DashboardSchichtenTabelle from "./DashboardSchichtenTabelle.js";
 import { thunkStartReport } from "../../../store/middleware/StartReport";
 
 
@@ -224,7 +224,7 @@ const DashboardContainer = (props) => {
                     </Row>
                   <Card className="shadow">
                     <CardBody>
-                      <ImportSchichtplanTabelle
+                      <DashboardSchichtenTabelle
                         plaene={Plans}
                         plan={currentShiftPlan}
                         bearbeiten={!0}
@@ -232,7 +232,7 @@ const DashboardContainer = (props) => {
                         onSwitch={shiftChange}
                         import={!0}
                       >
-                      </ImportSchichtplanTabelle>
+                      </DashboardSchichtenTabelle>
                       </CardBody>
                   </Card>
                 </>

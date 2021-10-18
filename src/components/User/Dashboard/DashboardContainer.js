@@ -13,7 +13,7 @@ import {
 import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansForEmployees";
 import { getUser } from "../../../store/middleware/FetchUser";
 import store from "../../../store";
-import SchichtenTabelle from "../Schichtplan/SchichtenTabelle";
+import DashboardSchichtenTabelle from "./DashboardSchichtenTabelle";
 
 
 const DashboardContainer = (props) => {
@@ -134,13 +134,13 @@ const DashboardContainer = (props) => {
             </Row>
                 <Row className="text-center" noGutters={true}></Row>
                 { ActivePlan ?
-                <SchichtenTabelle
+                <DashboardSchichtenTabelle
                   plaene={Plans}
                   plan={currentShiftPlan}
                   bearbeiten={ActivePlan}
                   currentUser={User}
                 >
-                </SchichtenTabelle>
+                </DashboardSchichtenTabelle>
                 :
                 <></>
                 }

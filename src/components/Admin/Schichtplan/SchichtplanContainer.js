@@ -91,10 +91,13 @@ const SchichtplanContainer = () => {
   const LoadingFetchingRelease = useSelector(selectLoadingFetchingRelease);
 
   useEffect(() => {
-      store.dispatch(FetchFromDB);
-      store.dispatch(FetchOrg);
-      store.dispatch(user);
-      store.dispatch(FetchEmployees);
+    store.dispatch({ type: "ResetCurrentShiftPlan"})
+    store.dispatch({ type: "stopShiftPlanIsImported"})
+    store.dispatch({ type: "stopShiftPlanIsActive"})
+    store.dispatch(FetchFromDB);
+    store.dispatch(FetchOrg);
+    store.dispatch(user);
+    store.dispatch(FetchEmployees);
     }, []);
 
   useEffect(() => {
@@ -110,6 +113,9 @@ const SchichtplanContainer = () => {
       const employees = refractorEmployees(Employees, Plans[currentShiftPlan].plan);
       setShiftEmployees(employees);
     }
+  }, [currentShiftPlan]);
+
+  useEffect(() => {
   }, [currentShiftPlan]);
 
   useEffect(() => {
@@ -394,8 +400,21 @@ const SchichtplanContainer = () => {
       </Col>
       </Row>
       <Row>
+        {Plans && Employees ?
           <div className="col">
-              {Plans && Meta && !ShiftPlanIsActive && !LoadingFetchingPlans ? <SchichtplanImport 
+              {ShiftPlanIsActive ? 
+                <SchichtplanAuswahl
+                  bearbeiten={ShiftPlanIsActive}
+                  plaene={Plans}
+                  employees={Employees}
+                  onSwitch={shiftChange}
+                  plan={currentShiftPlan}
+                  Loading={LoadingFetchingPlans}
+                  import={ShiftPlanIsImported}
+                  Schichtplan={NewShiftPlan}
+                 />
+                 :
+              <SchichtplanImport 
                 status={navIndex}
                 bearbeiten={ShiftPlanIsActive}
                 plaene={Plans}
@@ -407,23 +426,11 @@ const SchichtplanContainer = () => {
                 onChange={handleInputChange}
                 onClick={handleUpdateProfile}
                 org={Meta}></SchichtplanImport>
-                :
-                <></>
-                }
-                  {ShiftPlanIsActive && Employees && currentShiftPlan && Plans && !LoadingFetchingPlans ? 
-                 <SchichtplanAuswahl
-                  bearbeiten={ShiftPlanIsActive}
-                  plaene={Plans}
-                  employees={Employees}
-                  onSwitch={shiftChange}
-                  plan={currentShiftPlan}
-                  import={ShiftPlanIsImported}
-                  Schichtplan={NewShiftPlan}
-                 />
-                 :
-                 <></>
-                }
+              }
           </div>
+          :
+          <></>
+            }
         </Row>
         {currentShiftPlan && Plans[currentShiftPlan].tauschanfrage.length > 0 && Employees?
         <Row className="mt-4">

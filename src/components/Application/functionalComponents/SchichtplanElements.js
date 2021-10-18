@@ -49,6 +49,18 @@ export const SingleApplicant = (index, col, ApplicantName, Click) => {
     </ListGroup>
 )}
 
+export const ShowMultipleApplicants = (FirstApplicant, ApplicantsLength) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0"  color="success"><p className="m-0">{FirstApplicant}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const ShowSingleApplicant = (ApplicantName) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" color="success"><p className="m-0">{ApplicantName}<br/><br/></p></ListGroupItem>
+    </ListGroup>
+)}
+
 export const MultiSetApplicant = (index, col, ApplicantName, Click) => {
     return (<ListGroup>
         <ListGroupItem className="mb-0" color="success" onClick={(e, j) => Click(index, col)}><p className="m-0">{ApplicantName}<br/><br/></p></ListGroupItem>
@@ -363,3 +375,4 @@ export const TwoSetApplicantsWithPrio = (index, col, FirstApplicant, SecondAppli
         </ListGroupItem>
     </ListGroup>
 )}
+
