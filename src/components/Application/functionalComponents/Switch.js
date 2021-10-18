@@ -1,5 +1,9 @@
 import React from "react";
 import Form from 'react-bootstrap/Form';
+import {
+    Row, 
+    Col
+} from "reactstrap"
 import InfoOverlay from "./InfoOverlay";
 
 export default class Switch extends React.PureComponent {

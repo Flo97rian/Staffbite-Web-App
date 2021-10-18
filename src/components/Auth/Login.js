@@ -43,10 +43,13 @@ import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect } from "react-router-dom";
+import PasswordChecklist from "react-password-checklist";
 
 const Login = () => {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
+    const [passwordAgain, setPasswordAgain] = useState("");
+    const [isValid, setIsValid] = useState(!1);
     const [err, setErr] = useState(null)
     const [newpassword, setNewPassword] = useState(null);
     const [authState, setAuthState] = useState();
@@ -101,10 +104,13 @@ const Login = () => {
             setPassword(val)
         } else if ( key === "newpassword") {
             setNewPassword(val)
-        }
+        } else if ( key === "passwordAgain") {
+            setPasswordAgain(val)
+        } 
       }
     
       async function changePassword(password, newpassword) {
+        if(isValid) {
         Auth.signIn(username, password)
         .then(user => {
             if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
@@ -121,7 +127,8 @@ const Login = () => {
             }
         }).catch(e => {
         });
-      }
+      };
+    };
 
     const SignInAuthState = () => {
         if (authState === AuthState.ResetPassword && user) {
@@ -172,6 +179,36 @@ const Login = () => {
                                     />
                                 </InputGroup>
                                 </FormGroup>
+                                <FormGroup>
+                            <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="ni ni-lock-circle-open" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                placeholder="Password wiederholen"
+                                type="password"
+                                name="passwordAgain"
+                                autoComplete="off"
+                                onChange={(e) => handleInputChange(e)}
+                                />
+                            </InputGroup>
+                            </FormGroup>
+                            <PasswordChecklist
+                                rules={["minLength","specialChar","number","capital","match"]}
+                                minLength={8}
+                                value={newpassword}
+                                valueAgain={passwordAgain}
+                                onChange={(isValid) => setIsValid(isValid)}
+                                messages={{
+                                    minLength: "Mindestlänge 8",
+                                    specialChar: "Sonderzeichen",
+                                    number: "Zahl",
+                                    capital: "Großbuchstabe",
+                                    match: "Passwörter stimmen überein",
+                                }}
+                            />
                                 <div className="text-center">
                                 <Button
                                     className="my-4"

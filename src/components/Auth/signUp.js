@@ -41,7 +41,7 @@ import AuthFooter from "../Footers/AuthFooter"
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect, Link } from "react-router-dom";
-import PasswordChecklist from "react-password-checklist"
+import PasswordChecklist from "react-password-checklist";
 
 const SignUp = () => {
     const [username, setUsername] = useState("")
@@ -49,9 +49,10 @@ const SignUp = () => {
     const [passwordAgain, setPasswordAgain] = useState("")
     const [isValid, setIsValid] = useState(!1)
     const [err, setErr] = useState(null)
+    const [msg, setMsg] = useState(null)
     const [authState, setAuthState] = useState();
     const [user, setUser] = useState();
-    const [code, setCode] = useState();
+    const [code, setCode] = useState("");
     const [tenant, setTenant] = useState(!1);
 
 async function signUp() {
@@ -74,7 +75,9 @@ async function confirmSignUp() {
     try {
       await Auth.confirmSignUp(username, code);
       setTenant(!0)
+      setMsg({...msg, changedPassword: !0})
     } catch (error) {
+        console.log(error);
     }
 }
     useEffect((authState) => {
@@ -112,6 +115,7 @@ async function confirmSignUp() {
 
     return (
       <>
+      {msg !== null && msg.changedPassword ? <Alert color="sucess">Du hast dein Passwort erfolgreich geändert!</Alert> : <></>}
         {user ? 
         (
         tenant ? <Switch><Redirect from="*" to="/auth" /></Switch> :
@@ -139,12 +143,21 @@ async function confirmSignUp() {
                             <InputGroup className="input-group-alternative">
                                 <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
-                                    <i className="ni ni-email-83" />
+                                    <i className="fas fa-paper-plane" />
                                 </InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Bestätigungscode" type="number" name="code" onChange={(e) => handleInputChange(e)}/>
+                                <Input placeholder="Bestätigungcode" type="number" name="code" onChange={(e) => handleInputChange(e)}/>
                             </InputGroup>
                             </FormGroup>
+                            <PasswordChecklist
+                                rules={["minLength","number"]}
+                                minLength={6}
+                                value={code}
+                                messages={{
+                                    minLength: "Länge 6",
+                                    number: "Zahlen",
+                                }}
+                            />
                             <div className="text-center">
                             <Button
                                 className="my-4"
