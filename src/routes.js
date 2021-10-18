@@ -84,7 +84,7 @@ var adminroutes = [
     layout: "/admin",
   },
   {
-    path: "/mitarbeiterverwalten",
+    path: "/mitarbeiter",
     name: "Mitarbeiter",
     icon: "fas fa-users",
     style: "text-primary",
