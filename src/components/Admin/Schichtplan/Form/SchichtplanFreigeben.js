@@ -14,9 +14,6 @@ const SchichtplanFreigeben = (props) => {
             let splitPlan = plan.zeitraum.split(" - ")
             currentStart = splitPlan[0]
             currentEnde = splitPlan[1]
-            console.log(plan)
-            console.log(currentStart)
-            console.log(currentEnde)
         }
         return(
             <>  

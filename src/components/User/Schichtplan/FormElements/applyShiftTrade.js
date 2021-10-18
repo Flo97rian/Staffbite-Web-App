@@ -8,7 +8,6 @@ import {
 import Form from 'react-bootstrap/Form';
 
 const ApplyTradeShift = (props) => {
-    const Employees = props.user
     const currentPlan = props.plan[props.current]
     return (
         <>
@@ -17,7 +16,7 @@ const ApplyTradeShift = (props) => {
                 <ListGroupItem className="mt-2">
                     <Row>
                         <Col xs={6}>
-                            <p className="pt-2">Tauschanfrage von <b>{Employees[item.trader].name}</b> für die Schicht <b>{currentPlan.plan[currentPlan.tauschanfrage[index].row]["Wochentag"].ShiftName}</b> am <b>{item.col}</b></p>
+                            <p className="pt-2">Tauschanfrage von <b>{item.traderName}</b> für die Schicht <b>{currentPlan.plan[currentPlan.tauschanfrage[index].row]["Wochentag"].ShiftName}</b> am <b>{item.col}</b></p>
                         </Col>
                         <Col xs={3}>
                             { Object.keys(item.applicants).length > 0 ?
@@ -31,17 +30,17 @@ const ApplyTradeShift = (props) => {
                             }
                         </Col>
                         <Col xs={3}>
-                            { item.trader === props.currentUser.SK["S"] ?
+                            { item.traderId === props.currentUser.SK["S"] ?
                             <Button className="float-left" color="warning" onClick={() => props.onDeleteTrade(index)}>Zurückziehen</Button>
                             :
                             <></>
                             }
-                            { Object.keys(item.applicants).length > 0 && item.trader !== props.currentUser.SK["S"] ?
+                            { Object.keys(item.applicants).length > 0 && item.traderId !== props.currentUser.SK["S"] ?
                             <Button className="float-left" color="warning" onClick={() => props.onTradeCancel(index)}>X</Button>
                             :
                             <></>
                             }
-                            { item.trader === props.currentUser.SK["S"] ?
+                            { item.traderId === props.currentUser.SK["S"] ?
                             <Button className="float-right" color="success" disabled>Bewerben</Button>
                             :
                             <Button className="float-right" color="success" onClick={() => props.onTradeAppy(index)}>Bewerben</Button>

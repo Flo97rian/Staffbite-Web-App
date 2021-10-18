@@ -122,18 +122,16 @@ const DashboardContainer = (props) => {
       Plans.forEach((plan, index) => {
         var startDate   = moment(plan.zeitraum.split(" - ")[0], "DD.MM.YYYY");
         var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
-        if (compareDate.isBetween(startDate, endDate) && plan.id.split("#").includes("Review")) {
+        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(startDate)) && plan.id.split("#").includes("Review")) {
           setCurrentShiftPlan(index);
         }
-        if (compareDate.isBetween(startDate, endDate) && plan.id.split("#").includes("Freigeben")) {
+        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(startDate)) && plan.id.split("#").includes("Freigeben")) {
           setCurrentShiftPlan(index);
         }
     });};
 
     const onFilter = (name) => {
-      console.log(name in filter);
       if(filter !== null && name in filter) {
-        console.log(!filter[name]);
         setFilter({
           ...filter,
           [name]: !filter[name]
@@ -201,7 +199,7 @@ const DashboardContainer = (props) => {
                             Tauschanfragen
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                          {Plans && currentShiftPlan ? getShiftTradeCount(Plans) : <>0</>}
+                          {Plans && currentShiftPlan ? getShiftTradeCount(Plans, currentShiftPlan) : <>0</>}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -226,7 +224,6 @@ const DashboardContainer = (props) => {
                     </Row>
                   <Card className="shadow">
                     <CardBody>
-                      <Row className="text-center" noGutters={true}>
                       <ImportSchichtplanTabelle
                         plaene={Plans}
                         plan={currentShiftPlan}
@@ -236,7 +233,6 @@ const DashboardContainer = (props) => {
                         import={!0}
                       >
                       </ImportSchichtplanTabelle>
-                      </Row>
                       </CardBody>
                   </Card>
                 </>

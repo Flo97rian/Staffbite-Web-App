@@ -19,5 +19,8 @@ export function thunkPublishShiftPlan(plan) {
         await API.post(apiName, path, myInit)
         dispatch({type: "stopFetchingPublish"})
         dispatch(FetchFromDB)
+        dispatch({type: "stopShiftPlanIsActive"})
+        dispatch({type: "stopShiftPlanIsImported"})
+        dispatch({type: "ResetCurrentShiftPlan"})
     }
 }

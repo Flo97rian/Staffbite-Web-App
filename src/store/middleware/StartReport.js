@@ -15,7 +15,6 @@ export function thunkStartReport(filter) {
         }
     };
     const response = await API.post(apiName, path, myInit)
-    console.log(response)
     let employees = {}
     response.forEach(item => {
         employees[item.SK["S"]]  = {
@@ -36,7 +35,6 @@ export function thunkStartReport(filter) {
             bewerbungscount: item.bewerbungscount,
             schichtencount: item.schichtencount
             }});
-    console.log(employees)
     dispatch({type: "All/Report", payload: employees})
     dispatch({type: "stopFetchingReport"})
     }

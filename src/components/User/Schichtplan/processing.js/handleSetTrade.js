@@ -1,10 +1,10 @@
 export const handleSetTrade = (Plans, currentShiftPlan, ShiftSlot, User) => {
     let plan = Plans[currentShiftPlan]
     let slot = {}
-    let user = User.SK["S"]
     slot["row"] = ShiftSlot.row
     slot["col"] = ShiftSlot.col
-    slot["trader"] = user
+    slot["traderId"] = User.SK["S"]
+    slot["traderName"] = User.name["S"]
     slot["applicants"] = {}
     plan.tauschanfrage.push(slot)
     return plan

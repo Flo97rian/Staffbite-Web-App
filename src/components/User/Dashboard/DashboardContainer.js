@@ -44,7 +44,7 @@ const DashboardContainer = (props) => {
   }, [Plans])
 
   useEffect(() => {
-    if (Plans!== undefined && currentShiftPlan !== null) {
+    if (Plans !== undefined && currentShiftPlan !== null) {
       getCountUsersCurrentShifts()
     }
   }, [currentShiftPlan])
@@ -64,11 +64,11 @@ const DashboardContainer = (props) => {
       Plans.forEach((plan, index) => {
         var startDate   = moment(plan.zeitraum.split(" - ")[0], "DD.MM.YYYY");
         var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
-        if (compareDate.isBetween(startDate, endDate) && plan.id.split("#").includes("Veröffentlicht")) {
+        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(startDate)) && plan.id.split("#").includes("Veröffentlicht")) {
           setActivePlan(!0);
           setCurrentShiftPlan(index);
         }
-        if (compareDate.isBetween(startDate, endDate) && plan.id.split("#").includes("Freigeben")) {
+        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(startDate)) && plan.id.split("#").includes("Freigeben")) {
           setActivePlan(!0);
           setCurrentShiftPlan(index);
         }

@@ -7,7 +7,6 @@ export const setPrioShift = ({Plans, ShiftSlot, currentShiftPlan, daysIsActive})
     let currentPlan = plans[currentShiftPlan]
     let hasDaysIsActive = daysIsActive !== null;
     currentPlan.plan[row][col]["prio"] = hasDaysIsActive && "qualifikation" in daysIsActive ? daysIsActive.qualifikation : !1;
-    console.log(currentPlan.plan[row][col])
     store.dispatch({type: "All/setPlans", payload: plans})
     store.dispatch({type: "ResetShiftSlot"})
   }

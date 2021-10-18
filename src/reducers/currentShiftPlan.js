@@ -7,7 +7,7 @@ const currentShiftPlanReducer = (state = !1, action) => {
         )
         case "ResetCurrentShiftPlan": 
         return (
-          state
+          state = !1
         )
         case "SwitchLeftcurrentShiftPlan": 
         return {

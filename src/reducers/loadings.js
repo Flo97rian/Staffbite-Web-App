@@ -60,6 +60,16 @@ const loadingsReducer = (state = !1, action) => {
           ...state,
           "isFetchingAlg": !1
         }
+        case "startFetchingRelease": 
+        return {
+          ...state,
+          "isFetchingRelease": !0
+        }
+        case "stopFetchingRelaese": 
+        return {
+          ...state,
+          "isFetchingRelease": !1
+        }
         case "startFetchingPublish": 
         return {
           ...state,

@@ -38,11 +38,9 @@ const TableContainer = (props) => {
 
     // Initiales laden der aktuellen Users
     useEffect(() => {
-      console.log(employeeIsActive)
     }, [employeeIsActive]);
 
     useEffect(() => {
-      console.log(Employees)
     }, [Employees]);
     // Filtert auf Basis der Id, die zugehörigen Mitarbeiterdaten
     const handleFilter = (idToSearch) => {
@@ -92,16 +90,12 @@ const TableContainer = (props) => {
 
   const handleSetPositions = (item) => {
     let copyEmployeeIsActive = {...employeeIsActive};
-    console.log("hier", copyEmployeeIsActive);
     if ("position" in copyEmployeeIsActive) {
-      console.log("a")
       copyEmployeeIsActive.position = [...copyEmployeeIsActive.position, item];
     } else if (!("position" in copyEmployeeIsActive)) {
-      console.log("b")
       copyEmployeeIsActive["position"] = [item];
     }
     else {
-      console.log("c")
       copyEmployeeIsActive.position.push(item);
     }
     setemployeeIsActive(copyEmployeeIsActive);
@@ -149,18 +143,14 @@ const handlePositionHinzufuegenClose = () => {
 
 const handlePositionErstellen = () => {
   let copyEmployeeIsActive = {...employeeIsActive};
-  console.log(copyEmployeeIsActive);
   if ("position" in copyEmployeeIsActive) {
     if(!copyEmployeeIsActive.position.includes(position)) {
-      console.log("a", position, copyEmployeeIsActive.position)
       copyEmployeeIsActive.position = [...copyEmployeeIsActive.position, position];
     }
   } else if (!("position" in copyEmployeeIsActive)) {
-    console.log("b")
     copyEmployeeIsActive["position"] = [position];
   }
   else {
-    console.log("c")
     copyEmployeeIsActive.position.push(position);
   }
   setemployeeIsActive(copyEmployeeIsActive);
@@ -184,6 +174,7 @@ const setSelectEmployee = (ma) => {
       });
       store.dispatch(thunkUpdateProfile(copyMeta));
     }
+    setemployeeIsActive(null);
     store.dispatch({type: "CLOSE", payload: modal});
   };
 

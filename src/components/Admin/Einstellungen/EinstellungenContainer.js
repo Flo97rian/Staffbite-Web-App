@@ -88,9 +88,6 @@ const EinstellungenContainer = () => {
     };
 
     const handlePositionErstellen = () => {
-      console.log(metaData)
-      console.log(metaData.schichten)
-      console.log(position)
       let copymeta = {...metaData};
 
       if (copymeta.schichten === undefined) {
@@ -106,7 +103,6 @@ const EinstellungenContainer = () => {
    // Handling von Userinputs
    const handlePositionChange = (event) => {
     const val = event.target.value;
-    console.log(val)
     setPosition(val);
   };
     const handleRemovePositions = (item) => {

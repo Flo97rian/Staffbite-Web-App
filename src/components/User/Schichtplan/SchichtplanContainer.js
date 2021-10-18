@@ -16,6 +16,7 @@ import {
   } from "reactstrap";
 
 import AuswahlShow from "./FormElements/AuswahlShow";
+import SchichtenTabelle from "./SchichtenTabelle";
 import OpenModal from "./Modal/OpenModal";
 import store from "../../../store";
 import UserSchichtplanTabs from "./Nav/Nav";
@@ -31,7 +32,7 @@ const TableContainer = () => {
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
   const selectModal = state => state.modal;
-  const selectCurrentShiftPlan = state => state.currentShiftPlan.currentShiftPlan
+  const selectCurrentShiftPlan = state => state.currentShiftPlan
   const selectUser = state => state.DB.user
   const selectShiftSlot = state => state.shiftSlot;
   const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive;
@@ -48,10 +49,8 @@ const TableContainer = () => {
   // Initiales laden der aktuellen Users
   useEffect(() => {
     store.dispatch({ type: "ResetCurrentShiftPlan"})
-    store.dispatch({ type: "stopShiftPlanIsActive"})
     store.dispatch({ type: "stopShiftPlanIsImported"})
     store.dispatch(FetchEmployeePlansFromDB)
-    //store.dispatch(FetchEmployees)
     store.dispatch(getUser)
   }, []);
 
@@ -59,9 +58,14 @@ const TableContainer = () => {
   }, [Plans]);
 
   useEffect(() => {
-  console.log(navIndex)
-  }, [navIndex]);
-  
+  }, [User]);
+
+  useEffect(() => {
+    }, [navIndex]);
+
+  useEffect(() => {
+    }, [currentShiftPlan]);
+
   // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
   const getModalKey = (allmodals) => {
     const modals = Object.entries(allmodals).map(([key, value]) =>  value ? key : null);
@@ -143,7 +147,7 @@ const TableContainer = () => {
         </Row>
         <Row>
             <div className="col">
-                {Plans && !ShiftPlanIsActive ? 
+                {Plans && User && !ShiftPlanIsActive ? 
                 <SchichtplanImport 
                   status={navIndex}
                   bearbeiten={ShiftPlanIsActive}
@@ -153,8 +157,8 @@ const TableContainer = () => {
                   :
                   <></>
                   }
-                    {ShiftPlanIsActive ? 
-                  <AuswahlShow 
+                    {Plans && User && currentShiftPlan && ShiftPlanIsActive ?
+                  <SchichtenTabelle 
                   bearbeiten={ShiftPlanIsActive}
                   plaene={Plans}
                   currentUser={User}
@@ -165,7 +169,7 @@ const TableContainer = () => {
                   }
             </div>
           </Row>
-            {currentShiftPlan && Plans[currentShiftPlan].tauschanfrage.length > 0 ?
+            { Plans !== null && User !== null && currentShiftPlan && Plans[currentShiftPlan].tauschanfrage.length > 0 ?
         <Row className="mt-4">
           <div className="col">
             <Card className="shadow">

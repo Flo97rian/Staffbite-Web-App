@@ -15,7 +15,6 @@ import MitarbeiterListeStandard from "./MitarbeiterListe/MitarbeiterListeStandar
 
 const MitarbeiterTabelle = (props) => {
     const employees = props.mitarbeiter
-    console.log(employees)
         return(
             <>
                 { props.meta?.stundenerfassung ? 

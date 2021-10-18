@@ -35,7 +35,6 @@ export const SchichtplanElementNeu = (props) => {
         const hasShiftName = isObj && "ShiftName" in currentItem && currentItem.ShiftName !== undefined? !0 : !1;
         const hasPrio = isObj && "prio" in currentItem && currentItem.prio !== !1 ? !0 : !1;
         if(hasPrio) {
-            console.log(currentItem);
         }
         let isDiscribeWeekDay = (col === "Wochentag");
         if (index === 0 || index === 1 || index === ItemLength - 1 ) {

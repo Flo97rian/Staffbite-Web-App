@@ -51,7 +51,7 @@ const Login = () => {
     const [passwordAgain, setPasswordAgain] = useState("");
     const [isValid, setIsValid] = useState(!1);
     const [err, setErr] = useState(null)
-    const [newpassword, setNewPassword] = useState(null);
+    const [newpassword, setNewPassword] = useState("");
     const [authState, setAuthState] = useState();
     const [user, setUser] = useState();
 
@@ -89,7 +89,6 @@ const Login = () => {
                 setUser(user);
             }
         } catch (error) {
-            console.log(error);
             setErr(error);
         }   
     }
@@ -110,7 +109,6 @@ const Login = () => {
       }
     
       async function changePassword(password, newpassword) {
-        if(isValid) {
         Auth.signIn(username, password)
         .then(user => {
             if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
@@ -127,7 +125,6 @@ const Login = () => {
             }
         }).catch(e => {
         });
-      };
     };
 
     const SignInAuthState = () => {
@@ -239,7 +236,21 @@ const Login = () => {
                 </>
             )
         } else if (authState === AuthState.SignedIn && user) {
-            if (user.username === user.attributes["custom:TenantId"]) {
+            if("challengeParam" in user ) {
+                if(user.username === user.challengeParam.userAttributes["cutom:TenantId"]) {
+                    return (
+                        <Switch>
+                            <Redirect from="*" to="/admin/index" />
+                        </Switch>
+                    )
+                } else if (user.username !== user.challengeParam.userAttributes["cutom:TenantId"]) {
+                    return (
+                        <Switch>
+                            <Redirect from="*" to="/user/index" />
+                        </Switch>
+                    )
+                }
+            } else if (user.username === user.attributes["custom:TenantId"]) {
                 return (
                     <Switch>
                         <Redirect from="*" to="/admin/index" />
@@ -262,9 +273,16 @@ const Login = () => {
                 }}/>
                 { err !== null && err.code === "NotAuthorizedException" ? 
                 <div>
-                <Alert color="warning" isOpen={!0} fade={false}>
-                    {err.message}
-                </Alert>
+                <Alert color="warning">
+            <Row>
+              <Col xs="10">
+                <p className="mb-0">{err.message}</p> 
+              </Col>
+              <Col xs="2">
+                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setErr({...err, ["code"]: !1})}></i>
+              </Col>
+            </Row>
+            </Alert>
                 </div>
                 : <></>
                 }

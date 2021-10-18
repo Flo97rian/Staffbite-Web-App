@@ -17,5 +17,8 @@ export function thunkStartAlg(id) {
     dispatch(FetchFromDB)
     dispatch({type: "AlgResponse", payload: !0})
     dispatch({type: "stopFetchingAlg"})
+    dispatch({type: "stopShiftPlanIsActive"})
+    dispatch({type: "stopShiftPlanIsImported"})
+    dispatch({type: "ResetCurrentShiftPlan"})
     }
 }

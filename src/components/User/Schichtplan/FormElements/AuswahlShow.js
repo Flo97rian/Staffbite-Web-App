@@ -6,8 +6,6 @@ export default class AuswahlShow extends React.PureComponent {
     render() {
         return (
         <>
-            {this.props.bearbeiten
-            ?
             <SchichtenTabelle
             currentUser={this.props.currentUser}
             plaene={this.props.plaene}
@@ -15,12 +13,6 @@ export default class AuswahlShow extends React.PureComponent {
             plan={this.props.plan}
             onClick={this.props.onClick}
            />
-            : 
-            <FormSchichtplanAuswaehlen
-            plaene={this.props.plaene}
-            onSelect={this.props.onSelect}
-            ></FormSchichtplanAuswaehlen>
-            }
         </>
         );
     }

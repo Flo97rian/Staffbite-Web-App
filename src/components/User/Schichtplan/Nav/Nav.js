@@ -8,8 +8,6 @@ import {
 } from "reactstrap";
 
 const UserSchichtplanTabs = (props) => {
-  console.log(props.navIndex)
-  console.log(props.onNavChange)
     return (
       <>
         <Nav

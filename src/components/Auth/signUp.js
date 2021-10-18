@@ -65,7 +65,6 @@ async function signUp() {
         });
         setUser(user)
     } catch (error) {
-        console.log('error signing up:', error);
         setErr(error)
     }
     }
@@ -77,7 +76,6 @@ async function confirmSignUp() {
       setTenant(!0)
       setMsg({...msg, changedPassword: !0})
     } catch (error) {
-        console.log(error);
     }
 }
     useEffect((authState) => {
@@ -115,7 +113,19 @@ async function confirmSignUp() {
 
     return (
       <>
-      {msg !== null && msg.changedPassword ? <Alert color="sucess">Du hast dein Passwort erfolgreich geändert!</Alert> : <></>}
+      {msg !== null && msg.changedPassword ? 
+            <Alert color="sucess">
+            <Row>
+              <Col xs="10">
+                <p className="mb-0">Du hast dein Passwort erfolgreich geändert!</p> 
+              </Col>
+              <Col xs="2">
+                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setMsg({...msg, ["changedPassword"]: !1})}></i>
+              </Col>
+            </Row>
+            </Alert>
+            :
+            <></>}
         {user ? 
         (
         tenant ? <Switch><Redirect from="*" to="/auth" /></Switch> :
@@ -196,9 +206,16 @@ async function confirmSignUp() {
                 }}/>
                   { err !== null && err.code === "UsernameExistsException" ? 
                 <div>
-                <Alert color="warning" isOpen={!0} fade={false}>
-                    {err.message}
-                </Alert>
+                <Alert color="warning">
+            <Row>
+              <Col xs="10">
+                <p className="mb-0">{err.message}</p> 
+              </Col>
+              <Col xs="2">
+                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setMsg({...err, ["code"]: !1})}></i>
+              </Col>
+            </Row>
+            </Alert>
                 </div>
                 : <></>
                 }

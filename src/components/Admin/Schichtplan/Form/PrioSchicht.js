@@ -9,14 +9,10 @@ import Switch from "../../../Application/functionalComponents/Switch";
 
 export const PrioSchicht = (props) => {
     let hasDaysIsActive = props.daysIsActive !== null
-    console.log(props.daysIsActive);
-    console.log(props.shiftSlot)
     
     function getColor(qualifikation) {
         let color = "light";
         if (hasDaysIsActive) {
-            console.log(props.daysIsActive);
-            console.log(qualifikation);
             if ("qualifikation" in props.daysIsActive) {
                 if (props.daysIsActive.qualifikation === qualifikation && qualifikation !== props.shiftSlot.prio) {
                     color = "primary";
@@ -28,8 +24,6 @@ export const PrioSchicht = (props) => {
             }
         }
         else if (hasDaysIsActive) {
-            console.log(props.daysIsActive);
-            console.log(qualifikation);
             if ("qualifikation" in props.daysIsActive) {
                 if (props.daysIsActive.qualifikation === qualifikation) {
                     color = "primary";

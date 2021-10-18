@@ -70,6 +70,7 @@ const SchichtplanContainer = () => {
   const selectLoadingPublish = state => state.loadings.isFetchingPublish;
   const selectLoadingFetchingPlans = state => state.loadings.isFetchingPlansFromDB;
   const selectLoadingFetchingSafe = state => state.loadings.isFetchingSafe;
+  const selectLoadingFetchingRelease = state => state.loadings.isFetchingRelease;
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
@@ -87,6 +88,7 @@ const SchichtplanContainer = () => {
   const LoadingPublish = useSelector(selectLoadingPublish);
   const LoadingFetchingPlans = useSelector(selectLoadingFetchingPlans);
   const LoadingFetchingSafe = useSelector(selectLoadingFetchingSafe);
+  const LoadingFetchingRelease = useSelector(selectLoadingFetchingRelease);
 
   useEffect(() => {
       store.dispatch(FetchFromDB);
@@ -105,7 +107,6 @@ const SchichtplanContainer = () => {
 
   useEffect(() => {
     if(currentShiftPlan && Employees && Plans) {
-      console.log(currentShiftPlan);
       const employees = refractorEmployees(Employees, Plans[currentShiftPlan].plan);
       setShiftEmployees(employees);
     }
@@ -123,8 +124,6 @@ const SchichtplanContainer = () => {
 
   // Handling von Userinputs
   const handleInputChange = (event) => {
-    console.log(daysIsActive);
-    console.log(event.target.value);
     let key = event.target.name;
     let val = stateSwitch(event.target.value, event);
     setDaysIsActive({...daysIsActive, [key]: val });
@@ -204,7 +203,6 @@ const SchichtplanContainer = () => {
   };
   // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter)
   const handleEditShiftDetails = (index) => {
-    console.log(daysIsActive);
     if (ShiftPlanIsImported) {
       editShiftDetailsImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive});
     } else {
@@ -216,7 +214,6 @@ const SchichtplanContainer = () => {
 
   //Dise Funktion sorgt für das Hinzufügen einer neuen Schicht zum jeweiligen Schichtplan
   const handleAddShift = (index) => {
-    console.log(daysIsActive);
     if (ShiftPlanIsImported) {
       addNewShiftToImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive});
     } else {
@@ -286,16 +283,20 @@ const SchichtplanContainer = () => {
   const handlePublishShiftPlan = () => {
     store.dispatch({type: "startFetchingPublish"});
     store.dispatch(thunkPublishShiftPlan(Plans[currentShiftPlan]));
+    setNavIndex(4);
   };
 
   const handleReleaseForApplication = (modal) => {
     let shiftDetailsFilled = checkShiftHasDetails(Plans, currentShiftPlan)
     if (shiftDetailsFilled) {
+    store.dispatch({type: "startFetchingRelease"})
     const response = handleApplication(Plans, currentShiftPlan, NewDate);
+    setNavIndex(2);
     if (!response) {setShiftDetails(!0);}
     } else {
-      setErrMsng({...ErrMsng, MissingShiftDetails: !0})
+      setErrMsng({...ErrMsng, MissingShiftDetails: !0});
     }
+
     store.dispatch({type: "CLOSE", payload: modal});
   };
 
@@ -303,6 +304,7 @@ const SchichtplanContainer = () => {
     store.dispatch({type: "startFetchingAlg"});
     const id = Plans[currentShiftPlan].id;
     store.dispatch(thunkStartAlg(id));
+    setNavIndex(3)
     store.dispatch({type: "CLOSE", payload: modal});
   };
 
@@ -317,7 +319,17 @@ const SchichtplanContainer = () => {
         </Row>
         :
       <>
-      { ErrMsng.MissingShiftDetails ? <Alert color="warning">Trage für jede Schicht die gewünschte Position, Beginn, Ende und Anzahl der Mitarbeiter ein</Alert> : <></>}
+      { ErrMsng.MissingShiftDetails ? 
+      <Alert color="warning">
+        <Row>
+          <Col xs="10">
+            <p className="mb-0">Trage für jede Schicht die gewünschte Position, Beginn, Ende und Anzahl der Mitarbeiter ein.</p> 
+          </Col>
+          <Col xs="2">
+            <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setErrMsng({...ErrMsng, ["MissingShiftDetails"]: !1})}></i>
+          </Col>
+        </Row>
+      </Alert> : <></>}
       { !ShiftPlanIsActive ?
         <Nav
           onNavChange={handleNavChange}
@@ -333,6 +345,7 @@ const SchichtplanContainer = () => {
       { LoadingPublish ? <Spinner color="success" /> : <></>}
       { LoadingFetchingPlans ? <Spinner color="success" /> : <></>}
       { LoadingFetchingSafe ? <Spinner color="success" /> : <></>}
+      { LoadingFetchingRelease ? <Spinner color="success" /> : <></>}
       </Col>
       <Col xs={10} className="mt-2">
       <ButtonSaveUpdate

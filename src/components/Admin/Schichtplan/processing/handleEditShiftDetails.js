@@ -2,7 +2,6 @@
 
     // // Bearbeiten einer Reihe, wenn der Schichtplan importiert wurde
     export const editShiftDetailsImportedShiftPlan = ({index, Plans, currentShiftPlan, daysIsActive}) => {
-    console.log(daysIsActive)
     let plan = [...Plans[currentShiftPlan].plan];
     let plans = [...Plans];
     plans[currentShiftPlan].plan = mergeEditedShiftDetails({plan, index, daysIsActive});

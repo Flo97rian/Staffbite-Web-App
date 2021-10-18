@@ -8,8 +8,6 @@ import {
 
   function ReportingElement(props) {
     function showElement(employee, Report) {
-        console.log(Report);
-        console.log(employee);
         var hasBewerbungen = "bewerbungscount" in Report[employee] && Report[employee].bewerbungscount !== undefined;
         var hasSchichten = "schichtencount" in Report[employee] && Report[employee].schichtencount !== undefined;
         var showAll = !0;
