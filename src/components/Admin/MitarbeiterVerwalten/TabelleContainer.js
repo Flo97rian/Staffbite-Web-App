@@ -24,7 +24,7 @@ const TableContainer = (props) => {
     
   const selectEmployees = state => state.DB.employees;
   const selectModal = state => state.modal;
-  const selectMeta = state => state.DB.meta;
+  const selectMeta = state => state.Meta;
 
   const Employees = useSelector(selectEmployees);
   const Modal = useSelector(selectModal);

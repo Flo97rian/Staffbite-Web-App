@@ -27,12 +27,12 @@ const SchichtplanElementPublished = (props) => {
         const isFree = obj.frei;
         const currentUser = props.currentUser;
         let anzahl = e[index].Montag.anzahl;
-        //const ApplicantMatchesPosition = currentUser.position["S"].includes(e[index]["Wochentag"].ShiftName)
+        //const ApplicantMatchesPosition = currentUser.position.includes(e[index]["Wochentag"].ShiftName)
         const hasSetApplicants =  isObj && "setApplicants" in obj && Object.keys(obj["setApplicants"]).length > 0 ? !0 : !1;
-        const ShiftIncludesApplicant = hasSetApplicants ? currentUser.SK["S"] in obj["setApplicants"] : !1;
+        const ShiftIncludesApplicant = hasSetApplicants ? currentUser.SK in obj["setApplicants"] : !1;
         const ApplicantsLength = hasSetApplicants ? Object.keys(obj.setApplicants).length : 0;
         const FirstApplicant = hasSetApplicants ? obj.setApplicants[Object.keys(obj.setApplicants)[0]] : !1;
-        const ApplicantName = currentUser.name["S"];
+        const ApplicantName = currentUser.name;
         const isDiscribeWeekDay = (col === "Wochentag");
         if (index === 0 || index === 1) {
             return DateOrWeekDayRow(obj);
@@ -58,7 +58,7 @@ const SchichtplanElementPublished = (props) => {
     };
         return (
         <>
-            {dataModal(props.plaene[props.plan].plan)}
+            {dataModal(props.shiftplan.plan)}
         </>
         );
     }

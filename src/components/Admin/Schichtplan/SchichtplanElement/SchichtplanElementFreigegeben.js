@@ -2,7 +2,6 @@ import React from "react";
 // core components
 import { 
     DateOrWeekDayRow,
-    ShiftDescription,
     MultipleApplicants,
     CompanyClosed,
     SingleApplicant,
@@ -28,7 +27,6 @@ const SchichtplanElementFreigegeben = (props) => {
     const dataModal = (e) => {
         var ItemLength = props.ItemLength;
         var index = props.index;
-        console.log(index);
         var col = props.col;
         let currentItem = props.currentItem[col];
         let isObj = typeof currentItem === "object";
@@ -65,7 +63,7 @@ const SchichtplanElementFreigegeben = (props) => {
     };
         return (
         <>
-            {dataModal(props.plaene[props.plan].plan)}
+            {dataModal(props.shiftplan.plan)}
         </>
         );
     }

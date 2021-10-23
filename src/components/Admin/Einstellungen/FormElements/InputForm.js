@@ -14,7 +14,7 @@ import {
             <FormGroup>
                 <Input
                 id="exampleFormControlInput1"
-                placeholder={this.props?.org?.name ? this.props.org.name["S"]: "Name eintragen" }
+                placeholder={this.props?.org?.name ? this.props.org.name: "Name eintragen" }
                 type="text"
                 name="name"
                 className="bg-secondary"

@@ -10,5 +10,22 @@ export async function getUser(dispatch, getState) {
       } // OPTIONAL
     };
     const response = await API.get(apiName, path, myInit)
-    dispatch({type: "All/GetUser", payload: response.Item})
+
+    let user = {
+        frei: response.Item.frei.BOOL,
+        name: response.Item.name.S,
+        aktiv: response.Item.aktiv.BOOL,
+        SK: response.Item.SK.S,
+        email: response.Item.email.S,
+        stundenlohn: response.Item.stundenlohn.N,
+        zielmtleuro: response.Item.zielmtleuro.N,
+        akutellerverdienst: response.Item.akutellerverdienst.N,
+        zielmtlh: response.Item.zielmtlh.N,
+        ueberstunden: response.Item.ueberstunden.BOOL,
+        erfahrung: response.Item.erfahrung.S,
+        schichtenwoche: response.Item.schichtenwoche.N,
+        position: JSON.parse(response.Item.position.S),
+        bewerbungen: JSON.parse(response.Item.bewerbungen.S)
+    }
+    dispatch({type: "setUser", payload: user});
     };

@@ -3,12 +3,9 @@ import {
     Col,
     Row
 } from "reactstrap"
-import InputString from "../../../Application/functionalComponents/InputString";
-import InputTime from "../../../Application/functionalComponents/InputTime";
 import InputBadges from "../../../Application/functionalComponents/InputBadges";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 import Datepicker from "../../../Application/functionalComponents/DateRangePickerExample";
-import InputNumber from "../../../Application/functionalComponents/InputNumber";
 
 export default class ReportFilter extends React.PureComponent {
     render() {

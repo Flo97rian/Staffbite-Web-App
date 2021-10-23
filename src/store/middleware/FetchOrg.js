@@ -20,5 +20,5 @@ import constants from "../constants";
           reverse: response.Item.reverse["BOOL"],
           schichten: JSON.parse(response.Item.schichten["S"]),
         }
-        dispatch({type: "All/GetOrgDetails", payload: org})
+        dispatch({type: "setMeta", payload: org})
       };

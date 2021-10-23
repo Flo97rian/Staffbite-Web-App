@@ -7,8 +7,6 @@ import {
     setShiftDetails,
     editShiftDetails,
     shiftSetPrio,
-    CreateShiftPlanHasApplicants,
-    CreateShiftPlanHasApplicantsWithPrio,
  } from "../../../Application/functionalComponents/SchichtplanElements";
 import store from "../../../../store";
 
@@ -33,7 +31,6 @@ const SchichtplanElementEntwurf = (props) => {
         let isObj = typeof currentItem === "object";
         let hasFree = isObj && "frei" in currentItem;
         if (isObj && "ende" in currentItem) {
-            console.log(typeof currentItem.ende)
         }
         let anzahl = !1;
         if (typeof props.anzahl === "object") {
@@ -55,8 +52,6 @@ const SchichtplanElementEntwurf = (props) => {
             return setShiftDetails(index, editShift);
         } else if (!isFree && isDiscribeWeekDay){
             return editShiftDetails(currentItem, index, anzahl, editShift);
-        }  else if (isFree && isDiscribeWeekDay) {
-            return editShiftDetails(index, editShift);
         } else if (!isFree && !isDiscribeWeekDay) {
             return CompanyClosed();
         } else if (hasPrio) {
@@ -68,7 +63,7 @@ const SchichtplanElementEntwurf = (props) => {
     };
         return (
         <>
-            {dataModal(props.plaene[props.plan].plan)}
+            {dataModal(props.shiftplan.plan)}
         </>
         )
     }

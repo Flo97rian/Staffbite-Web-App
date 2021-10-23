@@ -25,37 +25,50 @@ import {
   DropdownToggle,
   Navbar,
   Nav,
+  Collapse,
   Container,
   NavItem,
   NavLink,
+  NavbarText,
+  NavbarToggler,
   NavbarBrand,
 } from "reactstrap";
 import { useSelector } from "react-redux";
 import store from "../../store";
 import { Auth } from 'aws-amplify';
-import { getAdmin } from "../../store/middleware/FetchAdmin"
+import { FetchOrg } from "../../store/middleware/FetchOrg";
 import {adminroutes} from "../../routes"
 
 const AdminNavbar = (props) => {
-  const [collapseOpen, setCollapseOpen] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const selectMeta = state => state.Meta;
+
+  const Meta = useSelector(selectMeta);
+    // Initiales laden der aktuellen Users
+    
+useEffect(() => {
+  store.dispatch(FetchOrg);
+}, []);
+
+useEffect(() => {
+}, [Meta]);
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
-  // toggles collapse between opened and closed (true/false)
-  const toggleCollapse = () => {
-    setCollapseOpen((data) => !data);
-  };
+
+  const toggle = () => setIsOpen(!isOpen);
+
   // closes the collapse
   const closeCollapse = () => {
-    setCollapseOpen(false);
+    setIsOpen(false);
   };
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
       return (
         <NavItem key={key}
-        className="mr-4">
+        className="mr-4  ml-2">
           <NavLink
             to={prop.layout + prop.path}
             tag={NavLinkRRD}
@@ -65,14 +78,14 @@ const AdminNavbar = (props) => {
             {activeRoute(prop.layout + prop.path) === "active" ?
             <p className="text-primary mt-2 mb-0">
               <i
-              className={prop.icon + " " + prop.style + " " + "mr-2 text-primary"}
+              className={prop.icon + " " + prop.style + " mr-2 text-primary"}
               />
               {prop.name}
               </p>
             :
             <p className="text-muted mt-2 mb-0">
               <i
-              className={prop.icon + " " + "mr-2 text-muted"}
+              className={prop.icon + " mr-2 text-muted"}
               />
               {prop.name}
               </p>
@@ -83,7 +96,7 @@ const AdminNavbar = (props) => {
     });
   };
 
-  const { bgColor, routes, logo } = props;
+  const { logo } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
     navbarBrandProps = {
@@ -105,21 +118,15 @@ async function signOut() {
     }
 }
 
-    const selectUser = state => state.DB.user
-
-    const User = useSelector(selectUser);
-      // Initiales laden der aktuellen Users
-      
-  useEffect(() => {
-    store.dispatch(getAdmin)
-  }, []);
-
       return (
     <>
-      <Navbar className="navbar-top bg-white fixed-top mr-2 shadow" expand="md" id="navbar-main" sticky="top">
-        <Container fluid>
-         {logo ? (
-          <NavbarBrand className="pt-0" {...navbarBrandProps}>
+    <Container className="ml-2 mr-2 ">
+      <Navbar 
+      light
+      className="navbar-top bg-white shadow " 
+      expand="lg" 
+      >
+          <NavbarBrand className=" ml-2" {...navbarBrandProps}>
             <img
               alt={logo.imgAlt}
               className="navbar-brand-img"
@@ -127,24 +134,22 @@ async function signOut() {
               src={logo.imgSrc}
             />
           </NavbarBrand>
-        ) : null}
-          <Nav navbar>{createLinks(adminroutes)}</Nav>
-          <Nav className="align-items-center text-primary d-none d-md-flex" navbar>
-            <UncontrolledDropdown nav>
+        <NavbarToggler onClick={toggle} className="align-items-center"></NavbarToggler>
+        <Collapse className="ml-2 mr-2" isOpen={isOpen} navbar>
+          <Nav navbar> {createLinks(adminroutes)}</Nav>
+        </Collapse>
+        <NavbarText>
+        <UncontrolledDropdown className="mr-4">
               <DropdownToggle className="pr-0" nav>
               <p className="text-muted mt-2 mb-0">
               <i className="fa fa-user-circle text-muted mr-2"
               />
-              {User?.Item?.name ? <>{User.Item.name["S"]}</> : <></>}
+              {Meta ? Meta.name : <></>}
               </p>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
                 <DropdownItem className="noti-title" header tag="div">
                   <h6 className="text-overflow m-0">Willkommen!</h6>
-                </DropdownItem>
-                <DropdownItem to="/admin/einstellungen" tag={Link}>
-                  <i className="ni ni-single-02" />
-                  <span>Mein Profil</span>
                 </DropdownItem>
                 <DropdownItem to="/admin/einstellungen" tag={Link}>
                   <i className="ni ni-settings-gear-65" />
@@ -157,9 +162,9 @@ async function signOut() {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-          </Nav>
-        </Container>
-      </Navbar>
+        </NavbarText>
+        </Navbar>
+      </Container>
     </>
   );
 };

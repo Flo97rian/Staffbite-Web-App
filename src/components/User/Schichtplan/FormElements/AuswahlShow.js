@@ -1,6 +1,5 @@
 import React from "react";
 import SchichtenTabelle from "../SchichtenTabelle";
-import FormSchichtplanAuswaehlen from "./FormSchichtplanAuswaehlen";
 
 export default class AuswahlShow extends React.PureComponent {
     render() {

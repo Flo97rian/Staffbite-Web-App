@@ -8,6 +8,7 @@ import store from "../../../../store";
 const ButtonZurueck = (props) => {
     const ResetCurrentShiftPlan = () => {
         store.dispatch({ type: "ResetCurrentShiftPlan"})
+        store.dispatch({ type: "resetShiftplan"})
         store.dispatch({ type: "stopShiftPlanIsActive"})
         store.dispatch({ type: "stopShiftPlanIsImported"})
     }

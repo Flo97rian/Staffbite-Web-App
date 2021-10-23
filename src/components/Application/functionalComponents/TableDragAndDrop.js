@@ -48,16 +48,12 @@ const getListStyle = isDraggingOver => ({
 });
 
 const TableDnD = (props) => {
-  const [Items, setItems] = useState(getItems(props.plaene[props.plan].plan))
+  const [Items, setItems] = useState(getItems(props.shiftplan.plan))
   const [Valid, setItemsValid] = useState(!1)
 
   useEffect(() => {
-      setItems(getItems(props.plaene[props.plan].plan));
-      }, [props.plaene]);
-
-  useEffect(() => {
-    setItems(getItems(props.plaene[props.plan].plan));
-    }, [props.plan]);
+      setItems(getItems(props.shiftplan.plan));
+      }, [props.shiftplan]);
 
   useEffect(() => {
     props.onSwitch(Items)

@@ -3,7 +3,6 @@ import React from "react";
 import {
     Row,
     Col,
-    Table,
     Card, 
     CardBody
   }

@@ -7,8 +7,8 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import SchichtplanElementNeu from "../SchichtplanElement/SchichtplanElementNeu";
 import Spinner from 'react-bootstrap/Spinner';
 // fake data generator
-const getItems = (shiftsplan) => {
-    const plan = shiftsplan.map((shift, index) => ({
+const getItems = (shiftplan) => {
+    const plan = shiftplan.map((shift, index) => ({
     id: String(index),
     Wochentag: shift.Wochentag,
     Montag: shift.Montag,
@@ -46,12 +46,11 @@ const getListStyle = isDraggingOver => ({
 });
 
 const TableDnD = (props) => {
-  const [Items, setItems] = useState(getItems(props.Schichtplan));
-  const [Valid, setItemsValid] = useState(!1);
+  const [Items, setItems] = useState(getItems(props.Schichtplan.plan));
 
   useEffect(() => {
-      setItems(getItems(props.Schichtplan));
-      }, [props.Schichtplan]);
+      setItems(getItems(props.Schichtplan.plan));
+      }, [props.Schichtplan.plan]);
 
   useEffect(() => {
     props.onSwitch(Items);
@@ -84,17 +83,7 @@ const TableDnD = (props) => {
   // But in this example everything is just done in one place for simplicity
     return (
       <>
-      { Valid ?
-        <>
-        <br/>   
-        <Row className="text-center">
-          <br/>
-          <Col xs={12}>
-            <Spinner animation="grow" variant="light"/>
-          </Col>
-        </Row>
-        </>
-      :
+   { Items !== undefined && "id" in Items[0] ?
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
@@ -174,6 +163,16 @@ const TableDnD = (props) => {
           )}
         </Droppable>
       </DragDropContext>
+      :
+      <>
+      <br/>   
+      <Row className="text-center">
+        <br/>
+        <Col xs={12}>
+          <Spinner animation="grow" variant="light"/>
+        </Col>
+      </Row>
+      </>
       }
       </>
     );

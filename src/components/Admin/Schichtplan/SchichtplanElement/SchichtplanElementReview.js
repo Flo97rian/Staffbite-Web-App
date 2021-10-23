@@ -29,7 +29,6 @@ const editShift = (index) => {
 
 const SchichtplanElementReview = (props) => {
     const dataModal = (e) => {
-        let ItemLength = props.ItemLength;
         let col = props.col;
         let index = props.index;
         let currentItem = props.currentItem[col];
@@ -76,7 +75,7 @@ const SchichtplanElementReview = (props) => {
     };
         return (
         <>
-            {dataModal(props.plaene[props.plan].plan)}
+            {dataModal(props.shiftplan.plan)}
         </>
         );
     }

@@ -12,7 +12,7 @@ import DragAndDrop from "../FormElements/DragAndDrop";
 const ModalSchichtAuswaehlen = (props) => {
     const tag = props.bewerber.col;
     const row = props.bewerber.row;
-    const shiftplan = props.plaene[props.plan].plan
+    const shiftplan = props.shiftplan.plan
     const applicants = shiftplan[row][tag].setApplicants
     const applyedApplicants = shiftplan[row][tag].applicants
     const validApplicants = shiftplan[row][tag].setValidApplicants
@@ -53,7 +53,6 @@ const ModalSchichtAuswaehlen = (props) => {
                     set={applicants}
                     position={shiftname}
                     anzahl={shiftanzahl}
-                    currentPlan={props.plan}
                     {...props}
                     />
                 </Modal.Body>

@@ -16,12 +16,12 @@ import { Badge } from "reactstrap";
 import UserPlanId from "../Schichtplan/FormElements/UserPlanId";
 
 const DashboardSchichtenTabelle = (props) => {
-    const id = props.plaene[props.plan].id
+    const id = props.shiftplan.id
     const idVeröffentlicht = id.split("#").includes("Veröffentlicht")
-    const shiftplan = props.plaene[props.plan].plan
+    const shiftplan = props.shiftplan.plan
     const ShiftPlanIsActive = props.bearbeiten
-    const Montag = props.plaene[props.plan].zeitraum.split(" - ")[0]
-    const Sonntag = props.plaene[props.plan].zeitraum.split(" - ")[1]
+    const Montag = props.shiftplan.zeitraum.split(" - ")[0]
+    const Sonntag = props.shiftplan.zeitraum.split(" - ")[1]
 
     return (
         <>

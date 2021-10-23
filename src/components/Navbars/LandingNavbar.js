@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 
 const LandingNavBar = (props) =>  {
-  const { bgColor, routes, logo } = props;
+  const { logo } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
     navbarBrandProps = {

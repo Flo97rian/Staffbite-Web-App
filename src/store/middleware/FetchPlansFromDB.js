@@ -24,7 +24,6 @@ export async function FetchFromDB(dispatch, getState) {
                 };
             });
             // Add your code here
-            console.log(plans);
             dispatch({type: "All/GetPlansFromDB", payload: plans})
             dispatch({type: "stopFetchPlansFromDB"})
             })

@@ -22,7 +22,6 @@ export async function FetchEmployeePlansFromDB(dispatch, getState) {
                 tauschanfrage: JSON.parse(item.tauschanfrage["S"])
             };
         });
-        console.log(plans)
         // Add your code here
         dispatch({type: "All/GetPlansForEmployee", payload: plans})
         })

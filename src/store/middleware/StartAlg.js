@@ -20,5 +20,6 @@ export function thunkStartAlg(id) {
     dispatch({type: "stopShiftPlanIsActive"})
     dispatch({type: "stopShiftPlanIsImported"})
     dispatch({type: "ResetCurrentShiftPlan"})
+    dispatch({type: "resetShiftplan"});
     }
 }

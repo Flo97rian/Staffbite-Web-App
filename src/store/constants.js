@@ -1,5 +1,5 @@
 
-export default {
+const constants = {
     env: {
         //current api Gateway stage
         //change it before publishing
@@ -7,3 +7,4 @@ export default {
         apiGatewayPath: 'Staffbite-API',
     }
 };
+export default constants;

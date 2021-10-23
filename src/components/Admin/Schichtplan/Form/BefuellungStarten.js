@@ -3,7 +3,6 @@ import {
     Col,
     Row
 } from "reactstrap"
-import Form from 'react-bootstrap/Form';
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
 export default class BefuellungStarten extends React.PureComponent {
@@ -14,12 +13,12 @@ export default class BefuellungStarten extends React.PureComponent {
             <form>
                 <Row className="text-center">
                     <Col xs={6}>
-                        <p>{this.props.plaene[this.props.plan].zeitraum}</p>
+                        <p>{this.props.shiftplan.zeitraum}</p>
                     </Col>
                     <Col xs={6}> 
                         <InfoOverlay
                         infotitle={"Standard"}
-                        description={"In der Befüllungsart 'Standard' wird der Schichtplan vorrangig nach 'fairen' Bedingungen befüllt. Jede:r Mitarbeiter:inn soll je nach Verdienstvorstellung und Qualifikation gleichmäßig im Schichtplan berücksichtigt werden. Mehr Details hier"}/>
+                        description={"In der Befüllungsart 'Standard' wird der Schichtplan vorrangig nach 'fairen' Bedingungen befüllt. Jeder Mitarbeiter soll je nach Verdienstvorstellung und Qualifikation gleichmäßig im Schichtplan berücksichtigt werden. Mehr Details hier"}/>
                     </Col>
                 </Row>
                 </form>

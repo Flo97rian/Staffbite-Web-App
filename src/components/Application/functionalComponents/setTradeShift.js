@@ -8,10 +8,9 @@ import {
 import Form from 'react-bootstrap/Form';
 
 const SetTradeShift = (props) => {
-    const Employees = props.employees
     return (
         <>
-        {props.plan[props.current].tauschanfrage.map((item, index) => (
+        {props.shiftplan.tauschanfrage.map((item, index) => (
             <ListGroup flush>
                 <ListGroupItem className="mt-2">
                     <Row>

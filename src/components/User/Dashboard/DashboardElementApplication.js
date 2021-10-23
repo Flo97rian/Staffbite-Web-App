@@ -24,14 +24,14 @@ const DashboardElementApplication = (props) => {
         const isFree = obj.frei;
         const currentUser = props.currentUser;
         let anzahl = e[index].Montag.anzahl;
-        const ApplicantMatchesPosition = currentUser.position["S"].includes(e[index]["Wochentag"].ShiftName);
+        const ApplicantMatchesPosition = currentUser.position.includes(e[index]["Wochentag"].ShiftName);
         const hasPrio = isObj && "prio" in obj ? !0 : !1;
         const ApplicantMatchesPrio = "Experte" in currentUser;
         const hasApplicants =  isObj && "applicants" in obj && Object.keys(obj["applicants"]).length > 0 ? !0 : !1;
-        const ShiftIncludesApplicant = hasApplicants ? currentUser.SK["S"] in obj.applicants : !1;
+        const ShiftIncludesApplicant = hasApplicants ? currentUser.SK in obj.applicants : !1;
         const ApplicantsLength = hasApplicants ? Object.keys(obj.applicants).length : 0;
         const FirstApplicant = hasApplicants ? obj.applicants[Object.keys(obj.applicants)[0]] : !1;
-        const ApplicantName = currentUser.name.S;
+        const ApplicantName = currentUser.name;
         const isDiscribeWeekDay = (col === "Wochentag");
         if (index === 0 || index === 1) {
             return DateOrWeekDayRow(obj);
@@ -58,7 +58,7 @@ const DashboardElementApplication = (props) => {
     };
         return (
         <>
-            {dataModal(props.plaene[props.plan].plan)}
+            {dataModal(props.shiftplan.plan)}
         </>
         );
     }

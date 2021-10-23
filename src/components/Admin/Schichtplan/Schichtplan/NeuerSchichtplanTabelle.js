@@ -4,7 +4,6 @@ import React from "react";
 import {
   Row,
   Col,
-  Table
 }
 from "reactstrap";
 // core components

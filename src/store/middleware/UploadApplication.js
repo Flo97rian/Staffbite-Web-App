@@ -2,10 +2,7 @@ import { API, Auth } from "aws-amplify";
 import { FetchEmployeePlansFromDB } from "./FetchPlansForEmployees";
 import constants from "../constants";
 
-export function thunkUploadApplication({ShiftSlot, Plans, currentShiftPlan}) {
-    const plans = Plans
-    const shiftslot = ShiftSlot
-    const currentPlan = currentShiftPlan
+export function thunkUploadApplication(Shiftplan, ShiftSlot) {
     return async function uploadApplication(dispatch, getState) {
         const apiName = constants.env.apiGatewayPath; // replace this with your api name.
         const path = '/schichtplan/post-bewerbung'; //replace this with the path you have configured on your API
@@ -14,12 +11,13 @@ export function thunkUploadApplication({ShiftSlot, Plans, currentShiftPlan}) {
                 Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,
         },
         body: {
-            plan: plans[currentPlan].plan,
-            row: shiftslot.row,
-            id: plans[currentPlan].id,
-            col: shiftslot.col
+            plan: Shiftplan.plan,
+            row: ShiftSlot.row,
+            id: Shiftplan.id,
+            col: ShiftSlot.col
         }
         };
         await API.post(apiName, path, myInit)
         dispatch(FetchEmployeePlansFromDB)
+        dispatch({type: "stopFetchPlansFromDB"});
 }}

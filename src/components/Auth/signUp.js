@@ -120,7 +120,7 @@ async function confirmSignUp() {
                 <p className="mb-0">Du hast dein Passwort erfolgreich geändert!</p> 
               </Col>
               <Col xs="2">
-                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setMsg({...msg, ["changedPassword"]: !1})}></i>
+                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setMsg({...msg, changedPassword: !1})}></i>
               </Col>
             </Row>
             </Alert>
@@ -212,7 +212,7 @@ async function confirmSignUp() {
                 <p className="mb-0">{err.message}</p> 
               </Col>
               <Col xs="2">
-                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setMsg({...err, ["code"]: !1})}></i>
+                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setMsg({...err, code: !1})}></i>
               </Col>
             </Row>
             </Alert>

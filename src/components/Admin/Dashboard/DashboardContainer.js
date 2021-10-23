@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink as NavLinkRRD, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Spinner } from "reactstrap";
@@ -32,12 +32,11 @@ const DashboardContainer = (props) => {
   const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
   const [filter, setFilter] = useState(null);
   const [filterIsActive, setFilterIsActive] = useState(!1);
-  const [ShiftSwitch, setShiftSwitch] = useState(!1);
-  const [chartExample1Data, setChartExample1Data] = useState("data1");
 
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
   const selectEmployees = state => state.DB.employees;
+  const selectShiftplan = state => state.Shiftplan;
   const selectModal = state => state.modal;
   const selectDate = state => state.date;
   const selectReport = state => state.DB.report;
@@ -46,6 +45,7 @@ const DashboardContainer = (props) => {
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
   const Employees = useSelector(selectEmployees);
+  const Shiftplan = useSelector(selectShiftplan);
   const Modal = useSelector(selectModal);
   const Date = useSelector(selectDate);
   const Report = useSelector(selectReport);
@@ -69,33 +69,25 @@ const DashboardContainer = (props) => {
     }
   }, [Plans]);
 
-  useEffect(() => {
-      if(Date.start !== undefined && Date.ende !== undefined) {
+  useEffect((Date) => {
+      if(Date !== undefined ) {
         setFilter({
           ...filter,
           start: moment(Date.start.startDate).format("l"),
           ende: moment(Date.ende.endDate).format("l")
         });
       }
-  }, [Date]);
+  }, [Date, filter]);
 
   useEffect(() => {
   }, [filter]);
-
-  const shiftChange = (plan) => {
-    setShiftSwitch(plan);
-  };
 
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
   }
 
-  const toggleNavs = (e, index) => {
-    e.preventDefault();
-    setChartExample1Data("data" + index);
-  };
-  const getShiftTradeCount = (Plans, currentShiftPlan) => {
-    let shiftTradeCount = Plans[currentShiftPlan].tauschanfrage.length;
+  const getShiftTradeCount = () => {
+    let shiftTradeCount = Shiftplan.tauschanfrage.length;
     return shiftTradeCount;
   };
   // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
@@ -111,6 +103,7 @@ const DashboardContainer = (props) => {
       store.dispatch({type: "setCurrentShiftPlan", payload: currentShiftPlan});
     }
   }
+
   // Untersucht, ob der Wert eines Modals auf true steht und gibt den Wert true zurück
   const getModalTrue = (allmodals) => {
     let modals = Object.entries(allmodals).map(([key, value]) => {return value;});
@@ -118,17 +111,21 @@ const DashboardContainer = (props) => {
     return truemodal;
   };
     const getThisWeeksShiftPlan = (Plans) => {
-      var compareDate = moment(moment().format("L"), "DD.M.YYYY");
+      var compareDate = moment(moment().format("l"), "DD.M.YYYY");
       Plans.forEach((plan, index) => {
         var startDate   = moment(plan.zeitraum.split(" - ")[0], "DD.MM.YYYY");
         var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
-        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(startDate)) && plan.id.split("#").includes("Review")) {
+        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Veröffentlicht")) {
           setCurrentShiftPlan(index);
+          store.dispatch({type: "setShiftplan", payload: Plans[index]});
         }
-        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(startDate)) && plan.id.split("#").includes("Freigeben")) {
+        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Freigeben")) {
           setCurrentShiftPlan(index);
+          store.dispatch({type: "setShiftplan", payload: Plans[index]});
         }
-    });};
+    });
+
+    };
 
     const onFilter = (name) => {
       if(filter !== null && name in filter) {
@@ -199,7 +196,7 @@ const DashboardContainer = (props) => {
                             Tauschanfragen
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                          {Plans && currentShiftPlan ? getShiftTradeCount(Plans, currentShiftPlan) : <>0</>}
+                          {Shiftplan ? getShiftTradeCount() : <>0</>}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -213,7 +210,7 @@ const DashboardContainer = (props) => {
                   </Link>
                 </Col>
               </Row>
-              { currentShiftPlan ?
+              { Shiftplan ?
                 <>
                   <Row>
                     <Col xs={3}>
@@ -225,11 +222,9 @@ const DashboardContainer = (props) => {
                   <Card className="shadow">
                     <CardBody>
                       <DashboardSchichtenTabelle
-                        plaene={Plans}
-                        plan={currentShiftPlan}
+                        shiftplan={Shiftplan}
                         bearbeiten={!0}
                         employees={Employees}
-                        onSwitch={shiftChange}
                         import={!0}
                       >
                       </DashboardSchichtenTabelle>

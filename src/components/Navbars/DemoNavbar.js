@@ -95,7 +95,7 @@ class DemoNavbar extends React.Component {
                       </Link>
                     </Col>
                     <Col className="collapse-close" xs="6">
-                      <button className="navbar-toggler" id="navbar_global">
+                      <button className="fas fa-align-justify" id="navbar_global">
                         <span />
                         <span />
                       </button>

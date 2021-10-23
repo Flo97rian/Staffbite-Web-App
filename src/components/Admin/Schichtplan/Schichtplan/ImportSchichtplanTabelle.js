@@ -4,7 +4,6 @@ import React from "react";
 import {
   Row,
   Col,
-  Table,
   Badge,
 }
 from "reactstrap";
@@ -16,12 +15,10 @@ import SchichtplanDnDReview from "./SchichtplanDnDReview"
 import SchichtplanDnDVeröffentlicht from "./SchichtplanDnDVeröffentlicht"
 
 const  ImportSchichtplanTabelle = (props) => {
-    console.log("da?")
-    const Montag = props.plaene[props.plan].zeitraum.split(" - ")[0]
-    const Sonntag = props.plaene[props.plan].zeitraum.split(" - ")[1]
+    const Montag = props.shiftplan.zeitraum.split(" - ")[0]
+    const Sonntag = props.shiftplan.zeitraum.split(" - ")[1]
     const selectTable = () => {
-        console.log("moin");
-        const id = props.plaene[props.plan].id
+        const id = props.shiftplan.id
         const idReview = id.split("#").includes("Review")
         const idVeröffentlicht = id.split("#").includes("Veröffentlicht")
         const idEntwurf = id.split("#").includes("Entwurf")
@@ -50,11 +47,11 @@ const  ImportSchichtplanTabelle = (props) => {
             <Row className="text-center mt-4" noGutters={true}>
                 <Col xs={3}>
                     <p>Name</p>
-                    <p>{props.plaene[props.plan].name}</p>
+                    <p>{props.shiftplan.name}</p>
                 </Col>
                 <Col xs={3}>
                     <p>Status</p>
-                    <PlanId id={props.plaene[props.plan].id} ></PlanId>
+                    <PlanId id={props.shiftplan.id} ></PlanId>
                 </Col>
                 <Col xs={3}>
                         <p>Zeitraum</p>

@@ -4,7 +4,6 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import { Row, Col, Card, CardBody, Button, Badge, Input } from "reactstrap";
 import InputForm from "./InputForm"
-import InputString from "../../../Application/functionalComponents/InputString";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
 export default class Unternehmensprofil extends React.PureComponent {

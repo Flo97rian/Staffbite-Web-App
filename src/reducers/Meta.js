@@ -1,14 +1,12 @@
-
-
-const userReducer = (state = !1, action) => {
+const MetaReducer = (state = !1, action) => {
     switch (action.type) {
-      case "setUser": 
+      case "setMeta": 
         return action.payload
-      case "resetUser": 
+      case "resetMeta": 
         return !1
       default:
         return state
     }
   };
   
-  export default userReducer;
+  export default MetaReducer;

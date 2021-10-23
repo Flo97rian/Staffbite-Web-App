@@ -20,7 +20,7 @@ const Abrechnung = (props) => {
                 <CardBody>
             <>
                     <InfoOverlay infotitle={"Abrechnungszeitraum"} description={"Tragen Sie hier ihren individuellen Abrechnungszeitraum ein. Somit können wir Montat für Monat einen flüssigen Übergang ihrer Schichtpläne ermöglichen"}/>
-                    <Datepicker size="lg" getDates={props.getDates} start="WochenStart" ende="WochenEnde" placeholderAnfang={props.org?.AbrechnungStart ? props.org.AbrechnungStart["S"] : "Beginn"} placeholderEnde={props.org?.AbrechnungEnde ? props.org.AbrechnungEnde["S"] : "Ende"} />  
+                    <Datepicker size="lg" getDates={props.getDates} start="WochenStart" ende="WochenEnde" placeholderAnfang={props.org?.AbrechnungStart ? props.org.AbrechnungStart : "Beginn"} placeholderEnde={props.org?.AbrechnungEnde ? props.org.AbrechnungEnde : "Ende"} />  
             </>
             </CardBody>
             </Card>

@@ -15,16 +15,14 @@ import {
     CardHeader
   } from "reactstrap";
 
-import AuswahlShow from "./FormElements/AuswahlShow";
 import SchichtenTabelle from "./SchichtenTabelle";
 import OpenModal from "./Modal/OpenModal";
 import store from "../../../store";
 import UserSchichtplanTabs from "./Nav/Nav";
 import SchichtplanImport from "./Form/SchichtplanImport";
 import { thunkUpdateTradeShift } from "../../../store/middleware/UpdateTradeShift";
-import { handleSetTrade, handleDeleteShiftTrade } from "./processing.js/handleSetTrade";
 import ApplyTradeShift from "./FormElements/applyShiftTrade";
-import { handleSetApplicantTradeShift, handleCancelSetApplicantTradeShift } from "./processing.js/handleApplyForShiftTrade";
+import ShiftPlan from "../../Admin/Schichtplan/processing/Shiftplan";
 
 const TableContainer = () => {
   const [navIndex, setNavIndex] = useState(1);
@@ -32,10 +30,12 @@ const TableContainer = () => {
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
   const selectModal = state => state.modal;
+  const selectShiftplan = state => state.Shiftplan;
   const selectCurrentShiftPlan = state => state.currentShiftPlan
-  const selectUser = state => state.DB.user
+  const selectUser = state => state.user
   const selectShiftSlot = state => state.shiftSlot;
   const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive;
+  const selectLoadingFetchingSafe = state => state.loadings.isFetchingPlansFromDB;
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
@@ -44,6 +44,8 @@ const TableContainer = () => {
   const ShiftSlot = useSelector(selectShiftSlot);
   const ShiftPlanIsActive = useSelector(selectShiftPlanIsActive);
   const currentShiftPlan = useSelector(selectCurrentShiftPlan);
+  const Shiftplan = useSelector(selectShiftplan);
+  const LoadingFetchingSafe = useSelector(selectLoadingFetchingSafe);
 
 
   // Initiales laden der aktuellen Users
@@ -51,18 +53,29 @@ const TableContainer = () => {
     store.dispatch({ type: "ResetCurrentShiftPlan"})
     store.dispatch({ type: "stopShiftPlanIsImported"})
     store.dispatch({ type: "stopShiftPlanIsActive"})
+    store.dispatch({ type: "resetShiftplan"})
     store.dispatch(FetchEmployeePlansFromDB)
     store.dispatch(getUser)
   }, []);
 
   useEffect(() => {
-  }, [Plans]);
+    if(Plans && Shiftplan && currentShiftPlan) {
+    if (!LoadingFetchingSafe) {
+      let copyPlan = new ShiftPlan({...Plans[currentShiftPlan]});
+      let shiftplan = copyPlan.getAllPlanDetails();
+      store.dispatch({type: "setShiftplan", payload: shiftplan});
+    }
+  }
+  }, [LoadingFetchingSafe, Plans, Shiftplan, currentShiftPlan]);
 
   useEffect(() => {
   }, [User]);
 
   useEffect(() => {
     }, [navIndex]);
+
+  useEffect(() => {
+  }, [Shiftplan]);
 
   useEffect(() => {
     store.dispatch({ type: "startShiftPlanIsImported"})
@@ -88,7 +101,8 @@ const TableContainer = () => {
   }
   // Diese Funktion ist der handler, wenn sich auf eine Schicht beworben wird. Sie schließt das Modal und leitet einen API Call ein.
   const handleUploadApplication = (modal) => {
-    store.dispatch(thunkUploadApplication({ShiftSlot, Plans, currentShiftPlan}));
+    store.dispatch({type: "isFetchPlansFromDB"});
+    store.dispatch(thunkUploadApplication(Shiftplan, ShiftSlot));
     store.dispatch({type: "CLOSE", payload: modal});
   }
 
@@ -98,23 +112,35 @@ const TableContainer = () => {
   }
 
   const handleTradeShift = (modal) => {
-    let plan = handleSetTrade(Plans, currentShiftPlan, ShiftSlot, User)
-    store.dispatch(thunkUpdateTradeShift(plan));
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.setTradeShift(User, ShiftSlot);
+    let shiftplan = copyPlan.getAllPlanDetails();
+    store.dispatch(thunkUpdateTradeShift(shiftplan));
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
     store.dispatch({type: "CLOSE", payload: modal});
   }
 
   const handleApplyTradeShift = (index) => {
-    let plan = handleSetApplicantTradeShift(Plans, currentShiftPlan, ShiftSlot, User, index)
-    store.dispatch(thunkUpdateTradeShift(plan));
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.setApplyForTradeShift(User, index);
+    let shiftplan = copyPlan.getAllPlanDetails();
+    store.dispatch(thunkUpdateTradeShift(shiftplan));
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
   }
   const handleCancelApplyTradeShift = (index) => {
-    let plan = handleCancelSetApplicantTradeShift(Plans, currentShiftPlan, ShiftSlot, User, index)
-    store.dispatch(thunkUpdateTradeShift(plan));
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.removeApplyForShift(User, index);
+    let shiftplan = copyPlan.getAllPlanDetails();
+    store.dispatch(thunkUpdateTradeShift(shiftplan));
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
   }
 
   const handleDeleteSetTradeShift = (index) => {
-    let plan = handleDeleteShiftTrade(Plans, currentShiftPlan, index)
-    store.dispatch(thunkUpdateTradeShift(plan));
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.removeTradeShift(index);
+    let shiftplan = copyPlan.getAllPlanDetails();
+    store.dispatch(thunkUpdateTradeShift(shiftplan));
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
   }
 
   return(
@@ -139,8 +165,14 @@ const TableContainer = () => {
         <Row className="mt-6">
         <Col xs={2} className="mt-4">
         <h3 className="float-left pt-4 font-weight-bold text-lg">Schichtplan</h3>
+        { LoadingFetchingSafe ? <Spinner color="success" /> : <></>}
         </Col>
         <Col xs={10} className="mt-2">
+        <ButtonZurueck
+          titel="Speichern"
+          onClickVal=""
+          true={ShiftPlanIsActive}
+          ></ButtonZurueck>
         <ButtonZurueck
           titel="Zurück zur Auswahl"
           onClickVal=""
@@ -149,9 +181,10 @@ const TableContainer = () => {
         </Col>
         </Row>
         <Row>
-          { Plans && User ?
+        { Plans !== undefined && User !== undefined ?
             <div className="col">
-                {!ShiftPlanIsActive ? 
+              <>
+                { !Shiftplan && !ShiftPlanIsActive ? 
                 <SchichtplanImport 
                   status={navIndex}
                   bearbeiten={ShiftPlanIsActive}
@@ -159,39 +192,45 @@ const TableContainer = () => {
                   plan={currentShiftPlan}
                   ></SchichtplanImport>
                   :
+                  <></>
+                }
+                </>
+                <>
+              {Shiftplan !== !1 && ShiftPlanIsActive ?
                   <SchichtenTabelle 
                   bearbeiten={ShiftPlanIsActive}
-                  plaene={Plans}
+                  shiftplan={Shiftplan}
                   currentUser={User}
-                  plan={currentShiftPlan}
-                />
-                }
+                ></SchichtenTabelle>
+                :
+                <></>
+              }
+              </>
             </div>
             :
             <></>
             }
           </Row>
-            { Plans !== null && User !== null && currentShiftPlan && Plans[currentShiftPlan].tauschanfrage.length > 0 ?
-        <Row className="mt-4">
-          <div className="col">
-            <Card className="shadow">
-              <CardHeader className="bg-transparent">
-                <h3 className="mb-0">Tauschanfragen</h3>
-              </CardHeader>
-              <CardBody>
-                <ApplyTradeShift
-                onTradeAppy={handleApplyTradeShift}
-                onTradeCancel={handleCancelApplyTradeShift}
-                onDeleteTrade={handleDeleteSetTradeShift}
-                plan={Plans}
-                currentUser={User}
-                current={currentShiftPlan}/>
-              </CardBody>
-            </Card>
-          </div>
-        </Row>
-        : 
-        <></>
+            {ShiftPlanIsActive && Plans !== undefined &&  User !== undefined && Shiftplan !== !1 && Shiftplan.tauschanfrage.length > 0 ?
+              <Row className="mt-4">
+                <div className="col">
+                  <Card className="shadow">
+                    <CardHeader className="bg-transparent">
+                      <h3 className="mb-0">Tauschanfragen</h3>
+                    </CardHeader>
+                    <CardBody>
+                      <ApplyTradeShift
+                      onTradeAppy={handleApplyTradeShift}
+                      onTradeCancel={handleCancelApplyTradeShift}
+                      onDeleteTrade={handleDeleteSetTradeShift}
+                      shiftplan={Shiftplan}
+                      currentUser={User}/>
+                    </CardBody>
+                  </Card>
+                </div>
+              </Row>
+            :
+            <></>
         }
         <OpenModal
             show={Modal}
@@ -201,6 +240,7 @@ const TableContainer = () => {
             onBewerben={handleUploadApplication}
             shiftslot={ShiftSlot}
             plan={currentShiftPlan}
+            shiftplan={Shiftplan}
             bearbeiten={ShiftPlanIsActive}
             checkTrue={getModalTrue}
             checkModalKey={getModalKey}

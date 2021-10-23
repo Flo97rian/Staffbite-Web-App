@@ -13,7 +13,7 @@ import {
 import Button from 'react-bootstrap/Button';
 
 const ProfilContainer = (props) => {
-  const selectUser = state => state.DB.user
+  const selectUser = state => state.user
 
   const User = useSelector(selectUser);
     // Initiales laden der aktuellen Users
@@ -71,7 +71,7 @@ const ProfilContainer = (props) => {
                       <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                         <div>
                           <span className="heading">
-                          {User ? <>{User.schichtenwoche["N"]}</>: <></>}
+                          {User ? <>{User.schichtenwoche}</>: <></>}
                           </span>
                           <span className="description">voraussichtliche Schichten diesen Monat</span>
                         </div>
@@ -80,12 +80,12 @@ const ProfilContainer = (props) => {
                   </Row>
                   <div className="text-center">
                     <h3>
-                    {User ? <>{User.name["S"]}</>: <></>}
+                    {User ? <>{User.name}</>: <></>}
                       <span className="font-weight-light"></span>
                     </h3>
                     <div className="h5 font-weight-300">
                       <i className="ni location_pin mr-2" />
-                      Mitarbeiter:inn
+                      Mitarbeiter
                     </div>
                   </div>
                 </CardBody>

@@ -20,7 +20,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                     <>
                     <Row className="text-center">
                         <Col xs={12}>
-                            <Switch info={true} description={"Tragen Sie ein, ob ihr:e Mitarbeiter:inn direkt in die Schichtplannung mit aufgenommen werden soll"}   type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
+                            <Switch info={true} description={"Tragen Sie ein, ob ihr Mitarbeiter direkt in die Schichtplannung mit aufgenommen werden soll"}   type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
                         </Col>
                     </Row>
                     <Row>
@@ -59,7 +59,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                 <>
                 <Row className="text-center">
                         <Col xs={12}>
-                            <Switch info={true} description={"Tragen Sie ein, ob ihr:e Mitarbeiter:inn direkt in die Schichtplannung mit aufgenommen werden soll"} type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
+                            <Switch info={true} description={"Tragen Sie ein, ob ihr Mitarbeiter direkt in die Schichtplannung mit aufgenommen werden soll"} type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
                         </Col>
                     </Row>
                     <Row>
@@ -80,9 +80,9 @@ const FormMitarbeiterBearbeiten = (props) => {
                         <ControlErfahrung label="Erfahrung" name="erfahrung"  {...props} defaultVal={employee["erfahrung"]}></ControlErfahrung>
                         <br/>
                         {props.showPositionHinzufuegen ?
-                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr:e neu:e Mitarbeiter:inn alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="Position" name="position"  placeholder="" onChange={(e) => props.handlePositionChange(e)}></InputString>
+                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr neuer Mitarbeiter alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="Position" name="position"  placeholder="" onChange={(e) => props.handlePositionChange(e)}></InputString>
                         :
-                        <InfoOverlay info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr:e Mitarbeiter:inn geeignet ist"} infotitle="Position"></InfoOverlay>
+                        <InfoOverlay info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr Mitarbeiter geeignet ist"} infotitle="Position"></InfoOverlay>
                         }
                         <>
                         { props.employeeIsActive !== null ? 

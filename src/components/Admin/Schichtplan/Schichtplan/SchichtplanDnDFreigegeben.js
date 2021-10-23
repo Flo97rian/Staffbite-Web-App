@@ -7,8 +7,8 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import SchichtplanElementFreigegeben from "../SchichtplanElement/SchichtplanElementFreigegeben";
 import Spinner from 'react-bootstrap/Spinner';
 // fake data generator
-const getItems = (shiftsplan) => {
-    const plan = shiftsplan.map((shift, index) => ({
+const getItems = (shiftplan) => {
+    const plan = shiftplan.map((shift, index) => ({
     id: String(index),
     Wochentag: shift.Wochentag,
     Montag: shift.Montag,
@@ -46,24 +46,11 @@ const getListStyle = isDraggingOver => ({
 });
 
 const SchichtplanDnDFreigegeben = (props) => {
-  const [Items, setItems] = useState(getItems(props.plaene[props.plan].plan));
-  const [Valid, setItemsValid] = useState(!1);
+  const [Items, setItems] = useState(getItems(props.shiftplan.plan));
 
   useEffect(() => {
-      setItems(getItems(props.plaene[props.plan].plan));
-      }, [props.plaene]);
-      
-  useEffect(() => {
-    setItems(getItems(props.plaene[props.plan].plan));
-    }, [props.plaene]);
-
-  useEffect(() => {
-    setItems(getItems(props.plaene[props.plan].plan));
-    }, [props.plan]);
-  
-  useEffect(() => {
-    props.onSwitch(Items);
-    }, [Items]);
+      setItems(getItems(props.shiftplan.plan));
+      }, [props.shiftplan]);
 
   function onDragEnd(result) {
     // dropped outside the list
@@ -86,23 +73,15 @@ const SchichtplanDnDFreigegeben = (props) => {
       result.destination.index
     );
       setItems(items);
+      let copyItems = [...items];
+      props.onSwitch(copyItems);
   }
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
     return (
       <>
-      { Valid ?
-        <>
-        <br/>   
-        <Row className="text-center">
-          <br/>
-          <Col xs={12}>
-            <Spinner animation="grow" variant="light"/>
-          </Col>
-        </Row>
-        </>
-      :
+   { Items !== undefined && "id" in Items[0] ?
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
@@ -123,7 +102,7 @@ const SchichtplanDnDFreigegeben = (props) => {
                           snapshot.isDragging,
                           provided.draggableProps.style
                         )}>
-                            <SchichtplanElementFreigegeben wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementFreigegeben>
+                            <SchichtplanElementFreigegeben wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[Number(item.id)].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementFreigegeben>
                         </td>
                         <td style={{"padding": "0"}}>
                             <SchichtplanElementFreigegeben wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementFreigegeben>
@@ -182,6 +161,16 @@ const SchichtplanDnDFreigegeben = (props) => {
           )}
         </Droppable>
       </DragDropContext>
+      :
+      <>
+      <br/>   
+      <Row className="text-center">
+        <br/>
+        <Col xs={12}>
+          <Spinner animation="grow" variant="light"/>
+        </Col>
+      </Row>
+      </>
       }
       </>
     );

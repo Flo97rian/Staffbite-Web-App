@@ -75,9 +75,10 @@ const SchichtplanElementVeröffentlicht = (props) => {
     };
         return (
         <>
-            {dataModal(props.plaene[props.plan].plan)}
+            {dataModal(props.shiftplan.plan)}
         </>
         );
     }
 export default SchichtplanElementVeröffentlicht;
+
 

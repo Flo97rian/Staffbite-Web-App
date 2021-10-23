@@ -18,7 +18,7 @@ const EinstellungenContainer = () => {
   const [metaData, setMetaData] = useState(null)
   const [position, setPosition] = useState(null);
   const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1);
-  const selectMeta = state => state.DB.meta;
+  const selectMeta = state => state.Meta;
   const selectLoadingMeta = state => state.loadings.isFetchingMeta;
   const selectDate = state => state.date;
 
@@ -43,7 +43,7 @@ const EinstellungenContainer = () => {
        if(Meta !== undefined) {
         setMetaData({...metaData, schichten: Meta.schichten})
        }
-    }, [Meta]);
+    }, [Meta, metaData]);
 
     useEffect(() => {
    }, [metaData]);
@@ -54,7 +54,7 @@ const EinstellungenContainer = () => {
     let abrechnungEnde = moment(Date.ende.endDate).format("l")
     setMetaData({...metaData, AbrechnungStart: abrechnungStart, AbrechnungEnde: abrechnungEnde })
     }
-  }, [Date]);
+  }, [Date, metaData]);
 
   // Handling von Userinputs
   const handleInputChange = (event) => {

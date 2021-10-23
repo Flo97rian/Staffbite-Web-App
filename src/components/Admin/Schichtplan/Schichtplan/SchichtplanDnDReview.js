@@ -46,20 +46,11 @@ const getListStyle = isDraggingOver => ({
 });
 
 const SchichtplanDnDReview = (props) => {
-  const [Items, setItems] = useState(getItems(props.plaene[props.plan].plan));
-  const [Valid, setItemsValid] = useState(!1);
+  const [Items, setItems] = useState(getItems(props.shiftplan.plan));
 
   useEffect(() => {
-      setItems(getItems(props.plaene[props.plan].plan));
-      }, [props.plaene]);
-
-  useEffect(() => {
-    setItems(getItems(props.plaene[props.plan].plan));
-    }, [props.plan]);
-
-  useEffect(() => {
-    props.onSwitch(Items);
-    }, [Items]);
+      setItems(getItems(props.shiftplan.plan));
+      }, [props.shiftplan]);
 
   function onDragEnd(result) {
     // dropped outside the list
@@ -82,23 +73,15 @@ const SchichtplanDnDReview = (props) => {
       result.destination.index
     );
       setItems(items);
+      let copyItems = [...items];
+      props.onSwitch(copyItems);
   }
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
     return (
       <>
-      { Valid ?
-        <>
-        <br/>   
-        <Row className="text-center">
-          <br/>
-          <Col xs={12}>
-            <Spinner animation="grow" variant="light"/>
-          </Col>
-        </Row>
-        </>
-      :
+      { Items !== undefined && "id" in Items[0] ?
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
@@ -119,7 +102,7 @@ const SchichtplanDnDReview = (props) => {
                           snapshot.isDragging,
                           provided.draggableProps.style
                         )}>
-                            <SchichtplanElementReview wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
+                            <SchichtplanElementReview wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[Number(item.id)].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
                         </td>
                         <td style={{"padding": "0"}}>
                             <SchichtplanElementReview wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementReview>
@@ -178,6 +161,16 @@ const SchichtplanDnDReview = (props) => {
           )}
         </Droppable>
       </DragDropContext>
+      :
+      <>
+      <br/>   
+      <Row className="text-center">
+        <br/>
+        <Col xs={12}>
+          <Spinner animation="grow" variant="light"/>
+        </Col>
+      </Row>
+      </>
       }
       </>
     );

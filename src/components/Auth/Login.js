@@ -33,7 +33,6 @@ import {
   Container,
   Row,
   Col,
-  CardFooter
 } from "reactstrap";
 
 // core components
@@ -66,10 +65,7 @@ const Login = () => {
             setAuthState(nextAuthState);
             setUser(authData)
         });
-    }, []);
-
-    useEffect(() => {
-     }, [authState]);
+    }, [authState]);
 
      useEffect(() => {
     }, [user]);
@@ -112,7 +108,9 @@ const Login = () => {
         Auth.signIn(username, password)
         .then(user => {
             if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-                const { requiredAttributes } = user.challengeParam; // the array of required attributes, e.g ['email', 'phone_number']
+                if (isValid) {
+
+                }
                 Auth.completeNewPassword(
                     user,               // the Cognito User Object
                     newpassword,       // the new password
@@ -279,7 +277,7 @@ const Login = () => {
                 <p className="mb-0">{err.message}</p> 
               </Col>
               <Col xs="2">
-                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setErr({...err, ["code"]: !1})}></i>
+                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setErr({...err, code: !1})}></i>
               </Col>
             </Row>
             </Alert>

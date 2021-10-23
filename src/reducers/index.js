@@ -9,6 +9,8 @@ import userReducer from "./user";
 import visibilityReducer from "./visibility";
 import newShiftPlanReducer from "./NewShiftPlan";
 import ShiftSlotReducer from "./ShiftSlot";
+import ShiftplanReducer from "./Shiftplan";
+import MetaReducer from "./Meta";
 
 
 const rootReducer = combineReducers({
@@ -21,7 +23,9 @@ const rootReducer = combineReducers({
     loadings: loadingsReducer,
     visibility: visibilityReducer,
     newShiftPlan: newShiftPlanReducer,
-    shiftSlot: ShiftSlotReducer
+    Shiftplan: ShiftplanReducer,
+    shiftSlot: ShiftSlotReducer,
+    Meta: MetaReducer,
 })
 
 export default rootReducer;

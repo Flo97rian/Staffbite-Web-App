@@ -10,22 +10,22 @@ import Datepicker from "../../../Application/functionalComponents/DateRangePicke
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
 const SchichtplanErstellen = (props) => {
-    let hasDaysIsActive = props.daysIsActive !== null
+    let hasuserInput = props.userInput !== null
     
     function getColor(day) {
         let color = "light";
-        if (hasDaysIsActive) {
-            if (day in props.daysIsActive) {
+        if (hasuserInput) {
+            if (day in props.userInput) {
                 color = "primary";
             }
         }
         return color;
     }
 
-    function dayInDaysIsActive(day) {
+    function dayInuserInput(day) {
         let hasDay = !1;
-        if (hasDaysIsActive) {
-            if (day in props.daysIsActive) {
+        if (hasuserInput) {
+            if (day in props.userInput) {
                 hasDay = !0;
             }   
         }
@@ -37,12 +37,12 @@ const SchichtplanErstellen = (props) => {
             <Row>
                 <Col xs={1} ></Col>
                 <Col xs={10} >
-                <InputString info={true} description={"Wählen Sie einen Namen für diesen Schichtplan (z.B. Sommer, Herbst, Winter etc.)"} label="Name des Schichtplanes" name="name" placeholder="" onChange={(e) => props.onChange(e, "daysIsActive")}></InputString>
+                <InputString info={true} description={"Wählen Sie einen Namen für diesen Schichtplan (z.B. Sommer, Herbst, Winter etc.)"} label="Name des Schichtplanes" name="name" placeholder="" onChange={(e) => props.onChange(e, "userInput")}></InputString>
                     <br/>
-                    <InputNumber info={true} description={"Wählen Sie, wie viele unterschiedliche Schichten Sie pro Tag haben"} label="Schichten pro Tag" name="schichtentag"  placeholder="" onChange={(e) => props.onChange(e, "daysIsActive")}></InputNumber>
+                    <InputNumber info={true} description={"Wählen Sie, wie viele unterschiedliche Schichten Sie pro Tag haben"} label="Schichten pro Tag" name="schichtentag"  placeholder="" onChange={(e) => props.onChange(e, "userInput")}></InputNumber>
                     <br/>
                         <InfoOverlay infotitle="Kalenderwoche" description="Tragen Sie hier eine Kalenderwoche von Montag bis Freitag ein. Im späteren Verlauf können Sie den Schichtplan auch für mehrere Wochen freischalten"/>
-                        <Datepicker size="lg" getDates={props.getDates} start="WochenStart" ende="WochenEnde" placeholderAnfang="Anfang der KW" placeholderEnde="Ende der KW" />  
+                        <Datepicker {...props} size="lg" getDates={props.getDates} start="WochenStart" ende="WochenEnde" placeholderAnfang="Anfang der KW" placeholderEnde="Ende der KW" />  
                     <br/>
                     <Row className="text-center">
                         <Col xs={12}>
@@ -57,7 +57,7 @@ const SchichtplanErstellen = (props) => {
                     onClick={() => props.onCompanyClosed("Montag")}>
                         Montag 
                         {" "}
-                        {dayInDaysIsActive("Montag") ? 
+                        {dayInuserInput("Montag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -71,7 +71,7 @@ const SchichtplanErstellen = (props) => {
                     onClick={() => props.onCompanyClosed("Dienstag")}>
                         Dienstag 
                         {" "}
-                        {dayInDaysIsActive("Dienstag") ? 
+                        {dayInuserInput("Dienstag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -85,7 +85,7 @@ const SchichtplanErstellen = (props) => {
                     onClick={() => props.onCompanyClosed("Mittwoch")}>
                         Mittwoch
                         {" "}
-                        {dayInDaysIsActive("Mittwoch") ? 
+                        {dayInuserInput("Mittwoch") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -99,7 +99,7 @@ const SchichtplanErstellen = (props) => {
                     onClick={() => props.onCompanyClosed("Donnerstag")}>
                         Donnerstag 
                         {" "}
-                        {dayInDaysIsActive("Donnerstag") ? 
+                        {dayInuserInput("Donnerstag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -113,7 +113,7 @@ const SchichtplanErstellen = (props) => {
                     onClick={() => props.onCompanyClosed("Freitag")}>
                         Freitag 
                         {" "}
-                        {dayInDaysIsActive("Freitag") ? 
+                        {dayInuserInput("Freitag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -127,7 +127,7 @@ const SchichtplanErstellen = (props) => {
                     onClick={() => props.onCompanyClosed("Samstag")}>
                         Samstag 
                         {" "}
-                        {dayInDaysIsActive("Samstag") ? 
+                        {dayInuserInput("Samstag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -141,7 +141,7 @@ const SchichtplanErstellen = (props) => {
                     onClick={() => props.onCompanyClosed("Sonntag")}>
                         Sonntag
                         {" "}
-                        {dayInDaysIsActive("Sonntag") ? 
+                        {dayInuserInput("Sonntag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>

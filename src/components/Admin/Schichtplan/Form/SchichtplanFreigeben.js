@@ -7,7 +7,7 @@ import Datepicker from "../../../Application/functionalComponents/DateRangePicke
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
 const SchichtplanFreigeben = (props) => {
-        let plan = props.plaene[props.plan];
+        let plan = props.shiftplan;
         let currentStart = "1.1.2021"
         let currentEnde = "7.1.2021"
         if ( "zeitraum" in plan) {

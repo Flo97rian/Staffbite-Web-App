@@ -29,7 +29,7 @@ import {
 
 const AdminNavbar = (props) => {
 
-  const { bgColor, routes, logo } = props;
+  const { logo } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
     navbarBrandProps = {

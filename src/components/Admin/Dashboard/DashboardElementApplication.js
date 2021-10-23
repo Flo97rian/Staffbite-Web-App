@@ -19,7 +19,6 @@ const DashboardElementApplication = (props) => {
         const isObj = typeof obj === "object";
         const isFree = obj.frei;
         let anzahl = e[index].Montag.anzahl;
-        const hasPrio = isObj && "prio" in obj ? !0 : !1;
         const hasApplicants =  isObj && "applicants" in obj && Object.keys(obj["applicants"]).length > 0 ? !0 : !1;
         const ApplicantsLength = hasApplicants ? Object.keys(obj.applicants).length : 0;
         const FirstApplicant = hasApplicants ? obj.applicants[Object.keys(obj.applicants)[0]] : !1;
@@ -41,7 +40,7 @@ const DashboardElementApplication = (props) => {
     };
         return (
         <>
-            {dataModal(props.plaene[props.plan].plan)}
+            {dataModal(props.shiftplan.plan)}
         </>
         );
     }

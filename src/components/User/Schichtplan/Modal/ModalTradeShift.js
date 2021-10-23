@@ -11,7 +11,7 @@ import store from "../../../../store";
 const ModalSchichtTauschen = (props) => {
     const tag = props.shiftslot.col;
     const row = props.shiftslot.row;
-    const shiftplan = props.plaene[props.plan].plan
+    const shiftplan = props.shiftplan.plan
     const shiftname = shiftplan[row]["Wochentag"].ShiftName
     const shiftstart = shiftplan[row]["Wochentag"].ShiftStart
     const shiftend = shiftplan[row]["Wochentag"].ShiftEnd

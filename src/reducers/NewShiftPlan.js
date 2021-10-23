@@ -2,11 +2,10 @@
 
 const newShiftPlanReducer = (state = !1, action) => {
     switch (action.type) {
-      case "SetNewShiftPlan": 
-        return {
-          ...state,
-          "shiftplan": action.payload
-        }
+      case "setNewShiftplan": 
+        return action.payload
+      case "resetNewShiftplan": 
+        return !1
       default:
         return state
     }

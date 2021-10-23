@@ -11,27 +11,26 @@ import {
     Alert,
   } from "reactstrap";
 
+import defaults from "../../Application/defaults/defaults"
+import shiftplanStates from "../../Application/defaults/defaults";
 import Nav from "./Nav/Nav";
 import { Spinner } from "reactstrap";
 import OpenModal from "./Modal/OpenModal";
 import { FetchOrg } from "../../../store/middleware/FetchOrg";
 import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile";
-import { createNewShiftPlan } from "./processing/createNewShiftPlan";
-import { editShiftDetailsImportedShiftPlan, editShiftDetailsNewShiftPlan } from "./processing/handleEditShiftDetails";
-import { addNewShiftToImportedShiftPlan, addShiftToNewShiftPlan } from "./processing/handleAddShift";
-import { deleteShiftFromImportedShiftPlan, deleteShiftFromNewShiftPlan } from "./processing/handleDeleteShift";
+import NewShiftPlan from "./processing/NewShiftplan";
+import ShiftPlan from "./processing/Shiftplan";
+import { deleteShiftFromNewShiftPlan } from "./processing/handleDeleteShift";
 import { setPrioShift, setNewPrioShift } from "./processing/handlePrio";
 import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
 import { thunkUpdateShiftPlan } from "../../../store/middleware/UpdateShiftPlan";
 import { user } from "../../../store/middleware/user";
 import { thunkUploadShiftPlanToDB } from "../../../store/middleware/UploadShiftPlanToDB";
 import { thunkDeleteShiftPlan } from "../../../store/middleware/DeleteShiftPlan";
-import { handleSwitchShiftOrder } from "./processing/handleSwitchShiftOrder";
 import { refractorEmployees } from "./processing/GetShiftCount";
 import { thunkStartAlg } from "../../../store/middleware/StartAlg";
-import { thunkReleaseForApplication } from "../../../store/middleware/ReleaseForApplication";
+//import { thunkReleaseForApplication } from "../../../store/middleware/ReleaseForApplication";
 import { setApplicantsInShiftPlan } from "./processing/handleUpdateSetApplicants";
-import { handleCancelShfitTrade, handleSetShfitTrade } from "./processing/handleSetShiftTrade";
 import { checkShiftHasDetails, handleApplication } from "./processing/handleReleaseForApplication";
 import SchichtplanAuswahl from "./Schichtplan/SchichtplanAuswahl";
 import ModalOpenButton from "./FormElements/ModalOpenButton";
@@ -44,27 +43,26 @@ import SchichtplanImport from "./Form/SchichtplanImport";
 import store from "../../../store";
 import { thunkPublishShiftPlan } from "../../../store/middleware/PublishShiftPlan";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
-import { daysToWeeks } from "date-fns";
 
 const SchichtplanContainer = () => {
   const [meta, setMeta] = useState(null);
-  const [daysIsActive, setDaysIsActive] = useState(null);
+  const [userInput, setUserInput] = useState(shiftplanStates);
   const [navIndex, setNavIndex] = useState(1);
   const [ShiftEmployees, setShiftEmployees] = useState(null);
-  const [shiftDetails, setShiftDetails] = useState(false);
   const [ShiftSwitch, setShiftSwitch] = useState(!1);
   const [ErrMsng, setErrMsng] = useState({MissingShiftDetails: !1});
 
   const selectMeta = state => state.DB.meta;
   const selectEmployees = state => state.DB.employees;
   const selectDate = state => state.date;
+  const selectShiftplan = state => state.Shiftplan;
   const selectNewDate = state => state.date.start;
   const selectCurrentShiftPlan = state => state.currentShiftPlan;
   const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive;
   const selectShiftPlanIsImported = state => state.visibility.ShiftPlanIsImported;
   const selectPlans = state => state.DB.plans;
   const selectShiftSlot = state => state.shiftSlot;
-  const selectNewShiftPlan = state => state.newShiftPlan.shiftplan;
+  const selectNewShiftplan = state => state.newShiftPlan;
   const selectModal = state => state.modal;
   const selectLoadingAlg = state => state.loadings.isFetchingAlg;
   const selectLoadingPublish = state => state.loadings.isFetchingPublish;
@@ -77,12 +75,13 @@ const SchichtplanContainer = () => {
   const Employees = useSelector(selectEmployees);
   const Date = useSelector(selectDate);
   const NewDate = useSelector(selectNewDate);
+  const Shiftplan = useSelector(selectShiftplan);
   const ShiftPlanIsActive = useSelector(selectShiftPlanIsActive);
   const currentShiftPlan = useSelector(selectCurrentShiftPlan);
   const ShiftPlanIsImported = useSelector(selectShiftPlanIsImported);
   const Plans = useSelector(selectPlans);
   const ShiftSlot = useSelector(selectShiftSlot);
-  const NewShiftPlan = useSelector(selectNewShiftPlan);
+  const NewShiftplan = useSelector(selectNewShiftplan);
   const Modal = useSelector(selectModal);
   const LoadingAlg = useSelector(selectLoadingAlg);
   const LoadingPublish = useSelector(selectLoadingPublish);
@@ -91,8 +90,9 @@ const SchichtplanContainer = () => {
   const LoadingFetchingRelease = useSelector(selectLoadingFetchingRelease);
 
   useEffect(() => {
-    store.dispatch({ type: "ResetCurrentShiftPlan"})
-    store.dispatch({ type: "stopShiftPlanIsImported"})
+    store.dispatch({ type: "ResetCurrentShiftPlan"});
+    store.dispatch({ type: "resetShiftplan"});
+    store.dispatch({ type: "stopShiftPlanIsImported"});
     store.dispatch({ type: "stopShiftPlanIsActive"})
     store.dispatch(FetchFromDB);
     store.dispatch(FetchOrg);
@@ -101,19 +101,11 @@ const SchichtplanContainer = () => {
     }, []);
 
   useEffect(() => {
-    if(Date.start !== undefined) {
-    let abrechnungStart = moment(Date.start.startDate).format("l");
-    let abrechnungEnde = moment(Date.ende.endDate).format("l");
-    setMeta({...meta, AbrechnungStart: abrechnungStart, AbrechnungEnde: abrechnungEnde });
-    }
-  }, [Date]);
-
-  useEffect(() => {
     if(currentShiftPlan && Employees && Plans) {
       const employees = refractorEmployees(Employees, Plans[currentShiftPlan].plan);
       setShiftEmployees(employees);
     }
-  }, [currentShiftPlan]);
+  }, [Employees, Plans, currentShiftPlan]);
 
   useEffect(() => {
   }, [currentShiftPlan]);
@@ -122,8 +114,11 @@ const SchichtplanContainer = () => {
   }, [Plans]);
 
   useEffect(() => {
-    console.log(daysIsActive)
-  }, [daysIsActive]);
+  }, [Shiftplan]);
+
+
+  useEffect(() => {
+  }, [userInput]);
 
 
   useEffect(() => {
@@ -137,13 +132,13 @@ const SchichtplanContainer = () => {
   const handleInputChange = (event) => {
     let key = event.target.name;
     let val = stateSwitch(event.target.value, event);
-    setDaysIsActive({...daysIsActive, [key]: val });
+    setUserInput({...userInput, [key]: val });
   };
 
   const shiftChange = (plan) => {
-    setShiftSwitch(plan);
+    setShiftSwitch([...plan]);
   };
-  
+
   // Überprüfung von Userinputs, ob der Input vom Typ Switch ist
   const stateSwitch = (value, event) => {
     if (value !== "on") return value;
@@ -176,31 +171,34 @@ const SchichtplanContainer = () => {
   };
   // Diese Funktion sorgt für die Speicherung eines neuen Schichtplans und schließt im Anschluss das zugehörige Modal
   const handleNewShiftPlanSave = (modal) => {
-    const hasName = daysIsActive !== null && "name" in daysIsActive ? !0 : !1;
-    if (hasName) {
-    createNewShiftPlan(daysIsActive);
+    let newShiftplan = new NewShiftPlan();
+    newShiftplan.configure(userInput, NewDate);
+    let shiftplan = newShiftplan.getAllPlanDetails();
+    store.dispatch({ type: "setNewShiftplan", payload: shiftplan });
+    store.dispatch({ type: "setShiftPlanIsActive" });
+    store.dispatch({ type: "stopShiftPlanIsImported" });
     store.dispatch({type: "CLOSE", payload: modal});
-  }};
+  };
 
   const handleCompanyIsClosed = (day) => {
-    if (daysIsActive === null) {
-    setDaysIsActive({...daysIsActive, [day]: !0 });
-    } else if (daysIsActive[day] === undefined ) {
-      setDaysIsActive({...daysIsActive, [day]: !0 });
-    } else if ( daysIsActive[day] ) {
-      delete daysIsActive[day]
-      setDaysIsActive({...daysIsActive});
+    if (userInput === null) {
+    setUserInput({...userInput, [day]: !0 });
+    } else if (userInput[day] === undefined ) {
+      setUserInput({...userInput, [day]: !0 });
+    } else if ( userInput[day] ) {
+      delete userInput[day]
+      setUserInput({...userInput});
     }
   }
 
   const handleSelectPrio = (qualifikation) => {
-    let hasDaysIsActive = daysIsActive !== null
-    let hasQualifikation = hasDaysIsActive && daysIsActive.qualifikation !== null ? !0 : !1;
-    if (hasQualifikation && daysIsActive.qualifikation === qualifikation) {
-      delete daysIsActive.qualifikation
-      setDaysIsActive({...daysIsActive})
+    let hasuserInput = userInput !== null
+    let hasQualifikation = hasuserInput && userInput.qualifikation !== null ? !0 : !1;
+    if (hasQualifikation && userInput.qualifikation === qualifikation) {
+      delete userInput.qualifikation
+      setUserInput({...userInput})
     } else {
-      setDaysIsActive({...daysIsActive, qualifikation: qualifikation });
+      setUserInput({...userInput, qualifikation: qualifikation });
     }
   }
 
@@ -215,78 +213,102 @@ const SchichtplanContainer = () => {
   // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter)
   const handleEditShiftDetails = (index) => {
     if (ShiftPlanIsImported) {
-      editShiftDetailsImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive});
+      let copyPlan = new ShiftPlan({...Shiftplan})
+      copyPlan.updateShiftDescription(index, userInput);
+      let shiftplan = copyPlan.getAllPlanDetails()
+      store.dispatch({type: "setShiftplan", payload: shiftplan});
+      setUserInput(defaults)
     } else {
-      editShiftDetailsNewShiftPlan({index, NewShiftPlan, daysIsActive});
+      let copyPlans = new ShiftPlan({...NewShiftplan})
+      copyPlans.updateShiftDescription(index, userInput);
+      let shiftplan = copyPlans.getAllPlanDetails()
+      store.dispatch({type: "setNewShiftplan", payload: shiftplan});
     }
-    setDaysIsActive(null);
     store.dispatch({type: "CLOSE", payload: index});
   };
 
   //Dise Funktion sorgt für das Hinzufügen einer neuen Schicht zum jeweiligen Schichtplan
   const handleAddShift = (index) => {
     if (ShiftPlanIsImported) {
-      addNewShiftToImportedShiftPlan({index, Plans, currentShiftPlan, daysIsActive});
+      let copyPlan = new ShiftPlan({...Shiftplan});
+      copyPlan.addNewShiftToPlan(userInput);
+      copyPlan.getAllPlanDetails()
+      let shiftplan = copyPlan.getAllPlanDetails()
+      store.dispatch({ type: "setShiftplan", payload: shiftplan });
+      setUserInput(defaults)
     } else {
-      addShiftToNewShiftPlan({index, NewShiftPlan, daysIsActive});
+      let copyPlan = new ShiftPlan({...NewShiftplan});
+      copyPlan.addNewShiftToPlan(userInput);
+      copyPlan.getAllPlanDetails()
+      let shiftplan = copyPlan.getAllPlanDetails()
+      store.dispatch({ type: "setNewShiftplan", payload: shiftplan });
+      setUserInput(defaults)
     }
-    setDaysIsActive(null);
     store.dispatch({type: "CLOSE", payload: index});
   };
 
   //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
   const handlePrioShiftToDB = (modal) => {
-    if (NewShiftPlan) {
-      setNewPrioShift({NewShiftPlan, ShiftSlot, daysIsActive});
+    if (NewShiftplan) {
+      setNewPrioShift({NewShiftplan, ShiftSlot, userInput});
     } else {
-      setPrioShift({Plans, ShiftSlot, currentShiftPlan, daysIsActive});
+      setPrioShift({Plans, ShiftSlot, currentShiftPlan, userInput});
     }
     store.dispatch(thunkUpdateShiftPlan);
     store.dispatch({type: "ResetShiftSlot"})
-    setDaysIsActive(null);
+    setUserInput(null);
     store.dispatch({type: "CLOSE", payload: modal});
   };
 
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleUpdatedShiftPlanToDB = () => {
-      let plans = [...Plans];
-      if (ShiftSwitch !== null) {
-        let shiftswitch = handleSwitchShiftOrder(ShiftSwitch);
-        plans[currentShiftPlan]["plan"] = shiftswitch;
+      let copyShiftplan = new ShiftPlan({...Shiftplan});
+      if (ShiftSwitch !== !1) {
+        copyShiftplan.changeShiftsOrder(ShiftSwitch);
+        let shiftplan = copyShiftplan.getAllPlanDetails();
+        store.dispatch({type: "isFetchPlansFromDB"});
+        store.dispatch(thunkUpdateShiftPlan(shiftplan));
+      } else {
+        store.dispatch(thunkUpdateShiftPlan(Shiftplan));
       }
-      store.dispatch({type: "isFetchPlansFromDB"});
-      store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan));
   };
 
   //Diese Funktion fürgt einen neu erstelten Schichtplan der Datenbank hinzu
   const handleUploadShiftPlanToDB = () => {
+    let copyNewPlan = new ShiftPlan(NewShiftplan);
+    let shiftplan = copyNewPlan.getAllPlanDetails()
     store.dispatch({type: "startFetchingSafe"});
-    store.dispatch(thunkUploadShiftPlanToDB({daysIsActive, NewShiftPlan}));
+    store.dispatch(thunkUploadShiftPlanToDB(shiftplan));
   };
 
   //Diese Funktion löscht einen ausgewählten Schichtplan in der Datenbank
-  const handleDeleteShiftPlan = (index) => {
-    store.dispatch(thunkDeleteShiftPlan({index, Plans}));
-  };
+  function handleDeleteShiftPlan(index) {
+    store.dispatch(thunkDeleteShiftPlan({ index, Plans }));
+  }
 
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleShiftTradeToDB = (index) => {
-    let plans = Plans;
-    plans[currentShiftPlan] = handleSetShfitTrade(Plans, currentShiftPlan, index, daysIsActive, Employees);
-    store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan));
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.setAcceptTradeShift(userInput, index);
+    let shiftplan = copyPlan.getAllPlanDetails();
+    store.dispatch(thunkUpdateShiftPlan(shiftplan));
   };
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleCancelShiftTradeToDB = (index) => {
-    let plans = Plans;
-    plans[currentShiftPlan] = handleCancelShfitTrade(Plans, currentShiftPlan, index, daysIsActive, Employees);
-    store.dispatch(thunkUpdateShiftPlan(plans, currentShiftPlan));
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.setDeclineShiftTrade(index);
+    let shiftplan = copyPlan.getAllPlanDetails();
+    store.dispatch(thunkUpdateShiftPlan(shiftplan));
   };
   //Diese Funktion löscht eine ausgewählte Schicht innerhalb eines ausgewählten Schichtplans
   const handleDeleteShift = (index) => {
     if (ShiftPlanIsImported) {
-      deleteShiftFromImportedShiftPlan({index, Plans, currentShiftPlan});
+      let copyPlan = new ShiftPlan({...Shiftplan});
+      copyPlan.deleteShift(index)
+      let shiftplan = copyPlan.getAllPlanDetails();
+      store.dispatch({ type: "setShiftplan", payload: shiftplan });
     } else {
-      deleteShiftFromNewShiftPlan({index, NewShiftPlan});
+      deleteShiftFromNewShiftPlan({index, NewShiftplan});
     }
       store.dispatch({type: "CLOSE", payload: index});
   };
@@ -301,9 +323,8 @@ const SchichtplanContainer = () => {
     let shiftDetailsFilled = checkShiftHasDetails(Plans, currentShiftPlan)
     if (shiftDetailsFilled) {
     store.dispatch({type: "startFetchingRelease"})
-    const response = handleApplication(Plans, currentShiftPlan, NewDate);
+    handleApplication(Plans, currentShiftPlan, NewDate);
     setNavIndex(2);
-    if (!response) {setShiftDetails(!0);}
     } else {
       setErrMsng({...ErrMsng, MissingShiftDetails: !0});
     }
@@ -337,7 +358,7 @@ const SchichtplanContainer = () => {
             <p className="mb-0">Trage für jede Schicht die gewünschte Position, Beginn, Ende und Anzahl der Mitarbeiter ein.</p> 
           </Col>
           <Col xs="2">
-            <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setErrMsng({...ErrMsng, ["MissingShiftDetails"]: !1})}></i>
+            <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setErrMsng({...ErrMsng, MissingShiftDetails: !1})}></i>
           </Col>
         </Row>
       </Alert> : <></>}
@@ -349,7 +370,7 @@ const SchichtplanContainer = () => {
         :
         <></>
       }
-      <Row className="mt-6">
+            <Row className="mt-6">
       <Col xs={2} className="mt-4">
       <h3 className="float-left pt-4 font-weight-bold text-lg">Schichtplan</h3>
       { LoadingAlg ? <Spinner color="success" /> : <></>}
@@ -364,23 +385,23 @@ const SchichtplanContainer = () => {
           handleUpload={handleUploadShiftPlanToDB}
           trigger={ShiftPlanIsActive}
           import={ShiftPlanIsImported}/>
-      {ShiftPlanIsActive && currentShiftPlan !== !1 ?
+      {Shiftplan ?
         <>
           <ModalOpenButton
             title="Schichtplan freigeben"
-            trigger={Plans[currentShiftPlan].id.split("#").includes("Entwurf")}
+            trigger={Shiftplan.id.split("#").includes("Entwurf")}
             modal="showSchichtplanFreigeben"/>
           <ModalOpenButton
             title="Schicht hinzufügen"
-            trigger={Plans[currentShiftPlan].id.split("#").includes("Entwurf")}
+            trigger={Shiftplan.id.split("#").includes("Entwurf")}
             modal="showSchichthinzufuegen"/>
           <ModalOpenButton
             title="Befüllung starten"
-            trigger={Plans[currentShiftPlan].id.split("#").includes("Freigeben")}
+            trigger={Shiftplan.id.split("#").includes("Freigeben")}
             modal="showBefuellungStarten"/>
           <ButtonUpdateShiftPlan
             title="Schichtplan veröffentlichen"
-            trigger={Plans[currentShiftPlan].id.split("#").includes("Review")}
+            trigger={Shiftplan.id.split("#").includes("Review")}
             onClick={handlePublishShiftPlan}
             />
         </>
@@ -405,13 +426,12 @@ const SchichtplanContainer = () => {
               {ShiftPlanIsActive ? 
                 <SchichtplanAuswahl
                   bearbeiten={ShiftPlanIsActive}
-                  plaene={Plans}
+                  shiftplan={Shiftplan}
                   employees={Employees}
                   onSwitch={shiftChange}
-                  plan={currentShiftPlan}
                   Loading={LoadingFetchingPlans}
                   import={ShiftPlanIsImported}
-                  Schichtplan={NewShiftPlan}
+                  Schichtplan={NewShiftplan}
                  />
                  :
               <SchichtplanImport 
@@ -421,7 +441,7 @@ const SchichtplanContainer = () => {
                 onSwitch={shiftChange}
                 plan={currentShiftPlan}
                 import={ShiftPlanIsImported}
-                Schichtplan={NewShiftPlan}
+                Schichtplan={NewShiftplan}
                 onDelete={handleDeleteShiftPlan}
                 onChange={handleInputChange}
                 onClick={handleUpdateProfile}
@@ -432,7 +452,7 @@ const SchichtplanContainer = () => {
           <></>
             }
         </Row>
-        {currentShiftPlan && Plans[currentShiftPlan].tauschanfrage.length > 0 && Employees?
+        {ShiftPlanIsActive && Shiftplan !== !1 && Shiftplan.tauschanfrage.length > 0 ?
         <Row className="mt-4">
           <div className="col">
             <Card className="shadow">
@@ -445,8 +465,8 @@ const SchichtplanContainer = () => {
                 onCancelSumbit={handleCancelShiftTradeToDB}
                 onChange={handleInputChange}
                 employees={Employees}
-                plan={Plans}
-                current={currentShiftPlan}/>
+                shiftplan={Shiftplan}
+                />
               </CardBody>
             </Card>
           </div>
@@ -456,14 +476,13 @@ const SchichtplanContainer = () => {
         }
         <OpenModal
             show={Modal}
-            plaene={Plans}
             bewerber={ShiftSlot}
             shiftSlot={ShiftSlot}
-            plan={currentShiftPlan}
-            Schichtplan={NewShiftPlan}
+            Schichtplan={NewShiftplan}
+            shiftplan={Shiftplan}
             employees={ShiftEmployees}
             import={ShiftPlanIsImported}
-            daysIsActive={daysIsActive}
+            userInput={userInput}
             checkTrue={getModalTrue}
             checkModalKey={getModalKey}
             handleSelectPrio={handleSelectPrio}

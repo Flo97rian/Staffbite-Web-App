@@ -5,16 +5,15 @@ import {
     Badge
 } from "reactstrap"
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
-import Switch from "../../../Application/functionalComponents/Switch";
 
 export const PrioSchicht = (props) => {
-    let hasDaysIsActive = props.daysIsActive !== null
+    let hasuserInput = props.userInput !== null
     
     function getColor(qualifikation) {
         let color = "light";
-        if (hasDaysIsActive) {
-            if ("qualifikation" in props.daysIsActive) {
-                if (props.daysIsActive.qualifikation === qualifikation && qualifikation !== props.shiftSlot.prio) {
+        if (hasuserInput) {
+            if ("qualifikation" in props.userInput) {
+                if (props.userInput.qualifikation === qualifikation && qualifikation !== props.shiftSlot.prio) {
                     color = "primary";
                 }
             }
@@ -23,9 +22,9 @@ export const PrioSchicht = (props) => {
                 color = "primary";
             }
         }
-        else if (hasDaysIsActive) {
-            if ("qualifikation" in props.daysIsActive) {
-                if (props.daysIsActive.qualifikation === qualifikation) {
+        else if (hasuserInput) {
+            if ("qualifikation" in props.userInput) {
+                if (props.userInput.qualifikation === qualifikation) {
                     color = "primary";
                 }
             }

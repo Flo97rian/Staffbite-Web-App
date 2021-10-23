@@ -23,43 +23,39 @@ const DashboardContainer = (props) => {
 
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
-  const selectUser = state => state.DB.user
+  const selectUser = state => state.user;
+  const selectShiftplan = state => state.Shiftplan;
 
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
   const User = useSelector(selectUser);
+  const Shiftplan = useSelector(selectShiftplan);
 
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
-    store.dispatch(FetchEmployeePlansFromDB)
-    store.dispatch(getUser)
+    store.dispatch(FetchEmployeePlansFromDB);
+    store.dispatch(getUser);
   }, []);
 
   useEffect(() => {
-    if (Plans !== undefined && User !== undefined) {
-      getThisWeeksShiftPlan()
-    }
-  }, [Plans])
-
-  useEffect(() => {
-    if (Plans !== undefined && currentShiftPlan !== null) {
-      getCountUsersCurrentShifts()
-    }
-  }, [currentShiftPlan])
-
-
-    const getCountUsersCurrentShifts = (count = 0) => {
-      let bewerbungen = JSON.parse(User.bewerbungen["S"])
-      let ShiftCount = bewerbungen[Plans[currentShiftPlan].zeitraum].length
-      if(ShiftCount > 0 ) {
-        count = ShiftCount
+    function getCountUsersCurrentShifts (count = 0) {
+      let bewerbungen = User.bewerbungen
+      let ShiftCount = 0;
+      if ( Shiftplan.zeitraum in bewerbungen) {
+        ShiftCount = bewerbungen[Shiftplan.zeitraum].length
       }
+      if(ShiftCount > 0 ) {count = ShiftCount}
       setUserShiftCount(count);
     }
+    if (Plans !== undefined && User !== undefined) {
+      getCountUsersCurrentShifts()
+    }
+  }, [Plans, Shiftplan.zeitraum, User])
 
-    const getThisWeeksShiftPlan = () => {
+  useEffect(() => {
+    function getThisWeeksShiftPlan () {
       var compareDate = moment(moment().format("L"), "DD.M.YYYY");
       Plans.forEach((plan, index) => {
         var startDate   = moment(plan.zeitraum.split(" - ")[0], "DD.MM.YYYY");
@@ -67,12 +63,20 @@ const DashboardContainer = (props) => {
         if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(startDate)) && plan.id.split("#").includes("Veröffentlicht")) {
           setActivePlan(!0);
           setCurrentShiftPlan(index);
+          store.dispatch({type: "setShiftplan", payload: Plans[index]});
         }
         if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(startDate)) && plan.id.split("#").includes("Freigeben")) {
           setActivePlan(!0);
           setCurrentShiftPlan(index);
+          store.dispatch({type: "setShiftplan", payload: Plans[index]});
         }
     })}
+
+    if (Plans !== undefined && currentShiftPlan !== null) {
+      getThisWeeksShiftPlan()
+    }
+  }, [Plans, currentShiftPlan])
+
         return (
           <>
               <Row>
@@ -88,7 +92,7 @@ const DashboardContainer = (props) => {
                             Deine Bewerbungen
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                          {userShiftCount ? userShiftCount : <>0</>}
+                          {userShiftCount ? <>{userShiftCount}</> : <>0</>}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -133,10 +137,9 @@ const DashboardContainer = (props) => {
               </Col>
             </Row>
                 <Row className="text-center" noGutters={true}></Row>
-                { ActivePlan ?
+                { ActivePlan && Shiftplan && User !== !1 ?
                 <DashboardSchichtenTabelle
-                  plaene={Plans}
-                  plan={currentShiftPlan}
+                  shiftplan={Shiftplan}
                   bearbeiten={ActivePlan}
                   currentUser={User}
                 >

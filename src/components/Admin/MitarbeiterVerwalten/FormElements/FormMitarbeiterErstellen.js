@@ -21,17 +21,17 @@ export default class FormMitarbeiterErstellen extends React.PureComponent {
                 <Col xs={10}>
                     <InputString label="Vorname, Nachname" name="name" placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                     <br/>
-                    <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr:e neu:e Mitarbeiter:inn alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="E-Mail Adresse" name="email"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
+                    <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr neuer Mitarbeiter alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="E-Mail Adresse" name="email"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                     <br/>
-                    <InputNumber info={true} description={"Wählen Sie einen Stundenlohn für ihre:n neue:n Mitarbeiter:inn. Diesen können Sie jederzeit ändern."} label="Stundenlohn (€)" name="stundenlohn"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputNumber>
+                    <InputNumber info={true} description={"Wählen Sie einen Stundenlohn für ihren neuen Mitarbeiter. Diesen können Sie jederzeit ändern."} label="Stundenlohn (€)" name="stundenlohn"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputNumber>
                     <br/>
-                    <InputNumber info={true} description={"Wählen Sie einen Zielverdienst für ihre:n neue:n Mitarbeiter:inn"} label="Ziel mtl. (€)" name="zielmtleuro"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputNumber>
+                    <InputNumber info={true} description={"Wählen Sie einen Zielverdienst für ihren neuen Mitarbeiter"} label="Ziel mtl. (€)" name="zielmtleuro"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputNumber>
                     <br/>
-                    <ControlErfahrung info={true} description={"Wählen Sie eine Qualifikation für ihre:n neue:n Mitarbeiter:inn. Die Qualifikation können Sie jederzeit ändern."} label="Erfahrung" name="erfahrung"  placeholder="" defaultVal="Anfänger" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></ControlErfahrung>
+                    <ControlErfahrung info={true} description={"Wählen Sie eine Qualifikation für ihren neuen Mitarbeiter. Die Qualifikation können Sie jederzeit ändern."} label="Erfahrung" name="erfahrung"  placeholder="" defaultVal="Anfänger" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></ControlErfahrung>
                     <br/>
-                    <InputNumber info={true} description={"Wählen Sie eine durchschnittliche Ansazhl für Schichten, die ein:e Mitarbeiter:inn erhalten soll"} label="Schichten/Woche" name="schichtenwoche"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputNumber>
+                    <InputNumber info={true} description={"Wählen Sie eine durchschnittliche Ansazhl für Schichten, die ein Mitarbeiter erhalten soll"} label="Schichten/Woche" name="schichtenwoche"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputNumber>
                     <br/>
-                    <InputString info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr:e Mitarbeiter:inn geeignet ist"} label="Position" name="position" placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
+                    <InputString info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr Mitarbeiter geeignet ist"} label="Position" name="position" placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                     <br/>
                 </Col>
                 <Col xs={1}>
@@ -46,16 +46,16 @@ export default class FormMitarbeiterErstellen extends React.PureComponent {
                     <Col xs={10}>
                         <InputString label="Vorname, Nachname" name="name" placeholder="Max Mustermann" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                         <br/>
-                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr:e neu:e Mitarbeiter:inn alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="E-Mail Adresse" name="email"  placeholder="max@mustermann.de" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
+                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr neuer Mitarbeiter alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="E-Mail Adresse" name="email"  placeholder="max@mustermann.de" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                         <br/>
-                        <ControlErfahrung info={true} description={"Wählen Sie eine Qualifikation für ihre:n neue:n Mitarbeiter:inn. Die Qualifikation können Sie jederzeit ändern."} label="Erfahrung" name="erfahrung"  placeholder="" defaultVal="Anfänger" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></ControlErfahrung>
+                        <ControlErfahrung info={true} description={"Wählen Sie eine Qualifikation für ihren neuen Mitarbeiter. Die Qualifikation können Sie jederzeit ändern."} label="Erfahrung" name="erfahrung"  placeholder="" defaultVal="Anfänger" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></ControlErfahrung>
                         <br/>
-                        <InputNumber info={true} description={"Wählen Sie eine durchschnittliche Ansazhl für Schichten, die ein:e Mitarbeiter:inn erhalten soll"} label="Schichten/Woche" name="schichtenwoche"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputNumber>
+                        <InputNumber info={true} description={"Wählen Sie eine durchschnittliche Ansazhl für Schichten, die ein Mitarbeiter erhalten soll"} label="Schichten/Woche" name="schichtenwoche"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputNumber>
                         <br/>
                         {this.props.showPositionHinzufuegen ?
-                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr:e neu:e Mitarbeiter:inn alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="Position" name="position"  placeholder="" onChange={(e) => this.props.handlePositionChange(e)}></InputString>
+                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr neuer Mitarbeiter alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="Position" name="position"  placeholder="" onChange={(e) => this.props.handlePositionChange(e)}></InputString>
                         :
-                        <InfoOverlay info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr:e Mitarbeiter:inn geeignet ist"} infotitle="Position"></InfoOverlay>
+                        <InfoOverlay info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr Mitarbeiter geeignet ist"} infotitle="Position"></InfoOverlay>
                         }
                         { this.props.employeeIsActive !== null && "position" in this.props.employeeIsActive ? 
                         this.props.employeeIsActive["position"].map((item, index) => {

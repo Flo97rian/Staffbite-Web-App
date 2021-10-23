@@ -20,10 +20,11 @@ export function thunkReleaseForApplication(Plans, currentShiftPlan, NewDate) {
             }
         };
         await API.post(apiName, path, myInit)
-        dispatch(FetchFromDB)
-        dispatch({type: "stopFetchingRelaese"})
-        dispatch({type: "stopShiftPlanIsActive"})
-        dispatch({type: "stopShiftPlanIsImported"})
-        dispatch({type: "ResetCurrentShiftPlan"})
+        dispatch(FetchFromDB);
+        dispatch({type: "stopFetchingRelaese"});
+        dispatch({type: "stopShiftPlanIsActive"});
+        dispatch({type: "stopShiftPlanIsImported"});
+        dispatch({type: "ResetCurrentShiftPlan"});
+        dispatch({type: "resetShiftplan"});
     }
 }

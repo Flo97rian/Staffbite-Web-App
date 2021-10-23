@@ -9,7 +9,6 @@ import {
   Row
 } from "reactstrap";
 import store from '../../../store';
-import 'moment/locale/de';
 // Now react-datetime will be in french
 
 import 'react-nice-dates/build/style.css'
@@ -19,9 +18,11 @@ import ReactDatetime from "react-datetime";
 const Datepicker = (props) => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+
   useEffect(() => {
     store.dispatch({type: "DatePicker", payload: {startDate: startDate, endDate: endDate}})
-}, [endDate])
+}, [endDate, startDate])
+
     return (
       <>
         <Row>
