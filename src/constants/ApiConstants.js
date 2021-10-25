@@ -1,0 +1,22 @@
+export const API_HOSTNAME = 'Staffbite-API'
+
+export const DELETE_APPLICATION = '/schichtplan/delete-bewerbung';
+export const DELETE_EMPLOYEE = '/employee/delete';
+export const DELETE_SHIFTPLAN = '/schichtplan/delete';
+export const FETCH_ADMIN = '/organisation/get-profile';
+export const FETCH_ALL_EMPLOYEES = '/employee/getall';
+export const FETCH_ALL_PLANS = '/schichtplan/getall';
+export const FETCH_ORGANISATION = '/organisation/get-profile';
+export const FETCH_SHIFTPLAN_FOR_EMPLOYEE = '/schichtplan/getfreigegeben';
+export const FETCH_USER = '/employee/get';
+export const PUBLISH_SHIFTPLAN = '/schichtplan/veroeffentlichen';
+export const REGISTER_EMPLOYEE = '/register';
+export const RELEASE_SHIFTPLAN_FOR_APPLICATION = '/schichtplan/freigeben';
+export const START_ALGORITHM = '/schichtplan/befuellen';
+export const START_REPORTING = '/organisation/report';
+export const UPDATE_EMPLOYEE = '/employee/update';
+export const UPDATE_ORGANISATION = '/organisation/profile';
+export const UPDATE_SHIFTPLAN = '/schichtplan/update';
+export const UPDATE_EMPLOYEE_POST_TRADE = '/schichtplan/employee-post-trade';
+export const UPLOAD_APPLICATION = '/schichtplan/post-bewerbung';
+export const UPLOAD_SHIFTPLAN = '/schichtplan/speichern';

@@ -1,10 +1,10 @@
 import { API, Auth } from "aws-amplify";
-import constants from "../constants";
+import { FETCH_ALL_PLANS, API_HOSTNAME } from "../../constants/ApiConstants";
 
 export async function FetchFromDB(dispatch, getState) {
     Auth.currentSession().then( session => {
-        const apiName = constants.env.apiGatewayPath; // replace this with your api name.
-        const path = '/schichtplan/getall'; //replace this with the path you have configured on your API
+        const apiName = API_HOSTNAME; // replace this with your api name.
+        const path = FETCH_ALL_PLANS; //replace this with the path you have configured on your API
         const myInit = { // OPTIONAL
             headers: {
             Authorizer:`Bearer ${session.getIdToken().getJwtToken()}`,

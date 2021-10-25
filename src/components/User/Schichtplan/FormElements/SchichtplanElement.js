@@ -30,7 +30,7 @@ const SchichtplanElement = (props) => {
         const isFree = obj.frei;
         const currentUser = props.currentUser;
         let anzahl = e[index].Montag.anzahl;
-        const ApplicantMatchesPosition = currentUser.position.includes(e[index]["Wochentag"].ShiftName);
+        const ApplicantMatchesPosition = currentUser.position.includes(e[index]["Wochentag"].ShiftPosition);
         const hasPrio = isObj && "prio" in obj ? !0 : !1;
         const ApplicantMatchesPrio = "Experte" in currentUser;
         const hasApplicants =  isObj && "applicants" in obj && Object.keys(obj["applicants"]).length > 0 ? !0 : !1;

@@ -1,9 +1,10 @@
 import { API, Auth } from "aws-amplify";
+import { API_HOSTNAME, FETCH_ADMIN } from "../../constants/ApiConstants";
 import constants from "../constants";
 
 export async function getAdmin(dispatch, getState) {
-    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
-    const path = '/organisation/get-profile'; //replace this with the path you have configured on your API
+    const apiName = API_HOSTNAME; // replace this with your api name.
+    const path = FETCH_ADMIN; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
         headers: {
             Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,

@@ -24,6 +24,16 @@ export default class ShiftPlan {
         }
         return copyPlan;
       }
+
+      function updatePositionOfShift(copyPlan, index, userInput) {
+        if(!("ShiftPosition" in copyPlan[index].Wochentag)) {
+          copyPlan[index].Wochentag.ShiftPosition = userInput.position;
+        }
+        if (userInput.position !== undefined) {
+          copyPlan[index].Wochentag.ShiftPosition = userInput.position;
+        }
+        return copyPlan;
+      }
   
       function updateStartOfShift(copyPlan, index, userInput) {
         if(!("ShiftStart" in copyPlan[index].Wochentag)) {
@@ -72,6 +82,7 @@ export default class ShiftPlan {
       }
 
       updateNameOfShift(copyPlan, index, userInput);
+      updatePositionOfShift(copyPlan, index, userInput);
       updateStartOfShift(copyPlan, index,userInput);
       updateEndOfShift(copyPlan, index,userInput);
       updateRequiredEmployeesForShift(copyPlan, index, userInput);
@@ -95,6 +106,7 @@ export default class ShiftPlan {
         let Wochentag = {};
         Wochentag["frei"] = !1;
         Wochentag["ShiftName"] = userInput.rolle;
+        Wochentag["ShiftPosition"] = userInput.position;
         Wochentag["ShiftStart"] = userInput.beginn;
         Wochentag["ShiftEnd"] = userInput.ende;
         return Wochentag;
@@ -230,6 +242,26 @@ export default class ShiftPlan {
 
       removeTradeShift(copyTauschanfrage, User, index);
       this.tauschanfrage = copyTauschanfrage;
+    }
+
+    setApplicant(User, ShiftSlot) {
+      let copyPlan = [...this.plan];
+
+      function setApplicantInShift (copyPlan, User, ShiftSlot) {
+        let row = ShiftSlot.row;
+        let day = ShiftSlot.col;
+        let UserId = User.SK;
+        let UserName = User.name;
+        if ("applicants" in copyPlan[row][day]) {
+          copyPlan[row][day].applicants = {...copyPlan[row][day].applicants, [UserId]: UserName}
+        } else {
+          copyPlan[row][day]["applicants"] = {[UserId]: UserName}
+        }
+        return copyPlan;
+      }
+
+      setApplicantInShift(copyPlan, User, ShiftSlot);
+      this.plan = copyPlan;
     }
 
     setTradeShift(User, ShiftSlot) {

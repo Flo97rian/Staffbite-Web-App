@@ -7,7 +7,7 @@ import InputString from "../../../Application/functionalComponents/InputString";
 import InputTime from "../../../Application/functionalComponents/InputTime";
 import InputTimeWithSwitch from "../FormElements/InputTimeWithSwitch";
 import InputNumber from "../../../Application/functionalComponents/InputNumber";
-
+import SelectPosition from "../FormElements/SelectPosition";
 export default class SchichtHinzufuegen extends React.PureComponent {
     render() {
         return(
@@ -16,6 +16,8 @@ export default class SchichtHinzufuegen extends React.PureComponent {
             <Col xs={1} ></Col>
             <Col xs={10} >
                     <InputString info={true} description={"Wählen Sie einen Namen für die Rolle der Schicht. (z.B. Service, Küche etc.)"} label="Rolle" name="rolle" placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputString>
+                    <br/>
+                    <SelectPosition {...this.props} ></SelectPosition>
                     <br/>
                     <InputTime info={true} description={"Wählen Sie eine Uhrzeit, wann die Schicht beginnen soll"} label="Beginn" name="beginn"  placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputTime>
                     <br/>

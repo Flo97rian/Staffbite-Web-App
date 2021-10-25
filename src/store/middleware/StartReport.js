@@ -1,11 +1,11 @@
 import { API, Auth } from "aws-amplify";
-import constants from "../constants";
+import { API_HOSTNAME, START_REPORTING } from "../../constants/ApiConstants";
 
 export function thunkStartReport(filter) {
     const auswahl = filter
     return async function startReport(dispatch, getState) {
-    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
-    const path = '/organisation/report'; //replace this with the path you have configured on your API
+    const apiName = API_HOSTNAME; // replace this with your api name.
+    const path = START_REPORTING; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
         headers: {
             Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,

@@ -1,13 +1,13 @@
 import { API, Auth } from "aws-amplify";
 import { FetchFromDB } from "./FetchPlansFromDB";
-import constants from "../constants";
+import { API_HOSTNAME, PUBLISH_SHIFTPLAN } from "../../constants/ApiConstants";
 
 
 export function thunkPublishShiftPlan(plan) {
     return async function publishShiftPlan(dispatch, getState) {
         const shiftplan = plan
-        const apiName = constants.env.apiGatewayPath; // replace this with your api name.
-        const path = '/schichtplan/veroeffentlichen'; //replace this with the path you have configured on your API
+        const apiName = API_HOSTNAME; // replace this with your api name.
+        const path = PUBLISH_SHIFTPLAN; //replace this with the path you have configured on your API
         const myInit = { // OPTIONAL
             headers: {
                 Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,

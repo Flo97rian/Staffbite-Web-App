@@ -1,9 +1,9 @@
 import { API, Auth } from "aws-amplify";
-import constants from "../constants";
+import { API_HOSTNAME, FETCH_USER } from "../../constants/ApiConstants";
 
 export async function getUser(dispatch, getState) {
-    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
-    const path = '/employee/get'; //replace this with the path you have configured on your API
+    const apiName = API_HOSTNAME; // replace this with your api name.
+    const path = FETCH_USER; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
         headers: {
             Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,

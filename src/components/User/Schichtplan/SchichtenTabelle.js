@@ -51,7 +51,7 @@ const SchichtenTabelle = (props) => {
                         <tbody>
                         {ShiftPlanIsActive ? shiftplan.map((item, index) => (
                         <>
-                        <tr>
+                        <tr key={index}>
                             <td style={{"padding": "0"}}>
                                 {idVeröffentlicht
                                 ?

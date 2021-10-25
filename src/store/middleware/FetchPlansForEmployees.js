@@ -1,10 +1,10 @@
 import _ from "lodash";
 import { Auth, API } from "aws-amplify";
-import constants from "../constants";
+import { API_HOSTNAME, FETCH_SHIFTPLAN_FOR_EMPLOYEE } from "../../constants/ApiConstants";
 
 export async function FetchEmployeePlansFromDB(dispatch, getState) {
-    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
-    const path = '/schichtplan/getfreigegeben'; //replace this with the path you have configured on your API
+    const apiName = API_HOSTNAME; // replace this with your api name.
+    const path = FETCH_SHIFTPLAN_FOR_EMPLOYEE; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
         headers: {
         Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,

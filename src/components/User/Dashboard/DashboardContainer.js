@@ -39,6 +39,13 @@ const DashboardContainer = (props) => {
     store.dispatch(getUser);
   }, []);
 
+
+  useEffect(() => {
+    if (Plans) {
+      getThisWeeksShiftPlan(Plans);
+    }
+  }, [Plans]);
+
   useEffect(() => {
     function getCountUsersCurrentShifts (count = 0) {
       let bewerbungen = User.bewerbungen
@@ -54,28 +61,22 @@ const DashboardContainer = (props) => {
     }
   }, [Plans, Shiftplan.zeitraum, User])
 
-  useEffect(() => {
     function getThisWeeksShiftPlan () {
-      var compareDate = moment(moment().format("L"), "DD.M.YYYY");
+      var compareDate = moment(moment().format("l"), "DD.M.YYYY");
       Plans.forEach((plan, index) => {
         var startDate   = moment(plan.zeitraum.split(" - ")[0], "DD.MM.YYYY");
         var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
-        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(startDate)) && plan.id.split("#").includes("Veröffentlicht")) {
+        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Veröffentlicht")) {
           setActivePlan(!0);
           setCurrentShiftPlan(index);
           store.dispatch({type: "setShiftplan", payload: Plans[index]});
         }
-        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(startDate)) && plan.id.split("#").includes("Freigeben")) {
+        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Freigeben")) {
           setActivePlan(!0);
           setCurrentShiftPlan(index);
           store.dispatch({type: "setShiftplan", payload: Plans[index]});
         }
     })}
-
-    if (Plans !== undefined && currentShiftPlan !== null) {
-      getThisWeeksShiftPlan()
-    }
-  }, [Plans, currentShiftPlan])
 
         return (
           <>

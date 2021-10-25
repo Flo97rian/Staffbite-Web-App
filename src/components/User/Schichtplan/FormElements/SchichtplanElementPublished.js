@@ -27,7 +27,7 @@ const SchichtplanElementPublished = (props) => {
         const isFree = obj.frei;
         const currentUser = props.currentUser;
         let anzahl = e[index].Montag.anzahl;
-        //const ApplicantMatchesPosition = currentUser.position.includes(e[index]["Wochentag"].ShiftName)
+        //let ApplicantMatchesPosition = currentUser.position.includes(e[index]["Wochentag"].ShiftPosition)
         const hasSetApplicants =  isObj && "setApplicants" in obj && Object.keys(obj["setApplicants"]).length > 0 ? !0 : !1;
         const ShiftIncludesApplicant = hasSetApplicants ? currentUser.SK in obj["setApplicants"] : !1;
         const ApplicantsLength = hasSetApplicants ? Object.keys(obj.setApplicants).length : 0;

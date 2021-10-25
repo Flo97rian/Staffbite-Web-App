@@ -5,6 +5,7 @@ import ModalSchichtplanErstellen from "./ModalSchichtplanErstellen"
 import ModalSchichtImportBearbeiten from "./ModalSchichtImportBearbeiten";
 import ModalSchichtHinzufuegen from "./ModalSchichtHinzufuegen";
 import ModalSchichtAuswaehlen from "./ModalSchichtAuswaehlen"
+import ModalSaveChanges from "./ModalSaveChanges";
 import ModalSchichtplanFreigeben from "./ModalSchichtplanFreigeben"
 import ModalBefuellungStarten from "./ModalBefuellungStarten"
 import { ModalPrioSchicht } from "./ModalPrioSchicht";
@@ -28,6 +29,8 @@ const OpenModal = (props) => {
             return ( <ModalPrioSchicht modalkey={modalkey} keytrue={keytrue} {...props}></ModalPrioSchicht>
         )} else if (modalkey === "applyIsActive"){
             return ( <ModalSchichtAuswaehlen modalkey={modalkey} keytrue={keytrue} {...props}></ModalSchichtAuswaehlen>
+        )} else if (modalkey === "saveChanges"){
+            return ( <ModalSaveChanges modalkey={modalkey} keytrue={keytrue} {...props}></ModalSaveChanges>
         )} else {
             return (<ModalSchichtImportBearbeiten modalkey={modalkey} keytrue={keytrue} {...props}></ModalSchichtImportBearbeiten>
         )}

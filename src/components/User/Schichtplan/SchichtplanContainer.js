@@ -23,6 +23,7 @@ import SchichtplanImport from "./Form/SchichtplanImport";
 import { thunkUpdateTradeShift } from "../../../store/middleware/UpdateTradeShift";
 import ApplyTradeShift from "./FormElements/applyShiftTrade";
 import ShiftPlan from "../../Admin/Schichtplan/processing/Shiftplan";
+import ButtonSave from "./FormElements/ButtonSave";
 
 const TableContainer = () => {
   const [navIndex, setNavIndex] = useState(1);
@@ -66,21 +67,19 @@ const TableContainer = () => {
       store.dispatch({type: "setShiftplan", payload: shiftplan});
     }
   }
-  }, [LoadingFetchingSafe, Plans, Shiftplan, currentShiftPlan]);
+  }, [Plans]);
 
   useEffect(() => {
   }, [User]);
+
+  useEffect(() => {
+  }, [currentShiftPlan]);
 
   useEffect(() => {
     }, [navIndex]);
 
   useEffect(() => {
   }, [Shiftplan]);
-
-  useEffect(() => {
-    store.dispatch({ type: "startShiftPlanIsImported"})
-    store.dispatch({ type: "startShiftPlanIsActive"})
-    }, [currentShiftPlan]);
 
   // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
   const getModalKey = (allmodals) => {
@@ -100,12 +99,28 @@ const TableContainer = () => {
     return truemodal
   }
   // Diese Funktion ist der handler, wenn sich auf eine Schicht beworben wird. Sie schließt das Modal und leitet einen API Call ein.
-  const handleUploadApplication = (modal) => {
+  const handleUploadApplication = () => {
     store.dispatch({type: "isFetchPlansFromDB"});
-    store.dispatch(thunkUploadApplication(Shiftplan, ShiftSlot));
-    store.dispatch({type: "CLOSE", payload: modal});
+    store.dispatch(thunkUploadApplication(Shiftplan));
+    store.dispatch({ type: "ResetCurrentShiftPlan"})
+    store.dispatch({ type: "stopShiftPlanIsImported"})
+    store.dispatch({ type: "stopShiftPlanIsActive"})
+    store.dispatch({ type: "resetShiftplan"})
+    if ("saveChanges" in Modal) {
+      store.dispatch({type: "CLOSE", payload: "saveChanges"});
+    }
   }
 
+  function onClickBack () {
+    if (Plans[currentShiftPlan] !== Shiftplan) {
+      store.dispatch({type: "OPEN", payload: "saveChanges"});
+    } else {
+        store.dispatch({ type: "ResetCurrentShiftPlan"})
+        store.dispatch({ type: "resetShiftplan"})
+        store.dispatch({ type: "stopShiftPlanIsActive"})
+        store.dispatch({ type: "stopShiftPlanIsImported"})
+    }
+  }
   const handleDeleteApplication = (modal) => {
     store.dispatch(thunkDeleteApplication({ShiftSlot, Plans, currentShiftPlan}));
     store.dispatch({type: "CLOSE", payload: modal});
@@ -116,6 +131,14 @@ const TableContainer = () => {
     copyPlan.setTradeShift(User, ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateTradeShift(shiftplan));
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    store.dispatch({type: "CLOSE", payload: modal});
+  }
+
+  function handleSetApplication (modal) {
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.setApplicant(User, ShiftSlot);
+    let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch({type: "setShiftplan", payload: shiftplan});
     store.dispatch({type: "CLOSE", payload: modal});
   }
@@ -168,23 +191,26 @@ const TableContainer = () => {
         { LoadingFetchingSafe ? <Spinner color="success" /> : <></>}
         </Col>
         <Col xs={10} className="mt-2">
-        <ButtonZurueck
+          {ShiftPlanIsActive ?
+        <ButtonSave
           titel="Speichern"
-          onClickVal=""
-          true={ShiftPlanIsActive}
-          ></ButtonZurueck>
+          handleUpload={handleUploadApplication}
+          ></ButtonSave>
+          :
+          <></>
+        }
         <ButtonZurueck
           titel="Zurück zur Auswahl"
-          onClickVal=""
+          onClickVal={onClickBack}
           true={ShiftPlanIsActive}
           ></ButtonZurueck>
         </Col>
         </Row>
         <Row>
-        { Plans !== undefined && User !== undefined ?
+        { Plans && User ?
             <div className="col">
               <>
-                { !Shiftplan && !ShiftPlanIsActive ? 
+                { !ShiftPlanIsActive ? 
                 <SchichtplanImport 
                   status={navIndex}
                   bearbeiten={ShiftPlanIsActive}
@@ -196,7 +222,7 @@ const TableContainer = () => {
                 }
                 </>
                 <>
-              {Shiftplan !== !1 && ShiftPlanIsActive ?
+              {ShiftPlanIsActive ?
                   <SchichtenTabelle 
                   bearbeiten={ShiftPlanIsActive}
                   shiftplan={Shiftplan}
@@ -237,11 +263,12 @@ const TableContainer = () => {
             plaene={Plans}
             onDelete={handleDeleteApplication}
             onTrade={handleTradeShift}
-            onBewerben={handleUploadApplication}
+            onBewerben={handleSetApplication}
             shiftslot={ShiftSlot}
             plan={currentShiftPlan}
             shiftplan={Shiftplan}
             bearbeiten={ShiftPlanIsActive}
+            handleUpdate={handleUploadApplication}
             checkTrue={getModalTrue}
             checkModalKey={getModalKey}
             ></OpenModal>

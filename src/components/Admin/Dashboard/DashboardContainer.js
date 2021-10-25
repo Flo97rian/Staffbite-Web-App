@@ -10,7 +10,8 @@ import {
     CardTitle,
     Row,
     CardBody,
-    Button
+    Button,
+    Alert
   } from "reactstrap";
 
   // core components
@@ -32,6 +33,7 @@ const DashboardContainer = (props) => {
   const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
   const [filter, setFilter] = useState(null);
   const [filterIsActive, setFilterIsActive] = useState(!1);
+  const [errMsg, setErrMsg] = useState({ InvalidReportInput: !1});
 
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
@@ -58,8 +60,14 @@ const DashboardContainer = (props) => {
   }, []);
 
   const handleFilterIsActive = (modal) => {
-    store.dispatch({type: "isFetchingReport"});
-    store.dispatch(thunkStartReport(filter));
+    if (Date !== undefined && Date.start !== undefined && filter !== null) {
+      let start = moment(Date.start.startDate).format("l");
+      let ende = moment(Date.ende.endDate).format("l");
+      store.dispatch({type: "isFetchingReport"});
+      store.dispatch(thunkStartReport({...filter, start: start, ende: ende}));
+    } else {
+      setErrMsg({...errMsg, InvalidReportInput: !0})
+    }
     store.dispatch({type: "CLOSE", payload: modal});
   };
 
@@ -70,14 +78,7 @@ const DashboardContainer = (props) => {
   }, [Plans]);
 
   useEffect((Date) => {
-      if(Date !== undefined ) {
-        setFilter({
-          ...filter,
-          start: moment(Date.start.startDate).format("l"),
-          ende: moment(Date.ende.endDate).format("l")
-        });
-      }
-  }, [Date, filter]);
+  }, [Date]);
 
   useEffect(() => {
   }, [filter]);
@@ -110,6 +111,7 @@ const DashboardContainer = (props) => {
     let truemodal = modals.includes(true);
     return truemodal;
   };
+  
     const getThisWeeksShiftPlan = (Plans) => {
       var compareDate = moment(moment().format("l"), "DD.M.YYYY");
       Plans.forEach((plan, index) => {
@@ -148,6 +150,19 @@ const DashboardContainer = (props) => {
     };
         return (
           <>
+            {errMsg !== null && errMsg.InvalidReportInput ? 
+            <Alert color="warning">
+            <Row>
+              <Col xs="10">
+                <p className="mb-0">Deine Eingaben zur Erstellung eines Reports sind ungültig. Versuche alle benötigten Informationen anzugeben</p> 
+              </Col>
+              <Col xs="2">
+                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setErrMsg({...errMsg, InvalidReportInput: !1})}></i>
+              </Col>
+            </Row>
+            </Alert>
+            :
+            <></>}
           { !Employees && !Plans ? 
             <Row className="text-center mt-2">
               <Col className="mt-2" xs={12}>

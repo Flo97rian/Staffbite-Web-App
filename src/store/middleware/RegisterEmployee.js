@@ -1,15 +1,15 @@
 import { API, Auth } from "aws-amplify";
 import { checkerfahrung } from "../../components/Admin/MitarbeiterVerwalten/processing/CheckErfahrung";
 import { FetchEmployees } from "./FetchEmployees";
-import constants from "../constants";
+import { API_HOSTNAME, REGISTER_EMPLOYEE } from "../../constants/ApiConstants";
 
 export function thunkRegisterEmployee({employeeIsActive, hasPositions}) {
     const erfahrung = checkerfahrung({employeeIsActive})
     const neuerMitarbeiter = employeeIsActive
     const positionen = hasPositions
 return async function registerEmployee(dispatch, getState) {
-    const apiName = constants.env.apiGatewayPath; // replace this with your api name.
-    const path = '/register'; //replace this with the path you have configured on your API
+    const apiName = API_HOSTNAME; // replace this with your api name.
+    const path = REGISTER_EMPLOYEE; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
         headers: {
         Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,
