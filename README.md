@@ -1,8 +1,8 @@
 
 =======
-# Getting Started with Create React App
+# Staffbite Web APP
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a SaaS build in Germany.  
 
 ## Available Scripts
 
