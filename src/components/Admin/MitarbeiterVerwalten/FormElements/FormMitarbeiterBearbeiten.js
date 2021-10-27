@@ -11,6 +11,7 @@ import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 import ControlErfahrung from "./ControlErfahrung";
 import Switch from "../../../Application/functionalComponents/Switch";
 import Form from 'react-bootstrap/Form';
+import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_EMPLOYEE_HOURLY_WAGES, INFO_EMPLOYEE_IS_ACTIVE, INFO_EMPLOYEE_MONTHLY_INCOME, INFO_EMPLOYEE_MONTHLY_WORKING_HOURES, INFO_EMPLOYEE_OVERTIME, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK, INFO_EMPLOYEE_VACATION, INFO_ORGANISATION_POSITIONS } from "../../../../constants/InfoTexts";
 
 const FormMitarbeiterBearbeiten = (props) => {
         const employee = props.mitarbeiterdaten
@@ -20,37 +21,37 @@ const FormMitarbeiterBearbeiten = (props) => {
                     <>
                     <Row className="text-center">
                         <Col xs={12}>
-                            <Switch info={true} description={"Tragen Sie ein, ob ihr Mitarbeiter direkt in die Schichtplannung mit aufgenommen werden soll"}   type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
+                            <Switch info={true} description={INFO_EMPLOYEE_IS_ACTIVE}   type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={5}>
                         <Form.Label><p>Persönliche Daten</p></Form.Label>
-                        <InputString info={true} description={"Tragen Sie hier den Vor- und Nachnamen ein"} label="Vorname, Nachname" name="name" placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputString>
+                        <InputString info={true} description={INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME} label="Vorname, Nachname" name="name" placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputString>
                         <br/>
-                        <InputString info={true} description={"Tragen Sie hier die E-Mail Adresse ein"} label="E-Mail Adresse" name="email"  placeholder={employee["email"]} onChange={(e) => props.onChange(e)}></InputString>
+                        <InputString info={true} description={INFO_EMPLOYEE_EMAIL_ADRESS} label="E-Mail Adresse" name="email"  placeholder={employee["email"]} onChange={(e) => props.onChange(e)}></InputString>
                         <br/>
-                        <InputNumber info={true} description={"Tragen Sie hier den Stundenlohn ein. Diesen können Sie später ändern"} label="Stundenlohn in €" name="stundenlohn"  placeholder={employee["stundenlohn"]} onChange={(e) => props.onChange(e)}></InputNumber>
+                        <InputNumber info={true} description={INFO_EMPLOYEE_HOURLY_WAGES} label="Stundenlohn in €" name="stundenlohn"  placeholder={employee["stundenlohn"]} onChange={(e) => props.onChange(e)}></InputNumber>
                         <br/>
-                        <InputNumber info={true} description={"Tragen Sie hier das vereinbarte Gehalt ein"}  label="Gehalt mtl. in €" name="zielmtleuro"  placeholder={employee["zielmtleuro"]} onChange={(e) => props.onChange(e)}></InputNumber>
+                        <InputNumber info={true} description={INFO_EMPLOYEE_MONTHLY_INCOME}  label="Gehalt mtl. in €" name="zielmtleuro"  placeholder={employee["zielmtleuro"]} onChange={(e) => props.onChange(e)}></InputNumber>
                         <br/>
-                        <InputNumber info={true} description={"Tragen Sie hier die monatlichen Arbeitsstunden ein"}  label="Ziel mtl. (h)" name="zielmtlh"  placeholder={employee["zielmtlh"]} onChange={(e) => props.onChange(e)}></InputNumber>
+                        <InputNumber info={true} description={INFO_EMPLOYEE_MONTHLY_WORKING_HOURES}  label="Ziel mtl. (h)" name="zielmtlh"  placeholder={employee["zielmtlh"]} onChange={(e) => props.onChange(e)}></InputNumber>
                         <br/>
                         </Col>
                         <Col xs={2}></Col>
                         <Col xs={5} >
                         <Form.Label><p>betriebliche Einstellungen</p></Form.Label>
-                        <ControlErfahrung info={true} description={"Diese Wert repräsentiert den Erfahrungswert ihres Mitarbeiters"}  label="Erfahrung" name="erfahrung"  {...props} defaultVal={employee["erfahrung"]}></ControlErfahrung>
+                        <ControlErfahrung info={true} description={INFO_EMPLOYEE_QUALIFIKATION}  label="Erfahrung" name="erfahrung"  {...props} defaultVal={employee["erfahrung"]}></ControlErfahrung>
                         <br/>
-                        <InputString info={true} description={"Tragen Sie hier die Schichten oder Positionen ein, auf die sich ihr Mitarbeiter in ihrem Betrieb bewerben darf"} label="Position" name="position" placeholder={employee["position"]} onChange={(e) => props.onChange(e)}></InputString>
+                        <InputString info={true} description={INFO_EMPLOYEE_POSITIONS} label="Position" name="position" placeholder={employee["position"]} onChange={(e) => props.onChange(e)}></InputString>
                         <br/>
-                        <Switch info={true} description={"Tragen Sie hier ein, ob ihr Mitarbeiter gerade im Urlaub ist"}  type="switch" label="Frei" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
-                        <br/>
-                        <br/>
-                        <Switch info={true} description={"Tragen Sie hier ein, ob ihr Mitarbeiter aktuell Überstunden hat und diese abgebaut werden sollen. Mit dieser Einstellung wird dieser Mitarbeiter bewusst weniger im Schichtplan eingesetzt."} type="switch" label="Überstunden" name="ueberstunden" value={employee["ueberstunden"]} onChange={(e) => props.onChange(e)}></Switch>
+                        <Switch info={true} description={INFO_EMPLOYEE_VACATION}  type="switch" label="Frei" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
                         <br/>
                         <br/>
-                        <InputNumber info={true} description={"Wählen Sie hier eine Anzahl ein Schichten, die ihr Mitarbeiter pro Woche im Durchschnitt erhalten soll"} label="Schichten/Woche" name="schichtenwoche"  placeholder={employee["schichtenwoche"]} onChange={(e) => props.onChange(e)}></InputNumber>
+                        <Switch info={true} description={INFO_EMPLOYEE_OVERTIME} type="switch" label="Überstunden" name="ueberstunden" value={employee["ueberstunden"]} onChange={(e) => props.onChange(e)}></Switch>
+                        <br/>
+                        <br/>
+                        <InputNumber info={true} description={INFO_EMPLOYEE_SHIFTS_PER_WEEK} label="Schichten/Woche" name="schichtenwoche"  placeholder={employee["schichtenwoche"]} onChange={(e) => props.onChange(e)}></InputNumber>
                         <br/>
                         </Col>
                     </Row>
@@ -59,7 +60,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                 <>
                 <Row className="text-center">
                         <Col xs={12}>
-                            <Switch info={true} description={"Tragen Sie ein, ob ihr Mitarbeiter direkt in die Schichtplannung mit aufgenommen werden soll"} type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
+                            <Switch info={true} description={INFO_EMPLOYEE_IS_ACTIVE} type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
                         </Col>
                     </Row>
                     <Row>
@@ -69,9 +70,9 @@ const FormMitarbeiterBearbeiten = (props) => {
                         <br/>
                         <InputString label="E-Mail Adresse" name="email"  placeholder={employee["email"]} onChange={(e) => props.onChange(e)}></InputString>
                         <br/>
-                        <Switch info={true} description={"Tragen Sie hier ein, ob ihr Mitarbeiter gerade im Urlaub ist"} type="switch" label="Urlaub" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
+                        <Switch info={true} description={INFO_EMPLOYEE_VACATION} type="switch" label="Urlaub" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
                         <br/>
-                        <Switch  info={true} description={"Tragen Sie hier ein, ob ihr Mitarbeiter aktuell Überstunden hat und diese abgebaut werden sollen. Mit dieser Einstellung wird dieser Mitarbeiter bewusst weniger im Schichtplan eingesetzt."} type="switch" label="Überstunden" name="ueberstunden" value={employee["ueberstunden"]} onChange={(e) => props.onChange(e)}></Switch>
+                        <Switch  info={true} description={INFO_EMPLOYEE_OVERTIME} type="switch" label="Überstunden" name="ueberstunden" value={employee["ueberstunden"]} onChange={(e) => props.onChange(e)}></Switch>
                         <br/>
                         </Col>
                         <Col xs={2}></Col>
@@ -80,9 +81,9 @@ const FormMitarbeiterBearbeiten = (props) => {
                         <ControlErfahrung label="Erfahrung" name="erfahrung"  {...props} defaultVal={employee["erfahrung"]}></ControlErfahrung>
                         <br/>
                         {props.showPositionHinzufuegen ?
-                        <InputString info={true} description={"Wählen Sie eine gültige E-Mail Adresse. Über diese erhält ihr neuer Mitarbeiter alle benötigten Informationen, um sich auf Schichten zu bewerben"} label="Position" name="position"  placeholder="" onChange={(e) => props.handlePositionChange(e)}></InputString>
+                        <InputString info={true} description={INFO_ORGANISATION_POSITIONS} label="Position" name="position"  placeholder="" onChange={(e) => props.handlePositionChange(e)}></InputString>
                         :
-                        <InfoOverlay info={true} description={"Wählen Sie eine oder mehrere Positionen für die ihr Mitarbeiter geeignet ist"} infotitle="Position"></InfoOverlay>
+                        <InfoOverlay info={true} description={INFO_EMPLOYEE_POSITIONS} infotitle="Position"></InfoOverlay>
                         }
                         <>
                         { props.employeeIsActive !== null ? 

@@ -14,7 +14,7 @@ import AuthLayout from "./layouts/Auth.js";
 import UserLayout from "./layouts/User.js";
 import Landing from "./views/MainViews/Landing.js";
 import reportWebVitals from './reportWebVitals';
-import SignUp from "./components/Auth/SignUp.js"
+import SignUp from "./components/Auth/signUp";
 
 
 ReactDOM.render(

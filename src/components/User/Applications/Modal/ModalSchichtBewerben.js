@@ -6,7 +6,7 @@ import {
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import FormNames from "../FormElements/FormNames";
+import FormNames from "../../Schichtplan/FormElements/FormNames";
 import store from "../../../../store";
 
 const ModalSchichtBewerben = (props) => {

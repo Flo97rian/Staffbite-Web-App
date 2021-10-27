@@ -15,18 +15,16 @@ import {
     CardHeader
   } from "reactstrap";
 
-import SchichtenTabelle from "./SchichtenTabelle";
+import SchichtenTabelle from "./ShiftplanTable";
 import OpenModal from "./Modal/OpenModal";
 import store from "../../../store";
-import UserSchichtplanTabs from "./Nav/Nav";
-import SchichtplanImport from "./Form/SchichtplanImport";
+import SchichtplanImport from "./Form/ShiftplanImport";
 import { thunkUpdateTradeShift } from "../../../store/middleware/UpdateTradeShift";
 import ApplyTradeShift from "./FormElements/applyShiftTrade";
 import ShiftPlan from "../../Admin/Schichtplan/processing/Shiftplan";
 import ButtonSave from "./FormElements/ButtonSave";
 
-const TableContainer = () => {
-  const [navIndex, setNavIndex] = useState(1);
+const ShiftplanContainer = () => {
 
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
@@ -75,8 +73,6 @@ const TableContainer = () => {
   useEffect(() => {
   }, [currentShiftPlan]);
 
-  useEffect(() => {
-    }, [navIndex]);
 
   useEffect(() => {
   }, [Shiftplan]);
@@ -87,10 +83,6 @@ const TableContainer = () => {
     const modalfilter = modals.filter((modal) => typeof modal === "string");
     const modal = modalfilter[0];
     return modal;
-  }
-
-  const handleNavChange = (index) => {
-    setNavIndex(index)
   }
   // Untersucht, ob der Wert eines Modals auf true steht und gibt den Wert true zurück
   const getModalTrue = (allmodals) => {
@@ -121,24 +113,12 @@ const TableContainer = () => {
         store.dispatch({ type: "stopShiftPlanIsImported"})
     }
   }
-  const handleDeleteApplication = (modal) => {
-    store.dispatch(thunkDeleteApplication({ShiftSlot, Plans, currentShiftPlan}));
-    store.dispatch({type: "CLOSE", payload: modal});
-  }
 
   const handleTradeShift = (modal) => {
     let copyPlan = new ShiftPlan({...Shiftplan});
     copyPlan.setTradeShift(User, ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateTradeShift(shiftplan));
-    store.dispatch({type: "setShiftplan", payload: shiftplan});
-    store.dispatch({type: "CLOSE", payload: modal});
-  }
-
-  function handleSetApplication (modal) {
-    let copyPlan = new ShiftPlan({...Shiftplan});
-    copyPlan.setApplicant(User, ShiftSlot);
-    let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch({type: "setShiftplan", payload: shiftplan});
     store.dispatch({type: "CLOSE", payload: modal});
   }
@@ -177,14 +157,6 @@ const TableContainer = () => {
           </Row>
           :
         <>
-      { !ShiftPlanIsActive ?
-        <UserSchichtplanTabs
-          onNavChange={handleNavChange}
-          navIndex={navIndex}
-          ></UserSchichtplanTabs>
-        :
-        <></>
-      }
         <Row className="mt-6">
         <Col xs={2} className="mt-4">
         <h3 className="float-left pt-4 font-weight-bold text-lg">Schichtplan</h3>
@@ -212,7 +184,6 @@ const TableContainer = () => {
               <>
                 { !ShiftPlanIsActive ? 
                 <SchichtplanImport 
-                  status={navIndex}
                   bearbeiten={ShiftPlanIsActive}
                   plaene={Plans}
                   plan={currentShiftPlan}
@@ -261,9 +232,7 @@ const TableContainer = () => {
         <OpenModal
             show={Modal}
             plaene={Plans}
-            onDelete={handleDeleteApplication}
             onTrade={handleTradeShift}
-            onBewerben={handleSetApplication}
             shiftslot={ShiftSlot}
             plan={currentShiftPlan}
             shiftplan={Shiftplan}
@@ -277,4 +246,4 @@ const TableContainer = () => {
       </>
             );
         }
-export default TableContainer;
+export default ShiftplanContainer;

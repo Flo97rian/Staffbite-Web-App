@@ -6,7 +6,7 @@ import {
 import InputButton from "./InputButton";
 import Form from 'react-bootstrap/Form';
 
-export default class FormSchichtplanAuswaehlen extends React.PureComponent {
+export default class FormSelectShiftplan extends React.PureComponent {
     render() {
         return(
             <>

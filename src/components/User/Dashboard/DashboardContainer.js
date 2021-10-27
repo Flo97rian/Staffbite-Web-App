@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import 'moment/locale/de';
+import { Link } from "react-router-dom";
 
 import {
     Card,
@@ -13,7 +14,7 @@ import {
 import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansForEmployees";
 import { getUser } from "../../../store/middleware/FetchUser";
 import store from "../../../store";
-import DashboardSchichtenTabelle from "./DashboardSchichtenTabelle";
+import DashboardSchichtenTabelle from "./DashboardTable";
 
 
 const DashboardContainer = (props) => {
@@ -82,6 +83,7 @@ const DashboardContainer = (props) => {
           <>
               <Row>
                 <Col md="12"  lg="6" xl="6">
+                <Link to="/user/bewerben" tag={Link}>
                   <Card className="card-stats mb-4 mb-xl-0">
                     <CardBody>
                       <Row>
@@ -104,8 +106,10 @@ const DashboardContainer = (props) => {
                       </Row>
                     </CardBody>
                   </Card>
+                  </Link>
                 </Col>
                 <Col md="12" lg="6" xl="6">
+                <Link to="/user/schichtplan" tag={Link}>
                   <Card className="card-stats mb-4 mb-xl-0">
                     <CardBody>
                       <Row>
@@ -128,6 +132,7 @@ const DashboardContainer = (props) => {
                       </Row>
                     </CardBody>
                   </Card>
+                  </Link>
                 </Col>
               </Row>
             <Row >

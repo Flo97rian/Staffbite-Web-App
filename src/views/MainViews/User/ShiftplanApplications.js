@@ -23,9 +23,9 @@ import {
 } from "reactstrap";
 // core components
 import Header from "../../../components/Headers/Header.js";
-import SchichtplanContainer from "../../../components/User/Schichtplan/ShiftplanContainer.js"
+import ApplicationsContainer from "../../../components/User/Applications/ApplicationsContainer"
 
-export default class SchichtplanBewerben extends React.Component {
+export default class ApplicationsMainView extends React.Component {
   render() {
     return (
       <>
@@ -35,7 +35,7 @@ export default class SchichtplanBewerben extends React.Component {
         {/* Table */}
         <Row>
           <div className="col">
-        <SchichtplanContainer></SchichtplanContainer>
+        <ApplicationsContainer></ApplicationsContainer>
         </div>
         </Row>
       </Container>

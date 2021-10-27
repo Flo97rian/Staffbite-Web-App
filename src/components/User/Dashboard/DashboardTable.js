@@ -13,7 +13,7 @@ from "reactstrap";
 import DashboardElementApplication from "./DashboardElementApplication";
 import DashboardElementPublished from "./DashboardElementPublished"
 import { Badge } from "reactstrap";
-import UserPlanId from "../Schichtplan/FormElements/UserPlanId";
+import PlanId from "../../Admin/Schichtplan/FormElements/PlanId";
 
 const DashboardSchichtenTabelle = (props) => {
     const id = props.shiftplan.id
@@ -30,7 +30,7 @@ const DashboardSchichtenTabelle = (props) => {
             <Row className="text-center mt-4" noGutters={true}>
                 <Col xs={3}>
                     <p>Status</p>
-                    <UserPlanId id={id} ></UserPlanId>
+                    <PlanId id={id}></PlanId>
                 </Col>
                 <Col xs={6}>
                 <p>Zeitraum</p>

@@ -10,12 +10,10 @@ import {
 }
 from "reactstrap";
 // core components
-import SchichtplanElement from "./FormElements/SchichtplanElement";
 import SchichtplanElementPublished from "./FormElements/SchichtplanElementPublished";
 import { Badge } from "reactstrap";
-import UserPlanId from "./FormElements/UserPlanId";
 
-const SchichtenTabelle = (props) => {
+const ShiftplanTable = (props) => {
     const id = props.shiftplan.id
     const idVeröffentlicht = id.split("#").includes("Veröffentlicht")
     const shiftplan = props.shiftplan.plan
@@ -30,7 +28,7 @@ const SchichtenTabelle = (props) => {
             <Row className="text-center mt-4" noGutters={true}>
                 <Col xs={3}>
                     <p>Status</p>
-                    <UserPlanId id={id} ></UserPlanId>
+                    <p style={{"color": "#2dce89"}}>Veröffentlicht</p>
                 </Col>
                 <Col xs={6}>
                 <p>Zeitraum</p>
@@ -51,72 +49,35 @@ const SchichtenTabelle = (props) => {
                         <tbody>
                         {ShiftPlanIsActive ? shiftplan.map((item, index) => (
                         <>
+                        {idVeröffentlicht ? 
                         <tr key={index}>
                             <td style={{"padding": "0"}}>
-                                {idVeröffentlicht
-                                ?
                                 <SchichtplanElementPublished wochentag={item.Wochentag} index={index} col="Wochentag" {...props}></SchichtplanElementPublished>
-                                :
-                                <SchichtplanElement wochentag={item.Wochentag} index={index} col="Wochentag" {...props}></SchichtplanElement>
-                                }
                             </td>
                             <td style={{"padding": "0"}}>
-                                {idVeröffentlicht
-                                ?
                                 <SchichtplanElementPublished wochentag={item.Montag} index={index} col="Montag" {...props}></SchichtplanElementPublished>
-                                :
-                                    <SchichtplanElement wochentag={item.Montag} index={index} col="Montag" {...props}></SchichtplanElement>
-                                }
                             </td>
                             <td style={{"padding": "0"}}>
-                                {idVeröffentlicht
-                                ?
                                 <SchichtplanElementPublished wochentag={item.Dienstag} index={index} col="Dienstag" {...props}></SchichtplanElementPublished>
-                                :
-                                    <SchichtplanElement wochentag={item.Dienstag} index={index} col="Dienstag" {...props}></SchichtplanElement>
-                                }
                             </td>
                             <td style={{"padding": "0"}}>
-                                {idVeröffentlicht
-                                ?
                                 <SchichtplanElementPublished wochentag={item.Mittwoch} index={index} col="Mittwoch" {...props}></SchichtplanElementPublished>
-                                :
-                                    <SchichtplanElement wochentag={item.Mittwoch} index={index} col="Mittwoch" {...props}></SchichtplanElement>
-                                }
                             </td>
                             <td style={{"padding": "0"}}>
-                                {idVeröffentlicht
-                                ?
                                 <SchichtplanElementPublished wochentag={item.Donnerstag} index={index} col="Donnerstag" {...props}></SchichtplanElementPublished>
-                                :
-                                    <SchichtplanElement wochentag={item.Donnerstag} index={index} col="Donnerstag" {...props}></SchichtplanElement>
-                                }
                             </td>
                             <td style={{"padding": "0"}}>
-                                {idVeröffentlicht
-                                ?
                                 <SchichtplanElementPublished wochentag={item.Freitag} index={index} col="Freitag" {...props}></SchichtplanElementPublished>
-                                :
-                                    <SchichtplanElement wochentag={item.Freitag} index={index} col="Freitag" {...props}></SchichtplanElement>
-                                }
                             </td>
                             <td style={{"padding": "0"}}>
-                                {idVeröffentlicht
-                                ?
                                 <SchichtplanElementPublished wochentag={item.Samstag} index={index} col="Samstag" {...props}></SchichtplanElementPublished>
-                                :
-                                    <SchichtplanElement wochentag={item.Samstag} index={index} col="Samstag" {...props}></SchichtplanElement>
-                                }
                             </td>
                                 <td style={{"padding": "0"}}>
-                                {idVeröffentlicht
-                                ?
                                 <SchichtplanElementPublished wochentag={item.Sonntag} index={index} col="Sonntag" {...props}></SchichtplanElementPublished>
-                                :
-                                <SchichtplanElement wochentag={item.Sonntag} index={index} col="Sonntag" {...props}></SchichtplanElement>
-                                }
                             </td>
                         </tr>
+                        :
+                        <></>}
                         </>
                         )):
                         <></>}
@@ -128,4 +89,4 @@ const SchichtenTabelle = (props) => {
             </>
         );
     }
-export default SchichtenTabelle;
+export default ShiftplanTable;
