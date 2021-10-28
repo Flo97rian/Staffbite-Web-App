@@ -59,7 +59,7 @@ const SchichtplanImport = (props) => {
           {props.plaene.map((item, index) => { 
             if (ID(props.status, item)) {
             return (
-              <Col className="m-0 p-0" xs={4} md={12} lg={12}>
+              <Col key={index} className="m-0 p-0" xs={4} md={12} lg={12}>
             <Card className="mb-1 mt-0" key={item.id} id={index} xs={6} md={12} lg={12}>
               <CardBody className="p-1">
                 <Row className="text-left ml-2">

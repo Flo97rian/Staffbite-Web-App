@@ -9,6 +9,6 @@ let shiftplanStates = {
     schichtentag: 1,
     Prioschicht: !1,
     name: "Name"
-}
+};
 
 export default shiftplanStates;

@@ -22,11 +22,11 @@ class Navs extends React.Component {
   };
   setNavPill() {
     if (this.state.navPills === 1) {
-        return( <Abrechnung {...this.props}/>
+        return( <Unternehmensprofil {...this.props}/>
     )} else if (this.state.navPills === 2){
       return( <SchichtplanEinstellungen {...this.props}/>
     )} else if (this.state.navPills === 3){
-        return( <Unternehmensprofil {...this.props}/>
+        return( <Abrechnung {...this.props}/>
     )}
   }
   render() {

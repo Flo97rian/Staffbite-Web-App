@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansForEmployees";
 import { getUser } from "../../../store/middleware/FetchUser";
 import { thunkUploadApplication } from "../../../store/middleware/UploadApplication";

@@ -16,9 +16,10 @@ import { useSelector } from "react-redux";
 import { thunkDeleteEmployee } from "../../../store/middleware/DeleteEmployee.js";
 import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee.js";
 import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile.js";
+import employeeStates from "../../Application/defaults/EmployeeDefault.js";
 
 const TableContainer = (props) => {
-  const [employeeIsActive, setemployeeIsActive] = useState(null);
+  const [userInput, setUserInput] = useState(employeeStates);
   const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1);
   const [position, setPosition] = useState();
     
@@ -38,7 +39,7 @@ const TableContainer = (props) => {
 
     // Initiales laden der aktuellen Users
     useEffect(() => {
-    }, [employeeIsActive]);
+    }, [userInput]);
 
     useEffect(() => {
     }, [Employees]);
@@ -52,7 +53,7 @@ const TableContainer = (props) => {
  const handleInputChange = (event) => {
     const key = event.target.name;
     const val = stateSwitch(event.target.value, event);
-    setemployeeIsActive({...employeeIsActive, [key]: val }) ;
+    setUserInput({...userInput, [key]: val }) ;
   };
    // Handling von Userinputs
  const handlePositionChange = (event) => {
@@ -89,21 +90,21 @@ const TableContainer = (props) => {
   };
 
   const handleSetPositions = (item) => {
-    let copyEmployeeIsActive = {...employeeIsActive};
-    if ("position" in copyEmployeeIsActive) {
-      copyEmployeeIsActive.position = [...copyEmployeeIsActive.position, item];
-    } else if (!("position" in copyEmployeeIsActive)) {
-      copyEmployeeIsActive["position"] = [item];
+    let copyUserInput = {...userInput};
+    if ("position" in copyUserInput) {
+      copyUserInput.position = [...copyUserInput.position, item];
+    } else if (!("position" in copyUserInput)) {
+      copyUserInput["position"] = [item];
     }
     else {
-      copyEmployeeIsActive.position.push(item);
+      copyUserInput.position.push(item);
     }
-    setemployeeIsActive(copyEmployeeIsActive);
+    setUserInput(copyUserInput);
   };
   const handleRemovePositions = (item) => {
-    let copyEmployeeIsActive = {...employeeIsActive};
-    copyEmployeeIsActive.position = copyEmployeeIsActive.position.filter(element => element !== item);
-    setemployeeIsActive(copyEmployeeIsActive);
+    let copyUserInput = {...userInput};
+    copyUserInput.position = copyUserInput.position.filter(element => element !== item);
+    setUserInput({...copyUserInput});
   };
   // Handling des Löschens von Mitarbeitern
   const handleDelete = (employeeId) => {
@@ -112,11 +113,11 @@ const TableContainer = (props) => {
   };
 
   const handleEmployeeUpdate = (employee) => {
-    const updatedEmployee = mergeEmployeeDetails(employee, employeeIsActive);
+    const updatedEmployee = mergeEmployeeDetails(employee, userInput);
     store.dispatch(thunkUpdateEmployee(updatedEmployee));
     let copyMeta = Meta;
-    if (employeeIsActive.position !== Meta.schichten) {
-      employeeIsActive.position.forEach( pos => {
+    if (userInput.position !== Meta.schichten) {
+      userInput.position.forEach( pos => {
         if (!Meta.schichten.includes(pos)) {
           copyMeta.schichten.push(pos);
         }
@@ -142,39 +143,39 @@ const handlePositionHinzufuegenClose = () => {
 };
 
 const handlePositionErstellen = () => {
-  let copyEmployeeIsActive = {...employeeIsActive};
-  if ("position" in copyEmployeeIsActive) {
-    if(!copyEmployeeIsActive.position.includes(position)) {
-      copyEmployeeIsActive.position = [...copyEmployeeIsActive.position, position];
+  let copyUserInput = {...userInput};
+  if ("position" in copyUserInput) {
+    if(!copyUserInput.position.includes(position)) {
+      copyUserInput.position = [...copyUserInput.position, position];
     }
-  } else if (!("position" in copyEmployeeIsActive)) {
-    copyEmployeeIsActive["position"] = [position];
+  } else if (!("position" in copyUserInput)) {
+    copyUserInput["position"] = [position];
   }
   else {
-    copyEmployeeIsActive.position.push(position);
+    copyUserInput.position.push(position);
   }
-  setemployeeIsActive(copyEmployeeIsActive);
+  setUserInput({...copyUserInput});
   setPosition(null);
   setShowPositionHinzufuegen(!showPositionHinzufuegen);
 };
 
 const setSelectEmployee = (ma) => {
-  setemployeeIsActive(Employees[ma]);
+  setUserInput(Employees[ma]);
   store.dispatch({type: "OPEN", payload: ma});
 };
 
   const handleRegister = (modal) => {
-    store.dispatch(thunkRegisterEmployee({employeeIsActive}));
+    store.dispatch(thunkRegisterEmployee({userInput}));
     let copyMeta = Meta;
-    if (employeeIsActive.position !== Meta.schichten) {
-      employeeIsActive.position.forEach( pos => {
+    if (userInput.position !== Meta.schichten) {
+      userInput.position.forEach( pos => {
         if (!Meta.schichten.includes(pos)) {
           copyMeta.schichten.push(pos);
         }
       });
       store.dispatch(thunkUpdateProfile(copyMeta));
     }
-    setemployeeIsActive(null);
+    setUserInput(null);
     store.dispatch({type: "CLOSE", payload: modal});
   };
 
@@ -228,7 +229,7 @@ const setSelectEmployee = (ma) => {
             handleUpdate={handleEmployeeUpdate}
             show={Modal}
             meta={Meta}
-            employeeIsActive={employeeIsActive}
+            userInput={userInput}
             handleRegister={handleRegister}
             handlePositionChange={handlePositionChange}
             handleSetPositions={handleSetPositions}

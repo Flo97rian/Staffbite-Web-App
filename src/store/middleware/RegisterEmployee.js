@@ -3,9 +3,9 @@ import { checkerfahrung } from "../../components/Admin/MitarbeiterVerwalten/proc
 import { FetchEmployees } from "./FetchEmployees";
 import { API_HOSTNAME, REGISTER_EMPLOYEE } from "../../constants/ApiConstants";
 
-export function thunkRegisterEmployee({employeeIsActive, hasPositions}) {
-    const erfahrung = checkerfahrung({employeeIsActive})
-    const neuerMitarbeiter = employeeIsActive
+export function thunkRegisterEmployee({userInput, hasPositions}) {
+    const erfahrung = checkerfahrung({userInput})
+    const neuerMitarbeiter = userInput
     const positionen = hasPositions
 return async function registerEmployee(dispatch, getState) {
     const apiName = API_HOSTNAME; // replace this with your api name.

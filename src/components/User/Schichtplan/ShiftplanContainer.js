@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect} from "react";
 import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansForEmployees";
 import { getUser } from "../../../store/middleware/FetchUser";
 import { thunkUploadApplication } from "../../../store/middleware/UploadApplication";
 import Spinner from 'react-bootstrap/Spinner'
 import ButtonZurueck from "../../Admin/Schichtplan/FormElements/ButtonZurueck"
-import { thunkDeleteApplication } from "../../../store/middleware/DeleteApplication";
 import { useSelector } from "react-redux";
 import 'moment/locale/de';
 import {

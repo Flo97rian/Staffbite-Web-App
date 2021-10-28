@@ -19,7 +19,6 @@ import DashboardSchichtenTabelle from "./DashboardTable";
 
 const DashboardContainer = (props) => {
   const [ActivePlan, setActivePlan] = useState(!1);
-  const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
   const [userShiftCount, setUserShiftCount] = useState(0);
 
   //REDUX-Filter für UI-Data
@@ -69,12 +68,10 @@ const DashboardContainer = (props) => {
         var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
         if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Veröffentlicht")) {
           setActivePlan(!0);
-          setCurrentShiftPlan(index);
           store.dispatch({type: "setShiftplan", payload: Plans[index]});
         }
         if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Freigeben")) {
           setActivePlan(!0);
-          setCurrentShiftPlan(index);
           store.dispatch({type: "setShiftplan", payload: Plans[index]});
         }
     })}

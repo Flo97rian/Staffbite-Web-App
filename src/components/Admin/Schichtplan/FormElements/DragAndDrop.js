@@ -6,12 +6,12 @@ const getItems = (employees = {}, index) => {
   if (  Object.keys(employees).length > 0) {
     return employeesSet(employees, index);
   } else {
-    return noEmployeesSet();
+    return noEmployeesSet(index);
   }};
 
-  const noEmployeesSet = () => {
+  const noEmployeesSet = (index) => {
     const array = [{
-      id: "0",
+      id: String(index),
       content: "Leer"
     }];
     return array;
@@ -25,19 +25,32 @@ const getItems = (employees = {}, index) => {
     return array;
   };
 
-  const getEmployees = (employees, index, shiftname) => {
-    const employeesCopy = {...employees};
-    for (const [key, value] of Object.entries(employeesCopy)) {
-      const positionen = value.position;
-      if ( !positionen.includes(shiftname)) {
-        delete employeesCopy[key];
-      }}
-    const array = Array.from({ length: Object.keys(employeesCopy).length }, (v, k) => k).map(k => ({
-      id: index + Object.keys(employeesCopy)[k],
-      content: employees[Object.keys(employeesCopy)[k]].name
-    }));
-    return array;
-  };
+  //Ziel: Filter von allen Employees diejenigen mit der akutellen Position
+  const getEmployees = (employees, index, targetPosition) => {
+    let copyEmployees = {...employees};
+
+      function filterEmployeesWithTargetedPosition (copyEmployees, targetPosition) {
+          for (let [employeeId, EmployeeValues] of Object.entries(copyEmployees)) {
+              if ( !(EmployeeValues.position.includes(targetPosition))) {
+                delete copyEmployees[employeeId];
+        }}
+        return copyEmployees;
+      }
+
+      function createEmployeesIndexes (copyEmployees) {
+        let array = Array.from({ length: Object.keys(copyEmployees).length }, (v, k) => k).map(k => (
+          { 
+            id: index + Object.keys(copyEmployees)[k],
+            content: employees[Object.keys(copyEmployees)[k]].name
+          }
+        ));
+        return array;
+      }
+
+    filterEmployeesWithTargetedPosition(copyEmployees, targetPosition);
+    let employeesArray = createEmployeesIndexes(copyEmployees);
+    return employeesArray
+      };
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -53,7 +66,7 @@ const reorder = (list, startIndex, endIndex) => {
 const move = (source, destination, droppableSource, droppableDestination, empId, employees) => {
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
-  if (Number(destClone[0].id) === 0) {
+  if (destClone[0].id.length === 1) {
     const employee = sourceClone[droppableSource.index];
     const newid = droppableDestination.droppableId + empId.substring(1);
     destClone.splice(0,1, {id: newid, content: employee.content});
@@ -72,7 +85,7 @@ const move = (source, destination, droppableSource, droppableDestination, empId,
   result[droppableDestination.droppableId] = destClone;
   return [result, employees];
 };
-const grid = 8;
+const grid = 12;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
@@ -84,7 +97,8 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   background: isDragging ? "#2dce89" : "#f6f9fc",
 
   // styles we need to apply on draggables
-  ...draggableStyle
+  ...draggableStyle,
+
 });
 
 const getListStyle = isDraggingOver => ({
@@ -95,9 +109,9 @@ const getListStyle = isDraggingOver => ({
 });
 
 const getItemContent = (item, employees) => {
-  const idZero = Number(item.id) === 0 ? !0 : !1;
+  const IsEmpty = item.id.length === 1
   const empName = item.content;
-  if (!idZero) {
+  if (!IsEmpty) {
     const employeeHasShift = "dummyshifts" in employees[item.id.substring(1)] ? !0 : !1;
     const employeeShifDefined = employees[item.id.substring(1)].dummyshifts !== undefined ? !0 : !1;
     if (employeeHasShift && employeeShifDefined) {
@@ -149,20 +163,20 @@ const DragAndDrop = React.forwardRef((props, ref) => {
     }
   }
 
-  const catchDouble = (id, items) => {
+  function catchDouble(id, items) {
     const emp = id.substring(1);
     const result = items.filter(item => item.id.substring(1) === emp);
-    return result
+    return result;
   }
 
-  const handleDelete = (ind, index, item) => {
+  function handleDelete(ind, index, item) {
     const newState = [...state];
-    const newEmployees = Employees
-    newEmployees[item.id.substring(1)].dummyshifts = newEmployees[item.id.substring(1)].dummyshifts - 1
-    setEmployees(newEmployees)
+    const newEmployees = Employees;
+    newEmployees[item.id.substring(1)].dummyshifts = newEmployees[item.id.substring(1)].dummyshifts - 1;
+    setEmployees(newEmployees);
     if (newState[ind].length === 1) {
-      newState[ind][index].id = "0"
-      newState[ind][index].content = "Leer"
+      newState[ind][index].id = String(ind);
+      newState[ind][index].content = "Leer";
     } else {
       newState[ind].splice(index, 1);
     }
@@ -172,7 +186,7 @@ const DragAndDrop = React.forwardRef((props, ref) => {
   const title = ["alle Mitarbeiter", "alle Bewerber", "eingesetzte Mitarbeiter " + Mitarbeitercount + "/" + props.anzahl]
 
   return (
-    <div>
+    <>
       <div style={{ display: "flex"}}>
         <DragDropContext onDragEnd={onDragEnd}>
           {state.map((el, ind) => (
@@ -192,7 +206,12 @@ const DragAndDrop = React.forwardRef((props, ref) => {
                       draggableId={item.id}
                       index={index}
                     >
-                      {(provided, snapshot) => (
+                      {(provided, snapshot) => {
+                        if (snapshot.isDragging) {
+                          provided.draggableProps.style.left = provided.draggableProps.style.offsetLeft;
+                          provided.draggableProps.style.top = Number(provided.draggableProps.style.top) - 15;
+                        }
+                        return ( 
                         <div
                           className="list-group"
                           ref={provided.innerRef}
@@ -218,7 +237,7 @@ const DragAndDrop = React.forwardRef((props, ref) => {
                             </span> : <></>}
                           </div>
                         </div>
-                      )}
+                        )}}
                     </Draggable>
                   ))}
                   {provided.placeholder}
@@ -228,7 +247,7 @@ const DragAndDrop = React.forwardRef((props, ref) => {
           ))}
         </DragDropContext>
       </div>
-    </div>
+    </>
   );
 })
 export default DragAndDrop

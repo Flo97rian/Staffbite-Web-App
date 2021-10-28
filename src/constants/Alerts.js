@@ -1,0 +1,2 @@
+export const WARNING_INVALID_REPORT_INPUT = "Deine Eingabe ist ungültig. Vergewissere dich, dass du alle Felder ausgefüllt hast!"
+export const WARNING_MISSING_SHIFT_DETAILS = "Es fehlen einige Details, bevor du den Plan veröffentlichen kannst!"

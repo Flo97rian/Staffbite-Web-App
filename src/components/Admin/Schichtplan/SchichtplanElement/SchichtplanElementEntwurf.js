@@ -1,5 +1,3 @@
-import React from "react";
-// core components
 import { 
     CompanyClosed,
     DateOrWeekDayRow,

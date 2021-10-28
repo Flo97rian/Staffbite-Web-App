@@ -31,19 +31,11 @@ const EinstellungenContainer = () => {
       store.dispatch(FetchOrg)
     }, []); 
 
-    useEffect(() => {
-      const timeout = setTimeout(() => {
-        store.dispatch({type: "stopFetchingMeta"})
-       }, 5000);
-   
-      return () => clearTimeout(timeout);
-     },[Meta]);
-
      useEffect(() => {
        if(Meta !== undefined) {
         setMetaData({...metaData, schichten: Meta.schichten})
        }
-    }, [Meta, metaData]);
+    }, [Meta]);
 
     useEffect(() => {
    }, [metaData]);
@@ -54,7 +46,7 @@ const EinstellungenContainer = () => {
     let abrechnungEnde = moment(Date.ende.endDate).format("l")
     setMetaData({...metaData, AbrechnungStart: abrechnungStart, AbrechnungEnde: abrechnungEnde })
     }
-  }, [Date, metaData]);
+  }, [Date]);
 
   // Handling von Userinputs
   const handleInputChange = (event) => {
