@@ -244,7 +244,7 @@ const SchichtplanContainer = () => {
       }
       let shiftplan = copyPlan.getAllPlanDetails()
       store.dispatch({type: "setShiftplan", payload: shiftplan});
-      setUserInput(shiftplanStates)
+      setUserInput({...shiftplanStates})
     } else {
       let copyPlan = new ShiftPlan({...NewShiftplan})
       if(!("position" in userInput)) {

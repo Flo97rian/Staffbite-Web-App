@@ -6,7 +6,7 @@ import {
 import InputString from "../../../Application/functionalComponents/InputString";
 import InputNumber from "../../../Application/functionalComponents/InputNumber";
 import ControlErfahrung from "./ControlErfahrung";
-import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_HOURLY_WAGES, INFO_EMPLOYEE_MONTHLY_INCOME, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK } from "../../../../constants/InfoTexts";
+import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_EMPLOYEE_HOURLY_WAGES, INFO_EMPLOYEE_MONTHLY_INCOME, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK } from "../../../../constants/InfoTexts";
 import FormPositions from "./FormPositons";
 
 export default class FormMitarbeiterErstellen extends React.PureComponent {
@@ -19,7 +19,7 @@ export default class FormMitarbeiterErstellen extends React.PureComponent {
                 <Col xs={1}>
                 </Col>
                 <Col xs={10}>
-                    <InputString label="Vorname, Nachname" name="name" placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
+                    <InputString info={true} description={INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME} label="Vorname, Nachname" name="name"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                     <br/>
                     <InputString info={true} description={INFO_EMPLOYEE_EMAIL_ADRESS} label="E-Mail Adresse" name="email"  placeholder="" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                     <br/>
@@ -44,7 +44,7 @@ export default class FormMitarbeiterErstellen extends React.PureComponent {
                     <Col xs={1}>
                     </Col>
                     <Col xs={10}>
-                        <InputString label="Vorname, Nachname" name="name" placeholder="Max Mustermann" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
+                        <InputString info={true} description={INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME} label="Vorname, Nachname" name="name"  placeholder="Max Mustermann" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                         <br/>
                         <InputString info={true} description={INFO_EMPLOYEE_EMAIL_ADRESS} label="E-Mail Adresse" name="email"  placeholder="max@mustermann.de" onChange={(e) => this.props.onChange(e, "neuerMitarbeiter")}></InputString>
                         <br/>

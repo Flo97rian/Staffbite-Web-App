@@ -1,59 +1,72 @@
 import { 
     DateOrWeekDayRow,
     MultipleApplicants,
+    TwoApplicants,
     CompanyClosed,
     SingleApplicant,
-    shiftWithPrio,
+    MultipleApplicantsWithPrio,
+    TwoApplicantsWithPrio,
+    SingleApplicantWithPrio,
+    DefaultWithPrio,
     setShiftDetailsErr,
     editShiftDetails,
     Default
  } from "../../../Application/functionalComponents/SchichtplanElements";
 
+import { getIsObject, setPrioValue, getSecondApplicant, getCompanyIsOpen, getAnzahl, getHasApplicants, getApplicantsLength, getHasPrio, getFirstApplicant, getHasShiftName} from "../../../Application/functionalComponents/ElementFunctions";
 import store from "../../../../store";
 
 const SchichtplanElementFreigegeben = (props) => {
-    function setApplicant(index, col) {
-        store.dispatch({ type: "setApplicantSlot", payload: { row: index, col: col } });
-        store.dispatch({ type: "setShiftSlot", payload: { row: index, col: col } });
-    }
-
     function editShift(index) {
         store.dispatch({ type: "OPEN", payload: index });
         store.dispatch({ type: "setShiftSlot", payload: { row: index } });
     }
-
     let ItemLength = props.ItemLength;
     let index = props.index;
     let col = props.col;
     let currentItem = props.currentItem[col];
-    let isObj = typeof currentItem === "object";
-    let isFree = currentItem.frei ? !0 : !1;
-    let anzahl = !1;
-    if (typeof props.anzahl === "object") {
-        if ("anzahl" in props.anzahl) {
-            anzahl = props.anzahl.anzahl
-        }
+    let isFree;
+    let hasPrio;
+    let anzahl;
+    let prio;
+    let hasApplicants;
+    let ApplicantsLength;
+    let FirstApplicant;
+    let SecondApplicant;
+    let hasShiftName;
+    let isObj = getIsObject(currentItem);
+    let isDiscribeWeekDay = (col === "Wochentag");
+    if (isObj) {
+        isFree = getCompanyIsOpen(currentItem);
+        anzahl = getAnzahl(props.anzahl);
+        hasApplicants =  getHasApplicants(currentItem, "applicants");
+        ApplicantsLength = getApplicantsLength(currentItem, "applicants")
+        hasPrio = getHasPrio(currentItem);
+        prio = setPrioValue(currentItem);
+        FirstApplicant = getFirstApplicant(currentItem, "applicants")
+        SecondApplicant = getSecondApplicant(currentItem, "applicants")
+        hasShiftName = getHasShiftName(currentItem);
     }
-    const hasApplicants =  isObj && "applicants" in currentItem && Object.keys(currentItem.applicants).length > 0 ? !0 : !1;
-    const ApplicantsLength = hasApplicants ? Object.keys(currentItem.applicants).length : 0;
-    const hasPrio = isObj && "prio" in currentItem && currentItem.prio !== !1  ? !0 : !1;
-    const FirstApplicant = hasApplicants ? currentItem.applicants[Object.keys(currentItem.applicants)[0]] : !1;
-    const isDiscribeWeekDay = (col === "Wochentag");
-    const hasShiftName = isObj && "ShiftName" in currentItem;
     if (index === 0 || index === 1 || index === ItemLength - 1 ) {
         return DateOrWeekDayRow(currentItem);
     } else if (!isFree && isDiscribeWeekDay){
         return editShiftDetails(currentItem, index, anzahl, editShift);
     } else if (isFree && isDiscribeWeekDay && !hasShiftName){
         return setShiftDetailsErr();
+    } else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay && hasPrio) {
+        return MultipleApplicantsWithPrio(ApplicantsLength, FirstApplicant, prio);
+    }   else if (isFree && hasApplicants && ApplicantsLength === 2 && !isDiscribeWeekDay) {
+        return TwoApplicants(FirstApplicant, SecondApplicant);
     }  else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay) {
-        return MultipleApplicants(currentItem, index, col, ApplicantsLength, FirstApplicant, setApplicant);
+        return MultipleApplicants(ApplicantsLength, FirstApplicant);
     } else if (!isFree && !isDiscribeWeekDay) {
         return CompanyClosed();
-    } else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay) {
-        return SingleApplicant(index, col, FirstApplicant, setApplicant);
+    } else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay && hasPrio) {
+        return SingleApplicantWithPrio(FirstApplicant, prio);
+    }  else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay) {
+        return SingleApplicant(FirstApplicant);
     } else if (hasPrio) {
-        return shiftWithPrio();
+        return DefaultWithPrio(prio);
     }  else {
         return Default();
     }

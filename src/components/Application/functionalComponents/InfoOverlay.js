@@ -40,7 +40,7 @@ const Body = styled("div")`
   background-color: #172b4d;
 `;
 
-const PLACEMENTS = ["top"];
+const PLACEMENTS = ["bottom"];
 
 const initialSstate = {
   show: false,

@@ -220,7 +220,6 @@ const Login = () => {
                             <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
                             </Col>
                             <Col className="text-right" xs="6">
-                            <Link className="" to="/auth"><small>Passwort vergessen?</small></Link>
                             </Col>
                         </Row>
                             </CardBody>

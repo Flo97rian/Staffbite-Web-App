@@ -32,7 +32,7 @@ const EinstellungenContainer = () => {
     }, []); 
 
      useEffect(() => {
-       if(Meta !== undefined) {
+       if(Meta !== !1) {
         setMetaData({...metaData, schichten: Meta.schichten})
        }
     }, [Meta]);
@@ -113,6 +113,8 @@ const EinstellungenContainer = () => {
       : 
       <>
         { LoadingMeta ? <Alert color="success">Ihre Änderungen wurden gespeichert! Aktualisieren Sie die Seite, um alle Veränderungen zu sehen.</Alert> : <></> }
+
+      {Meta ?
         <Navs
         showPositionHinzufuegen={showPositionHinzufuegen}
         handleRemovePositions={handleRemovePositions}
@@ -125,6 +127,9 @@ const EinstellungenContainer = () => {
         org={Meta}
         metaData={metaData}
         ></Navs>
+        :
+        null
+      }
       </>
       }
     </>

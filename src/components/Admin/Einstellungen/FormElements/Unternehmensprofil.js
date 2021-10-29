@@ -36,7 +36,7 @@ export default class Unternehmensprofil extends React.PureComponent {
                         :
                         <></>
                     }
-                    {this.props.metaData.schichten ? 
+                    {this.props.metaData ? 
                     this.props.metaData.schichten.map((item, index) => {
                         return (
                             <Badge key={index} className="ml-2 mt-2" color="warning" onClick={() => this.props.handleRemovePositions(item)}>{item}

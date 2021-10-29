@@ -52,28 +52,28 @@ const ShiftplanTable = (props) => {
                         {idVeröffentlicht ? 
                         <tr key={index}>
                             <td style={{"padding": "0"}}>
-                                <SchichtplanElementPublished wochentag={item.Wochentag} index={index} col="Wochentag" {...props}></SchichtplanElementPublished>
+                                <SchichtplanElementPublished wochentag={item.Wochentag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Wochentag" {...props}></SchichtplanElementPublished>
                             </td>
                             <td style={{"padding": "0"}}>
-                                <SchichtplanElementPublished wochentag={item.Montag} index={index} col="Montag" {...props}></SchichtplanElementPublished>
+                                <SchichtplanElementPublished wochentag={item.Montag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Montag" {...props}></SchichtplanElementPublished>
                             </td>
                             <td style={{"padding": "0"}}>
-                                <SchichtplanElementPublished wochentag={item.Dienstag} index={index} col="Dienstag" {...props}></SchichtplanElementPublished>
+                                <SchichtplanElementPublished wochentag={item.Dienstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Dienstag" {...props}></SchichtplanElementPublished>
                             </td>
                             <td style={{"padding": "0"}}>
-                                <SchichtplanElementPublished wochentag={item.Mittwoch} index={index} col="Mittwoch" {...props}></SchichtplanElementPublished>
+                                <SchichtplanElementPublished wochentag={item.Mittwoch} index={index} currentItem={item} ItemLength={shiftplan.length} col="Mittwoch" {...props}></SchichtplanElementPublished>
                             </td>
                             <td style={{"padding": "0"}}>
-                                <SchichtplanElementPublished wochentag={item.Donnerstag} index={index} col="Donnerstag" {...props}></SchichtplanElementPublished>
+                                <SchichtplanElementPublished wochentag={item.Donnerstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Donnerstag" {...props}></SchichtplanElementPublished>
                             </td>
                             <td style={{"padding": "0"}}>
-                                <SchichtplanElementPublished wochentag={item.Freitag} index={index} col="Freitag" {...props}></SchichtplanElementPublished>
+                                <SchichtplanElementPublished wochentag={item.Freitag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Freitag" {...props}></SchichtplanElementPublished>
                             </td>
                             <td style={{"padding": "0"}}>
-                                <SchichtplanElementPublished wochentag={item.Samstag} index={index} col="Samstag" {...props}></SchichtplanElementPublished>
+                                <SchichtplanElementPublished wochentag={item.Samstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Samstag" {...props}></SchichtplanElementPublished>
                             </td>
                                 <td style={{"padding": "0"}}>
-                                <SchichtplanElementPublished wochentag={item.Sonntag} index={index} col="Sonntag" {...props}></SchichtplanElementPublished>
+                                <SchichtplanElementPublished wochentag={item.Sonntag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Sonntag" {...props}></SchichtplanElementPublished>
                             </td>
                         </tr>
                         :

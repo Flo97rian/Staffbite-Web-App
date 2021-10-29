@@ -51,65 +51,65 @@ const DashboardSchichtenTabelle = (props) => {
                             <td style={{"padding": "0"}}>
                                 {idVeröffentlicht
                                 ?
-                                <DashboardElementPublished wochentag={item.Wochentag} index={index} col="Wochentag" {...props}></DashboardElementPublished>
+                                <DashboardElementPublished wochentag={item.Wochentag} index={index} anzahl={shiftplan[index].Montag} currentItem={item} ItemLength={shiftplan.length} col="Wochentag" {...props}></DashboardElementPublished>
                                 :
-                                <DashboardElementApplication wochentag={item.Wochentag} index={index} col="Wochentag" {...props}></DashboardElementApplication>
+                                <DashboardElementApplication wochentag={item.Wochentag} index={index} anzahl={shiftplan[index].Montag} currentItem={item} ItemLength={shiftplan.length} col="Wochentag" {...props}></DashboardElementApplication>
                                 }
                             </td>
                             <td style={{"padding": "0"}}>
                                 {idVeröffentlicht
                                 ?
-                                <DashboardElementPublished wochentag={item.Montag} index={index} col="Montag" {...props}></DashboardElementPublished>
+                                <DashboardElementPublished wochentag={item.Montag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Montag" {...props}></DashboardElementPublished>
                                 :
-                                    <DashboardElementApplication wochentag={item.Montag} index={index} col="Montag" {...props}></DashboardElementApplication>
+                                    <DashboardElementApplication wochentag={item.Montag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Montag" {...props}></DashboardElementApplication>
                                 }
                             </td>
                             <td style={{"padding": "0"}}>
                                 {idVeröffentlicht
                                 ?
-                                <DashboardElementPublished wochentag={item.Dienstag} index={index} col="Dienstag" {...props}></DashboardElementPublished>
+                                <DashboardElementPublished wochentag={item.Dienstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Dienstag" {...props}></DashboardElementPublished>
                                 :
-                                    <DashboardElementApplication wochentag={item.Dienstag} index={index} col="Dienstag" {...props}></DashboardElementApplication>
+                                    <DashboardElementApplication wochentag={item.Dienstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Dienstag" {...props}></DashboardElementApplication>
                                 }
                             </td>
                             <td style={{"padding": "0"}}>
                                 {idVeröffentlicht
                                 ?
-                                <DashboardElementPublished wochentag={item.Mittwoch} index={index} col="Mittwoch" {...props}></DashboardElementPublished>
+                                <DashboardElementPublished wochentag={item.Mittwoch} index={index} currentItem={item} ItemLength={shiftplan.length} col="Mittwoch" {...props}></DashboardElementPublished>
                                 :
-                                    <DashboardElementApplication wochentag={item.Mittwoch} index={index} col="Mittwoch" {...props}></DashboardElementApplication>
+                                    <DashboardElementApplication wochentag={item.Mittwoch} index={index} currentItem={item} ItemLength={shiftplan.length} col="Mittwoch" {...props}></DashboardElementApplication>
                                 }
                             </td>
                             <td style={{"padding": "0"}}>
                                 {idVeröffentlicht
                                 ?
-                                <DashboardElementPublished wochentag={item.Donnerstag} index={index} col="Donnerstag" {...props}></DashboardElementPublished>
+                                <DashboardElementPublished wochentag={item.Donnerstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Donnerstag" {...props}></DashboardElementPublished>
                                 :
-                                    <DashboardElementApplication wochentag={item.Donnerstag} index={index} col="Donnerstag" {...props}></DashboardElementApplication>
+                                    <DashboardElementApplication wochentag={item.Donnerstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Donnerstag" {...props}></DashboardElementApplication>
                                 }
                             </td>
                             <td style={{"padding": "0"}}>
                                 {idVeröffentlicht
                                 ?
-                                <DashboardElementPublished wochentag={item.Freitag} index={index} col="Freitag" {...props}></DashboardElementPublished>
+                                <DashboardElementPublished wochentag={item.Freitag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Freitag" {...props}></DashboardElementPublished>
                                 :
-                                    <DashboardElementApplication wochentag={item.Freitag} index={index} col="Freitag" {...props}></DashboardElementApplication>
+                                    <DashboardElementApplication wochentag={item.Freitag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Freitag" {...props}></DashboardElementApplication>
                                 }
                             </td>
                             <td style={{"padding": "0"}}>
                                 {idVeröffentlicht
                                 ?
-                                <DashboardElementPublished wochentag={item.Samstag} index={index} col="Samstag" {...props}></DashboardElementPublished>
+                                <DashboardElementPublished wochentag={item.Samstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Samstag" {...props}></DashboardElementPublished>
                                 :
-                                    <DashboardElementApplication wochentag={item.Samstag} index={index} col="Samstag" {...props}></DashboardElementApplication>
+                                    <DashboardElementApplication wochentag={item.Samstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Samstag" {...props}></DashboardElementApplication>
                                 }
                             </td>
                                 <td style={{"padding": "0"}}>
                                 {idVeröffentlicht
                                 ?
-                                <DashboardElementPublished wochentag={item.Sonntag} index={index} col="Sonntag" {...props}></DashboardElementPublished>
+                                <DashboardElementPublished wochentag={item.Sonntag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Sonntag" {...props}></DashboardElementPublished>
                                 :
-                                <DashboardElementApplication wochentag={item.Sonntag} index={index} col="Sonntag" {...props}></DashboardElementApplication>
+                                <DashboardElementApplication wochentag={item.Sonntag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Sonntag" {...props}></DashboardElementApplication>
                                 }
                             </td>
                         </tr>

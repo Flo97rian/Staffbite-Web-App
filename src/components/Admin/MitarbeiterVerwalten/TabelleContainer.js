@@ -192,7 +192,7 @@ const setSelectEmployee = (ma) => {
         <>
         <Row>
         <Col xs={3}>
-        <h3 className="float-left pt-5 font-weight-bold text-lg">Mitarbeiter verwalten</h3>
+        <h3 className="float-left pt-5 font-weight-bold text-lg">Team verwalten</h3>
         </Col>
         <Col xs={9}>
           <ButtonMitarbeiterErstellen></ButtonMitarbeiterErstellen>{' '}

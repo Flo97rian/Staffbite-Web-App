@@ -8,7 +8,7 @@ import InputTime from "../../../Application/functionalComponents/InputTime";
 import InputTimeWithSwitch from "../FormElements/InputTimeWithSwitch";
 import InputNumber from "../../../Application/functionalComponents/InputNumber";
 import SelectPosition from "../FormElements/SelectPosition";
-import { INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../../../../constants/InfoTexts";
+import { INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../../../../constants/InfoTexts";
 
 
 
@@ -34,7 +34,7 @@ const SchichtBearbeiten = (props) => {
                         <br/>
                         <InputTime info={true} description={INFO_SHIFTPLAN_SHIFT_START}label="Beginn" name="beginn"  placeholder={shiftDetails.ShiftStart} onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputTime>
                         <br/>
-                        <InputTimeWithSwitch info={true} description={INFO_SHIFTPLAN_SHIFT_END} label="Ende" name="ende"  placeholder="" onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputTimeWithSwitch>
+                        <InputTimeWithSwitch info={true} description={INFO_SHIFTPLAN_SHIFT_END} label="Ende" name="ende" {...props} placeholder="" onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputTimeWithSwitch>
                         <br/>
                         <InputNumber info={true} description={INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES} label="Anzahl benötigter Mitarbeiter" name="anzahl"  placeholder={anzahl.anzahl} onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputNumber>
                         <br/>

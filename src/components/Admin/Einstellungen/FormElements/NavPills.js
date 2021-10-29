@@ -49,9 +49,9 @@ class Navs extends React.Component {
               role="tab"
             >
               {this.state.navPills === 1 ? 
-              <p className="m-0 text-white">Abrechnungszeitraum</p>
+              <p className="m-0 text-white">Unternehmensprofil</p>
               :
-              <p className="m-0 text-muted">Abrechnungszeitraum</p>
+              <p className="m-0 text-muted">Unternehmensprofil</p>
               }
             </NavLink>
           </NavItem>
@@ -83,9 +83,9 @@ class Navs extends React.Component {
               role="tab"
             >
               {this.state.navPills === 3 ? 
-              <p className="m-0 text-white">Unternehmensprofil</p>
+              <p className="m-0 text-white">Abrechnungszeitraum</p>
               :
-              <p className="m-0 text-muted">Unternehmensprofil</p>
+              <p className="m-0 text-muted">Abrechnungszeitraum</p>
               }
             </NavLink>
           </NavItem>

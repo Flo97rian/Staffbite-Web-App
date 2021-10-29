@@ -108,8 +108,12 @@ const ApplicationsContainer = () => {
         store.dispatch({ type: "stopShiftPlanIsImported"})
     }
   }
+
   const handleDeleteApplication = (modal) => {
-    store.dispatch(thunkDeleteApplication({ShiftSlot, Plans, currentShiftPlan}));
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.removeApplicant(User, ShiftSlot);
+    let shiftplan = copyPlan.getAllPlanDetails();
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
     store.dispatch({type: "CLOSE", payload: modal});
   }
 

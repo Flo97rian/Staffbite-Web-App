@@ -1,7 +1,8 @@
 import { 
     DateOrWeekDayRow,
-    MultiSetApplicantsWithPrio,
+    MultipleSetApplicantsWithPrio,
     MultiSetApplicantsWithoutPrio,
+    ZeroApplicantsWithPrio,
     ZeroApplicants,
     CompanyClosed,
     SingleSetApplicantWithPrio,
@@ -13,6 +14,7 @@ import {
     Default
  } from "../../../Application/functionalComponents/SchichtplanElements";
 import store from "../../../../store";
+import { getIsObject, setPrioValue, getSecondApplicant, getCompanyIsOpen, getAnzahl, getHasApplicants, getApplicantsLength, getHasPrio, getFirstApplicant, getHasShiftName } from "../../../Application/functionalComponents/ElementFunctions";
 
 const setApplicant = (index, col) => {
     store.dispatch({type: "OPEN", payload: "applyIsActive"});
@@ -27,24 +29,31 @@ const editShift = (index) => {
 
 const SchichtplanElementReview = (props) => {
     let ItemLength = props.ItemLength;
-    let col = props.col;
     let index = props.index;
+    let col = props.col;
     let currentItem = props.currentItem[col];
-    let isObj = typeof currentItem === "object";
-    const isFree = currentItem.frei;
-    let anzahl = !1;
-    if (typeof props.anzahl === "object") {
-        if ("anzahl" in props.anzahl) {
-            anzahl = props.anzahl.anzahl
-        }
+    let isFree;
+    let hasPrio;
+    let anzahl;
+    let prio;
+    let hasApplicants;
+    let ApplicantsLength;
+    let FirstApplicant;
+    let SecondApplicant;
+    let hasShiftName;
+    let isObj = getIsObject(currentItem);
+    let isDiscribeWeekDay = (col === "Wochentag");
+    if (isObj) {
+        isFree = getCompanyIsOpen(currentItem);
+        anzahl = getAnzahl(props.anzahl);
+        hasApplicants =  getHasApplicants(currentItem, "setApplicants");
+        ApplicantsLength = getApplicantsLength(currentItem, "setApplicants");
+        hasPrio = getHasPrio(currentItem);
+        prio = setPrioValue(currentItem);
+        FirstApplicant = getFirstApplicant(currentItem, "setApplicants");
+        SecondApplicant = getSecondApplicant(currentItem, "setApplicants");
+        hasShiftName = getHasShiftName(currentItem);
     }
-    const hasShiftName = isObj && "ShiftName" in currentItem ? !0 : !1;
-    const hasApplicants = isObj && "setApplicants" in currentItem && Object.keys(currentItem.setApplicants).length > 0 ? !0 : !1;
-    const ApplicantsLength = hasApplicants ? Object.keys(currentItem.setApplicants).length : 0;
-    const hasPrio = isObj && "prio" in currentItem && currentItem.prio !== !1 ? !0 : !1;
-    const FirstApplicant = hasApplicants ? currentItem.setApplicants[Object.keys(currentItem.setApplicants)[0]] : !1;
-    const SecondApplicant = hasApplicants && Object.keys(currentItem.setApplicants).length === 2 ? currentItem.setApplicants[Object.keys(currentItem.setApplicants)[1]] : !1;
-    const isDiscribeWeekDay = (col === "Wochentag");
     if (index === 0 || index === 1 || index === ItemLength - 1 ) {
         return DateOrWeekDayRow(currentItem);
     } else if (!isFree && isDiscribeWeekDay){
@@ -52,19 +61,21 @@ const SchichtplanElementReview = (props) => {
     } else if (isFree && isDiscribeWeekDay && !hasShiftName){
         return setShiftDetails(currentItem, index);
     } else if (isFree && hasApplicants && ApplicantsLength === 2 && !isDiscribeWeekDay && hasPrio) {
-        return TwoSetApplicantsWithPrio(index, col, FirstApplicant, SecondApplicant, setApplicant);
+        return TwoSetApplicantsWithPrio(index, col, FirstApplicant, SecondApplicant, setApplicant, prio);
     }  else if (isFree && hasApplicants && ApplicantsLength === 2 && !isDiscribeWeekDay) {
         return TwoSetApplicantsWithoutPrio(index, col, FirstApplicant, SecondApplicant, setApplicant);
     } else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay && hasPrio) {
-        return MultiSetApplicantsWithPrio(index, col, ApplicantsLength, FirstApplicant, setApplicant);
+        return MultipleSetApplicantsWithPrio(index, col, FirstApplicant, ApplicantsLength, setApplicant, prio);
     }  else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay) {
         return MultiSetApplicantsWithoutPrio(index, col, FirstApplicant, ApplicantsLength, setApplicant);
     } else if (!isFree && !isDiscribeWeekDay) {
         return CompanyClosed();
     } else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay && hasPrio) {
-        return SingleSetApplicantWithPrio(index, col, FirstApplicant, setApplicant);
+        return SingleSetApplicantWithPrio(index, col, FirstApplicant, setApplicant, prio);
     }  else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay) {
         return SingleSetApplicantWithoutPrio(index, col, FirstApplicant, setApplicant);
+    } else if (isFree && !hasApplicants && !isDiscribeWeekDay && hasPrio) {
+        return ZeroApplicantsWithPrio(index, col, setApplicant, prio);
     } else if (isFree && !hasApplicants && !isDiscribeWeekDay) {
         return ZeroApplicants(index, col, setApplicant);
     } else {

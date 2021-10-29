@@ -14,42 +14,58 @@ import {
     ZeroApplicants,
     Default
 } from "../../../Application/functionalComponents/SchichtplanElements";
-
+import { 
+    getIsObject,
+    getSecondApplicant,
+    getCompanyIsOpen,
+    getAnzahl,
+    getHasApplicants,
+    getApplicantsLength,
+    getFirstApplicant,
+    getUserMatchesPosition,
+    getUserMatchesPrio,
+    getShiftIncludesApplicant
+ } from "../../../Application/functionalComponents/ElementFunctions";
 const setApplicant = (index, col) => {
     store.dispatch({type: "OPEN", payload: "applyIsActive"})
     store.dispatch({type: "setShiftSlot", payload: { row: index, col: col}})
 }
 
 const SchichtplanElement = (props) => {
-
-    const dataModal = (e) => {
-        const index = props.index;
-        const col = props.col;
-        const obj = e[index][col];
-        const isObj = typeof obj === "object";
-        const isFree = obj.frei;
-        const currentUser = props.currentUser;
-        let anzahl = e[index].Montag.anzahl;
-        const ApplicantMatchesPosition = currentUser.position.includes(e[index]["Wochentag"].ShiftPosition);
-        const hasPrio = isObj && "prio" in obj ? !0 : !1;
-        const ApplicantMatchesPrio = "Experte" in currentUser;
-        const hasApplicants =  isObj && "applicants" in obj && Object.keys(obj["applicants"]).length > 0 ? !0 : !1;
-        const ShiftIncludesApplicant = hasApplicants ? currentUser.SK in obj.applicants : !1;
-        const ApplicantsLength = hasApplicants ? Object.keys(obj.applicants).length : 0;
-        const FirstApplicant = hasApplicants ? obj.applicants[Object.keys(obj.applicants)[0]] : !1;
-        const ApplicantName = currentUser.name;
-        const isDiscribeWeekDay = (col === "Wochentag");
+    let ItemLength = props.ItemLength;
+    let index = props.index;
+    let col = props.col;
+    let currentItem = props.currentItem[col];
+    let currentWeekday = props.currentItem["Wochentag"];
+    let currentUser = props.currentUser;
+    let ApplicantName = currentUser.name;
+    let isFree;
+    let anzahl;
+    let hasApplicants;
+    let ApplicantsLength;
+    let ShiftIncludesApplicant;
+    let ApplicantMatchesPosition;
+    let ApplicantMatchesPrio;
+    let FirstApplicant;
+    let SecondApplicant;
+    let isObj = getIsObject(currentItem);
+    let isDiscribeWeekDay = (col === "Wochentag");
+    if (isObj) {
+        isFree = getCompanyIsOpen(currentItem);
+        anzahl = getAnzahl(props.anzahl);
+        ApplicantMatchesPosition = getUserMatchesPosition(currentUser, currentWeekday);
+        ShiftIncludesApplicant = getShiftIncludesApplicant(currentItem, currentUser, "applicants")
+        hasApplicants =  getHasApplicants(currentItem, "applicants");
+        ApplicantsLength = getApplicantsLength(currentItem, "applicants");
+        FirstApplicant = getFirstApplicant(currentItem, "applicants");
+        SecondApplicant = getSecondApplicant(currentItem, "applicants");
+    }
         if (index === 0 || index === 1) {
-            return DateOrWeekDayRow(obj);
-        } else if (index === e.length - 1 ) {
+            return DateOrWeekDayRow(currentItem);
+        } else if (index === ItemLength - 1 ) {
+            return null
         } else if (!isFree && !isDiscribeWeekDay) {
             return CompanyClosed();
-        } else if (isFree && !ApplicantMatchesPosition && !isDiscribeWeekDay) {
-            return ApplicantDoesntMatchesPosition();
-        } else if (isFree && hasPrio && !ApplicantMatchesPrio) {
-            return ApplicantDoesntMatchesPrio();
-        } else if (!isFree && isDiscribeWeekDay){
-            return ShiftDescription(obj, anzahl);
         } else if (isFree && hasApplicants && ApplicantMatchesPosition && ShiftIncludesApplicant && ApplicantsLength > 1 && !isDiscribeWeekDay) {
             return MultipleApplicantsWithUser(index, col, ApplicantName, ApplicantsLength, setApplicant);
         } else if (isFree && hasApplicants && ApplicantMatchesPosition && ShiftIncludesApplicant && !isDiscribeWeekDay) {
@@ -58,17 +74,15 @@ const SchichtplanElement = (props) => {
             return MultipleApplicantsWithOutUser(index, col, FirstApplicant, ApplicantsLength, setApplicant);
         } else if (isFree && hasApplicants && ApplicantMatchesPosition && !isDiscribeWeekDay) {
             return SingleApplicantWithOutUser(index, col, FirstApplicant, setApplicant);
-        }  else if (isFree && !isDiscribeWeekDay) {
+        } else if (isFree && !ApplicantMatchesPosition && !isDiscribeWeekDay) {
+            return ApplicantDoesntMatchesPosition();
+        }   else if (isFree && !isDiscribeWeekDay) {
             return ZeroApplicants(index, col, setApplicant);
-        } else {
+        }else if (!isFree && isDiscribeWeekDay){
+            return ShiftDescription(currentItem, anzahl);
+        }   else {
             return Default(index, col);
         }
     };
-        return (
-        <>
-            {dataModal(props.shiftplan.plan)}
-        </>
-        );
-    }
 export default SchichtplanElement;
 

@@ -2,6 +2,8 @@ import React from "react";
 // reactstrap components
 import {
     FormGroup,
+    Col,
+    Row,
     Form,
     Input,
   } from "reactstrap";
@@ -10,7 +12,9 @@ import {
     render() {
       return (
         <>
-          <Form>
+          <Row>
+            <Col xs="12" md="6" lg="4">
+            <Form>
             <FormGroup>
                 <Input
                 id="exampleFormControlInput1"
@@ -22,6 +26,12 @@ import {
                 />
             </FormGroup>
           </Form>
+            </Col>
+            <Col>
+            </Col>
+            <Col>
+            </Col>
+          </Row>
         </>
       );
     }
