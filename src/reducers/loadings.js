@@ -80,6 +80,16 @@ const loadingsReducer = (state = !1, action) => {
           ...state,
           "isFetchingPublish": !1
         }
+        case "startFetchingEmployeePlans": 
+        return {
+          ...state,
+          "isFetchingEmployeePlans": !0
+        }
+        case "stopFetchingEmployeePlans": 
+        return {
+          ...state,
+          "isFetchingEmployeePlans": !1
+        }
       default:
         return state
     }

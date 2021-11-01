@@ -5,15 +5,24 @@ import {
     FormGroup,
     Form
 } from "reactstrap"
+import { isValidShiftplan } from "../../../Application/functionalComponents/ValidFunctions";
 
 function InputTimeWithSwitch (props) {
     let shiftDetails;
     let row;
     let ShiftEnd;
+    let hasShiftplan = isValidShiftplan(props.shiftplan)
+    let hasSchichtplan = isValidShiftplan(props.Schichtplan);
     let openEnd;
-    if (props.shiftplan && props.shiftSlot) {
+    if (hasShiftplan && props.shiftSlot) {
         row = Number(props.shiftSlot.row);
         shiftDetails = props.shiftplan.plan[row].Wochentag;
+        ShiftEnd = shiftDetails.ShiftEnd;
+        let userInputEnde = props.userInput.ende;
+        openEnd = isOpenEnd(userInputEnde, ShiftEnd)
+    } else if (hasSchichtplan && props.shiftSlot) {
+        row = Number(props.shiftSlot.row);
+        shiftDetails = props.Schichtplan.plan[row].Wochentag;
         ShiftEnd = shiftDetails.ShiftEnd;
         let userInputEnde = props.userInput.ende;
         openEnd = isOpenEnd(userInputEnde, ShiftEnd)
@@ -38,7 +47,7 @@ function InputTimeWithSwitch (props) {
                         {openEnd ? 
                         null
                         : 
-                        <Input type="time" size="lg" name={props.name} value={props.value} onChange={props.onChange}></Input>
+                        <Input type="time" size="lg" name={props.name} value={props.value} defaultValue={props.placeholder} onChange={props.onChange}></Input>
                         }
                     </FormGroup>
                 </Form>

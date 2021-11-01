@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
     Col,
     Row,
   } from "reactstrap";
   import Spinner from 'react-bootstrap/Spinner';
-
+import NotificationAlert from "react-notification-alert";
 import MitarbeiterTabelle from "./MitarbeiterTabelle.js";
 import ButtonMitarbeiterErstellen from "./Modal/ButtonMitarbeiterErstellen.js";
 import OpenModal from "./Modal/OpenModal.js";
@@ -17,11 +17,15 @@ import { thunkDeleteEmployee } from "../../../store/middleware/DeleteEmployee.js
 import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee.js";
 import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile.js";
 import employeeStates from "../../Application/defaults/EmployeeDefault.js";
+import { Employee } from "./processing/Employee.js";
+import { WARNING_MISSING_EMPLOYEE_DETAILS } from "../../../constants/Alerts.js";
 
 const TableContainer = (props) => {
   const [userInput, setUserInput] = useState(employeeStates);
   const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1);
   const [position, setPosition] = useState();
+  const [errMsg, setErrMsg] = useState({InvalidInputForCreation: !1})
+  let notificationAlert = useRef(null)
     
   const selectEmployees = state => state.DB.employees;
   const selectModal = state => state.modal;
@@ -67,7 +71,27 @@ const TableContainer = (props) => {
     const state = handleInputSwitch(event);
     return state;
   };
+  function Notify (type, title, err) {
+    let options = {
+      place: "tc",
+      message: (
+        <div className="alert-text">
+          <span className="alert-title" data-notify="title">
+            {" "}
+          </span>
+          <span data-notify="message">
+            {title}
+          </span>
+        </div>
+      ),
+      type: type,
+      icon: "ni ni-bell-55",
+      autoDismiss: 7
+    };
+    notificationAlert.current.notificationAlert(options);
+    setErrMsg({...errMsg, [err]: !1})
 
+  };
   // Diese Funktion ändert den Wert eines Switches, je nach userinput
   const handleInputSwitch = (event) => {
     if (event.target.checked === !1) return !1;
@@ -165,18 +189,26 @@ const setSelectEmployee = (ma) => {
 };
 
   const handleRegister = (modal) => {
-    store.dispatch(thunkRegisterEmployee({userInput}));
-    let copyMeta = Meta;
-    if (userInput.position !== Meta.schichten) {
-      userInput.position.forEach( pos => {
-        if (!Meta.schichten.includes(pos)) {
-          copyMeta.schichten.push(pos);
-        }
-      });
-      store.dispatch(thunkUpdateProfile(copyMeta));
+    let copyEmployee = new Employee(userInput);
+    copyEmployee.createEmployee(userInput);
+    let isValidEmployee = copyEmployee.getEmployeeDetails();
+    if (isValidEmployee === "InvalidInputForCreation") {
+      setErrMsg({...errMsg, InvalidInputForCreation: !0})
+    } else {
+      let isValidEmployee = copyEmployee.getEmployeeDetails();
+      store.dispatch(thunkRegisterEmployee(isValidEmployee));
+      let copyMeta = Meta;
+      if (userInput.position !== Meta.schichten) {
+        userInput.position.forEach( pos => {
+          if (!Meta.schichten.includes(pos)) {
+            copyMeta.schichten.push(pos);
+          }
+        });
+        store.dispatch(thunkUpdateProfile(copyMeta));
+      }
+      setUserInput({...employeeStates});
+      store.dispatch({type: "CLOSE", payload: modal});
     }
-    setUserInput(null);
-    store.dispatch({type: "CLOSE", payload: modal});
   };
 
         return(
@@ -190,6 +222,10 @@ const setSelectEmployee = (ma) => {
         </Row>
         :
         <>
+        { errMsg.InvalidInputForCreation ? Notify("warning", WARNING_MISSING_EMPLOYEE_DETAILS, "InvalidInputForCreation") : null}
+        <div className="rna-wrapper">
+          <NotificationAlert ref={notificationAlert} />
+        </div>
         <Row>
         <Col xs={3}>
         <h3 className="float-left pt-5 font-weight-bold text-lg">Team verwalten</h3>

@@ -5,25 +5,34 @@ import {
     Input,
 } from "reactstrap"
 
-export default class InputString extends React.PureComponent {
-    render() {
-        return(
+function InputString (props) {
+    let hasInfo = props.info;
+    if (hasInfo) {
+        let hasIsValid = props.isValid
+        if(hasIsValid) {
+            return (   
+                <>
+                    <InfoOverlay infotitle={props.label} description={props.description}/>
+                    <Input type="text" size="lg" className='bg-secondary' valid={props.isValid} label={props.label} name={props.name} value={props.value} defaultValue={props.placeholder} placeholder={props.placeholder} onChange={props.onChange}></Input>
+                </>
+            )
+        } else {
+            return (   
             <>
-                            {this.props.info ?
-                            <>
-                                <InfoOverlay infotitle={this.props.label} description={this.props.description}/>
-                                <Input type="text" size="lg" className='bg-secondary' label={this.props.label} name={this.props.name} value={this.props.value} defaultValue={this.props.placeholder} placeholder={this.props.placeholder} onChange={this.props.onChange}></Input>
-                            </>
-                            : 
-                            <>
-                                <p className="mb-0">{this.props.label}</p>
-                                <Input type="text" size="lg" className='bg-secondary' label={this.props.label} name={this.props.name} value={this.props.value} defaultValue={this.props.placeholder} placeholder={this.props.placeholder} onChange={this.props.onChange}></Input>
-                            </>
-                            }            
-                    </>
+                <InfoOverlay infotitle={props.label} description={props.description}/>
+                <Input type="text" size="lg" className='bg-secondary' label={props.label} name={props.name} value={props.value} defaultValue={props.placeholder} placeholder={props.placeholder} onChange={props.onChange}></Input>
+            </>
+        )}
+    } else {
+        return (
+            <>
+                <p className="mb-0">{props.label}</p>
+                <Input type="text" size="lg" className='bg-secondary' label={props.label} name={props.name} value={props.value} defaultValue={props.placeholder} placeholder={props.placeholder} onChange={props.onChange}></Input>
+            </>
         )
     }
 }
+export default InputString;
 
 InputString.propTypes = {
     value: PropTypes.string

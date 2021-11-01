@@ -348,7 +348,6 @@ const Login = () => {
                         </Form>
                         <Row className="mt-3">
                         <Col xs="6">
-                        <Link className="" to="/signup"><small>Passwort vergessen?</small></Link>
                         </Col>
                         <Col className="text-right" xs="6">
                         <Link to="/signup" className=""><small>Erstelle einen Account</small></Link>

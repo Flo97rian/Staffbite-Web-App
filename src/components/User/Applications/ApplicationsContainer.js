@@ -29,7 +29,7 @@ const ApplicationsContainer = () => {
   const selectUser = state => state.user
   const selectShiftSlot = state => state.shiftSlot;
   const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive;
-  const selectLoadingFetchingSafe = state => state.loadings.isFetchingPlansFromDB;
+  const selectLoadingFetchingPlans = state => state.loadings.isFetchingEmployeePlans;
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
@@ -39,7 +39,7 @@ const ApplicationsContainer = () => {
   const ShiftPlanIsActive = useSelector(selectShiftPlanIsActive);
   const currentShiftPlan = useSelector(selectCurrentShiftPlan);
   const Shiftplan = useSelector(selectShiftplan);
-  const LoadingFetchingSafe = useSelector(selectLoadingFetchingSafe);
+  const LoadingFetchingEmployeePlans = useSelector(selectLoadingFetchingPlans);
 
 
   // Initiales laden der aktuellen Users
@@ -54,7 +54,7 @@ const ApplicationsContainer = () => {
 
   useEffect(() => {
     if(Plans && Shiftplan && currentShiftPlan) {
-    if (!LoadingFetchingSafe) {
+    if (!LoadingFetchingEmployeePlans) {
       let copyPlan = new ShiftPlan({...Plans[currentShiftPlan]});
       let shiftplan = copyPlan.getAllPlanDetails();
       store.dispatch({type: "setShiftplan", payload: shiftplan});
@@ -64,6 +64,9 @@ const ApplicationsContainer = () => {
 
   useEffect(() => {
   }, [User]);
+
+  useEffect(() => {
+  }, [LoadingFetchingEmployeePlans]);
 
   useEffect(() => {
   }, [currentShiftPlan]);
@@ -87,12 +90,8 @@ const ApplicationsContainer = () => {
   }
   // Diese Funktion ist der handler, wenn sich auf eine Schicht beworben wird. Sie schließt das Modal und leitet einen API Call ein.
   const handleUploadApplication = () => {
-    store.dispatch({type: "isFetchPlansFromDB"});
+    store.dispatch({type: "startFetchingEmployeePlans"});
     store.dispatch(thunkUploadApplication(Shiftplan));
-    store.dispatch({ type: "ResetCurrentShiftPlan"})
-    store.dispatch({ type: "stopShiftPlanIsImported"})
-    store.dispatch({ type: "stopShiftPlanIsActive"})
-    store.dispatch({ type: "resetShiftplan"})
     if ("saveChanges" in Modal) {
       store.dispatch({type: "CLOSE", payload: "saveChanges"});
     }
@@ -139,7 +138,7 @@ const ApplicationsContainer = () => {
         <Row className="mt-6">
         <Col xs={2} className="mt-4">
         <h3 className="float-left pt-4 font-weight-bold text-lg">Bewerbungen</h3>
-        { LoadingFetchingSafe ? <Spinner color="success" /> : <></>}
+        { LoadingFetchingEmployeePlans ? <Spinner color="success" /> : <></>}
         </Col>
         <Col xs={10} className="mt-2">
           {ShiftPlanIsActive ?

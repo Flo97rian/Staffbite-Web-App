@@ -182,7 +182,7 @@ const DragAndDrop = React.forwardRef((props, ref) => {
     }
     setState(newState);
   }
-  const Mitarbeitercount = state[2][0].id === "0" ? 0 : state[2].length
+  const Mitarbeitercount = state[2][0].id.length === 1 ? 0 : state[2].length
   const title = ["alle Mitarbeiter", "alle Bewerber", "eingesetzte Mitarbeiter " + Mitarbeitercount + "/" + props.anzahl]
 
   return (
