@@ -3,16 +3,16 @@ import {
     Button,
 } from "reactstrap";
 import store from "../../../../store";
+import { isValidShiftplan } from "../../../Application/functionalComponents/ValidFunctions"
 
 const ModalOpenButton = (props) => {
-    const showButton = () => {
+    if (isValidShiftplan(props.shiftplan) && props.shiftplan.id.split("#").includes(props.trigger)) {
         return (
         <Button className="float-right mt-2 ml-2 mr-0" size="lg" color="primary" onClick={() => {store.dispatch({type: "OPEN", payload: props.modal})}}><p className="m-0 text-white">{props.title}</p></Button> 
-        )}
-        return (
-            <>
-                {props.trigger ? showButton() : <></>}
-            </>
-        );
+        )
+    } else {
+        return null
+    }
+
     }
 export default ModalOpenButton;

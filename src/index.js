@@ -8,13 +8,14 @@ import "./assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/argon-dashboard-react.scss";
 import "./assets/vendor/font-awesome/css/font-awesome.css"
+import "react-notification-alert/dist/animate.css";
 
 import AdminLayout from "./layouts/Admin.js";
 import AuthLayout from "./layouts/Auth.js";
 import UserLayout from "./layouts/User.js";
 import Landing from "./views/MainViews/Landing.js";
 import reportWebVitals from './reportWebVitals';
-import SignUp from "./components/Auth/SignUp.js"
+import SignUp from "./components/Auth/signUp";
 
 
 ReactDOM.render(

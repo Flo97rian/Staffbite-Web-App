@@ -17,5 +17,9 @@ export function thunkUploadApplication(Shiftplan) {
         };
         await API.post(apiName, path, myInit)
         dispatch(FetchEmployeePlansFromDB)
-        dispatch({type: "stopFetchPlansFromDB"});
+        dispatch({type: "stopFetchingEmployeePlans"});
+        dispatch({ type: "ResetCurrentShiftPlan"})
+        dispatch({ type: "stopShiftPlanIsImported"})
+        dispatch({ type: "stopShiftPlanIsActive"})
+        dispatch({ type: "resetShiftplan"})
 }}

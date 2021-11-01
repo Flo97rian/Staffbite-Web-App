@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import 'moment/locale/de';
+import { Link } from "react-router-dom";
 
 import {
     Card,
@@ -13,12 +14,11 @@ import {
 import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansForEmployees";
 import { getUser } from "../../../store/middleware/FetchUser";
 import store from "../../../store";
-import DashboardSchichtenTabelle from "./DashboardSchichtenTabelle";
+import DashboardSchichtenTabelle from "./DashboardTable";
 
 
 const DashboardContainer = (props) => {
   const [ActivePlan, setActivePlan] = useState(!1);
-  const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
   const [userShiftCount, setUserShiftCount] = useState(0);
 
   //REDUX-Filter für UI-Data
@@ -49,8 +49,11 @@ const DashboardContainer = (props) => {
   useEffect(() => {
     function getCountUsersCurrentShifts (count = 0) {
       let bewerbungen = User.bewerbungen
+  
       let ShiftCount = 0;
-      if ( Shiftplan.zeitraum in bewerbungen) {
+      if ( Shiftplan && User) {
+        let Zeitraum = Shiftplan.zeitraum;
+        if(Zeitraum in bewerbungen)
         ShiftCount = bewerbungen[Shiftplan.zeitraum].length
       }
       if(ShiftCount > 0 ) {count = ShiftCount}
@@ -59,7 +62,7 @@ const DashboardContainer = (props) => {
     if (Plans !== undefined && User !== undefined) {
       getCountUsersCurrentShifts()
     }
-  }, [Plans, Shiftplan.zeitraum, User])
+  }, [Plans, Shiftplan, User])
 
     function getThisWeeksShiftPlan () {
       var compareDate = moment(moment().format("l"), "DD.M.YYYY");
@@ -68,20 +71,19 @@ const DashboardContainer = (props) => {
         var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
         if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Veröffentlicht")) {
           setActivePlan(!0);
-          setCurrentShiftPlan(index);
           store.dispatch({type: "setShiftplan", payload: Plans[index]});
-        }
-        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Freigeben")) {
+        } else if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Freigeben")) {
           setActivePlan(!0);
-          setCurrentShiftPlan(index);
           store.dispatch({type: "setShiftplan", payload: Plans[index]});
         }
+      
     })}
 
         return (
           <>
               <Row>
                 <Col md="12"  lg="6" xl="6">
+                <Link to="/user/bewerben" tag={Link}>
                   <Card className="card-stats mb-4 mb-xl-0">
                     <CardBody>
                       <Row>
@@ -104,8 +106,10 @@ const DashboardContainer = (props) => {
                       </Row>
                     </CardBody>
                   </Card>
+                  </Link>
                 </Col>
                 <Col md="12" lg="6" xl="6">
+                <Link to="/user/schichtplan" tag={Link}>
                   <Card className="card-stats mb-4 mb-xl-0">
                     <CardBody>
                       <Row>
@@ -128,6 +132,7 @@ const DashboardContainer = (props) => {
                       </Row>
                     </CardBody>
                   </Card>
+                  </Link>
                 </Col>
               </Row>
             <Row >
@@ -138,16 +143,12 @@ const DashboardContainer = (props) => {
               </Col>
             </Row>
                 <Row className="text-center" noGutters={true}></Row>
-                { ActivePlan && Shiftplan && User !== !1 ?
                 <DashboardSchichtenTabelle
                   shiftplan={Shiftplan}
                   bearbeiten={ActivePlan}
                   currentUser={User}
                 >
                 </DashboardSchichtenTabelle>
-                :
-                <></>
-                }
         </>
 );
 }

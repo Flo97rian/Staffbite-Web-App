@@ -3,7 +3,7 @@ import { API_HOSTNAME, DELETE_EMPLOYEE } from "../../constants/ApiConstants";
 import { FetchEmployees } from "./FetchEmployees";
   export function thunkDeleteEmployee(employeeId) {
     // Löscht einen Mitarbeiter aus der Datenbank
-    return async function deleteEmployee(disptach, getState) {
+    return async function deleteEmployee(dispatch, getState) {
       const apiName = API_HOSTNAME; // replace this with your api name.
       const path = DELETE_EMPLOYEE; //replace this with the path you have configured on your API
       const myInit = { // OPTIONAL
@@ -15,6 +15,6 @@ import { FetchEmployees } from "./FetchEmployees";
         } // OPTIONAL
       };
       await API.post(apiName, path, myInit)
-      disptach(FetchEmployees)
+      dispatch(FetchEmployees)
       }
   }

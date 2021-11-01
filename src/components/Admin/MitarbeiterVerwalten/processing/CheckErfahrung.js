@@ -1,7 +1,7 @@
-export const checkerfahrung = ({employeeIsActive}) => {
-    if (employeeIsActive.erfahrung === undefined) {
+export const checkerfahrung = ({userInput}) => {
+    if (userInput.erfahrung === undefined) {
       return "Anfänger"
     } else {
-      return employeeIsActive.erfahrung
+      return userInput.erfahrung
     }
   };

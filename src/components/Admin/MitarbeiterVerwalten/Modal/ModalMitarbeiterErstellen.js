@@ -13,6 +13,7 @@ const ModalMitarbeiterErstellen = (props) => {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
+                    className="modal"
                     scrollable
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: "showErstellen"})}}
             >

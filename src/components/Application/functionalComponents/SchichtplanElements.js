@@ -37,16 +37,61 @@ export const ShiftDescription = (obj, anzahl) => {
     </ListGroup>
 )}
 
-export const MultipleApplicants = (obj, index, col, ApplicantsLength, FirstApplicant, Click) => {
+export const MultipleApplicants = (ApplicantsLength, FirstApplicant) => {
     return (<ListGroup>
-        <ListGroupItem className="mb-0"  style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}><p className="m-0">{FirstApplicant}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
+        <ListGroupItem className="mb-0"  style={{"cursor": "pointer"}} color="success"><p className="m-0">{FirstApplicant}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
     </ListGroup>
 )}
 
-export const SingleApplicant = (index, col, ApplicantName, Click) => {
+export const SingleApplicant = (FirstApplicant) => {
     return (<ListGroup>
-        <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}><p className="m-0">{ApplicantName}<br/><br/></p></ListGroupItem>
+        <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="success"><p className="m-0">{FirstApplicant}<br/><br/></p></ListGroupItem>
     </ListGroup>
+)}
+
+export const TwoApplicants = (FirstApplicant, SecondApplicant) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="success"><p className="m-0">{FirstApplicant}<br/>{SecondApplicant}<br/></p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const MultipleApplicantsWithPrio = (ApplicantsLength, FirstApplicant, prio) => {
+    return (
+                <ListGroup>
+        <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success">
+                    <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+                   <p className="mb-0 mt-0 pt-4 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    <br/>
+                     + {ApplicantsLength - 1 } weitere
+                   </p>
+       </ListGroupItem>
+   </ListGroup>
+)}
+
+export const TwoApplicantsWithPrio = (FirstApplicant, SecondApplicant, prio) => {
+    return (
+        <ListGroup>
+        <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success">
+                    <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+                   <p className="mb-0 mt-2 pt-4 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    {SecondApplicant}
+                   </p>
+       </ListGroupItem>
+   </ListGroup>
+)}
+
+export const SingleApplicantWithPrio = (FirstApplicant, prio) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success">
+                    <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+                   <p className="mb-0 mt-2 pt-4 pr-2 pl-2 pb-4 text-center">
+                    {FirstApplicant}
+                    <></>
+                   </p>
+       </ListGroupItem>
+   </ListGroup>
 )}
 
 export const ShowMultipleApplicants = (FirstApplicant, ApplicantsLength) => {
@@ -55,9 +100,52 @@ export const ShowMultipleApplicants = (FirstApplicant, ApplicantsLength) => {
     </ListGroup>
 )}
 
-export const ShowSingleApplicant = (ApplicantName) => {
+export const ShowTwoApplicants = (FirstApplicant, SecondApplicant) => {
     return (<ListGroup>
-        <ListGroupItem className="mb-0" color="success"><p className="m-0">{ApplicantName}<br/><br/></p></ListGroupItem>
+        <ListGroupItem className="mb-0"  color="success"><p className="m-0">{FirstApplicant}<br/>{SecondApplicant}</p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const ShowSingleApplicant = (FirstApplicant) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" color="success"><p className="m-0">{FirstApplicant}<br/><br/></p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const ShowMultipleApplicantsWithPrio = (FirstApplicant, ApplicantsLength, prio) => {
+    return (<ListGroup>
+         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success">
+                <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+                <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    <br/>
+                    +  {ApplicantsLength} weitere
+                   </p>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ShowTwoApplicantsWithPrio = (FirstApplicant, SecondApplicant, prio) => {
+    return (<ListGroup>
+         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success">
+                <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+                <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    <br/>
+                    {SecondApplicant}
+                   </p>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ShowSingleApplicantWithPrio = (FirstApplicant, prio) => {
+    return (<ListGroup>
+                         <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success">
+                        <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+                    <p className="mb-0 mt-2 pt-4 pr-2 pl-2 pb-4 text-center">
+                    {FirstApplicant}
+                   </p>
+                </ListGroupItem>
     </ListGroup>
 )}
 
@@ -118,6 +206,18 @@ export const ShowMultipleApplicantsWithUser = (ApplicantName, ApplicantsLength) 
     </ListGroup>
 )}
 
+export const ShowTwoApplicantsWithUser = (ApplicantName, SecondApplicant) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" color="success"><p className="m-0">{ApplicantName}<br/>{SecondApplicant}</p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const ShowTwoApplicantsWithOutUser = (FirstApplicant, SecondApplicant) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" color="success"><p className="m-0">{FirstApplicant}<br/>{SecondApplicant}</p></ListGroupItem>
+    </ListGroup>
+)}
+
 export const ShowSingleApplicantWithUser = (ApplicantName) => {
     return (<ListGroup>
         <ListGroupItem className="mb-0" color="success" ><p className="m-0">{ApplicantName}<br/><br/></p></ListGroupItem>
@@ -138,6 +238,12 @@ export const ShowSingleApplicantWithOutUser = (FirstApplicant) => {
 export const ZeroApplicants = (index, col, Click) => {
     return (<ListGroup>
        <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}><p className="m-0"><br/><br/></p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const ZeroApplicantsWithPrio = (index, col, Click, prio) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" onClick={(e, j) => Click(index, col)}><small className="float-right" ><Badge color="success">{prio}</Badge></small><p className="mb-0 p-3"><br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
 
@@ -196,9 +302,9 @@ export const shiftSetPrio = (index, col, Click, prio) => {
     </ListGroup>
 )}
 
-export const shiftWithPrio = () => {
+export const DefaultWithPrio = (prio) => {
     return (<ListGroup>
-         <ListGroupItem className="m-0 p-0"><small className="float-right" ><Badge color="warning">Expert</Badge></small><p className="mb-0 p-3"><br/><br/></p></ListGroupItem>
+         <ListGroupItem className="m-0 p-0"><small className="float-right" ><Badge color="success">{prio}</Badge></small><p className="mb-0 p-3"><br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
 
@@ -292,17 +398,13 @@ export const TradeShiftMultiSetApplicant = (index, col, ApplicantName, Applicant
     </ListGroup>
 )}
 
-export const SingleSetApplicantWithPrio = (index, col, FirstApplicant, Click) => {
+export const SingleSetApplicantWithPrio = (index, col, FirstApplicant, Click, prio) => {
     return (<ListGroup>
-                <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
-                    <ListGroupItemHeading className="m-0 p-0" color="">
-                            <i className="fa fa-heart fa-lg text-success float-right m-2" aria-hidden="true"/>
-                    </ListGroupItemHeading>
-                    <ListGroupItemText className="m-0 p-3">
-                        {FirstApplicant}
-                        <br/>
-                        <br/>
-                    </ListGroupItemText>
+                <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
+                        <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+                    <p className="mb-0 mt-2 pt-4 pr-2 pl-2 pb-4 text-center">
+                    {FirstApplicant}
+                   </p>
                 </ListGroupItem>
             </ListGroup>
 )}
@@ -320,17 +422,15 @@ export const SingleSetApplicantWithoutPrio = (index, col, FirstApplicant, Click)
                 </ListGroupItem>
             </ListGroup>
 )}
-export const MultiSetApplicantsWithPrio = (index, col, FirstApplicant, ApplicantsLength, Click) => {
+export const MultipleSetApplicantsWithPrio = (index, col, FirstApplicant, ApplicantsLength, Click, prio) => {
     return (<ListGroup>
-        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
-            <ListGroupItemHeading className="m-0 p-0" color="">
-                    <i className="fa fa-heart fa-lg text-success float-right m-2" aria-hidden="true"/>
-            </ListGroupItemHeading>
-            <ListGroupItemText className="m-0 p-3">
-                {FirstApplicant}
-                <br/>
-                + {ApplicantsLength - 1} weitere
-            </ListGroupItemText>
+        <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
+                <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+                    <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    <br/>
+                     + {ApplicantsLength} weitere
+                   </p>
         </ListGroupItem>
     </ListGroup>
 )}
@@ -338,13 +438,11 @@ export const MultiSetApplicantsWithPrio = (index, col, FirstApplicant, Applicant
 export const MultiSetApplicantsWithoutPrio = (index, col, FirstApplicant, ApplicantsLength, Click) => {
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
-            <ListGroupItemHeading className="m-0 p-0" color="">
-            </ListGroupItemHeading>
-            <ListGroupItemText className="m-0 p-3">
-                {FirstApplicant}
-                <br/>
-                + {ApplicantsLength - 1} weitere
-            </ListGroupItemText>
+                    <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    <br/>
+                     + {ApplicantsLength} weitere
+                   </p>
         </ListGroupItem>
     </ListGroup>
 )}
@@ -361,17 +459,15 @@ export const TwoSetApplicantsWithoutPrio = (index, col, FirstApplicant, SecondAp
         </ListGroupItem>
     </ListGroup>
 )}
-export const TwoSetApplicantsWithPrio = (index, col, FirstApplicant, SecondApplicant, Click) => {
+export const TwoSetApplicantsWithPrio = (index, col, FirstApplicant, SecondApplicant, Click, prio) => {
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
-            <ListGroupItemHeading className="m-0 p-0" color="">
-                <i className="fa fa-heart fa-lg text-success float-right m-2" aria-hidden="true"/>
-            </ListGroupItemHeading>
-            <ListGroupItemText className="m-0 p-3">
-                {FirstApplicant}
-                <br/>
-                {SecondApplicant}
-            </ListGroupItemText>
+                <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+                <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    <br/>
+                    {SecondApplicant}
+                   </p>
         </ListGroupItem>
     </ListGroup>
 )}

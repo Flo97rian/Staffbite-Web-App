@@ -3,6 +3,7 @@ import {
     Col,
     Row
 } from "reactstrap"
+import { INFO_SHIFTPLAN_RELEASE_FOR_NEW_PERIOD } from "../../../../constants/InfoTexts";
 import Datepicker from "../../../Application/functionalComponents/DateRangePickerExample";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
@@ -20,7 +21,7 @@ const SchichtplanFreigeben = (props) => {
                 <Row>
                     <Col xs={1} ></Col>
                     <Col xs={10} >
-                        <InfoOverlay infotitle={"Kalenderwoche"} description={"Wenn Sie den Schichtplan für eine andere Woche freigeben möchten, tragen Sie die jeweilige Woche hier ein. Tragen Sie nichts ein, wird der Plan für die bisher eingetragene Woche freigegeben"}/>
+                        <InfoOverlay infotitle={"Kalenderwoche"} description={INFO_SHIFTPLAN_RELEASE_FOR_NEW_PERIOD}/>
                         <Datepicker size="lg" getDates={props.getDates} start="WochenStart" ende="WochenEnde" placeholderAnfang={currentStart} placeholderEnde={currentEnde} />  
                         <br/>
                     </Col>

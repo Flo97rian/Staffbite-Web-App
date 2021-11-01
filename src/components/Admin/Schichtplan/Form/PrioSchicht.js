@@ -4,6 +4,7 @@ import {
     Row,
     Badge
 } from "reactstrap"
+import { INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION } from "../../../../constants/InfoTexts";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
 export const PrioSchicht = (props) => {
@@ -36,7 +37,7 @@ export const PrioSchicht = (props) => {
                 <Row>
                     <Col xs={1} ></Col>
                     <Col xs={10} >
-                            <InfoOverlay infotitle="Mindestanforderung aktivieren" description="Wenn Sie eine Mindestanforderung für diese Schicht festlegen wollen, klicken Sie einfach auf die jewelige Qualifikation"/>
+                            <InfoOverlay infotitle="Mindestanforderung aktivieren" description={INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION}/>
                             <Badge className="mr-2" color={getColor("Anfänger")} onClick={() => props.handleSelectPrio("Anfänger")}> Anfänger</Badge>
                             <Badge className="mr-2" color={getColor("Fortgeschritten")} onClick={() => props.handleSelectPrio("Fortgeschritten")}> Fortgeschritten</Badge>
                             <Badge className="mr-2" color={getColor("Experte")} onClick={() => props.handleSelectPrio("Experte")}> Experte</Badge>

@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import { Row, Col, Card, CardBody, Button, Badge, Input } from "reactstrap";
 import InputForm from "./InputForm"
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
+import { INFO_ORGANISATION_NAME, INFO_ORGANISATION_POSITIONS, INFO_ORGANISATION_STUNDENERFASSUNG } from "../../../../constants/InfoTexts";
 
 export default class Unternehmensprofil extends React.PureComponent {
     render() {
@@ -20,22 +21,22 @@ export default class Unternehmensprofil extends React.PureComponent {
             </Row>
             <Card className="shadow">
                 <CardBody>
-                <InfoOverlay infotitle={"Name"} description={"Tragen Sie hier den Namen ihres Betriebs ein."}/>
+                <InfoOverlay infotitle={"Name"} description={INFO_ORGANISATION_NAME}/>
                 <InputForm {...this.props}/>
                 <br/>
-                <InfoOverlay infotitle={"Stundenerfassung"} description={"Mit dieser Einstellung können Sie die Stundenerfassung von Staffbite nutzen. Hinweis: Diese Funktion ist aktuell noch in der Entwicklung. Schreiben Sie uns jedoch gerne, wenn Sie dieses Feature in Zukunft benutzen möchten!"}/>
+                <InfoOverlay infotitle={"Stundenerfassung"} description={INFO_ORGANISATION_STUNDENERFASSUNG}/>
                 <Form.Check custom type="switch" size="lg" disabled name="stundenerfassung"></Form.Check>
                 </CardBody>
                 <br/>
                 <Row className="m-2 mb-4">
                     <Col xs={12}>
-                    <InfoOverlay infotitle={"Schichten bearbeiten"} description={"Löschen Sie mit einem Click"}></InfoOverlay>
+                    <InfoOverlay infotitle={"Positionen bearbeiten"} description={INFO_ORGANISATION_POSITIONS}></InfoOverlay>
                     {this.props.showPositionHinzufuegen ?
                     <Input type="text" size="lg" className='bg-secondary' label="Position" name="position"  placeholder="" onChange={(e) => this.props.handlePositionChange(e)}></Input>
                         :
                         <></>
                     }
-                    {this.props.metaData.schichten ? 
+                    {this.props.metaData ? 
                     this.props.metaData.schichten.map((item, index) => {
                         return (
                             <Badge key={index} className="ml-2 mt-2" color="warning" onClick={() => this.props.handleRemovePositions(item)}>{item}

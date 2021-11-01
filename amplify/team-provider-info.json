@@ -45,5 +45,52 @@
         }
       }
     }
+  },
+  "test": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-staffbite-test-114647-authRole",
+      "UnauthRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-test-114647-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-test-114647-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-staffbite-test-114647-deployment",
+      "UnauthRoleName": "amplify-staffbite-test-114647-unauthRole",
+      "StackName": "amplify-staffbite-test-114647",
+      "StackId": "arn:aws:cloudformation:eu-central-1:643981031365:stack/amplify-staffbite-test-114647/9d03ae60-36fe-11ec-90fe-0af713e4d252",
+      "AmplifyAppId": "d3p8gdtbc86r0o"
+    },
+    "categories": {
+      "auth": {
+        "staffbiteff38ca70": {
+          "userPoolId": "eu-central-1_e0g7ALwrg",
+          "userPoolName": "Staffbite-Benutzerpool",
+          "webClientId": "625p2f8lj1r8vii8l13467nijr",
+          "nativeClientId": "625p2f8lj1r8vii8l13467nijr",
+          "identityPoolId": "eu-central-1:2e1dd1e4-5524-4fec-a78b-0ffa01bf4d77",
+          "identityPoolName": "Staffbite",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteAuth_Role",
+          "authRoleName": "Cognito_StaffbiteAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteUnauth_Role",
+          "unauthRoleName": "Cognito_StaffbiteUnauth_Role"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3p8gdtbc86r0o",
+          "type": "manual"
+        }
+      },
+      "storage": {
+        "StaffbiteDynamoDB": {
+          "tableName": "Staffbite-DynamoDB",
+          "region": "eu-central-1",
+          "arn": "arn:aws:dynamodb:eu-central-1:643981031365:table/Staffbite-DynamoDB",
+          "partitionKeyName": "PK",
+          "partitionKeyType": "S",
+          "sortKeyName": "SK",
+          "sortKeyType": "S"
+        }
+      }
+    }
   }
 }

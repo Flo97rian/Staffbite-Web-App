@@ -16,9 +16,7 @@ export default class BefuellungStarten extends React.PureComponent {
                         <p>{this.props.shiftplan.zeitraum}</p>
                     </Col>
                     <Col xs={6}> 
-                        <InfoOverlay
-                        infotitle={"Standard"}
-                        description={"In der Befüllungsart 'Standard' wird der Schichtplan vorrangig nach 'fairen' Bedingungen befüllt. Jeder Mitarbeiter soll je nach Verdienstvorstellung und Qualifikation gleichmäßig im Schichtplan berücksichtigt werden. Mehr Details hier"}/>
+                    <p>Standard</p>
                     </Col>
                 </Row>
                 </form>

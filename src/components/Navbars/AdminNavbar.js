@@ -138,7 +138,7 @@ async function signOut() {
         <Collapse className="ml-2 mr-2" isOpen={isOpen} navbar>
           <Nav navbar> {createLinks(adminroutes)}</Nav>
         </Collapse>
-        <NavbarText>
+        <NavbarText className="mr-2">
         <UncontrolledDropdown className="mr-4">
               <DropdownToggle className="pr-0" nav>
               <p className="text-muted mt-2 mb-0">

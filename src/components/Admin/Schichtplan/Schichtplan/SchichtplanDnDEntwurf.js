@@ -95,7 +95,7 @@ const SchichtplanDnDEntwurf = (props) => {
             >
               <tbody>
                 {Items.map((item, index) => ( Number(item.id) !== 0 && Number(item.id) !== 1 && Number(item.id) !== Items.length - 1 ?
-                  <Draggable key={index} draggableId={item.id} index={index}>
+                  <Draggable key={"Entwurf" + String(index)} draggableId={item.id} index={index}>
                      {(provided, snapshot) => (
                       <tr>
                         <td color="primary"

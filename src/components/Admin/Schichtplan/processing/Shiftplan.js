@@ -264,6 +264,25 @@ export default class ShiftPlan {
       this.plan = copyPlan;
     }
 
+    removeApplicant(User, ShiftSlot) {
+      let copyPlan = [...this.plan];
+
+      function removetApplicantInShift (copyPlan, User, ShiftSlot) {
+        let row = ShiftSlot.row;
+        let day = ShiftSlot.col;
+        let UserId = User.SK;
+        if ("applicants" in copyPlan[row][day]) {
+          if (UserId in copyPlan[row][day].applicants) {
+            delete copyPlan[row][day].applicants[UserId];
+          }
+        }
+        return copyPlan;
+      }
+
+      removetApplicantInShift(copyPlan, User, ShiftSlot);
+      this.plan = copyPlan;
+    }
+
     setTradeShift(User, ShiftSlot) {
       let copyTauschanfrage = [...this.tauschanfrage];
 

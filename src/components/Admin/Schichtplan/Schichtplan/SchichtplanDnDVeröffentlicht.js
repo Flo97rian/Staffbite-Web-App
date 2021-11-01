@@ -95,7 +95,7 @@ const SchichtplanDnDVeröffentlicht = (props) => {
             >
               <tbody>
                 {Items.map((item, index) => ( item.id !== "0" && item.id !== "1" && item.id !== String(Items.length - 1) ?
-                  <Draggable key={index} draggableId={item.id} index={index}>
+                  <Draggable key={"Veröffentlich" + String(index)} draggableId={item.id} index={index}>
                      {(provided, snapshot) => (
                       <tr>
                         <td color="primary"

@@ -31,19 +31,11 @@ const EinstellungenContainer = () => {
       store.dispatch(FetchOrg)
     }, []); 
 
-    useEffect(() => {
-      const timeout = setTimeout(() => {
-        store.dispatch({type: "stopFetchingMeta"})
-       }, 5000);
-   
-      return () => clearTimeout(timeout);
-     },[Meta]);
-
      useEffect(() => {
-       if(Meta !== undefined) {
+       if(Meta !== !1) {
         setMetaData({...metaData, schichten: Meta.schichten})
        }
-    }, [Meta, metaData]);
+    }, [Meta]);
 
     useEffect(() => {
    }, [metaData]);
@@ -54,7 +46,7 @@ const EinstellungenContainer = () => {
     let abrechnungEnde = moment(Date.ende.endDate).format("l")
     setMetaData({...metaData, AbrechnungStart: abrechnungStart, AbrechnungEnde: abrechnungEnde })
     }
-  }, [Date, metaData]);
+  }, [Date]);
 
   // Handling von Userinputs
   const handleInputChange = (event) => {
@@ -121,6 +113,8 @@ const EinstellungenContainer = () => {
       : 
       <>
         { LoadingMeta ? <Alert color="success">Ihre Änderungen wurden gespeichert! Aktualisieren Sie die Seite, um alle Veränderungen zu sehen.</Alert> : <></> }
+
+      {Meta ?
         <Navs
         showPositionHinzufuegen={showPositionHinzufuegen}
         handleRemovePositions={handleRemovePositions}
@@ -133,6 +127,9 @@ const EinstellungenContainer = () => {
         org={Meta}
         metaData={metaData}
         ></Navs>
+        :
+        null
+      }
       </>
       }
     </>
