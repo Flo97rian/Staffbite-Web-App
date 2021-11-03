@@ -19,17 +19,13 @@
         }
       },
       "function": {
-        "deleteEmployee": {
-          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/deleteEmployee-315844585278647a7158-build.zip"
-        },
         "Invoke": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
           "s3Key": "amplify-builds/Invoke-337a6d4972344f6f7047-build.zip"
         },
         "getProfile": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/getProfile-5a5a37694d70544a5039-build.zip"
+          "s3Key": "amplify-builds/getProfile-4948334c37574c345a5a-build.zip"
         },
         "getEmployee": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
@@ -45,30 +41,23 @@
         },
         "getAllEmployees": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/getAllEmployees-6851526d74545962594e-build.zip"
+          "s3Key": "amplify-builds/getAllEmployees-2b796e496c6f324e552b-build.zip"
         },
         "getReport": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/getReport-5938774a7a51637a776d-build.zip"
+          "s3Key": "amplify-builds/getReport-394f3265557858414a34-build.zip"
         },
         "postProfile": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
           "s3Key": "amplify-builds/postProfile-44466f414c2b61743177-build.zip"
-        }
-      },
-      "auth": {
-        "staffbite77674eba": {
-          "userPoolId": "eu-central-1_e0g7ALwrg",
-          "userPoolName": "Staffbite-Benutzerpool",
-          "webClientId": "625p2f8lj1r8vii8l13467nijr",
-          "nativeClientId": "625p2f8lj1r8vii8l13467nijr",
-          "identityPoolId": "eu-central-1:2e1dd1e4-5524-4fec-a78b-0ffa01bf4d77",
-          "identityPoolName": "Staffbite",
-          "allowUnauthenticatedIdentities": false,
-          "authRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteAuth_Role",
-          "authRoleName": "Cognito_StaffbiteAuth_Role",
-          "unauthRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteUnauth_Role",
-          "unauthRoleName": "Cognito_StaffbiteUnauth_Role"
+        },
+        "postRegister": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/postRegister-72754b30633466415550-build.zip"
+        },
+        "getAllShiftplans": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/getAllShiftplans-64487a31753953365466-build.zip"
         }
       },
       "storage": {
@@ -81,6 +70,21 @@
           "partitionKeyType": "S",
           "sortKeyName": "SK",
           "sortKeyType": "S"
+        }
+      },
+      "auth": {
+        "staffbite58b5ca4d": {
+          "userPoolId": "eu-central-1_e0g7ALwrg",
+          "userPoolName": "Staffbite-Benutzerpool",
+          "webClientId": "625p2f8lj1r8vii8l13467nijr",
+          "nativeClientId": "625p2f8lj1r8vii8l13467nijr",
+          "identityPoolId": "eu-central-1:2e1dd1e4-5524-4fec-a78b-0ffa01bf4d77",
+          "identityPoolName": "Staffbite",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteAuth_Role",
+          "authRoleName": "Cognito_StaffbiteAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteUnauth_Role",
+          "unauthRoleName": "Cognito_StaffbiteUnauth_Role"
         }
       }
     }

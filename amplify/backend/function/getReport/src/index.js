@@ -13,7 +13,7 @@ AWS.config.apiVersions = {
 };
 var dynamodb = new AWS.DynamoDB();
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
     console.log(event)
     console.log(event.body)
     let body = JSON.parse(event.body)
@@ -37,7 +37,6 @@ exports.handler = async (event, context) => {
             "Access-Control-Allow-Headers" : "application/json",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
-            "Access-Control-Allow-Credentials": "true"
         },
         body: JSON.stringify(employeesReport),
     };

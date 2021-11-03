@@ -1,4 +1,7 @@
 /* Amplify Params - DO NOT EDIT
+	API_STAFFBITE_APIID
+	API_STAFFBITE_APINAME
+	AUTH_STAFFBITE77674EBA_USERPOOLID
 	ENV
 	REGION
 	STORAGE_STAFFBITEDYNAMODB_ARN
@@ -14,15 +17,14 @@ AWS.config.apiVersions = {
 var dynamodb = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
-    console.log(event)
-    console.log(event.requestContext.authorizer)
+    let user = JSON.parse(event.body)
      var params = {
       Key: {
        "PK": {
-         S: "ORG#" + event.requestContext.authorizer["claims"]["custom:TenantId"]
+         S: "ORG#" + user["custom:TenantId"]
         }, 
        "SK": {
-         S: "ORG#METADATA#" + event.requestContext.authorizer["claims"]["custom:TenantId"]
+         S: "ORG#METADATA#" + user["custom:TenantId"]
         }
       }, 
       TableName: "Staffbite-DynamoDB"

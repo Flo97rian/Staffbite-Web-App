@@ -6,7 +6,7 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "getEmployee",
+          "resourceName": "getProfile",
           "attributes": [
             "Name",
             "Arn"
@@ -14,7 +14,7 @@
         },
         {
           "category": "function",
-          "resourceName": "register",
+          "resourceName": "getAllShiftplans",
           "attributes": [
             "Name",
             "Arn"
@@ -22,23 +22,7 @@
         },
         {
           "category": "function",
-          "resourceName": "deleteShiftplan",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "postProfile",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "getReport",
+          "resourceName": "getAllEmployees",
           "attributes": [
             "Name",
             "Arn"
@@ -48,7 +32,7 @@
     }
   },
   "auth": {
-    "staffbite77674eba": {
+    "staffbite58b5ca4d": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
@@ -68,29 +52,6 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "deleteEmployee": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "staffbite77674eba",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "storage",
-          "resourceName": "StaffbiteDynamoDB",
-          "attributes": [
-            "Name",
-            "Arn",
-            "StreamArn"
-          ]
-        }
-      ]
     },
     "getEmployee": {
       "build": true,
@@ -156,6 +117,27 @@
       ]
     },
     "getAllEmployees": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "StaffbiteDynamoDB",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        }
+      ]
+    },
+    "postRegister": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getAllShiftplans": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",

@@ -4,7 +4,9 @@
 	STORAGE_STAFFBITEDYNAMODB_ARN
 	STORAGE_STAFFBITEDYNAMODB_NAME
 	STORAGE_STAFFBITEDYNAMODB_STREAMARN
-Amplify Params - DO NOT EDIT */var AWS = require('aws-sdk');
+Amplify Params - DO NOT EDIT */
+
+var AWS = require('aws-sdk');
 AWS.config.apiVersions = {
   dynamodb: '2012-08-10',
   // other service API versions
@@ -12,18 +14,19 @@ AWS.config.apiVersions = {
 var dynamodb = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
-    let user = JSON.parse(event.body)
-    var ORG = "ORG#" + user["custom:TenantId"];
-    console.log(ORG);
+    console.log(event)
+    let user = JSON.parse(event.body);
+    let ORG = "ORG#" + user["custom:TenantId"];
      var params = {
         TableName: "Staffbite-DynamoDB",
         KeyConditionExpression: "#PK = :PK AND begins_with(#SK, :SK)",
         ExpressionAttributeNames: { "#PK": "PK" , "#SK": "SK" }, 
         ExpressionAttributeValues: { 
           ":PK": {"S": ORG},
-          ":SK": {"S": "EMP#"}
+          ":SK": {"S": "PLAN#"}
         },
      };
+     
     let data = null
     let response = null
     try {
@@ -51,3 +54,5 @@ exports.handler = async (event) => {
      
     return response;
 };
+
+

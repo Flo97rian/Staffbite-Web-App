@@ -1,8 +1,8 @@
 {
     "paths": [
         {
-            "name": "/employee",
-            "lambdaFunction": "getEmployee",
+            "name": "/getProfile",
+            "lambdaFunction": "getProfile",
             "privacy": {
                 "private": true,
                 "auth": [
@@ -13,11 +13,11 @@
                     "/DELETE"
                 ]
             },
-            "policyResourceName": "/employee"
+            "policyResourceName": "/getProfile"
         },
         {
-            "name": "/register",
-            "lambdaFunction": "register",
+            "name": "/getAllShiftplans",
+            "lambdaFunction": "getAllShiftplans",
             "privacy": {
                 "private": true,
                 "auth": [
@@ -28,75 +28,36 @@
                     "/DELETE"
                 ]
             },
-            "policyResourceName": "/register"
+            "policyResourceName": "/getAllShiftplans"
         },
         {
-            "name": "/shiftplan",
-            "lambdaFunction": "deleteShiftplan",
+            "name": "/getAllEmployees",
+            "lambdaFunction": "getAllEmployees",
             "privacy": {
                 "private": true,
                 "auth": [
                     "/POST",
-                    "/GET",
-                    "/PUT",
-                    "/PATCH",
-                    "/DELETE"
+                    "/GET"
                 ]
             },
-            "policyResourceName": "/shiftplan"
-        },
-        {
-            "name": "/organisation",
-            "lambdaFunction": "postProfile",
-            "privacy": {
-                "private": true,
-                "auth": [
-                    "/POST",
-                    "/GET",
-                    "/PUT",
-                    "/PATCH"
-                ]
-            },
-            "policyResourceName": "/organisation"
-        },
-        {
-            "name": "/organisation/postProfil",
-            "lambdaFunction": "postProfile",
-            "privacy": {
-                "open": true
-            },
-            "policyResourceName": "/organisation/postProfil"
-        },
-        {
-            "name": "/organisation/report",
-            "lambdaFunction": "getReport",
-            "privacy": {
-                "open": true
-            },
-            "policyResourceName": "/organisation/report"
+            "policyResourceName": "/getAllEmployees"
         }
     ],
     "resourceName": "Staffbite",
     "apiName": "Staffbite",
     "functionArns": [
         {
-            "lambdaFunction": "getEmployee"
+            "lambdaFunction": "getProfile"
         },
         {
-            "lambdaFunction": "register"
+            "lambdaFunction": "getAllShiftplans"
         },
         {
-            "lambdaFunction": "deleteShiftplan"
-        },
-        {
-            "lambdaFunction": "postProfile"
-        },
-        {
-            "lambdaFunction": "getReport"
+            "lambdaFunction": "getAllEmployees"
         }
     ],
     "privacy": {
-        "auth": 4,
+        "auth": 3,
         "unauth": 0,
         "authRoleName": "amplify-staffbite-dev-180625-authRole",
         "unAuthRoleName": "amplify-staffbite-dev-180625-unauthRole"
@@ -104,7 +65,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "getEmployee",
+            "resourceName": "getProfile",
             "attributes": [
                 "Name",
                 "Arn"
@@ -112,7 +73,7 @@
         },
         {
             "category": "function",
-            "resourceName": "register",
+            "resourceName": "getAllShiftplans",
             "attributes": [
                 "Name",
                 "Arn"
@@ -120,28 +81,12 @@
         },
         {
             "category": "function",
-            "resourceName": "deleteShiftplan",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "postProfile",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
-            "resourceName": "getReport",
+            "resourceName": "getAllEmployees",
             "attributes": [
                 "Name",
                 "Arn"
             ]
         }
     ],
-    "uuid": "0970d39d"
+    "uuid": "b1cbf650"
 }
