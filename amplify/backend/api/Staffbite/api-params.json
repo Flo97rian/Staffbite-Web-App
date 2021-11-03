@@ -1,0 +1,147 @@
+{
+    "paths": [
+        {
+            "name": "/employee",
+            "lambdaFunction": "getEmployee",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/employee"
+        },
+        {
+            "name": "/register",
+            "lambdaFunction": "register",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/register"
+        },
+        {
+            "name": "/shiftplan",
+            "lambdaFunction": "deleteShiftplan",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/shiftplan"
+        },
+        {
+            "name": "/organisation",
+            "lambdaFunction": "postProfile",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            },
+            "policyResourceName": "/organisation"
+        },
+        {
+            "name": "/organisation/postProfil",
+            "lambdaFunction": "postProfile",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/organisation/postProfil"
+        },
+        {
+            "name": "/organisation/report",
+            "lambdaFunction": "getReport",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/organisation/report"
+        }
+    ],
+    "resourceName": "Staffbite",
+    "apiName": "Staffbite",
+    "functionArns": [
+        {
+            "lambdaFunction": "getEmployee"
+        },
+        {
+            "lambdaFunction": "register"
+        },
+        {
+            "lambdaFunction": "deleteShiftplan"
+        },
+        {
+            "lambdaFunction": "postProfile"
+        },
+        {
+            "lambdaFunction": "getReport"
+        }
+    ],
+    "privacy": {
+        "auth": 4,
+        "unauth": 0,
+        "authRoleName": "amplify-staffbite-dev-180625-authRole",
+        "unAuthRoleName": "amplify-staffbite-dev-180625-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "getEmployee",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "register",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "deleteShiftplan",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "postProfile",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "getReport",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "0970d39d"
+}

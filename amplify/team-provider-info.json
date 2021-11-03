@@ -12,8 +12,52 @@
       "AmplifyAppId": "d3p8gdtbc86r0o"
     },
     "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3p8gdtbc86r0o",
+          "type": "manual"
+        }
+      },
+      "function": {
+        "deleteEmployee": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/deleteEmployee-315844585278647a7158-build.zip"
+        },
+        "Invoke": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/Invoke-337a6d4972344f6f7047-build.zip"
+        },
+        "getProfile": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/getProfile-5a5a37694d70544a5039-build.zip"
+        },
+        "getEmployee": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/getEmployee-375564553051354c4242-build.zip"
+        },
+        "register": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/register-2f4d4f3572684f644c71-build.zip"
+        },
+        "deleteShiftplan": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/deleteShiftplan-39765375487a6265766f-build.zip"
+        },
+        "getAllEmployees": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/getAllEmployees-6851526d74545962594e-build.zip"
+        },
+        "getReport": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/getReport-5938774a7a51637a776d-build.zip"
+        },
+        "postProfile": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/postProfile-44466f414c2b61743177-build.zip"
+        }
+      },
       "auth": {
-        "staffbiteff38ca70": {
+        "staffbite77674eba": {
           "userPoolId": "eu-central-1_e0g7ALwrg",
           "userPoolName": "Staffbite-Benutzerpool",
           "webClientId": "625p2f8lj1r8vii8l13467nijr",
@@ -27,17 +71,12 @@
           "unauthRoleName": "Cognito_StaffbiteUnauth_Role"
         }
       },
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d3p8gdtbc86r0o",
-          "type": "manual"
-        }
-      },
       "storage": {
         "StaffbiteDynamoDB": {
           "tableName": "Staffbite-DynamoDB",
           "region": "eu-central-1",
           "arn": "arn:aws:dynamodb:eu-central-1:643981031365:table/Staffbite-DynamoDB",
+          "streamArn": "arn:aws:dynamodb:eu-central-1:643981031365:table/Staffbite-DynamoDB/stream/2021-11-01T16:21:54.496",
           "partitionKeyName": "PK",
           "partitionKeyType": "S",
           "sortKeyName": "SK",
@@ -46,16 +85,16 @@
       }
     }
   },
-  "test": {
+  "main": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-staffbite-test-114647-authRole",
-      "UnauthRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-test-114647-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-test-114647-authRole",
+      "AuthRoleName": "amplify-staffbite-main-151241-authRole",
+      "UnauthRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-main-151241-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-main-151241-authRole",
       "Region": "eu-central-1",
-      "DeploymentBucketName": "amplify-staffbite-test-114647-deployment",
-      "UnauthRoleName": "amplify-staffbite-test-114647-unauthRole",
-      "StackName": "amplify-staffbite-test-114647",
-      "StackId": "arn:aws:cloudformation:eu-central-1:643981031365:stack/amplify-staffbite-test-114647/9d03ae60-36fe-11ec-90fe-0af713e4d252",
+      "DeploymentBucketName": "amplify-staffbite-main-151241-deployment",
+      "UnauthRoleName": "amplify-staffbite-main-151241-unauthRole",
+      "StackName": "amplify-staffbite-main-151241",
+      "StackId": "arn:aws:cloudformation:eu-central-1:643981031365:stack/amplify-staffbite-main-151241/c9af4500-3b1d-11ec-b14c-02ad9e7e97f6",
       "AmplifyAppId": "d3p8gdtbc86r0o"
     },
     "categories": {
@@ -90,6 +129,10 @@
           "sortKeyName": "SK",
           "sortKeyType": "S"
         }
+      },
+      "function": {
+        "Invoke": {},
+        "deleteEmployee": {}
       }
     }
   }

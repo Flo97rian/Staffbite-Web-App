@@ -1,4 +1,4 @@
-export const API_HOSTNAME = 'Staffbite-API'
+export const API_HOSTNAME = 'Staffbite'
 
 export const DELETE_APPLICATION = '/schichtplan/delete-bewerbung';
 export const DELETE_EMPLOYEE = '/employee/delete';
@@ -6,7 +6,7 @@ export const DELETE_SHIFTPLAN = '/schichtplan/delete';
 export const FETCH_ADMIN = '/organisation/get-profile';
 export const FETCH_ALL_EMPLOYEES = '/employee/getall';
 export const FETCH_ALL_PLANS = '/schichtplan/getall';
-export const FETCH_ORGANISATION = '/organisation/get-profile';
+export const FETCH_ORGANISATION = '/organisation/getProfile';
 export const FETCH_SHIFTPLAN_FOR_EMPLOYEE = '/schichtplan/getfreigegeben';
 export const FETCH_USER = '/employee/get';
 export const PUBLISH_SHIFTPLAN = '/schichtplan/veroeffentlichen';
