@@ -17,10 +17,12 @@ exports.handler = async (event) => {
     console.log(event)
     console.log(event.body)
     let body = JSON.parse(event.body)
-    let employees = await getEmployees(event)
+    let user = body.user;
+    let auswahl = body.auswahl;
+    let employees = await getEmployees(user)
     console.log(employees);
-    let start = getStartDate(event);
-    let end = getEndDate(event);
+    let start = getStartDate(auswahl);
+    let end = getEndDate(auswahl);
     let employeesReport = null
     if (body.auswahl.bewerbungen) {
     employeesReport = setBewerbungsCount(employees, start, end)
@@ -43,22 +45,20 @@ exports.handler = async (event) => {
     return response
 };
 
-function getStartDate(event) {
-  let body = JSON.parse(event.body)
-  let startDateArray = body.auswahl.start.split(".")
+function getStartDate(auswahl) {
+  let startDateArray = auswahl.start.split(".")
   let start = new Date(startDateArray[2], startDateArray[1], startDateArray[0])
   return start
 }
 
-function getEndDate(event) {
-  let body = JSON.parse(event.body)
-  let endDateArray = body.auswahl.ende.split(".")
+function getEndDate(auswahl) {
+  let endDateArray = auswahl.ende.split(".")
   let end = new Date(endDateArray[2], endDateArray[1], endDateArray[0])
   return end
 }
 
-const getEmployees = async (event) => {
-      var ORG = "ORG#" + event.requestContext.authorizer["claims"]["custom:TenantId"];
+const getEmployees = async (user) => {
+      var ORG = "ORG#" + user["custom:TenantId"];
     console.log(ORG);
      var params = {
         TableName: "Staffbite-DynamoDB",

@@ -16,7 +16,9 @@ var dynamodb = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
     let body = JSON.parse(event.body);
-    await updateOrg(event, body)
+    let org = body.org;
+    let user = body.user;
+    await updateOrg(user, org)
      const response = {
         statusCode: 200,
         headers: {
@@ -30,8 +32,8 @@ exports.handler = async (event) => {
     return response;
 }
 
-function names(body) {
-    let parameters = body;
+function names(org) {
+    let parameters = org;
     let keys = Object.keys(parameters);
     let len = keys.length
     let params = {}
@@ -41,8 +43,8 @@ function names(body) {
     return params
 }
 
-function values(body) {
-    let parameters = body;
+function values(org) {
+    let parameters = org;
     let keys = Object.keys(parameters);
     let len = keys.length
     let params = {}
@@ -60,8 +62,8 @@ function values(body) {
     return params
 }
 
-function Expression(body) {
-     let parameters = body;
+function Expression(org) {
+     let parameters = org;
     let keys = Object.keys(parameters);
     let len = keys.length
     let expression = "SET "
@@ -77,21 +79,21 @@ function Expression(body) {
      
 } 
 
-const updateOrg = async (event, body) => {
+const updateOrg = async (user, org) => {
      var params = {
     Key: {
    "PK": {
-     "S": "ORG#" + event.requestContext.authorizer["claims"]["custom:TenantId"]
+     "S": "ORG#" + user["custom:TenantId"]
     }, 
    "SK": {
-     "S": "ORG#METADATA#" + event.requestContext.authorizer["claims"]["custom:TenantId"]
+     "S": "ORG#METADATA#" + user["custom:TenantId"]
     }
     },
-    ExpressionAttributeNames: names(body),
-    ExpressionAttributeValues: values(body),
+    ExpressionAttributeNames: names(org),
+    ExpressionAttributeValues: values(org),
     ReturnValues: "ALL_NEW", 
     TableName: "Staffbite-DynamoDB", 
-    UpdateExpression: Expression(body)
+    UpdateExpression: Expression(org)
     };
     
     
