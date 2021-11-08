@@ -27,6 +27,7 @@ import SchichtplanBewerben from "./views/MainViews/User/SchichtplanBewerben.js";
 import UserProfil from "./views/MainViews/User/UserProfil.js";
 import Login from "./components/Auth/Login.js";
 import SignUp from "./components/Auth/signUp.js";
+import ForgotPassword from "./components/Auth/ForgotPassword.js";
 import { LANGUAGES } from "./constants/Titles.js";
 var authroutes = [
   {
@@ -39,6 +40,12 @@ var authroutes = [
     path: "/signup",
     name: "Registrieren",
     component: SignUp,
+    layout: "/auth",
+  },
+  {
+    path: "/forgotpassword",
+    name: "Passwort",
+    component: ForgotPassword,
     layout: "/auth",
   }
 ]

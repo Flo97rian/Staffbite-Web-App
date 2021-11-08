@@ -69,10 +69,10 @@ const  ImportSchichtplanTabelle = (props) => {
                                 <p>{Montag} - {Sonntag}</p>
                                 </Col>
                         <Col xs={3}>
-                            <p>Lengende</p>
-                            <Badge color="success">Bewerber</Badge>
-                            <Badge color="light"> kein Bewerber</Badge>
-                            <Badge color="dark"> kein Betrieb</Badge>
+                            <p>Legende</p>
+                            <Badge className="m-1" color="success">Bewerber</Badge>
+                            <Badge className="m-1" color="light"> kein Bewerber</Badge>
+                            <Badge  className="m-1"color="default"> kein Betrieb</Badge>
                         </Col>
                     </Row>
                     <br/>

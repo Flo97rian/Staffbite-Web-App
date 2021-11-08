@@ -59,12 +59,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "deleteShiftplan",
+            "contactForm",
             {
               "Fn::Join": [
                 "",
                 [
-                  "deleteShiftplan",
+                  "contactForm",
                   "-",
                   {
                     "Ref": "env"
@@ -110,12 +110,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "staffbiteLambdaRole734c651f",
+            "staffbiteLambdaRole05689fc8",
             {
               "Fn::Join": [
                 "",
                 [
-                  "staffbiteLambdaRole734c651f",
+                  "staffbiteLambdaRole05689fc8",
                   "-",
                   {
                     "Ref": "env"
@@ -204,6 +204,9 @@
             {
               "Effect": "Allow",
               "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
                 "dynamodb:Get*",
                 "dynamodb:BatchGetItem",
                 "dynamodb:List*",
@@ -211,8 +214,7 @@
                 "dynamodb:Scan",
                 "dynamodb:Query",
                 "dynamodb:Update*",
-                "dynamodb:RestoreTable*",
-                "dynamodb:Delete*"
+                "dynamodb:RestoreTable*"
               ],
               "Resource": [
                 {

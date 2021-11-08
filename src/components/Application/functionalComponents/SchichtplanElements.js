@@ -18,7 +18,7 @@ export const DateOrWeekDayRow = (obj) => {
 export const CompanyClosed = () => {
     return (
     <ListGroup>
-        <ListGroupItem className="mb-0" color="light"><p className="m-0"><br/><br/></p></ListGroupItem>
+        <ListGroupItem className="mb-0" style={{"color": "#091428", "backgroundColor": "rgba(52, 98, 175, 0.5)"}}><p className="m-0"><br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
 
@@ -226,13 +226,13 @@ export const ShowSingleApplicantWithUser = (ApplicantName) => {
 
 export const ShowMultipleApplicantsWithOutUser = (FirstApplicant, ApplicantsLength) => {
     return (<ListGroup>
-        <ListGroupItem className="mb-0" color="warning"><p className="m-0">{FirstApplicant}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
+        <ListGroupItem className="mb-0" color=""><p className="m-0">{FirstApplicant}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
     </ListGroup>
 )}
 
 export const ShowSingleApplicantWithOutUser = (FirstApplicant) => {
     return (<ListGroup>
-        <ListGroupItem className="mb-0" color="warning"><p className="m-0">{FirstApplicant}<br/><br/></p></ListGroupItem>
+        <ListGroupItem className="mb-0" color=""><p className="m-0">{FirstApplicant}<br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
 export const ZeroApplicants = (index, col, Click) => {

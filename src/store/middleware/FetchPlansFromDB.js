@@ -8,9 +8,10 @@ export async function FetchFromDB(dispatch, getState) {
         const myInit = { // OPTIONAL
             body: user.attributes
         };
-        return API.post(apiName, path, myInit)
-        })
-        .then(response => {
+        console.log(user);
+        return API.post(apiName, path, myInit);
+        }).then(response => {
+            console.log(response)
             let plans = response.Items.map(item => {
                 return {
                     id: item.SK["S"],
@@ -19,11 +20,10 @@ export async function FetchFromDB(dispatch, getState) {
                     schichtentag: item.schichtentag["N"],
                     zeitraum: item.zeitraum["S"],
                     tauschanfrage: JSON.parse(item.tauschanfrage["S"])
-                };
+                }
             });
             // Add your code here
-            dispatch({type: "All/GetPlansFromDB", payload: plans})
-            dispatch({type: "stopFetchPlansFromDB"})
-            })
-        
+            dispatch({type: "All/GetPlansFromDB", payload: plans});
+            dispatch({type: "stopFetchPlansFromDB"});
+        })        
 }

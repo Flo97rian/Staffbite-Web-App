@@ -9,10 +9,12 @@ export async function FetchEmployeePlansFromDB(dispatch, getState) {
         const myInit = { // OPTIONAL
             body: user.attributes
         };
+        console.log(user);
         return API.post(apiName, path, myInit)
         })
         .then(response => {
-            let plans = _.map(response, item => {
+            console.log(response);
+            let plans = response.map(item => {
                 return {
                     id: item.SK["S"],
                     name: item.name["S"],

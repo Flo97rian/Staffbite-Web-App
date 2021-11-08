@@ -19,3 +19,4 @@ export const UPDATE_SHIFTPLAN = '/updateShiftplan';
 export const UPDATE_EMPLOYEE_POST_TRADE = '/updateTradeShift';
 export const UPLOAD_APPLICATION = '/postApplication';
 export const UPLOAD_SHIFTPLAN = '/uploadShiftplan';
+export const CONTACT_FORM = '/contactForm';

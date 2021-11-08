@@ -43,7 +43,7 @@ import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 
-const SignUp = () => {
+const ForgotPassword = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
@@ -53,30 +53,28 @@ const SignUp = () => {
     const [authState, setAuthState] = useState();
     const [user, setUser] = useState();
     const [code, setCode] = useState("");
+    const [reset, setReset] = useState(!1);
     const [tenant, setTenant] = useState(!1);
 
-async function signUp() {
-    if(isValid) {
-    setErr(null);
-    try {
-        const { user } = await Auth.signUp({
-            username,
-            password,
-        });
-        setUser(user)
-    } catch (error) {
-        setErr(error)
-    }
-    }
+
+async function resetPassword() {
+    Auth.forgotPassword(username)
+    .then(data => {
+        console.log(data);
+        setReset(!0);
+    })
+    .catch(err => console.log(err));
+
 }
 
-async function confirmSignUp() {
-    try {
-      await Auth.confirmSignUp(username, code);
-      setTenant(!0)
-      setMsg({...msg, changedPassword: !0})
-    } catch (error) {
-    }
+async function confirmResetPassword() {
+    console.log(username, code, password)
+    Auth.forgotPasswordSubmit(username, code, password)
+    .then(data => {
+        console.log(data)
+        setReset(!1)})
+    .catch(err => console.log(err));
+
 }
     useEffect((authState) => {
        if(authState === undefined) {
@@ -126,9 +124,7 @@ async function confirmSignUp() {
             </Alert>
             :
             <></>}
-        {user ? 
-        (
-        tenant ? <Switch><Redirect from="*" to="/auth" /></Switch> :
+        {reset ? 
             <>
             <AuthNavbar 
                 logo={{
@@ -144,11 +140,37 @@ async function confirmSignUp() {
                     <Card className="bg-white shadow border-0 mb-4">
                         <CardHeader className="bg-white pb-2">
                         <div className="text-muted text-center pt-4">
-                            <h3>Bestätigungscode eingeben</h3>
+                            <h3>Neues Passwort festlegen</h3>
                         </div>
                         </CardHeader>
                         <CardBody className="px-lg-5 py-lg-5">
                         <Form role="form">
+                            <FormGroup className="mb-3">
+                            <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="ni ni-email-83" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <Input placeholder="Email" type="email" name="username" onChange={(e) => handleInputChange(e)}/>
+                            </InputGroup>
+                            </FormGroup>
+                            <FormGroup>
+                            <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="ni ni-lock-circle-open" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <Input
+                                placeholder="neues Passwort"
+                                type="password"
+                                name="password"
+                                autoComplete="off"
+                                onChange={(e) => handleInputChange(e)}
+                                />
+                            </InputGroup>
+                            </FormGroup>
                             <FormGroup className="mb-3">
                             <InputGroup className="input-group-alternative">
                                 <InputGroupAddon addonType="prepend">
@@ -173,9 +195,9 @@ async function confirmSignUp() {
                                 className="my-4"
                                 color="primary"
                                 type="button"
-                                onClick={() => confirmSignUp()}
+                                onClick={() => confirmResetPassword()}
                             >
-                                Senden
+                                Bestätigungscode senden
                             </Button>
                             </div>
                         </Form>
@@ -195,8 +217,7 @@ async function confirmSignUp() {
             </main>
             <AuthFooter/>
             </>
-        ) 
-        :
+            :
             <>
             <AuthNavbar 
                 logo={{
@@ -204,21 +225,6 @@ async function confirmSignUp() {
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
                 imgAlt: "...",
                 }}/>
-                  { err !== null && err.code === "UsernameExistsException" ? 
-                <div>
-                <Alert color="warning">
-            <Row>
-              <Col xs="10">
-                <p className="mb-0">{err.message}</p> 
-              </Col>
-              <Col xs="2">
-                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setMsg({...err, code: !1})}></i>
-              </Col>
-            </Row>
-            </Alert>
-                </div>
-                : <></>
-                }
             <main className="bg-secondary">
             <section className="section section-shaped section-lg">
                 <Container className="pt-lg-7">
@@ -227,7 +233,7 @@ async function confirmSignUp() {
                     <Card className="bg-white shadow border-0 mb-4">
                         <CardHeader className="bg-white pb-2">
                         <div className="text-muted text-center pt-4">
-                            <h3>Registrieren</h3>
+                            <h3>Passwort vergessen</h3>
                         </div>
                         </CardHeader>
                         <CardBody className="px-lg-5 py-lg-5">
@@ -242,60 +248,14 @@ async function confirmSignUp() {
                                 <Input placeholder="Email" type="email" name="username" onChange={(e) => handleInputChange(e)}/>
                             </InputGroup>
                             </FormGroup>
-                            <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-lock-circle-open" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                placeholder="Password"
-                                type="password"
-                                name="password"
-                                autoComplete="off"
-                                onChange={(e) => handleInputChange(e)}
-                                />
-                            </InputGroup>
-                            </FormGroup>
-                            <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-lock-circle-open" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                placeholder="Password wiederholen"
-                                type="password"
-                                name="passwordAgain"
-                                autoComplete="off"
-                                onChange={(e) => handleInputChange(e)}
-                                />
-                            </InputGroup>
-                            </FormGroup>
-                            <PasswordChecklist
-                                rules={["minLength","specialChar","number","capital","match"]}
-                                minLength={8}
-                                value={password}
-                                valueAgain={passwordAgain}
-                                onChange={(isValid) => setIsValid(isValid)}
-                                messages={{
-                                    minLength: "Mindestlänge 8",
-                                    specialChar: "Sonderzeichen",
-                                    number: "Zahl",
-                                    capital: "Großbuchstabe",
-                                    match: "Passwörter stimmen überein",
-                                }}
-                            />
                             <div className="text-center">
                             <Button
                                 className="my-4"
                                 color="primary"
                                 type="button"
-                                onClick={() => signUp()}
+                                onClick={() => resetPassword()}
                             >
-                                Registrieren
+                                Password zurücksetzen
                             </Button>
                             </div>
                         </Form>
@@ -304,7 +264,6 @@ async function confirmSignUp() {
                         <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
                         </Col>
                         <Col className="text-right" xs="6">
-                            <Link to="/auth/forgotpassword" className=""><small>Passwort vergessen?</small></Link>
                         </Col>
                     </Row>
                         </CardBody>
@@ -321,4 +280,4 @@ async function confirmSignUp() {
     );
   }
 
-export default SignUp;
+export default ForgotPassword;

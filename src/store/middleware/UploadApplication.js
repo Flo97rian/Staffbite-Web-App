@@ -16,13 +16,13 @@ export function thunkUploadApplication(Shiftplan) {
             };
             return API.post(apiName, path, myInit)
             })
-        .then(
-        dispatch(FetchEmployeePlansFromDB),
-        dispatch({type: "stopFetchingEmployeePlans"}),
-        dispatch({ type: "ResetCurrentShiftPlan"}),
-        dispatch({ type: "stopShiftPlanIsImported"}),
-        dispatch({ type: "stopShiftPlanIsActive"}),
-        dispatch({ type: "resetShiftplan"}),
-        )
+        .then(response => {
+            dispatch(FetchEmployeePlansFromDB);
+            dispatch({type: "stopFetchingEmployeePlans"});
+            dispatch({ type: "ResetCurrentShiftPlan"});
+            dispatch({ type: "stopShiftPlanIsImported"});
+            dispatch({ type: "stopShiftPlanIsActive"});
+            dispatch({ type: "resetShiftplan"});
+        })
     }
 }

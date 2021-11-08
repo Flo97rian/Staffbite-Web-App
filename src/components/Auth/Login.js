@@ -16,7 +16,7 @@
 
 */
 import React, { useState, useEffect } from "react";
-
+import store from "../../store"
 // reactstrap components
 import {
   Button,
@@ -48,6 +48,7 @@ const Login = () => {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [passwordAgain, setPasswordAgain] = useState("");
+    const [code, setCode] = useState("");
     const [isValid, setIsValid] = useState(!1);
     const [err, setErr] = useState(null)
     const [newpassword, setNewPassword] = useState("");
@@ -70,10 +71,18 @@ const Login = () => {
      useEffect(() => {
     }, [user]);
 
-    
+    async function confirmSignUp() {
+        try {
+          await Auth.confirmSignUp(username, code);
+          setAuthState(AuthState.SignedIn)
+
+        } catch (error) {
+        }
+    }
     async function signIn() {
         try {
             const user = await Auth.signIn(username, password);
+            console.log(user);
             if ("challengeName" in user && !newpassword) {
                 setAuthState(AuthState.ResetPassword);
                 setUser(user);
@@ -83,12 +92,23 @@ const Login = () => {
             } else {
                 setAuthState(AuthState.SignedIn);
                 setUser(user);
+                console.log(user);
+                store.dispatch({type:"currentUser", payload: user.attributes})
+                
             }
         } catch (error) {
             setErr(error);
         }   
     }
 
+    async function resendConfirmationCode(username) {
+        try {
+            await Auth.resendSignUp(username)
+            console.log('code resent successfully');
+        } catch (err) {
+            console.log('error resending code: ', err);
+        }
+    }
     const handleInputChange = (event) => {
         let key = event.target.name;
         let val = event.target.value;
@@ -101,7 +121,9 @@ const Login = () => {
             setNewPassword(val)
         } else if ( key === "passwordAgain") {
             setPasswordAgain(val)
-        } 
+        } else if ( key === "code") {
+            setCode(val)
+        }
       }
     
       async function changePassword(password, newpassword) {
@@ -115,15 +137,26 @@ const Login = () => {
                     user,               // the Cognito User Object
                     newpassword,       // the new password
                 ).then(user => {
-                    setUser(user);
-                }).catch(e => {
+                    signInAfterChangePassword(username, newpassword);
+                }
+                ).catch(e => {
+                    console.log(e);
                 });
-            } else {
-                // other situations
             }
-        }).catch(e => {
+        })
+        .catch(e => {
+            console.log(e);
         });
-    };
+      };
+
+    async function signInAfterChangePassword(username, newpassword) {
+        Auth.signIn(username, newpassword)
+        .then(user => {
+            resendConfirmationCode(username);
+            setAuthState(AuthState.ConfirmSignUp)
+        })
+        .catch(err => console.log(err));
+    }
 
     const SignInAuthState = () => {
         if (authState === AuthState.ResetPassword && user) {
@@ -217,9 +250,10 @@ const Login = () => {
                             </Form>
                             <Row className="mt-3">
                             <Col xs="6">
-                            <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
+                                <Link to="/forgotpassword" className=""><small>Passwort vergessen?</small></Link>
                             </Col>
                             <Col className="text-right" xs="6">
+                                <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
                             </Col>
                         </Row>
                             </CardBody>
@@ -231,6 +265,75 @@ const Login = () => {
                 </main>
                 <AuthFooter/>
                 </>
+            )
+        } else if (authState === AuthState.ConfirmSignUp && user) {
+            return (
+                <>
+            <AuthNavbar 
+                logo={{
+                innerLink: "/",
+                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
+                imgAlt: "...",
+                }}/>
+            <main className="bg-secondary">
+            <section className="section section-shaped section-lg">
+                <Container className="pt-lg-7">
+                <Row className="justify-content-center">
+                    <Col lg="5">
+                    <Card className="bg-white shadow border-0 mb-4">
+                        <CardHeader className="bg-white pb-2">
+                        <div className="text-muted text-center pt-4">
+                            <h3>Bestätigungscode eingeben</h3>
+                        </div>
+                        </CardHeader>
+                        <CardBody className="px-lg-5 py-lg-5">
+                        <Form role="form">
+                            <FormGroup className="mb-3">
+                            <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="fas fa-paper-plane" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <Input placeholder="Bestätigungcode" type="number" name="code" onChange={(e) => handleInputChange(e)}/>
+                            </InputGroup>
+                            </FormGroup>
+                            <PasswordChecklist
+                                rules={["minLength","number"]}
+                                minLength={6}
+                                value={code}
+                                messages={{
+                                    minLength: "Länge 6",
+                                    number: "Zahlen",
+                                }}
+                            />
+                            <div className="text-center">
+                            <Button
+                                className="my-4"
+                                color="primary"
+                                type="button"
+                                onClick={() => confirmSignUp()}
+                            >
+                                Senden
+                            </Button>
+                            </div>
+                        </Form>
+                        <Row className="mt-3">
+                        <Col xs="6">
+                        <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
+                        </Col>
+                        <Col className="text-right" xs="6">
+                        </Col>
+                    </Row>
+                        </CardBody>
+                    </Card>
+                    </Col>
+                    </Row>
+                </Container>
+            </section>
+            </main>
+            <AuthFooter/>
+            </>
             )
         } else if (authState === AuthState.SignedIn && user) {
             if("challengeParam" in user ) {
@@ -348,6 +451,7 @@ const Login = () => {
                         </Form>
                         <Row className="mt-3">
                         <Col xs="6">
+                            <Link to="/forgotpassword" className=""><small>Passwort vergessen?</small></Link>
                         </Col>
                         <Col className="text-right" xs="6">
                         <Link to="/signup" className=""><small>Erstelle einen Account</small></Link>

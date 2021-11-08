@@ -16,14 +16,14 @@ export function thunkStartAlg(id) {
         };
         return API.post(apiName, path, myInit)
         })
-        .then(
-            dispatch(FetchFromDB),
-            dispatch({type: "AlgResponse", payload: !0}),
-            dispatch({type: "stopFetchingAlg"}),
-            dispatch({type: "stopShiftPlanIsActive"}),
-            dispatch({type: "stopShiftPlanIsImported"}),
-            dispatch({type: "ResetCurrentShiftPlan"}),
-            dispatch({type: "resetShiftplan"})
-        )
+        .then(response => {
+            dispatch(FetchFromDB);
+            dispatch({type: "AlgResponse", payload: !0});
+            dispatch({type: "stopFetchingAlg"});
+            dispatch({type: "stopShiftPlanIsActive"});
+            dispatch({type: "stopShiftPlanIsImported"});
+            dispatch({type: "ResetCurrentShiftPlan"});
+            dispatch({type: "resetShiftplan"});
+        })
     }
 }

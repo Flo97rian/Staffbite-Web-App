@@ -22,12 +22,12 @@ export function thunkUploadShiftPlanToDB(shiftplan) {
       };
       return API.post(apiName, path, myInit)
       })
-    .then(
-      dispatch(FetchFromDB),
-      dispatch({type: "stopFetchingSafe"}),
-      dispatch({type: "stopShiftPlanIsActive"}),
-      dispatch({type: "stopShiftPlanIsImported"}),
-      dispatch({type: "resetNewShiftplan"})
-    )
+    .then(response => {
+      dispatch(FetchFromDB);
+      dispatch({type: "stopFetchingSafe"});
+      dispatch({type: "stopShiftPlanIsActive"});
+      dispatch({type: "stopShiftPlanIsImported"});
+      dispatch({type: "resetNewShiftplan"});
+    })
   }
 }

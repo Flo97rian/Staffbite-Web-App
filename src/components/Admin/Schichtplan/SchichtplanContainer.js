@@ -114,6 +114,9 @@ const SchichtplanContainer = () => {
   }, [Shiftplan]);
 
   useEffect(() => {
+  }, [Plans]);
+
+  useEffect(() => {
     if (Meta)
     setUserInput({...shiftplanStates, position: Meta.schichten[0]})
   }, [Meta]);

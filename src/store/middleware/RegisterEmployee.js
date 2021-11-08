@@ -16,8 +16,8 @@ return async function registerEmployee(dispatch, getState) {
     };
     return API.post(apiName, path, myInit)
     })
-    .then(
-      dispatch(FetchEmployees)
-    )
+    .then(response => {
+      dispatch(FetchEmployees);
+    })
   }
 };

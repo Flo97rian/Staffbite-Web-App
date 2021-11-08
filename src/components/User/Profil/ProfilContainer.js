@@ -52,15 +52,6 @@ const ProfilContainer = (props) => {
                     >
                       Einstellungen
                     </Button>
-                    <Button
-                      className="float-right"
-                      color="default"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      Chat
-                    </Button>
                   </div>
                 </CardHeader>
                 <CardBody className="pt-0 pt-md-4">

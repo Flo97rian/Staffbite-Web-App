@@ -74,6 +74,7 @@ exports.handler = async (event, context, callback) => {
         },
         body: JSON.stringify("Fetched Published Shiftplans"),
         }
+
     } catch(error) {
         response = {
         statusCode: 200,
@@ -99,6 +100,19 @@ exports.handler = async (event, context, callback) => {
         } else {
             data.unshift(item);
      }});
+
+    if(data.length > 0 ) {
+        response = {
+            statusCode: 200,
+            headers: {
+                "Access-Control-Allow-Headers" : "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            },
+            body: JSON.stringify(data),
+            }
+    }
+
     return response;
 };
 

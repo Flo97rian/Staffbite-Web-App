@@ -15,12 +15,12 @@ export function thunkUpdateShiftPlan(shiftplan) {
       };
       return API.post(apiName, path, myInit)
       })
-    .then(
-      dispatch(FetchFromDB),
-      dispatch({type: "stopShiftPlanIsActive"}),
-      dispatch({type: "stopShiftPlanIsImported"}),
-      dispatch({type: "resetShiftplan"}),
-      dispatch({type: "ResetCurrentShiftPlan"}),
-    )
+    .then(response => {
+      dispatch(FetchFromDB);
+      dispatch({type: "stopShiftPlanIsActive"});
+      dispatch({type: "stopShiftPlanIsImported"});
+      dispatch({type: "resetShiftplan"});
+      dispatch({type: "ResetCurrentShiftPlan"});
+    })
   }
 }

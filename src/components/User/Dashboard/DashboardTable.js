@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Row,
@@ -23,6 +23,7 @@ const DashboardSchichtenTabelle = (props) => {
     if (ShiftPlanIsActive && hasCurrentUser && hasShiftplan) {
         let id = props.shiftplan.id
         let idVeröffentlicht = id.split("#").includes("Veröffentlicht")
+        let linkTo = idVeröffentlicht ? "/user/schichtplan" : "/user/bewerben"
         let shiftplan = props.shiftplan.plan
         let Montag = props.shiftplan.zeitraum.split(" - ")[0]
         let Sonntag = props.shiftplan.zeitraum.split(" - ")[1]
@@ -40,13 +41,14 @@ const DashboardSchichtenTabelle = (props) => {
                     <p>{Montag} - {Sonntag}</p>
                     </Col>
                     <Col xs={3}>
-                        <p>Lengende</p>
-                        <Badge color="success">beworben</Badge>
-                        <Badge color="warning">Bewerber vorhanden</Badge>
-                        <Badge color="light">nicht verfügbar</Badge>
+                        <p>Legende</p>
+                        {idVeröffentlicht ? <Badge color="success">Schicht erhalten</Badge> : <Badge color="success">beworben</Badge> }
+                        {idVeröffentlicht ? <Badge color="">Schicht unbelegt / Schicht nicht erhalten</Badge> : <Badge color="light">kein Bewerber / Bewerber vorhanden</Badge> }
+                        <Badge color="default">nicht verfügbar</Badge>
                     </Col>
                 </Row>
                         <br/>
+                        <Link to={linkTo} tag={Link}>
                         <Row className="text-center" noGutters={true}>
                         <Table responsive={true} borderless={true} style={{"padding": "0"}}>
                             <thead>
@@ -58,9 +60,9 @@ const DashboardSchichtenTabelle = (props) => {
                                 <td style={{"padding": "0"}}>
                                     {idVeröffentlicht
                                     ?
-                                    <DashboardElementPublished wochentag={item.Wochentag} index={index} col="Wochentag" currentItem={item} ItemLength={shiftplan.length} {...props}></DashboardElementPublished>
+                                    <DashboardElementPublished wochentag={item.Wochentag} index={index} col="Wochentag" currentItem={item} anzahl={item.Montag} ItemLength={shiftplan.length} {...props}></DashboardElementPublished>
                                     :
-                                    <DashboardElementApplication wochentag={item.Wochentag} index={index} col="Wochentag" currentItem={item} ItemLength={shiftplan.length} {...props}></DashboardElementApplication>
+                                    <DashboardElementApplication wochentag={item.Wochentag} index={index} col="Wochentag" currentItem={item} anzahl={item.Montag} ItemLength={shiftplan.length} {...props}></DashboardElementApplication>
                                     }
                                 </td>
                                 <td style={{"padding": "0"}}>
@@ -126,6 +128,7 @@ const DashboardSchichtenTabelle = (props) => {
                             </tbody>
                         </Table>
                         </Row> 
+                        </Link>
                     </CardBody>
                 </Card>
                 </>

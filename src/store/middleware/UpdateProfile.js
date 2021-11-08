@@ -15,8 +15,9 @@ export function thunkUpdateProfile(profile) {
       };
       return API.post(apiName, path, myInit)
       })
-    .then(
-      dispatch(FetchOrg)
+    .then(response => {
+      dispatch(FetchOrg);
+    }
     )
   }
 }

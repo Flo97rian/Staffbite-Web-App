@@ -1,4 +1,10 @@
-
+/* Amplify Params - DO NOT EDIT
+	ENV
+	REGION
+	STORAGE_STAFFBITEDYNAMODB_ARN
+	STORAGE_STAFFBITEDYNAMODB_NAME
+	STORAGE_STAFFBITEDYNAMODB_STREAMARN
+Amplify Params - DO NOT EDIT */
 
 var AWS = require('aws-sdk');
 AWS.config.apiVersions = {
@@ -10,8 +16,9 @@ var dynamodb = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
     let user = JSON.parse(event.body)
-    let id = event['queryStringParameters']["id"]
-    console.log(user)
+    let id = event["queryStringParameters"]["id"]
+    console.log(user);
+    console.log(id);
     var params = {
     Key: {
     "PK": {

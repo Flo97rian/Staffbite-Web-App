@@ -17,13 +17,13 @@ export function thunkPublishShiftPlan(plan) {
             };
             return API.post(apiName, path, myInit)
             })
-            .then(
-                dispatch({type: "stopFetchingPublish"}),
-                dispatch(FetchFromDB),
-                dispatch({type: "stopShiftPlanIsActive"}),
-                dispatch({type: "stopShiftPlanIsImported"}),
-                dispatch({type: "ResetCurrentShiftPlan"}),
-                dispatch({type: "resetShiftplan"}),
-            )
+            .then(response => {
+                dispatch({type: "stopFetchingPublish"});
+                dispatch(FetchFromDB);
+                dispatch({type: "stopShiftPlanIsActive"});
+                dispatch({type: "stopShiftPlanIsImported"});
+                dispatch({type: "ResetCurrentShiftPlan"});
+                dispatch({type: "resetShiftplan"});
+            })
     }
 }

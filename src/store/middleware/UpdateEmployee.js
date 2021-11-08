@@ -16,8 +16,8 @@ export function thunkUpdateEmployee(updatedEmployee) {
       };
       return API.post(apiName, path, myInit)
       })
-    .then(
-      dispatch(FetchEmployees)
-    )
+    .then(response => {
+      dispatch(FetchEmployees);
+    })
   }
 }

@@ -35,10 +35,11 @@ const ShiftplanTable = (props) => {
                 <p>{Montag} - {Sonntag}</p>
                 </Col>
                 <Col xs={3}>
-                    <p>Lengende</p>
-                    <Badge color="success">beworben</Badge>
-                    <Badge color="warning">Bewerber vorhanden</Badge>
-                    <Badge color="light">nicht verfügbar</Badge>
+                    <p>Legende</p>
+                    <Badge color="success">Schicht erhalten</Badge>
+                    <Badge color="light">Schicht unbelegt</Badge>
+                    <Badge color="light">Schicht nicht erhalten</Badge>
+                    <Badge color="default">nicht verfügbar</Badge>
                 </Col>
             </Row>
                     <br/>
@@ -52,7 +53,7 @@ const ShiftplanTable = (props) => {
                         {idVeröffentlicht ? 
                         <tr key={index}>
                             <td style={{"padding": "0"}}>
-                                <SchichtplanElementPublished wochentag={item.Wochentag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Wochentag" {...props}></SchichtplanElementPublished>
+                                <SchichtplanElementPublished wochentag={item.Wochentag} index={index} currentItem={item} anzahl={item.Montag} ItemLength={shiftplan.length} col="Wochentag" {...props}></SchichtplanElementPublished>
                             </td>
                             <td style={{"padding": "0"}}>
                                 <SchichtplanElementPublished wochentag={item.Montag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Montag" {...props}></SchichtplanElementPublished>

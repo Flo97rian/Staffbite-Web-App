@@ -1,12 +1,12 @@
 {
-  "lambdaLayers": [],
   "permissions": {
     "storage": {
       "StaffbiteDynamoDB": [
+        "create",
         "read",
-        "update",
-        "delete"
+        "update"
       ]
     }
-  }
+  },
+  "lambdaLayers": []
 }

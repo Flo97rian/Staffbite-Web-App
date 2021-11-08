@@ -15,8 +15,8 @@ export function thunkUpdateTradeShift(plan) {
       };
       return API.post(apiName, path, myInit)
       })
-    .then(
-      dispatch(FetchEmployeePlansFromDB)
-    )
+    .then(response => {
+      dispatch(FetchEmployeePlansFromDB);
+    })
     }
   }
