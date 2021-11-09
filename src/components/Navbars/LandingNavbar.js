@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { HashLink } from 'react-router-hash-link';
 import { Link } from "react-router-dom";
 // reactstrap components
@@ -8,7 +8,9 @@ import {
   NavItem,
   Nav,
   Container,
+  NavbarToggler,
   DropdownItem,
+  Collapse,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -16,7 +18,13 @@ import {
 } from "reactstrap";
 
 const LandingNavBar = (props) =>  {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
 
+  // closes the collapse
+  const closeCollapse = () => {
+    setIsOpen(false);
+  };
   const { logo } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
@@ -32,20 +40,21 @@ const LandingNavBar = (props) =>  {
   }
     return (
       <>
-      <Navbar className="navbar-top navbar-horizontal fixed-top bg-white shadow sticky" expand="md">
-        <Container fluid>
+      <Navbar className="bg-white shadow justify" fixed="top" expand="md" light>
         {logo ? (
-          <NavbarBrand className="pt-0" {...navbarBrandProps}>
+          <NavbarBrand className="pt-0 mr-6" {...navbarBrandProps}>
             <img
               alt={logo.imgAlt}
               className="navbar-brand-img"
-              height="60px"
+              height="40px"
               src={logo.imgSrc}
             />
           </NavbarBrand>
         ) : null}
-            <Nav className="m-0 ml-2 float-right" navbar>
-            <UncontrolledDropdown>
+            <NavbarToggler onClick={toggle}/>
+            <Collapse navbar isOpen={isOpen}>
+            <Nav navbar>
+            <UncontrolledDropdown inNavbar nav>
               <DropdownToggle className="pr-0 p-0 pt-2" nav >
               <p className="nav-link-inner--text text-muted p-0 mr-5 m-0">
                 Produkte
@@ -90,7 +99,7 @@ const LandingNavBar = (props) =>  {
                       Kontakt
                     </p>
                 </Link>
-              <UncontrolledDropdown>
+              <UncontrolledDropdown  inNavbar nav>
               <DropdownToggle className="pr-0 p-0 pt-2" nav >
                 <p className="nav-link-inner--text text-muted p-0 mr-5 m-0">
                   Über uns
@@ -132,11 +141,11 @@ const LandingNavBar = (props) =>  {
                       Preise
                     </p>
                 </Link>
-              <Link to="/auth">
+            </Nav>
+        </Collapse>
+        <Link to="/auth">
                 <Button className="btn-icon btn-3 p-2" color="success" type="button"><p className="p-0 m-0">Anmelden</p></Button>
               </Link>
-            </Nav>
-        </Container>
       </Navbar>
       </>
     );

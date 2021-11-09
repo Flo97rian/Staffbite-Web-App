@@ -119,8 +119,7 @@ async function signOut() {
     <>
     <Container className="ml-2 mr-2 ">
       <Navbar 
-      light
-      className="navbar-top bg-white shadow " 
+      className="navbar-top bg-white shadow fixed-top sticky" 
       expand="lg" 
       >
           <NavbarBrand className=" ml-2" {...navbarBrandProps}>

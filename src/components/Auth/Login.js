@@ -36,8 +36,7 @@ import {
 } from "reactstrap";
 
 // core components
-import AuthFooter from "../Footers/AuthFooter"
-import AuthNavbar from "../Navbars/AuthNavbar"
+import LandingNavbar from "../Navbars/LandingNavbar"
 import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
@@ -162,7 +161,7 @@ const Login = () => {
         if (authState === AuthState.ResetPassword && user) {
             return (
                 <>
-                            <AuthNavbar 
+                            <LandingNavbar 
                 logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
@@ -263,13 +262,12 @@ const Login = () => {
                     </Container>
                 </section>
                 </main>
-                <AuthFooter/>
                 </>
             )
         } else if (authState === AuthState.ConfirmSignUp && user) {
             return (
                 <>
-            <AuthNavbar 
+            <LandingNavbar 
                 logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
@@ -332,7 +330,6 @@ const Login = () => {
                 </Container>
             </section>
             </main>
-            <AuthFooter/>
             </>
             )
         } else if (authState === AuthState.SignedIn && user) {
@@ -365,7 +362,7 @@ const Login = () => {
         } else {
             return (
                 <>
-            <AuthNavbar 
+            <LandingNavbar 
                 logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
@@ -464,7 +461,6 @@ const Login = () => {
                 </Container>
             </section>
             </main>
-            <AuthFooter/>
             </>
             )
         }

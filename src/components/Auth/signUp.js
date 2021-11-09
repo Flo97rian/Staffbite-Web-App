@@ -36,8 +36,7 @@ import {
 } from "reactstrap";
 
 // core components
-import AuthNavbar from "../Navbars/AuthNavbar"
-import AuthFooter from "../Footers/AuthFooter"
+import LandingNavbar from "../Navbars/LandingNavbar"
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect, Link } from "react-router-dom";
@@ -130,7 +129,7 @@ async function confirmSignUp() {
         (
         tenant ? <Switch><Redirect from="*" to="/auth" /></Switch> :
             <>
-            <AuthNavbar 
+            <LandingNavbar 
                 logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
@@ -193,12 +192,11 @@ async function confirmSignUp() {
                 </Container>
             </section>
             </main>
-            <AuthFooter/>
             </>
         ) 
         :
             <>
-            <AuthNavbar 
+            <LandingNavbar 
                 logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
@@ -314,7 +312,6 @@ async function confirmSignUp() {
                 </Container>
             </section>
             </main>
-            <AuthFooter/>
             </>
             }
         </>

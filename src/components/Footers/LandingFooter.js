@@ -32,7 +32,7 @@ import { HashLink } from "react-router-hash-link";
 const LandingFooter = () => {
     return (
       <>
-      <Navbar className="navbar-bottom bg-white mt-6 pb-4" expand="md">
+      <Navbar className="navbar-bottom bg-white mt-6 pb-4 bottom" expand="md">
       <Container fluid>
          <Nav className="ml-2" navbar vertical>
                   <NavLink className="nav-link-icon pl-0 pb-0 mb-0">
@@ -75,7 +75,7 @@ const LandingFooter = () => {
                       </NavLink>
                 </NavItem>
             </Nav>
-            <Nav className="ml-2" navbar>
+            <Nav className="ml-2" navbar vertical>
                 <NavItem className="ml-2 float-right text-muted">
                       <h4>Kontaktieren Sie uns</h4>
                       Anschrift:

@@ -60,7 +60,7 @@ function Pricing () {
                         50€
                       </h1>
                       <span class="text-info ls-1 p">pro Monat</span>
-                      <ul class="list-unstyled ml-2 mt-5">
+                      <ul class="list-unstyled text-center ml-2 mt-5">
                         <li>
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-check fa-lg pb-2 text-success"></i>

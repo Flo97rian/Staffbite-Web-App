@@ -123,8 +123,8 @@ async function signOut() {
     <Container className="ml-2 mr-2 ">
       <Navbar 
       light
-      className="navbar-top bg-white shadow " 
-      expand="lg" 
+      className="navbar-top navbar-horizontal fixed-top bg-white shadow sticky" 
+      expand="md"
       >
           <NavbarBrand className=" ml-2" {...navbarBrandProps}>
             <img
@@ -139,29 +139,29 @@ async function signOut() {
           <Nav navbar> {createLinks(adminroutes)}</Nav>
         </Collapse>
         <NavbarText className="mr-2">
-        <UncontrolledDropdown className="mr-4">
-              <DropdownToggle className="pr-0" nav>
-              <p className="text-muted mt-2 mb-0">
-              <i className="fa fa-user-circle text-muted mr-2"
-              />
-              {Meta ? Meta.name : <></>}
-              </p>
-              </DropdownToggle>
-              <DropdownMenu className="dropdown-menu-arrow" right>
-                <DropdownItem className="noti-title" header tag="div">
-                  <h6 className="text-overflow m-0">Willkommen!</h6>
-                </DropdownItem>
-                <DropdownItem to="/admin/einstellungen" tag={Link}>
-                  <i className="ni ni-settings-gear-65" />
-                  <span>Einstellungen</span>
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem href="/auth" onClick={() => signOut()}>
-                  <i className="ni ni-user-run" />
-                  <span>Ausloggen</span>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+          <UncontrolledDropdown className="mr-4">
+                <DropdownToggle className="pr-0" nav>
+                <p className="text-muted mt-2 mb-0">
+                <i className="fa fa-user-circle text-muted mr-2"
+                />
+                {Meta ? Meta.name : <></>}
+                </p>
+                </DropdownToggle>
+                <DropdownMenu className="dropdown-menu-arrow" right>
+                  <DropdownItem className="noti-title" header tag="div">
+                    <h6 className="text-overflow m-0">Willkommen!</h6>
+                  </DropdownItem>
+                  <DropdownItem to="/admin/einstellungen" tag={Link}>
+                    <i className="ni ni-settings-gear-65" />
+                    <span>Einstellungen</span>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem href="/auth" onClick={() => signOut()}>
+                    <i className="ni ni-user-run" />
+                    <span>Ausloggen</span>
+                  </DropdownItem>
+                </DropdownMenu>
+          </UncontrolledDropdown>
         </NavbarText>
         </Navbar>
       </Container>

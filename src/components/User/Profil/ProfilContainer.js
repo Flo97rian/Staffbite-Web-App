@@ -64,7 +64,7 @@ const ProfilContainer = (props) => {
                           <span className="heading">
                           {User ? <>{User.schichtenwoche}</>: <></>}
                           </span>
-                          <span className="description">voraussichtliche Schichten diesen Monat</span>
+                          <span className="description">voraussichtliche Schichten diese Woche</span>
                         </div>
                       </div>
                     </div>
