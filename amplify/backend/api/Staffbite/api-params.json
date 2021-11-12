@@ -1,0 +1,484 @@
+{
+    "paths": [
+        {
+            "name": "/getProfile",
+            "lambdaFunction": "getProfile",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/getProfile"
+        },
+        {
+            "name": "/getAllShiftplans",
+            "lambdaFunction": "getAllShiftplans",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/getAllShiftplans"
+        },
+        {
+            "name": "/getAllEmployees",
+            "lambdaFunction": "getAllEmployees",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/getAllEmployees"
+        },
+        {
+            "name": "/deleteEmployee",
+            "lambdaFunction": "deleteEmployee",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/deleteEmployee"
+        },
+        {
+            "name": "/publishShiftplan",
+            "lambdaFunction": "publishShiftplan",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/publishShiftplan"
+        },
+        {
+            "name": "/addEmployee",
+            "lambdaFunction": "addEmployee",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/addEmployee"
+        },
+        {
+            "name": "/releaseShiftplan",
+            "lambdaFunction": "releaseShiftplan",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/releaseShiftplan"
+        },
+        {
+            "name": "/startAlgorithm",
+            "lambdaFunction": "startAlgorithm",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            },
+            "policyResourceName": "/startAlgorithm"
+        },
+        {
+            "name": "/updateEmployee",
+            "lambdaFunction": "updateEmployee",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/updateEmployee"
+        },
+        {
+            "name": "/updateShiftplan",
+            "lambdaFunction": "updateShiftplan",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/updateShiftplan"
+        },
+        {
+            "name": "/updateTradeShift",
+            "lambdaFunction": "updateTradeShift",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/updateTradeShift"
+        },
+        {
+            "name": "/getEmployee",
+            "lambdaFunction": "getEmployee",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/getEmployee"
+        },
+        {
+            "name": "/getEmployeesShiftplans",
+            "lambdaFunction": "getEmployeesShiftplans",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/getEmployeesShiftplans"
+        },
+        {
+            "name": "/updateProfile",
+            "lambdaFunction": "postProfile",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/updateProfile"
+        },
+        {
+            "name": "/uploadShiftplan",
+            "lambdaFunction": "uploadShiftplan",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/uploadShiftplan"
+        },
+        {
+            "name": "/postApplication",
+            "lambdaFunction": "postApplication",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/postApplication"
+        },
+        {
+            "name": "/getReport",
+            "lambdaFunction": "getReport",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/getReport"
+        },
+        {
+            "name": "/deleteShiftplan",
+            "lambdaFunction": "deleteShiftplan",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/deleteShiftplan"
+        },
+        {
+            "name": "/contactForm",
+            "lambdaFunction": "contactForm",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/contactForm"
+        },
+        {
+            "name": "/testAlgorithm",
+            "lambdaFunction": "testAlgorithm",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/testAlgorithm"
+        }
+    ],
+    "resourceName": "Staffbite",
+    "apiName": "Staffbite",
+    "functionArns": [
+        {
+            "lambdaFunction": "getProfile"
+        },
+        {
+            "lambdaFunction": "getAllShiftplans"
+        },
+        {
+            "lambdaFunction": "getAllEmployees"
+        },
+        {
+            "lambdaFunction": "deleteEmployee"
+        },
+        {
+            "lambdaFunction": "publishShiftplan"
+        },
+        {
+            "lambdaFunction": "addEmployee"
+        },
+        {
+            "lambdaFunction": "releaseShiftplan"
+        },
+        {
+            "lambdaFunction": "startAlgorithm"
+        },
+        {
+            "lambdaFunction": "updateEmployee"
+        },
+        {
+            "lambdaFunction": "updateShiftplan"
+        },
+        {
+            "lambdaFunction": "updateTradeShift"
+        },
+        {
+            "lambdaFunction": "getEmployee"
+        },
+        {
+            "lambdaFunction": "getEmployeesShiftplans"
+        },
+        {
+            "lambdaFunction": "postProfile"
+        },
+        {
+            "lambdaFunction": "uploadShiftplan"
+        },
+        {
+            "lambdaFunction": "postApplication"
+        },
+        {
+            "lambdaFunction": "getReport"
+        },
+        {
+            "lambdaFunction": "deleteShiftplan"
+        },
+        {
+            "lambdaFunction": "contactForm"
+        },
+        {
+            "lambdaFunction": "testAlgorithm"
+        }
+    ],
+    "privacy": {
+        "auth": 19,
+        "unauth": 0,
+        "authRoleName": "amplify-staffbite-dev-180625-authRole",
+        "unAuthRoleName": "amplify-staffbite-dev-180625-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "getProfile",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "getAllShiftplans",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "getAllEmployees",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "deleteEmployee",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "publishShiftplan",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "addEmployee",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "releaseShiftplan",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "startAlgorithm",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "updateEmployee",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "updateShiftplan",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "updateTradeShift",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "getEmployee",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "getEmployeesShiftplans",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "postProfile",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "uploadShiftplan",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "postApplication",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "getReport",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "deleteShiftplan",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "contactForm",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "testAlgorithm",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "35d5b2d1"
+}

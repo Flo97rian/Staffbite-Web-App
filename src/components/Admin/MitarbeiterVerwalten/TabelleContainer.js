@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
     Col,
     Row,
   } from "reactstrap";
   import Spinner from 'react-bootstrap/Spinner';
-
+import NotificationAlert from "react-notification-alert";
 import MitarbeiterTabelle from "./MitarbeiterTabelle.js";
 import ButtonMitarbeiterErstellen from "./Modal/ButtonMitarbeiterErstellen.js";
 import OpenModal from "./Modal/OpenModal.js";
@@ -16,19 +16,27 @@ import { useSelector } from "react-redux";
 import { thunkDeleteEmployee } from "../../../store/middleware/DeleteEmployee.js";
 import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee.js";
 import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile.js";
+import employeeStates from "../../Application/defaults/EmployeeDefault.js";
+import { Employee } from "./processing/Employee.js";
+import { WARNING_MISSING_EMPLOYEE_DETAILS } from "../../../constants/Alerts.js";
+import InfoSidebar from "../../Sidebar/InfoSidebar.js";
 
 const TableContainer = (props) => {
-  const [employeeIsActive, setemployeeIsActive] = useState(null);
+  const [userInput, setUserInput] = useState(employeeStates);
   const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1);
   const [position, setPosition] = useState();
+  const [errMsg, setErrMsg] = useState({InvalidInputForCreation: !1})
+  let notificationAlert = useRef(null)
     
   const selectEmployees = state => state.DB.employees;
   const selectModal = state => state.modal;
   const selectMeta = state => state.Meta;
+  const selectInfoSidebar = state => state.InfoSidebar;
 
   const Employees = useSelector(selectEmployees);
   const Modal = useSelector(selectModal);
   const Meta = useSelector(selectMeta);
+  const SidebarInfo = useSelector(selectInfoSidebar);
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
@@ -38,7 +46,7 @@ const TableContainer = (props) => {
 
     // Initiales laden der aktuellen Users
     useEffect(() => {
-    }, [employeeIsActive]);
+    }, [userInput]);
 
     useEffect(() => {
     }, [Employees]);
@@ -52,7 +60,7 @@ const TableContainer = (props) => {
  const handleInputChange = (event) => {
     const key = event.target.name;
     const val = stateSwitch(event.target.value, event);
-    setemployeeIsActive({...employeeIsActive, [key]: val }) ;
+    setUserInput({...userInput, [key]: val }) ;
   };
    // Handling von Userinputs
  const handlePositionChange = (event) => {
@@ -66,7 +74,27 @@ const TableContainer = (props) => {
     const state = handleInputSwitch(event);
     return state;
   };
+  function Notify (type, title, err) {
+    let options = {
+      place: "tc",
+      message: (
+        <div className="alert-text">
+          <span className="alert-title" data-notify="title">
+            {" "}
+          </span>
+          <span data-notify="message">
+            {title}
+          </span>
+        </div>
+      ),
+      type: type,
+      icon: "ni ni-bell-55",
+      autoDismiss: 7
+    };
+    notificationAlert.current.notificationAlert(options);
+    setErrMsg({...errMsg, [err]: !1})
 
+  };
   // Diese Funktion ändert den Wert eines Switches, je nach userinput
   const handleInputSwitch = (event) => {
     if (event.target.checked === !1) return !1;
@@ -89,21 +117,21 @@ const TableContainer = (props) => {
   };
 
   const handleSetPositions = (item) => {
-    let copyEmployeeIsActive = {...employeeIsActive};
-    if ("position" in copyEmployeeIsActive) {
-      copyEmployeeIsActive.position = [...copyEmployeeIsActive.position, item];
-    } else if (!("position" in copyEmployeeIsActive)) {
-      copyEmployeeIsActive["position"] = [item];
+    let copyUserInput = {...userInput};
+    if ("position" in copyUserInput) {
+      copyUserInput.position = [...copyUserInput.position, item];
+    } else if (!("position" in copyUserInput)) {
+      copyUserInput["position"] = [item];
     }
     else {
-      copyEmployeeIsActive.position.push(item);
+      copyUserInput.position.push(item);
     }
-    setemployeeIsActive(copyEmployeeIsActive);
+    setUserInput(copyUserInput);
   };
   const handleRemovePositions = (item) => {
-    let copyEmployeeIsActive = {...employeeIsActive};
-    copyEmployeeIsActive.position = copyEmployeeIsActive.position.filter(element => element !== item);
-    setemployeeIsActive(copyEmployeeIsActive);
+    let copyUserInput = {...userInput};
+    copyUserInput.position = copyUserInput.position.filter(element => element !== item);
+    setUserInput({...copyUserInput});
   };
   // Handling des Löschens von Mitarbeitern
   const handleDelete = (employeeId) => {
@@ -112,11 +140,11 @@ const TableContainer = (props) => {
   };
 
   const handleEmployeeUpdate = (employee) => {
-    const updatedEmployee = mergeEmployeeDetails(employee, employeeIsActive);
+    const updatedEmployee = mergeEmployeeDetails(employee, userInput);
     store.dispatch(thunkUpdateEmployee(updatedEmployee));
     let copyMeta = Meta;
-    if (employeeIsActive.position !== Meta.schichten) {
-      employeeIsActive.position.forEach( pos => {
+    if (userInput.position !== Meta.schichten) {
+      userInput.position.forEach( pos => {
         if (!Meta.schichten.includes(pos)) {
           copyMeta.schichten.push(pos);
         }
@@ -142,40 +170,48 @@ const handlePositionHinzufuegenClose = () => {
 };
 
 const handlePositionErstellen = () => {
-  let copyEmployeeIsActive = {...employeeIsActive};
-  if ("position" in copyEmployeeIsActive) {
-    if(!copyEmployeeIsActive.position.includes(position)) {
-      copyEmployeeIsActive.position = [...copyEmployeeIsActive.position, position];
+  let copyUserInput = {...userInput};
+  if ("position" in copyUserInput) {
+    if(!copyUserInput.position.includes(position)) {
+      copyUserInput.position = [...copyUserInput.position, position];
     }
-  } else if (!("position" in copyEmployeeIsActive)) {
-    copyEmployeeIsActive["position"] = [position];
+  } else if (!("position" in copyUserInput)) {
+    copyUserInput["position"] = [position];
   }
   else {
-    copyEmployeeIsActive.position.push(position);
+    copyUserInput.position.push(position);
   }
-  setemployeeIsActive(copyEmployeeIsActive);
+  setUserInput({...copyUserInput});
   setPosition(null);
   setShowPositionHinzufuegen(!showPositionHinzufuegen);
 };
 
 const setSelectEmployee = (ma) => {
-  setemployeeIsActive(Employees[ma]);
+  setUserInput(Employees[ma]);
   store.dispatch({type: "OPEN", payload: ma});
 };
 
   const handleRegister = (modal) => {
-    store.dispatch(thunkRegisterEmployee({employeeIsActive}));
-    let copyMeta = Meta;
-    if (employeeIsActive.position !== Meta.schichten) {
-      employeeIsActive.position.forEach( pos => {
-        if (!Meta.schichten.includes(pos)) {
-          copyMeta.schichten.push(pos);
-        }
-      });
-      store.dispatch(thunkUpdateProfile(copyMeta));
+    let copyEmployee = new Employee(userInput);
+    copyEmployee.createEmployee(userInput);
+    let isValidEmployee = copyEmployee.getEmployeeDetails();
+    if (isValidEmployee === "InvalidInputForCreation") {
+      setErrMsg({...errMsg, InvalidInputForCreation: !0})
+    } else {
+      let isValidEmployee = copyEmployee.getEmployeeDetails();
+      store.dispatch(thunkRegisterEmployee(isValidEmployee));
+      let copyMeta = Meta;
+      if (userInput.position !== Meta.schichten) {
+        userInput.position.forEach( pos => {
+          if (!Meta.schichten.includes(pos)) {
+            copyMeta.schichten.push(pos);
+          }
+        });
+        store.dispatch(thunkUpdateProfile(copyMeta));
+      }
+      setUserInput({...employeeStates});
+      store.dispatch({type: "CLOSE", payload: modal});
     }
-    setemployeeIsActive(null);
-    store.dispatch({type: "CLOSE", payload: modal});
   };
 
         return(
@@ -189,9 +225,13 @@ const setSelectEmployee = (ma) => {
         </Row>
         :
         <>
+        { errMsg.InvalidInputForCreation ? Notify("warning", WARNING_MISSING_EMPLOYEE_DETAILS, "InvalidInputForCreation") : null}
+        <div className="rna-wrapper">
+          <NotificationAlert ref={notificationAlert} />
+        </div>
         <Row>
         <Col xs={3}>
-        <h3 className="float-left pt-5 font-weight-bold text-lg">Mitarbeiter verwalten</h3>
+        <h3 className="float-left pt-5 font-weight-bold text-lg">Team verwalten</h3>
         </Col>
         <Col xs={9}>
           <ButtonMitarbeiterErstellen></ButtonMitarbeiterErstellen>{' '}
@@ -228,7 +268,7 @@ const setSelectEmployee = (ma) => {
             handleUpdate={handleEmployeeUpdate}
             show={Modal}
             meta={Meta}
-            employeeIsActive={employeeIsActive}
+            userInput={userInput}
             handleRegister={handleRegister}
             handlePositionChange={handlePositionChange}
             handleSetPositions={handleSetPositions}
@@ -244,6 +284,8 @@ const setSelectEmployee = (ma) => {
             ></OpenModal>
             </>
           }
+      <InfoSidebar
+        sidebarInfo={SidebarInfo}/>
         </>
         );
     }

@@ -1,5 +1,3 @@
-import React from "react";
-// core components
 import { 
     CompanyClosed,
     DateOrWeekDayRow,
@@ -9,12 +7,17 @@ import {
     shiftSetPrio,
  } from "../../../Application/functionalComponents/SchichtplanElements";
 import store from "../../../../store";
+import { getIsObject, getCompanyIsOpen, getAnzahl, getHasPrio, getHasShiftName, setPrioValue} from "../../../Application/functionalComponents/ElementFunctions";
 
 const SchichtplanElementEntwurf = (props) => {
 
     function setPrio(index, col, prio) {
         store.dispatch({ type: "OPEN", payload: "prioIsActive" });
         store.dispatch({ type: "setShiftSlot", payload: { row: index, col: col, prio: prio } });
+    }
+
+    function setActive(index, col) {
+        props.handleActive(index, col);
     }
 
 
@@ -24,27 +27,23 @@ const SchichtplanElementEntwurf = (props) => {
     }
 
     let ItemLength = props.ItemLength;
-    let col = props.col;
     let index = props.index;
+    let col = props.col;
     let currentItem = props.currentItem[col];
-    let isObj = typeof currentItem === "object";
-    let hasFree = isObj && "frei" in currentItem;
-    if (isObj && "ende" in currentItem) {
-    }
-    let anzahl = !1;
-    if (typeof props.anzahl === "object") {
-        if ("anzahl" in props.anzahl) {
-            anzahl = props.anzahl.anzahl
-        }
-    }
-    let isFree = hasFree && currentItem.frei ? !0 : !1;
-    const hasShiftName = isObj && "ShiftName" in currentItem ? !0 : !1; 
-    const hasPrio = isObj && "prio" in currentItem && currentItem.prio !== !1 ? !0 : !1;
-    let prio = !1
-    if(hasPrio) {
-        prio = currentItem.prio
-    }
+    let prio;
+    let isFree;
+    let hasPrio;
+    let anzahl;
+    let hasShiftName;
+    let isObj = getIsObject(currentItem);
     let isDiscribeWeekDay = (col === "Wochentag");
+    if (isObj) {
+        isFree = getCompanyIsOpen(currentItem);
+        anzahl = getAnzahl(props.anzahl);
+        hasPrio = getHasPrio(currentItem);
+        prio = setPrioValue(currentItem);
+        hasShiftName = getHasShiftName(currentItem);
+    }
     if (index === 0 || index === 1 || index === ItemLength - 1 ) {
         return DateOrWeekDayRow(currentItem);
     } else if (isFree && isDiscribeWeekDay && !hasShiftName){
@@ -54,9 +53,9 @@ const SchichtplanElementEntwurf = (props) => {
     } else if (!isFree && !isDiscribeWeekDay) {
         return CompanyClosed();
     } else if (hasPrio) {
-        return shiftHasPrio(index, col, setPrio, prio);
+        return shiftHasPrio(index, col, prio, setPrio, setActive);
     } else {
-        return shiftSetPrio(index, col, setPrio, prio);
+        return shiftSetPrio(index, col, prio, setPrio, setActive);
     }
 
 };

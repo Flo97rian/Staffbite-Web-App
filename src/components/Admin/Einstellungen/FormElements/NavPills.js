@@ -22,11 +22,11 @@ class Navs extends React.Component {
   };
   setNavPill() {
     if (this.state.navPills === 1) {
-        return( <Abrechnung {...this.props}/>
+        return( <Unternehmensprofil {...this.props}/>
     )} else if (this.state.navPills === 2){
       return( <SchichtplanEinstellungen {...this.props}/>
     )} else if (this.state.navPills === 3){
-        return( <Unternehmensprofil {...this.props}/>
+        return( <Abrechnung {...this.props}/>
     )}
   }
   render() {
@@ -49,9 +49,9 @@ class Navs extends React.Component {
               role="tab"
             >
               {this.state.navPills === 1 ? 
-              <p className="m-0 text-white">Abrechnungszeitraum</p>
+              <p className="m-0 text-white">Unternehmensprofil</p>
               :
-              <p className="m-0 text-muted">Abrechnungszeitraum</p>
+              <p className="m-0 text-muted">Unternehmensprofil</p>
               }
             </NavLink>
           </NavItem>
@@ -83,9 +83,9 @@ class Navs extends React.Component {
               role="tab"
             >
               {this.state.navPills === 3 ? 
-              <p className="m-0 text-white">Unternehmensprofil</p>
+              <p className="m-0 text-white">Abrechnungszeitraum</p>
               :
-              <p className="m-0 text-muted">Unternehmensprofil</p>
+              <p className="m-0 text-muted">Abrechnungszeitraum</p>
               }
             </NavLink>
           </NavItem>

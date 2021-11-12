@@ -3,6 +3,7 @@
 import React from "react";
 import { Row, Col, Card, CardBody, Button } from "reactstrap";
 import Datepicker from "../../../Application/functionalComponents/DateRangePickerExample";
+import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
 const Abrechnung = (props) => {
@@ -19,7 +20,7 @@ const Abrechnung = (props) => {
             <Card className="shadow">
                 <CardBody>
             <>
-                    <InfoOverlay infotitle={"Abrechnungszeitraum"} description={"Tragen Sie hier ihren individuellen Abrechnungszeitraum ein. Somit können wir Montat für Monat einen flüssigen Übergang ihrer Schichtpläne ermöglichen"}/>
+                    <InfoLabel title="Abrechnungszeitraum" description={"Tragen Sie hier ihren individuellen Abrechnungszeitraum ein. Somit können wir Montat für Monat einen flüssigen Übergang ihrer Schichtpläne ermöglichen"}></InfoLabel>
                     <Datepicker size="lg" getDates={props.getDates} start="WochenStart" ende="WochenEnde" placeholderAnfang={props.org?.AbrechnungStart ? props.org.AbrechnungStart : "Beginn"} placeholderEnde={props.org?.AbrechnungEnde ? props.org.AbrechnungEnde : "Ende"} />  
             </>
             </CardBody>

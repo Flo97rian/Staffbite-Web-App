@@ -32,6 +32,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import LandingFooter from "../../components/Footers/LandingFooter";
 
 const Register = () => {
   return (
@@ -141,6 +142,7 @@ const Register = () => {
           </CardBody>
         </Card>
       </Col>
+      <LandingFooter></LandingFooter>
     </>
   );
 };

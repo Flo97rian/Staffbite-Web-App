@@ -16,7 +16,7 @@
 
 */
 import React, { useState, useEffect } from "react";
-
+import store from "../../store"
 // reactstrap components
 import {
   Button,
@@ -36,8 +36,7 @@ import {
 } from "reactstrap";
 
 // core components
-import AuthFooter from "../Footers/AuthFooter"
-import AuthNavbar from "../Navbars/AuthNavbar"
+import LandingNavbar from "../Navbars/LandingNavbar"
 import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
@@ -48,6 +47,7 @@ const Login = () => {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [passwordAgain, setPasswordAgain] = useState("");
+    const [code, setCode] = useState("");
     const [isValid, setIsValid] = useState(!1);
     const [err, setErr] = useState(null)
     const [newpassword, setNewPassword] = useState("");
@@ -70,10 +70,20 @@ const Login = () => {
      useEffect(() => {
     }, [user]);
 
-    
+    async function confirmUserAttribute() {
+        // To verify attribute with the code
+        Auth.verifyCurrentUserAttributeSubmit("email", code)
+        .then(() => {
+            setAuthState(AuthState.SignedIn);
+            console.log('email verified');
+        }).catch(e => {
+            console.log('failed with error', e);
+        });
+    }
     async function signIn() {
         try {
             const user = await Auth.signIn(username, password);
+            console.log(user);
             if ("challengeName" in user && !newpassword) {
                 setAuthState(AuthState.ResetPassword);
                 setUser(user);
@@ -83,6 +93,9 @@ const Login = () => {
             } else {
                 setAuthState(AuthState.SignedIn);
                 setUser(user);
+                console.log(user);
+                store.dispatch({type:"currentUser", payload: user.attributes})
+                
             }
         } catch (error) {
             setErr(error);
@@ -101,7 +114,9 @@ const Login = () => {
             setNewPassword(val)
         } else if ( key === "passwordAgain") {
             setPasswordAgain(val)
-        } 
+        } else if ( key === "code") {
+            setCode(val)
+        }
       }
     
       async function changePassword(password, newpassword) {
@@ -115,21 +130,34 @@ const Login = () => {
                     user,               // the Cognito User Object
                     newpassword,       // the new password
                 ).then(user => {
-                    setUser(user);
-                }).catch(e => {
+                    signInAfterChangePassword(username, newpassword);
+                }
+                ).catch(e => {
+                    console.log(e);
                 });
-            } else {
-                // other situations
             }
-        }).catch(e => {
+        })
+        .catch(e => {
+            console.log(e);
         });
-    };
+      };
+
+    async function signInAfterChangePassword() {
+        Auth.verifyCurrentUserAttribute("email")
+        .then(() => {
+            console.log('a verification code is sent');
+            setAuthState(AuthState.VerifyingAttributes)
+        })
+        .catch((e) => {
+            console.log('failed with error', e);
+        });
+    }
 
     const SignInAuthState = () => {
         if (authState === AuthState.ResetPassword && user) {
             return (
                 <>
-                            <AuthNavbar 
+                            <LandingNavbar 
                 logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
@@ -217,10 +245,10 @@ const Login = () => {
                             </Form>
                             <Row className="mt-3">
                             <Col xs="6">
-                            <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
+                                <Link to="/forgotpassword" className=""><small>Passwort vergessen?</small></Link>
                             </Col>
                             <Col className="text-right" xs="6">
-                            <Link className="" to="/auth"><small>Passwort vergessen?</small></Link>
+                                <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
                             </Col>
                         </Row>
                             </CardBody>
@@ -230,8 +258,75 @@ const Login = () => {
                     </Container>
                 </section>
                 </main>
-                <AuthFooter/>
                 </>
+            )
+        } else if (authState === AuthState.VerifyingAttributes && user) {
+            return (
+                <>
+            <LandingNavbar 
+                logo={{
+                innerLink: "/",
+                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
+                imgAlt: "...",
+                }}/>
+            <main className="bg-secondary">
+            <section className="section section-shaped section-lg">
+                <Container className="pt-lg-7">
+                <Row className="justify-content-center">
+                    <Col lg="5">
+                    <Card className="bg-white shadow border-0 mb-4">
+                        <CardHeader className="bg-white pb-2">
+                        <div className="text-muted text-center pt-4">
+                            <h3>Bestätigungscode eingeben</h3>
+                        </div>
+                        </CardHeader>
+                        <CardBody className="px-lg-5 py-lg-5">
+                        <Form role="form">
+                            <FormGroup className="mb-3">
+                            <InputGroup className="input-group-alternative">
+                                <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                    <i className="fas fa-paper-plane" />
+                                </InputGroupText>
+                                </InputGroupAddon>
+                                <Input placeholder="Bestätigungcode" type="number" name="code" onChange={(e) => handleInputChange(e)}/>
+                            </InputGroup>
+                            </FormGroup>
+                            <PasswordChecklist
+                                rules={["minLength","number"]}
+                                minLength={6}
+                                value={code}
+                                messages={{
+                                    minLength: "Länge 6",
+                                    number: "Zahlen",
+                                }}
+                            />
+                            <div className="text-center">
+                            <Button
+                                className="my-4"
+                                color="primary"
+                                type="button"
+                                onClick={() => confirmUserAttribute()}
+                            >
+                                Senden
+                            </Button>
+                            </div>
+                        </Form>
+                        <Row className="mt-3">
+                        <Col xs="6">
+                        <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
+                        </Col>
+                        <Col className="text-right" xs="6">
+                        </Col>
+                    </Row>
+                        </CardBody>
+                    </Card>
+                    </Col>
+                    </Row>
+                </Container>
+            </section>
+            </main>
+            </>
             )
         } else if (authState === AuthState.SignedIn && user) {
             if("challengeParam" in user ) {
@@ -263,7 +358,7 @@ const Login = () => {
         } else {
             return (
                 <>
-            <AuthNavbar 
+            <LandingNavbar 
                 logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
@@ -349,7 +444,7 @@ const Login = () => {
                         </Form>
                         <Row className="mt-3">
                         <Col xs="6">
-                        <Link className="" to="/signup"><small>Passwort vergessen?</small></Link>
+                            <Link to="/forgotpassword" className=""><small>Passwort vergessen?</small></Link>
                         </Col>
                         <Col className="text-right" xs="6">
                         <Link to="/signup" className=""><small>Erstelle einen Account</small></Link>
@@ -362,7 +457,6 @@ const Login = () => {
                 </Container>
             </section>
             </main>
-            <AuthFooter/>
             </>
             )
         }

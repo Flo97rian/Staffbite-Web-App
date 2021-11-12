@@ -8,8 +8,9 @@ import {
 } from "reactstrap";
 
 
-class Navs extends React.Component {
-  render() {
+function Navs (props) {
+  let isActivePlan = props.bearbeiten;
+  if (!isActivePlan) {
     return (
       <>
         <Nav
@@ -20,14 +21,14 @@ class Navs extends React.Component {
         >
           <NavItem>
             <NavLink
-              aria-selected={this.props.navIndex === 1}
+              aria-selected={props.navIndex === 1}
               className={classnames("mb-sm-3 mb-md-0", {
-                active: this.props.navIndex === 1
+                active: props.navIndex === 1
               })}
-              onClick={() => this.props.onNavChange(1)}
+              onClick={() => props.onNavChange(1)}
               role="tab"
             >              
-            {this.props.navIndex === 1 ? 
+            {props.navIndex === 1 ? 
               <p className="m-0 text-white">Entwurf</p>
               :
               <p className="m-0 text-muted">Entwurf</p>
@@ -36,14 +37,14 @@ class Navs extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink
-              aria-selected={this.props.navIndex === 2}
+              aria-selected={props.navIndex === 2}
               className={classnames("mb-sm-3 mb-md-0", {
-                active: this.props.navIndex === 2
+                active: props.navIndex === 2
               })}
-              onClick={() => this.props.onNavChange(2)}
+              onClick={() => props.onNavChange(2)}
               role="tab"
             >             
-             {this.props.navIndex === 2 ? 
+             {props.navIndex === 2 ? 
               <p className="m-0 text-white">Bewerbung</p>
               :
               <p className="m-0 text-muted">Bewerbung</p>
@@ -52,14 +53,14 @@ class Navs extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink
-              aria-selected={this.props.navIndex === 3}
+              aria-selected={props.navIndex === 3}
               className={classnames("mb-sm-3 mb-md-0", {
-                active: this.props.navIndex === 3
+                active: props.navIndex === 3
               })}
-              onClick={() => this.props.onNavChange(3)}
+              onClick={() => props.onNavChange(3)}
               role="tab"
             >
-              {this.props.navIndex === 3 ? 
+              {props.navIndex === 3 ? 
               <p className="m-0 text-white">Überprüfung</p>
               :
               <p className="m-0 text-muted">Überprüfung</p>
@@ -68,14 +69,14 @@ class Navs extends React.Component {
           </NavItem>
           <NavItem>
             <NavLink
-              aria-selected={this.props.navIndex === 4}
+              aria-selected={props.navIndex === 4}
               className={classnames("mb-sm-3 mb-md-0", {
-                active: this.props.navIndex === 4
+                active: props.navIndex === 4
               })}
-              onClick={() => this.props.onNavChange(4)}
+              onClick={() => props.onNavChange(4)}
               role="tab"
               >
-              {this.props.navIndex === 4 ? 
+              {props.navIndex === 4 ? 
               <p className="m-0 text-white">Schichtplan</p>
               :
               <p className="m-0 text-muted">Schichtplan</p>
@@ -86,6 +87,7 @@ class Navs extends React.Component {
       </>
     );
   }
+  return null;
 }
 
 export default Navs;

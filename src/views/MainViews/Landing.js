@@ -32,8 +32,10 @@ import {
   CardBody,
   CardImg,
   Container,
+  CardHeader,
   Row,
-  Col
+  Col,
+  CardFooter
 } from "reactstrap";
 
 // index page sections
@@ -56,7 +58,7 @@ class Landing extends React.Component {
         <main ref="main" className="mt-5">
           <div className="position-relative">
             {/* shape Hero */}
-            <section className="section section-lg section-hero section-shaped pb-250" style={{background: "linear-gradient(150deg,#7795f8 15%,#6772e5 70%,#555abf 94%)"}}>
+            <section className="section section-lg section-hero section-shaped pb-250 bg-gradient-info">
             <LandingNavBar
               logo={{
                 innerLink: "/",
@@ -71,7 +73,7 @@ class Landing extends React.Component {
                       Müde vom stundenlangen Schichtplan puzzeln?{" "}
                       </h1>
                       <p className="lead text-white">
-                      In einer Anwendung automatisiert Personal planen und verwalten. Einfach und übersichtlich. Speziell entwickelt für die benötigte Flexibilität in der Gastronomie.
+                      In einer Anwendung automatisiert dein Team planen und verwalten. Einfach und übersichtlich. Speziell entwickelt für die benötigte Flexibilität in der Gastronomie.
                       </p>
                     </Col>
                   </Row>
@@ -168,166 +170,6 @@ class Landing extends React.Component {
                       </Card>
                     </Col>
                   </Row>
-                </Col>
-              </Row>
-            </Container>
-          </section>
-          <section className="section section-lg mt-8" id={"sectionloesung"}>
-            <Container>
-            <h2 className="display-3">Unsere Softwarelösung</h2>
-                  <br />
-              <Row className="row-grid align-items-center">
-                <Col className="order-md-2" md="6">
-                  <img
-                    alt="..."
-                    src={SchichtplanBeispiel}
-                    style={{ width: "700px", height: "400px"}}
-                  />
-                </Col>
-                <Col className="order-md-1" md="6">
-                  <div className="pr-md-5">
-                    <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
-                      <i className="ni ni-laptop" />
-                    </div>
-                    <h3>Für die Personalplaner:innen</h3>
-                    <p className="lead">
-                    Bei uns stehen Sie als Kunde im Mittelpunkt. Wir möchten, dass Sie eine einfache und übersichtliche Benutzeroberfläche erhalten. Ihre Wünsche und Vorstellungen sind dabei essenziell. Wir entwickeln die Benutzeroberfläche gemeinsam mit Personalplanern im Kieler Umland, um jene Funktionalität abzubilden, welche Woche für Woche auch tatsächlich benötigt wird.
-                    </p>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </section>
-          <br />
-          <section className="section bg-secondary mt-8">
-            <Container>
-              <Row className="row-grid align-items-center">
-                <Col md="6">
-                <Row className="row-grid align-items-center">
-                <Col md="4">
-                  </Col>
-                  <Col md="4">
-                  <Card className="bg-default shadow border-0">
-                    <CardImg
-                      alt="..."
-                      src={MitarbeiterAppBeispiel}
-                      style={{ width: "200px", height: "390px"}}
-                    />
-                  </Card>
-                  </Col>
-                  <Col md="4"></Col>
-                  </Row>
-                </Col>
-                <Col md="6">
-                  <div className="pl-md-5">
-                    <div className="icon icon-lg icon-shape icon-shape-primary shadow rounded-circle mb-5">
-                      <i className="ni ni-mobile-button" />
-                    </div>
-                    <h3>Für die Mitarbeiter</h3>
-                    <p className="lead">
-                    Für Ihre Mitarbeiter entwickeln wir eine kostenlose App, welche schlank und übersichtlich alle benötigten Informationen zur Bewerbung auf Schichten bündelt. Darüber hinaus werden wir eine Benachrichtigung implementieren, welche ihre Mitarbeiter über Schichtplanänderungen informiert.
-                    </p>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </section>
-          <section className="section section-lg mt-6" id={"aboutus"}>
-            <Container className="mt-6 mb-6">
-              <Row className="justify-content-center text-center mb-lg mb-4 mt6">
-                <Col lg="8">
-                  <h2 className="display-3">Über uns</h2>
-                </Col>
-              </Row>
-              <Row>
-                <Col className="mb-5 mb-lg-0" lg="12" md="12">
-                  <div className="px-4">
-                    <img
-                      alt="..."
-                      className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
-                      src={Team}
-                    />
-                    <div className="pt-4 text-center">
-                    <h5 className="title">
-                      <Row>
-                        <Col xs="6">
-                          <h3 className="d-block mb-1">Florian Zellmann</h3>
-                          <small className="h6 lead">Bachelorstudent BWL</small>
-                        </Col>
-                        <Col xs="6">
-                          <h3 className="d-block mb-1 ">Daniel Zellmann</h3>
-                          <small className="h6 lead">Masterstudent Business Management</small>
-                        </Col>
-                      </Row>
-                      </h5>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </section>
-          <section className="section section-lg bg-secondary mb-2 mt-2">
-            <br />
-            <Container className="pt-lg pb-300">
-              <Row className="text-center justify-content-center">
-                <Col lg="10">
-                  <h2 className="display-3">Unsere Partner</h2>
-                  <p className="lead">
-                    Interessierte Unternehmen
-                  </p>
-                </Col>
-              </Row>
-              <Row className="row-grid mt-5">
-                <Col lg="4" className="text-center">
-                  <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
-                    <i className="ni ni-shop text-primary" />
-                  </div>
-                  <h5 className="lead mt-3">3</h5>
-                  <p className="lead mt-3">
-                    Restaurant
-                  </p>
-                </Col>
-                <Col lg="4" className="text-center">
-                  <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
-                    <i className="ni ni-shop text-primary" />
-                  </div>
-                  <h5 className="lead mt-3">1</h5>
-                  <p className="lead mt-3">
-                    Café
-                  </p>
-                </Col>
-                <Col lg="4" className="text-center">
-                  <div className="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
-                    <i className="ni ni-bag-17  text-primary" />
-                  </div>
-                  <h5 className="lead mt-3">1</h5>
-                  <p className="lead mt-3">
-                    Einzelhändler
-                  </p>
-                </Col>
-              </Row>
-            </Container>
-            {/* SVG separator */}
-          </section>
-          <section className="section section-lg pt-lg-0 section-contact-us mt-4 mb-4" id={"sectionkontakt"}>
-            <Container className="mt-4 mb-4">
-              <Row className="justify-content-center mt--300 mb-4 mt-4">
-                <Col lg="8">
-                  <Card className="bg-white shadow mb-4 mt-4">
-                    <CardBody className="p-lg-5">
-                      <h4 className="mb-1">Du hast noch Fragen?</h4>
-                      <br />
-                      <p className="mt-0">
-                        Wir suchen nach Tester:innen für unsere Software-Lösung
-                      </p>
-                      <p className="mt-0">
-                        Wir freuen uns auf deine Nachricht!
-                      </p>
-                      <p className="mt-0">
-                        Kontakt: info@staffbite.de
-                      </p>
-                    </CardBody>
-                  </Card>
                 </Col>
               </Row>
             </Container>

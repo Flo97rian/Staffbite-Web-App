@@ -23,7 +23,7 @@ import {
 } from "reactstrap";
 // core components
 import Header from "../../../components/Headers/Header.js";
-import SchichtplanContainer from "../../../components/User/Schichtplan/SchichtplanContainer.js"
+import SchichtplanContainer from "../../../components/User/Schichtplan/ShiftplanContainer.js"
 
 export default class SchichtplanBewerben extends React.Component {
   render() {

@@ -23,7 +23,7 @@ const Reporting = (props) => {
             <Row className="text-center">
                 <Col xs={2} className="mt-3">
                 <Card className="bg-secondary mb-1 mt-2 mb-2 p-3 pl-3 mr-2 ml-4"onClick={() =>  store.dispatch({type: "OPEN", payload: "showReportFilter"})}>
-                    <i className="fas fa-filter"> Filter</i>
+                    <p className="fas fa-filter"> Filter</p>
                 </Card>
                 </Col>
                 <Col xs={5} className="mt-2 p-3">
@@ -40,7 +40,7 @@ const Reporting = (props) => {
             <Card className="mb-1 mt-0">
             <CardBody className="p-1">
             <Row className="text-center">
-                <Col xs={2} className="mt-4">
+                <Col xs={3} className="mt-4">
                 <Card className=" bg-secondary mb-1 mt-2 mb-2 p-3 pl-3 mr-2 ml-4" onClick={() =>  store.dispatch({type: "OPEN", payload: "showReportFilter"})}>
                     <i className="fas fa-filter">Filter</i>
                 </Card>

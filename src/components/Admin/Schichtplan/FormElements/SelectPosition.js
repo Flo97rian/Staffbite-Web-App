@@ -2,7 +2,8 @@ import React from "react";
 import {
     Input
 } from "reactstrap"
-import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
+import { INFO_SHIFTPLAN_SHIFT_POSITION } from "../../../../constants/InfoTexts";
+import InfoLabel from "../../../Application/functionalComponents/InfoLabel"
 function SelectPosition (props) {
     if ("schichten" in props.Meta ) {
         let schichten = props.Meta.schichten;
@@ -11,7 +12,7 @@ function SelectPosition (props) {
             currentPosition = props.shiftDetails.ShiftPosition
             return(
             <>
-            <InfoOverlay info={true} infotitle="Position" description={"Wählen Sie eine Position der Schicht. (z.B. Service, Küche etc.)"}></InfoOverlay>
+            <InfoLabel title="Position" description={INFO_SHIFTPLAN_SHIFT_POSITION}></InfoLabel>
                 <Input type="select" name="position" onChange={(e) => props.onChange(e, "changeSchichtplan")}>
                     <option value="" hidden>{currentPosition}</option>
                     {schichten.map(item => {
@@ -23,7 +24,7 @@ function SelectPosition (props) {
          } else {
             return(
                 <>
-                <InfoOverlay info={true} infotitle="Position" description={"Wählen Sie eine Position der Schicht. (z.B. Service, Küche etc.)"}></InfoOverlay>
+                <InfoLabel title="Position" description={INFO_SHIFTPLAN_SHIFT_POSITION}></InfoLabel>
                     <Input type="select" name="position" onChange={(e) => props.onChange(e, "changeSchichtplan")}>
                         {schichten.map(item => {
                         return (<option value={item}>{item}</option>

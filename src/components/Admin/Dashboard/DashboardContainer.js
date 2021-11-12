@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment";
@@ -19,7 +19,7 @@ import {
   chartOptions,
   parseOptions,
 } from "./Form/charts.js";
-
+import NotificationAlert from "react-notification-alert";
 import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 import Reporting from "./Form/Reporting";
@@ -27,6 +27,8 @@ import store from "../../../store";
 import OpenModal from "./Modal/OpenModal";
 import DashboardSchichtenTabelle from "./DashboardSchichtenTabelle.js";
 import { thunkStartReport } from "../../../store/middleware/StartReport";
+import { WARNING_INVALID_REPORT_INPUT } from "../../../constants/Alerts"; 
+import InfoSidebar from "../../Sidebar/InfoSidebar.js";
 
 
 const DashboardContainer = (props) => {
@@ -34,6 +36,7 @@ const DashboardContainer = (props) => {
   const [filter, setFilter] = useState(null);
   const [filterIsActive, setFilterIsActive] = useState(!1);
   const [errMsg, setErrMsg] = useState({ InvalidReportInput: !1});
+  let notificationAlert = useRef(null)
 
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
@@ -43,6 +46,7 @@ const DashboardContainer = (props) => {
   const selectDate = state => state.date;
   const selectReport = state => state.DB.report;
   const selectLoadingReport = state => state.loadings.isFetchingReport;
+  const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
@@ -52,6 +56,7 @@ const DashboardContainer = (props) => {
   const Date = useSelector(selectDate);
   const Report = useSelector(selectReport);
   const LoadingReport = useSelector(selectLoadingReport);
+  const SidebarInfo = useSelector(selectInfoSidebar);
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
@@ -90,6 +95,28 @@ const DashboardContainer = (props) => {
   const getShiftTradeCount = () => {
     let shiftTradeCount = Shiftplan.tauschanfrage.length;
     return shiftTradeCount;
+  };
+
+  function Notify (type, title, err) {
+    let options = {
+      place: "tc",
+      message: (
+        <div className="alert-text">
+          <span className="alert-title" data-notify="title">
+            {" "}
+          </span>
+          <span data-notify="message">
+            {title}
+          </span>
+        </div>
+      ),
+      type: type,
+      icon: "ni ni-bell-55",
+      autoDismiss: 7
+    };
+    notificationAlert.current.notificationAlert(options);
+    setErrMsg({...errMsg, [err]: !1})
+
   };
   // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
   const getModalKey = (allmodals) => {
@@ -151,18 +178,9 @@ const DashboardContainer = (props) => {
         return (
           <>
             {errMsg !== null && errMsg.InvalidReportInput ? 
-            <Alert color="warning">
-            <Row>
-              <Col xs="10">
-                <p className="mb-0">Deine Eingaben zur Erstellung eines Reports sind ungültig. Versuche alle benötigten Informationen anzugeben</p> 
-              </Col>
-              <Col xs="2">
-                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setErrMsg({...errMsg, InvalidReportInput: !1})}></i>
-              </Col>
-            </Row>
-            </Alert>
+            Notify("warning", WARNING_INVALID_REPORT_INPUT, "InvalidReportInput")
             :
-            <></>}
+            null}
           { !Employees && !Plans ? 
             <Row className="text-center mt-2">
               <Col className="mt-2" xs={12}>
@@ -172,6 +190,9 @@ const DashboardContainer = (props) => {
             : 
           <>
               <Row>
+              <div className="rna-wrapper">
+                <NotificationAlert ref={notificationAlert} />
+              </div>  
                 <Col lg="6" xl="6">
                   <Link to="/admin/mitarbeiter" tag={Link}>
                   <Card className="card-stats mb-4 mb-xl-0 shadow" to="admin/mitarbeiter">
@@ -211,7 +232,7 @@ const DashboardContainer = (props) => {
                             Tauschanfragen
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                          {Shiftplan ? getShiftTradeCount() : <>0</>}
+                          {Shiftplan ? Shiftplan.tauschanfrage.length : <>0</>}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -328,6 +349,8 @@ const DashboardContainer = (props) => {
           onClickFilter={onFilter}
           handleFilterIsActive={handleFilterIsActive}
           ></OpenModal>
+        <InfoSidebar
+          sidebarInfo={SidebarInfo}/>
       </>
 );
 }

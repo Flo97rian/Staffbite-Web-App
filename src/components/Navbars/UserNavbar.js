@@ -119,8 +119,7 @@ async function signOut() {
     <>
     <Container className="ml-2 mr-2 ">
       <Navbar 
-      light
-      className="navbar-top bg-white shadow " 
+      className="navbar-top bg-white shadow fixed-top sticky" 
       expand="lg" 
       >
           <NavbarBrand className=" ml-2" {...navbarBrandProps}>
@@ -135,7 +134,7 @@ async function signOut() {
         <Collapse className="ml-2 mr-2" isOpen={isOpen} navbar>
           <Nav navbar> {createLinks(userroutes)}</Nav>
         </Collapse>
-        <NavbarText>
+        <NavbarText className="mr-2">
         <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
               <p className="text-muted mt-2 mb-0">

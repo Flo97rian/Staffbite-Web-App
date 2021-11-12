@@ -88,8 +88,11 @@ const  InfoOverlayWithSwitch = (props) => {
       onClick={handleClick} 
       ></i>
         <Form className="float-right">
-            <Form.Check custom type="switch" defaultChecked={!1} name={props.name} id={props.name} onChange={props.onChange}></Form.Check>
+            <Form.Check custom type="switch" defaultChecked={props.checked} name={props.name} id={props.name} onChange={props.onChange}></Form.Check>
         </Form>
+        <p className="float-right mb-0 mr-2">
+            Open End?
+        </p>
       </p>
       <Overlay
         show={show}

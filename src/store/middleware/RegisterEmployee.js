@@ -3,24 +3,21 @@ import { checkerfahrung } from "../../components/Admin/MitarbeiterVerwalten/proc
 import { FetchEmployees } from "./FetchEmployees";
 import { API_HOSTNAME, REGISTER_EMPLOYEE } from "../../constants/ApiConstants";
 
-export function thunkRegisterEmployee({employeeIsActive, hasPositions}) {
-    const erfahrung = checkerfahrung({employeeIsActive})
-    const neuerMitarbeiter = employeeIsActive
-    const positionen = hasPositions
+export function thunkRegisterEmployee(Employee) {
 return async function registerEmployee(dispatch, getState) {
+  Auth.currentAuthenticatedUser().then( user => {
     const apiName = API_HOSTNAME; // replace this with your api name.
     const path = REGISTER_EMPLOYEE; //replace this with the path you have configured on your API
     const myInit = { // OPTIONAL
-        headers: {
-        Authorizer:`Bearer ${(await Auth.currentSession()).idToken.jwtToken}`,
-      },
-      queryStringParameters: {
-        erfahrung: erfahrung,
-        position: positionen,
-      }, // OPTIONAL
-      body: neuerMitarbeiter
+        body: {
+          user: user.attributes,
+          employee: Employee
+        }
     };
-    await API.post(apiName, path, myInit)
-    dispatch(FetchEmployees)
-    }
-}
+    return API.post(apiName, path, myInit)
+    })
+    .then(response => {
+      dispatch(FetchEmployees);
+    })
+  }
+};

@@ -5,6 +5,7 @@ import {
     FormGroup,
     Form
 } from "reactstrap"
+import InfoLabel from "./InfoLabel";
 
 export default class InputTime extends React.PureComponent {
     render() {
@@ -13,7 +14,7 @@ export default class InputTime extends React.PureComponent {
                 {this.props.info ?
                 <Form>
                     <FormGroup>
-                        <InfoOverlay infotitle={this.props.label} description={this.props.description}/>
+                    <InfoLabel title={this.props.label} description={this.props.description}></InfoLabel>
                         <Input type="time" size="lg" name={this.props.name} value={this.props.value} defaultValue={this.props.placeholder} onChange={this.props.onChange}></Input>
                     </FormGroup>
                 </Form>

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { HashLink } from 'react-router-hash-link';
+import { Link } from "react-router-dom";
 // reactstrap components
 import {
   NavbarBrand,
@@ -7,9 +8,23 @@ import {
   NavItem,
   Nav,
   Container,
+  NavbarToggler,
+  DropdownItem,
+  Collapse,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  Button,
 } from "reactstrap";
 
 const LandingNavBar = (props) =>  {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+
+  // closes the collapse
+  const closeCollapse = () => {
+    setIsOpen(false);
+  };
   const { logo } = props;
   let navbarBrandProps;
   if (logo && logo.innerLink) {
@@ -25,36 +40,105 @@ const LandingNavBar = (props) =>  {
   }
     return (
       <>
-      <Navbar className="navbar-top navbar-horizontal fixed-top bg-white shadow" expand="md" sticky>
-        <Container fluid>
+      <Navbar className="bg-white shadow justify" fixed="top" expand="md" light>
         {logo ? (
-          <NavbarBrand className="pt-0" {...navbarBrandProps}>
+          <NavbarBrand className="pt-0 mr-6" {...navbarBrandProps}>
             <img
               alt={logo.imgAlt}
               className="navbar-brand-img"
-              height="60px"
+              height="40px"
               src={logo.imgSrc}
             />
           </NavbarBrand>
         ) : null}
-            <Nav className="ml-2 float-right" navbar>
-              <NavItem>
-              <HashLink className="m-2" smooth to='/#sectionloesung' >
-                  <span className="nav-link-inner--text text-muted">Lösung</span>
-              </HashLink>
-              </NavItem>
-              <NavItem>
-                <HashLink className="m-2" smooth to='/#aboutus' >
-                  <span className="nav-link-inner--text text-muted">Team</span>
-                </HashLink>
-              </NavItem>
-              <NavItem>
-              <HashLink className="m-2" smooth to='/#sectionkontakt' >
-                  <span className="nav-link-inner--text text-muted">Impressum</span>
-                </HashLink>
-              </NavItem>
+            <NavbarToggler onClick={toggle}/>
+            <Collapse navbar isOpen={isOpen}>
+            <Nav navbar>
+            <UncontrolledDropdown inNavbar nav>
+              <DropdownToggle className="pr-0 p-0 pt-2" nav >
+              <p className="nav-link-inner--text text-muted p-0 mr-5 m-0">
+                Produkte
+              </p>
+              </DropdownToggle>
+              <DropdownMenu className="dropdown-menu-arrow bottom">
+                <DropdownItem className="noti-title" header tag="div">
+                  <h5 className="text-overflow m-0">digitaler Schichtplan</h5>
+                </DropdownItem>
+                <DropdownItem>
+                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectioncreate">
+                  <p className="p-0 m-0">
+                      Schichtpläne erstellen
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectionteam">
+                  <p className="p-0 m-0">
+                      Team verwalten
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+                <DropdownItem>
+                <HashLink className="p text-muted p-0" to="/shiftplan/#sectionalg">
+                <p className="p-0 m-0">
+                      Automatisierte Befüllung
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+                <DropdownItem className="text-muted">
+                <HashLink className="p text-muted p-0" to="/shiftplan/#sectionapp">
+                    <p className="p-0 m-0">
+                      Für dein Team
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+                <Link  to='/contact' >
+                    <p className="nav-link-inner--text text-muted p-0  pt-2 mr-5 m-0">
+                      Kontakt
+                    </p>
+                </Link>
+              <UncontrolledDropdown  inNavbar nav>
+              <DropdownToggle className="pr-0 p-0 pt-2" nav >
+                <p className="nav-link-inner--text text-muted p-0 mr-5 m-0">
+                  Über uns
+                </p>
+              </DropdownToggle>
+                <DropdownMenu className="dropdown-menu-arrow bottom">
+                <DropdownItem>
+                  <Link className="p text-muted p-0" to="/aboutus">
+                  <p className="p-0 m-0">
+                      Über uns
+                      </p>
+                  </Link>
+                </DropdownItem>
+                <DropdownItem>
+                  <HashLink className="p text-muted p-0" to="/impressum/#sectiondatasecurity">
+                  <p className="p-0 m-0">
+                      Datenschutz
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <HashLink className="p text-muted p-0" to="/impressum/#sectionimpressum">
+                  <p className="p-0 m-0">
+                      Impressum
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+              </DropdownMenu>
+              </UncontrolledDropdown>
+              <Link to='/pricing' >
+                    <p className="nav-link-inner--text text-muted p-0 pt-2 mr-5 m-0">
+                      Preise
+                    </p>
+                </Link>
             </Nav>
-        </Container>
+        </Collapse>
+        <Link to="/auth">
+                <Button className="btn-icon btn-3 p-2" color="success" type="button"><p className="p-0 m-0">Anmelden</p></Button>
+              </Link>
       </Navbar>
       </>
     );

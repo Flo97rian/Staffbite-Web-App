@@ -3,6 +3,7 @@
 import Switch from "../../../Application/functionalComponents/Switch";
 import Button from "react-bootstrap/Button";
 import { Row, Col, Card, CardBody } from "reactstrap";
+import { INFO_SETTINGS_ALGORITHM_FAIR, INFO_SETTINGS_ALGORITHM_REVERSE } from "../../../../constants/InfoTexts";
 
 
 const SchichtplanEinstellungen = (props) => {
@@ -18,9 +19,12 @@ const SchichtplanEinstellungen = (props) => {
             </Row>
             <Card className="shadow">
                 <CardBody>
-                        <Switch info={true} type="switch" description={"Der Algorithmus kann die Wochenende priorisiert befüllen. Dies kann von Vorteil sein, wenn am Wochenende besonders viel betrieb ist."}label="Befüllung am Wochenende starten" name="reverse" value={props.org?.reverse ? props.org?.reverse["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                        <p className="lead mt-2">
+                        Mit diesen Einstellungen können Sie die Funktionsweise des Algorithmus beeinflussen. Dies kann zu besseren - aber auch zu schlechteren Ergebnissen führen. Wir empfehlen die Standard-Einstellungen zu verwenden
+                        </p>
+                        <Switch info={true} type="switch" description={INFO_SETTINGS_ALGORITHM_REVERSE}label="Befüllung am Wochenende starten" name="reverse" value={props.org?.reverse ? props.org?.reverse["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
                         <br/>
-                        <Switch info={true} type="switch" description={"Mitarbeiter sollen in etwa gleich viele Tag/Abend-Schichten erhalten"} label="Tag/Abend-Schichten gleichmäßig verteilen" name="fair" value={props.org?.fair ? props.org?.fair["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                        <Switch info={true} type="switch" description={INFO_SETTINGS_ALGORITHM_FAIR} label="Tag/Abend-Schichten gleichmäßig verteilen" name="fair" value={props.org?.fair ? props.org?.fair["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
                 </CardBody>
             </Card>
             </>

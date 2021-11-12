@@ -1,0 +1,16 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "auth": {
+      "staffbite58b5ca4d": [
+        "create"
+      ]
+    },
+    "storage": {
+      "StaffbiteDynamoDB": [
+        "create",
+        "update"
+      ]
+    }
+  }
+}
