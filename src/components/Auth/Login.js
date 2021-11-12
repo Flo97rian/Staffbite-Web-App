@@ -70,13 +70,15 @@ const Login = () => {
      useEffect(() => {
     }, [user]);
 
-    async function confirmSignUp() {
-        try {
-          await Auth.confirmSignUp(username, code);
-          setAuthState(AuthState.SignedIn)
-
-        } catch (error) {
-        }
+    async function confirmUserAttribute() {
+        // To verify attribute with the code
+        Auth.verifyCurrentUserAttributeSubmit("email", code)
+        .then(() => {
+            setAuthState(AuthState.SignedIn);
+            console.log('email verified');
+        }).catch(e => {
+            console.log('failed with error', e);
+        });
     }
     async function signIn() {
         try {
@@ -100,14 +102,6 @@ const Login = () => {
         }   
     }
 
-    async function resendConfirmationCode(username) {
-        try {
-            await Auth.resendSignUp(username)
-            console.log('code resent successfully');
-        } catch (err) {
-            console.log('error resending code: ', err);
-        }
-    }
     const handleInputChange = (event) => {
         let key = event.target.name;
         let val = event.target.value;
@@ -148,13 +142,15 @@ const Login = () => {
         });
       };
 
-    async function signInAfterChangePassword(username, newpassword) {
-        Auth.signIn(username, newpassword)
-        .then(user => {
-            resendConfirmationCode(username);
-            setAuthState(AuthState.ConfirmSignUp)
+    async function signInAfterChangePassword() {
+        Auth.verifyCurrentUserAttribute("email")
+        .then(() => {
+            console.log('a verification code is sent');
+            setAuthState(AuthState.VerifyingAttributes)
         })
-        .catch(err => console.log(err));
+        .catch((e) => {
+            console.log('failed with error', e);
+        });
     }
 
     const SignInAuthState = () => {
@@ -264,7 +260,7 @@ const Login = () => {
                 </main>
                 </>
             )
-        } else if (authState === AuthState.ConfirmSignUp && user) {
+        } else if (authState === AuthState.VerifyingAttributes && user) {
             return (
                 <>
             <LandingNavbar 
@@ -310,7 +306,7 @@ const Login = () => {
                                 className="my-4"
                                 color="primary"
                                 type="button"
-                                onClick={() => confirmSignUp()}
+                                onClick={() => confirmUserAttribute()}
                             >
                                 Senden
                             </Button>

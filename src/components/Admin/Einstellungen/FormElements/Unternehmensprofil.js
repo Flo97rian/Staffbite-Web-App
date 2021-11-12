@@ -6,6 +6,8 @@ import { Row, Col, Card, CardBody, Button, Badge, Input } from "reactstrap";
 import InputForm from "./InputForm"
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 import { INFO_ORGANISATION_NAME, INFO_ORGANISATION_POSITIONS, INFO_ORGANISATION_STUNDENERFASSUNG } from "../../../../constants/InfoTexts";
+import store from "../../../../store";
+import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
 
 export default class Unternehmensprofil extends React.PureComponent {
     render() {
@@ -21,16 +23,16 @@ export default class Unternehmensprofil extends React.PureComponent {
             </Row>
             <Card className="shadow">
                 <CardBody>
-                <InfoOverlay infotitle={"Name"} description={INFO_ORGANISATION_NAME}/>
+                <InfoLabel title="Name" description={INFO_ORGANISATION_NAME}></InfoLabel>
                 <InputForm {...this.props}/>
                 <br/>
-                <InfoOverlay infotitle={"Stundenerfassung"} description={INFO_ORGANISATION_STUNDENERFASSUNG}/>
+                <InfoLabel title="Stundenerfassung" description={INFO_ORGANISATION_STUNDENERFASSUNG}></InfoLabel>
                 <Form.Check custom type="switch" size="lg" disabled name="stundenerfassung"></Form.Check>
                 </CardBody>
                 <br/>
                 <Row className="m-2 mb-4">
                     <Col xs={12}>
-                    <InfoOverlay infotitle={"Positionen bearbeiten"} description={INFO_ORGANISATION_POSITIONS}></InfoOverlay>
+                    <InfoLabel title="Positionen bearbeiten" description={INFO_ORGANISATION_POSITIONS}></InfoLabel>
                     {this.props.showPositionHinzufuegen ?
                     <Input type="text" size="lg" className='bg-secondary' label="Position" name="position"  placeholder="" onChange={(e) => this.props.handlePositionChange(e)}></Input>
                         :

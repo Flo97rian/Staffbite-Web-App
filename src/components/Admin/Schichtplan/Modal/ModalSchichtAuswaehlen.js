@@ -13,7 +13,9 @@ const ModalSchichtAuswaehlen = (props) => {
     const tag = props.bewerber.col;
     const row = props.bewerber.row;
     const shiftplan = props.shiftplan.plan
+    console.log(shiftplan[row][tag])
     const applicants = shiftplan[row][tag].setApplicants
+
     const applyedApplicants = shiftplan[row][tag].applicants
     const validApplicants = shiftplan[row][tag].setValidApplicants
     const shiftname = shiftplan[row]["Wochentag"].ShiftName

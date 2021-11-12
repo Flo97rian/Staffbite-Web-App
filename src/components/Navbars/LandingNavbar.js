@@ -114,13 +114,6 @@ const LandingNavBar = (props) =>  {
                   </Link>
                 </DropdownItem>
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/impressum/#sectionlaw">
-                  <p className="p-0 m-0">
-                      Rechtliches
-                      </p>
-                  </HashLink>
-                </DropdownItem>
-                <DropdownItem>
                   <HashLink className="p text-muted p-0" to="/impressum/#sectiondatasecurity">
                   <p className="p-0 m-0">
                       Datenschutz

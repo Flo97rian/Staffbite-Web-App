@@ -106,6 +106,10 @@
         "contactForm": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
           "s3Key": "amplify-builds/contactForm-6d676b6d594d56353173-build.zip"
+        },
+        "testAlgorithm": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/testAlgorithm-524148577179744e577a-build.zip"
         }
       },
       "storage": {

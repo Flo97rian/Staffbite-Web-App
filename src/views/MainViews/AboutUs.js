@@ -67,6 +67,18 @@ function Pricing () {
                       </Row>
                       </h5>
                     </div>
+                    <Row className="mt-6">
+                      <h2>Florian Zellmann</h2>
+                      <p>
+                      Florian Zellmann ist Mitgründer von Staffbite und verantwortlich für die technische Umsetzung. Er interessiert sich seit einigen Jahren für verschiedenste Aspekte der Softwareentwicklung. Neben einem breiten Wissen bezüglich künstlicher Intelligenz, Algorithmen und Datenverarbeitung liegt sein Schwerpunkt vor allem auf responsiven Programmiersprachen, um das Nutzererlebnis der Kunden stetig zu verbessern. Im Studium arbeitete Florian in der Gastronomiebranche und lernte die Herausforderungen der Betriebe selbst kennen.
+                      </p>
+                    </Row>
+                    <Row className="mt-3">
+                      <h2>Daniel Zellmann</h2>
+                      <p>
+                      Daniel Zellmann ist Mitgründer von Staffbite. Er ist verantwortlich für die operativen Geschäfte. Vor der Gründung von Staffbite arbeitete er mehrere Jahre als IT-Berater. Während der verschiedenen Kundenprojekte in ganz Deutschland sammelte er viel Erfahrung im Aufbau von skalierbaren Cloud-Infrastrukturen, Datenanalyse und der Automatisierung von Arbeitsabläufen. Sein Schwerpunkt liegt derzeit auf der kundenzentrierten Produktentwicklung. 
+                      </p>
+                    </Row>
                   </div>
                 </Col>
               </Row>

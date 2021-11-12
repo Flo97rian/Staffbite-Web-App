@@ -19,6 +19,7 @@ import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile.js";
 import employeeStates from "../../Application/defaults/EmployeeDefault.js";
 import { Employee } from "./processing/Employee.js";
 import { WARNING_MISSING_EMPLOYEE_DETAILS } from "../../../constants/Alerts.js";
+import InfoSidebar from "../../Sidebar/InfoSidebar.js";
 
 const TableContainer = (props) => {
   const [userInput, setUserInput] = useState(employeeStates);
@@ -30,10 +31,12 @@ const TableContainer = (props) => {
   const selectEmployees = state => state.DB.employees;
   const selectModal = state => state.modal;
   const selectMeta = state => state.Meta;
+  const selectInfoSidebar = state => state.InfoSidebar;
 
   const Employees = useSelector(selectEmployees);
   const Modal = useSelector(selectModal);
   const Meta = useSelector(selectMeta);
+  const SidebarInfo = useSelector(selectInfoSidebar);
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
@@ -281,6 +284,8 @@ const setSelectEmployee = (ma) => {
             ></OpenModal>
             </>
           }
+      <InfoSidebar
+        sidebarInfo={SidebarInfo}/>
         </>
         );
     }

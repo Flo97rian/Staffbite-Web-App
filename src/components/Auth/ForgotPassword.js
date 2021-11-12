@@ -47,6 +47,7 @@ const ForgotPassword = () => {
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
     const [isValid, setIsValid] = useState(!1)
+    const [resetted, setResetted] = useState(!1);
     const [err, setErr] = useState(null)
     const [msg, setMsg] = useState(null)
     const [authState, setAuthState] = useState();
@@ -69,9 +70,9 @@ async function resetPassword() {
 async function confirmResetPassword() {
     console.log(username, code, password)
     Auth.forgotPasswordSubmit(username, code, password)
-    .then(data => {
-        console.log(data)
-        setReset(!1)})
+    .then( user => {
+        setResetted(!0);
+    })
     .catch(err => console.log(err));
 
 }
@@ -123,6 +124,14 @@ async function confirmResetPassword() {
             </Alert>
             :
             <></>}
+
+            {resetted ? 
+                <Switch>
+                    <Redirect from="*" to="/auth"></Redirect>
+                </Switch>
+                :
+                <></>
+            }
         {reset ? 
             <>
             <LandingNavbar 
@@ -205,6 +214,14 @@ async function confirmResetPassword() {
                         <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
                         </Col>
                         <Col className="text-right" xs="6">
+                        <Button
+                                size="sm"
+                                color=""
+                                type="button"
+                                onClick={() => resetPassword()}
+                            >
+                                Erneut senden
+                            </Button>
                         </Col>
                     </Row>
                         </CardBody>

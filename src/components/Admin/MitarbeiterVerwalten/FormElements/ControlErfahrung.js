@@ -1,6 +1,7 @@
 import React from "react";
 import Form from 'react-bootstrap/Form';
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
+import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
 
 export default class ControlErfahrung extends React.PureComponent {
     render() {
@@ -8,7 +9,7 @@ export default class ControlErfahrung extends React.PureComponent {
             <>
             {this.props.info ?
             <>
-                <InfoOverlay infotitle={this.props.label} description={this.props.description}/>
+                <InfoLabel description={this.props.description} title={this.props.label}></InfoLabel>
                 <Form.Control as="select" type="text" defaultValue={this.props.defaultVal} name={this.props.name} onChange={(e) => this.props.onChange(e, "mitarbeiterBearbeiten")}>
                         <option>Anfänger</option>
                         <option>Fortgeschritten</option>

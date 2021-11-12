@@ -12,6 +12,7 @@ import ShiftSlotReducer from "./ShiftSlot";
 import ShiftplanReducer from "./Shiftplan";
 import MetaReducer from "./Meta";
 import errorMessagesReducer from "./ErrorMessages"
+import infoSidebarReducer from "./InfoModal";
 
 const rootReducer = combineReducers({
     modal: modalReducer,
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
     Shiftplan: ShiftplanReducer,
     shiftSlot: ShiftSlotReducer,
     Meta: MetaReducer,
-    ErrorMessages: errorMessagesReducer
+    ErrorMessages: errorMessagesReducer,
+    InfoSidebar: infoSidebarReducer,
 })
 
 export default rootReducer;

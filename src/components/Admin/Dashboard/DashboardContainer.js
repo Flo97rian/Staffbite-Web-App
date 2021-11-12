@@ -28,6 +28,7 @@ import OpenModal from "./Modal/OpenModal";
 import DashboardSchichtenTabelle from "./DashboardSchichtenTabelle.js";
 import { thunkStartReport } from "../../../store/middleware/StartReport";
 import { WARNING_INVALID_REPORT_INPUT } from "../../../constants/Alerts"; 
+import InfoSidebar from "../../Sidebar/InfoSidebar.js";
 
 
 const DashboardContainer = (props) => {
@@ -45,6 +46,7 @@ const DashboardContainer = (props) => {
   const selectDate = state => state.date;
   const selectReport = state => state.DB.report;
   const selectLoadingReport = state => state.loadings.isFetchingReport;
+  const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
@@ -54,6 +56,7 @@ const DashboardContainer = (props) => {
   const Date = useSelector(selectDate);
   const Report = useSelector(selectReport);
   const LoadingReport = useSelector(selectLoadingReport);
+  const SidebarInfo = useSelector(selectInfoSidebar);
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
@@ -229,7 +232,7 @@ const DashboardContainer = (props) => {
                             Tauschanfragen
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
-                          {Shiftplan ? getShiftTradeCount() : <>0</>}
+                          {Shiftplan ? Shiftplan.tauschanfrage.length : <>0</>}
                           </span>
                         </div>
                         <Col className="col-auto">
@@ -346,6 +349,8 @@ const DashboardContainer = (props) => {
           onClickFilter={onFilter}
           handleFilterIsActive={handleFilterIsActive}
           ></OpenModal>
+        <InfoSidebar
+          sidebarInfo={SidebarInfo}/>
       </>
 );
 }

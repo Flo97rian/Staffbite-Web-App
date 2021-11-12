@@ -82,8 +82,11 @@ function Pricing () {
                       </ul>
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 mt-0 pt-0">
-                    <p class="text-muted lead m-0">10% sparen</p>
-                    <h1 className="text-muted lead m-0">oder 1.080€ pro Jahr</h1>
+                    <span class="text-info ls-1 p">10% sparen</span>
+                    <h1 className="text-info display-3">
+                      540€
+                    </h1>
+                    <span class="text-info ls-1 p">pro Jahr</span>
                     </CardFooter>
                   </Card>
                 </Col>
@@ -119,8 +122,11 @@ function Pricing () {
                       </ul>
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
-                    <p class="text-white lead m-0">10% sparen</p>
-                    <h1 className="text-white lead m-0">oder 1.080€ pro Jahr</h1>
+                    <span class="text-white ls-1 p">10% sparen</span>
+                    <h1 className="text-white display-3">
+                      1.080€
+                    </h1>
+                    <span class="text-white ls-1 p">pro Jahr</span>
                     </CardFooter>
                   </Card>
                 </Col>
@@ -156,8 +162,11 @@ function Pricing () {
                       </ul>
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
-                    <p class="text-white lead m-0">10% sparen</p>
-                    <h1 className="text-white lead m-0">oder 1.620€ pro Jahr</h1>
+                    <span class="text-white ls-1 p">10% sparen</span>
+                    <h1 className="text-white display-3">
+                      1.620€
+                    </h1>
+                    <span class="text-white ls-1 p">pro Jahr</span>
                     </CardFooter>
                   </Card>
                 </Col>

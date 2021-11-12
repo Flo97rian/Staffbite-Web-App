@@ -234,6 +234,18 @@
                 "open": true
             },
             "policyResourceName": "/contactForm"
+        },
+        {
+            "name": "/testAlgorithm",
+            "lambdaFunction": "testAlgorithm",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/testAlgorithm"
         }
     ],
     "resourceName": "Staffbite",
@@ -295,10 +307,13 @@
         },
         {
             "lambdaFunction": "contactForm"
+        },
+        {
+            "lambdaFunction": "testAlgorithm"
         }
     ],
     "privacy": {
-        "auth": 18,
+        "auth": 19,
         "unauth": 0,
         "authRoleName": "amplify-staffbite-dev-180625-authRole",
         "unAuthRoleName": "amplify-staffbite-dev-180625-unauthRole"
@@ -455,7 +470,15 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "testAlgorithm",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
     ],
-    "uuid": "a4b372be"
+    "uuid": "35d5b2d1"
 }

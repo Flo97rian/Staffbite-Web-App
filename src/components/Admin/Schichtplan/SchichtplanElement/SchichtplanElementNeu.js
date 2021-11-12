@@ -50,9 +50,9 @@ export const SchichtplanElementNeu = (props) => {
     } else if (!isFree && !isDiscribeWeekDay) {
         return CompanyClosed();
     } else if (hasPrio) {
-        return shiftHasPrio(index, col, setPrio);
+        return shiftHasPrio(index, col, prio, setPrio, props.handleActiveShift);
     } else {
-        return shiftSetPrio(index, col, setPrio);
+        return shiftSetPrio(index, col, prio, setPrio, props.handleActiveShift);
     }
 
 }

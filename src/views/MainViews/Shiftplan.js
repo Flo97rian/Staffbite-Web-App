@@ -16,7 +16,8 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { ImageGroup, Image } from 'react-fullscreen-image'
 // reactstrap components
 import {
   Container,
@@ -25,6 +26,8 @@ import {
 } from "reactstrap";
 // core components
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-Beispiel.png"
+import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan_Entwurf.png"
+import TeamVerwalten from "../../assets/img/theme/Team_Verwalten.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
 
@@ -46,21 +49,27 @@ function Shiftplan () {
                 </Container>
       <section className="section" id={"sectioncreate"}>
             <Container className="mb-4 pt-4">
-              <Row className="justify-content-center mb-4 mt-8">
+              <Row className="justify-content-center mb-4 mt-6">
                 <Col className="order-md-2" md="6">
-                  <img
-                    alt="..."
-                    src={SchichtplanBeispiel}
-                    style={{ width: "500px", height: "300px"}}
+                  <image
+                    alt="Entwurf"
+                    src={SchichtplanEntwurf}
+                    style={{ 
+                      height: '300px',
+                      width: '600px',
+                    }}
                   />
                 </Col>
                 <Col className="order-md-1" md="6">
                   <div className="pr-md-5">
-                    <h3>Einfach und schnell Schichtpläne erstellen</h3>
-                    <p className="lead">
-                    Bei uns stehen Sie als Kunde im Mittelpunkt. Wir möchten, dass Sie eine einfache und übersichtliche Benutzeroberfläche erhalten. 
+                    <h3>Einfache und unkomplizierte Schichtpläne für dich und dein Team </h3>
+                    <p>
+                    Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. Du kannst mit wenigen Klicks die wichtigsten Informationen zu deinen Schichten angeben. Den vorbereiteten Plan gibst du anschließend deinem Team frei. 
                     </p>
-                    <Link to="/" >Hier geht's zum Video</Link>
+                    <p>
+                    Jetzt musst du nur noch abwarten, bis dein Team sich in den Plan eingetragen hat. Dein Team bekommt ebenfalls einen Zugang zu Staffbite und kann sich jederzeit per Smartphone, Tablet oder Laptop in den Plan eintragen. Über unser Reporting kannst du außerdem nachschauen wer sich noch nicht eingetragen hat. 
+                    </p>
+                    <Link to="/" >Erklärungsvideos folgen bald</Link>
                   </div>
                 </Col>
               </Row>
@@ -72,17 +81,20 @@ function Shiftplan () {
                 <Col className="order-md-1" md="6">
                   <img
                     alt="..."
-                    src={SchichtplanBeispiel}
+                    src={TeamVerwalten}
                     style={{ width: "500px", height: "300px"}}
                   />
                 </Col>
                 <Col className="order-md-2" md="6">
                   <div className="pr-md-5">
-                    <h3>Verwalte dein Team mühelos</h3>
-                    <p className="lead">
-                    Bei uns stehen Sie als Kunde im Mittelpunkt. Wir möchten, dass Sie eine einfache und übersichtliche Benutzeroberfläche erhalten. 
+                    <h3>Behalte dein Team im Blick</h3>
+                    <p>
+                    Damit sich dein Team in den Schichtplan eintragen kann, musst du deine Mitarbeiter*innen nur einmalig einladen. Dafür brauchst du nur ihren Namen, ihre E-Mail-Adresse und die Anzahl der Schichten, die sie pro Woche arbeiten sollen. 
                     </p>
-                    <Link to="/" >Hier geht's zum Video</Link>
+                    <p>
+                    Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten. 
+                    </p>
+                    <Link to={{ pathname: "https://www.youtube.com/watch?v=RtKKaWkCPrs" }} target="_blank">Hier geht's zum Video</Link>
                   </div>
                 </Col>
               </Row>
@@ -93,11 +105,14 @@ function Shiftplan () {
               <Row className="justify-content-center mb-4 mt-8">
               <Col className="order-md-1" md="6">
                   <div className="pr-md-5">
-                    <h3>Automatisierte Befüllung deiner Schichtpläne</h3>
-                    <p className="lead">
-                    Bei uns stehen Sie als Kunde im Mittelpunkt. Wir möchten, dass Sie eine einfache und übersichtliche Benutzeroberfläche erhalten. 
+                    <h3>Deine Zeit ist zu wertvoll, um sie mit der Schichtplanung zu verbringen</h3>
+                    <p>
+                    Nachdem dein Team sich in deinen Schichtplan eingetragen hat, kannst du die automatisierte Befüllung starten. Dafür reicht ein Klick aus. Wenige Sekunden später ist dein Schichtplan fertig. Dein Team wird ausschließlich in Schichten eingeteilt, in die sie sich eingetragen haben. Somit entsteht ein fairer Schichtplan für dein ganzes Team. 
                     </p>
-                    <Link to="/" >Hier geht's zum Video</Link>
+                    <p>
+                    Bisher hast du wahrscheinlich stundenlang per Hand mit Papier und einer Excel-Tabelle deinen Schichtplan befüllt. Mit unserer Lösung ist das Vergangenheit! Wir wollen dir helfen sowohl Zeit als auch Nerven zu sparen. 
+                    </p>
+                    <Link to="/" >Erklärungsvideos folgen bald</Link>
                   </div>
                 </Col>
                 <Col className="order-md-2" md="6">
@@ -116,17 +131,23 @@ function Shiftplan () {
                 <Col className="order-md-1" md="6">
                   <img
                     alt="..."
-                    src={SchichtplanBeispiel}
+                    src={TeamVerwalten}
                     style={{ width: "500px", height: "300px"}}
                   />
                 </Col>
                 <Col className="order-md-2" md="6">
                   <div className="pr-md-5 mt-3">
                     <h3>Vorteile für dein Team</h3>
-                    <p className="lead">
-                    Bei uns stehen Sie als Kunde im Mittelpunkt. Wir möchten, dass Sie eine einfache und übersichtliche Benutzeroberfläche erhalten. 
+                    <p>
+                    In vielen Betrieben sind Schichtpläne ein Streitthema. Unzufriedenheiten des Teams stehen an der Tagesordnung. Wir wollen diese Probleme lösen. Durch unsere Lösung ist der gesamte Prozess vom grundlegenden Plan bis zum fertigen Schichtplan transparent. Durch die automatisierte Verteilung der Schichten wird niemand bevorzugt und es geschehen weniger Fehler. 
                     </p>
-                    <Link to="/" >Hier geht's zum Video</Link>
+                    <p>
+                    Viele der Mitarbeiter*innen in der Gastronomie sind jung. Sie sind es gewohnt digitale Produkte und Services zu nutzen. Warum sollte das beim Schichtplan anders sein?  
+                    </p>
+                    <p>
+                    Mit unserer Lösung kann sich dein Team jederzeit und überall in den Schichtplan eintragen. Ohne WhatsApp-Nachrichten, E-Mails, Excel-Tabellen oder Papier. Egal ob vom Smartphone, Tablet oder Laptop. Den fertigen Schichtplan kann dein Team natürlich auch jederzeit online einsehen. 
+                    </p>
+                    <Link to="/" >Erklärungsvideos folgen bald</Link>
                   </div>
                 </Col>
               </Row>

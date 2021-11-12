@@ -1,6 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { FetchFromDB } from "./FetchPlansFromDB";
-import { API_HOSTNAME, START_ALGORITHM } from "../../constants/ApiConstants";
+import { API_HOSTNAME, START_ALGORITHM, TEST_ALGORITHM } from "../../constants/ApiConstants";
 
 export function thunkStartAlg(id) {
     return async function startAlg(dispatch, getState) {

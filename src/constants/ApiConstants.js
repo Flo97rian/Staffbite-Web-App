@@ -12,6 +12,7 @@ export const PUBLISH_SHIFTPLAN = '/publishShiftplan';
 export const REGISTER_EMPLOYEE = '/addEmployee';
 export const RELEASE_SHIFTPLAN_FOR_APPLICATION = '/releaseShiftplan';
 export const START_ALGORITHM = '/startAlgorithm';
+export const TEST_ALGORITHM = '/testAlgorithm';
 export const START_REPORTING = '/getReport';
 export const UPDATE_EMPLOYEE = '/updateEmployee';
 export const UPDATE_ORGANISATION = '/updateProfile';

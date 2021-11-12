@@ -302,7 +302,6 @@ async function confirmSignUp() {
                         <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
                         </Col>
                         <Col className="text-right" xs="6">
-                            <Link to="/auth/forgotpassword" className=""><small>Passwort vergessen?</small></Link>
                         </Col>
                     </Row>
                         </CardBody>
