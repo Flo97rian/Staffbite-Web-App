@@ -33,7 +33,7 @@ const DashboardSchichtenTabelle = (props) => {
                 <p>{Montag} - {Sonntag}</p>
                 </Col>
                 <Col xs={3}>
-                    <p>Lengende</p>
+                    <p>Legende</p>
                     <Badge color="success">beworben</Badge>
                     <Badge color="warning">Bewerber vorhanden</Badge>
                     <Badge color="light">nicht verfügbar</Badge>

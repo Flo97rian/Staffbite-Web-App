@@ -16,6 +16,10 @@ const SchichtplanElementEntwurf = (props) => {
         store.dispatch({ type: "setShiftSlot", payload: { row: index, col: col, prio: prio } });
     }
 
+    function setActive(index, col) {
+        props.handleActive(index, col);
+    }
+
 
     function editShift(index) {
         store.dispatch({ type: "OPEN", payload: index });
@@ -49,9 +53,9 @@ const SchichtplanElementEntwurf = (props) => {
     } else if (!isFree && !isDiscribeWeekDay) {
         return CompanyClosed();
     } else if (hasPrio) {
-        return shiftHasPrio(index, col, setPrio, prio);
+        return shiftHasPrio(index, col, prio, setPrio, setActive);
     } else {
-        return shiftSetPrio(index, col, setPrio, prio);
+        return shiftSetPrio(index, col, prio, setPrio, setActive);
     }
 
 };

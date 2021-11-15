@@ -43,7 +43,8 @@ import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
 import { WARNING_MISSING_SHIFT_DETAILS } from "../../../constants/Alerts";
 import ImportSchichtplanTabelle from "./Schichtplan/ImportSchichtplanTabelle";
 import NeuerSchichtplanTabelle from "./Schichtplan/NeuerSchichtplanTabelle";
-
+import { thunkReleaseForApplication } from "../../../store/middleware/ReleaseForApplication";
+import InfoSidebar from "../../Sidebar/InfoSidebar";
 const SchichtplanContainer = () => {
   const [userInput, setUserInput] = useState();
   const [navIndex, setNavIndex] = useState(1);
@@ -69,6 +70,7 @@ const SchichtplanContainer = () => {
   const selectLoadingFetchingPlans = state => state.loadings.isFetchingPlansFromDB;
   const selectLoadingFetchingSafe = state => state.loadings.isFetchingSafe;
   const selectLoadingFetchingRelease = state => state.loadings.isFetchingRelease;
+  const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
@@ -88,6 +90,7 @@ const SchichtplanContainer = () => {
   const LoadingFetchingPlans = useSelector(selectLoadingFetchingPlans);
   const LoadingFetchingSafe = useSelector(selectLoadingFetchingSafe);
   const LoadingFetchingRelease = useSelector(selectLoadingFetchingRelease);
+  const SidebarInfo = useSelector(selectInfoSidebar);
 
   useEffect(() => {
     store.dispatch({ type: "ResetCurrentShiftPlan"});
@@ -112,6 +115,9 @@ const SchichtplanContainer = () => {
 
   useEffect(() => {
   }, [Shiftplan]);
+
+  useEffect(() => {
+  }, [Plans]);
 
   useEffect(() => {
     if (Meta)
@@ -204,8 +210,11 @@ const SchichtplanContainer = () => {
   }
 
   const handleSetApplicant = (modal, updateApplicant) => {
-    console.log("try set")
-    setApplicantsInShiftPlan({Plans, currentShiftPlan, ShiftSlot, updateApplicant, modal});
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.adminSetApplicant(updateApplicant.current, ShiftSlot);
+    let shiftplan = copyPlan.getAllPlanDetails();
+    store.dispatch({type: "setShiftplan", payload: shiftplan})
+    store.dispatch({type: "CLOSE", payload: modal})
   };
 
   function Notify (type, title, err) {
@@ -263,6 +272,13 @@ const SchichtplanContainer = () => {
     }
     store.dispatch({type: "CLOSE", payload: index});
   };
+
+  const handleActiveShift = (row, day) => {
+    let copyPlan = new ShiftPlan({...NewShiftplan})
+    copyPlan.shiftIsActive(ShiftSlot);
+    let shiftplan = copyPlan.getAllPlanDetails()
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    }
 
   //Dise Funktion sorgt für das Hinzufügen einer neuen Schicht zum jeweiligen Schichtplan
   const handleAddShift = (index) => {
@@ -378,10 +394,13 @@ const SchichtplanContainer = () => {
   };
 
   const handleReleaseForApplication = (modal) => {
-    let shiftDetailsFilled = checkShiftHasDetails(Plans, currentShiftPlan)
-    if (shiftDetailsFilled) {
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    let shiftplan = copyPlan.getAllPlanDetails();
+    let detailsFilled = copyPlan.checkShiftHasDetails()
+    if (detailsFilled) {
     store.dispatch({type: "startFetchingRelease"})
-    handleApplication(Plans, currentShiftPlan, NewDate);
+    store.dispatch(thunkUpdateShiftPlan(shiftplan))
+    store.dispatch(thunkReleaseForApplication(shiftplan, NewDate, userInput))
     setNavIndex(2);
     } else {
       setErrMsng({...ErrMsng, MissingShiftDetails: !0});
@@ -474,6 +493,7 @@ const SchichtplanContainer = () => {
                plans={Plans}
                employees={Employees}
                onSwitch={shiftChange}
+               handleActive={handleActiveShift}
                Loading={LoadingFetchingPlans}
                import={ShiftPlanIsImported}
                Schichtplan={NewShiftplan}
@@ -486,6 +506,7 @@ const SchichtplanContainer = () => {
                onSwitch={shiftChange}
                Loading={LoadingFetchingPlans}
                import={ShiftPlanIsImported}
+               handleActive={handleActiveShift}
                Schichtplan={NewShiftplan}
                ></NeuerSchichtplanTabelle> 
               <SchichtplanImport 
@@ -539,6 +560,8 @@ const SchichtplanContainer = () => {
             ></OpenModal>
     </>
     }
+      <InfoSidebar
+      sidebarInfo={SidebarInfo}/>
     </>
             );
         }

@@ -35,10 +35,10 @@ const ApplicationsTable = (props) => {
                 <p>{Montag} - {Sonntag}</p>
                 </Col>
                 <Col xs={3}>
-                    <p>Lengende</p>
+                    <p>Legende</p>
                     <Badge color="success">beworben</Badge>
-                    <Badge color="warning">Bewerber vorhanden</Badge>
-                    <Badge color="light">nicht verfügbar</Badge>
+                    <Badge color="light">kein Bewerber / Bewerber vorhanden</Badge>
+                    <Badge color="default">nicht verfügbar</Badge>
                 </Col>
             </Row>
                     <br/>
@@ -52,7 +52,7 @@ const ApplicationsTable = (props) => {
                         { idApplications ? 
                         <tr key={index}>
                             <td style={{"padding": "0"}}>
-                                <SchichtplanElement wochentag={item.Wochentag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Wochentag" {...props}></SchichtplanElement>
+                                <SchichtplanElement wochentag={item.Wochentag} index={index} currentItem={item} anzahl={item.Montag} ItemLength={shiftplan.length} col="Wochentag" {...props}></SchichtplanElement>
                             </td>
                             <td style={{"padding": "0"}}>
                                     <SchichtplanElement wochentag={item.Montag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Montag" {...props}></SchichtplanElement>

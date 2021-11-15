@@ -93,6 +93,8 @@ const DashboardContainer = (props) => {
                             className="text-uppercase text-muted mb-4"
                           >
                             Deine Bewerbungen
+                            <br/>
+                            <small>aktuelle Woche</small>
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
                           {userShiftCount ? <>{userShiftCount}</> : <>0</>}
@@ -119,6 +121,8 @@ const DashboardContainer = (props) => {
                             className="text-uppercase text-muted mb-4"
                           >
                             Deine Tauschanfragen
+                            <br/>
+                            <small>aktuelle Woche</small>
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
                           {User ? <>0</> : <>0</>}

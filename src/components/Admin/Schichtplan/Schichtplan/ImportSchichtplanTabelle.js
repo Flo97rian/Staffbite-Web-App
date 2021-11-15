@@ -18,6 +18,49 @@ import SchichtplanDnDVeröffentlicht from "./SchichtplanDnDVeröffentlicht"
 import { isValidEmployees, isValidPlans } from "../../../Application/functionalComponents/ValidFunctions";
 
 const  ImportSchichtplanTabelle = (props) => {
+
+    function getLegend() {
+        if(props.shiftplan.id) {
+            let id = props.shiftplan.id;
+            const idReview = id.split("#").includes("Review")
+            const idVeröffentlicht = id.split("#").includes("Veröffentlicht")
+            const idEntwurf = id.split("#").includes("Entwurf")
+            const idFreigegeben = id.split("#").includes("Freigeben")
+            if (idEntwurf) {
+                return (
+                    <>
+                        <Badge className="m-1" color="light">Betrieb geöffnet</Badge>
+                        <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
+                    </>
+                )
+            } else if (idFreigegeben) {
+                return (
+                    <>
+                        <Badge className="m-1" color="success">Bewerber vorhanden</Badge>
+                        <Badge className="m-1" color="light">Betrieb geöffnet / kein Bewerber</Badge>
+                        <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
+                    </>
+                )
+            } else if (idReview) {
+                return (
+                    <>
+                        <Badge className="m-1" color="success">Bewerber vorhanden</Badge>
+                        <Badge className="m-1" color="light">Betrieb geöffnet / kein Bewerber</Badge>
+                        <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
+                    </>
+                )
+            } else if (idVeröffentlicht) {
+                return (
+                    <>
+                        <Badge className="m-1" color="success">Bewerber vorhanden</Badge>
+                        <Badge className="m-1" color="light">Betrieb geöffnet / kein Bewerber</Badge>
+                        <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
+                    </>
+                )
+            }
+        }
+    }
+
     function selectTable () {
         const id = props.shiftplan.id
         const idReview = id.split("#").includes("Review")
@@ -69,10 +112,8 @@ const  ImportSchichtplanTabelle = (props) => {
                                 <p>{Montag} - {Sonntag}</p>
                                 </Col>
                         <Col xs={3}>
-                            <p>Lengende</p>
-                            <Badge color="success">Bewerber</Badge>
-                            <Badge color="light"> kein Bewerber</Badge>
-                            <Badge color="dark"> kein Betrieb</Badge>
+                            <p>Legende</p>
+                            { getLegend()}
                         </Col>
                     </Row>
                     <br/>

@@ -26,6 +26,7 @@ import { Authenticator} from 'aws-amplify-react';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import awsconfig from '../aws-exports';
 import { authroutes } from "../routes"
+import AuthFooter from "../components/Footers/AuthFooter"
 
 Amplify.configure(awsconfig);
 
@@ -71,12 +72,15 @@ const AuthUI = () => {
       </div>
     ) : (
       <Authenticator hideDefault={true}>
+        <div className="pt-8">
         <Switch>
           {getRoutes(authroutes)}
           <Redirect from="*" to="/auth" />
         </Switch>
+        </div>
       </Authenticator>
   )}
+    <AuthFooter></AuthFooter>
     </>
     )
 }

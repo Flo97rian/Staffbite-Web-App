@@ -4,6 +4,7 @@ import InfoOverlay from "./InfoOverlay";
 import {
     Input
 } from "reactstrap"
+import InfoLabel from "./InfoLabel";
 
 export default class InputNumber extends React.PureComponent {
     render() {
@@ -11,7 +12,7 @@ export default class InputNumber extends React.PureComponent {
                         <>
                         {this.props.info ?
                         <>
-                            <InfoOverlay infotitle={this.props.label} description={this.props.description}/>
+                            <InfoLabel title={this.props.label} description={this.props.description}></InfoLabel>
                             <Input type="number" size="lg" className='bg-secondary' name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} defaultValue={this.props.placeholder} onChange={this.props.onChange}></Input>
                         </>
                         : 

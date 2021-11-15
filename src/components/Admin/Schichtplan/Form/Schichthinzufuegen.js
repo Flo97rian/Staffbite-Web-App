@@ -16,7 +16,7 @@ export default class SchichtHinzufuegen extends React.PureComponent {
             <Row>
             <Col xs={1} ></Col>
             <Col xs={10} >
-                    <InputString info={true} description={INFO_SHIFTPLAN_SHIFT_NAME} label="Rolle" name="rolle" placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputString>
+                    <InputString info={true} description={INFO_SHIFTPLAN_SHIFT_NAME} label="Name der Schicht" name="rolle" placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputString>
                     <br/>
                     <SelectPosition {...this.props} ></SelectPosition>
                     <br/>

@@ -1,4 +1,4 @@
-export const INFO_ORGANISATION_NAME = "Gib hier den Namen deines Betriebs ein. Diesen Namen sieht auch dein Team nach der Anmeldung.";
+export const INFO_ORGANISATION_NAME = "An dieser Stelle kannst du die wichtigsten Informationen über deinen Betrieb eingeben. Diese Informationen werden später benötigt, um deine Schichtplanung optimal umzusetzen!"
 export const INFO_ORGANISATION_STUNDENERFASSUNG = "Die Stundenerfassung ist derzeit noch deaktiviert. Schreib uns gerne, wenn du Interesse daran hast.";
 export const INFO_ORGANISATION_POSITIONS = "An dieser Stelle kannst du die Positionen in deinem Betrieb (z.B. Küche, Service, Schichtleitung) verwalten. Diese brauchst du später.";
 export const INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME = "Gib hier den Vor- und Nachname deiner Mitarbeiter:in an. Im Schichtplan wird z.B. Max M. angezeigt.";
@@ -17,6 +17,7 @@ export const INFO_SHIFTPLAN_NUMBER_OF_SHIFTS = "Wie viele Schichten pro Tag brau
 export const INFO_SHIFTPLAN_PERIOD = "Wähle eine Woche von Montag bis Sonntag aus.";
 export const INFO_SHIFTPLAN_DAYS_IS_CLOSED = "Wenn dein Betrieb z.B. montags geschlossen ist, klicke unten den entsprechenden Tag an.";
 export const INFO_SHIFTPLAN_RELEASE_FOR_NEW_PERIOD = "Wenn Sie den Schichtplan für eine andere Woche freigeben möchten, tragen Sie die jeweilige Woche hier ein. Tragen Sie nichts ein, wird der Plan für die bisher eingetragene Woche freigegeben";
+export const INFO_SHIFTPLAN_RELEASE_WITH_NEW_NAME = "Erklärung folgt";
 export const INFO_SHIFTPLAN_SHIFT_NAME = "Gib der Schicht einen Namen. Diesen Namen sieht auch dein Team. Geeignet ist z.B. Spätschicht Küche.";
 export const INFO_SHIFTPLAN_SHIFT_POSITION = "Wähle die benötigte Position der Schicht (z.B. Küche, Service, Schichtleitung). Achtung: Nur Mitarbeiter:innen mit der entsprechenden Position können sich hierfür bewerben.";
 export const INFO_SHIFTPLAN_SHIFT_START = "Wann soll die Schicht beginnen?";
@@ -24,5 +25,7 @@ export const INFO_SHIFTPLAN_SHIFT_END =  "Wann soll die Schicht enden?";
 export const INFO_SHIFTPLAN_SHIFT_END_OPENEND = "Open End?";
 export const INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES = "Wie viele Mitarbeiter:innen brauchst du in dieser Schicht?";
 export const INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION = "Wenn Sie eine Mindestanforderung für diese Schicht festlegen wollen, klicken Sie einfach auf die jewelige Qualifikation";
+export const INFO_SETTINGS_ALGORITHM_REVERSE = "Wenn du diese Einstellung aktivierst, wird die Befüllung der Schichten am Wochenende priorisiert."
+export const INFO_SETTINGS_ALGORITHM_FAIR = "Wenn du diese Einstellung aktivierst, bekommen deine Mitarbeiter gleichmäßiger Tages- und Abendschichten. Achtung: Dies kann zu schlechteren Ergebnissen führen."
 
 

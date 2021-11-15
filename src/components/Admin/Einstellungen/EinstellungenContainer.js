@@ -13,6 +13,8 @@ import Spinner from 'react-bootstrap/Spinner'
 import { FetchOrg } from "../../../store/middleware/FetchOrg";
 import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile";
 import store from "../../../store";
+import InfoModal from "../../Application/functionalComponents/InfoModal";
+import InfoSidebar from "../../Sidebar/InfoSidebar";
 
 const EinstellungenContainer = () => {
   const [metaData, setMetaData] = useState(null)
@@ -21,11 +23,13 @@ const EinstellungenContainer = () => {
   const selectMeta = state => state.Meta;
   const selectLoadingMeta = state => state.loadings.isFetchingMeta;
   const selectDate = state => state.date;
+  const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
   const LoadingMeta = useSelector(selectLoadingMeta);
   const Date = useSelector(selectDate);
+  const SidebarInfo = useSelector(selectInfoSidebar);
 
   useEffect(() => {
       store.dispatch(FetchOrg)
@@ -132,6 +136,8 @@ const EinstellungenContainer = () => {
       }
       </>
       }
+      <InfoSidebar
+      sidebarInfo={SidebarInfo}/>
     </>
             );
         }

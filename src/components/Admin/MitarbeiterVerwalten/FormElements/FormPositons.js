@@ -7,6 +7,7 @@ import InputString from "../../../Application/functionalComponents/InputString";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 import FilterUnsettedPositions from "./FilterUnsettedPositions";
 import FilterSettedPositions from "./FilterSettedPositions";
+import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
 import { INFO_EMPLOYEE_POSITIONS, INFO_ORGANISATION_POSITIONS } from "../../../../constants/InfoTexts";
 
 
@@ -16,7 +17,7 @@ const FormPositions = (props) => {
                 {props.showPositionHinzufuegen ?
                 <InputString info={true} description={INFO_ORGANISATION_POSITIONS} label="Position" name="position"  placeholder="" onChange={(e) => props.handlePositionChange(e)}></InputString>
                 :
-                <InfoOverlay info={true} description={INFO_EMPLOYEE_POSITIONS} infotitle="Position"></InfoOverlay>
+                <InfoLabel description={INFO_EMPLOYEE_POSITIONS} title="Position"></InfoLabel>
                 }
                 {props.meta ?
                 <>

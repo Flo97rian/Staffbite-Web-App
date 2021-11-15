@@ -2,17 +2,16 @@ import { API, Auth } from "aws-amplify";
 import { FETCH_ALL_PLANS, API_HOSTNAME } from "../../constants/ApiConstants";
 
 export async function FetchFromDB(dispatch, getState) {
-    Auth.currentSession().then( session => {
+    Auth.currentAuthenticatedUser().then( user => {
         const apiName = API_HOSTNAME; // replace this with your api name.
         const path = FETCH_ALL_PLANS; //replace this with the path you have configured on your API
         const myInit = { // OPTIONAL
-            headers: {
-            Authorizer:`Bearer ${session.getIdToken().getJwtToken()}`,
-        }
+            body: user.attributes
         };
-        return API.get(apiName, path, myInit)
-        })
-        .then(response => {
+        console.log(user);
+        return API.post(apiName, path, myInit);
+        }).then(response => {
+            console.log(response)
             let plans = response.Items.map(item => {
                 return {
                     id: item.SK["S"],
@@ -21,11 +20,10 @@ export async function FetchFromDB(dispatch, getState) {
                     schichtentag: item.schichtentag["N"],
                     zeitraum: item.zeitraum["S"],
                     tauschanfrage: JSON.parse(item.tauschanfrage["S"])
-                };
+                }
             });
             // Add your code here
-            dispatch({type: "All/GetPlansFromDB", payload: plans})
-            dispatch({type: "stopFetchPlansFromDB"})
-            })
-        
+            dispatch({type: "All/GetPlansFromDB", payload: plans});
+            dispatch({type: "stopFetchPlansFromDB"});
+        })        
 }

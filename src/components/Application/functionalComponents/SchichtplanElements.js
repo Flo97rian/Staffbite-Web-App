@@ -18,7 +18,7 @@ export const DateOrWeekDayRow = (obj) => {
 export const CompanyClosed = () => {
     return (
     <ListGroup>
-        <ListGroupItem className="mb-0" color="light"><p className="m-0"><br/><br/></p></ListGroupItem>
+        <ListGroupItem className="mb-0" style={{"color": "#091428", "backgroundColor": "rgba(52, 98, 175, 0.5)"}}><p className="m-0"><br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
 
@@ -226,13 +226,13 @@ export const ShowSingleApplicantWithUser = (ApplicantName) => {
 
 export const ShowMultipleApplicantsWithOutUser = (FirstApplicant, ApplicantsLength) => {
     return (<ListGroup>
-        <ListGroupItem className="mb-0" color="warning"><p className="m-0">{FirstApplicant}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
+        <ListGroupItem className="mb-0" color=""><p className="m-0">{FirstApplicant}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
     </ListGroup>
 )}
 
 export const ShowSingleApplicantWithOutUser = (FirstApplicant) => {
     return (<ListGroup>
-        <ListGroupItem className="mb-0" color="warning"><p className="m-0">{FirstApplicant}<br/><br/></p></ListGroupItem>
+        <ListGroupItem className="mb-0" color=""><p className="m-0">{FirstApplicant}<br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
 export const ZeroApplicants = (index, col, Click) => {
@@ -274,11 +274,11 @@ export const setShiftDetailsErr = () => {
     </ListGroup>
 )}
 
-export const shiftHasPrio = (index, col, Click, prio) => {
+export const shiftHasPrio = (index, col, prio, clickPrio, clickActive) => {
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="">
                 <ListGroupItemHeading className="m-0 p-0" color="">
-                    <i className="fa fa-heart fa-lg text-success float-right m-2" aria-hidden="true" onClick={() => Click(index, col, prio)}/>
+                    <i className="fa fa-heart fa-lg text-success float-right m-2" aria-hidden="true" onClick={() => clickPrio(index, col, prio)}/>
                 </ListGroupItemHeading>
         <ListGroupItemText className="m-0 p-3">
                 <br/>
@@ -288,11 +288,25 @@ export const shiftHasPrio = (index, col, Click, prio) => {
     </ListGroup>
 )}
 
-export const shiftSetPrio = (index, col, Click, prio) => {
+export const shiftSetPrio = (index, col, prio, clickPrio, clickActive) => {
     return (<ListGroup>
          <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="">
          <ListGroupItemHeading className="m-0 p-0" color="">
-                    <i className="fa fa-heart fa-lg text-light float-right m-2" aria-hidden="true" onClick={() => Click(index, col, prio)}/>
+                    <i className="fa fa-heart fa-lg text-light float-right m-2" aria-hidden="true" onClick={() => clickPrio(index, col, prio)}/>
+                </ListGroupItemHeading>
+                <ListGroupItemText className="m-0 p-3">
+                <br/>
+                <br/>
+        </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const shiftIsInactive = (index, col, clickActive) => {
+    return (<ListGroup>
+         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="default">
+         <ListGroupItemHeading className="m-0 p-0" color="">
+                    <i className="fas fa-times text-white float-left m-2" aria-hidden="true" onClick={() => clickActive(index, col)}/>
                 </ListGroupItemHeading>
                 <ListGroupItemText className="m-0 p-3">
                 <br/>

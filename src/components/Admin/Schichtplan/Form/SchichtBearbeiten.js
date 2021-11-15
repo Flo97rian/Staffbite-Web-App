@@ -8,7 +8,9 @@ import InputTime from "../../../Application/functionalComponents/InputTime";
 import InputTimeWithSwitch from "../FormElements/InputTimeWithSwitch";
 import InputNumber from "../../../Application/functionalComponents/InputNumber";
 import SelectPosition from "../FormElements/SelectPosition";
-import { INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../../../../constants/InfoTexts";
+import store from "../../../../store";
+import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
+import { INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_ORGANISATION_NAME, INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../../../../constants/InfoTexts";
 
 
 

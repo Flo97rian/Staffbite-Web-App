@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "auth": {
+      "staffbite58b5ca4d": [
+        "delete"
+      ]
+    },
+    "storage": {
+      "StaffbiteDynamoDB": [
+        "read",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
