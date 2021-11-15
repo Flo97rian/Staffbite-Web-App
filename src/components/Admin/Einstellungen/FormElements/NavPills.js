@@ -25,8 +25,6 @@ class Navs extends React.Component {
         return( <Unternehmensprofil {...this.props}/>
     )} else if (this.state.navPills === 2){
       return( <SchichtplanEinstellungen {...this.props}/>
-    )} else if (this.state.navPills === 3){
-        return( <Abrechnung {...this.props}/>
     )}
   }
   render() {
@@ -69,23 +67,6 @@ class Navs extends React.Component {
               <p className="m-0 text-white">Schichtplan Einstellungen</p>
               :
               <p className="m-0 text-muted">Schichtplan Einstellungen</p>
-              }
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              aria-selected={this.state.navPills === 3}
-              className={classnames("mb-sm-3 mb-md-0", {
-                active: this.state.navPills === 3
-              })}
-              onClick={e => this.toggleNavs(e, "navPills", 3)}
-              href="#pablo"
-              role="tab"
-            >
-              {this.state.navPills === 3 ? 
-              <p className="m-0 text-white">Abrechnungszeitraum</p>
-              :
-              <p className="m-0 text-muted">Abrechnungszeitraum</p>
               }
             </NavLink>
           </NavItem>

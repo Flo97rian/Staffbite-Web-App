@@ -204,6 +204,8 @@ const DashboardContainer = (props) => {
                             className="text-uppercase text-muted mb-4"
                           >
                             Mitarbeiter
+                            <br/>
+                            <br/>
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
                           {Employees ? Object.keys(Employees).length : <Spinner animation="grow" variant="light"/>}
@@ -230,6 +232,8 @@ const DashboardContainer = (props) => {
                             className="text-uppercase text-muted mb-4"
                           >
                             Tauschanfragen
+                            <br/>
+                            <small>aktuelle Woche</small>
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
                           {Shiftplan ? Shiftplan.tauschanfrage.length : <>0</>}

@@ -37,7 +37,6 @@ const ShiftplanTable = (props) => {
                 <Col xs={3}>
                     <p>Legende</p>
                     <Badge color="success">Schicht erhalten</Badge>
-                    <Badge color="light">Schicht unbelegt</Badge>
                     <Badge color="light">Schicht nicht erhalten</Badge>
                     <Badge color="default">nicht verfügbar</Badge>
                 </Col>

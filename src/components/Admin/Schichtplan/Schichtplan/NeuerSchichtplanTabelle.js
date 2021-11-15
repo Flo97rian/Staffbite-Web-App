@@ -28,8 +28,8 @@ const NeuerSchichtplanTabelle = (props) => {
                             <Col className="justify-content-md-center" xs={6}>
                             <p>Legende</p>
                             <Badge className="m-1" color="warning"> Schichtdetails eintragen</Badge>
-                            <Badge className="m-1" color="light"></Badge>
-                            <Badge className="m-1" color="default"> kein Betrieb</Badge>
+                            <Badge className="m-1" color="light">Betrieb geöffnet</Badge>
+                            <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
                         </Col>
                         </Row>
                         <br/>

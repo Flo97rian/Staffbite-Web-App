@@ -205,7 +205,7 @@ async function confirmResetPassword() {
                                 type="button"
                                 onClick={() => confirmResetPassword()}
                             >
-                                Bestätigungscode senden
+                                Passwort festlegen
                             </Button>
                             </div>
                         </Form>
