@@ -62,9 +62,9 @@ function Impressum () {
                       <br/>
                       Daniel Zellmann 
                     </p>
-                    <h3>Umsatzsteueridentifikationsnummer </h3>
+                    <h3>Umsatzsteuer-Identifikationsnummer </h3>
                     <p className="mb-4">
-                      Beantragt aber noch nicht ausgestellt
+                        DE347060990
                     </p>
                     <h3>EU-Streitschlichtung</h3>
                     <p className="mb-4">

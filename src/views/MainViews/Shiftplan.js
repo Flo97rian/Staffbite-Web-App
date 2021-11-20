@@ -51,12 +51,12 @@ function Shiftplan () {
             <Container className="mb-4 pt-4">
               <Row className="justify-content-center mb-4 mt-6">
                 <Col className="order-md-2" md="6">
-                  <image
+                  <img
                     alt="Entwurf"
                     src={SchichtplanEntwurf}
                     style={{ 
                       height: '300px',
-                      width: '600px',
+                      width: '500px',
                     }}
                   />
                 </Col>

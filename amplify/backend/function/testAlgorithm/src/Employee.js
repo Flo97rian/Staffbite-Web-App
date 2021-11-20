@@ -1,62 +1,95 @@
-export class Employee {
+class Employee {
     constructor(user, zeitraum) {
-        this.SK = user.SK["S"];
-        this.name = user.name["S"];
-        this.email = user.email["S"];
-        this.schichtenwoche = user.schichtenwoche["S"];
-        this.erfahrung = user.erfahrung["S"];
-        this.position = JSON.parse(user.position["S"]);
-        this.bewerbungen = JSON.parse(user.bewerbungen["S"][zeitraum]);
-        this.schichten = JSON.parse(user.schichten["S"][zeitraum]);
-        this.stundenlohn = user.stundenlohn["N"];
-        this.zielmtleuro = user.zielmtleuro["N"];
-        this.zielmtlh = user.zielmtlh["N"];
+        this.name = user.name;
+        this.schichtenwoche = user.schichtenwoche;
+        this.erfahrung = user.erfahrung;
+        this.position = user.position;
+        this.bewerbungen = user.bewerbungen;
+        this.schichten = user.schichten;
 
     }
 
     getQualifikation () {
         let employeeQualifikation;
-        if (this.qualifikation === "Anfägner") {
+        if (this.erfahrung === "Anfänger") {
             employeeQualifikation = 1;
         } 
-        else if (this.qualifikation === "Fortgeschritten") {
+        else if (this.erfahrung === "Fortgeschritten") {
             employeeQualifikation = 2;
         }
-        else if (this.qualifikation === "Experte") {
+        else if (this.erfahrung === "Experte") {
             employeeQualifikation = 3;
         }
     return employeeQualifikation;
     }
+    
     getApplications () {
-        return this.bewerbungen;
+        return this.bewerbungen[this.getApplicationsZeitraum()];
     }
 
-
+    getApplicationsZeitraum () {
+        return Object.keys(this.bewerbungen)[0];
+    }
+    
     getApplicationsCount() {
-        return this.getApplications().length;
+        let applications = 0;
+        if (this.hasApplications()) {
+            applications = this.getApplications().length;   
+        }
+        return applications;
+    }
+    
+    hasApplications() {
+        let valid = !1;
+        if (this.getApplicationsZeitraum() !== undefined) {
+            valid = !0;
+        }
+        return valid;
     }
 
     getShifts () {
         return this.schichten;
     }
+    
+    getShiftsZeitraum () {
+        return Object.keys(this.schichten)[0];
+    }
 
     getShiftsCount() {
-        return this.getShifts().length;
+        let shifts = 0;
+        if (this.hasShifts()) {
+            shifts = this.schichten.length;   
+        }
+        return shifts;
+    }
+    
+    hasShifts() {
+        let valid = !1;
+        if (this.schichten.length > 0) {
+            valid = !0;
+        }
+        return valid;
     }
 
     getIsMaxShiftThisWeek() {
         let isMax = !1;
-        if (this.schichtenwoche === this.getShiftsCount()) {
+        if (Number(this.schichtenwoche) === this.getShiftsCount()) {
             isMax = !0;
         }
         return isMax;
     }
     
     getShiftsPerWeek () {
-        return this.schichtenwoche;
+        return Number(this.schichtenwoche);
     }
 
     getEmployee () {
         
         }
+        
+    getName () {
+        return this.name;
+    }
 }
+
+module.exports = Employee;

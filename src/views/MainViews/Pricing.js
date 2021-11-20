@@ -133,7 +133,7 @@ function Pricing () {
                 <Col lg="4">
                   <Card className="card-pricing bg-gradient-success zoom-in shadow-lg rounded border-0 text-center mb-4 card">
                   <CardHeader className="bg-transparent card-header">
-                      <h1 className="ls-1 text-white lead py-3 mb-0">Ab 50 Mitarbeiter</h1>
+                      <h1 className="ls-1 text-white lead py-3 mb-0">Ab 51 Mitarbeiter</h1>
                     </CardHeader>
                     <CardBody className="p-lg-4">
                     <h1 className="text-white display-2">

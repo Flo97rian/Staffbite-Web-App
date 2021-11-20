@@ -5,9 +5,8 @@ const {
     setReviewShiftPlan
 } = require('./DB.js');
 
-const {
-    Employees
-} = require('./Employees')
+var Employees = require('./Employees');
+var Meta = require('./Meta');
 
 exports.preprocessing = async (event) => {
     let body = JSON.parse(event.body);
@@ -16,21 +15,28 @@ exports.preprocessing = async (event) => {
     let ORGMeta = "ORG#METADATA#" + user["custom:TenantId"];
     let id = body.id;
     let meta = await getMetaData(ORG, ORGMeta)
-    let reverse = meta.Item.reverse["BOOL"]
-    let stundenerfassung = meta.Item.stundenerfassung["BOOL"]
+    let reverse = meta.Item.reverse["BOOL"];
+    let stundenerfassung = meta.Item.stundenerfassung["BOOL"];
     let shiftPlan = await getShiftPlan(ORG, id);
-    let employees = await getEmployeeDetails(ORG);
-    employees = new Employees(employees)
-    console.log(employees);
+    let zeitraum = shiftPlan.zeitraum["S"];
+    let employeesDB = await getEmployeeDetails(ORG);
+    let AllEmployees = new Employees;
+    AllEmployees.createUserObjects(employeesDB.Items);
+    AllEmployees.filterCurrentWeekDetails(zeitraum);
+    let employees = AllEmployees.getAllEmployees()
     let idreview = id.replace("Freigeben", "Review");
-    const minerfahrung = 1;
-    const getShifts = 2;
-    let plan = await JSON.parse(shiftPlan.Item.data.S);
-    let copyShiftPlan = plan;
-    let shiftsOrderedByDay = await shiftHasApplicant({plan, minerfahrung});
-    let allEmployees = await getEmployeeDetails(ORG);
-    let lookUpUser = await createUserDetailsLookUp(allEmployees);
-    return {ORG: ORG, body: body, shiftPlan: shiftPlan, employees:employees, idreview:idreview, minerfahrung:minerfahrung, getShifts:getShifts, plan: plan, copyShiftPlan: copyShiftPlan, shiftsOrderedByDay:shiftsOrderedByDay, allEmployees: allEmployees, lookUpUser:lookUpUser, reverse: reverse, stundenerfassung:stundenerfassung}
+    let plan = await JSON.parse(shiftPlan.data.S);
+    return {
+        ORG: ORG, 
+        body: body, 
+        shiftPlan: shiftPlan,
+        idreview:idreview, 
+        plan: plan, 
+        Employees: employees, 
+        reverse: reverse, 
+        stundenerfassung:stundenerfassung
+        
+    }
 }
 
 function createUserDetailsLookUp(employeelist) {

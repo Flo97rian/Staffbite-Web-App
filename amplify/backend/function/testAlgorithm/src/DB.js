@@ -21,7 +21,7 @@ exports.getShiftPlan = async (PK, SK) => {
        if (err) console.log(err, err.stack); // an error occurred
        else     console.log(data); // successful response
      }).promise();
-    return data;
+    return data.Item;
 }
 
 exports.getEmployeeDetails = async (ORG) => {
@@ -43,8 +43,9 @@ exports.getEmployeeDetails = async (ORG) => {
 
 exports.setReviewShiftPlan = async (config) => {
     let {reviewShiftPlan, idreview, shiftPlan, ORG} = config;
-    let name = shiftPlan.Item.name["S"];
-    let schichtentag = shiftPlan.Item.schichtentag["N"];
+    console.log(config);
+    let name = shiftPlan.name["S"];
+    let schichtentag = shiftPlan.schichtentag["N"];
           var params = {
             Item: {
                PK: {
@@ -63,7 +64,7 @@ exports.setReviewShiftPlan = async (config) => {
                  N: schichtentag
                 }, 
                zeitraum: {
-                 S: shiftPlan.Item.zeitraum["S"]
+                 S: shiftPlan.zeitraum["S"]
                 }, 
                tauschanfrage: {
                  S: JSON.stringify([])

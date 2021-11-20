@@ -7,7 +7,7 @@ export function thunkStartAlg(id) {
     const planid = id
     Auth.currentAuthenticatedUser().then( user => {
         const apiName = API_HOSTNAME; // replace this with your api name.
-        const path = START_ALGORITHM; //replace this with the path you have configured on your API
+        const path = TEST_ALGORITHM; //replace this with the path you have configured on your API
         const myInit = { // OPTIONAL
             body: {
                 id: planid,

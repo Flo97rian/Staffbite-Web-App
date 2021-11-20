@@ -19,39 +19,36 @@ const {
 } = require('./DB.js');
 
 const { preprocessing } = require("./preprocessing.js")
-const { 
-    isApplicantsMax,
-    isApplicantShiftMax,
-    updateApplicantGotShift,
-    isValidApplicant,
-    getUserDetail,
-    updateEmployeesVerdienst,
-    updateEmployeesShift,
-    removeEmployeesVerdienst,
-    } = require("./processing.js")
+var Shiftplan = require('./Shiftplan');
 
 exports.handler = async (event) => {
         // preprocessing
         const {
             ORG,
-            shiftPlan,
             idreview,
+            plan,
             minerfahrung,// wenn gegeben
-            copyShiftPlan,
-            shiftsOrderedByDay,
             lookUpUser,
+            shiftPlan,
             reverse,
-            stundenerfassung
+            stundenerfassung,
+            Employees
         } = await preprocessing(event);
+    
+    let shiftplan = new Shiftplan(plan, Employees);
+    await shiftplan.startAlg();
+    let reviewShiftPlan = shiftplan.getPlan();
+    await setReviewShiftPlan({reviewShiftPlan, idreview, shiftPlan, ORG});
     // TODO implement
     const response = {
         statusCode: 200,
-    //  Uncomment below to enable CORS requests
-    //  headers: {
-    //      "Access-Control-Allow-Origin": "*",
-    //      "Access-Control-Allow-Headers": "*"
-    //  }, 
-        body: JSON.stringify('Hello from Lambda!'),
+        headers: {
+            "Access-Control-Allow-Headers" : "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            "Access-Control-Allow-Credentials": "true"
+        },
+        body: JSON.stringify("Befüllung done"),
     };
-    return response;
+    return response
 };

@@ -66,19 +66,22 @@ const reorder = (list, startIndex, endIndex) => {
 const move = (source, destination, droppableSource, droppableDestination, empId, employees) => {
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
+  empId = empId.substring(1)
+  if(employees && employees[empId]) {
   if (destClone[0].id.length === 1) {
     const employee = sourceClone[droppableSource.index];
-    const newid = droppableDestination.droppableId + empId.substring(1);
+    const newid = droppableDestination.droppableId + empId;
     destClone.splice(0,1, {id: newid, content: employee.content});
   } else {
     const employee = sourceClone[droppableSource.index];
-    const newid = droppableDestination.droppableId + empId.substring(1);
+    const newid = droppableDestination.droppableId + empId;
     destClone.splice(droppableDestination.index ,0, {id: newid, content: employee.content});
   }
-  if ("dummyshifts" in employees[empId.substring(1)]){
-    employees[empId.substring(1)].dummyshifts = employees[empId.substring(1)].dummyshifts + 1;
-  } else {
-    employees[empId.substring(1)].dummyshifts = 1;
+    if (employees[empId]["dummyshifts"]){
+      employees[empId].dummyshifts = employees[empId].dummyshifts + 1;
+    } else {
+      employees[empId].dummyshifts = 1;
+    }
   }
   const result = {};
   result[droppableSource.droppableId] = sourceClone;
@@ -109,23 +112,28 @@ const getListStyle = isDraggingOver => ({
 });
 
 const getItemContent = (item, employees) => {
-  const IsEmpty = item.id.length === 1
-  const empName = item.content;
-  if (!IsEmpty) {
-    const employeeHasShift = "dummyshifts" in employees[item.id.substring(1)] ? !0 : !1;
-    const employeeShifDefined = employees[item.id.substring(1)].dummyshifts !== undefined ? !0 : !1;
-    if (employeeHasShift && employeeShifDefined) {
-      const empErfahrung = employees[item.id.substring(1)].erfahrung;
-      const empName = item.content;
-      const empSchichtenWoche = employees[item.id.substring(1)].schichtenwoche;
-      const empSchichtenBisher = employees[item.id.substring(1)].dummyshifts;
-      return <small>{empName}<br/><small>{ empErfahrung }{" "}{ empSchichtenBisher + "/" + empSchichtenWoche }</small></small>
-    } else if (employees[item.id.substring(1)]) {
-      const empErfahrung = employees[item.id.substring(1)].erfahrung
-      const empSchichtenWoche = employees[item.id.substring(1)].schichtenwoche
-      return <small>{empName}<br/><small>{ empErfahrung }{" "}{ "0/" + empSchichtenWoche }</small></small>
-  }}
-   else {
+  let IsEmpty = item.id.length === 1
+  let empName = item.content;
+  let empId = item.id.substring(1)
+  if (!IsEmpty && employees) {
+    if(employees[empId]) {
+      if(employees[empId]["dummyshifts"]) {
+        if (employees[empId].dummyshifts !== undefined) {
+          const empErfahrung = employees[item.id.substring(1)].erfahrung;
+          const empName = item.content;
+          const empSchichtenWoche = employees[item.id.substring(1)].schichtenwoche;
+          const empSchichtenBisher = employees[item.id.substring(1)].dummyshifts;
+          return <small>{empName}<br/><small>{ empErfahrung }{" "}{ empSchichtenBisher + "/" + empSchichtenWoche }</small></small>
+        }
+      }
+      else {
+        const empErfahrung = employees[item.id.substring(1)].erfahrung
+        const empSchichtenWoche = employees[item.id.substring(1)].schichtenwoche
+        return <small>{empName}<br/><small>{ empErfahrung }{" "}{ "0/" + empSchichtenWoche }</small></small>
+      }
+    }
+  }
+  else {
     return <small>{empName}<br/><small>Schicht nicht belegt</small></small>
   }
 }

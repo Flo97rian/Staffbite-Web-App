@@ -133,8 +133,8 @@
           "identityPoolId": "eu-central-1:2e1dd1e4-5524-4fec-a78b-0ffa01bf4d77",
           "identityPoolName": "Staffbite",
           "allowUnauthenticatedIdentities": false,
-          "authRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteAuth_Role",
-          "authRoleName": "Cognito_StaffbiteAuth_Role",
+          "authRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-dev-180625-authRole",
+          "authRoleName": "amplify-staffbite-dev-180625-authRole",
           "unauthRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteUnauth_Role",
           "unauthRoleName": "Cognito_StaffbiteUnauth_Role"
         }
@@ -154,21 +154,6 @@
       "AmplifyAppId": "d3p8gdtbc86r0o"
     },
     "categories": {
-      "auth": {
-        "staffbiteff38ca70": {
-          "userPoolId": "eu-central-1_e0g7ALwrg",
-          "userPoolName": "Staffbite-Benutzerpool",
-          "webClientId": "625p2f8lj1r8vii8l13467nijr",
-          "nativeClientId": "625p2f8lj1r8vii8l13467nijr",
-          "identityPoolId": "eu-central-1:2e1dd1e4-5524-4fec-a78b-0ffa01bf4d77",
-          "identityPoolName": "Staffbite",
-          "allowUnauthenticatedIdentities": false,
-          "authRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteAuth_Role",
-          "authRoleName": "Cognito_StaffbiteAuth_Role",
-          "unauthRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteUnauth_Role",
-          "unauthRoleName": "Cognito_StaffbiteUnauth_Role"
-        }
-      },
       "hosting": {
         "amplifyhosting": {
           "appId": "d3p8gdtbc86r0o",
@@ -183,12 +168,119 @@
           "partitionKeyName": "PK",
           "partitionKeyType": "S",
           "sortKeyName": "SK",
-          "sortKeyType": "S"
+          "sortKeyType": "S",
+          "streamArn": "arn:aws:dynamodb:eu-central-1:643981031365:table/Staffbite-DynamoDB/stream/2021-11-01T16:21:54.496"
         }
       },
       "function": {
-        "Invoke": {},
-        "deleteEmployee": {}
+        "Invoke": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/Invoke-337a6d4972344f6f7047-build.zip"
+        },
+        "deleteEmployee": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/deleteEmployee-734446776776616f4c76-build.zip"
+        },
+        "getEmployee": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/getEmployee-664b7978776f466e3666-build.zip"
+        },
+        "getProfile": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/getProfile-4948334c37574c345a5a-build.zip"
+        },
+        "register": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/register-2f4d4f3572684f644c71-build.zip"
+        },
+        "deleteShiftplan": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/deleteShiftplan-48435133426441657474-build.zip"
+        },
+        "postProfile": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/postProfile-69305053786277507647-build.zip"
+        },
+        "getReport": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/getReport-7743484b6b4146644673-build.zip"
+        },
+        "getAllEmployees": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/getAllEmployees-2b796e496c6f324e552b-build.zip"
+        },
+        "postRegister": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/postRegister-72754b30633466415550-build.zip"
+        },
+        "getAllShiftplans": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/getAllShiftplans-64487a31753953365466-build.zip"
+        },
+        "publishShiftplan": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/publishShiftplan-4e4948726e7948674b39-build.zip"
+        },
+        "addEmployee": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/addEmployee-59444e6444594a4d6b36-build.zip"
+        },
+        "releaseShiftplan": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/releaseShiftplan-326e6b6974634c794c4c-build.zip"
+        },
+        "startAlgorithm": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/startAlgorithm-4275514e554c4d785145-build.zip"
+        },
+        "updateEmployee": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/updateEmployee-59726d7a436142577345-build.zip"
+        },
+        "updateShiftplan": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/updateShiftplan-397632436e4e74575176-build.zip"
+        },
+        "updateTradeShift": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/updateTradeShift-75775950383644374b54-build.zip"
+        },
+        "getEmployeesShiftplans": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/getEmployeesShiftplans-7a2f51707439414a2b48-build.zip"
+        },
+        "uploadShiftplan": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/uploadShiftplan-70655166796f34705074-build.zip"
+        },
+        "postApplication": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/postApplication-415a35493134527a6b4c-build.zip"
+        },
+        "contactForm": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/contactForm-6d676b6d594d56353173-build.zip"
+        },
+        "testAlgorithm": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/testAlgorithm-524148577179744e577a-build.zip"
+        }
+      },
+      "auth": {
+        "staffbite58b5ca4d": {
+          "userPoolId": "eu-central-1_e0g7ALwrg",
+          "userPoolName": "Staffbite-Benutzerpool",
+          "webClientId": "625p2f8lj1r8vii8l13467nijr",
+          "nativeClientId": "625p2f8lj1r8vii8l13467nijr",
+          "identityPoolId": "eu-central-1:2e1dd1e4-5524-4fec-a78b-0ffa01bf4d77",
+          "identityPoolName": "Staffbite",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::643981031365:role/amplify-staffbite-dev-180625-authRole",
+          "authRoleName": "amplify-staffbite-dev-180625-authRole",
+          "unauthRoleArn": "arn:aws:iam::643981031365:role/Cognito_StaffbiteUnauth_Role",
+          "unauthRoleName": "Cognito_StaffbiteUnauth_Role"
+        },
+        "staffbiteff38ca70": {}
       }
     }
   }
