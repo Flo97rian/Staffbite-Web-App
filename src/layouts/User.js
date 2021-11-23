@@ -77,7 +77,7 @@ const User = (props) => {
           logo={{
             innerLink: "/user/index",
             imgSrc: require("../assets/img/brand/Staffbite_Logo.png").default,
-            imgAlt: "...",
+            imgAlt: "Abbildung des Logos von Staffbite",
           }}
           brandText={getBrandText(props.location.pathname)}
         />

@@ -4,7 +4,9 @@ export const getShiftCount = (employees, shiftplan) => {
         Object.values(element).forEach(val => {
             if (val.setApplicants && Object.keys(val.setApplicants).length > 0) {
                 Object.keys(val.setApplicants).forEach(applicant => {
-                    Object.keys(employees[applicant]).includes("dummyshifts") ? employees[applicant].dummyshifts += 1 : employees[applicant].dummyshifts = 1
+                    if(employees[applicant]) {
+                        Object.keys(employees[applicant]).includes("dummyshifts") ? employees[applicant].dummyshifts += 1 : employees[applicant].dummyshifts = 1
+                    }
                 })
             }
         })})

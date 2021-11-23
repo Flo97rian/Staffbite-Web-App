@@ -126,11 +126,12 @@ async function signOut() {
       className="navbar-top navbar-horizontal fixed-top bg-white shadow sticky" 
       expand="md"
       >
-          <NavbarBrand className=" ml-2" {...navbarBrandProps}>
+          <NavbarBrand className="ml-2" {...navbarBrandProps}>
             <img
               alt={logo.imgAlt}
               className="navbar-brand-img"
               height="40px"
+              width="120px"
               src={logo.imgSrc}
             />
           </NavbarBrand>

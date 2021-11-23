@@ -18,6 +18,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ImageGroup, Image } from 'react-fullscreen-image'
+import { Helmet } from "react-helmet";
 // reactstrap components
 import {
   Container,
@@ -25,20 +26,24 @@ import {
   Col,
 } from "reactstrap";
 // core components
-import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-Beispiel.png"
-import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan_Entwurf.png"
-import TeamVerwalten from "../../assets/img/theme/Team_Verwalten.png"
+import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-automatisiert-erstellen.png"
+import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan-erstellen.png"
+import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
 
 function Shiftplan () {
     return (
     <>
+        <Helmet>
+          <title>Automatisierter Schichtplan</title>
+          <meta name="description" content="Individuell anpassbar. Automatisierte Schichtpläne"/>
+        </Helmet>
        <LandingNavBar
               logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
+                imgAlt: "Das Logo von Staffbite",
                 }}/>
       {/* Page content */}
       <Container className="pt-5 pb-2" fluid>
@@ -52,12 +57,10 @@ function Shiftplan () {
               <Row className="justify-content-center mb-4 mt-6">
                 <Col className="order-md-2" md="6">
                   <img
-                    alt="Entwurf"
+                    alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                     src={SchichtplanEntwurf}
-                    style={{ 
-                      height: '300px',
-                      width: '500px',
-                    }}
+                    height="300px"
+                    width="500px"
                   />
                 </Col>
                 <Col className="order-md-1" md="6">
@@ -80,9 +83,11 @@ function Shiftplan () {
               <Row className="justify-content-center mb-4 mt-8">
                 <Col className="order-md-1" md="6">
                   <img
-                    alt="..."
+                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={TeamVerwalten}
-                    style={{ width: "500px", height: "300px"}}
+                    height="300px"
+                    width="500px"
+                    
                   />
                 </Col>
                 <Col className="order-md-2" md="6">
@@ -94,7 +99,7 @@ function Shiftplan () {
                     <p>
                     Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten. 
                     </p>
-                    <Link to={{ pathname: "https://www.youtube.com/watch?v=RtKKaWkCPrs" }} target="_blank">Hier geht's zum Video</Link>
+                    <Link to={{ pathname: "https://www.youtube.com/watch?v=RtKKaWkCPrs" }} target="_blank">Dein Team erstellen & verwalten</Link>
                   </div>
                 </Col>
               </Row>
@@ -117,9 +122,10 @@ function Shiftplan () {
                 </Col>
                 <Col className="order-md-2" md="6">
                   <img
-                    alt="..."
+                    alt="Abbildung eines automatisiert erstellen Schichtplans von Staffbite"
                     src={SchichtplanBeispiel}
-                    style={{ width: "500px", height: "300px"}}
+                    height="300px"
+                    width="500px"
                   />
                 </Col>
               </Row>
@@ -130,9 +136,10 @@ function Shiftplan () {
               <Row className="justify-content-center mb-4 mt-8">
                 <Col className="order-md-1" md="6">
                   <img
-                    alt="..."
+                    alt="Abbildung der Mitarbeiter Übersicht von Staffbite"
                     src={TeamVerwalten}
-                    style={{ width: "500px", height: "300px"}}
+                    height="300px"
+                    width="500px"
                   />
                 </Col>
                 <Col className="order-md-2" md="6">

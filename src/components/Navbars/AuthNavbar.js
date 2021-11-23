@@ -51,7 +51,8 @@ const AdminNavbar = (props) => {
             <img
               alt={logo.imgAlt}
               className="navbar-brand-img"
-              height="60px"
+              height="40px"
+              width="120px"
               src={logo.imgSrc}
             />
           </NavbarBrand>

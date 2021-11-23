@@ -21,8 +21,7 @@ import "../../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../assets/scss/argon-dashboard-react.scss";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
-import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-Beispiel.png"
-import MitarbeiterAppBeispiel from "../../assets/img/theme/Mitarbeiter-App-Beispiel.png"
+import MitarbeiterAppBeispiel from "../../assets/img/theme/Schichtplan-App-Mitarbeiter.png"
 import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.png"
 
 
@@ -63,7 +62,7 @@ class Landing extends React.Component {
               logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
+                imgAlt: "Das Logo von Staffbite",
                 }}/>
               <Container className="py-lg-md d-flex">
                 <div className="col px-0">

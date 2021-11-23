@@ -127,6 +127,7 @@ async function signOut() {
               alt={logo.imgAlt}
               className="navbar-brand-img"
               height="40px"
+              width="120px"
               src={logo.imgSrc}
             />
           </NavbarBrand>

@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-
+import { Helmet } from "react-helmet";
 // reactstrap components
 import {
   Container,
@@ -31,11 +31,15 @@ import LandingFooter from "../../components/Footers/LandingFooter";
 function Pricing () {
     return (
     <>
+        <Helmet>
+          <title>Über uns</title>
+          <meta name="description" content="Florian Zellmann. Daniel Zellmann."/>
+        </Helmet>
        <LandingNavBar
               logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
+                imgAlt: "Abbildung des Logos von Staffbite",
                 }}/>
       {/* Page content */}
       <Container className="pt-5" fluid>
@@ -49,20 +53,20 @@ function Pricing () {
                 <Col className="mb-5 mb-lg-0" lg="12" md="12">
                   <div className="px-4">
                     <img
-                      alt="..."
+                      alt="Abbildung der Gründer von Staffbite. Links steht Florian Zellmann. Rechts steht Daniel Zellmann."
                       className="rounded-circle img-center img-fluid shadow shadow-lg--hover"
                       src={Team}
+                      height="800px"
+                      width="1000px"
                     />
                     <div className="pt-4 text-center">
                     <h5 className="title">
                       <Row>
                         <Col xs="6">
                           <h3 className="d-block mb-1">Florian Zellmann</h3>
-                          <small className="h6 lead">Bachelorstudent BWL</small>
                         </Col>
                         <Col xs="6">
                           <h3 className="d-block mb-1 ">Daniel Zellmann</h3>
-                          <small className="h6 lead">Masterstudent Business Management</small>
                         </Col>
                       </Row>
                       </h5>

@@ -18,8 +18,6 @@
 /*eslint-disable*/
 import React from "react";
 import { Link } from "react-router-dom";
-import landing from "../../assets/img/theme/landing.jpg";
-import profile from "../../assets/img/theme/profile.jpg";
 // reactstrap components
 import {
   NavItem,

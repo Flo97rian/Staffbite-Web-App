@@ -36,6 +36,8 @@ const ProfilContainer = (props) => {
                             require("../../../assets/img/theme/team-4-800x800.jpg")
                               .default
                           }
+                          height="200px"
+                          width="300px"
                         />
                       </a>
                     </div>

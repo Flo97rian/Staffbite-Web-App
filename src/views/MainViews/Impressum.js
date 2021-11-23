@@ -36,7 +36,7 @@ function Impressum () {
               logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
+                imgAlt: "Das Logo von Staffbite",
                 }}/>
       {/* Page content */}
       <Container className="pt-5" fluid>

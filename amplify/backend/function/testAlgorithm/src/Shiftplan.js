@@ -145,12 +145,12 @@ class Shiftplan {
     getShiftScope() {
         if(this.isValidShift()) {
             this.setApplicant()
-            this.setHeatMapSetApplicants()
+            //this.setHeatMapSetApplicants()
         }
     }
         
     setApplicant() {
-       if(this.startSetApplicants()) {
+       if(this.validateSetApplicants()) {
             if(this.hasValidApplicants(this.currentShiftsValidApplicants)) {
                 this.startSetApplicants()
             } else {
@@ -165,7 +165,7 @@ class Shiftplan {
         }
     }
     
-    startSetApplicants() {
+    validateSetApplicants() {
         let canStart = !1;
         let shift = this.geCurrentShift();
         if(this.hasApplicants(shift)) {
@@ -218,7 +218,6 @@ class Shiftplan {
     
     removeCurrentApplicantFromTargetShift () {
         let shiftDetails = this.alternativeShift
-        console.log(shiftDetails);
         delete this.plan[shiftDetails.row][shiftDetails.day].setApplicants[this.currentApplicant]
     }
     
@@ -327,16 +326,16 @@ class Shiftplan {
     
     searchSwap(shiftsReferences, currentIndex, notFound) {
         let searchApplicantsIndex = 0;
-        let shift = this.createSwapShift(shiftsReferences, currentIndex);
+        let shift = this.createSwapDetails(shiftsReferences, currentIndex);
         let searchApplicantsLength = this.getApplicantsIdsFromTarget(shift).length;
         while(searchApplicantsIndex <= searchApplicantsLength && notFound) {
-            this.validateApplicant(shift)
+            this.validateApplicant(shiftsReferences, notFound, shift, searchApplicantsIndex, currentIndex)
             searchApplicantsIndex += 1
         }
         return notFound;
     }
     
-    validateApplicant(selectedReference, notFound, shift, searchApplicantsIndex) {
+    validateApplicant(selectedReference, notFound, shift, searchApplicantsIndex, currentIndex) {
         let searchApplicantsIds = this.getApplicantsIdsFromTarget(shift);
         let applicantId = searchApplicantsIds[searchApplicantsIndex];
             if(this.employees.applicantExists(searchApplicantsIds[searchApplicantsIndex])) {
@@ -346,7 +345,7 @@ class Shiftplan {
                     console.log(isAtMaximumShifts);
                     if(!isAtMaximumShifts) {
                         this.alternativeApplicantsId = applicantId;
-                        this.alternativeShift = selectedReference;
+                        this.alternativeShift = selectedReference[currentIndex];
                         notFound = !1;
                     }
                 }
@@ -376,11 +375,9 @@ class Shiftplan {
     }
     
     getDetailsToSetApplicant() {
-        let applicant = this.createEmployeeInstance(this.currentShiftsFirstValidApplicant)
-        let name = applicant.getName()
+        let name = this.employees.getName(this.currentShiftsFirstValidApplicant)
         let shiftName = this.getShiftName();
         let shiftPosition = this.getShiftPosition();
-        applicant = this.deleteInstance();
         return {name:name, shiftName: shiftName, shiftPosistion: shiftPosition}
     }
             

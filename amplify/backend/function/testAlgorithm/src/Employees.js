@@ -220,5 +220,9 @@ class Employees {
         let employee = this.employees[employeeId];
         return employee;
     }
+
+    getName(employeeId) {
+        return this.employees[employeeId].name;
+    }
 }
 module.exports = Employees;

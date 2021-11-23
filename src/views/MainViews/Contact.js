@@ -97,7 +97,7 @@ function Contact () {
               logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
+                imgAlt: "Abbildung des Logos von Staffbite.",
                 }}/>
       {/* Page content */}
       <Container className="pt-5" fluid>

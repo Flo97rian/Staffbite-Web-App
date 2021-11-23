@@ -109,7 +109,7 @@
         },
         "testAlgorithm": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/testAlgorithm-524148577179744e577a-build.zip"
+          "s3Key": "amplify-builds/testAlgorithm-46494758347479633348-build.zip"
         }
       },
       "storage": {

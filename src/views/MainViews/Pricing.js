@@ -31,15 +31,20 @@ import {
 // core components
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
+import { Helmet } from "react-helmet";
 
 function Pricing () {
     return (
     <>
+        <Helmet>
+          <title>Preise</title>
+          <meta name="description" content="Preise & Vertragsbedingungen. Kostenloser Probemonat" />
+        </Helmet>
        <LandingNavBar
               logo={{
                 innerLink: "/",
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
+                imgAlt: "Abbildung des Logos von Staffbite.",
                 }}/>
       {/* Page content */}
       <Container className="pt-5" fluid>
