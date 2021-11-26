@@ -107,7 +107,7 @@ function Contact () {
           <NotificationAlert ref={notificationAlert} />
         </div>   
         <Container className="mt-6 mb-2">
-            <Row className="justify-content-left ml-1 mt-8">
+            <Row className="justify-content-left ml-1 mt-4">
                 <h1> Kontakt</h1>
             </Row>
         </Container>

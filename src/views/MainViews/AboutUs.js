@@ -44,7 +44,7 @@ function Pricing () {
       {/* Page content */}
       <Container className="pt-5" fluid>
         <Container className="mt-6">
-                    <Row className="justify-content-left ml-1 mt-8">
+                    <Row className="justify-content-left ml-1 mt-4">
                         <h1> Über uns</h1>
                     </Row>
         </Container>
@@ -80,7 +80,7 @@ function Pricing () {
                     <Row className="mt-3">
                       <h2>Daniel Zellmann</h2>
                       <p>
-                      Daniel Zellmann ist Mitgründer von Staffbite. Er ist verantwortlich für die operativen Geschäfte. Vor der Gründung von Staffbite arbeitete er mehrere Jahre als IT-Berater. Während der verschiedenen Kundenprojekte in ganz Deutschland sammelte er viel Erfahrung im Aufbau von skalierbaren Cloud-Infrastrukturen, Datenanalyse und der Automatisierung von Arbeitsabläufen. Sein Schwerpunkt liegt derzeit auf der kundenzentrierten Produktentwicklung. 
+                      Daniel Zellmann (M.A. Business Management) ist Mitgründer von Staffbite. Er ist verantwortlich für die operativen Geschäfte. Vor der Gründung von Staffbite arbeitete er mehrere Jahre als IT-Berater. Während der verschiedenen Kundenprojekte in ganz Deutschland sammelte er viel Erfahrung im Aufbau von skalierbaren Cloud-Infrastrukturen, Datenanalyse und der Automatisierung von Arbeitsabläufen. Sein Schwerpunkt liegt derzeit auf der kundenzentrierten Produktentwicklung. 
                       </p>
                     </Row>
                   </div>

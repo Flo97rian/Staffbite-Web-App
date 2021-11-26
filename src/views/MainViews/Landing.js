@@ -67,13 +67,34 @@ class Landing extends React.Component {
               <Container className="py-lg-md d-flex">
                 <div className="col px-0">
                   <Row className="mt-6">
-                    <Col lg="6">
-                      <h1 className="display-3 text-white">
+                    <Col md="12" lg="10">
+                      <h1 className="display-3 text-white pb-5">
                       Müde vom stundenlangen Schichtplan puzzeln?{" "}
                       </h1>
-                      <p className="lead text-white">
-                      In einer Anwendung automatisiert dein Team planen und verwalten. Einfach und übersichtlich. Speziell entwickelt für die benötigte Flexibilität in der Gastronomie.
-                      </p>
+                      <div>
+                        <i className="fas fa-check fas-lg mr-2 text-white float-left pt-2" />
+                        <p className="lead text-white m-1">
+                            Mit unserer Lösung erstellst du mit wenigen Klicks deinen digitalen Schichtplan 
+                        </p>
+                      </div>
+                      <div>
+                        <i className="fas fa-check fas-lg mr-2 text-white float-left pt-2" />
+                        <p className="lead text-white m-1">
+                            Einfach und übersichtlich  
+                        </p>
+                      </div>
+                      <div>
+                        <i className="fas fa-check fas-lg mr-2 text-white float-left pt-2" />
+                        <p className="lead text-white m-1">
+                            Wir bieten die benötigte Flexibilität für die Gastronomie, Hotellerie und den Einzelhandel  
+                        </p>
+                      </div>
+                      <div>
+                        <i className="fas fa-check fas-lg mr-2 text-white float-left pt-2" />
+                        <p className="lead text-white m-1">
+                          Probiere es direkt aus! Im kostenlosen Probemonat!
+                        </p>
+                      </div>
                     </Col>
                   </Row>
                 </div>
@@ -95,17 +116,111 @@ class Landing extends React.Component {
               </div>
             </section>
           </div>
-          <br />
-          <section className="section section-lg pt-lg-0 mt--200">
-            <Container>
+          <section className="section section-lg pt-lg-0 mt--150">
+            <Container className="">
               <Row className="justify-content-center">
                 <Col lg="12">
-                  <h2 className="display-3 text-white">Unser Leistungsversprechen</h2>
-                  <br />
+                  <h2 className="display-3 text-white">So funktioniert's</h2>
                   <Row className="row-grid">
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-5">
+                        <CardBody className="py-5 pb-6">
+                          <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
+                            <i className="ni ni-check-bold" />
+                          </div>
+                          <h6 className="text-primary text-uppercase">
+                             1. Schichtplan erstellen
+                          </h6>
+                          <p className="description mt-3">
+                            Mit wenigen Klicks erstellst du deinen digitalen Schichtplan für dich und dein Team. 
+                          </p>
+                        </CardBody>
+                      </Card>
+                    </Col>
+                    <Col lg="3">
+                      <Card className="card-lift--hover shadow border-0">
+                        <CardBody className="py-5 pb-2">
+                          <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
+                            <i className="fas fa-calendar" />
+                          </div>
+                          <h6 className="text-success text-uppercase">
+                          2. Verfügbarkeiten eintragen
+                          </h6>
+                          <p className="description mt-3">
+                            Deine Mitarbeiter*innen tragen ihre Verfügbarkeiten ein. Das geht jederzeit per Smartphone oder Laptop.
+                          </p>
+                        </CardBody>
+                      </Card>
+                    </Col>
+                    <Col lg="3">
+                      <Card className="card-lift--hover shadow border-0">
+                        <CardBody className="py-5 pb-2">
+                          <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
+                            <i className="ni ni-settings-gear-65" />
+                          </div>
+                          <h6 className="text-warning text-uppercase">
+                            3. Automatisierte Befüllung
+                          </h6>
+                          <p className="description mt-3">
+                            Unsere Lösung befüllt deinen Schichtplan automatisiert innerhalb weniger Sekunden.
+                          </p>
+                          <br />
+                        </CardBody>
+                      </Card>
+                    </Col>
+                    <Col lg="3">
+                      <Card className="card-lift--hover shadow border-0">
+                        <CardBody className="pt-5 pl-4 pr-4 pb-0">
+                          <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
+                            <i className="ni ni-tag" />
+                          </div>
+                          <h6 className="text-info text-uppercase">
+                            4. Schichtplan veröffentlichen
+                          </h6>
+                          <p className="description mt-3">
+                            Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den fertigen Schichtplan mit einem Klick.
+                          </p>
+                          <br />
+                        </CardBody>
+                      </Card>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+          <section className="section section-lg pt-lg-0 mt-8">
+            <Container>
+              <Row className="justify-content-center">
+                <h2 className="display-3 text-default">Vorteile für dein Team</h2>
+              </Row>
+              <Col md="12" lg="6">
+                    <Row className="mt-6">
+                        <i className="fas fa-check fas-lg mr-2 text-success float-left pt-2" />
+                        <p className="lead text-default m-1">
+                            Jederzeit in den Schichtplan eintragen
+                        </p>
+              </Row>
+              <Row>
+                        <i className="fas fa-check fas-lg mr-2 text-success float-left pt-2" />
+                        <p className="lead text-default m-1">
+                            Von überall fertigen Schichtplan einsehen
+                        </p>
+              </Row>
+            </Col>
+            <Col md="12" lg="6">
+            </Col>          
+          </Container>
+          </section>
+          <section className="section section-lg pt-lg-0 mt-8">
+            <Container>
+              <Row className="justify-content-center">
+                <Col lg="12">
+                  <h2 className="display-3 text-default">Unser Leistungsversprechen</h2>
+                  <Row className="row-grid">
+                    <Col lg="3">
+                      <Card className="card-lift--hover shadow border-0">
+                        <CardBody className="py-5 pb-6">
                           <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
                             <i className="ni ni-check-bold" />
                           </div>
@@ -115,15 +230,12 @@ class Landing extends React.Component {
                           <p className="description mt-3">
                           Wir legen höchsten Wert auf eine einfache Bedienbarkeit. Diese Qualität stellen wir durch regelmäßige und umfangreiche Produkttests sicher.
                           </p>
-                          <br />
-                          <br />
-                          <br />
                         </CardBody>
                       </Card>
                     </Col>
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-5">
+                        <CardBody className="pt-5 pl-4 pr-4 pb-1">
                           <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
                             <i className="fas fa-calendar" />
                           </div>
@@ -138,7 +250,7 @@ class Landing extends React.Component {
                     </Col>
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-5">
+                        <CardBody className="pt-5 pl-4 pr-4 pb-6">
                           <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
                             <i className="ni ni-settings-gear-65" />
                           </div>
@@ -146,7 +258,7 @@ class Landing extends React.Component {
                             Automatisiert
                           </h6>
                           <p className="description mt-3">
-                          Zeit ist Geld – auch für unsere Kunden. Deshalb automatisieren wir die zeitfressende Zuordnung von Personal und Schichten. So können wir garantieren, dass stets genug Personal in Ihrem Geschäft bereit steht.
+                          Zeit ist Geld – auch für unsere Kunden. Deshalb automatisieren wir die zeitfressende Zuordnung von Personal und Schichten.
                           </p>
                           <br />
                         </CardBody>
@@ -154,7 +266,7 @@ class Landing extends React.Component {
                     </Col>
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-5">
+                        <CardBody className="pt-5 pl-4 pr-4 pb-1">
                           <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
                             <i className="ni ni-tag" />
                           </div>

@@ -58,7 +58,7 @@ const LandingNavBar = (props) =>  {
             <UncontrolledDropdown inNavbar nav>
               <DropdownToggle className="pr-0 p-0 pt-2" nav >
               <p className="nav-link-inner--text text-muted p-0 mr-5 m-0">
-                Produkte
+                Lösung
               </p>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow bottom">
@@ -135,10 +135,18 @@ const LandingNavBar = (props) =>  {
                       Preise
                     </p>
                 </Link>
+              <Link  to='/faq' >
+                <p className="nav-link-inner--text text-muted p-0  pt-2 mr-5 m-0">
+                  FAQ
+                </p>
+              </Link>
             </Nav>
         </Collapse>
+        <Link to="/signup">
+                <Button className="btn-icon btn-3 p-2 mr-3 opacity-9" color="success" type="button"><p className="p-0 m-0">kostenlos Testen</p></Button>
+              </Link>
         <Link to="/auth">
-                <Button className="btn-icon btn-3 p-2" color="success" type="button"><p className="p-0 m-0">Anmelden</p></Button>
+                <Button className="btn-icon btn-3 p-2 opacity-9" color="primary" type="button"><p className="p-0 m-0">Anmelden</p></Button>
               </Link>
       </Navbar>
       </>

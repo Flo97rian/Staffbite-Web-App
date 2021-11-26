@@ -41,6 +41,9 @@ import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
+import ConfirmTenant from "./AuthComponents/ConfirmTenant";
+import VerifyTenant from "./AuthComponents/VerifyTenant";
+import Register from "./AuthComponents/Register";
 
 const SignUp = () => {
     const [username, setUsername] = useState("")
@@ -49,12 +52,13 @@ const SignUp = () => {
     const [isValid, setIsValid] = useState(!1)
     const [err, setErr] = useState(null)
     const [msg, setMsg] = useState(null)
-    const [authState, setAuthState] = useState();
+    const [authState, setAuthState] = useState(AuthState.SigningUp);
     const [user, setUser] = useState();
     const [code, setCode] = useState("");
     const [tenant, setTenant] = useState(!1);
 
 async function signUp() {
+    console.log(isValid)
     if(isValid) {
     setErr(null);
     try {
@@ -62,10 +66,23 @@ async function signUp() {
             username,
             password,
         });
+        console.log(user)
         setUser(user)
+        setAuthState(AuthState.ConfirmSignUp)
+        console.log(authState)
     } catch (error) {
+        console.log(error);
         setErr(error)
     }
+    }
+}
+
+async function resendConfirmationCode() {
+    try {
+        await Auth.resendSignUp(username);
+        console.log('code resent successfully');
+    } catch (err) {
+        console.log('error resending code: ', err);
     }
 }
 
@@ -74,7 +91,9 @@ async function confirmSignUp() {
       await Auth.confirmSignUp(username, code);
       setTenant(!0)
       setMsg({...msg, changedPassword: !0})
+      setAuthState(AuthState.SignUp)
     } catch (error) {
+        console.log(error);
     }
 }
     useEffect((authState) => {
@@ -110,211 +129,40 @@ async function confirmSignUp() {
         }
       }
 
-    return (
-      <>
-      {msg !== null && msg.changedPassword ? 
-            <Alert color="sucess">
-            <Row>
-              <Col xs="10">
-                <p className="mb-0">Du hast dein Passwort erfolgreich geändert!</p> 
-              </Col>
-              <Col xs="2">
-                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setMsg({...msg, changedPassword: !1})}></i>
-              </Col>
-            </Row>
-            </Alert>
-            :
-            <></>}
-        {user ? 
-        (
-        tenant ? <Switch><Redirect from="*" to="/auth" /></Switch> :
-            <>
-            <LandingNavbar 
-                logo={{
-                innerLink: "/",
-                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
-                }}/>
-            <main className="bg-secondary">
-            <section className="section section-shaped section-lg">
-                <Container className="pt-lg-7">
-                <Row className="justify-content-center">
-                    <Col lg="5">
-                    <Card className="bg-white shadow border-0 mb-4">
-                        <CardHeader className="bg-white pb-2">
-                        <div className="text-muted text-center pt-4">
-                            <h3>Bestätigungscode eingeben</h3>
-                        </div>
-                        </CardHeader>
-                        <CardBody className="px-lg-5 py-lg-5">
-                        <Form role="form">
-                            <FormGroup className="mb-3">
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="fas fa-paper-plane" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <Input placeholder="Bestätigungcode" type="number" name="code" onChange={(e) => handleInputChange(e)}/>
-                            </InputGroup>
-                            </FormGroup>
-                            <PasswordChecklist
-                                rules={["minLength","number"]}
-                                minLength={6}
-                                value={code}
-                                messages={{
-                                    minLength: "Länge 6",
-                                    number: "Zahlen",
-                                }}
-                            />
-                            <div className="text-center">
-                            <Button
-                                className="my-4"
-                                color="primary"
-                                type="button"
-                                onClick={() => confirmSignUp()}
-                            >
-                                Senden
-                            </Button>
-                            </div>
-                        </Form>
-                        <Row className="mt-3">
-                        <Col xs="6">
-                        <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
-                        </Col>
-                        <Col className="text-right" xs="6">
-                        </Col>
-                    </Row>
-                        </CardBody>
-                    </Card>
-                    </Col>
-                    </Row>
-                </Container>
-            </section>
-            </main>
-            </>
-        ) 
-        :
-            <>
-            <LandingNavbar 
-                logo={{
-                innerLink: "/",
-                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
-                }}/>
-                  { err !== null && err.code === "UsernameExistsException" ? 
-                <div>
-                <Alert color="warning">
-            <Row>
-              <Col xs="10">
-                <p className="mb-0">{err.message}</p> 
-              </Col>
-              <Col xs="2">
-                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setMsg({...err, code: !1})}></i>
-              </Col>
-            </Row>
-            </Alert>
-                </div>
-                : <></>
-                }
-            <main className="bg-secondary">
-            <section className="section section-shaped section-lg">
-                <Container className="pt-lg-7">
-                <Row className="justify-content-center">
-                    <Col lg="5">
-                    <Card className="bg-white shadow border-0 mb-4">
-                        <CardHeader className="bg-white pb-2">
-                        <div className="text-muted text-center pt-4">
-                            <h3>Registrieren</h3>
-                        </div>
-                        </CardHeader>
-                        <CardBody className="px-lg-5 py-lg-5">
-                        <Form role="form">
-                            <FormGroup className="mb-3">
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-email-83" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <Input placeholder="Email" type="email" name="username" onChange={(e) => handleInputChange(e)}/>
-                            </InputGroup>
-                            </FormGroup>
-                            <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-lock-circle-open" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                placeholder="Password"
-                                type="password"
-                                name="password"
-                                autoComplete="off"
-                                onChange={(e) => handleInputChange(e)}
-                                />
-                            </InputGroup>
-                            </FormGroup>
-                            <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-lock-circle-open" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                placeholder="Password wiederholen"
-                                type="password"
-                                name="passwordAgain"
-                                autoComplete="off"
-                                onChange={(e) => handleInputChange(e)}
-                                />
-                            </InputGroup>
-                            </FormGroup>
-                            <PasswordChecklist
-                                rules={["minLength","specialChar","number","capital","match"]}
-                                minLength={8}
-                                value={password}
-                                valueAgain={passwordAgain}
-                                onChange={(isValid) => setIsValid(isValid)}
-                                messages={{
-                                    minLength: "Mindestlänge 8",
-                                    specialChar: "Sonderzeichen",
-                                    number: "Zahl",
-                                    capital: "Großbuchstabe",
-                                    match: "Passwörter stimmen überein",
-                                }}
-                            />
-                            <div className="text-center">
-                            <Button
-                                className="my-4"
-                                color="primary"
-                                type="button"
-                                onClick={() => signUp()}
-                            >
-                                Registrieren
-                            </Button>
-                            </div>
-                        </Form>
-                        <Row className="mt-3">
-                        <Col xs="6">
-                        <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
-                        </Col>
-                        <Col className="text-right" xs="6">
-                        </Col>
-                    </Row>
-                        </CardBody>
-                    </Card>
-                    </Col>
-                    </Row>
-                </Container>
-            </section>
-            </main>
-            </>
-            }
-        </>
-    );
+    if(authState === AuthState.SigningUp) {
+        //Tenant registrieren
+        return (
+            <Register
+            handleInputChange={handleInputChange}
+            username={username}
+            password={password}
+            code={code}
+            err={err}
+            setIsValid={setIsValid}
+            signUp={signUp}
+            passwordAgain={passwordAgain}
+            ></Register>
+        )
+    } else if(authState === AuthState.ConfirmSignUp) {
+        //Tenant verfizieren
+        return (
+            <ConfirmTenant
+            handleInputChange={handleInputChange}
+            confirmSignUp={confirmSignUp}
+            resendConfirmationCode={resendConfirmationCode}
+            setMsg={setMsg}
+            msg={msg}
+            code={code}
+            ></ConfirmTenant>
+        )
+    } else if(authState === AuthState.SignUp) {
+        return (
+            <Switch>
+                <Redirect from="*" to="/auth" />
+            </Switch>
+        )
+    }
+    return null;
   }
 
 export default SignUp;

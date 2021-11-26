@@ -42,6 +42,11 @@ import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
+import ChangeInitalPassword from "./AuthComponents/ChangeInitialPassword";
+import VerifyEmployeeMail from "./AuthComponents/VerifyEmployeeMail";
+import LogIn from "./AuthComponents/LogIn";
+import { off } from "process";
+import ConfirmTenant from "./AuthComponents/ConfirmTenant";
 
 const Login = () => {
     const [username, setUsername] = useState(null);
@@ -49,6 +54,7 @@ const Login = () => {
     const [passwordAgain, setPasswordAgain] = useState("");
     const [code, setCode] = useState("");
     const [isValid, setIsValid] = useState(!1);
+    const [msg, setMsg] = useState(null);
     const [err, setErr] = useState(null)
     const [newpassword, setNewPassword] = useState("");
     const [authState, setAuthState] = useState();
@@ -80,27 +86,67 @@ const Login = () => {
             console.log('failed with error', e);
         });
     }
+
+    async function confirmSignUp() {
+        try {
+          await Auth.confirmSignUp(username, code);
+          setAuthState(AuthState.SignUp)
+        } catch (error) {
+            console.log(error);
+        }
+    }
     async function signIn() {
         try {
             const user = await Auth.signIn(username, password);
-            console.log(user);
+            let varify = await Auth.verifiedContact(user)
             if ("challengeName" in user && !newpassword) {
                 setAuthState(AuthState.ResetPassword);
                 setUser(user);
             } else if ("challengeName" in user && newpassword !== null) {
                 changePassword(password, newpassword);
                 setAuthState();
-            } else {
+            } else if ("email" in varify.unverified) {
+                sendVerifyCurrentUserAttribute()
+            }else {
                 setAuthState(AuthState.SignedIn);
                 setUser(user);
-                console.log(user);
                 store.dispatch({type:"currentUser", payload: user.attributes})
                 
             }
         } catch (error) {
             setErr(error);
+            handleError(error);
+            console.log(error)
         }   
     }
+
+    async function handleError(error) {
+        let code = error.code;
+        if (code === "UserNotConfirmedException") {
+            setAuthState(AuthState.ConfirmSignUp)
+        }
+    }
+
+    async function resendConfirmationCode() {
+        try {
+            await Auth.resendSignUp(username);
+            console.log('code resent successfully');
+        } catch (err) {
+            console.log('error resending code: ', err);
+        }
+    }
+
+    async function sendVerifyCurrentUserAttribute() {
+        Auth.verifyCurrentUserAttribute("email")
+        .then(() => {
+        console.log('a verification code is sent');
+        setAuthState(AuthState.VerifyingAttributes)
+        })
+        .catch((e) => {
+            console.log('failed with error', e);
+        });
+    }
+
 
     const handleInputChange = (event) => {
         let key = event.target.name;
@@ -130,6 +176,7 @@ const Login = () => {
                     user,               // the Cognito User Object
                     newpassword,       // the new password
                 ).then(user => {
+                    setAuthState(AuthState.VerifyingAttributes);
                     signInAfterChangePassword(username, newpassword);
                 }
                 ).catch(e => {
@@ -153,180 +200,35 @@ const Login = () => {
         });
     }
 
-    const SignInAuthState = () => {
         if (authState === AuthState.ResetPassword && user) {
             return (
-                <>
-                            <LandingNavbar 
-                logo={{
-                innerLink: "/",
-                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
-                }}/>
-                <main className="bg-secondary">
-                <section className="section section-shaped section-lg">
-                    <Container className="pt-lg-7">
-                    <Row className="justify-content-center">
-                        <Col lg="5">
-                        <Card className="bg-secondary shadow border-0 mb-4">
-                            <CardHeader className="bg-secondary pb-2">
-                            <div className="text-muted text-center pt-4">
-                                <h3>Neues Passwort wählen</h3>
-                            </div>
-                            </CardHeader>
-                            <CardBody className="px-lg-5 py-lg-5">
-                            <Form role="form">
-                                <FormGroup className="mb-3">
-                                <InputGroup className="input-group-alternative">
-                                    <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                        <i className="ni ni-lock-circle-open" />
-                                    </InputGroupText>
-                                    </InputGroupAddon>
-                                    <Input placeholder="Altes Passwort" type="password" name="password" onChange={(e) => handleInputChange(e)}/>
-                                </InputGroup>
-                                </FormGroup>
-                                <FormGroup>
-                                <InputGroup className="input-group-alternative">
-                                    <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                        <i className="ni ni-lock-circle-open" />
-                                    </InputGroupText>
-                                    </InputGroupAddon>
-                                    <Input
-                                    placeholder="Neues Passwort"
-                                    type="password"
-                                    name="newpassword"
-                                    autoComplete="off"
-                                    onChange={(e) => handleInputChange(e)}
-                                    />
-                                </InputGroup>
-                                </FormGroup>
-                                <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-lock-circle-open" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                placeholder="Password wiederholen"
-                                type="password"
-                                name="passwordAgain"
-                                autoComplete="off"
-                                onChange={(e) => handleInputChange(e)}
-                                />
-                            </InputGroup>
-                            </FormGroup>
-                            <PasswordChecklist
-                                rules={["minLength","specialChar","number","capital","match"]}
-                                minLength={8}
-                                value={newpassword}
-                                valueAgain={passwordAgain}
-                                onChange={(isValid) => setIsValid(isValid)}
-                                messages={{
-                                    minLength: "Mindestlänge 8",
-                                    specialChar: "Sonderzeichen",
-                                    number: "Zahl",
-                                    capital: "Großbuchstabe",
-                                    match: "Passwörter stimmen überein",
-                                }}
-                            />
-                                <div className="text-center">
-                                <Button
-                                    className="my-4"
-                                    color="primary"
-                                    type="button"
-                                    onClick={() => signIn()}
-                                >
-                                    Passwort ändern
-                                </Button>
-                                </div>
-                            </Form>
-                            <Row className="mt-3">
-                            <Col xs="6">
-                                <Link to="/forgotpassword" className=""><small>Passwort vergessen?</small></Link>
-                            </Col>
-                            <Col className="text-right" xs="6">
-                                <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
-                            </Col>
-                        </Row>
-                            </CardBody>
-                        </Card>
-                        </Col>
-                        </Row>
-                    </Container>
-                </section>
-                </main>
-                </>
+                <ChangeInitalPassword
+                handleInputChange={handleInputChange}
+                signIn={signIn}
+                newpassword={newpassword}
+                passwordAgain={passwordAgain}
+                setIsValid={setIsValid}
+                ></ChangeInitalPassword>
             )
-        } else if (authState === AuthState.VerifyingAttributes && user) {
+        } else if (authState === AuthState.VerifyingAttributes) {
             return (
-                <>
-            <LandingNavbar 
-                logo={{
-                innerLink: "/",
-                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
-                }}/>
-            <main className="bg-secondary">
-            <section className="section section-shaped section-lg">
-                <Container className="pt-lg-7">
-                <Row className="justify-content-center">
-                    <Col lg="5">
-                    <Card className="bg-white shadow border-0 mb-4">
-                        <CardHeader className="bg-white pb-2">
-                        <div className="text-muted text-center pt-4">
-                            <h3>Bestätigungscode eingeben</h3>
-                        </div>
-                        </CardHeader>
-                        <CardBody className="px-lg-5 py-lg-5">
-                        <Form role="form">
-                            <FormGroup className="mb-3">
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="fas fa-paper-plane" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <Input placeholder="Bestätigungcode" type="number" name="code" onChange={(e) => handleInputChange(e)}/>
-                            </InputGroup>
-                            </FormGroup>
-                            <PasswordChecklist
-                                rules={["minLength","number"]}
-                                minLength={6}
-                                value={code}
-                                messages={{
-                                    minLength: "Länge 6",
-                                    number: "Zahlen",
-                                }}
-                            />
-                            <div className="text-center">
-                            <Button
-                                className="my-4"
-                                color="primary"
-                                type="button"
-                                onClick={() => confirmUserAttribute()}
-                            >
-                                Senden
-                            </Button>
-                            </div>
-                        </Form>
-                        <Row className="mt-3">
-                        <Col xs="6">
-                        <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
-                        </Col>
-                        <Col className="text-right" xs="6">
-                        </Col>
-                    </Row>
-                        </CardBody>
-                    </Card>
-                    </Col>
-                    </Row>
-                </Container>
-            </section>
-            </main>
-            </>
+                <VerifyEmployeeMail
+                handleInputChange={handleInputChange}
+                confirmUserAttribute={confirmUserAttribute}
+                sendVerifyCurrentUserAttribute={sendVerifyCurrentUserAttribute}
+                code={code}
+                ></VerifyEmployeeMail>
+            )
+        } else if (authState === AuthState.ConfirmSignUp) {
+            return (
+                <ConfirmTenant
+                handleInputChange={handleInputChange}
+                confirmSignUp={confirmSignUp}
+                resendConfirmationCode={resendConfirmationCode}
+                setMsg={setMsg}
+                msg={msg}
+                code={code}
+                ></ConfirmTenant>
             )
         } else if (authState === AuthState.SignedIn && user) {
             if("challengeParam" in user ) {
@@ -357,115 +259,15 @@ const Login = () => {
                 )}
         } else {
             return (
-                <>
-            <LandingNavbar 
-                logo={{
-                innerLink: "/",
-                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
-                imgAlt: "...",
-                }}/>
-                { err !== null && err.code === "NotAuthorizedException" ? 
-                <div>
-                <Alert color="warning">
-            <Row>
-              <Col xs="10">
-                <p className="mb-0">{err.message}</p> 
-              </Col>
-              <Col xs="2">
-                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setErr({...err, code: !1})}></i>
-              </Col>
-            </Row>
-            </Alert>
-                </div>
-                : <></>
-                }
-            <main className="bg-secondary">
-            <section className="section section-shaped section-lg">
-                <Container className="pt-lg-7">
-                <Row className="justify-content-center">
-                    <Col lg="5">
-                    <Card className="bg-white shadow border-0 mb-4">
-                        <CardHeader className="bg-white pb-2">
-                        <div className="text-muted text-center pt-4">
-                            <h3>Anmeldung</h3>
-                        </div>
-                        </CardHeader>
-                        <CardBody className="px-lg-5 py-lg-5">
-                        <Form role="form">
-                            <FormGroup className="mb-3">
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-email-83" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <Input placeholder="Email" type="email" name="username" onChange={(e) => handleInputChange(e)}/>
-                            </InputGroup>
-                            </FormGroup>
-                            <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                                <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-lock-circle-open" />
-                                </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                placeholder="Password"
-                                type="password"
-                                name="password"
-                                autoComplete="off"
-                                onChange={(e) => handleInputChange(e)}
-                                />
-                            </InputGroup>
-                            </FormGroup>
-                            <div className="custom-control custom-control-alternative custom-checkbox">
-                            <input
-                                className="custom-control-input"
-                                id=" customCheckLogin"
-                                type="checkbox"
-                            />
-                            <label
-                                className="custom-control-label"
-                                htmlFor=" customCheckLogin"
-                            >
-                                <span>Anmeldedaten merken</span>
-                            </label>
-                            </div>
-                            <div className="text-center">
-                            <Button
-                                className="my-4"
-                                color="primary"
-                                type="button"
-                                onClick={() => signIn()}
-                            >
-                                Anmelden
-                            </Button>
-                            </div>
-                        </Form>
-                        <Row className="mt-3">
-                        <Col xs="6">
-                            <Link to="/forgotpassword" className=""><small>Passwort vergessen?</small></Link>
-                        </Col>
-                        <Col className="text-right" xs="6">
-                        <Link to="/signup" className=""><small>Erstelle einen Account</small></Link>
-                        </Col>
-                    </Row>
-                        </CardBody>
-                    </Card>
-                    </Col>
-                    </Row>
-                </Container>
-            </section>
-            </main>
-            </>
+                <LogIn
+                handleInputChange={handleInputChange}
+                password={password}
+                err={err}
+                setErr={setErr}
+                signIn={signIn}
+                ></LogIn>
             )
         }
-    }
-    return (        
-    <>
-        {SignInAuthState()}
-    </>
-    );
   }
 
 export default Login;

@@ -195,6 +195,7 @@ const setSelectEmployee = (ma) => {
     let copyEmployee = new Employee(userInput);
     copyEmployee.createEmployee(userInput);
     let isValidEmployee = copyEmployee.getEmployeeDetails();
+    console.log(userInput)
     if (isValidEmployee === "InvalidInputForCreation") {
       setErrMsg({...errMsg, InvalidInputForCreation: !0})
     } else {

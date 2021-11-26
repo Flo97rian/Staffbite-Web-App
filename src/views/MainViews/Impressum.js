@@ -42,7 +42,7 @@ function Impressum () {
       <Container className="pt-5" fluid>
         <section className="section" id={"sectionimpressum"}>
             <Container className="mb-4 pt-4">
-              <Row className="justify-content-left mb-4 mt-8">
+              <Row className="justify-content-left mb-4 mt-4">
                 <Col md="8">
                   <div className="text-left">
                     <h1>Impressum</h1>
@@ -85,9 +85,131 @@ function Impressum () {
               </Row>
             </Container>
           </section>
+          <section className="section" id={"sectionagb"}>
+            <Container className="mb-4 pt-4">
+              <Row className="justify-content-center mb-4 mt-4">
+                <Col className="order-md-1" md="12">
+                  <div className="pr-md-5">
+                    <h1>Allgemeine Geschäftsbedingungen</h1>
+                    <h2>1. Allgemeines, Anwendung </h2>
+                    <p>
+                    1.1. Die Florian Zellmann & Daniel Zellmann GbR, Möllingstraße 8, 24103 Kiel (nachfolgend „Anbieter“) ist Inhaber jeglicher Nutzungsrechte des Cloud Service Staffbite. Die Software-as-a-Service Lösung bietet digitale Dienste im Bereich der Schichtplanung und wird per Fernzugriff über das Internet zur Verfügung gestellt. Diese Allgemeinen Geschäftsbedingungen gelten für sämtliche Dienste des Anbieters.  
+                    </p>
+                    <p>
+                    1.2. Die Dienste des Anbieters werden ausschließlich Unternehmern i. S. d. §14 BGB angeboten. 
+                    </p>
+                    <p>
+                    1.3. Allgemeine Geschäftsbedingungen des Kunden gelten grundsätzlich nicht. Die Anerkennung solcher erfordert die schriftliche Bestätigung eines rechtlichen Vertreters des Anbieters. 
+                    </p>
+                    <p>
+                    1.4. Die Vertragssprache ist Deutsch.
+                    </p>
+                    <h2>2. Vertragsbestimmungen</h2>
+                    <p>
+                      2.1. Um einen Vertrag mit dem Anbieter abzuschließen, ist die Registrierung bei dem Cloud Service Staffbite erforderlich. Die Registrierung geschieht eigenständig durch einen Unternehmer i.S.d. §14 BGB oder durch einen rechtlichen Vertreter. Sämtliche Angaben im Registrierungsprozess sind vollständig und wahrheitsgemäß zu machen. 
+                    </p>
+                    <p>
+                      2.2. Durch das Abschließen des Registrierungsprozesses stimmt der Kunde dem vorgelegten Angebot auf der Website gemäß der eigenen Angaben und der ausgewählten Services zu. Die Services sind auf der Website www.staffbite.de dargestellt. Anschließend erfolgt nach Überprüfung durch den Anbieter die Zusendung einer Auftragsbestätigung per E-Mail. Diese Auftragsbestätigung stellt die Vertragsannahme zu den in der Auftragsbestätigung aufgelisteten Konditionen dar. 
+                    </p>
+                    <p>
+                      2.3. Der Anbieter ist nicht verpflichtet Angebote anzunehmen. 
+                    </p>
+                    <h2>3. Services </h2>
+                    <p>
+                      3.1. Nach erfolgreicher Registrierung und Erhalt der Auftragsbestätigung wird dem Kunden der Zugriff auf den Cloud Services Staffbite gemäß der vereinbarten Konditionen durch den Anbieter erteilt. Anschließend können die, in der Auftragsbestätigung vereinbarten, Services zur Schicht- und Personalplanung genutzt werden.  
+                    </p>
+                    <p>
+                      3.2. Die Konditionen und Servicebeschreibungen des Cloud Services sind auf der Website <a href="www.staffbite.de">staffbite.de</a> dargestellt. 
+                    </p>
+                    <p>
+                      3.3. Die Services von Staffbite werden ständig weiterentwickelt. Kunden erhalten stets und ohne Aufpreis die neueste Version der, in der Auftragsbestätigung vereinbarten, Services. Somit soll der Nutzen und das Erlebnis der Kunden stetig verbessert werden. Die Inanspruchnahme weiterer Services bedarf eines gesonderten Angebots, das vom Anbieter erneut durch eine Auftragsbestätigung angenommen werden muss. Ein Anspruch auf die Nutzung einer älteren Version durch den Kunden besteht nicht. 
+                    </p> 
+                    <p>
+                      3.4. Der Anbieter stellt die Cloud Services per Fernzugriff über das Internet mit einer Verfügbarkeit von 97,5% bereit. Die Verfügbarkeit berechnet sich anhand der Zeit des laufenden Kalendermonats abzüglich Wartungszeiten. Wartungsarbeiten finden am Wochenende oder Werktags zwischen 22 Uhr und 3 Uhr (mitteleuropäische Zeit) statt. Hierfür sind monatlich 4 Stunden vorgesehen. Während Wartungsarbeiten durchgeführt werden, sind die aufgeführten Services möglicherweise nicht verfügbar. 
+                    </p> 
+                    <h2>4. Preise, Laufzeit, Rechnungsstellung </h2> 
+                    <p>
+                      4.1. Der Anbieter bietet verschiedene Konditionen, um die Cloud Services von Staffbite in Anspruch zu nehmen. Die wesentliche Kennzahl hierbei ist die Anzahl der Teammitglieder des Kunden. Während des Registrierungsprozesses wird die Anzahl der Beschäftigten des Kunden abgefragt. Anhand dieser Angabe wird der Preis zur Nutzung des Cloud Services bemessen. Die Preise entsprechend der Teamgröße sind als Nettopreise zuzüglich Mehrwertsteuer zu verstehen und auf <a href="www.staffbite.de">staffbite.de</a>. 
+                    </p> 
+                    <p>
+                      4.2. Der Kunde kann jederzeit neue Teammitglieder einladen oder ausladen. Hierbei ist zu beachten, dass gemäß der vereinbarten Konditionen eine maximale Anzahl Teammitglieder festgelegt ist. Wird diese Anzahl überschritten, gilt der Preis der zutreffenden Teamgröße ab dem nächsten Kalendermonat. Dies gilt sowohl für das monatliche als auch das jährliche Abonnement. Um dies zu gewährleisten, wird die Teamgröße des Kunden monatlich automatisiert überprüft. 
+                    </p> 
+                    <p>
+                      4.3. Kunden erhalten standardmäßig einen Probemonat, um die Cloud Services des Anbieters zu testen. Nach Ablauf des Probemonats (30 Tage) beginnt die Vertragslaufzeit zum ersten des darauffolgenden Kalendermonats. 
+                    </p> 
+                    <p>
+                      4.4. Die Vertragslaufzeit wird gemäß der vereinbarten Konditionen im Registrierungsprozess durch den Kunden bestimmt. Hierbei kann zwischen einem jährlichen Abonnement und einem monatlichen Abonnement gewählt werden. 
+                    </p> 
+                    <p>
+                      4.4.1. Die Vertragslaufzeit bei Auswahl des jährlichen Abonnement beträgt zunächst ein Jahr. Sofern der Vertrag nicht gekündigt wird, verlängert sich dieser erneut um ein weiteres Jahr. 
+                    </p> 
+                    <p>
+                      4.4.2. Die Vertragslaufzeit bei Auswahl des monatlichen Abonnement beträgt zunächst drei Monate. Sofern der Vertrag nicht gekündigt wird, verlängert sich dieser anschließend jeweils um einen Monat.  
+                    </p> 
+                    <p>
+                      4.5. Die Rechnungsstellung und -übermittlung geschieht ausschließlich elektronisch. 
+                    </p> 
+                    <p>
+                      4.6. Rechnungen werden zu Beginn des Rechnungszeitraums gestellt und sind innerhalb von zwei Wochen zu zahlen.
+                    </p> 
+                    <h2>5. Support</h2> 
+                    <p>
+                      5.1. Treten Probleme bei der Nutzung eines Cloud Services von Staffbite auf, können Kunden diese während der Supportzeiten telefonisch melden. Die Supportzeiten und Kontaktinformationen sind auf <a href="www.staffbite.de">staffbite.de</a> dargestellt. 
+                    </p> 
+                    <h2>6. Dokumentation </h2>
+                    <p>
+                      6.1. Der Anbieter stellt Kunden kostenfrei verschiedene Videos zur Funktionsweise des Cloud Services zur Verfügung. Diese Videos können als Erklärungsvideos verstanden werden und sind auf der Website des Anbieters zu finden. 
+                    </p> 
+                    <h2>7. Kündigung und Kündigungsfristen</h2>
+                    <p>
+                      7.1. Die Kündigung des Vertrags bedarf der Schriftform. 
+                    </p>
+                    <p>
+                      7.2. Die Kündigungsfrist ist abhängig von der Vertragslaufzeit (siehe 4.4.1. & 4.4.2.).  
+                    </p>
+                    <p>
+                      7.2.1. Die Kündigungsfrist des jährlichen Abonnements beträgt zwei Monate. Somit muss zwei Monate vor Ablauf des Abonnements eine schriftliche Kündigung beim Anbieter eingehen.   
+                    </p>
+                    <p>
+                      7.2.2. Die Kündigungsfrist des monatlichen Abonnements beträgt zwei Wochen. Somit muss zwei Wochen vor Ablauf des Abonnements eine schriftliche Kündigung beim Anbieter eingehen. 
+                    </p> 
+                    <h2>8. Referenzen</h2>
+                    <p>
+                      8.1. Der Kunde ist einverstanden, dass der Anbieter den Namen und das Logo des Kunden für Marketingmaterialen verwenden darf. Soll dies nicht geschehen, reicht eine kurze schriftliche Mitteilung aus.
+                    </p>
+                    <h2>9. Pflichten der Kunden </h2>
+                    <p>
+                      9.1. Der Kunde ist für die Aktualität und Korrektheit der eingegebenen personenbezogenen und firmenbezogenen Daten verantwortlich. 
+                    </p>
+                    <p>
+                      9.2. Der Kunde ist für die Geheimhaltung und Aufbewahrung der Zugangsinformationen seines Accounts verantwortlich. Jeder Account hat lediglich einen Inhaber und darf nicht mit mehreren Nutzern geteilt werden. 
+                    </p>
+                    <p>
+                      9.3. Der Kunde hat Störungen der Cloud Services sofort dem Anbieter mitzuteilen.  
+                    </p> 
+                    <h2>10. Datenschutz </h2>
+                    <p>
+                      10.1. Damit die Cloud Services von Staffbite genutzt werden können, müssen die Mitarbeiter des Kunden einbezogen werden. Aus diesem Grund wird der Anbieter vom Kunden als Auftragsverarbeiter der Daten beauftragt. Der Anbieter versichert, dass keinerlei personenbezogenen Daten an Dritte weitergegeben werden. Die Vereinbarung ist unter <a href="www.staffbite.de">staffbite.de</a> zu finden. 
+                    </p>
+                    <p>
+                      10.2. Alle weiteren Informationen bezüglich der Speicherung der Daten, Informationspflichten und des allgemeinen Datenschutzes sind auf <a href="www.staffbite.de">staffbite.de</a> einsehbar. 
+                    </p>
+                    <h2>11. Haftung, Haftungsbeschränkung</h2>
+                    <p>
+                      11.1. Der Anbieter haftet ausschließlich bei eigenem Verschulden. Die Haftung des Anbieters beschränkt sich, soweit mit geltendem Recht vereinbar, auf 150€. 
+                    </p>
+                    <h2>12. Ausnahmen von der Beschränkung der Haftung </h2>
+                    <p>
+                      12.1. Ausgenommen von der Haftung ist die Verletzung von Leben, Körper und Gesundheit i.S.d. §309 Nr. 7 a BGB und grobes Verschulden i.S.d. §309 Nr.7 b BGB. 
+                    </p>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </section>
           <section className="section" id={"sectiondatasecurity"}>
             <Container className="mb-4 pt-4">
-              <Row className="justify-content-center mb-4 mt-8">
+              <Row className="justify-content-center mb-4 mt-4">
                 <Col className="order-md-1" md="12">
                   <div className="pr-md-5">
                     <h1>Datenschutzerklärung </h1>

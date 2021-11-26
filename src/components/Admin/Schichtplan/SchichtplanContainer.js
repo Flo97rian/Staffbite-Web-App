@@ -40,7 +40,7 @@ import SchichtplanImport from "./Form/SchichtplanImport";
 import store from "../../../store";
 import { thunkPublishShiftPlan } from "../../../store/middleware/PublishShiftPlan";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
-import { WARNING_MISSING_SHIFT_DETAILS } from "../../../constants/Alerts";
+import { WARNING_MISSING_SHIFT_DETAILS, WARNING_MISSING_SHIFT_POSITION } from "../../../constants/Alerts";
 import ImportSchichtplanTabelle from "./Schichtplan/ImportSchichtplanTabelle";
 import NeuerSchichtplanTabelle from "./Schichtplan/NeuerSchichtplanTabelle";
 import { thunkReleaseForApplication } from "../../../store/middleware/ReleaseForApplication";
@@ -50,7 +50,7 @@ const SchichtplanContainer = () => {
   const [navIndex, setNavIndex] = useState(1);
   const [ShiftEmployees, setShiftEmployees] = useState(null);
   const [ShiftSwitch, setShiftSwitch] = useState(!1);
-  const [ErrMsng, setErrMsng] = useState({MissingShiftDetails: !1});
+  const [ErrMsng, setErrMsng] = useState({MissingShiftDetails: !1, MissingShiftPosition: !1});
   let notificationAlert = useRef(null)
 
   const selectMeta = state => state.Meta;
@@ -240,28 +240,37 @@ const SchichtplanContainer = () => {
   };
   // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter)
   const handleEditShiftDetails = (index) => {
-
+    console.log(userInput);
     if (ShiftPlanIsImported) {
+      console.log("4")
       let copyPlan = new ShiftPlan({...Shiftplan})
       if(!("position" in userInput)) {
         if(Meta.schichten.length === 0) {
-
+          console.log("hier")
+          store.dispatch({type: "CLOSE", payload: index});
+          setErrMsng({...ErrMsng, MissingShiftPosition: !0});
         } else {
         copyPlan.updateShiftDescription(index, {...userInput, position: Meta.schichten[0]});
         }
       } else {
+        if(Meta.schichten.length === 0) {
+          console.log("hier")
+          store.dispatch({type: "CLOSE", payload: index});
+          setErrMsng({...ErrMsng, MissingShiftPosition: !0});
+        } 
         copyPlan.updateShiftDescription(index, userInput);
       }
       let shiftplan = copyPlan.getAllPlanDetails()
       store.dispatch({type: "setShiftplan", payload: shiftplan});
       setUserInput({...shiftplanStates})
     } else {
+      console.log("2")
       let copyPlan = new ShiftPlan({...NewShiftplan})
       if(!("position" in userInput)) {
+        console.log("3")
         if(Meta.schichten.length === 0) {
-
-        } else {
-        copyPlan.updateShiftDescription(index, {...userInput, position: Meta.schichten[0]});
+          store.dispatch({type: "CLOSE", payload: index});
+          setErrMsng({...ErrMsng, MissingShiftPosition: !0});
         }
       } else {
         copyPlan.updateShiftDescription(index, userInput);
@@ -286,7 +295,8 @@ const SchichtplanContainer = () => {
       let copyPlan = new ShiftPlan({...Shiftplan});
       if(!("position" in userInput)) {
         if(Meta.schichten.length === 0) {
-
+          store.dispatch({type: "CLOSE", payload: index});
+          setErrMsng({...ErrMsng, MissingShiftPosition: !0});
         } else {
           copyPlan.addNewShiftToPlan({...userInput, position: Meta.schichten[0]});
         }
@@ -429,6 +439,7 @@ const SchichtplanContainer = () => {
         :
       <>
       { ErrMsng.MissingShiftDetails ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "MissingShiftDetails") : null}
+      { ErrMsng.MissingShiftPosition ? Notify("warning", WARNING_MISSING_SHIFT_POSITION, "MissingShiftPosition") : null}
         <Nav
           bearbeiten={ShiftPlanIsActive}
           onNavChange={handleNavChange}

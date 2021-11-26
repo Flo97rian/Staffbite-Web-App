@@ -19,79 +19,93 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ImageGroup, Image } from 'react-fullscreen-image'
 import { Helmet } from "react-helmet";
-
 // reactstrap components
 import {
   Container,
   Row,
   Col,
+  Card,
 } from "reactstrap";
 // core components
-import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-automatisiert-erstellen.png"
-import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan-erstellen.png"
-import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
-import LandingNavBar from "../../components/Navbars/LandingNavbar"
-import LandingFooter from "../../components/Footers/LandingFooter";
+import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-automatisiert-erstellen.png"
+import SchichtplanEntwurf from "../../../assets/img/theme/Schichtplan-erstellen.png"
+import TeamVerwalten from "../../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
+import LandingNavBar from "../../../components/Navbars/LandingNavbar"
+import LandingFooter from "../../../components/Footers/LandingFooter";
 
-function Shiftplan () {
+function Gastronomie () {
     return (
     <>
         <Helmet>
-          <title>Staffbite | Dein Schichtplan</title>
+          <title>Schichtplanung in der Gastronomie</title>
           <meta name="description" content="Individuell anpassbar. Automatisierte Schichtpläne"/>
         </Helmet>
        <LandingNavBar
               logo={{
                 innerLink: "/",
-                imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
+                imgSrc: require("../../../assets/img/brand/Staffbite_Logo.png").default,
                 imgAlt: "Das Logo von Staffbite",
                 }}/>
       {/* Page content */}
       <Container className="pt-5 pb-2" fluid>
       <Container className="mt-6">
-                    <Row className="justify-content-left ml-1 mt-4">
-                        <h1> Unsere digitalen Schichtpläne</h1>
+                    <Row className="justify-content-left ml-1 mt-8">
+                        <h1> Unsere Schichtpläne für die Gastronomie</h1>
                     </Row>
                 </Container>
       <section className="section" id={"sectioncreate"}>
             <Container className="mb-4 pt-4">
-              <Row className="align-items-center mb-4 mt-3">
-              <Col className="order-md-1 pr-md-5" md="12" lg="6">
-                    <h3>Einfache und unkomplizierte Schichtpläne für dich und dein Team </h3>
-                    <p>
+              <Row className="justify-content-center mb-4 mt-6">
+                <Col className="order-md-2" md="6">
+                  <img
+                    alt="Abbildung einer anpassbaren Schichtplan Vorlage für die Gastronomie von Staffbite"
+                    src={SchichtplanEntwurf}
+                    height="300px"
+                    width="500px"
+                  />
+                </Col>
+                <Col className="order-md-1" md="6">
+                  <div className="pr-md-5">
+                    <h2>Dienstpläne in der Gastronomie</h2>
+                    <p className="font-weight-light">
                     Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. Du kannst mit wenigen Klicks die wichtigsten Informationen zu deinen Schichten angeben. Den vorbereiteten Plan gibst du anschließend deinem Team frei. 
                     </p>
-                    <p>
-                    Jetzt musst du nur noch abwarten, bis dein Team sich in den Plan eingetragen hat. Dein Team bekommt ebenfalls einen Zugang zu Staffbite und kann sich jederzeit per Smartphone, Tablet oder Laptop in den Plan eintragen. Über unser Reporting kannst du außerdem nachschauen wer sich noch nicht eingetragen hat. 
-                    </p>
-                    <Link to="/" >Erklärungsvideos folgen bald</Link>
-                </Col>
-                <Col className="order-md-2"  md="12" lg="6">
-                  <img
-                    className="shadow-lg rounded img-center img-fluid"
-                    alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
-                    src={SchichtplanEntwurf}
-                    height="100%"
-                    width="100%"
-                  />
+                    <Card className="bg-grey">
+                        <Row>
+                            <Col xs="10">
+                                <p className="lead ml-2 p-0 m-1">
+                                    Gastronomie
+                                </p>
+                            </Col>
+                            <Col xs="2">
+                            <i className="fas fa-angle-down fa-lg text-light mt-3"></i>
+                            </Col>
+                        </Row>
+                    </Card>
+                    <Card className="bg-grey">
+                    <Row>
+                            <Col xs="10">
+                                <p className="lead ml-2 p-0 m-1">
+                                    Cafe
+                                </p>
+                            </Col>
+                            <Col xs="2">
+                            <i className="fas fa-angle-up fa-lg text-light mt-3"></i>
+                            </Col>
+                        </Row>
+                        <p className=" ml-2 p-0 m-1">
+                                    content
+                                </p>
+                    </Card>
+                  </div>
                 </Col>
               </Row>
             </Container>
           </section>
           <section className="section" id={"sectionteam"}>
             <Container className="mb-4 pt-4">
-              <Row className="align-items-center mb-4 mt-8">
-                <Col className="order-md-1 pr-md-5" xs="12" md="12" lg="6">
-                    <h3>Behalte dein Team im Blick</h3>
-                    <p>
-                    Damit sich dein Team in den Schichtplan eintragen kann, musst du deine Mitarbeiter*innen nur einmalig einladen. Dafür brauchst du nur ihren Namen, ihre E-Mail-Adresse und die Anzahl der Schichten, die sie pro Woche arbeiten sollen. 
-                    </p>
-                    <p>
-                    Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten. 
-                    </p>
-                    <Link to={{ pathname: "https://www.youtube.com/watch?v=RtKKaWkCPrs" }} target="_blank">Dein Team erstellen & verwalten</Link>
-                </Col>
-                <Col className="order-md-2" md="12" lg="6">
+              <Row className="justify-content-center mb-4 mt-8">
+                <Col className="order-md-1" md="6">
                   <img
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={TeamVerwalten}
@@ -100,13 +114,25 @@ function Shiftplan () {
                     
                   />
                 </Col>
+                <Col className="order-md-2" md="6">
+                  <div className="pr-md-5">
+                    <h3>Behalte dein Team im Blick</h3>
+                    <p>
+                    Damit sich dein Team in den Schichtplan eintragen kann, musst du deine Mitarbeiter*innen nur einmalig einladen. Dafür brauchst du nur ihren Namen, ihre E-Mail-Adresse und die Anzahl der Schichten, die sie pro Woche arbeiten sollen. 
+                    </p>
+                    <p>
+                    Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten. 
+                    </p>
+                    <Link to={{ pathname: "https://www.youtube.com/watch?v=RtKKaWkCPrs" }} target="_blank">Dein Team erstellen & verwalten</Link>
+                  </div>
+                </Col>
               </Row>
             </Container>
           </section>
           <section className="section" id={"sectionalg"}>
             <Container className="mb-4 pt-4">
               <Row className="justify-content-center mb-4 mt-8">
-              <Col className="order-md-1"  xs="12" md="12" lg="6">
+              <Col className="order-md-1" md="6">
                   <div className="pr-md-5">
                     <h3>Deine Zeit ist zu wertvoll, um sie mit der Schichtplanung zu verbringen</h3>
                     <p>
@@ -118,7 +144,7 @@ function Shiftplan () {
                     <Link to="/" >Erklärungsvideos folgen bald</Link>
                   </div>
                 </Col>
-                <Col className="order-md-2" xs="12" md="12" lg="6">
+                <Col className="order-md-2" md="6">
                   <img
                     alt="Abbildung eines automatisiert erstellen Schichtplans von Staffbite"
                     src={SchichtplanBeispiel}
@@ -132,7 +158,7 @@ function Shiftplan () {
           <section className="section" id={"sectionapp"}>
             <Container className="mb-4 pt-4">
               <Row className="justify-content-center mb-4 mt-8">
-                <Col className="order-md-1"  xs="12" md="12" lg="6">
+                <Col className="order-md-1" md="6">
                   <img
                     alt="Abbildung der Mitarbeiter Übersicht von Staffbite"
                     src={TeamVerwalten}
@@ -140,7 +166,7 @@ function Shiftplan () {
                     width="500px"
                   />
                 </Col>
-                <Col className="order-md-2" xs="12" md="12" lg="6">
+                <Col className="order-md-2" md="6">
                   <div className="pr-md-5 mt-3">
                     <h3>Vorteile für dein Team</h3>
                     <p>
@@ -163,4 +189,4 @@ function Shiftplan () {
     </>
   );
 };
-export default Shiftplan;
+export default Gastronomie;

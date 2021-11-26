@@ -22,6 +22,8 @@ import Contact from "./views/MainViews/Contact";
 import AboutUs from "./views/MainViews/AboutUs";
 import Pricing from './views/MainViews/Pricing';
 import Impressum from "./views/MainViews/Impressum"
+import Gastronomie from "./views/MainViews/sub/Gastronomie";
+import FAQ from "./views/MainViews/FAQ";
 
 
 ReactDOM.render(
@@ -35,6 +37,8 @@ ReactDOM.render(
       <Route path="/aboutus" render={(props) => <AboutUs {...props} />} />
       <Route path="/impressum" render={(props) => <Impressum {...props} />} />
       <Route path="/shiftplan" render={(props) => <Shiftplan {...props} />} />
+      <Route path="/faq" render={(props) => <FAQ {...props} />} />
+      <Route path="/schichtplan/gastronomie" render={(props) => <Gastronomie {...props} />} />
       <Route path="/pricing" render={(props) => <Pricing {...props} />} />
       <Route path="/contact" render={(props) => <Contact {...props} />} />
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />

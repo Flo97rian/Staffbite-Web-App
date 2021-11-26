@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-
+import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Container,
@@ -26,6 +26,7 @@ import {
   CardBody,
   Card,
   Col,
+  Button
 
 } from "reactstrap";
 // core components
@@ -49,9 +50,54 @@ function Pricing () {
       {/* Page content */}
       <Container className="pt-5" fluid>
                 <Container className="mt-6">
-                    <Row className="justify-content-left ml-1 mt-8">
+                    <Row className="justify-content-left ml-1 mt-4">
                         <h1> Unsere Preise</h1>
                     </Row>
+                </Container>
+                <Container className="mb-4 pt-4">
+                  <Card className="shadow">
+                    <h3 className="pl-3 pt-3 pb-0 mb-0">Funktionalitäten in allen Paketen</h3>
+                    <Row className="align-items-center p-1 pt-3">
+                      <Col xs="12" lg="6">
+                      <Row className="align-items-center">
+                      <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                      <p class="text-muted lead m-0 p-0">digitaler Dienstplan</p>
+                      </Row>
+                      </Col>
+                      <Col xs="12" lg="6">
+                      <Row className="align-items-center">
+                      <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                      <p class="text-muted lead m-0 p-0">Kostenloser Probemonat</p>
+                      </Row>
+                      </Col>
+                    </Row>
+                    <Row className="align-items-center p-1">
+                      <Col xs="12" lg="6">
+                        <Row className="align-items-center"> 
+                        <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                        <p class="text-muted lead m-0 p-0">Automatisierte Befüllung der Dienstpläne</p>
+                        </Row>
+                      </Col>
+                      <Col xs="12" lg="6">
+                        <Row className="align-items-center">
+                        <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                        <p class="text-muted lead m-0 p-0">Nur zwei Wochen Kündigungsfrist</p>
+                        </Row>
+                      </Col>
+                    </Row>
+                    <Row className="align-items-center p-1 pb-2">
+                      <Col xs="12" lg="6">
+                        <Row className="align-items-center">
+                          <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                          <p class="text-muted lead m-0 p-0">Support per E-Mail und Telefon</p>
+                        </Row>
+                      </Col>
+                      <Col xs="12" lg="6">
+                        <Row className="align-items-center">
+                        </Row>
+                      </Col>
+                    </Row>
+                  </Card>
                 </Container>
         <Container className="mb-4 pt-4">
               <Row className="justify-content-center mb-4 mt-4">
@@ -65,26 +111,11 @@ function Pricing () {
                         50€
                       </h1>
                       <span class="text-info ls-1 p">pro Monat</span>
-                      <ul class="list-unstyled text-center ml-2 mt-5">
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-check fa-lg pb-2 text-success"></i>
-                                <p class="text-muted  m-0 mb-2 pl-3 lead ">Kostenloser Probemonat</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                            <i class="fas fa-check fa-lg pb-2 text-success"></i>
-                                <p class="text-muted pl-3 m-0 mb-2 lead">Automatisierte Befüllung</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                            <i class="fas fa-check fa-lg pb-2 text-success"></i>
-                                <p class="text-muted pl-3 m-0 mb-2 lead">Reporting</p>
-                             </div>
-                        </li>
-                      </ul>
+                      <Row className="align-items-center justify-content-center mt-6">
+                        <Link to="/signup">
+                          <Button className="btn-icon btn-3" color="success" type="button"><p className="p-0 m-0">Auswählen</p></Button>
+                        </Link>
+                      </Row>
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 mt-0 pt-0">
                     <span class="text-info ls-1 p">10% sparen</span>
@@ -105,26 +136,11 @@ function Pricing () {
                         100€
                       </h1>
                       <span class="text-white ls-1 p">pro Monat</span>
-                      <ul class="list-unstyled ml-2 mt-5">
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-check fa-lg pb-2 text-white"></i>
-                                <p class="text-white  m-0 mb-2 pl-3 lead ">Kostenloser Probemonat</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                            <i class="fas fa-check fa-lg pb-2 text-white"></i>
-                                <p class="text-white pl-3 m-0 mb-2 lead">Automatisierte Befüllung</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                            <i class="fas fa-check fa-lg pb-2 text-white"></i>
-                                <p class="text-white pl-3 m-0 mb-2 lead">Reporting</p>
-                             </div>
-                        </li>
-                      </ul>
+                      <Row className="align-items-center justify-content-center mt-6">
+                        <Link to="/signup">
+                          <Button className="btn-icon btn-3" color="success" type="button"><p className="p-0 m-0">Auswählen</p></Button>
+                        </Link>
+                      </Row>
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
                     <span class="text-white ls-1 p">10% sparen</span>
@@ -145,26 +161,11 @@ function Pricing () {
                         150€
                       </h1>
                       <span class="text-white ls-1 p">pro Monat</span>
-                      <ul class="list-unstyled ml-2 mt-5">
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-check fa-lg pb-2 text-white"></i>
-                                <p class="text-white  m-0 mb-2 pl-3 lead ">Kostenloser Probemonat</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                            <i class="fas fa-check fa-lg pb-2 text-white"></i>
-                                <p class="text-white pl-3 m-0 mb-2 lead">Automatisierte Befüllung</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                            <i class="fas fa-check fa-lg pb-2 text-white"></i>
-                                <p class="text-white pl-3 m-0 mb-2 lead">Reporting</p>
-                             </div>
-                        </li>
-                      </ul>
+                      <Row className="align-items-center justify-content-center mt-6">
+                        <Link to="/signup">
+                          <Button className="btn-icon btn-3" color="primary" type="button"><p className="p-0 m-0">Auswählen</p></Button>
+                        </Link>
+                      </Row>
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
                     <span class="text-white ls-1 p">10% sparen</span>
