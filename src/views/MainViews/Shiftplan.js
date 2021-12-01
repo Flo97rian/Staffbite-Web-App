@@ -64,7 +64,8 @@ function Shiftplan () {
                     <p>
                     Jetzt musst du nur noch abwarten, bis dein Team sich in den Plan eingetragen hat. Dein Team bekommt ebenfalls einen Zugang zu Staffbite und kann sich jederzeit per Smartphone, Tablet oder Laptop in den Plan eintragen. Über unser Reporting kannst du außerdem nachschauen wer sich noch nicht eingetragen hat. 
                     </p>
-                    <Link to="/" >Erklärungsvideos folgen bald</Link>
+                    Hier gehts zum Video:  
+                    <Link to={{ pathname: "https://youtu.be/fHdCLhBIYIA" }} target="_blank"> Erstelle deinen individuellen Schichtplan!</Link>
                 </Col>
                 <Col className="order-md-2"  md="12" lg="6">
                   <img
@@ -115,7 +116,7 @@ function Shiftplan () {
                     <p>
                     Bisher hast du wahrscheinlich stundenlang per Hand mit Papier und einer Excel-Tabelle deinen Schichtplan befüllt. Mit unserer Lösung ist das Vergangenheit! Wir wollen dir helfen sowohl Zeit als auch Nerven zu sparen. 
                     </p>
-                    <Link to="/" >Erklärungsvideos folgen bald</Link>
+                    <Link to="/" >Erklärungsvideo folgt bald</Link>
                   </div>
                 </Col>
                 <Col className="order-md-2" xs="12" md="12" lg="6">

@@ -34,19 +34,14 @@ const AuthFooter = () => {
     <Navbar className="navbar-bottom bg-white mt-6 pb-4 bottom" expand="md">
     <Container fluid>
        <Nav className="ml-2" navbar vertical>
+       <h4 className="ml-1 pt-0 mt-0">Rechtliches</h4>
                 <NavLink className="nav-link-icon pl-0 pb-0 mb-0">
                   <span className="nav-link-inner--text text-muted mb-0 pb-0">
                   © {new Date().getFullYear()}{" "}
                     Staffbite
                   </span>
                 </NavLink>
-              <Link
-                className="ml-0 pt-0 mt-0"
-                  to="/impressum/#sectionlaw"
-                  target="_blank"
-                >
-                  Rechtliches
-              </Link>
+
               <Link
                 className="text-muted"
                   to="/impressum/#sectiondatasecurity"
@@ -71,6 +66,15 @@ const AuthFooter = () => {
                       target="_blank"
                     >
                       Instagram
+                    </NavLink>
+              </NavItem>
+              <NavItem className="ml-2 float-right">
+              <NavLink
+                    className="text-muted"
+                      href="https://www.instagram.com/staffbite_de"
+                      target="_blank"
+                    >
+                      Youtube
                     </NavLink>
               </NavItem>
           </Nav>
