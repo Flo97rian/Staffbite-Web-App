@@ -41,7 +41,7 @@ const AuthFooter = () => {
                   </span>
                 </NavLink>
               <Link
-                className="text-muted"
+                className="ml-0 pt-0 mt-0"
                   to="/impressum/#sectionlaw"
                   target="_blank"
                 >

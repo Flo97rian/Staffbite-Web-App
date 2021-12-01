@@ -34,7 +34,7 @@ const LandingFooter = () => {
       <Container fluid>
          <Nav className="ml-2 position-left" navbar vertical>
                   <h4
-                  className="pt-0 mt-0"
+                  className="ml-0 pt-0 mt-0"
                   >
                     Rechtliches
                   </h4>
