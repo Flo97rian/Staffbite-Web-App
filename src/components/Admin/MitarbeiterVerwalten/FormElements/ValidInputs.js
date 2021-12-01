@@ -1,7 +1,6 @@
-import { split } from "lodash";
-
 export function validName(userName) {
         let isValid = !1;
+        console.log(userName);
         let isPlaceholder = (userName === "Max Mustermann")
         if (!isPlaceholder) {
             let dividers = [" ", ", ", ","]

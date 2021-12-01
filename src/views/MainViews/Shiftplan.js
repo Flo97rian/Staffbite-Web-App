@@ -27,9 +27,11 @@ import {
   Col,
 } from "reactstrap";
 // core components
-import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-automatisiert-erstellen.png"
+//import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-automatisiert-erstellen.png"
 import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan-erstellen.png"
-import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
+import TeamVerwalten from "../../assets/img/theme/Team-verwalten.png"
+import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
+//import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
 
@@ -96,9 +98,8 @@ function Shiftplan () {
                   <img
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={TeamVerwalten}
-                    height="300px"
-                    width="500px"
-                    
+                    height="100%"
+                    width="100%"
                   />
                 </Col>
               </Row>
@@ -123,8 +124,8 @@ function Shiftplan () {
                   <img
                     alt="Abbildung eines automatisiert erstellen Schichtplans von Staffbite"
                     src={SchichtplanBeispiel}
-                    height="300px"
-                    width="500px"
+                    height="100%"
+                    width="100%"
                   />
                 </Col>
               </Row>
