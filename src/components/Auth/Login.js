@@ -98,6 +98,7 @@ const Login = () => {
     async function signIn() {
         try {
             const user = await Auth.signIn(username, password);
+            console.log(user)
             if ("challengeName" in user && !newpassword) {
                 console.log("reset")
                 setAuthState(AuthState.ResetPassword);
@@ -105,8 +106,16 @@ const Login = () => {
             } else if ("challengeName" in user && newpassword !== null) {
                 changePassword(password, newpassword);
                 setAuthState();
-            } else if ("email" in await Auth.verifiedContact(user).unverified) {
-                sendVerifyCurrentUserAttribute()
+            } else if (!("email_verified" in user.attributes) && await Auth.verifiedContact(user)) {
+                let varify = await Auth.verifiedContact(user)
+                console.log(varify)
+                if("email" in varify.unverified) {
+                    sendVerifyCurrentUserAttribute()
+                } else {
+                    setAuthState(AuthState.SignedIn);
+                    setUser(user);
+                    store.dispatch({type:"currentUser", payload: user.attributes})
+                }
             } else {
                 setAuthState(AuthState.SignedIn);
                 setUser(user);
