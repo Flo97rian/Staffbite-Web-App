@@ -59,7 +59,7 @@ function Shiftplan () {
             <Container className="mb-4 pt-4">
               <Row className="align-items-center mb-4 mt-3">
               <Col className="order-md-1 pr-md-5" md="12" lg="6">
-                    <h3>Einfache und unkomplizierte Schichtpläne für dich und dein Team </h3>
+                    <h2 className="h3">Einfache und unkomplizierte Schichtpläne für dich und dein Team </h2>
                     <p>
                     Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. Du kannst mit wenigen Klicks die wichtigsten Informationen zu deinen Schichten angeben. Den vorbereiteten Plan gibst du anschließend deinem Team frei. 
                     </p>
@@ -73,6 +73,7 @@ function Shiftplan () {
                     className="shadow-lg rounded img-center img-fluid"
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                     src={SchichtplanEntwurf}
+                    title="Schichtplan Vorlage erstellen"
                     height="100%"
                     width="100%"
                   />
@@ -84,7 +85,7 @@ function Shiftplan () {
             <Container className="mb-4 pt-4">
               <Row className="align-items-center mb-4 mt-8">
                 <Col className="order-md-1 pr-md-5" xs="12" md="12" lg="6">
-                    <h3>Behalte dein Team im Blick</h3>
+                    <h2 className="h3">Behalte dein Team im Blick</h2>
                     <p>
                     Damit sich dein Team in den Schichtplan eintragen kann, musst du deine Mitarbeiter*innen nur einmalig einladen. Dafür brauchst du nur ihren Namen, ihre E-Mail-Adresse und die Anzahl der Schichten, die sie pro Woche arbeiten sollen. 
                     </p>
@@ -97,6 +98,7 @@ function Shiftplan () {
                   <img
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={TeamVerwalten}
+                    title="Team erstellen und verwalten"
                     height="100%"
                     width="100%"
                   />
@@ -109,7 +111,7 @@ function Shiftplan () {
               <Row className="justify-content-center mb-4 mt-8">
               <Col className="order-md-1"  xs="12" md="12" lg="6">
                   <div className="pr-md-5">
-                    <h3>Deine Zeit ist zu wertvoll, um sie mit der Schichtplanung zu verbringen</h3>
+                    <h2 className="h3">Deine Zeit ist zu wertvoll, um sie mit der Schichtplanung zu verbringen</h2>
                     <p>
                     Nachdem dein Team sich in deinen Schichtplan eingetragen hat, kannst du die automatisierte Befüllung starten. Dafür reicht ein Klick aus. Wenige Sekunden später ist dein Schichtplan fertig. Dein Team wird ausschließlich in Schichten eingeteilt, in die sie sich eingetragen haben. Somit entsteht ein fairer Schichtplan für dein ganzes Team. 
                     </p>
@@ -122,6 +124,7 @@ function Shiftplan () {
                 <Col className="order-md-2" xs="12" md="12" lg="6">
                   <img
                     alt="Abbildung eines automatisiert erstellen Schichtplans von Staffbite"
+                    title="Schichtplan automatisiert erstellen"
                     src={SchichtplanBeispiel}
                     height="100%"
                     width="100%"
@@ -136,6 +139,7 @@ function Shiftplan () {
                 <Col className="order-md-1"  xs="12" md="12" lg="6">
                   <img
                     alt="Abbildung der Mitarbeiter Übersicht von Staffbite"
+                    title="Mitarbeit Übersicht"
                     src={TeamVerwalten}
                     height="300px"
                     width="500px"
@@ -143,7 +147,7 @@ function Shiftplan () {
                 </Col>
                 <Col className="order-md-2" xs="12" md="12" lg="6">
                   <div className="pr-md-5 mt-3">
-                    <h3>Vorteile für dein Team</h3>
+                    <h2 className="h3">Vorteile für dein Team</h2>
                     <p>
                     In vielen Betrieben sind Schichtpläne ein Streitthema. Unzufriedenheiten des Teams stehen an der Tagesordnung. Wir wollen diese Probleme lösen. Durch unsere Lösung ist der gesamte Prozess vom grundlegenden Plan bis zum fertigen Schichtplan transparent. Durch die automatisierte Verteilung der Schichten wird niemand bevorzugt und es geschehen weniger Fehler. 
                     </p>

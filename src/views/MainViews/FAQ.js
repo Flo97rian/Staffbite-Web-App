@@ -64,10 +64,10 @@ function FAQ () {
                 <Card 
                 className="p-3"
                 onClick={(() => toggleOpen("Registrieren"))}>
-                    <h3 className="mb-0">
+                    <h2 className="h3 mb-0">
                       Wie kann ich meinen Betrieb bei Staffbite registrieren?
                       {open.Registrieren ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
-                    </h3>
+                    </h2>
                     {open.Registrieren 
                     ? 
                     <>
@@ -87,10 +87,10 @@ function FAQ () {
               <Card 
                 className="p-3"
                 onClick={(() => toggleOpen("MitarbeiterAnlegen"))}>
-                    <h3 className="mb-0">
+                    <h2 className="h3 mb-0">
                       Wie kann ich meine Mitarbeiter*innen anlegen? 
                       {open.MitarbeiterAnlegen ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
-                    </h3>
+                    </h2>
                     {open.MitarbeiterAnlegen 
                     ? 
                     <>
@@ -112,10 +112,10 @@ function FAQ () {
               <Card 
                 className="p-3"
                 onClick={(() => toggleOpen("SchichtenTauschen"))}>
-                    <h3 className="mb-0">
+                    <h2 className="h3 mb-0">
                       Wie kann mein Team untereinander Schichten tauschen?
                       {open.SchichtenTauschen ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
-                      </h3>
+                      </h2>
                     {open.SchichtenTauschen 
                     ? 
                     <>
@@ -133,10 +133,10 @@ function FAQ () {
               <Card 
                 className="p-3"
                 onClick={(() => toggleOpen("Support"))}>
-                    <h3 className="mb-0">
+                    <h2 className="h3 mb-0">
                       Wann sind die Supportzeiten? 
                       {open.Support ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
-                      </h3>
+                      </h2>
                     {open.Support 
                     ? 
                     <>
@@ -154,10 +154,10 @@ function FAQ () {
               <Card 
                 className="p-3"
                 onClick={(() => toggleOpen("ProbeMonat"))}>
-                    <h3 className="mb-0">
+                    <h2 className="h3 mb-0">
                       Wie bekomme ich den kostenlosen Probemonat?
                       {open.ProbeMonat ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
-                      </h3>
+                      </h2>
                     {open.ProbeMonat 
                     ? 
                     <>

@@ -1,5 +1,6 @@
 export const INFO_ORGANISATION_NAME = "An dieser Stelle kannst du die wichtigsten Informationen über deinen Betrieb eingeben. Diese Informationen werden später benötigt, um deine Schichtplanung optimal umzusetzen!"
 export const INFO_ORGANISATION_STUNDENERFASSUNG = "Die Stundenerfassung ist derzeit noch deaktiviert. Schreib uns gerne, wenn du Interesse daran hast.";
+export const INFO_ORGANISATION_FIRSTNAME_AND_LASTNAME = "Trage hier deinen Vornamen und Nachnamen ein. Somit kannst du dich später auch selber in deinen Schichtplan eintragen!"
 export const INFO_ORGANISATION_POSITIONS = "An dieser Stelle kannst du die Positionen in deinem Betrieb (z.B. Küche, Service, Schichtleitung) verwalten. Diese brauchst du später.";
 export const INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME = "Gib hier den Vor- und Nachname deiner Mitarbeiter:in an. Im Schichtplan wird z.B. Max M. angezeigt.";
 export const INFO_EMPLOYEE_EMAIL_ADRESS = "Gib hier die E-Mail-Adresse deiner Mitarbeiter:in an. An diese Adresse schicken wir eine Mail mit den persönlichen Login-Daten.";
@@ -27,5 +28,6 @@ export const INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES = "Wie viele Mitarbeiter:in
 export const INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION = "Wenn Sie eine Mindestanforderung für diese Schicht festlegen wollen, klicken Sie einfach auf die jewelige Qualifikation";
 export const INFO_SETTINGS_ALGORITHM_REVERSE = "Wenn du diese Einstellung aktivierst, wird die Befüllung der Schichten am Wochenende priorisiert."
 export const INFO_SETTINGS_ALGORITHM_FAIR = "Wenn du diese Einstellung aktivierst, bekommen deine Mitarbeiter gleichmäßiger Tages- und Abendschichten. Achtung: Dies kann zu schlechteren Ergebnissen führen."
+
 
 

@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import { Row, Col, Card, CardBody, Button, Badge, Input } from "reactstrap";
 import InputForm from "./InputForm"
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
-import { INFO_ORGANISATION_NAME, INFO_ORGANISATION_POSITIONS, INFO_ORGANISATION_STUNDENERFASSUNG } from "../../../../constants/InfoTexts";
+import { INFO_ORGANISATION_FIRSTNAME_AND_LASTNAME, INFO_ORGANISATION_NAME, INFO_ORGANISATION_POSITIONS, INFO_ORGANISATION_STUNDENERFASSUNG } from "../../../../constants/InfoTexts";
 import store from "../../../../store";
 import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
 
@@ -23,13 +23,13 @@ export default class Unternehmensprofil extends React.PureComponent {
             </Row>
             <Card className="shadow">
                 <CardBody>
-                <InfoLabel title="Name" description={INFO_ORGANISATION_NAME}></InfoLabel>
+                <InfoLabel title="Name des Betriebs" description={INFO_ORGANISATION_NAME}></InfoLabel>
                 <InputForm {...this.props}/>
-                <br/>
+                <InfoLabel title="Dein Vorname, Nachname" description={INFO_ORGANISATION_FIRSTNAME_AND_LASTNAME}></InfoLabel>
+                <InputForm {...this.props}/>
                 <InfoLabel title="Stundenerfassung" description={INFO_ORGANISATION_STUNDENERFASSUNG}></InfoLabel>
                 <Form.Check custom type="switch" size="lg" disabled name="stundenerfassung"></Form.Check>
                 </CardBody>
-                <br/>
                 <Row className="m-2 mb-4">
                     <Col xs={12}>
                     <InfoLabel title="Positionen bearbeiten" description={INFO_ORGANISATION_POSITIONS}></InfoLabel>

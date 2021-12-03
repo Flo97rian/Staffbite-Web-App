@@ -48,6 +48,7 @@ const LandingNavBar = (props) =>  {
               className="navbar-brand-img"
               height="40px"
               width="120px"
+              title="Staffbite"
               src={logo.imgSrc}
             />
           </NavbarBrand>
@@ -63,7 +64,7 @@ const LandingNavBar = (props) =>  {
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow bottom">
                 <DropdownItem className="noti-title" header tag="div">
-                  <h5 className="text-overflow m-0">digitaler Schichtplan</h5>
+                  <p className="text-muted text-overflow m-0">digitaler Schichtplan</p>
                 </DropdownItem>
                 <DropdownItem>
                   <HashLink className="p text-muted p-0" to="/shiftplan/#sectioncreate">

@@ -50,6 +50,7 @@ const SignUp = () => {
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
     const [isValid, setIsValid] = useState(!1)
+    const [checkValid, setCheckValid] = useState(!1);
     const [err, setErr] = useState(null)
     const [msg, setMsg] = useState(null)
     const [authState, setAuthState] = useState(AuthState.SigningUp);
@@ -58,8 +59,7 @@ const SignUp = () => {
     const [tenant, setTenant] = useState(!1);
 
 async function signUp() {
-    console.log(isValid)
-    if(isValid) {
+    if(isValid && checkValid) {
     setErr(null);
     try {
         const { user } = await Auth.signUp({
@@ -84,6 +84,10 @@ async function resendConfirmationCode() {
     } catch (err) {
         console.log('error resending code: ', err);
     }
+}
+
+function checkChanged(event) {
+    setCheckValid(event.target.checked);
 }
 
 async function confirmSignUp() {
@@ -138,6 +142,7 @@ async function confirmSignUp() {
             password={password}
             code={code}
             err={err}
+            checkChanged={checkChanged}
             setIsValid={setIsValid}
             signUp={signUp}
             passwordAgain={passwordAgain}

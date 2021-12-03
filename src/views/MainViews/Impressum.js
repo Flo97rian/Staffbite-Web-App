@@ -56,27 +56,27 @@ function Impressum () {
                       <br/>
                       0172 7018493
                     </p>
-                    <h3>Vertretungsberechtigte</h3>
+                    <h2 className="h3">Vertretungsberechtigte</h2>
                     <p className="mb-4">
                       Florian Zellmann 
                       <br/>
                       Daniel Zellmann 
                     </p>
-                    <h3>Umsatzsteuer-Identifikationsnummer </h3>
+                    <h2 className="h3">Umsatzsteuer-Identifikationsnummer </h2>
                     <p className="mb-4">
                         DE347060990
                     </p>
-                    <h3>EU-Streitschlichtung</h3>
+                    <h2 className="h3">EU-Streitschlichtung</h2>
                     <p className="mb-4">
                       Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <Link to="https://ec.europa.eu/consumers/odr ">Hier</Link>
                       <br/>
                       Unsere E-Mail-Adresse finden Sie oben im Impressum. 
                     </p>
-                    <h3>Verbraucherstreitbeilegung/Universalschlichtungsstelle</h3>
+                    <h2 className="h3">Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
                     <p className="mb-4">
                       Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen. 
                     </p>
-                    <h3>Bei Fragen</h3>
+                    <h2 className="h3">Bei Fragen</h2>
                     <p className="mb-4">
                     Wenden Sie sich bei Fragen gerne an: info@stafftbite.de  
                     </p>
@@ -221,8 +221,8 @@ function Impressum () {
                     <p>
                     Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung. 
                     </p>
-                    <h2>Datenerfassung auf dieser Website </h2>
-                    <h3>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h3>
+                    <h3>Datenerfassung auf dieser Website </h3>
+                    <h4>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h4>
                     <p>
                     Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur Verantwortlichen Stelle“ in dieser Datenschutzerklärung entnehmen. 
                     </p>
@@ -250,7 +250,7 @@ function Impressum () {
                     <br/>
                     info@stafftbite.de 
                     </p>
-                    <h3>2. Hosting</h3>
+                    <h2>2. Hosting</h2>
 
                     <h3>IONOS</h3> <p>Wir hosten unsere Website bei IONOS SE. Anbieter ist die IONOS SE, Elgendorfer Str. 57, 56410 Montabaur (nachfolgend: IONOS). Wenn Sie unsere Website besuchen, erfasst IONOS verschiedene Logfiles inklusive Ihrer IP-Adressen. Details entnehmen Sie der Datenschutzerkl&auml;rung von IONOS: <a href="https://www.ionos.de/terms-gtc/terms-privacy" target="_blank" rel="noopener noreferrer">https://www.ionos.de/terms-gtc/terms-privacy</a>.</p> <p>Die Verwendung von IONOS erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an einer m&ouml;glichst zuverl&auml;ssigen Darstellung unserer Website. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschlie&szlig;lich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO; die Einwilligung ist jederzeit widerrufbar.</p> 
 

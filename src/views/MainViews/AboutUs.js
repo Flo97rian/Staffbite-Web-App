@@ -60,7 +60,7 @@ function Pricing () {
                       width="1000px"
                     />
                     <div className="pt-4 text-center">
-                    <h5 className="title">
+                    <h2 className="title">
                       <Row>
                         <Col xs="6">
                           <h3 className="d-block mb-1">Florian Zellmann</h3>
@@ -69,7 +69,7 @@ function Pricing () {
                           <h3 className="d-block mb-1 ">Daniel Zellmann</h3>
                         </Col>
                       </Row>
-                      </h5>
+                      </h2>
                     </div>
                     <Row className="mt-6">
                       <h2>Florian Zellmann</h2>

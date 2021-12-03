@@ -5129,6 +5129,9 @@ button.bg-darker:focus {
 .border-success {
   border-color: #2dce89 !important; }
 
+.border-ocean {
+  border-color: #0e9cff !important; }
+  
 .border-info {
   border-color: #11cdef !important; }
 

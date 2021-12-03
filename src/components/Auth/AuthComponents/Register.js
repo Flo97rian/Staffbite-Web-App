@@ -16,7 +16,7 @@
 
 */
 import React, { useState, useEffect } from "react";
-
+import { HashLink } from 'react-router-hash-link';
 // reactstrap components
 import {
   Button,
@@ -26,6 +26,7 @@ import {
   FormGroup,
   Form,
   Input,
+  Label,
   Alert,
   InputGroupAddon,
   InputGroupText,
@@ -135,6 +136,15 @@ const Register = (props) => {
                                     match: "Passwörter stimmen überein",
                                 }}
                             />
+                            <FormGroup className="p-4">
+                                <Input type="checkbox" onChange={(e) => props.checkChanged(e)}/>
+                                <Label check>
+                                    <a>Ich bin einverstanden mit den </a>
+                                    <HashLink className="p text-muted p-0" to="/impressum/#sectionagb">
+                                        AGB's.
+                                    </HashLink>
+                                </Label>
+                            </FormGroup>
                             <div className="text-center">
                             <Button
                                 className="my-4"
