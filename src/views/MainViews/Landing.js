@@ -207,6 +207,24 @@ class Landing extends React.Component {
                             Von überall fertigen Schichtplan einsehen
                         </p>
               </Row>
+              <Row>
+                        <i className="fas fa-check fas-lg mr-2 text-success float-left pt-2" />
+                        <p className="lead text-default m-1">
+                            Tauschanfragen innerhalb von Sekunden stellen
+                        </p>
+              </Row>
+              <Row>
+                        <i className="fas fa-check fas-lg mr-2 text-success float-left pt-2" />
+                        <p className="lead text-default m-1">
+                            Faire Verteilung der Schichten
+                        </p>
+              </Row>
+              <Row>
+                        <i className="fas fa-check fas-lg mr-2 text-success float-left pt-2" />
+                        <p className="lead text-default m-1">
+                            Transparenz im Prozess der Schichtplanung
+                        </p>
+              </Row>
             </Col>
             <Col md="12" lg="6">
             </Col>          

@@ -56,12 +56,12 @@ function Pricing () {
                 </Container>
                 <Container className="mb-4 pt-4">
                   <Card className="shadow">
-                    <h2 className="h3 pl-3 pt-3 pb-0 mb-0">Funktionalitäten in allen Paketen</h2>
+                    <h3 className="pl-3 pt-3 pb-0 mb-0">Diese Funktionalitäten sind in allen Paketen enthalten!</h3>
                     <Row className="align-items-center p-1 pt-3">
                       <Col xs="12" lg="6">
                       <Row className="align-items-center">
                       <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
-                      <p class="text-muted lead m-0 p-0">digitaler Dienstplan</p>
+                      <p class="text-muted lead m-0 p-0">Digitaler Dienstplan</p>
                       </Row>
                       </Col>
                       <Col xs="12" lg="6">
@@ -93,6 +93,12 @@ function Pricing () {
                         </Row>
                       </Col>
                       <Col xs="12" lg="6">
+                      <Row className="align-items-center">
+                      <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                      <p class="text-muted lead m-0 p-0">Dein ganzes Team auf einen Blick</p>
+                      </Row>
+                      </Col>
+                      <Col xs="12" lg="6">
                         <Row className="align-items-center">
                         </Row>
                       </Col>
@@ -122,7 +128,7 @@ function Pricing () {
                     <h3 className="h1 text-info display-3">
                       540€
                     </h3>
-                    <span class="text-info ls-1 p">pro Jahr</span>
+                    <span class="text-info ls-1 p">bei jährlicher Zahlweise</span>
                     </CardFooter>
                   </Card>
                 </Col>
@@ -147,7 +153,7 @@ function Pricing () {
                     <h3 className="h1 text-white display-3">
                       1.080€
                     </h3>
-                    <span class="text-white ls-1 p">pro Jahr</span>
+                    <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
                     </CardFooter>
                   </Card>
                 </Col>
@@ -172,7 +178,7 @@ function Pricing () {
                     <h3 className="h1 text-white display-3">
                       1.620€
                     </h3>
-                    <span class="text-white ls-1 p">pro Jahr</span>
+                    <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
                     </CardFooter>
                   </Card>
                 </Col>

@@ -33,8 +33,8 @@ const LandingFooter = () => {
       <Navbar className="navbar-bottom bg-white mt-6 pb-4 bottom" expand="md">
       <Container fluid>
          <Nav className="ml-2 position-left" navbar vertical>
-                  <h2 
-                  className="h4 pt-0 mt-0"
+                  <h2
+                  className="ml-0 pt-0 mt-0"
                   >
                     Rechtliches
                   </h2>
