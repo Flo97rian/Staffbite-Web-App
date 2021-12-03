@@ -98,16 +98,16 @@ const Login = () => {
     async function signIn() {
         try {
             const user = await Auth.signIn(username, password);
-            let varify = await Auth.verifiedContact(user)
             if ("challengeName" in user && !newpassword) {
+                console.log("reset")
                 setAuthState(AuthState.ResetPassword);
                 setUser(user);
             } else if ("challengeName" in user && newpassword !== null) {
                 changePassword(password, newpassword);
                 setAuthState();
-            } else if ("email" in varify.unverified) {
+            } else if ("email" in await Auth.verifiedContact(user).unverified) {
                 sendVerifyCurrentUserAttribute()
-            }else {
+            } else {
                 setAuthState(AuthState.SignedIn);
                 setUser(user);
                 store.dispatch({type:"currentUser", payload: user.attributes})
