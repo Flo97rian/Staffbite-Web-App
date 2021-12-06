@@ -75,7 +75,13 @@ const Register = (props) => {
                     <Card className="bg-white shadow border-0 mb-4">
                         <CardHeader className="bg-white pb-2">
                         <div className="text-muted text-center pt-4">
-                            <h3>Registrieren</h3>
+                            <h3>Deine Anmeldung zum Probemonat!</h3>
+                            <p className="p-0 m-0">
+                            Registriere dich hier und es geht sofort los.
+                            </p>
+                            <p className="p-0 m-0">
+                            Du erhälst einen vollständigen Account und kannst unsere Lösung in Ruhe ausprobieren.
+                            </p>
                         </div>
                         </CardHeader>
                         <CardBody className="px-lg-5 py-lg-5">
