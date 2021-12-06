@@ -282,11 +282,19 @@ const SchichtplanContainer = () => {
     store.dispatch({type: "CLOSE", payload: index});
   };
 
-  const handleActiveShift = (row, day) => {
+  const handleActiveShift = () => {
     let copyPlan = new ShiftPlan({...NewShiftplan})
     copyPlan.shiftIsActive(ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails()
     store.dispatch({type: "setShiftplan", payload: shiftplan});
+    }
+
+  const handleActiveInactiveShift = (index) => {
+    let copyPlan = new ShiftPlan({...Shiftplan})
+    copyPlan.shiftIsActive(ShiftSlot);
+    let shiftplan = copyPlan.getAllPlanDetails()
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    store.dispatch({type: "CLOSE", payload: index});
     }
 
   //Dise Funktion sorgt für das Hinzufügen einer neuen Schicht zum jeweiligen Schichtplan
@@ -559,6 +567,7 @@ const SchichtplanContainer = () => {
             onCompanyClosed={handleCompanyIsClosed}
             onChange={handleInputChange}
             onSave={handleNewShiftPlanSave}
+            onHandleActiveInactiveShift={handleActiveInactiveShift}
             handlePrio={handlePrioShiftToDB}
             onDelete={handleDeleteShiftPlan}
             handleLoeschen={handleDeleteShift}
