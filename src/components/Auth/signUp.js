@@ -16,6 +16,7 @@
 
 */
 import React, { useState, useEffect } from "react";
+import ReactGA from 'react-ga';
 
 // reactstrap components
 import {
@@ -66,6 +67,10 @@ async function signUp() {
             username,
             password,
         });
+        ReactGA.event({
+            category: 'User',
+            action: 'Created a Tenant'
+          });
         console.log(user)
         setUser(user)
         setAuthState(AuthState.ConfirmSignUp)
