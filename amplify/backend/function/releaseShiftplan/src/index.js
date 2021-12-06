@@ -24,6 +24,8 @@ exports.handler = async (event, context, callback) => {
     if (body.newDate !== !1) {
         let shiftplan = JSON.parse(plan.data["S"])
         let keys = Object.keys(shiftplan[0]);
+        let createDates = {}
+        createDates["Wochentag"] = "Datum";
         keys.shift()
         keys.forEach((key, index) => {
             var startDate = new Date(body.newDate.startDate)
@@ -33,8 +35,13 @@ exports.handler = async (event, context, callback) => {
             var month = Number(nextDate.getUTCMonth()) + 1
             var year = nextDate.getUTCFullYear()
             console.log(day, month, year)
-            shiftplan[0][key] = day + "." + month + "." + year;
+            createDates[key] = day + "." + month + "." + year;
         })
+        if (shiftplan[0].Wochentag === "Wochentag") {
+            shiftplan.unshift(createDates)
+        } else if (shiftplan[0].Wochentag === "Datum"){
+            shiftplan[0] = createDates;
+        }
         plan.SK["S"] = "PLAN#Freigeben#" + body.uuid;
         plan.zeitraum["S"] = shiftplan[0]["Montag"] + " - " + shiftplan[0]["Sonntag"]
         newShiftplan = shiftplan;
