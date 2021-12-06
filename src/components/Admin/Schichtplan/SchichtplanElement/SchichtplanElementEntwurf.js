@@ -1,5 +1,5 @@
 import { 
-    CompanyClosed,
+    CompanyClosedEntwurf,
     DateOrWeekDayRow,
     shiftHasPrio,
     setShiftDetails,
@@ -44,14 +44,16 @@ const SchichtplanElementEntwurf = (props) => {
         prio = setPrioValue(currentItem);
         hasShiftName = getHasShiftName(currentItem);
     }
-    if (index === 0 || index === 1 || index === ItemLength - 1 ) {
-        return DateOrWeekDayRow(currentItem);
+    if (index === 0 || index === ItemLength - 1 ) {
+        return DateOrWeekDayRow(currentItem);  
+    } else if (index === 1 && !isObj){
+        return DateOrWeekDayRow(currentItem);  
     } else if (isFree && isDiscribeWeekDay && !hasShiftName){
         return setShiftDetails(index, editShift);
     } else if (!isFree && isDiscribeWeekDay){
         return editShiftDetails(currentItem, index, anzahl, editShift);
     } else if (!isFree && !isDiscribeWeekDay) {
-        return CompanyClosed();
+        return CompanyClosedEntwurf(index, col, setPrio);
     } else if (hasPrio) {
         return shiftHasPrio(index, col, prio, setPrio, setActive);
     } else {

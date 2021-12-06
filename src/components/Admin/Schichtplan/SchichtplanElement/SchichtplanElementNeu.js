@@ -39,7 +39,7 @@ export const SchichtplanElementNeu = (props) => {
         prio = setPrioValue(currentItem);
         hasShiftName = getHasShiftName(currentItem);
     }
-    if (index === 0 || index === 1 || index === ItemLength - 1 ) {
+    if (index === 0 || index === ItemLength - 1 ) {
         return DateOrWeekDayRow(currentItem);
     } else if (isFree && isDiscribeWeekDay && !hasShiftName){
         return setShiftDetails(index, editShift);

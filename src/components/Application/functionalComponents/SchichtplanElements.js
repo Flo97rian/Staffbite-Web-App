@@ -5,7 +5,8 @@ import {
     ListGroupItem,
     Badge,
     ListGroupItemHeading,
-    ListGroupItemText
+    ListGroupItemText,
+    Button
 } from "reactstrap"
 
 export const DateOrWeekDayRow = (obj) => {
@@ -20,6 +21,21 @@ export const CompanyClosed = () => {
     <ListGroup>
         <ListGroupItem className="mb-0" style={{"color": "#091428", "backgroundColor": "rgba(52, 98, 175, 0.5)"}}><p className="m-0"><br/><br/></p></ListGroupItem>
     </ListGroup>
+)}
+
+export const CompanyClosedEntwurf = (index, col, clickActive) => {
+    return (
+        <ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer", "color": "#091428", "backgroundColor": "rgba(52, 98, 175, 0.5"}}>
+                <ListGroupItemHeading className="m-0 p-0" color="">
+                   <i className="fas fa-bookmark text-white float-right m-2" aria-hidden="true" onClick={() => clickActive(index, col)}/>
+               </ListGroupItemHeading>
+               <ListGroupItemText className="m-0 p-3">
+               <br/>
+               <br/>
+       </ListGroupItemText>
+       </ListGroupItem>
+   </ListGroup>
 )}
 
 export const ShiftDescription = (obj, anzahl) => {
@@ -278,7 +294,7 @@ export const shiftHasPrio = (index, col, prio, clickPrio, clickActive) => {
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="">
                 <ListGroupItemHeading className="m-0 p-0" color="">
-                    <i className="fa fa-heart fa-lg text-success float-right m-2" aria-hidden="true" onClick={() => clickPrio(index, col, prio)}/>
+                    <i className="fas fa-bookmark fa-lg text-success float-right m-2" aria-hidden="true" onClick={() => clickPrio(index, col, prio)}/>
                 </ListGroupItemHeading>
         <ListGroupItemText className="m-0 p-3">
                 <br/>
@@ -292,7 +308,7 @@ export const shiftSetPrio = (index, col, prio, clickPrio, clickActive) => {
     return (<ListGroup>
          <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="">
          <ListGroupItemHeading className="m-0 p-0" color="">
-                    <i className="fa fa-heart fa-lg text-light float-right m-2" aria-hidden="true" onClick={() => clickPrio(index, col, prio)}/>
+                    <i className="fas fa-bookmark fa-lg text-light float-right m-2" aria-hidden="true" onClick={() => clickPrio(index, col, prio)}/>
                 </ListGroupItemHeading>
                 <ListGroupItemText className="m-0 p-3">
                 <br/>

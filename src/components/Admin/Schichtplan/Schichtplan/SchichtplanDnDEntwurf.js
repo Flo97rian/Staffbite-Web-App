@@ -94,7 +94,7 @@ const SchichtplanDnDEntwurf = (props) => {
               style={getListStyle(snapshot.isDraggingOver)}
             >
               <tbody>
-                {Items.map((item, index) => ( Number(item.id) !== 0 && Number(item.id) !== 1 && Number(item.id) !== Items.length - 1 ?
+                {Items.map((item, index) => ( Number(item.id) !== 0 && Number(item.id) !== Items.length - 1 ?
                   <Draggable key={"Entwurf" + String(index)} draggableId={item.id} index={index}>
                      {(provided, snapshot) => (
                       <tr>

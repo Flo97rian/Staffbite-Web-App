@@ -41,9 +41,15 @@ const SchichtplanErstellen = (props) => {
                 <InputString info={true} description={INFO_SHIFTPLAN_NAME} label="Name des Schichtplanes" name="name" placeholder="" onChange={(e) => props.onChange(e, "userInput")}></InputString>
                     <br/>
                     <InputNumber info={true} description={INFO_SHIFTPLAN_NUMBER_OF_SHIFTS} label="Schichten pro Tag" name="schichtentag"  placeholder="" onChange={(e) => props.onChange(e, "userInput")}></InputNumber>
+                    {!1 === !0 ? 
+                    <>
                     <br/>
                         <InfoOverlay infotitle="Kalenderwoche" description={INFO_SHIFTPLAN_PERIOD}/>
                         <Datepicker {...props} size="lg" getDates={props.getDates} start="WochenStart" ende="WochenEnde" placeholderAnfang="Anfang der KW" placeholderEnde="Ende der KW" />  
+                    </>
+                    :
+                    <></>
+                    }
                     <br/>
                     <Row className="text-center">
                         <Col xs={12}>

@@ -93,7 +93,7 @@ export default class NewShiftPlan {
 
       function addDayKeysToShifts (copyPlan) {
         let len = copyPlan.length;
-        Object.keys(copyPlan[1]).forEach(key => {for (let i = 2; i < len ; i++) {
+        Object.keys(copyPlan[0]).forEach(key => {for (let i = 1; i < len ; i++) {
           copyPlan[i][key] = {};
         }});
         return copyPlan;
@@ -102,7 +102,7 @@ export default class NewShiftPlan {
       function createActiveInactiveDay (copyPlan, userInput) {
         let len = copyPlan.length;
         Object.keys(copyPlan[1]).forEach(key => {
-          for (let i = 2; i < len; i++) {
+          for (let i = 1; i < len; i++) {
             userInput[key] ? copyPlan[i][key].frei = !1 : copyPlan[i][key].frei = !0;
           }
         });
@@ -118,9 +118,9 @@ export default class NewShiftPlan {
       this.name = addName(userInput);
       this.id = addId();
       this.schichtentag = addSchichtentag(userInput);
-      this.zeitraum = addZeitraum(Dates);
-      copyPlan = addDatesToPlan(copyPlan, this.zeitraum);
-      copyPlan = switchPlansOrder(copyPlan, 0, 1);
+      //this.zeitraum = addZeitraum(Dates);
+      //copyPlan = addDatesToPlan(copyPlan, this.zeitraum);
+      //copyPlan = switchPlansOrder(copyPlan, 0, 1);
       addShiftsToPlan(copyPlan, this.schichtentag);
       addDayKeysToShifts(copyPlan);
       createActiveInactiveDay(copyPlan, userInput);
