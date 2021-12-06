@@ -164,7 +164,7 @@ const Register = (props) => {
                         </Form>
                         <Row className="mt-3">
                         <Col xs="6">
-                        <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
+                        <Link to="/auth" className=""><small>Zurück</small></Link>
                         </Col>
                         <Col className="text-right" xs="6">
                         </Col>
