@@ -28,10 +28,14 @@ import FAQ from "./views/MainViews/FAQ";
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
+const onUpdate = () => {
+  ReactGA.set({ page: window.location.pathname })
+  ReactGA.pageview(window.location.pathname)
+}
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter onUpdate={onUpdate}>
     <Switch>
       <Route path="/" exact render={props => <Landing {...props} />} />
       <Route path="/signup" render={(props) => <SignUp {...props} />} />

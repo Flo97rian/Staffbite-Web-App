@@ -1,3 +1,4 @@
+import { keys } from "lodash";
 import shiftplanStates from "../../../Application/defaults/ShiftplanDefault";
 
 export default class ShiftPlan {
@@ -271,8 +272,10 @@ export default class ShiftPlan {
       let day = ShiftSlot.col;
 
       function getAddRemove(updateApplicant, copyPlan, row, day) {
+        if(noSetApplicants(copyPlan, row, day)) {
+          copyPlan[row][day].setApplicants = {};
+        }
         let singleApplicant = hasSingleApplicant(copyPlan, row, day);
-        let mutlipleApplicants = hasApplicants(copyPlan, row, day);
         copyPlan[row][day].setApplicants = {};
         if (singleApplicant) {
           let empty = zeroApplicants(updateApplicant);
@@ -319,6 +322,18 @@ export default class ShiftPlan {
           hasSetApplicants = !0;
         }
         return hasSetApplicants;
+      }
+      function noSetApplicants(copyPlan, row, day) {
+        let hasNoSetApplicants = !1;
+        let keys = getSlotKeys(copyPlan, row, day);
+        if (!keys.includes("setApplicants")) {
+          hasNoSetApplicants = !0;
+        }
+        return hasNoSetApplicants;
+      }
+
+      function getSlotKeys(copyPlan, row, day) {
+        return Object.keys(copyPlan[row][day])
       }
 
       function getSetApplicantsLength(copyPlan, row, day) {
