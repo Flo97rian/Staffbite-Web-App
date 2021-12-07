@@ -290,11 +290,20 @@ const SchichtplanContainer = () => {
     }
 
   const handleActiveInactiveShift = (index) => {
+    let isNewShiftplan = typeof NewShiftplan === "object";
+    if(isNewShiftplan) {
+      let copyPlan = new ShiftPlan({...NewShiftplan})
+      copyPlan.shiftIsActive(ShiftSlot);
+      let shiftplan = copyPlan.getAllPlanDetails()
+      store.dispatch({type: "setNewShiftplan", payload: shiftplan});
+      store.dispatch({type: "CLOSE", payload: index});
+    } else {
     let copyPlan = new ShiftPlan({...Shiftplan})
     copyPlan.shiftIsActive(ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails()
     store.dispatch({type: "setShiftplan", payload: shiftplan});
     store.dispatch({type: "CLOSE", payload: index});
+    }
     }
 
   //Dise Funktion sorgt für das Hinzufügen einer neuen Schicht zum jeweiligen Schichtplan
@@ -328,14 +337,15 @@ const SchichtplanContainer = () => {
 
   //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
   const handlePrioShiftToDB = (modal) => {
+    let isNewShiftplan = typeof NewShiftplan === "object";
     if (NewShiftplan) {
-      setNewPrioShift({NewShiftplan, ShiftSlot, userInput});
+      setNewPrioShift(NewShiftplan, ShiftSlot, userInput);
     } else {
-      setPrioShift({Plans, ShiftSlot, currentShiftPlan, userInput});
+      setPrioShift(Plans, ShiftSlot, currentShiftPlan, userInput);
     }
     store.dispatch(thunkUpdateShiftPlan);
     store.dispatch({type: "ResetShiftSlot"})
-    setUserInput(null);
+    setUserInput(shiftplanStates);
     store.dispatch({type: "CLOSE", payload: modal});
   };
 

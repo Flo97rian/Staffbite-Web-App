@@ -1,5 +1,6 @@
 import { 
     CompanyClosed,
+    CompanyClosedEntwurf,
     DateOrWeekDayRow,
     shiftHasPrio,
     setShiftDetails,
@@ -15,6 +16,10 @@ export const SchichtplanElementNeu = (props) => {
         store.dispatch({type: "OPEN", payload: "prioIsActive"});
         store.dispatch({type: "setShiftSlot", payload: { row: index, col: col, prio: bool}});
     };
+
+    function setActive(index, col) {
+        props.handleActive(index, col);
+    }
 
 
     const editShift = (index) => {
@@ -48,7 +53,7 @@ export const SchichtplanElementNeu = (props) => {
     }  else if (isFree && isDiscribeWeekDay) {
         return editShiftDetails(index, editShift);
     } else if (!isFree && !isDiscribeWeekDay) {
-        return CompanyClosed();
+        return CompanyClosedEntwurf(index, col, setPrio);
     } else if (hasPrio) {
         return shiftHasPrio(index, col, prio, setPrio, props.handleActiveShift);
     } else {

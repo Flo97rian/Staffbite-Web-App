@@ -64,7 +64,7 @@ const LandingNavBar = (props) =>  {
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow bottom">
                 <DropdownItem className="noti-title" header tag="div">
-                  <p className="text-muted text-overflow m-0">digitaler Schichtplan</p>
+                  <p className="text-muted font-weight-bold m-0">Digitaler Schichtplan</p>
                 </DropdownItem>
                 <DropdownItem>
                   <HashLink className="p text-muted p-0" to="/shiftplan/#sectioncreate">

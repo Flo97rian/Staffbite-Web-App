@@ -9,7 +9,7 @@ import InputNumber from "../../../Application/functionalComponents/InputNumber";
 import ControlErfahrung from "./ControlErfahrung";
 import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_EMPLOYEE_HOURLY_WAGES, INFO_EMPLOYEE_MONTHLY_INCOME, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK } from "../../../../constants/InfoTexts";
 import FormPositions from "./FormPositons";
-import { getMeta, getStundenerfassung, validName, validEmail } from "./ValidInputs";
+import { getMeta, getStundenerfassung, validName, validEmail } from "../../../Application/functionalComponents/ValidInputs";
 
 function FormMitarbeiterErstellen (props) {
         let hasMeta = getMeta(props.meta)
