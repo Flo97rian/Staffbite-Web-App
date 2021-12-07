@@ -59,12 +59,12 @@ const LandingNavBar = (props) =>  {
             <UncontrolledDropdown inNavbar nav>
               <DropdownToggle className="pr-0 p-0 pt-2" nav >
               <p className="nav-link-inner--text text-muted p-0 mr-5 m-0">
-                Lösung
+                Unsere Lösung
               </p>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow bottom">
-                <DropdownItem className="noti-title" header tag="div">
-                  <p className="text-muted font-weight-bold m-0">Digitaler Schichtplan</p>
+                <DropdownItem className="noti-title" header tag="div"> 
+                <p className="text-muted text-overflow m-0">Digitaler Schichtplan</p>
                 </DropdownItem>
                 <DropdownItem>
                   <HashLink className="p text-muted p-0" to="/shiftplan/#sectioncreate">
@@ -101,36 +101,12 @@ const LandingNavBar = (props) =>  {
                       Kontakt
                     </p>
                 </Link>
-              <UncontrolledDropdown  inNavbar nav>
-              <DropdownToggle className="pr-0 p-0 pt-2" nav >
-                <p className="nav-link-inner--text text-muted p-0 mr-5 m-0">
-                  Über uns
-                </p>
-              </DropdownToggle>
-                <DropdownMenu className="dropdown-menu-arrow bottom">
-                <DropdownItem>
-                  <Link className="p text-muted p-0" to="/aboutus">
-                  <p className="p-0 m-0">
+                <Link to='/aboutus' >
+                    <p className="nav-link-inner--text text-muted p-0 pt-2 mr-5 m-0">
                       Über uns
-                      </p>
-                  </Link>
-                </DropdownItem>
-                <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/impressum/#sectiondatasecurity">
-                  <p className="p-0 m-0">
-                      Datenschutz
-                      </p>
-                  </HashLink>
-                </DropdownItem>
-                <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/impressum/#sectionimpressum">
-                  <p className="p-0 m-0">
-                      Impressum
-                      </p>
-                  </HashLink>
-                </DropdownItem>
-              </DropdownMenu>
-              </UncontrolledDropdown>
+                    </p>
+                </Link>
+
               <Link to='/pricing' >
                     <p className="nav-link-inner--text text-muted p-0 pt-2 mr-5 m-0">
                       Preise

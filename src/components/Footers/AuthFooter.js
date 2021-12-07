@@ -41,20 +41,24 @@ const AuthFooter = () => {
                     Staffbite
                   </span>
                 </NavLink>
-
-              <Link
-                className="text-muted"
-                  to="/impressum/#sectiondatasecurity"
-                  target="_blank"
-                >
-                  Datenschutz
-              </Link>
               <Link
                 className="text-muted"
                   to="/impressum/#sectionimpressum"
                   target="_blank"
                 >
                   Impressum
+              </Link>
+              <Link
+                className="text-muted"
+                  to="/impressum/#sectionagb"
+                  target="_blank">
+                  AGB's
+              </Link>
+              <Link
+                className="text-muted"
+                  to="/impressum/#sectiondatasecurity"
+                  target="_blank">
+                  Datenschutz
               </Link>
               </Nav>
           <Nav className="ml-2 mt-0 pt-0" navbar vertical>

@@ -46,20 +46,26 @@ const LandingFooter = () => {
                   </NavLink>
                 <Link
                   className="text-muted"
-                    to="/impressum/#sectiondatasecurity"
-                    target="_blank"
-                  >
+                    to="/impressum/#sectionimpressum"
+                    target="_blank">
                     <p className="mb-0">
-                    Datenschutz
+                    Impressum
                     </p>
                 </Link>
                 <Link
                   className="text-muted"
-                    to="/impressum/#sectionimpressum"
-                    target="_blank"
-                  >
+                    to="/impressum/#sectionagb"
+                    target="_blank">
                     <p className="mb-0">
-                    Impressum
+                    AGB's
+                    </p>
+                </Link>
+                <Link
+                  className="text-muted"
+                    to="/impressum/#sectiondatasecurity"
+                    target="_blank">
+                    <p className="mb-0">
+                    Datenschutz
                     </p>
                 </Link>
                 </Nav>
