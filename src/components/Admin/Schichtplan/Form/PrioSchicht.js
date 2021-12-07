@@ -14,9 +14,15 @@ export const PrioSchicht = (props) => {
         let active = !1;
         let slot = props.shiftSlot;
         console.log(slot);
+        console.log(props.shiftplan);
         if(slot) {
-            let isActive = props.shiftplan.plan[slot.row][slot.col].frei;
-            console.log(isActive);
+            let isNewShiftplan = typeof props.Schichtplan === "object"
+            let isActive;
+            if(isNewShiftplan) {
+                isActive = props.Schichtplan.plan[slot.row][slot.col].frei;    
+            } else {
+                isActive = props.shiftplan.plan[slot.row][slot.col].frei;
+            }
             if(!isActive) {
                 active = !0;
             }

@@ -29,6 +29,46 @@ export function validEmail(userEmail) {
     }
     return isValid;
 }
+export function validShiftplanName(shiftName) {
+    let isValid = !0;
+    let isEmpty = shiftName.length === 0;
+    let dividers = [" ", ", ", ","]
+    let divider = dividers.find(substring => shiftName.includes(substring));
+    if (isEmpty || divider) {
+        isValid = !1;
+        }
+    return isValid;
+}
+export function validShiftName(userName, placeholder) {
+    let isValid = !0;
+    console.log(userName);
+    let minShiftNameLength = userName.length < 0;
+    let maxShiftNameLength = userName.length > 20;
+    if (minShiftNameLength || maxShiftNameLength) {
+        isValid = !1
+        }
+    return isValid;
+}
+
+export function shiftplanNameIsPlaceholder(shiftName) {
+    let isValid = !1;
+    let isPlaceholder = (shiftName === "Name")
+    if (isPlaceholder) {
+        isValid = !0;
+            }
+    return isValid;
+}
+
+export function shiftNameIsPlaceholder(shiftName, placeholder) {
+    let isValid = !1;
+    let isPlaceholder = (shiftName === "Name")
+    if (isPlaceholder) {
+        isValid = !0;
+            }
+    return isValid;
+}
+
+
 
 export function getMeta(Meta) {
     let isValid = !1;

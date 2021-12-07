@@ -4,10 +4,12 @@ import {
     Row
 } from "reactstrap"
 import InputString from "../../../Application/functionalComponents/InputString";
+import InputStringShiftName from "../../../Application/functionalComponents/InputStringShiftName"
 import InputTime from "../../../Application/functionalComponents/InputTime";
 import InputTimeWithSwitch from "../FormElements/InputTimeWithSwitch";
 import InputNumber from "../../../Application/functionalComponents/InputNumber";
 import SelectPosition from "../FormElements/SelectPosition";
+import { validShiftName } from "../../../Application/functionalComponents/ValidInputs";
 import { INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../../../../constants/InfoTexts";
 export default class SchichtHinzufuegen extends React.PureComponent {
     render() {
@@ -16,7 +18,7 @@ export default class SchichtHinzufuegen extends React.PureComponent {
             <Row>
             <Col xs={1} ></Col>
             <Col xs={10} >
-                    <InputString info={true} description={INFO_SHIFTPLAN_SHIFT_NAME} label="Name der Schicht" name="rolle" placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputString>
+                    <InputStringShiftName info={true} description={INFO_SHIFTPLAN_SHIFT_NAME} label="Name der Schicht" name="rolle" placeholder="" currentValue={this.props.userInput.rolle} isValid={validShiftName(this.props.userInput.rolle)}onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputStringShiftName>
                     <br/>
                     <SelectPosition {...this.props} ></SelectPosition>
                     <br/>
