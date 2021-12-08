@@ -32,9 +32,8 @@ export function validEmail(userEmail) {
 export function validShiftplanName(shiftName) {
     let isValid = !0;
     let isEmpty = shiftName.length === 0;
-    let dividers = [" ", ", ", ","]
-    let divider = dividers.find(substring => shiftName.includes(substring));
-    if (isEmpty || divider) {
+    let NameLength = shiftName.length > 20;
+    if (isEmpty || NameLength) {
         isValid = !1;
         }
     return isValid;

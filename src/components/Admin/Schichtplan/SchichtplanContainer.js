@@ -199,15 +199,19 @@ const SchichtplanContainer = () => {
   }
 
   const handleSelectPrio = (qualifikation) => {
-    let hasuserInput = userInput !== null
-    let hasQualifikation = hasuserInput && userInput.qualifikation !== null ? !0 : !1;
-    if (hasQualifikation && userInput.qualifikation === qualifikation) {
-      delete userInput.qualifikation
-      setUserInput({...userInput})
+    let isNewShiftplan = typeof NewShiftplan === "object";
+    if(isNewShiftplan) {
+      let copyPlan = new ShiftPlan({...NewShiftplan})
+      copyPlan.setPrio(ShiftSlot, qualifikation);
+      let shiftplan = copyPlan.getAllPlanDetails()
+      store.dispatch({type: "setNewShiftplan", payload: shiftplan});
     } else {
-      setUserInput({...userInput, qualifikation: qualifikation });
+    let copyPlan = new ShiftPlan({...Shiftplan})
+    copyPlan.setPrio(ShiftSlot, qualifikation);
+    let shiftplan = copyPlan.getAllPlanDetails()
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
     }
-  }
+    }
 
   const handleSetApplicant = (modal, updateApplicant) => {
     let copyPlan = new ShiftPlan({...Shiftplan});
@@ -338,16 +342,42 @@ const SchichtplanContainer = () => {
   //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
   const handlePrioShiftToDB = (modal) => {
     let isNewShiftplan = typeof NewShiftplan === "object";
-    if (NewShiftplan) {
-      setNewPrioShift(NewShiftplan, ShiftSlot, userInput);
+    if (isNewShiftplan) {
+      let copyPlan = new ShiftPlan({...NewShiftplan});
+      copyPlan.changeNotice(userInput, ShiftSlot);
+      copyPlan.getAllPlanDetails();
+      let shiftplan = copyPlan.getAllPlanDetails();
+      store.dispatch({ type: "setNewShiftplan", payload: shiftplan });
     } else {
-      setPrioShift(Plans, ShiftSlot, currentShiftPlan, userInput);
+      let copyPlan = new ShiftPlan({...Shiftplan});
+      copyPlan.changeNotice(userInput, ShiftSlot);
+      copyPlan.getAllPlanDetails();
+      let shiftplan = copyPlan.getAllPlanDetails();
+      store.dispatch({ type: "setShiftplan", payload: shiftplan });
     }
     store.dispatch(thunkUpdateShiftPlan);
-    store.dispatch({type: "ResetShiftSlot"})
+    store.dispatch({type: "ResetShiftSlot"});
     setUserInput(shiftplanStates);
     store.dispatch({type: "CLOSE", payload: modal});
   };
+
+  function handleResetShiftNotice(modal) {
+    let isNewShiftplan = typeof NewShiftplan === "object";
+    if (isNewShiftplan) {
+      let copyPlan = new ShiftPlan({...NewShiftplan});
+      copyPlan.resetNotice(ShiftSlot);
+      copyPlan.getAllPlanDetails()
+      let shiftplan = copyPlan.getAllPlanDetails()
+      store.dispatch({ type: "setNewShiftplan", payload: shiftplan });
+    } else {
+      let copyPlan = new ShiftPlan({...Shiftplan});
+      copyPlan.resetNotice(ShiftSlot);
+      copyPlan.getAllPlanDetails()
+      let shiftplan = copyPlan.getAllPlanDetails()
+      store.dispatch({ type: "setShiftplan", payload: shiftplan });
+    }
+    setUserInput(shiftplanStates);
+  }
 
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleUpdatedShiftPlanToDB = () => {
@@ -587,6 +617,7 @@ const SchichtplanContainer = () => {
             onSaveBearbeiten={handleEditShiftDetails}
             handleUpdate={handleUpdatedShiftPlanToDB}
             handleSchichtBearbeiten={handleEditShiftDetails}
+            handleResetShiftNotice={handleResetShiftNotice}
             ></OpenModal>
     </>
     }

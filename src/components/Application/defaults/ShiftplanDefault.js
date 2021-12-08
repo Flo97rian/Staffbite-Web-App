@@ -8,7 +8,8 @@ let shiftplanStates = {
     qualifikation: !1,
     schichtentag: 1,
     Prioschicht: !1,
-    name: "Name"
+    name: "Name",
+    notice: ""
 };
 
 export default shiftplanStates;
