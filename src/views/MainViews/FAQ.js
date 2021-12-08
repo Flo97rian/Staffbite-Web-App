@@ -72,7 +72,7 @@ function FAQ () {
                     ? 
                     <>
                       <p className="mt-2">
-                      Um deinen Betrieb zu registrieren, kannst du einfach oben auf unserer Website auf „Kostenlos Testen“ klicken. Anschließend benötigst du deine Mailadresse und ein sicheres Passwort. Hierbei fallen keinerlei Kosten an – starte direkt in deinen <Link to="/signup" target="_blank">kostenloser Probemonat</Link>!
+                      Um deinen Betrieb zu registrieren, kannst du einfach oben auf unserer Website auf „Kostenlos Testen“ klicken. Anschließend benötigst du deine Mailadresse und ein sicheres Passwort. Hierbei fallen keinerlei Kosten an – starte direkt in deinen <Link to="/signup" target="_blank">kostenlosen Probemonat</Link>!
                       In diesem Video kannst du mehr über die Registrierung und die ersten Schritte mit Staffbite erfahren.
                       </p>
                       <Link to={{ pathname: "https://youtu.be/R0SpszGT0k8" }} target="_blank">Zum Video: Wie registriere ich meinen Betrieb?</Link>
@@ -134,14 +134,14 @@ function FAQ () {
                 className="p-3"
                 onClick={(() => toggleOpen("Support"))}>
                     <h2 className="h3 mb-0">
-                      Wann sind die Supportzeiten? 
+                      Wie erhalte ich Support? 
                       {open.Support ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
                       </h2>
                     {open.Support 
                     ? 
                     <>
                       <p className="mt-2">
-                        In kürze Verfügbar!
+                        Wenn du Support benötigst, schreib uns einfach eine Mail an: info@staffbite.de - wir melden uns schnellstmöglich bei dir!
                       </p>
                     </>
                   :
@@ -162,7 +162,7 @@ function FAQ () {
                     ? 
                     <>
                       <p className="mt-2">
-                        In kürze Verfügbar!
+                        Um den Probemonat zu bekommen, musst du dich einfach <Link to="/signup" target="_blank">registrieren</Link>. Es fallen keinerlei Kosten für dich an.
                       </p>
                     </>
                   :
