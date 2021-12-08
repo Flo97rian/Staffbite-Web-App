@@ -64,15 +64,17 @@ const LandingNavBar = (props) =>  {
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow bottom">
                 <DropdownItem className="noti-title" header tag="div"> 
-                <p className="text-muted text-overflow m-0">Digitaler Schichtplan</p>
+
                 </DropdownItem>
+                
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectioncreate">
+                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectionregister">
                   <p className="p-0 m-0">
-                      Schichtpläne erstellen
+                      Erste Anmeldung
                       </p>
                   </HashLink>
                 </DropdownItem>
+
                 <DropdownItem>
                   <HashLink className="p text-muted p-0" to="/shiftplan/#sectionteam">
                   <p className="p-0 m-0">
@@ -80,6 +82,23 @@ const LandingNavBar = (props) =>  {
                       </p>
                   </HashLink>
                 </DropdownItem>
+
+                <DropdownItem>
+                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectioncreate">
+                  <p className="p-0 m-0">
+                      Schichtplan erstellen
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+               
+                <DropdownItem>
+                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectionavailable">
+                  <p className="p-0 m-0">
+                      Verfügbarkeiten eintragen
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+
                 <DropdownItem>
                 <HashLink className="p text-muted p-0" to="/shiftplan/#sectionalg">
                 <p className="p-0 m-0">
@@ -87,6 +106,15 @@ const LandingNavBar = (props) =>  {
                       </p>
                   </HashLink>
                 </DropdownItem>
+                
+                <DropdownItem>
+                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectiondone">
+                  <p className="p-0 m-0">
+                      Schichtplan veröffentlichen
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+
                 <DropdownItem className="text-muted">
                 <HashLink className="p text-muted p-0" to="/shiftplan/#sectionapp">
                     <p className="p-0 m-0">

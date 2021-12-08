@@ -51,11 +51,59 @@ function Shiftplan () {
       {/* Page content */}
       <Container className="pt-5 pb-2" fluid>
       <Container className="mt-6">
-                    <Row className="justify-content-left ml-1 mt-4">
-                        <h1> Unsere digitalen Schichtpläne</h1>
+                    <Row className="justify-content-left ml-0 mt-4">
+                        <h1>Dein digitaler & automatisierter Schichtplan</h1>
                     </Row>
                 </Container>
-      <section className="section" id={"sectioncreate"}>
+      
+                <section className="section" id={"sectionregister"}>
+            <Container className="mb-4 pt-4">
+              <Row className="align-items-center mb-4 mt-3">
+              <Col className="order-md-1 pr-md-5" md="12" lg="6">
+
+                    <h2 className="h3">Die Erste Anmeldung</h2>
+                    <p>
+                    Um dich das erste Mal bei Staffbite anzumelden, musst du dich zunächst registrieren. Klicke dafür einfach oben rechts auf "Kostenlos Registrieren" und gib die benötigten Daten ein.
+                    </p>
+                    <p>
+                    Nachdem du deinen Account verifiziert hast, kannst du sofort loslegen! Herbei fallen keinerlei Kosten an.
+                    </p>
+                    
+                </Col>
+                <Col className="order-md-2"  md="12" lg="6">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/R0SpszGT0k8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+          
+          <section className="section" id={"sectionteam"}>
+            <Container className="mb-4 pt-4">
+              <Row className="align-items-center mb-4 mt-8">
+                <Col className="order-md-1 pr-md-5" xs="12" md="12" lg="6">
+                    <h2 className="h3">Behalte dein Team im Blick</h2>
+                    <p>
+                    Damit sich dein Team in den Schichtplan eintragen kann, musst du deine Mitarbeiter*innen nur einmalig einladen. Dafür brauchst du nur ihren Namen, ihre E-Mail-Adresse und die Anzahl der Schichten, die sie pro Woche arbeiten sollen. 
+                    </p>
+                    <p>
+                    Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten. 
+                    </p>
+                    <Link to={{ pathname: "https://www.youtube.com/watch?v=RtKKaWkCPrs" }} target="_blank">Dein Team erstellen & verwalten</Link>
+                </Col>
+                <Col className="order-md-2" md="12" lg="6">
+                  <img
+                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                    src={TeamVerwalten}
+                    title="Team erstellen und verwalten"
+                    height="100%"
+                    width="100%"
+                  />
+                </Col>
+              </Row>
+            </Container>
+          </section>
+
+          <section className="section" id={"sectioncreate"}>
             <Container className="mb-4 pt-4">
               <Row className="align-items-center mb-4 mt-3">
               <Col className="order-md-1 pr-md-5" md="12" lg="6">
@@ -82,19 +130,20 @@ function Shiftplan () {
               </Row>
             </Container>
           </section>
-          <section className="section" id={"sectionteam"}>
+
+          <section className="section" id={"sectionavailable"}>
             <Container className="mb-4 pt-4">
               <Row className="align-items-center mb-4 mt-8">
                 <Col className="order-md-1 pr-md-5" xs="12" md="12" lg="6">
-                    <h2 className="h3">Behalte dein Team im Blick</h2>
+                    <h2 className="h3">Verfügbarkeiten eintragen</h2>
                     <p>
-                    Damit sich dein Team in den Schichtplan eintragen kann, musst du deine Mitarbeiter*innen nur einmalig einladen. Dafür brauchst du nur ihren Namen, ihre E-Mail-Adresse und die Anzahl der Schichten, die sie pro Woche arbeiten sollen. 
+                    Jedes deiner Teammitglieder bekommt einen eigenen Zugang zu Staffbite. Anschließend können sie per Smartphone, Tablet oder Laptop ihre Verfügbarkeiten eintragen.
+                    Auf diese Weise spart ihr euch einen Haufen WhatsApp-Nachrichten, Mails, Zettel und Stress.
                     </p>
                     <p>
-                    Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten. 
-                    </p>
-                    <Link to={{ pathname: "https://www.youtube.com/watch?v=RtKKaWkCPrs" }} target="_blank">Dein Team erstellen & verwalten</Link>
-                </Col>
+                    Übrigens: Wir arbeiten derzeit schon mit Hochdruck an der kostenfreien Staffbite-App für iOS & Android!
+                    </p>  
+                  </Col>
                 <Col className="order-md-2" md="12" lg="6">
                   <img
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
@@ -107,6 +156,7 @@ function Shiftplan () {
               </Row>
             </Container>
           </section>
+
           <section className="section" id={"sectionalg"}>
             <Container className="mb-4 pt-4">
               <Row className="justify-content-center mb-4 mt-8">
@@ -134,6 +184,30 @@ function Shiftplan () {
               </Row>
             </Container>
           </section>
+
+          <section className="section" id={"sectiondone"}>
+            <Container className="mb-4 pt-4">
+              <Row className="align-items-center mb-4 mt-8">
+                <Col className="order-md-1 pr-md-5" xs="12" md="12" lg="6">
+                    <h2 className="h3">Fertigen Schichtplan veröffentlichen</h2>
+                    <p>
+                      Nachdem dein Schichtplan automatisch befüllt wurde, kannst du noch letzte Änderungen vornehmen.
+                      Anschließend veröffentlichst du den fertigen Plan mit nur einem Klick für dein gesamtes Team.
+                    </p>  
+                  </Col>
+                <Col className="order-md-2" md="12" lg="6">
+                  <img
+                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                    src={SchichtplanBeispiel}
+                    title="Team erstellen und verwalten"
+                    height="100%"
+                    width="100%"
+                  />
+                </Col>
+              </Row>
+            </Container>
+          </section>
+
           <section className="section" id={"sectionapp"}>
             <Container className="mb-4 pt-4">
               <Row className="justify-content-center mb-4 mt-8">
