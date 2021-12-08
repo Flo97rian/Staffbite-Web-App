@@ -28,6 +28,7 @@ export const INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES = "Wie viele Mitarbeiter:in
 export const INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION = "Hier kannst du eine Mindestanforderung für diese Schicht festlegen. Es wird niemand mit weniger Erfahrung als ausgewählt eingeplant.";
 export const INFO_SETTINGS_ALGORITHM_REVERSE = "Wenn du diese Einstellung aktivierst, wird die Befüllung der Schichten am Wochenende priorisiert."
 export const INFO_SETTINGS_ALGORITHM_FAIR = "Wenn du diese Einstellung aktivierst, bekommen deine Mitarbeiter gleichmäßiger Tages- und Abendschichten. Achtung: Dies kann zu schlechteren Ergebnissen führen."
+export const INFO_USER_NOTICE = "Hier kannst du sehen, ob es eine spezielle Anmerkung für die Schicht gibt."
 
 
 

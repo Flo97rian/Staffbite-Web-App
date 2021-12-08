@@ -8,7 +8,7 @@ import {
     shiftSetPrio,
  } from "../../../Application/functionalComponents/SchichtplanElements";
 import store from "../../../../store";
-import { getIsObject, getCompanyIsOpen, getAnzahl, getHasPrio, getHasShiftName, setPrioValue, } from "../../../Application/functionalComponents/ElementFunctions";
+import { getIsObject, getCompanyIsOpen, getHasNotice, getAnzahl, getHasPrio, getHasShiftName, setPrioValue, } from "../../../Application/functionalComponents/ElementFunctions";
 
 export const SchichtplanElementNeu = (props) => {
 
@@ -33,6 +33,7 @@ export const SchichtplanElementNeu = (props) => {
     let prio;
     let isFree;
     let hasPrio;
+    let hasNotice;
     let anzahl;
     let hasShiftName;
     let isObj = getIsObject(currentItem);
@@ -41,6 +42,7 @@ export const SchichtplanElementNeu = (props) => {
         isFree = getCompanyIsOpen(currentItem);
         anzahl = getAnzahl(props.anzahl);
         hasPrio = getHasPrio(currentItem);
+        hasNotice = getHasNotice(currentItem);
         prio = setPrioValue(currentItem);
         hasShiftName = getHasShiftName(currentItem);
     }
@@ -54,7 +56,7 @@ export const SchichtplanElementNeu = (props) => {
         return editShiftDetails(index, editShift);
     } else if (!isFree && !isDiscribeWeekDay) {
         return CompanyClosedEntwurf(index, col, setPrio);
-    } else if (hasPrio) {
+    } else if (hasPrio || hasNotice) {
         return shiftHasPrio(index, col, prio, setPrio, props.handleActiveShift);
     } else {
         return shiftSetPrio(index, col, prio, setPrio, props.handleActiveShift);

@@ -472,36 +472,94 @@ export default class ShiftPlan {
     return shiftsHaveDetails;
   }
 
+  changeNotice(userInput, ShiftSlot) {
+    let copyPlan = [...this.plan]
+    let row = this.getRow(ShiftSlot);
+    let day = this.getDay(ShiftSlot);
+    let inputNotice = this.getInputNotice(userInput);
+    if(this.hasValidNotice(inputNotice)) {
+      copyPlan[row][day].notice = inputNotice;
+      this.plan = copyPlan;
+    }
+  }
+
+  resetNotice(ShiftSlot) {
+    let copyPlan = [...this.plan]
+    let row = this.getRow(ShiftSlot);
+    let day = this.getDay(ShiftSlot);
+    copyPlan[row][day].notice = "";
+    this.plan = copyPlan;
+  }
+
+  getNotice(shift) {
+    return shift.notice;
+  }
+
+  hasNotice(notice) {
+    let valid = !1;
+    if(notice !== "") {
+      valid = !0; 
+    }
+    return valid;
+  }
+
+  hasValidNotice(inputNotice) {
+    let valid = !1;
+    let InputLength = inputNotice.length;
+    if(InputLength < 50) {
+      valid = !0;
+    }
+    return valid;
+  }
+
+  getInputNotice(userInput) {
+    return userInput.notice;
+  }
+
+  setPrio(ShiftSlot, qualifikation) {
+    let copyPlan = [...this.plan];
+    let row = this.getRow(ShiftSlot);
+    let day = this.getDay(ShiftSlot);
+    if(copyPlan[row][day].prio !== !1) {
+      copyPlan[row][day].prio = !1
+    } else {
+      copyPlan[row][day].prio = qualifikation;
+    }
+    this.plan = copyPlan;
+  }
+
   shiftIsActive(ShiftSlot) {
     let copyPlan = [...this.plan];
-    function getShift(copyPlan, row, day) {
-      return copyPlan[row][day]
-    }
-
-    function setActive (active) {
-      return !active;
-
-    }
-
-    function getIsActive(shift) {
-      return shift.frei;
-    }
-
-    function getRow(ShiftSlot) {
-      return ShiftSlot.row;
-    }
-
-    function getDay(ShiftSlot) {
-      return ShiftSlot.col;
-      }
-    let row = getRow(ShiftSlot);
-    let day = getDay(ShiftSlot);
-    let shift = getShift(copyPlan, row, day);
-    let isActive = getIsActive(shift);
-    let newIsActive = setActive(isActive);
+    let row = this.getRow(ShiftSlot);
+    let day = this.getDay(ShiftSlot);
+    let shift = this.getShift(copyPlan, row, day);
+    let isActive = this.getIsActive(shift);
+    let newIsActive = this.setActive(isActive);
     copyPlan[row][day].frei = newIsActive;
     this.plan = copyPlan;
   }
+
+
+  getShift(copyPlan, row, day) {
+    return copyPlan[row][day]
+  }
+
+  setActive (active) {
+    return !active;
+
+  }
+
+  getIsActive(shift) {
+    return shift.frei;
+  }
+
+  getRow(ShiftSlot) {
+    return ShiftSlot.row;
+  }
+
+  getDay(ShiftSlot) {
+    return ShiftSlot.col;
+    }
 
     getPlan () {
       return this.plan

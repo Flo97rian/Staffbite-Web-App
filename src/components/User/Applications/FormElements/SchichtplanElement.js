@@ -76,9 +76,9 @@ const SchichtplanElement = (props) => {
             return SingleApplicantWithOutUser(index, col, FirstApplicant, setApplicant);
         } else if (isFree && !ApplicantMatchesPosition && !isDiscribeWeekDay) {
             return ApplicantDoesntMatchesPosition();
-        }   else if (isFree && !isDiscribeWeekDay) {
+        } else if (isFree && !isDiscribeWeekDay) {
             return ZeroApplicants(index, col, setApplicant);
-        }else if (!isFree && isDiscribeWeekDay){
+        } else if (!isFree && isDiscribeWeekDay){
             return ShiftDescription(currentItem, anzahl);
         }   else {
             return Default(index, col);
