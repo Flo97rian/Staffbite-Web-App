@@ -7,14 +7,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import store from "../../../../store";
+import ShiftDetails from "../Form/ShiftDetails";
+
 
 const ModalSchichtTauschen = (props) => {
-    const tag = props.shiftslot.col;
-    const row = props.shiftslot.row;
-    const shiftplan = props.shiftplan.plan
-    const shiftname = shiftplan[row]["Wochentag"].ShiftName
-    const shiftstart = shiftplan[row]["Wochentag"].ShiftStart
-    const shiftend = shiftplan[row]["Wochentag"].ShiftEnd
         return (
             <Modal 
                     size="lg"
@@ -28,17 +24,7 @@ const ModalSchichtTauschen = (props) => {
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Row className="text-center">
-                        <Col xs={12}>
-                            <Form.Label>Schicht</Form.Label>
-                        </Col>
-                    </Row>
-                    <br/>
-                    <Row className="text-center">
-                        <Col xs={12}>
-                            <Form.Label>{shiftname}<br/>{tag}, {shiftplan[0][tag]} <br/>{shiftstart} - {shiftend}</Form.Label>
-                        </Col>
-                    </Row>
+                    <ShiftDetails {...props} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="success" onClick={() => props.onTrade(props.modalkey)}> Tauschanfrage senden </Button>  

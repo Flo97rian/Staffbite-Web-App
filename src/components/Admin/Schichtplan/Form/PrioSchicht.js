@@ -53,6 +53,16 @@ export const PrioSchicht = (props) => {
         return value;
     }
 
+    function noticeIsValid() {
+        let isValid = !1;
+        let notice = props.userInput.notice;
+        let noticeLength = notice.length;
+        if(noticeLength > 80) {
+            isValid = !0;
+        }
+        return isValid;
+    }
+
     function hasShiftNotice() {
         let value = !1;
         let slot = props.shiftSlot;
@@ -124,6 +134,7 @@ export const PrioSchicht = (props) => {
                                     <Input
                                     name="notice"
                                     type="textarea"
+                                    invalid={noticeIsValid()}
                                     placeholder={getShiftNotice()}
                                     onChange={(e) => props.onChange(e)}
                                     />
