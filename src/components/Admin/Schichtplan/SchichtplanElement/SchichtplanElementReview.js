@@ -14,7 +14,7 @@ import {
     Default
  } from "../../../Application/functionalComponents/SchichtplanElements";
 import store from "../../../../store";
-import { getIsObject, setPrioValue, getSecondApplicant, getCompanyIsOpen, getAnzahl, getHasApplicants, getApplicantsLength, getHasPrio, getFirstApplicant, getHasShiftName } from "../../../Application/functionalComponents/ElementFunctions";
+import { getIsObject, setPrioValue, getHasNotice, getSecondApplicant, getCompanyIsOpen, getAnzahl, getHasApplicants, getApplicantsLength, getHasPrio, getFirstApplicant, getHasShiftName } from "../../../Application/functionalComponents/ElementFunctions";
 
 const setApplicant = (index, col) => {
     store.dispatch({type: "OPEN", payload: "applyIsActive"});
@@ -26,6 +26,10 @@ const editShift = (index) => {
     store.dispatch({type: "OPEN", payload: index});
     store.dispatch({type: "setShiftSlot", payload: { row: index}});
 };
+function setPrio(index, col, prio) {
+    store.dispatch({ type: "OPEN", payload: "prioIsActive" });
+    store.dispatch({ type: "setShiftSlot", payload: { row: index, col: col, prio: prio } });
+}
 
 const SchichtplanElementReview = (props) => {
     let ItemLength = props.ItemLength;
@@ -34,6 +38,7 @@ const SchichtplanElementReview = (props) => {
     let currentItem = props.currentItem[col];
     let isFree;
     let hasPrio;
+    let hasNotice;
     let anzahl;
     let prio;
     let hasApplicants;
@@ -49,6 +54,7 @@ const SchichtplanElementReview = (props) => {
         hasApplicants =  getHasApplicants(currentItem, "setApplicants");
         ApplicantsLength = getApplicantsLength(currentItem, "setApplicants");
         hasPrio = getHasPrio(currentItem);
+        hasNotice = getHasNotice(currentItem);
         prio = setPrioValue(currentItem);
         FirstApplicant = getFirstApplicant(currentItem, "setApplicants");
         SecondApplicant = getSecondApplicant(currentItem, "setApplicants");
@@ -60,26 +66,26 @@ const SchichtplanElementReview = (props) => {
         return editShiftDetails(currentItem, index, anzahl, editShift);
     } else if (isFree && isDiscribeWeekDay && !hasShiftName){
         return setShiftDetails(currentItem, index);
-    } else if (isFree && hasApplicants && ApplicantsLength === 2 && !isDiscribeWeekDay && hasPrio) {
-        return TwoSetApplicantsWithPrio(index, col, FirstApplicant, SecondApplicant, setApplicant, prio);
+    } else if (isFree && hasApplicants && ApplicantsLength === 2 && !isDiscribeWeekDay &&  (hasPrio || hasNotice)) {
+        return TwoSetApplicantsWithPrio(index, col, FirstApplicant, SecondApplicant, setApplicant);
     }  else if (isFree && hasApplicants && ApplicantsLength === 2 && !isDiscribeWeekDay) {
         return TwoSetApplicantsWithoutPrio(index, col, FirstApplicant, SecondApplicant, setApplicant);
-    } else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay && hasPrio) {
-        return MultipleSetApplicantsWithPrio(index, col, FirstApplicant, ApplicantsLength, setApplicant, prio);
+    } else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay &&  (hasPrio || hasNotice)) {
+        return MultipleSetApplicantsWithPrio(index, col, FirstApplicant, ApplicantsLength, setApplicant);
     }  else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay) {
         return MultiSetApplicantsWithoutPrio(index, col, FirstApplicant, ApplicantsLength, setApplicant);
     } else if (!isFree && !isDiscribeWeekDay) {
         return CompanyClosed();
-    } else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay && hasPrio) {
-        return SingleSetApplicantWithPrio(index, col, FirstApplicant, setApplicant, prio);
+    } else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay &&  (hasPrio || hasNotice)) {
+        return SingleSetApplicantWithPrio(index, col, FirstApplicant, setApplicant, setPrio);
     }  else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay) {
         return SingleSetApplicantWithoutPrio(index, col, FirstApplicant, setApplicant);
-    } else if (isFree && !hasApplicants && !isDiscribeWeekDay && hasPrio) {
-        return ZeroApplicantsWithPrio(index, col, setApplicant, prio);
+    } else if (isFree && !hasApplicants && !isDiscribeWeekDay &&  (hasPrio || hasNotice)) {
+        return ZeroApplicantsWithPrio(index, col, setApplicant);
     } else if (isFree && !hasApplicants && !isDiscribeWeekDay) {
         return ZeroApplicants(index, col, setApplicant);
     } else {
-        return Default();
+        return Default(index, col, setPrio);
     }
 };
 export default SchichtplanElementReview;

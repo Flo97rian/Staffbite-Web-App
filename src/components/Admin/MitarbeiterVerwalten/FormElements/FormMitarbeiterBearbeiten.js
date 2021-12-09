@@ -28,7 +28,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                         <Form.Label><p>Persönliche Daten</p></Form.Label>
                         <InputString info={true} description={INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME} label="Vorname, Nachname" name="name" placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputString>
                         <br/>
-                        <InputString info={true} description={INFO_EMPLOYEE_EMAIL_ADRESS} label="E-Mail Adresse" name="email"  placeholder={employee["email"]} onChange={(e) => props.onChange(e)}></InputString>
+                        <InputString info={true} description={INFO_EMPLOYEE_EMAIL_ADRESS} label="E-Mail Adresse" name="email"  placeholder={employee["email"]}></InputString>
                         <br/>
                         <InputNumber info={true} description={INFO_EMPLOYEE_HOURLY_WAGES} label="Stundenlohn in €" name="stundenlohn"  placeholder={employee["stundenlohn"]} onChange={(e) => props.onChange(e)}></InputNumber>
                         <br/>
@@ -67,7 +67,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                         <Form.Label><p>Persönliche Daten</p></Form.Label>
                         <InputString label="Vorname, Nachname" name="name" placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputString>
                         <br/>
-                        <InputString label="E-Mail Adresse" name="email"  placeholder={employee["email"]} onChange={(e) => props.onChange(e)}></InputString>
+                        <InputString label="E-Mail Adresse" name="email"  value={employee["email"]}></InputString>
                         <br/>
                         <Switch info={true} description={INFO_EMPLOYEE_VACATION} type="switch" label="Urlaub" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
                         <br/>

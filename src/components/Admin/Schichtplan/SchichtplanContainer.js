@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import 'moment/locale/de';
 import {
@@ -50,8 +51,10 @@ const SchichtplanContainer = () => {
   const [navIndex, setNavIndex] = useState(1);
   const [ShiftEmployees, setShiftEmployees] = useState(null);
   const [ShiftSwitch, setShiftSwitch] = useState(!1);
+  const [changeNotice, setChangeNotice] = useState(!1);
   const [ErrMsng, setErrMsng] = useState({MissingShiftDetails: !1, MissingShiftPosition: !1});
   let notificationAlert = useRef(null)
+  const location = useLocation();
 
   const selectMeta = state => state.Meta;
   const selectEmployees = state => state.DB.employees;
@@ -131,6 +134,11 @@ const SchichtplanContainer = () => {
   useEffect(() => {
   }, [navIndex]);
 
+
+  useEffect(() => {
+    console.log('Location changed');
+  }, [location]);
+
   const handleNavChange = (index) => {
     setNavIndex(index);
   };
@@ -158,6 +166,10 @@ const SchichtplanContainer = () => {
     if (event.target.checked !== !0) return !1;
       return !0;
   };
+
+  const handleChangeNotice = () => {
+    setChangeNotice(!changeNotice)
+  }
 
   // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
   const getModalKey = (allmodals) => {
@@ -215,10 +227,12 @@ const SchichtplanContainer = () => {
 
   const handleSetApplicant = (modal, updateApplicant) => {
     let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.changeNotice(userInput, ShiftSlot)
     copyPlan.adminSetApplicant(updateApplicant.current, ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch({type: "setShiftplan", payload: shiftplan})
     store.dispatch({type: "CLOSE", payload: modal})
+    setChangeNotice(!1);
   };
 
   function Notify (type, title, err) {
@@ -309,6 +323,8 @@ const SchichtplanContainer = () => {
     store.dispatch({type: "CLOSE", payload: index});
     }
     }
+
+
 
   //Dise Funktion sorgt für das Hinzufügen einer neuen Schicht zum jeweiligen Schichtplan
   const handleAddShift = (index) => {
@@ -505,7 +521,7 @@ const SchichtplanContainer = () => {
       { LoadingFetchingSafe ? <Spinner color="success" /> : <></>}
       { LoadingFetchingRelease ? <Spinner color="success" /> : <></>}
       </Col>
-      <Col xs={10} className="mt-2">
+      <Col xs={10} className="mt-2 mr-0">
       <ButtonSaveUpdate
           handleUpdate={handleUpdatedShiftPlanToDB}
           handleUpload={handleUploadShiftPlanToDB}
@@ -533,8 +549,9 @@ const SchichtplanContainer = () => {
             onClick={handlePublishShiftPlan}
             />
       <NeuerSchichtplanButton
-          title="neuen Schichtplan erstellen"
+          title="Vorlage erstellen"
           modal="showSchichtplanErstellen"
+          navIndex={navIndex}
           trigger={!ShiftPlanIsActive}>
           </NeuerSchichtplanButton>
       <ButtonZurueck
@@ -598,6 +615,7 @@ const SchichtplanContainer = () => {
             shiftplan={Shiftplan}
             Meta={Meta}
             employees={ShiftEmployees}
+            changeNotice={changeNotice}
             import={ShiftPlanIsImported}
             userInput={userInput} 
             checkTrue={getModalTrue}
@@ -609,6 +627,7 @@ const SchichtplanContainer = () => {
             onSave={handleNewShiftPlanSave}
             onHandleActiveInactiveShift={handleActiveInactiveShift}
             handlePrio={handlePrioShiftToDB}
+            handleChangeNotice={handleChangeNotice}
             onDelete={handleDeleteShiftPlan}
             handleLoeschen={handleDeleteShift}
             onSaveHinzufuegen={handleAddShift}

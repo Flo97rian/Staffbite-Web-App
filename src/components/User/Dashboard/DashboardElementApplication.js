@@ -10,7 +10,7 @@ import {
     ShowMultipleApplicantsWithUser,
     ShowSingleApplicantWithOutUser,
     ShowSingleApplicantWithUser,
-    Default
+    ShowDefault
 } from "../../Application/functionalComponents/SchichtplanElements";
 import { getIsObject, getSecondApplicant, getCompanyIsOpen, getAnzahl, getHasApplicants, getApplicantsLength, getFirstApplicant, getUserMatchesPosition, getUserMatchesPrio, getShiftIncludesApplicant } from "../../Application/functionalComponents/ElementFunctions";
 
@@ -65,7 +65,7 @@ const DashboardElementApplication = (props) => {
     } else if (!isFree && isDiscribeWeekDay){
         return ShiftDescription(currentItem, anzahl);
     }   else {
-        return Default(index, col);
+        return ShowDefault(index, col);
     }
 }
 export default DashboardElementApplication;

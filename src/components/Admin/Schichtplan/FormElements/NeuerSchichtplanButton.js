@@ -11,7 +11,7 @@ const NeuerSchichtplanButton = (props) => {
         )}
         return (
             <>
-                {props.trigger ? showButton() : <></>}
+                {props.trigger && props.navIndex === 1 ? showButton() : <></>}
             </>
         );
     }

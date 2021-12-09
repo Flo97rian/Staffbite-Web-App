@@ -1,10 +1,10 @@
 import { 
     CompanyClosedEntwurf,
     DateOrWeekDayRow,
-    shiftHasPrio,
+    Default,
+    DefaultWithPrio,
     setShiftDetails,
     editShiftDetails,
-    shiftSetPrio,
  } from "../../../Application/functionalComponents/SchichtplanElements";
 import store from "../../../../store";
 import { getIsObject, getCompanyIsOpen, getHasNotice, getAnzahl, getHasPrio, getHasShiftName, setPrioValue} from "../../../Application/functionalComponents/ElementFunctions";
@@ -57,9 +57,9 @@ const SchichtplanElementEntwurf = (props) => {
     } else if (!isFree && !isDiscribeWeekDay) {
         return CompanyClosedEntwurf(index, col, setPrio);
     } else if (hasPrio || hasNotice) {
-        return shiftHasPrio(index, col, prio, setPrio, setActive);
+        return DefaultWithPrio(index, col, setPrio);
     } else {
-        return shiftSetPrio(index, col, prio, setPrio, setActive);
+        return Default(index, col, setPrio);
     }
 
 };

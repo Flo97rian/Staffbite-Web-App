@@ -119,13 +119,13 @@ export default class ShiftPlan {
         let WeekDaysDetails = {};
         const hasAtLeastOneShift = copyPlan[2].Wochentag !== "Summe" ? !0 : !1;
         if (hasAtLeastOneShift) {
-              WeekDaysDetails["Montag"] = {frei: copyPlan[2].Montag.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Dienstag"] = {frei: copyPlan[2].Dienstag.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Mittwoch"] = {frei: copyPlan[2].Mittwoch.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Donnerstag"] = {frei: copyPlan[2].Donnerstag.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Freitag"] = {frei: copyPlan[2].Freitag.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Samstag"] = {frei: copyPlan[2].Samstag.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Sonntag"] = {frei: copyPlan[2].Sonntag.frei, anzahl: userInput.anzahl};
+              WeekDaysDetails["Montag"] = {frei: copyPlan[2].Montag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Dienstag"] = {frei: copyPlan[2].Dienstag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Mittwoch"] = {frei: copyPlan[2].Mittwoch.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Donnerstag"] = {frei: copyPlan[2].Donnerstag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Freitag"] = {frei: copyPlan[2].Freitag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Samstag"] = {frei: copyPlan[2].Samstag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Sonntag"] = {frei: copyPlan[2].Sonntag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
         }
         return WeekDaysDetails;
         };
@@ -285,9 +285,22 @@ export default class ShiftPlan {
             addApplicantsToShiftplan(updateApplicant, copyPlan, row, day);
           }
         } else {
-          addApplicantsToShiftplan(updateApplicant, copyPlan, row, day);
+          if(!checkForDummyApplicant(updateApplicant)) {
+            addApplicantsToShiftplan(updateApplicant, copyPlan, row, day);
+          }
         }
         return copyPlan;
+      }
+      function checkForDummyApplicant(updateApplicant) {
+        let isDummy = !1;
+        let updateApplicantsLength = updateApplicant.length;
+        if(updateApplicantsLength === 1) {
+          let id = updateApplicant[0].id
+          if(id.length === 1) {
+            isDummy = !0;
+          }
+        }
+        return isDummy;
       }
       function addApplicantsToShiftplan(updateApplicant, copyPlan, row, day) {
         updateApplicant.forEach(applicant => {
@@ -477,7 +490,7 @@ export default class ShiftPlan {
     let row = this.getRow(ShiftSlot);
     let day = this.getDay(ShiftSlot);
     let inputNotice = this.getInputNotice(userInput);
-    if(this.hasValidNotice(inputNotice)) {
+    if(this.hasNotice(inputNotice) && this.hasValidNotice(inputNotice)) {
       copyPlan[row][day].notice = inputNotice;
       this.plan = copyPlan;
     }
@@ -506,7 +519,7 @@ export default class ShiftPlan {
   hasValidNotice(inputNotice) {
     let valid = !1;
     let InputLength = inputNotice.length;
-    if(InputLength < 50) {
+    if(InputLength < 80) {
       valid = !0;
     }
     return valid;

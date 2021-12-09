@@ -10,7 +10,7 @@ import {
     ShowTwoApplicantsWithPrio,
     ShowSingleApplicant,
     ShowSingleApplicantWithPrio,
-    Default
+    ShowDefault
 } from "../../Application/functionalComponents/SchichtplanElements";
 import { getIsObject, getSecondApplicant, getCompanyIsOpen, getAnzahl, getHasApplicants, getApplicantsLength, getFirstApplicant, getHasPrio, setPrioValue } from "../../Application/functionalComponents/ElementFunctions";
 
@@ -58,7 +58,7 @@ const SchichtplanElementPublished = (props) => {
     }  else if (isFree && hasApplicants && !isDiscribeWeekDay) {
         return ShowSingleApplicant(FirstApplicant);
     } else {
-        return Default(index, col);
+        return ShowDefault(index, col);
     }
     };
 export default SchichtplanElementPublished;

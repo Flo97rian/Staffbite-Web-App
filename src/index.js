@@ -36,6 +36,7 @@ const onUpdate = () => {
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter onUpdate={onUpdate}>
+    <RouteChangeTracker />
     <Switch>
       <Route path="/" exact render={props => <Landing {...props} />} />
       <Route path="/signup" render={(props) => <SignUp {...props} />} />
@@ -51,7 +52,6 @@ ReactDOM.render(
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
       <Route path="/user" render={(props) => <UserLayout {...props} />} />
     </Switch>
-    <RouteChangeTracker />
   </BrowserRouter>
   </Provider>,
   document.getElementById('root')
