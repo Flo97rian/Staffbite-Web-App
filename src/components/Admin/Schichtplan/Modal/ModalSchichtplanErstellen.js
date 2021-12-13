@@ -17,7 +17,7 @@ const ModalSchichtplanErstellen = (props) => {
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
             >
                 <Modal.Header>
-                            <Label className="h3 mb-2 align-items-center">Schichtplan erstellen</Label>
+                            <Label className="h3 mb-2 align-items-center">Vorlage erstellen</Label>
                 </Modal.Header>
                 <Modal.Body>
                     <SchichtplanErstellen {...props}></SchichtplanErstellen>

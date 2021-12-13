@@ -33,6 +33,11 @@ const EinstellungenContainer = () => {
 
   useEffect(() => {
       store.dispatch(FetchOrg)
+      store.dispatch({ type: "ResetCurrentShiftPlan"})
+      store.dispatch({ type: "resetShiftplan"})
+      store.dispatch({ type: "ResetShiftSlot"})
+      store.dispatch({ type: "stopShiftPlanIsActive"})
+      store.dispatch({ type: "stopShiftPlanIsImported"})
     }, []); 
 
      useEffect(() => {

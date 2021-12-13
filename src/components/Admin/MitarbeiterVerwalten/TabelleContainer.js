@@ -42,6 +42,11 @@ const TableContainer = (props) => {
   useEffect(() => {
     store.dispatch(FetchEmployees);
     store.dispatch(FetchOrg);
+    store.dispatch({ type: "ResetCurrentShiftPlan"})
+    store.dispatch({ type: "resetShiftplan"})
+    store.dispatch({ type: "ResetShiftSlot"})
+    store.dispatch({ type: "stopShiftPlanIsActive"})
+    store.dispatch({ type: "stopShiftPlanIsImported"})
   }, []);
 
     // Initiales laden der aktuellen Users
@@ -195,7 +200,6 @@ const setSelectEmployee = (ma) => {
     let copyEmployee = new Employee(userInput);
     copyEmployee.createEmployee(userInput);
     let isValidEmployee = copyEmployee.getEmployeeDetails();
-    console.log(userInput)
     if (isValidEmployee === "InvalidInputForCreation") {
       setErrMsg({...errMsg, InvalidInputForCreation: !0})
     } else {

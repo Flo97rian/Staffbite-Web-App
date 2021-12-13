@@ -1,13 +1,16 @@
 import { 
     CompanyClosed,
+    CompanyClosedEntwurf,
     DateOrWeekDayRow,
     shiftHasPrio,
+    DefaultWithPrio,
+    Default,
     setShiftDetails,
     editShiftDetails,
     shiftSetPrio,
  } from "../../../Application/functionalComponents/SchichtplanElements";
 import store from "../../../../store";
-import { getIsObject, getCompanyIsOpen, getAnzahl, getHasPrio, getHasShiftName, setPrioValue, } from "../../../Application/functionalComponents/ElementFunctions";
+import { getIsObject, getCompanyIsOpen, getHasNotice, getAnzahl, getHasPrio, getHasShiftName, setPrioValue, } from "../../../Application/functionalComponents/ElementFunctions";
 
 export const SchichtplanElementNeu = (props) => {
 
@@ -15,6 +18,10 @@ export const SchichtplanElementNeu = (props) => {
         store.dispatch({type: "OPEN", payload: "prioIsActive"});
         store.dispatch({type: "setShiftSlot", payload: { row: index, col: col, prio: bool}});
     };
+
+    function setActive(index, col) {
+        props.handleActive(index, col);
+    }
 
 
     const editShift = (index) => {
@@ -28,6 +35,7 @@ export const SchichtplanElementNeu = (props) => {
     let prio;
     let isFree;
     let hasPrio;
+    let hasNotice;
     let anzahl;
     let hasShiftName;
     let isObj = getIsObject(currentItem);
@@ -36,10 +44,11 @@ export const SchichtplanElementNeu = (props) => {
         isFree = getCompanyIsOpen(currentItem);
         anzahl = getAnzahl(props.anzahl);
         hasPrio = getHasPrio(currentItem);
+        hasNotice = getHasNotice(currentItem);
         prio = setPrioValue(currentItem);
         hasShiftName = getHasShiftName(currentItem);
     }
-    if (index === 0 || index === 1 || index === ItemLength - 1 ) {
+    if (index === 0 || index === ItemLength - 1 ) {
         return DateOrWeekDayRow(currentItem);
     } else if (isFree && isDiscribeWeekDay && !hasShiftName){
         return setShiftDetails(index, editShift);
@@ -48,11 +57,11 @@ export const SchichtplanElementNeu = (props) => {
     }  else if (isFree && isDiscribeWeekDay) {
         return editShiftDetails(index, editShift);
     } else if (!isFree && !isDiscribeWeekDay) {
-        return CompanyClosed();
-    } else if (hasPrio) {
-        return shiftHasPrio(index, col, prio, setPrio, props.handleActiveShift);
+        return CompanyClosedEntwurf(index, col, setPrio);
+    } else if (hasPrio || hasNotice) {
+        return DefaultWithPrio(index, col, setPrio);
     } else {
-        return shiftSetPrio(index, col, prio, setPrio, props.handleActiveShift);
+        return Default(index, col, setPrio);
     }
 
 }

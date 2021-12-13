@@ -11,6 +11,9 @@ import Switch from "../../../Application/functionalComponents/Switch";
 import Form from 'react-bootstrap/Form';
 import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_EMPLOYEE_HOURLY_WAGES, INFO_EMPLOYEE_IS_ACTIVE, INFO_EMPLOYEE_MONTHLY_INCOME, INFO_EMPLOYEE_MONTHLY_WORKING_HOURES, INFO_EMPLOYEE_OVERTIME, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK, INFO_EMPLOYEE_VACATION } from "../../../../constants/InfoTexts";
 import FormPositions from "./FormPositons";
+import InputStringValid from "./InputStringValid";
+import { FEEDBACK_INVALID_EMPLOYEE_NAME, FEEDBACK_VALID_EMPLOYEE_NAME } from "../../../../constants/FeedbackText";
+import { validName } from "../../../Application/functionalComponents/ValidInputs";
 
 const FormMitarbeiterBearbeiten = (props) => {
         const employee = props.mitarbeiterdaten
@@ -26,9 +29,9 @@ const FormMitarbeiterBearbeiten = (props) => {
                     <Row>
                         <Col xs={5}>
                         <Form.Label><p>Persönliche Daten</p></Form.Label>
-                        <InputString info={true} description={INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME} label="Vorname, Nachname" name="name" placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputString>
+                        <InputStringValid info={true} description={INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME} label="Vorname, Nachname" name="name" placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputStringValid>
                         <br/>
-                        <InputString info={true} description={INFO_EMPLOYEE_EMAIL_ADRESS} label="E-Mail Adresse" name="email"  placeholder={employee["email"]} onChange={(e) => props.onChange(e)}></InputString>
+                        <InputString info={true} description={INFO_EMPLOYEE_EMAIL_ADRESS} label="E-Mail Adresse" name="email"  placeholder={employee["email"]}></InputString>
                         <br/>
                         <InputNumber info={true} description={INFO_EMPLOYEE_HOURLY_WAGES} label="Stundenlohn in €" name="stundenlohn"  placeholder={employee["stundenlohn"]} onChange={(e) => props.onChange(e)}></InputNumber>
                         <br/>
@@ -65,9 +68,9 @@ const FormMitarbeiterBearbeiten = (props) => {
                     <Row>
                         <Col xs={5}>
                         <Form.Label><p>Persönliche Daten</p></Form.Label>
-                        <InputString label="Vorname, Nachname" name="name" placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputString>
+                        <InputStringValid info={true} label="Vorname, Nachname" name="name" valid={FEEDBACK_VALID_EMPLOYEE_NAME} invalid={FEEDBACK_INVALID_EMPLOYEE_NAME} isValid={validName(props.userInput.name)} currentValue={props.userInput.name} placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputStringValid>
                         <br/>
-                        <InputString label="E-Mail Adresse" name="email"  placeholder={employee["email"]} onChange={(e) => props.onChange(e)}></InputString>
+                        <InputString label="E-Mail Adresse" name="email"  value={employee["email"]}></InputString>
                         <br/>
                         <Switch info={true} description={INFO_EMPLOYEE_VACATION} type="switch" label="Urlaub" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
                         <br/>

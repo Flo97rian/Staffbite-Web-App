@@ -1,28 +1,22 @@
 import React, { useRef } from "react";
 import {
-    Col,
-    Row,
-    Button
+    Button,
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
 import store from "../../../../store"
 import DragAndDrop from "../FormElements/DragAndDrop";
+import FormSetApplicantsDetails from "../FormElements/FormSetApplicantsDetails";
 
 const ModalSchichtAuswaehlen = (props) => {
-    const tag = props.bewerber.col;
+    const day = props.bewerber.col;
     const row = props.bewerber.row;
     const shiftplan = props.shiftplan.plan
-    console.log(shiftplan[row][tag])
-    const applicants = shiftplan[row][tag].setApplicants
-
-    const applyedApplicants = shiftplan[row][tag].applicants
-    const validApplicants = shiftplan[row][tag].setValidApplicants
-    const shiftname = shiftplan[row]["Wochentag"].ShiftName
+    let shift = shiftplan[row][day];
+    const applicants = shift.setApplicants
+    const applyedApplicants = shift.applicants
+    const validApplicants = shift.setValidApplicants
     const position = shiftplan[row]["Wochentag"].ShiftPosition;
-    const shiftstart = shiftplan[row]["Wochentag"].ShiftStart
-    const shiftend = shiftplan[row]["Wochentag"].ShiftEnd
-    const shiftanzahl = shiftplan[row][tag].anzahl
+    const shiftanzahl = shift.anzahl
 
     const DragAndDropRef = useRef()
         return (
@@ -39,15 +33,7 @@ const ModalSchichtAuswaehlen = (props) => {
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <Row className="text-center">
-                        <Col xs={6}>
-                            <br/>
-                            <Form.Label>Schicht</Form.Label>
-                        </Col>
-                        <Col xs={6}>
-                            <p>{shiftname}<br/> {tag}  <br/> {shiftstart} - {shiftend}</p>
-                        </Col>
-                    </Row>
+                    <FormSetApplicantsDetails {...props}/>
                     <br/>
                     <DragAndDrop
                     ref={DragAndDropRef}

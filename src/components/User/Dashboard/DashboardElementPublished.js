@@ -8,7 +8,7 @@ import {
     ShowSingleApplicantWithOutUser,
     ShowSingleApplicantWithUser,
     ShowMultipleApplicantsWithUser,
-    Default
+    ShowDefault
 } from "../../Application/functionalComponents/SchichtplanElements";
 import { 
     getIsObject,
@@ -70,9 +70,9 @@ const SchichtplanElementPublished = (props) => {
         }  else if (isFree && hasApplicants && ApplicantsLength === 1) {
             return ShowSingleApplicantWithOutUser(FirstApplicant);
         } else if (isFree && !isDiscribeWeekDay) {
-            return Default(index, col);
+            return ShowDefault(index, col);
         } else {
-            return Default(index, col);
+            return ShowDefault(index, col);
         }
     }
 export default SchichtplanElementPublished;

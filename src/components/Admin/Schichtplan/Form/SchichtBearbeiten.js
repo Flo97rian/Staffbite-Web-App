@@ -4,6 +4,8 @@ import {
     Row,
 } from "reactstrap"
 import InputString from "../../../Application/functionalComponents/InputString";
+import InputStringShiftName from "../../../Application/functionalComponents/InputStringShiftName"
+import { validShiftName } from "../../../Application/functionalComponents/ValidInputs";
 import InputTime from "../../../Application/functionalComponents/InputTime";
 import InputTimeWithSwitch from "../FormElements/InputTimeWithSwitch";
 import InputNumber from "../../../Application/functionalComponents/InputNumber";
@@ -30,7 +32,7 @@ const SchichtBearbeiten = (props) => {
                 <Row>
                     <Col xs={1} ></Col>
                     <Col xs={10} >
-                        <InputString info={true} description={INFO_SHIFTPLAN_SHIFT_NAME} label="Name der Schicht" name="rolle" placeholder={shiftDetails.ShiftName} onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputString>
+                        <InputStringShiftName info={true} description={INFO_SHIFTPLAN_SHIFT_NAME} label="Name der Schicht" name="rolle" currentValue={props.userInput.rolle} isValid={validShiftName(props.userInput.rolle, shiftDetails.ShiftName)} placeholder={shiftDetails.ShiftName} onChange={(e) => props.onChange(e, "changeSchichtplan")}></InputStringShiftName>
                         <br/>
                         <SelectPosition {...props} shiftDetails={shiftDetails}></SelectPosition>
                         <br/>

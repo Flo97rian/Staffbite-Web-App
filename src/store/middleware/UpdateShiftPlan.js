@@ -20,6 +20,7 @@ export function thunkUpdateShiftPlan(shiftplan) {
       dispatch({type: "stopShiftPlanIsActive"});
       dispatch({type: "stopShiftPlanIsImported"});
       dispatch({type: "resetShiftplan"});
+      dispatch({ type: "ResetShiftSlot"});
       dispatch({type: "ResetCurrentShiftPlan"});
     })
   }

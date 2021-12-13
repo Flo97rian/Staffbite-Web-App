@@ -9,7 +9,6 @@ export async function FetchEmployeePlansFromDB(dispatch, getState) {
         const myInit = { // OPTIONAL
             body: user.attributes
         };
-        console.log(user);
         return API.post(apiName, path, myInit)
         })
         .then(response => {

@@ -56,12 +56,12 @@ function Pricing () {
                 </Container>
                 <Container className="mb-4 pt-4">
                   <Card className="shadow">
-                    <h3 className="pl-3 pt-3 pb-0 mb-0">Funktionalitäten in allen Paketen</h3>
+                    <h3 className="pl-3 pt-3 pb-0 mb-0">Diese Funktionalitäten sind in allen Paketen enthalten!</h3>
                     <Row className="align-items-center p-1 pt-3">
                       <Col xs="12" lg="6">
                       <Row className="align-items-center">
                       <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
-                      <p class="text-muted lead m-0 p-0">digitaler Dienstplan</p>
+                      <p class="text-muted lead m-0 p-0">Digitaler Dienstplan</p>
                       </Row>
                       </Col>
                       <Col xs="12" lg="6">
@@ -93,6 +93,12 @@ function Pricing () {
                         </Row>
                       </Col>
                       <Col xs="12" lg="6">
+                      <Row className="align-items-center">
+                      <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                      <p class="text-muted lead m-0 p-0">Dein ganzes Team auf einen Blick</p>
+                      </Row>
+                      </Col>
+                      <Col xs="12" lg="6">
                         <Row className="align-items-center">
                         </Row>
                       </Col>
@@ -104,12 +110,12 @@ function Pricing () {
                 <Col lg="4">
                   <Card className="card-pricing bg-gradient-white zoom-in shadow-lg rounded border-0 text-center mb-4 card">
                   <CardHeader className="bg-transparent card-header">
-                      <h1 className="ls-1 text-info lead py-3 mb-0">Bis 25 Mitarbeiter</h1>
+                      <h2 className="h1 ls-1 text-info lead py-3 mb-0">Bis 25 Mitarbeiter</h2>
                     </CardHeader>
                     <CardBody className="p-lg-4">
-                    <h1 className="text-info display-2">
+                    <h3 className="h1 text-info display-2">
                         50€
-                      </h1>
+                      </h3>
                       <span class="text-info ls-1 p">pro Monat</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
@@ -119,22 +125,22 @@ function Pricing () {
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 mt-0 pt-0">
                     <span class="text-info ls-1 p">10% sparen</span>
-                    <h1 className="text-info display-3">
+                    <h3 className="h1 text-info display-3">
                       540€
-                    </h1>
-                    <span class="text-info ls-1 p">pro Jahr</span>
+                    </h3>
+                    <span class="text-info ls-1 p">bei jährlicher Zahlweise</span>
                     </CardFooter>
                   </Card>
                 </Col>
                 <Col lg="4">
                   <Card className="card-pricing bg-gradient-info zoom-in shadow-lg rounded border-0 text-center mb-4 card">
                   <CardHeader className="bg-transparent card-header">
-                      <h1 className="ls-1 text-white lead py-3 mb-0">Bis 50 Mitarbeiter</h1>
+                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Bis 50 Mitarbeiter</h2>
                     </CardHeader>
                     <CardBody className="p-lg-4">
-                    <h1 className="text-white display-2">
+                    <h3 className="h1 text-white display-2">
                         100€
-                      </h1>
+                      </h3>
                       <span class="text-white ls-1 p">pro Monat</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
@@ -144,22 +150,22 @@ function Pricing () {
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
                     <span class="text-white ls-1 p">10% sparen</span>
-                    <h1 className="text-white display-3">
+                    <h3 className="h1 text-white display-3">
                       1.080€
-                    </h1>
-                    <span class="text-white ls-1 p">pro Jahr</span>
+                    </h3>
+                    <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
                     </CardFooter>
                   </Card>
                 </Col>
                 <Col lg="4">
                   <Card className="card-pricing bg-gradient-success zoom-in shadow-lg rounded border-0 text-center mb-4 card">
                   <CardHeader className="bg-transparent card-header">
-                      <h1 className="ls-1 text-white lead py-3 mb-0">Ab 51 Mitarbeiter</h1>
+                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Ab 51 Mitarbeiter</h2>
                     </CardHeader>
                     <CardBody className="p-lg-4">
-                    <h1 className="text-white display-2">
+                    <h3 className="h1 text-white display-2">
                         150€
-                      </h1>
+                      </h3>
                       <span class="text-white ls-1 p">pro Monat</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
@@ -169,10 +175,10 @@ function Pricing () {
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
                     <span class="text-white ls-1 p">10% sparen</span>
-                    <h1 className="text-white display-3">
+                    <h3 className="h1 text-white display-3">
                       1.620€
-                    </h1>
-                    <span class="text-white ls-1 p">pro Jahr</span>
+                    </h3>
+                    <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
                     </CardFooter>
                   </Card>
                 </Col>

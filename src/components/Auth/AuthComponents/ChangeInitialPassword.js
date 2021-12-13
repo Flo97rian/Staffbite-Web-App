@@ -43,6 +43,11 @@ import { Switch, Redirect } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 
 const ChangeInitalPassword = (props) => {
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            props.signIn()
+        }
+      }
     return (
         <>
         <LandingNavbar 
@@ -71,7 +76,13 @@ const ChangeInitalPassword = (props) => {
                                 <i className="ni ni-lock-circle-open" />
                             </InputGroupText>
                             </InputGroupAddon>
-                            <Input placeholder="Altes Passwort" type="password" name="password" onChange={(e) => props.handleInputChange(e)}/>
+                            <Input 
+                            placeholder="Altes Passwort" 
+                            type="password" 
+                            name="password" 
+                            onChange={(e) => props.handleInputChange(e)}
+                            onKeyPress={(event) => handleKeyPress(event)}
+                            />
                         </InputGroup>
                         </FormGroup>
                         <FormGroup>
@@ -87,6 +98,7 @@ const ChangeInitalPassword = (props) => {
                             name="newpassword"
                             autoComplete="off"
                             onChange={(e) => props.handleInputChange(e)}
+                            onKeyPress={(event) => handleKeyPress(event)}
                             />
                         </InputGroup>
                         </FormGroup>
@@ -103,6 +115,7 @@ const ChangeInitalPassword = (props) => {
                         name="passwordAgain"
                         autoComplete="off"
                         onChange={(e) => props.handleInputChange(e)}
+                        onKeyPress={(event) => handleKeyPress(event)}
                         />
                     </InputGroup>
                     </FormGroup>

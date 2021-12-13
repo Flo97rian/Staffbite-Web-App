@@ -76,6 +76,7 @@ const Login = () => {
      useEffect(() => {
     }, [user]);
 
+
     async function confirmUserAttribute() {
         // To verify attribute with the code
         Auth.verifyCurrentUserAttributeSubmit("email", code)
@@ -95,28 +96,24 @@ const Login = () => {
             console.log(error);
         }
     }
+
     async function signIn() {
         try {
             const user = await Auth.signIn(username, password);
+            let userAttributes = user.attributes;
             console.log(user)
-            if ("challengeName" in user && !newpassword) {
-                console.log("reset")
-                setAuthState(AuthState.ResetPassword);
-                setUser(user);
-            } else if ("challengeName" in user && newpassword !== null) {
-                changePassword(password, newpassword);
-                setAuthState();
-            } else if (!("email_verified" in user.attributes) && await Auth.verifiedContact(user)) {
-                let varify = await Auth.verifiedContact(user)
-                console.log(varify)
-                if("email" in varify.unverified) {
-                    sendVerifyCurrentUserAttribute()
-                } else {
-                    setAuthState(AuthState.SignedIn);
+            // neuer MA hat challengeName "NEW_PASSWORD_REQUIRED"
+            if ("challengeName" in user) {
+                if(!newpassword) {
+                    setAuthState(AuthState.ResetPassword);
                     setUser(user);
-                    store.dispatch({type:"currentUser", payload: user.attributes})
+                } else if (newpassword !== null) {
+                    changePassword(password, newpassword);
+                    setAuthState();
                 }
-            } else {
+            } else if (userAttributes !== undefined && !("email_verified" in userAttributes)) {
+                sendVerifyCurrentUserAttribute()
+            }else {
                 setAuthState(AuthState.SignedIn);
                 setUser(user);
                 store.dispatch({type:"currentUser", payload: user.attributes})

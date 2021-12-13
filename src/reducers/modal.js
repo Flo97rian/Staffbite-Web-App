@@ -6,10 +6,7 @@ const modalReducer = (state = !1, action) => {
         [action.payload]: !0
       }
     case "CLOSE":
-      return {
-        ...state,
-        [action.payload]: !1
-      }
+      return !1
     default:
       return state
   }

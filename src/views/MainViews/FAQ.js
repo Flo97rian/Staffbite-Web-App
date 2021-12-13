@@ -64,15 +64,15 @@ function FAQ () {
                 <Card 
                 className="p-3"
                 onClick={(() => toggleOpen("Registrieren"))}>
-                    <h3 className="mb-0">
+                    <h2 className="h3 mb-0">
                       Wie kann ich meinen Betrieb bei Staffbite registrieren?
                       {open.Registrieren ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
-                    </h3>
+                    </h2>
                     {open.Registrieren 
                     ? 
                     <>
                       <p className="mt-2">
-                      Um deinen Betrieb zu registrieren, kannst du einfach oben auf unserer Website auf „Kostenlos Testen“ klicken. Anschließend benötigst du deine Mailadresse und ein sicheres Passwort. Hierbei fallen keinerlei Kosten an – starte direkt in deinen <Link to="/signup" target="_blank">kostenloser Probemonat</Link>!
+                      Um deinen Betrieb zu registrieren, kannst du einfach oben auf unserer Website auf „Kostenlos Testen“ klicken. Anschließend benötigst du deine Mailadresse und ein sicheres Passwort. Hierbei fallen keinerlei Kosten an – starte direkt in deinen <Link to="/signup" target="_blank">kostenlosen Probemonat</Link>!
                       In diesem Video kannst du mehr über die Registrierung und die ersten Schritte mit Staffbite erfahren.
                       </p>
                       <Link to={{ pathname: "https://youtu.be/R0SpszGT0k8" }} target="_blank">Zum Video: Wie registriere ich meinen Betrieb?</Link>
@@ -87,10 +87,10 @@ function FAQ () {
               <Card 
                 className="p-3"
                 onClick={(() => toggleOpen("MitarbeiterAnlegen"))}>
-                    <h3 className="mb-0">
+                    <h2 className="h3 mb-0">
                       Wie kann ich meine Mitarbeiter*innen anlegen? 
                       {open.MitarbeiterAnlegen ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
-                    </h3>
+                    </h2>
                     {open.MitarbeiterAnlegen 
                     ? 
                     <>
@@ -112,10 +112,10 @@ function FAQ () {
               <Card 
                 className="p-3"
                 onClick={(() => toggleOpen("SchichtenTauschen"))}>
-                    <h3 className="mb-0">
+                    <h2 className="h3 mb-0">
                       Wie kann mein Team untereinander Schichten tauschen?
                       {open.SchichtenTauschen ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
-                      </h3>
+                      </h2>
                     {open.SchichtenTauschen 
                     ? 
                     <>
@@ -133,15 +133,15 @@ function FAQ () {
               <Card 
                 className="p-3"
                 onClick={(() => toggleOpen("Support"))}>
-                    <h3 className="mb-0">
-                      Wann sind die Supportzeiten? 
+                    <h2 className="h3 mb-0">
+                      Wie erhalte ich Support? 
                       {open.Support ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
-                      </h3>
+                      </h2>
                     {open.Support 
                     ? 
                     <>
                       <p className="mt-2">
-                        In kürze Verfügbar!
+                        Wenn du Support benötigst, schreib uns einfach eine Mail an: info@staffbite.de - wir melden uns schnellstmöglich bei dir!
                       </p>
                     </>
                   :
@@ -154,15 +154,15 @@ function FAQ () {
               <Card 
                 className="p-3"
                 onClick={(() => toggleOpen("ProbeMonat"))}>
-                    <h3 className="mb-0">
+                    <h2 className="h3 mb-0">
                       Wie bekomme ich den kostenlosen Probemonat?
                       {open.ProbeMonat ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
-                      </h3>
+                      </h2>
                     {open.ProbeMonat 
                     ? 
                     <>
                       <p className="mt-2">
-                        In kürze Verfügbar!
+                        Um den Probemonat zu bekommen, musst du dich einfach <Link to="/signup" target="_blank">registrieren</Link>. Es fallen keinerlei Kosten für dich an.
                       </p>
                     </>
                   :

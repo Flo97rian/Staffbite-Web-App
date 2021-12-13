@@ -1,13 +1,13 @@
 import { 
-    CompanyClosed,
+    CompanyClosedEntwurf,
     DateOrWeekDayRow,
-    shiftHasPrio,
+    Default,
+    DefaultWithPrio,
     setShiftDetails,
     editShiftDetails,
-    shiftSetPrio,
  } from "../../../Application/functionalComponents/SchichtplanElements";
 import store from "../../../../store";
-import { getIsObject, getCompanyIsOpen, getAnzahl, getHasPrio, getHasShiftName, setPrioValue} from "../../../Application/functionalComponents/ElementFunctions";
+import { getIsObject, getCompanyIsOpen, getHasNotice, getAnzahl, getHasPrio, getHasShiftName, setPrioValue} from "../../../Application/functionalComponents/ElementFunctions";
 
 const SchichtplanElementEntwurf = (props) => {
 
@@ -33,6 +33,7 @@ const SchichtplanElementEntwurf = (props) => {
     let prio;
     let isFree;
     let hasPrio;
+    let hasNotice;
     let anzahl;
     let hasShiftName;
     let isObj = getIsObject(currentItem);
@@ -41,21 +42,24 @@ const SchichtplanElementEntwurf = (props) => {
         isFree = getCompanyIsOpen(currentItem);
         anzahl = getAnzahl(props.anzahl);
         hasPrio = getHasPrio(currentItem);
+        hasNotice = getHasNotice(currentItem);
         prio = setPrioValue(currentItem);
         hasShiftName = getHasShiftName(currentItem);
     }
-    if (index === 0 || index === 1 || index === ItemLength - 1 ) {
-        return DateOrWeekDayRow(currentItem);
+    if (index === 0 || index === ItemLength - 1 ) {
+        return DateOrWeekDayRow(currentItem);  
+    } else if (index === 1 && !isObj){
+        return DateOrWeekDayRow(currentItem);  
     } else if (isFree && isDiscribeWeekDay && !hasShiftName){
         return setShiftDetails(index, editShift);
     } else if (!isFree && isDiscribeWeekDay){
         return editShiftDetails(currentItem, index, anzahl, editShift);
     } else if (!isFree && !isDiscribeWeekDay) {
-        return CompanyClosed();
-    } else if (hasPrio) {
-        return shiftHasPrio(index, col, prio, setPrio, setActive);
+        return CompanyClosedEntwurf(index, col, setPrio);
+    } else if (hasPrio || hasNotice) {
+        return DefaultWithPrio(index, col, setPrio);
     } else {
-        return shiftSetPrio(index, col, prio, setPrio, setActive);
+        return Default(index, col, setPrio);
     }
 
 };

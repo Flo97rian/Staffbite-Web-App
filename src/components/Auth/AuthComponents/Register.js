@@ -16,7 +16,7 @@
 
 */
 import React, { useState, useEffect } from "react";
-
+import { HashLink } from 'react-router-hash-link';
 // reactstrap components
 import {
   Button,
@@ -26,6 +26,7 @@ import {
   FormGroup,
   Form,
   Input,
+  Label,
   Alert,
   InputGroupAddon,
   InputGroupText,
@@ -43,6 +44,11 @@ import { Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 
 const Register = (props) => {
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            props.signUp()
+        }
+      }
     return (
 <>
             <LandingNavbar 
@@ -74,7 +80,13 @@ const Register = (props) => {
                     <Card className="bg-white shadow border-0 mb-4">
                         <CardHeader className="bg-white pb-2">
                         <div className="text-muted text-center pt-4">
-                            <h3>Registrieren</h3>
+                            <h3>Deine Anmeldung zum Probemonat!</h3>
+                            <p className="p-0 m-0">
+                            Registriere dich hier und es geht sofort los.
+                            </p>
+                            <p className="p-0 m-0">
+                            Du erhälst einen vollständigen Account und kannst unsere Lösung in Ruhe ausprobieren.
+                            </p>
                         </div>
                         </CardHeader>
                         <CardBody className="px-lg-5 py-lg-5">
@@ -86,7 +98,13 @@ const Register = (props) => {
                                     <i className="ni ni-email-83" />
                                 </InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Email" type="email" name="username" onChange={(e) => props.handleInputChange(e)}/>
+                                <Input 
+                                    placeholder="Email" 
+                                    type="email" 
+                                    name="username" 
+                                    onChange={(e) => props.handleInputChange(e)}
+                                    onKeyPress={(event) => handleKeyPress(event)}
+                                    />
                             </InputGroup>
                             </FormGroup>
                             <FormGroup>
@@ -101,6 +119,7 @@ const Register = (props) => {
                                 type="password"
                                 name="password"
                                 autoComplete="off"
+                                onKeyPress={(event) => handleKeyPress(event)}
                                 onChange={(e) => props.handleInputChange(e)}
                                 />
                             </InputGroup>
@@ -117,6 +136,7 @@ const Register = (props) => {
                                 type="password"
                                 name="passwordAgain"
                                 autoComplete="off"
+                                onKeyPress={(event) => handleKeyPress(event)}
                                 onChange={(e) => props.handleInputChange(e)}
                                 />
                             </InputGroup>
@@ -135,6 +155,15 @@ const Register = (props) => {
                                     match: "Passwörter stimmen überein",
                                 }}
                             />
+                            <FormGroup className="p-4">
+                                <Input type="checkbox" onChange={(e) => props.checkChanged(e)}/>
+                                <Label check>
+                                    <a>Ich bin einverstanden mit den </a>
+                                    <HashLink className="p text-muted p-0" to="/impressum/#sectionagb">
+                                        AGB's.
+                                    </HashLink>
+                                </Label>
+                            </FormGroup>
                             <div className="text-center">
                             <Button
                                 className="my-4"
@@ -148,7 +177,7 @@ const Register = (props) => {
                         </Form>
                         <Row className="mt-3">
                         <Col xs="6">
-                        <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
+                        <Link to="/auth" className=""><small>Zurück</small></Link>
                         </Col>
                         <Col className="text-right" xs="6">
                         </Col>

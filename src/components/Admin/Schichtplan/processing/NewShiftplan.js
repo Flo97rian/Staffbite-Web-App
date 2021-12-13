@@ -93,8 +93,12 @@ export default class NewShiftPlan {
 
       function addDayKeysToShifts (copyPlan) {
         let len = copyPlan.length;
-        Object.keys(copyPlan[1]).forEach(key => {for (let i = 2; i < len ; i++) {
-          copyPlan[i][key] = {};
+        Object.keys(copyPlan[0]).forEach(key => {for (let i = 1; i < len ; i++) {
+          if(key === "Wochentag") {
+            copyPlan[i][key] = {};
+          } else {
+            copyPlan[i][key] = {applicants: {}, setApplicants: {}, notice: "", prio: !1};
+          }
         }});
         return copyPlan;
       }
@@ -102,7 +106,7 @@ export default class NewShiftPlan {
       function createActiveInactiveDay (copyPlan, userInput) {
         let len = copyPlan.length;
         Object.keys(copyPlan[1]).forEach(key => {
-          for (let i = 2; i < len; i++) {
+          for (let i = 1; i < len; i++) {
             userInput[key] ? copyPlan[i][key].frei = !1 : copyPlan[i][key].frei = !0;
           }
         });
@@ -118,9 +122,6 @@ export default class NewShiftPlan {
       this.name = addName(userInput);
       this.id = addId();
       this.schichtentag = addSchichtentag(userInput);
-      this.zeitraum = addZeitraum(Dates);
-      copyPlan = addDatesToPlan(copyPlan, this.zeitraum);
-      copyPlan = switchPlansOrder(copyPlan, 0, 1);
       addShiftsToPlan(copyPlan, this.schichtentag);
       addDayKeysToShifts(copyPlan);
       createActiveInactiveDay(copyPlan, userInput);
@@ -148,6 +149,7 @@ export default class NewShiftPlan {
       Wochentag["ShiftName"] = userInput.rolle;
       Wochentag["ShiftStart"] = userInput.beginn;
       Wochentag["ShiftEnd"] = userInput.ende;
+      Wochentag["ShiftPosition"] = userInput.position;
       return Wochentag;
     };
 
@@ -155,13 +157,13 @@ export default class NewShiftPlan {
       let WeekDaysDetails = {};
       const hasAtLeastOneShift = copyPlan[2].Wochentag !== "Summe" ? !0 : !1;
       if (hasAtLeastOneShift) {
-            WeekDaysDetails["Montag"] = {frei: copyPlan[2].Montag.frei, anzahl: userInput.anzahl};
-            WeekDaysDetails["Dienstag"] = {frei: copyPlan[2].Dienstag.frei, anzahl: userInput.anzahl};
-            WeekDaysDetails["Mittwoch"] = {frei: copyPlan[2].Mittwoch.frei, anzahl: userInput.anzahl};
-            WeekDaysDetails["Donnerstag"] = {frei: copyPlan[2].Donnerstag.frei, anzahl: userInput.anzahl};
-            WeekDaysDetails["Freitag"] = {frei: copyPlan[2].Freitag.frei, anzahl: userInput.anzahl};
-            WeekDaysDetails["Samstag"] = {frei: copyPlan[2].Samstag.frei, anzahl: userInput.anzahl};
-            WeekDaysDetails["Sonntag"] = {frei: copyPlan[2].Sonntag.frei, anzahl: userInput.anzahl};
+            WeekDaysDetails["Montag"] = {frei: copyPlan[2].Montag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+            WeekDaysDetails["Dienstag"] = {frei: copyPlan[2].Dienstag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+            WeekDaysDetails["Mittwoch"] = {frei: copyPlan[2].Mittwoch.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+            WeekDaysDetails["Donnerstag"] = {frei: copyPlan[2].Donnerstag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+            WeekDaysDetails["Freitag"] = {frei: copyPlan[2].Freitag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+            WeekDaysDetails["Samstag"] = {frei: copyPlan[2].Samstag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+            WeekDaysDetails["Sonntag"] = {frei: copyPlan[2].Sonntag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
       }
       return WeekDaysDetails;
       };

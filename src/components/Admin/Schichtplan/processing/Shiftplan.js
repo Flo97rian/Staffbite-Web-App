@@ -1,3 +1,4 @@
+import { keys } from "lodash";
 import shiftplanStates from "../../../Application/defaults/ShiftplanDefault";
 
 export default class ShiftPlan {
@@ -118,13 +119,13 @@ export default class ShiftPlan {
         let WeekDaysDetails = {};
         const hasAtLeastOneShift = copyPlan[2].Wochentag !== "Summe" ? !0 : !1;
         if (hasAtLeastOneShift) {
-              WeekDaysDetails["Montag"] = {frei: copyPlan[2].Montag.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Dienstag"] = {frei: copyPlan[2].Dienstag.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Mittwoch"] = {frei: copyPlan[2].Mittwoch.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Donnerstag"] = {frei: copyPlan[2].Donnerstag.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Freitag"] = {frei: copyPlan[2].Freitag.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Samstag"] = {frei: copyPlan[2].Samstag.frei, anzahl: userInput.anzahl};
-              WeekDaysDetails["Sonntag"] = {frei: copyPlan[2].Sonntag.frei, anzahl: userInput.anzahl};
+              WeekDaysDetails["Montag"] = {frei: copyPlan[2].Montag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Dienstag"] = {frei: copyPlan[2].Dienstag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Mittwoch"] = {frei: copyPlan[2].Mittwoch.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Donnerstag"] = {frei: copyPlan[2].Donnerstag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Freitag"] = {frei: copyPlan[2].Freitag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Samstag"] = {frei: copyPlan[2].Samstag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
+              WeekDaysDetails["Sonntag"] = {frei: copyPlan[2].Sonntag.frei, anzahl: userInput.anzahl, applicants: {}, setApplicants: {}, notice: "", prio: !1};
         }
         return WeekDaysDetails;
         };
@@ -164,6 +165,16 @@ export default class ShiftPlan {
             return newShift
           })
         return copyPlan
+        }
+
+        function getShiftIndexs(plan) {
+          let indexArray = []
+          plan.forEach((row, index) => {
+            if(typeof row.Wochentag === "object") {
+              indexArray.push(index)
+            }
+          })
+          return indexArray
         }
 
         this.plan = deleteIdsFromDnD(plan, shiftplan)
@@ -271,8 +282,10 @@ export default class ShiftPlan {
       let day = ShiftSlot.col;
 
       function getAddRemove(updateApplicant, copyPlan, row, day) {
+        if(noSetApplicants(copyPlan, row, day)) {
+          copyPlan[row][day].setApplicants = {};
+        }
         let singleApplicant = hasSingleApplicant(copyPlan, row, day);
-        let mutlipleApplicants = hasApplicants(copyPlan, row, day);
         copyPlan[row][day].setApplicants = {};
         if (singleApplicant) {
           let empty = zeroApplicants(updateApplicant);
@@ -282,9 +295,22 @@ export default class ShiftPlan {
             addApplicantsToShiftplan(updateApplicant, copyPlan, row, day);
           }
         } else {
-          addApplicantsToShiftplan(updateApplicant, copyPlan, row, day);
+          if(!checkForDummyApplicant(updateApplicant)) {
+            addApplicantsToShiftplan(updateApplicant, copyPlan, row, day);
+          }
         }
         return copyPlan;
+      }
+      function checkForDummyApplicant(updateApplicant) {
+        let isDummy = !1;
+        let updateApplicantsLength = updateApplicant.length;
+        if(updateApplicantsLength === 1) {
+          let id = updateApplicant[0].id
+          if(id.length === 1) {
+            isDummy = !0;
+          }
+        }
+        return isDummy;
       }
       function addApplicantsToShiftplan(updateApplicant, copyPlan, row, day) {
         updateApplicant.forEach(applicant => {
@@ -319,6 +345,18 @@ export default class ShiftPlan {
           hasSetApplicants = !0;
         }
         return hasSetApplicants;
+      }
+      function noSetApplicants(copyPlan, row, day) {
+        let hasNoSetApplicants = !1;
+        let keys = getSlotKeys(copyPlan, row, day);
+        if (!keys.includes("setApplicants")) {
+          hasNoSetApplicants = !0;
+        }
+        return hasNoSetApplicants;
+      }
+
+      function getSlotKeys(copyPlan, row, day) {
+        return Object.keys(copyPlan[row][day])
       }
 
       function getSetApplicantsLength(copyPlan, row, day) {
@@ -374,8 +412,24 @@ export default class ShiftPlan {
         return slot;
     }
 
+    function willDoublicate(copyTauschanfrage, newTrade) {
+      let alreadySet = !1;
+      copyTauschanfrage.forEach(trade => {
+        let isTraderId = trade.traderId === newTrade.traderId;
+        let isDay = trade.col === newTrade.col;
+        let isRow = trade.row === newTrade.row;
+        if(isTraderId && isDay && isRow) {
+          alreadySet = !0;
+        }
+      })
+      return alreadySet;
+    }
+
     let newTrade = createTrade(User, ShiftSlot)
-    copyTauschanfrage.push(newTrade);
+    let alreadySetTrade = willDoublicate(copyTauschanfrage, newTrade);
+    if(!alreadySetTrade) {
+      copyTauschanfrage.push(newTrade);
+    }
     this.tauschanfrage = copyTauschanfrage;
     }
 
@@ -410,9 +464,17 @@ export default class ShiftPlan {
     function getShiftRows(plan) {
       let validArray = [];
       plan.forEach((row, index) => {
-        if(index !== 0 && index !== 1 && index !== getPlanLength(plan) - 1) {
-          validArray.push(validDetails(row.Wochentag))
-      }})
+        let isObject = typeof plan[0].Wochentag === "object"
+        if(!isObject && plan[0].Wochentag !== "Datum") {
+          if(index !== 0 && index !== getPlanLength(plan) - 1) {
+            validArray.push(validDetails(row.Wochentag))
+          }
+        } else {
+          if(index !== 0 && index !== 1 && index !== getPlanLength(plan) - 1) {
+            validArray.push(validDetails(row.Wochentag))
+          }
+        }
+      })
       return validArray;
     }
 
@@ -431,7 +493,7 @@ export default class ShiftPlan {
     function validDetails(Wochentag) {
       let isValid = !1;
       if(isObject(Wochentag)) {
-        if(hasShiftName) {
+        if(hasShiftName(Wochentag)) {
           isValid = !0;
         }
       }
@@ -457,36 +519,94 @@ export default class ShiftPlan {
     return shiftsHaveDetails;
   }
 
+  changeNotice(userInput, ShiftSlot) {
+    let copyPlan = [...this.plan]
+    let row = this.getRow(ShiftSlot);
+    let day = this.getDay(ShiftSlot);
+    let inputNotice = this.getInputNotice(userInput);
+    if(this.hasNotice(inputNotice) && this.hasValidNotice(inputNotice)) {
+      copyPlan[row][day].notice = inputNotice;
+      this.plan = copyPlan;
+    }
+  }
+
+  resetNotice(ShiftSlot) {
+    let copyPlan = [...this.plan]
+    let row = this.getRow(ShiftSlot);
+    let day = this.getDay(ShiftSlot);
+    copyPlan[row][day].notice = "";
+    this.plan = copyPlan;
+  }
+
+  getNotice(shift) {
+    return shift.notice;
+  }
+
+  hasNotice(notice) {
+    let valid = !1;
+    if(notice !== "") {
+      valid = !0; 
+    }
+    return valid;
+  }
+
+  hasValidNotice(inputNotice) {
+    let valid = !1;
+    let InputLength = inputNotice.length;
+    if(InputLength < 80) {
+      valid = !0;
+    }
+    return valid;
+  }
+
+  getInputNotice(userInput) {
+    return userInput.notice;
+  }
+
+  setPrio(ShiftSlot, qualifikation) {
+    let copyPlan = [...this.plan];
+    let row = this.getRow(ShiftSlot);
+    let day = this.getDay(ShiftSlot);
+    if(copyPlan[row][day].prio !== !1) {
+      copyPlan[row][day].prio = !1
+    } else {
+      copyPlan[row][day].prio = qualifikation;
+    }
+    this.plan = copyPlan;
+  }
+
   shiftIsActive(ShiftSlot) {
     let copyPlan = [...this.plan];
-    function getShift(copyPlan, row, day) {
-      return copyPlan[row][day]
-    }
-
-    function setActive (active) {
-      return !active;
-
-    }
-
-    function getIsActive(shift) {
-      return shift.frei;
-    }
-
-    function getRow(ShiftSlot) {
-      return ShiftSlot.row;
-    }
-
-    function getDay(ShiftSlot) {
-      return ShiftSlot.col;
-      }
-    let row = getRow(ShiftSlot);
-    let day = getDay(ShiftSlot);
-    let shift = getShift(copyPlan, row, day);
-    let isActive = getIsActive(shift);
-    let newIsActive = setActive(isActive);
+    let row = this.getRow(ShiftSlot);
+    let day = this.getDay(ShiftSlot);
+    let shift = this.getShift(copyPlan, row, day);
+    let isActive = this.getIsActive(shift);
+    let newIsActive = this.setActive(isActive);
     copyPlan[row][day].frei = newIsActive;
     this.plan = copyPlan;
   }
+
+
+  getShift(copyPlan, row, day) {
+    return copyPlan[row][day]
+  }
+
+  setActive (active) {
+    return !active;
+
+  }
+
+  getIsActive(shift) {
+    return shift.frei;
+  }
+
+  getRow(ShiftSlot) {
+    return ShiftSlot.row;
+  }
+
+  getDay(ShiftSlot) {
+    return ShiftSlot.col;
+    }
 
     getPlan () {
       return this.plan

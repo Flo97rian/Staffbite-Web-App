@@ -20,28 +20,61 @@ exports.handler = async (event, context, callback) => {
     console.log(body);
     let user = body.user;
     let plan = await getPlan(body);
-    let newShiftplan = null
-    if (body.newDate !== !1) {
+    let name = plan.name["S"];
+    if (name !== body.name && body.name !== "Name" && body.name !== "") {
+        name = body.name;
+    }
+    let newShiftplan = null;
         let shiftplan = JSON.parse(plan.data["S"])
         let keys = Object.keys(shiftplan[0]);
+        let createDates = {}
+        createDates["Wochentag"] = "Datum";
         keys.shift()
-        keys.forEach((key, index) => {
-            var startDate = new Date(body.newDate.startDate)
-            var nextDate = new Date(body.newDate.startDate)
-            nextDate.setDate(startDate.getDate() + index + 1);
-            var day = nextDate.getUTCDate()
-            var month = Number(nextDate.getUTCMonth()) + 1
-            var year = nextDate.getUTCFullYear()
-            console.log(day, month, year)
-            shiftplan[0][key] = day + "." + month + "." + year;
-        })
+        if (shiftplan[0].Wochentag === "Wochentag") {
+            if(body.newDate !== !1) {
+                keys.forEach((key, index) => {
+                    var startDate = new Date(body.newDate.startDate)
+                    var nextDate = new Date(body.newDate.startDate)
+                    console.log(body.newDate, body.newDate.startDate, startDate)
+                    nextDate.setDate(startDate.getDate() + index + 1);
+                    var day = nextDate.getUTCDate()
+                    var month = Number(nextDate.getUTCMonth()) + 1
+                    var year = nextDate.getUTCFullYear()
+                    console.log(day, month, year)
+                    createDates[key] = day + "." + month + "." + year;
+                })
+            } else {
+                keys.forEach((key, index) => {
+                    var startDate = new Date("2021-01-01T00:00:00.000Z")
+                    var nextDate = new Date("2021-01-01T00:00:00.000Z")
+                    nextDate.setDate(startDate.getDate() + index);
+                    var day = nextDate.getUTCDate()
+                    var month = Number(nextDate.getUTCMonth()) + 1
+                    var year = nextDate.getUTCFullYear()
+                    console.log(day, month, year)
+                    createDates[key] = day + "." + month + "." + year;
+                })
+            }
+            shiftplan.unshift(createDates)
+        } else {
+             if(body.newDate !== !1) {
+                keys.forEach((key, index) => {
+                    var startDate = new Date(body.newDate.startDate)
+                    var nextDate = new Date(body.newDate.startDate)
+                    console.log(body.newDate, body.newDate.startDate, startDate)
+                    nextDate.setDate(startDate.getDate() + index + 1);
+                    var day = nextDate.getUTCDate()
+                    var month = Number(nextDate.getUTCMonth()) + 1
+                    var year = nextDate.getUTCFullYear()
+                    console.log(day, month, year)
+                    createDates[key] = day + "." + month + "." + year;
+                })
+                shiftplan[0] = createDates;
+             }
+        }
         plan.SK["S"] = "PLAN#Freigeben#" + body.uuid;
         plan.zeitraum["S"] = shiftplan[0]["Montag"] + " - " + shiftplan[0]["Sonntag"]
         newShiftplan = shiftplan;
-    } else {
-        plan.SK["S"] = "PLAN#Freigeben#" + body.uuid;
-        newShiftplan = JSON.parse(plan.data["S"])
-    }
     
     console.log(plan.data["S"])
           var params = {
@@ -56,7 +89,7 @@ exports.handler = async (event, context, callback) => {
                  S:  JSON.stringify(newShiftplan)
                }, 
                name: {
-                 S: plan.name["S"]
+                 S: name
                 }, 
                schichtentag: {
                  N: plan.schichtentag["N"]

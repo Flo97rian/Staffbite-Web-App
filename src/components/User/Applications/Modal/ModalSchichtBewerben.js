@@ -1,22 +1,35 @@
 import React from "react";
 import {
     Col,
-    Row
+    Row,
+    Input,
+    Button
 } from "reactstrap"
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import FormNames from "../../Schichtplan/FormElements/FormNames";
 import store from "../../../../store";
+import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
+import { INFO_USER_NOTICE } from "../../../../constants/InfoTexts";
+import ShiftDetails from "../Form/ShiftDetails";
 
 const ModalSchichtBewerben = (props) => {
-    const tag = props.shiftslot.col;
+    const day = props.shiftslot.col;
     const row = props.shiftslot.row;
     const shiftplan = props.shiftplan.plan
-    const applyedApplicants = shiftplan[row][tag].applicants
-    const shiftname = shiftplan[row]["Wochentag"].ShiftName
-    const shiftstart = shiftplan[row]["Wochentag"].ShiftStart
-    const shiftend = shiftplan[row]["Wochentag"].ShiftEnd
+    let shift = shiftplan[row][day]
+    let includesApplicants = Object.keys(shift).includes("applicants")
+    function includesUser() {
+        let valid = !1;
+        if(includesApplicants) {
+            let applyedApplicants = shiftplan[row][day].applicants
+            if(props.User.SK in applyedApplicants) {
+                valid = !0;
+            }
+        }
+        return valid;
+
+    }
         return (
             <Modal 
                     size="lg"
@@ -30,38 +43,16 @@ const ModalSchichtBewerben = (props) => {
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Row className="text-center">
-                        <Col xs={5}>
-                            <Form.Label>Schicht</Form.Label>
-                        </Col>
-                        <Col xs={5}>
-                            <Form.Label>Auf Schicht beworben</Form.Label>
-                        </Col>
-                        <Col xs={2}>
-                            <Form.Label>Bewerbung zurückziehen</Form.Label>
-                        </Col>
-                    </Row>
-                    <br/>
-                    <Row className="text-center">
-                        <Col xs={5}>
-                            <Form.Label>{shiftname}<br/>{tag}, {shiftplan[0][tag]} <br/>{shiftstart} - {shiftend}</Form.Label>
-                        </Col>
-                        <Col xs={5}>
-                            {applyedApplicants
-                            ?
-                            <FormNames names={applyedApplicants}></FormNames>
-                            :
-                            <Form.Label>Leer</Form.Label>
-                            }
-                        </Col>
-                        <Col xs={2}>
-                            <Button variant="danger" onClick={() => props.onDelete(props.modalkey)}>X</Button>
-                        </Col>
-                    </Row>
+                    <ShiftDetails {...props}/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="success" onClick={() => props.onBewerben(props.modalkey)}> Bewerben </Button>  
-                    <Button onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
+                    <Button color="" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
+                    {includesUser()
+                    ?
+                    <Button className="" color="danger" onClick={() => props.onDelete(props.modalkey)}>Bewerbung zurückziehen</Button>
+                    :
+                    <Button color="success" onClick={() => props.onBewerben(props.modalkey)}> Bewerben </Button>  
+                    }
                 </Modal.Footer>
             </Modal>
         );

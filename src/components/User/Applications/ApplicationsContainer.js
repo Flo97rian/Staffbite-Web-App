@@ -4,6 +4,7 @@ import { getUser } from "../../../store/middleware/FetchUser";
 import { thunkUploadApplication } from "../../../store/middleware/UploadApplication";
 import Spinner from 'react-bootstrap/Spinner'
 import ButtonZurueck from "../../Admin/Schichtplan/FormElements/ButtonZurueck"
+import InfoSidebar from "../../Sidebar/InfoSidebar";
 import { thunkDeleteApplication } from "../../../store/middleware/DeleteApplication";
 import { useSelector } from "react-redux";
 import 'moment/locale/de';
@@ -30,6 +31,7 @@ const ApplicationsContainer = () => {
   const selectShiftSlot = state => state.shiftSlot;
   const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive;
   const selectLoadingFetchingPlans = state => state.loadings.isFetchingEmployeePlans;
+  const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
@@ -40,6 +42,7 @@ const ApplicationsContainer = () => {
   const currentShiftPlan = useSelector(selectCurrentShiftPlan);
   const Shiftplan = useSelector(selectShiftplan);
   const LoadingFetchingEmployeePlans = useSelector(selectLoadingFetchingPlans);
+  const SidebarInfo = useSelector(selectInfoSidebar);
 
 
   // Initiales laden der aktuellen Users
@@ -92,9 +95,7 @@ const ApplicationsContainer = () => {
   const handleUploadApplication = () => {
     store.dispatch({type: "startFetchingEmployeePlans"});
     store.dispatch(thunkUploadApplication(Shiftplan));
-    if ("saveChanges" in Modal) {
-      store.dispatch({type: "CLOSE", payload: "saveChanges"});
-    }
+    store.dispatch({type: "CLOSE"});
   }
 
   function onClickBack () {
@@ -189,6 +190,7 @@ const ApplicationsContainer = () => {
         <OpenModal
             show={Modal}
             plaene={Plans}
+            User={User}
             onDelete={handleDeleteApplication}
             onBewerben={handleSetApplication}
             shiftslot={ShiftSlot}
@@ -201,6 +203,8 @@ const ApplicationsContainer = () => {
             ></OpenModal>
       </>
       }
+       <InfoSidebar
+      sidebarInfo={SidebarInfo}/>
       </>
             );
         }

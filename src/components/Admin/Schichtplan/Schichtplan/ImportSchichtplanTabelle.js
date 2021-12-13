@@ -91,7 +91,37 @@ const  ImportSchichtplanTabelle = (props) => {
     let isImportedPlan = props.import;
     let hasPlans = isValidPlans(props.plans)
     let hasEmployees = isValidEmployees(props.employees)
+    let currentPlan = props.shiftplan.id;
     if(isActivePlan && isImportedPlan && hasPlans && hasEmployees) {
+        if(currentPlan.split("#").includes("Entwurf")) {
+            return (
+                <>
+                <Card>
+                    <CardBody>
+                        <Row className="text-center mt-4" noGutters={true}>
+                            <Col xs={4}>
+                                <p>Name</p>
+                                <p>{props.shiftplan.name}</p>
+                            </Col>
+                            <Col xs={4}>
+                                <p>Status</p>
+                                <PlanId id={props.shiftplan.id} ></PlanId>
+                            </Col>
+                            <Col xs={4}>
+                                <p>Legende</p>
+                                { getLegend()}
+                            </Col>
+                        </Row>
+                        <br/>
+                        <Row className="text-center" noGutters={true}>
+                            {selectTable()}
+                        </Row>
+                    </CardBody>
+                </Card>
+                    </>
+            );
+        } 
+        else if (!props.shiftplan.id.split("#").includes("Entwurf")) {
         let Montag = props.shiftplan.zeitraum.split(" - ")[0]
         let Sonntag = props.shiftplan.zeitraum.split(" - ")[1]
         return (
@@ -124,8 +154,9 @@ const  ImportSchichtplanTabelle = (props) => {
             </Card>
                 </>
         );
+    }
     } else {
         return null;
     }
-    }
+}
 export default ImportSchichtplanTabelle;

@@ -29,9 +29,9 @@ function Navs (props) {
               role="tab"
             >              
             {props.navIndex === 1 ? 
-              <p className="m-0 text-white">Entwurf</p>
+              <p className="m-0 text-white">Vorlage</p>
               :
-              <p className="m-0 text-muted">Entwurf</p>
+              <p className="m-0 text-muted">Vorlage</p>
               }
             </NavLink>
           </NavItem>

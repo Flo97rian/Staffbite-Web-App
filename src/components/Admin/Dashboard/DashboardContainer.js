@@ -62,6 +62,11 @@ const DashboardContainer = (props) => {
   useEffect(() => {
     store.dispatch(FetchFromDB);
     store.dispatch(FetchEmployees);
+    store.dispatch({ type: "ResetCurrentShiftPlan"})
+    store.dispatch({ type: "resetShiftplan"})
+    store.dispatch({ type: "ResetShiftSlot"})
+    store.dispatch({ type: "stopShiftPlanIsActive"})
+    store.dispatch({ type: "stopShiftPlanIsImported"})
   }, []);
 
   const handleFilterIsActive = (modal) => {

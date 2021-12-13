@@ -48,6 +48,7 @@ const LandingNavBar = (props) =>  {
               className="navbar-brand-img"
               height="40px"
               width="120px"
+              title="Staffbite"
               src={logo.imgSrc}
             />
           </NavbarBrand>
@@ -58,20 +59,22 @@ const LandingNavBar = (props) =>  {
             <UncontrolledDropdown inNavbar nav>
               <DropdownToggle className="pr-0 p-0 pt-2" nav >
               <p className="nav-link-inner--text text-muted p-0 mr-5 m-0">
-                Lösung
+                Unsere Lösung
               </p>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow bottom">
-                <DropdownItem className="noti-title" header tag="div">
-                  <h5 className="text-overflow m-0">digitaler Schichtplan</h5>
+                <DropdownItem className="noti-title" header tag="div"> 
+
                 </DropdownItem>
+                
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectioncreate">
+                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectionregister">
                   <p className="p-0 m-0">
-                      Schichtpläne erstellen
+                      Erste Anmeldung
                       </p>
                   </HashLink>
                 </DropdownItem>
+
                 <DropdownItem>
                   <HashLink className="p text-muted p-0" to="/shiftplan/#sectionteam">
                   <p className="p-0 m-0">
@@ -79,6 +82,23 @@ const LandingNavBar = (props) =>  {
                       </p>
                   </HashLink>
                 </DropdownItem>
+
+                <DropdownItem>
+                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectioncreate">
+                  <p className="p-0 m-0">
+                      Schichtplan erstellen
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+               
+                <DropdownItem>
+                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectionavailable">
+                  <p className="p-0 m-0">
+                      Verfügbarkeiten eintragen
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+
                 <DropdownItem>
                 <HashLink className="p text-muted p-0" to="/shiftplan/#sectionalg">
                 <p className="p-0 m-0">
@@ -86,6 +106,15 @@ const LandingNavBar = (props) =>  {
                       </p>
                   </HashLink>
                 </DropdownItem>
+                
+                <DropdownItem>
+                  <HashLink className="p text-muted p-0" to="/shiftplan/#sectiondone">
+                  <p className="p-0 m-0">
+                      Schichtplan veröffentlichen
+                      </p>
+                  </HashLink>
+                </DropdownItem>
+
                 <DropdownItem className="text-muted">
                 <HashLink className="p text-muted p-0" to="/shiftplan/#sectionapp">
                     <p className="p-0 m-0">
@@ -100,36 +129,12 @@ const LandingNavBar = (props) =>  {
                       Kontakt
                     </p>
                 </Link>
-              <UncontrolledDropdown  inNavbar nav>
-              <DropdownToggle className="pr-0 p-0 pt-2" nav >
-                <p className="nav-link-inner--text text-muted p-0 mr-5 m-0">
-                  Über uns
-                </p>
-              </DropdownToggle>
-                <DropdownMenu className="dropdown-menu-arrow bottom">
-                <DropdownItem>
-                  <Link className="p text-muted p-0" to="/aboutus">
-                  <p className="p-0 m-0">
+                <Link to='/aboutus' >
+                    <p className="nav-link-inner--text text-muted p-0 pt-2 mr-5 m-0">
                       Über uns
-                      </p>
-                  </Link>
-                </DropdownItem>
-                <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/impressum/#sectiondatasecurity">
-                  <p className="p-0 m-0">
-                      Datenschutz
-                      </p>
-                  </HashLink>
-                </DropdownItem>
-                <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/impressum/#sectionimpressum">
-                  <p className="p-0 m-0">
-                      Impressum
-                      </p>
-                  </HashLink>
-                </DropdownItem>
-              </DropdownMenu>
-              </UncontrolledDropdown>
+                    </p>
+                </Link>
+
               <Link to='/pricing' >
                     <p className="nav-link-inner--text text-muted p-0 pt-2 mr-5 m-0">
                       Preise
@@ -143,7 +148,7 @@ const LandingNavBar = (props) =>  {
             </Nav>
         </Collapse>
         <Link to="/signup">
-                <Button className="btn-icon btn-3 p-2 mr-3 opacity-9" color="success" type="button"><p className="p-0 m-0">kostenlos Testen</p></Button>
+                <Button className="btn-icon btn-3 p-2 mr-3 opacity-9" color="success" type="button"><p className="p-0 m-0">Kostenlos Testen</p></Button>
               </Link>
         <Link to="/auth">
                 <Button className="btn-icon btn-3 p-2 opacity-9" color="primary" type="button"><p className="p-0 m-0">Anmelden</p></Button>

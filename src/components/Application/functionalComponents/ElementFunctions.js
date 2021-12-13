@@ -36,6 +36,19 @@ export function getHasPrio (currentItem) {
     return hasPrio;
 }
 
+export function getHasNotice (currentItem) {
+    let hasNotice = !1;
+    let isObj = getIsObject(currentItem);
+    if (isObj) {
+        if ("notice" in currentItem ) {
+            if (currentItem.notice !== "") {
+                hasNotice = !0;
+            }
+        }
+    }
+    return hasNotice;
+}
+
 export function getIsObject(currentItem) {
     let isObj = !1;
     if (typeof currentItem === "object") {

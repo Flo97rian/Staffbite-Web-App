@@ -33,11 +33,11 @@ const LandingFooter = () => {
       <Navbar className="navbar-bottom bg-white mt-6 pb-4 bottom" expand="md">
       <Container fluid>
          <Nav className="ml-2 position-left" navbar vertical>
-                  <h4
-                  className="pt-0 mt-0"
+                  <h2
+                  className="ml-0 pt-0 mt-0"
                   >
                     Rechtliches
-                  </h4>
+                  </h2>
                   <NavLink className="nav-link-icon pl-0 pb-0 mb-0">
                     <p className="nav-link-inner--text text-muted mb-0 pb-0">
                     © {new Date().getFullYear()}{" "}
@@ -46,25 +46,31 @@ const LandingFooter = () => {
                   </NavLink>
                 <Link
                   className="text-muted"
-                    to="/impressum/#sectiondatasecurity"
-                    target="_blank"
-                  >
-                    <p className="mb-0">
-                    Datenschutz
-                    </p>
-                </Link>
-                <Link
-                  className="text-muted"
                     to="/impressum/#sectionimpressum"
-                    target="_blank"
-                  >
+                    target="_blank">
                     <p className="mb-0">
                     Impressum
                     </p>
                 </Link>
+                <Link
+                  className="text-muted"
+                    to="/impressum/#sectionagb"
+                    target="_blank">
+                    <p className="mb-0">
+                    AGB's
+                    </p>
+                </Link>
+                <Link
+                  className="text-muted"
+                    to="/impressum/#sectiondatasecurity"
+                    target="_blank">
+                    <p className="mb-0">
+                    Datenschutz
+                    </p>
+                </Link>
                 </Nav>
             <Nav className="position-center align-items-top mt-0 pt-0" navbar vertical>
-                <h4 className="pt-0 mt-0">Folgen Sie uns</h4>
+                <h2 className="h4 pt-0 mt-0">Folgen Sie uns</h2>
                       <NavLink
                         className="text-muted ml-0 pl-0 float-left"
                           href="https://www.instagram.com/staffbite_de"
@@ -86,7 +92,7 @@ const LandingFooter = () => {
             </Nav>
             <Nav className="ml-2 position-right" navbar vertical>
                 <NavItem className="ml-2 text-muted">
-                      <h4>Kontaktieren Sie uns</h4>
+                      <h2 className="h4 ">Kontaktieren Sie uns</h2>
                       <p>
                       Zellmann GbR.
                       <br/>

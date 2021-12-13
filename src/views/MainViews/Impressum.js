@@ -56,27 +56,27 @@ function Impressum () {
                       <br/>
                       0172 7018493
                     </p>
-                    <h3>Vertretungsberechtigte</h3>
+                    <h2 className="h3">Vertretungsberechtigte</h2>
                     <p className="mb-4">
                       Florian Zellmann 
                       <br/>
                       Daniel Zellmann 
                     </p>
-                    <h3>Umsatzsteuer-Identifikationsnummer </h3>
+                    <h2 className="h3">Umsatzsteuer-Identifikationsnummer </h2>
                     <p className="mb-4">
                         DE347060990
                     </p>
-                    <h3>EU-Streitschlichtung</h3>
+                    <h2 className="h3">EU-Streitschlichtung</h2>
                     <p className="mb-4">
                       Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <Link to="https://ec.europa.eu/consumers/odr ">Hier</Link>
                       <br/>
                       Unsere E-Mail-Adresse finden Sie oben im Impressum. 
                     </p>
-                    <h3>Verbraucherstreitbeilegung/Universalschlichtungsstelle</h3>
+                    <h2 className="h3">Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
                     <p className="mb-4">
                       Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen. 
                     </p>
-                    <h3>Bei Fragen</h3>
+                    <h2 className="h3">Bei Fragen</h2>
                     <p className="mb-4">
                     Wenden Sie sich bei Fragen gerne an: info@stafftbite.de  
                     </p>
@@ -221,8 +221,8 @@ function Impressum () {
                     <p>
                     Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung. 
                     </p>
-                    <h2>Datenerfassung auf dieser Website </h2>
-                    <h3>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h3>
+                    <h3>Datenerfassung auf dieser Website </h3>
+                    <h4>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h4>
                     <p>
                     Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur Verantwortlichen Stelle“ in dieser Datenschutzerklärung entnehmen. 
                     </p>
@@ -250,7 +250,7 @@ function Impressum () {
                     <br/>
                     info@stafftbite.de 
                     </p>
-                    <h3>2. Hosting</h3>
+                    <h2>2. Hosting</h2>
 
                     <h3>IONOS</h3> <p>Wir hosten unsere Website bei IONOS SE. Anbieter ist die IONOS SE, Elgendorfer Str. 57, 56410 Montabaur (nachfolgend: IONOS). Wenn Sie unsere Website besuchen, erfasst IONOS verschiedene Logfiles inklusive Ihrer IP-Adressen. Details entnehmen Sie der Datenschutzerkl&auml;rung von IONOS: <a href="https://www.ionos.de/terms-gtc/terms-privacy" target="_blank" rel="noopener noreferrer">https://www.ionos.de/terms-gtc/terms-privacy</a>.</p> <p>Die Verwendung von IONOS erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an einer m&ouml;glichst zuverl&auml;ssigen Darstellung unserer Website. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschlie&szlig;lich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO; die Einwilligung ist jederzeit widerrufbar.</p> 
 
@@ -290,7 +290,15 @@ function Impressum () {
 
                     <h2>4. Datenerfassung auf dieser Website</h2> 
 
-                    <h3>Cookies</h3> <p>Unsere Internetseiten verwenden so genannte &bdquo;Cookies&ldquo;. Cookies sind kleine Textdateien und richten auf Ihrem Endger&auml;t keinen Schaden an. Sie werden entweder vor&uuml;bergehend f&uuml;r die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endger&auml;t gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch gel&ouml;scht. Permanente Cookies bleiben auf Ihrem Endger&auml;t gespeichert, bis Sie diese selbst l&ouml;schen&nbsp;oder eine automatische L&ouml;schung durch Ihren Webbrowser erfolgt.</p> <p>Teilweise k&ouml;nnen auch Cookies von Drittunternehmen auf Ihrem Endger&auml;t gespeichert werden, wenn Sie unsere Seite betreten (Third-Party-Cookies). Diese erm&ouml;glichen uns oder Ihnen die Nutzung bestimmter Dienstleistungen des Drittunternehmens (z.&nbsp;B. Cookies zur Abwicklung von Zahlungsdienstleistungen).</p> <p>Cookies haben verschiedene Funktionen. Zahlreiche Cookies sind technisch notwendig, da bestimmte Websitefunktionen ohne diese nicht funktionieren w&uuml;rden (z.&nbsp;B. die Warenkorbfunktion oder die Anzeige von Videos). Andere Cookies dienen dazu, das Nutzerverhalten auszuwerten&nbsp;oder Werbung anzuzeigen.</p> <p>Cookies, die zur Durchf&uuml;hrung des elektronischen Kommunikationsvorgangs (notwendige Cookies) oder zur Bereitstellung bestimmter, von Ihnen erw&uuml;nschter Funktionen (funktionale Cookies, z.&nbsp;B. f&uuml;r die Warenkorbfunktion) oder zur Optimierung der Website (z.&nbsp;B. Cookies zur Messung des Webpublikums) erforderlich sind, werden auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO gespeichert, sofern keine andere Rechtsgrundlage angegeben wird. Der Websitebetreiber hat ein berechtigtes Interesse an der Speicherung von Cookies zur technisch fehlerfreien und optimierten Bereitstellung seiner Dienste. Sofern eine Einwilligung zur Speicherung von Cookies abgefragt wurde, erfolgt die Speicherung der betreffenden Cookies ausschlie&szlig;lich auf Grundlage dieser Einwilligung (Art. 6 Abs. 1 lit. a DSGVO); die Einwilligung ist jederzeit widerrufbar.</p> <p>Sie k&ouml;nnen Ihren Browser so einstellen, dass Sie &uuml;ber das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies f&uuml;r bestimmte F&auml;lle oder generell ausschlie&szlig;en sowie das automatische L&ouml;schen der Cookies beim Schlie&szlig;en des Browsers aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalit&auml;t dieser Website eingeschr&auml;nkt sein.</p> <p>Soweit Cookies von Drittunternehmen oder zu Analysezwecken eingesetzt werden, werden wir Sie hier&uuml;ber im Rahmen dieser Datenschutzerkl&auml;rung gesondert informieren und ggf. eine Einwilligung abfragen.</p> 
+                    <h3>Google Analytics</h3>
+                    <p>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Ireland Limited. Wenn der Verantwortliche f&uuml;r die Datenverarbeitung auf dieser Website au&szlig;erhalb des Europ&auml;ischen Wirtschaftsraumes oder der Schweiz sitzt, dann erfolgt die Google Analytics Datenverarbeitung durch Google LLC. Google LLC und Google Ireland Limited werden nachfolgend "Google" genannt.</p>
+                    <p>Google Analytics verwendet sog. "Cookies", Textdateien, die auf dem Computer des Seitenbesuchers gespeichert werden und die eine Analyse der Benutzung der Website durch den Seitenbesucher erm&ouml;glichen. Die durch das Cookie erzeugten Informationen &uuml;ber die Benutzung dieser Website durch den Seitenbesucher (einschlie&szlig;lich der gek&uuml;rzten IP-Adresse) werden in der Regel an einen Server von Google &uuml;bertragen und dort gespeichert.</p>
+                    <p>Google Analytics wird ausschlie&szlig;lich mit der Erweiterung "_anonymizeIp()" auf dieser Website verwendet. Diese Erweiterung stellt eine Anonymisierung der IP-Adresse durch K&uuml;rzung sicher und schlie&szlig;t eine direkte Personenbeziehbarkeit aus. Durch die Erweiterung wird die IP-Adresse von Google innerhalb von Mitgliedstaaten der Europ&auml;ischen Union oder in anderen Vertragsstaaten des Abkommens &uuml;ber den Europ&auml;ischen Wirtschaftsraum zuvor gek&uuml;rzt. Nur in Ausnahmef&auml;llen wird die volle IP-Adresse an einen Server von Google in den USA &uuml;bertragen und dort gek&uuml;rzt. Die im Rahmen von Google Analytics von dem entsprechenden Browser &uuml;bermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengef&uuml;hrt.</p>
+                    <p>Im Auftrag des Seitenbetreibers wird Google die anfallenden Informationen benutzen, um die Nutzung der Website auszuwerten, um Reports &uuml;ber die Websiteaktivit&auml;ten zusammenzustellen und um weitere mit der Websitenutzung und der Internetnutzung verbundene Dienstleistungen dem Seitenbetreiber gegen&uuml;ber zu erbringen (Art. 6 Abs. 1 lit. f DSGVO). Das berechtigte Interesse an der Datenverarbeitung liegt in der Optimierung dieser Website, der Analyse der Benutzung der Website und der Anpassung der Inhalte. Die Interessen der Nutzer werden durch die Pseudonymisierung hinreichend gewahrt.</p>
+                    <p>Google LLC. bietet eine Garantie auf Basis der Standardvertragsklauseln ein angemessenes Datenschutzniveau einzuhalten. Die gesendeten und mit Cookies, Nutzerkennungen (z. B. User-ID) oder Werbe-IDs verkn&uuml;pften Daten werden nach 50 Monaten automatisch gel&ouml;scht. Die L&ouml;schung von Daten, deren Aufbewahrungsdauer erreicht ist, erfolgt automatisch einmal im Monat.</p>
+                    <p>Die Erfassung durch Google Analytics kann verhindert werden, indem der Seitenbesucher die Cookie-Einstellungen f&uuml;r diese Website anpasst. Der Erfassung und Speicherung der IP-Adresse und der durch Cookies erzeugten Daten kann au&szlig;erdem jederzeit mit Wirkung f&uuml;r die Zukunft widersprochen werden. Das entsprechende Browser- Plugin kann unter dem folgenden Link heruntergeladen und installiert werden: https://tools.google.com/dlpage/gaoptout.</p>
+                    <p>Der Seitenbesucher kann die Erfassung durch Google Analytics auf dieser Webseite verhindern, indem er auf folgenden Link klickt. Es wird ein Opt-Out-Cookie gesetzt, der die zuk&uuml;nftige Erfassung der Daten beim Besuch dieser Website verhindert.</p>
+                    <p>Weitere Informationen zur Datennutzung durch Google, Einstellungs- und Widerspruchsm&ouml;glichkeiten, finden sich in der Datenschutzerkl&auml;rung von Google (https://policies.google.com/privacy) sowie in den Einstellungen f&uuml;r die Darstellung von Werbeeinblendungen durch Google (https://adssettings.google.com/authenticated).</p> 
 
                     <h3>Kontaktformular</h3> <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und f&uuml;r den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p> <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erf&uuml;llung eines Vertrags zusammenh&auml;ngt oder zur Durchf&uuml;hrung vorvertraglicher Ma&szlig;nahmen erforderlich ist. In allen &uuml;brigen F&auml;llen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese abgefragt wurde.</p> <p>Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur L&ouml;schung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck f&uuml;r die Datenspeicherung entf&auml;llt (z.&nbsp;B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen &ndash; insbesondere Aufbewahrungsfristen &ndash; bleiben unber&uuml;hrt.</p> 
 
