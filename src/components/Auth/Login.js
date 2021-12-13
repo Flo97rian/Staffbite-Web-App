@@ -76,6 +76,7 @@ const Login = () => {
      useEffect(() => {
     }, [user]);
 
+
     async function confirmUserAttribute() {
         // To verify attribute with the code
         Auth.verifyCurrentUserAttributeSubmit("email", code)
@@ -95,17 +96,22 @@ const Login = () => {
             console.log(error);
         }
     }
+
     async function signIn() {
         try {
             const user = await Auth.signIn(username, password);
-            let varify = await Auth.verifiedContact(user)
-            if ("challengeName" in user && !newpassword) {
-                setAuthState(AuthState.ResetPassword);
-                setUser(user);
-            } else if ("challengeName" in user && newpassword !== null) {
-                changePassword(password, newpassword);
-                setAuthState();
-            } else if ("email" in varify.unverified) {
+            let userAttributes = user.attributes;
+            console.log(user)
+            // neuer MA hat challengeName "NEW_PASSWORD_REQUIRED"
+            if ("challengeName" in user) {
+                if(!newpassword) {
+                    setAuthState(AuthState.ResetPassword);
+                    setUser(user);
+                } else if (newpassword !== null) {
+                    changePassword(password, newpassword);
+                    setAuthState();
+                }
+            } else if (userAttributes !== undefined && !("email_verified" in userAttributes)) {
                 sendVerifyCurrentUserAttribute()
             }else {
                 setAuthState(AuthState.SignedIn);

@@ -43,6 +43,11 @@ import { Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 
 const SelectNewPassword = (props) => {
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            props.confirmResetPassword()
+        }
+      }
     return (
       <>
       {props.msg !== null && props.msg.changedPassword ? 
@@ -84,7 +89,13 @@ const SelectNewPassword = (props) => {
                                     <i className="ni ni-email-83" />
                                 </InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Email" type="email" name="username" onChange={(e) => props.handleInputChange(e)}/>
+                                <Input 
+                                placeholder="Email" 
+                                type="email" 
+                                name="username" 
+                                onChange={(e) => props.handleInputChange(e)}
+                                onKeyPress={(event) => handleKeyPress(event)}
+                                />
                             </InputGroup>
                             </FormGroup>
                             <FormGroup>
@@ -100,6 +111,7 @@ const SelectNewPassword = (props) => {
                                 name="password"
                                 autoComplete="off"
                                 onChange={(e) => props.handleInputChange(e)}
+                                onKeyPress={(event) => handleKeyPress(event)}
                                 />
                             </InputGroup>
                             </FormGroup>
@@ -110,7 +122,13 @@ const SelectNewPassword = (props) => {
                                     <i className="fas fa-paper-plane" />
                                 </InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Bestätigungcode" type="number" name="code" onChange={(e) => props.handleInputChange(e)}/>
+                                <Input 
+                                placeholder="Bestätigungcode" 
+                                type="number" 
+                                name="code" 
+                                onChange={(e) => props.handleInputChange(e)}
+                                onKeyPress={(event) => handleKeyPress(event)}
+                                />
                             </InputGroup>
                             </FormGroup>
                             <PasswordChecklist

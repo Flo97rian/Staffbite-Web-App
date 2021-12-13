@@ -10,6 +10,7 @@ import store from "../../../../store"
 const ModalSaveChanges = (props) => {
 
     function ResetShiftplan (modalkey) {
+        
         store.dispatch({ type: "ResetCurrentShiftPlan"})
         store.dispatch({ type: "resetShiftplan"})
         store.dispatch({ type: "stopShiftPlanIsActive"})

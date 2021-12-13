@@ -5,7 +5,7 @@ export default class PlanId extends React.PureComponent {
     setName(id) {
         if (id.includes("Entwurf")) {
             return (
-                <p style={{"color": "#5e72e4"}}>Entwurf</p>
+                <p style={{"color": "#5e72e4"}}>Vorlage</p>
         )} else if (id.includes("Freigeben")) {
             return (
                 <p style={{"color": "#fb6340"}}>Bewerbung</p>

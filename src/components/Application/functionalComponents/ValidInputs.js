@@ -1,6 +1,5 @@
 export function validName(userName) {
         let isValid = !1;
-        console.log(userName);
         let isPlaceholder = (userName === "Max Mustermann")
         if (!isPlaceholder) {
             let dividers = [" ", ", ", ","]
@@ -40,7 +39,6 @@ export function validShiftplanName(shiftName) {
 }
 export function validShiftName(userName, placeholder) {
     let isValid = !0;
-    console.log(userName);
     let minShiftNameLength = userName.length < 0;
     let maxShiftNameLength = userName.length > 20;
     if (minShiftNameLength || maxShiftNameLength) {

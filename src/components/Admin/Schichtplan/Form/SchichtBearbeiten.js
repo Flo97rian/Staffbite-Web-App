@@ -20,7 +20,6 @@ const SchichtBearbeiten = (props) => {
     const row = Number(props.shiftSlot.row)
     let shiftDetails = {};
     let anzahl = 0;
-    console.log(props.userInput)
     if (props.shiftplan) {
         shiftDetails = props.shiftplan.plan[row].Wochentag;
         anzahl = props.shiftplan.plan[row].Montag

@@ -73,8 +73,8 @@ export const TwoApplicants = (FirstApplicant, SecondApplicant, index, col, click
 export const MultipleApplicantsWithPrio = (ApplicantsLength, FirstApplicant, index, col, clickActive) => {
     return (
                 <ListGroup>
-        <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success">
-                    <i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true" onClick={() => clickActive(index, col)}/>
+        <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={() => clickActive(index, col)}>
+                    <i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true"/>
                    <p className="mb-0 mt-0 pt-4 pr-2 pl-2 pb-2 text-center">
                     {FirstApplicant}
                     <br/>
@@ -87,8 +87,8 @@ export const MultipleApplicantsWithPrio = (ApplicantsLength, FirstApplicant, ind
 export const TwoApplicantsWithPrio = (FirstApplicant, SecondApplicant, index, col, clickActive) => {
     return (
         <ListGroup>
-        <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success">
-                    <i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true" onClick={() => clickActive(index, col)}/>
+        <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={() => clickActive(index, col)}>
+                    <i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true"/>
                    <p className="mb-0 mt-2 pt-4 pr-2 pl-2 pb-2 text-center">
                     {FirstApplicant}
                     {SecondApplicant}
@@ -99,9 +99,9 @@ export const TwoApplicantsWithPrio = (FirstApplicant, SecondApplicant, index, co
 
 export const SingleApplicantWithPrio = (FirstApplicant, index, col, clickActive) => {
     return (<ListGroup>
-        <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success">
-                <i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true" onClick={() => clickActive(index, col)}/>
-                   <p className="mb-0 mt-2 pt-4 pr-2 pl-2 pb-4 text-center">
+        <ListGroupItem className="mb-0 p-0 pt-2" style={{"cursor": "pointer"}} color="success" onClick={() => clickActive(index, col)}>
+        <i className="fas fa-bookmark text-success align-top float-right mr-2 mt-1" aria-hidden="true"/>
+                   <p className="m-0 pt-4 pr-2 pl-2 pb-4 text-center">
                     {FirstApplicant}
                     <></>
                    </p>
@@ -209,10 +209,20 @@ export const MultipleApplicantsWithUser = (index, col, ApplicantName, Applicants
         <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}><p className="m-0">{ApplicantName}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
     </ListGroup>
 )}
+export const MultipleApplicantsWithUserWithNotice = (index, col, ApplicantName, ApplicantsLength, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}><i className="fas fa-bookmark text-success float-right" aria-hidden="true"/><p className="m-0">{ApplicantName}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
+    </ListGroup>
+)}
 
 export const SingleApplicantWithUser = (index, col, ApplicantName, Click) => {
     return (<ListGroup>
         <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}><p className="m-0">{ApplicantName}<br/><br/></p></ListGroupItem>
+    </ListGroup>
+)}
+export const SingleApplicantWithUserWithNotice = (index, col, ApplicantName, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}><i className="fas fa-bookmark text-success float-right" aria-hidden="true"/><p className="m-0">{ApplicantName}<br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
 
@@ -222,12 +232,30 @@ export const MultipleApplicantsWithOutUser = (index, col, FirstApplicant, Applic
     </ListGroup>
 )}
 
+export const MultipleApplicantsWithOutUserWithNotice = (index, col, FirstApplicant, ApplicantsLength, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" style={{"cursor": "pointer"}}  color="" onClick={(e, j) => Click(index, col)}><i className="fas fa-bookmark text-success float-right" aria-hidden="true"/><p className="m-0">{FirstApplicant}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
+    </ListGroup>
+)}
+
 export const SingleApplicantWithOutUser = (index, col, FirstApplicant, Click) => {
     return (<ListGroup>
         <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}><p className="m-0">{FirstApplicant}<br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
+
+export const SingleApplicantWithOutUserWithNotice = (index, col, FirstApplicant, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}><i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true"/><p className="m-0">{FirstApplicant}<br/><br/></p></ListGroupItem>
+    </ListGroup>
+)}
 export const ShowMultipleApplicantsWithUser = (ApplicantName, ApplicantsLength) => {
+    return (<ListGroup>
+        <ListGroupItem className="mb-0" color="success"><p className="m-0">{ApplicantName}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const ShowMultipleApplicantsWithUserWithNotice = (ApplicantName, ApplicantsLength) => {
     return (<ListGroup>
         <ListGroupItem className="mb-0" color="success"><p className="m-0">{ApplicantName}<br/>+ {ApplicantsLength - 1} weitere</p></ListGroupItem>
     </ListGroup>
@@ -268,6 +296,11 @@ export const ZeroApplicants = (index, col, Click) => {
     </ListGroup>
 )}
 
+export const ZeroApplicantsWithNotice = (index, col, Click) => {
+    return (<ListGroup>
+       <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}><i className="fas fa-bookmark text-success float-right" aria-hidden="true"/><p className="m-0"><br/><br/></p></ListGroupItem>
+    </ListGroup>
+)}
 export const ZeroApplicantsWithPrio = (index, col, Click) => {
     return (<ListGroup>
         <ListGroupItem style={{"cursor": "pointer"}} className="m-0 p-0" onClick={(e, j) => Click(index, col)}><i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true"/><p className="mb-0 p-3"><br/><br/></p></ListGroupItem>

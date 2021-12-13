@@ -94,7 +94,11 @@ export default class NewShiftPlan {
       function addDayKeysToShifts (copyPlan) {
         let len = copyPlan.length;
         Object.keys(copyPlan[0]).forEach(key => {for (let i = 1; i < len ; i++) {
-          copyPlan[i][key] = {applicants: {}, setApplicants: {}, notice: "", prio: !1};
+          if(key === "Wochentag") {
+            copyPlan[i][key] = {};
+          } else {
+            copyPlan[i][key] = {applicants: {}, setApplicants: {}, notice: "", prio: !1};
+          }
         }});
         return copyPlan;
       }
@@ -118,9 +122,6 @@ export default class NewShiftPlan {
       this.name = addName(userInput);
       this.id = addId();
       this.schichtentag = addSchichtentag(userInput);
-      //this.zeitraum = addZeitraum(Dates);
-      //copyPlan = addDatesToPlan(copyPlan, this.zeitraum);
-      //copyPlan = switchPlansOrder(copyPlan, 0, 1);
       addShiftsToPlan(copyPlan, this.schichtentag);
       addDayKeysToShifts(copyPlan);
       createActiveInactiveDay(copyPlan, userInput);
@@ -148,6 +149,7 @@ export default class NewShiftPlan {
       Wochentag["ShiftName"] = userInput.rolle;
       Wochentag["ShiftStart"] = userInput.beginn;
       Wochentag["ShiftEnd"] = userInput.ende;
+      Wochentag["ShiftPosition"] = userInput.position;
       return Wochentag;
     };
 

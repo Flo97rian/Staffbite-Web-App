@@ -39,6 +39,12 @@ import LandingNavbar from "../../Navbars/LandingNavbar"
 import { Link } from "react-router-dom";
 
 const LogIn = (props) => {
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            props.signIn()
+        }
+      }
+
             return (
                 <>
             <LandingNavbar 
@@ -82,7 +88,13 @@ const LogIn = (props) => {
                                     <i className="ni ni-email-83" />
                                 </InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Email" type="email" name="username" onChange={(e) => props.handleInputChange(e)}/>
+                                <Input 
+                                placeholder="Email" 
+                                type="email" 
+                                name="username" 
+                                onChange={(e) => props.handleInputChange(e)}
+                                onKeyPress={(event) => handleKeyPress(event)}
+                                />
                             </InputGroup>
                             </FormGroup>
                             <FormGroup>
@@ -97,6 +109,7 @@ const LogIn = (props) => {
                                 type="password"
                                 name="password"
                                 autoComplete="off"
+                                onKeyPress={(event) => handleKeyPress(event)}
                                 onChange={(e) => props.handleInputChange(e)}
                                 />
                             </InputGroup>

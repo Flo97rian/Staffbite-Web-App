@@ -6,8 +6,10 @@ import {
     Button,
     FormGroup,
     Label,
-    Input
+    Input,
+    FormFeedback
 } from "reactstrap"
+import { FEEDBACK_INVALID_NOTICE } from "../../../../constants/FeedbackText";
 import { INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION } from "../../../../constants/InfoTexts";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 
@@ -130,6 +132,18 @@ export const PrioSchicht = (props) => {
                     <Col xs={1} ></Col>
                     <Col xs={10} >
                             <InfoOverlay infotitle="Notiz" description={INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION}/>
+                            {
+                            !noticeIsValid() 
+                            ?
+                                    <FormGroup className="mb-1">
+                                    <Input
+                                    name="notice"
+                                    type="textarea"
+                                    placeholder={getShiftNotice()}
+                                    onChange={(e) => props.onChange(e)}
+                                    />
+                                </FormGroup>
+                                :
                                 <FormGroup className="mb-1">
                                     <Input
                                     name="notice"
@@ -138,13 +152,16 @@ export const PrioSchicht = (props) => {
                                     placeholder={getShiftNotice()}
                                     onChange={(e) => props.onChange(e)}
                                     />
+                                    <FormFeedback invalid>{FEEDBACK_INVALID_NOTICE}</FormFeedback>
                                 </FormGroup>
-                                {hasShiftNotice() 
-                                ? 
+                                }   
+                                { 
+                                hasShiftNotice()
+                                ?
                                 <Button classname="mt-0"color="warning" size="sm" disabled={getShiftActive()} onClick={() => props.handleResetShiftNotice(props.modalkey)}>Zurücksetzen</Button>
                                 :
                                 <></>
-                                }   
+                                }
                         </Col>
                     <Col xs={1} ></Col>
                 </Row>

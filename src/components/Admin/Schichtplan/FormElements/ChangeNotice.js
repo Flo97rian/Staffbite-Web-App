@@ -4,8 +4,10 @@ import {
     Row,
     Button,
     Input,
-    FormGroup
+    FormGroup,
+    FormFeedback
 } from "reactstrap"
+import { FEEDBACK_INVALID_NOTICE } from "../../../../constants/FeedbackText";
 const ChangeNotice = (props) => {
     const day = props.bewerber.col;
     const row = props.bewerber.row;
@@ -45,24 +47,44 @@ const ChangeNotice = (props) => {
             return value;
         }
         if(props.changeNotice) {
-            return(
-                <FormGroup className="mb-3">
+            if(!noticeIsValid()) {
+                return(
+                    <FormGroup className="mb-3">
+                        <Input
+                        className="mb-2"
+                        name="notice"
+                        type="textarea"
+                        placeholder={getShiftNotice()}
+                        onChange={(e) => props.onChange(e)}
+                        />
+                        <FormFeedback invalid>{FEEDBACK_INVALID_NOTICE}</FormFeedback>
+                        {hasShiftNotice() 
+                        ? 
+                        <Button classname="mt-0"color="warning" size="sm" onClick={() => props.handleResetShiftNotice(props.modalkey)}>Zurücksetzen</Button>
+                        :
+                        <></>
+                        }   
+                    </FormGroup>
+                )
+            } else {
+                return(
+                    <FormGroup className="mb-3">
                     <Input
                     className="mb-2"
                     name="notice"
                     type="textarea"
-                    invalid={noticeIsValid()}
                     placeholder={getShiftNotice()}
                     onChange={(e) => props.onChange(e)}
                     />
-                     {hasShiftNotice() 
+                    {hasShiftNotice() 
                     ? 
                     <Button classname="mt-0"color="warning" size="sm" onClick={() => props.handleResetShiftNotice(props.modalkey)}>Zurücksetzen</Button>
                     :
                     <></>
                     }   
-                </FormGroup>
-            )
+                    </FormGroup>
+                ) 
+            }
         }
         return (
             <p>

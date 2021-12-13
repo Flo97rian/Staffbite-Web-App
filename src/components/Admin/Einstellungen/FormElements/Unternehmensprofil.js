@@ -25,8 +25,6 @@ export default class Unternehmensprofil extends React.PureComponent {
                 <CardBody>
                 <InfoLabel title="Name des Betriebs" description={INFO_ORGANISATION_NAME}></InfoLabel>
                 <InputForm {...this.props}/>
-                <InfoLabel title="Dein Vorname, Nachname" description={INFO_ORGANISATION_FIRSTNAME_AND_LASTNAME}></InfoLabel>
-                <InputForm {...this.props}/>
                 <InfoLabel title="Stundenerfassung" description={INFO_ORGANISATION_STUNDENERFASSUNG}></InfoLabel>
                 <Form.Check custom type="switch" size="lg" disabled name="stundenerfassung"></Form.Check>
                 </CardBody>
