@@ -11,6 +11,7 @@ import {
   } from "reactstrap";
 
 import NotificationAlert from "react-notification-alert";
+import Joyride from 'react-joyride';
 import shiftplanStates from "../../Application/defaults/ShiftplanDefault";
 import Nav from "./Nav/Nav";
 import { Spinner } from "reactstrap";
@@ -48,6 +49,7 @@ import { thunkReleaseForApplication } from "../../../store/middleware/ReleaseFor
 import InfoSidebar from "../../Sidebar/InfoSidebar";
 import ModalFreigebenButton from "./FormElements/ModalFreigebenButton";
 import ModalAlgButton from "./FormElements/ModalAlgButton";
+import { ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN, ONBOARDING_SHIFTPLAN_VORLAGE, ONBOARDING_SHIFTPLAN_EINTRAGEN, ONBOARDING_SHIFTPLAN_UEBERPRUEFUNG, ONBOARDING_SHIFTPLAN_VEROEFFENTLICHUNG } from "../../../constants/OnBoardingTexts"
 const SchichtplanContainer = () => {
   const [userInput, setUserInput] = useState();
   const [navIndex, setNavIndex] = useState(1);
@@ -55,8 +57,63 @@ const SchichtplanContainer = () => {
   const [ShiftSwitch, setShiftSwitch] = useState(!1);
   const [changeNotice, setChangeNotice] = useState(!1);
   const [ErrMsng, setErrMsng] = useState({MissingShiftDetails: !1, MissingShiftPosition: !1, ShiftDetailsNotUpToDate: !1});
+  const [state, setState] = useState({
+    run: !0,
+    steps: [
+      {
+        target: '.button_vorlage_erstellen',
+        locale: { 
+          skip: <strong aria-label="skip">Beenden</strong>, 
+          next: <strong aria-label="skip">Nächster Schritt</strong>
+         },
+        content: ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN,
+        title: "Einleitung"
+      },
+      {
+        target: '.nav_vorlage',
+        content: ONBOARDING_SHIFTPLAN_VORLAGE,
+        locale: { 
+            skip: <strong aria-label="skip">Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Einleitung"
+      },
+      {
+        target: '.nav_eintragen',
+        content: ONBOARDING_SHIFTPLAN_EINTRAGEN,
+        locale: { 
+            skip: <strong aria-label="skip">Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Einleitung"
+      },
+      {
+        target: '.nav_ueberpruefen',
+        content: ONBOARDING_SHIFTPLAN_UEBERPRUEFUNG,
+        locale: { 
+            skip: <strong aria-label="skip">Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Einleitung"
+      },
+      {
+        target: '.nav_veroeffentlichen',
+        content: ONBOARDING_SHIFTPLAN_VEROEFFENTLICHUNG,
+        locale: { 
+          next: <strong aria-label="skip">Nächster Schritt</strong>,
+          back: <strong aria-label="skip">Zurück</strong>,
+          last: <strong aria-label="skip">Beenden</strong>
+         },
+        title: "Einleitung"
+      }
+    ]
+  });
   let notificationAlert = useRef(null)
   const location = useLocation();
+  const { run, steps } = state;
 
   const selectMeta = state => state.Meta;
   const selectEmployees = state => state.DB.employees;
@@ -511,6 +568,19 @@ const SchichtplanContainer = () => {
 
         return(
         <>
+        <Joyride
+          continuous={true}
+          run={run}
+          scrollToFirstStep={true}
+          showProgress={true}
+          showSkipButton={true}
+          steps={steps}
+          styles={{
+            options: {
+              zIndex: 10000,
+            },
+          }}
+        />
         { !Meta && !Employees && !Plans ?
         <Row className="text-center">
           <br/>

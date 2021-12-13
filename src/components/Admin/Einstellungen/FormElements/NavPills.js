@@ -39,7 +39,7 @@ class Navs extends React.Component {
           <NavItem>
             <NavLink
               aria-selected={this.state.navPills === 1}
-              className={classnames("mb-sm-3 mb-md-0 text-muted", {
+              className={classnames("mb-sm-3 mb-md-0 text-muted nav_betrieb", {
                 active: this.state.navPills === 1
               })}
               onClick={e => this.toggleNavs(e, "navPills", 1)}
@@ -56,7 +56,7 @@ class Navs extends React.Component {
           <NavItem>
             <NavLink
               aria-selected={this.state.navPills === 2}
-              className={classnames("mb-sm-3 mb-md-0", {
+              className={classnames("mb-sm-3 mb-md-0 nav_shiftplan", {
                 active: this.state.navPills === 2
               })}
               onClick={e => this.toggleNavs(e, "navPills", 2)}
