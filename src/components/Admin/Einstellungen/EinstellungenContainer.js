@@ -33,7 +33,7 @@ const EinstellungenContainer = () => {
           next: <strong aria-label="skip">Nächster Schritt</strong>
          },
         content: ONBOARDING_EINSTELLUNGEN_NAV_BETRIEB,
-        title: "Einstellungen"
+        title: "Deine Einstellungen"
       },
       {
         target: '.input_betrieb',
@@ -43,7 +43,7 @@ const EinstellungenContainer = () => {
             next: <strong aria-label="skip">Nächster Schritt</strong>,
             back: <strong aria-label="skip">Zurück</strong>
           },
-        title: "Einstellungen"
+        title: "Deine Einstellungen"
       },
       {
         target: '.input_position',
@@ -53,7 +53,7 @@ const EinstellungenContainer = () => {
             next: <strong aria-label="skip">Nächster Schritt</strong>,
             back: <strong aria-label="skip">Zurück</strong>
           },
-        title: "Einstellungen"
+        title: "Deine Einstellungen"
       },
       {
         target: '.nav_shiftplan',
@@ -62,7 +62,7 @@ const EinstellungenContainer = () => {
             back: <strong aria-label="skip">Zurück</strong>,
             last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong> 
           },
-        title: "Einstellungen"
+        title: "Deine Einstellungen"
       }
     ]
   });

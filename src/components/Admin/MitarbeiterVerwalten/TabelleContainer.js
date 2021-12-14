@@ -38,7 +38,7 @@ const TableContainer = (props) => {
           next: <strong aria-label="skip">Nächster Schritt</strong>
          },
         content: ONBOARDING_TEAM_INVITE,
-        title: "Team verwalten"
+        title: "Dein Team"
       },
       {
         target: '.card_mitarbeiterliste',
@@ -47,7 +47,7 @@ const TableContainer = (props) => {
             last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>,
             back: <strong aria-label="skip">Zurück</strong>
           },
-        title: "Team verwalten"
+        title: "Dein Team"
       }
     ]
   })

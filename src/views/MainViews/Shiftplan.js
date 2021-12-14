@@ -61,7 +61,7 @@ function Shiftplan () {
               <Row className="align-items-center mb-4 mt-3">
               <Col className="order-md-1 pr-md-5" md="12" lg="6">
 
-                    <h2 className="h3">Die Erste Anmeldung</h2>
+                    <h2 className="h3">Die erste Anmeldung</h2>
                     <p>
                     Um dich das erste Mal bei Staffbite anzumelden, musst du dich zunächst registrieren. Klicke dafür einfach oben rechts auf "Kostenlos Registrieren" und gib die benötigten Daten ein.
                     </p>
@@ -88,7 +88,8 @@ function Shiftplan () {
                     <p>
                     Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten. 
                     </p>
-                    <Link to={{ pathname: "https://www.youtube.com/watch?v=RtKKaWkCPrs" }} target="_blank">Dein Team erstellen & verwalten</Link>
+                    Hier gehts zum Video: 
+                    <Link to={{ pathname: "https://www.youtube.com/watch?v=RtKKaWkCPrs" }} target="_blank"> Dein Team erstellen & verwalten</Link>
                 </Col>
                 <Col className="order-md-2" md="12" lg="6">
                   <img
@@ -169,7 +170,7 @@ function Shiftplan () {
                     <p>
                     Bisher hast du wahrscheinlich stundenlang per Hand mit Papier und einer Excel-Tabelle deinen Schichtplan befüllt. Mit unserer Lösung ist das Vergangenheit! Wir wollen dir helfen sowohl Zeit als auch Nerven zu sparen. 
                     </p>
-                    <Link to="/" >Erklärungsvideo folgt bald</Link>
+                    <Link to="/" ></Link>
                   </div>
                 </Col>
                 <Col className="order-md-2" xs="12" md="12" lg="6">
@@ -232,7 +233,7 @@ function Shiftplan () {
                     <p>
                     Mit unserer Lösung kann sich dein Team jederzeit und überall in den Schichtplan eintragen. Ohne WhatsApp-Nachrichten, E-Mails, Excel-Tabellen oder Papier. Egal ob vom Smartphone, Tablet oder Laptop. Den fertigen Schichtplan kann dein Team natürlich auch jederzeit online einsehen. 
                     </p>
-                    <Link to="/" >Erklärungsvideos folgen bald</Link>
+                    <Link to="/" ></Link>
                   </div>
                 </Col>
               </Row>
