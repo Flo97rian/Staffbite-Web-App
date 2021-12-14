@@ -67,7 +67,7 @@ const SchichtplanContainer = () => {
           next: <strong aria-label="skip">Nächster Schritt</strong>
          },
         content: ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN,
-        title: "Einleitung"
+        title: "Dein Schichtplan"
       },
       {
         target: '.nav_vorlage',
@@ -77,7 +77,7 @@ const SchichtplanContainer = () => {
             next: <strong aria-label="skip">Nächster Schritt</strong>,
             back: <strong aria-label="skip">Zurück</strong>
           },
-        title: "Einleitung"
+        title: "Dein Schichtplan"
       },
       {
         target: '.nav_eintragen',
@@ -87,7 +87,7 @@ const SchichtplanContainer = () => {
             next: <strong aria-label="skip">Nächster Schritt</strong>,
             back: <strong aria-label="skip">Zurück</strong>
           },
-        title: "Einleitung"
+        title: "Dein Schichtplan"
       },
       {
         target: '.nav_ueberpruefen',
@@ -97,7 +97,7 @@ const SchichtplanContainer = () => {
             next: <strong aria-label="skip">Nächster Schritt</strong>,
             back: <strong aria-label="skip">Zurück</strong>
           },
-        title: "Einleitung"
+        title: "Dein Schichtplan"
       },
       {
         target: '.nav_veroeffentlichen',
@@ -107,7 +107,7 @@ const SchichtplanContainer = () => {
           back: <strong aria-label="skip">Zurück</strong>,
           last: <strong aria-label="skip">Beenden</strong>
          },
-        title: "Einleitung"
+        title: "Dein Schichtplan"
       }
     ]
   });
