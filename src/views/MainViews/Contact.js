@@ -83,7 +83,6 @@ function Contact () {
     function onInputChange(event) {
         let key = event.target.name;
         let value = event.target.value;
-        console.log(form, key, value)
         setForm({...form, [key]: value})
     }
 

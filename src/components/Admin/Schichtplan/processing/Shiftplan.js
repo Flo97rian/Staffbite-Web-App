@@ -167,6 +167,16 @@ export default class ShiftPlan {
         return copyPlan
         }
 
+        function getShiftIndexs(plan) {
+          let indexArray = []
+          plan.forEach((row, index) => {
+            if(typeof row.Wochentag === "object") {
+              indexArray.push(index)
+            }
+          })
+          return indexArray
+        }
+
         this.plan = deleteIdsFromDnD(plan, shiftplan)
       }
 
@@ -402,8 +412,24 @@ export default class ShiftPlan {
         return slot;
     }
 
+    function willDoublicate(copyTauschanfrage, newTrade) {
+      let alreadySet = !1;
+      copyTauschanfrage.forEach(trade => {
+        let isTraderId = trade.traderId === newTrade.traderId;
+        let isDay = trade.col === newTrade.col;
+        let isRow = trade.row === newTrade.row;
+        if(isTraderId && isDay && isRow) {
+          alreadySet = !0;
+        }
+      })
+      return alreadySet;
+    }
+
     let newTrade = createTrade(User, ShiftSlot)
-    copyTauschanfrage.push(newTrade);
+    let alreadySetTrade = willDoublicate(copyTauschanfrage, newTrade);
+    if(!alreadySetTrade) {
+      copyTauschanfrage.push(newTrade);
+    }
     this.tauschanfrage = copyTauschanfrage;
     }
 
@@ -438,9 +464,17 @@ export default class ShiftPlan {
     function getShiftRows(plan) {
       let validArray = [];
       plan.forEach((row, index) => {
-        if(index !== 0 && index !== 1 && index !== getPlanLength(plan) - 1) {
-          validArray.push(validDetails(row.Wochentag))
-      }})
+        let isObject = typeof plan[0].Wochentag === "object"
+        if(!isObject && plan[0].Wochentag !== "Datum") {
+          if(index !== 0 && index !== getPlanLength(plan) - 1) {
+            validArray.push(validDetails(row.Wochentag))
+          }
+        } else {
+          if(index !== 0 && index !== 1 && index !== getPlanLength(plan) - 1) {
+            validArray.push(validDetails(row.Wochentag))
+          }
+        }
+      })
       return validArray;
     }
 
@@ -459,7 +493,7 @@ export default class ShiftPlan {
     function validDetails(Wochentag) {
       let isValid = !1;
       if(isObject(Wochentag)) {
-        if(hasShiftName) {
+        if(hasShiftName(Wochentag)) {
           isValid = !0;
         }
       }

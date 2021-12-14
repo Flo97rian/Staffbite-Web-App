@@ -2,7 +2,7 @@ export const planIdColor = (id) => {
     const planid = id.split("#")[1]
     if (planid.includes("Entwurf")) {
         return (
-            <p className="mt-3" style={{"color": "#5e72e4"}}>Entwurf</p>
+            <p className="mt-3" style={{"color": "#5e72e4"}}>Vorlage</p>
     )} else if (planid.includes("Freigeben")) {
         return (
             <p className="mt-3" style={{"color": "#fb6340"}}>Bewerbung</p>

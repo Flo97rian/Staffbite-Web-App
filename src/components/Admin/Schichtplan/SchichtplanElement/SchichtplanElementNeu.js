@@ -3,6 +3,8 @@ import {
     CompanyClosedEntwurf,
     DateOrWeekDayRow,
     shiftHasPrio,
+    DefaultWithPrio,
+    Default,
     setShiftDetails,
     editShiftDetails,
     shiftSetPrio,
@@ -57,9 +59,9 @@ export const SchichtplanElementNeu = (props) => {
     } else if (!isFree && !isDiscribeWeekDay) {
         return CompanyClosedEntwurf(index, col, setPrio);
     } else if (hasPrio || hasNotice) {
-        return shiftHasPrio(index, col, prio, setPrio, props.handleActiveShift);
+        return DefaultWithPrio(index, col, setPrio);
     } else {
-        return shiftSetPrio(index, col, prio, setPrio, props.handleActiveShift);
+        return Default(index, col, setPrio);
     }
 
 }

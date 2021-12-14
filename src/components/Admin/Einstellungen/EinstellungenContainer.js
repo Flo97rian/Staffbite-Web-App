@@ -13,13 +13,59 @@ import Spinner from 'react-bootstrap/Spinner'
 import { FetchOrg } from "../../../store/middleware/FetchOrg";
 import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile";
 import store from "../../../store";
-import InfoModal from "../../Application/functionalComponents/InfoModal";
 import InfoSidebar from "../../Sidebar/InfoSidebar";
+import Joyride from 'react-joyride';
+import { ONBOARDING_EINSTELLUNGEN_BETRIEB_NAME, ONBOARDING_EINSTELLUNGEN_POSITIONEN, ONBOARDING_EINSTELLUNGEN_NAV_BETRIEB, ONBOARDING_EINSTELLUNGEN_SHIFTPLAN_REVERSE, ONBOARDING_EINSTELLUNGEN_SHIFTPLAN_ORDER, ONBOARDING_EINSTELLUNGEN_NAV_SHIFTPLAN } from "../../../constants/OnBoardingTexts"
 
 const EinstellungenContainer = () => {
   const [metaData, setMetaData] = useState(null)
   const [position, setPosition] = useState(null);
   const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1);
+  const [state, setState] = useState({
+    run: !0,
+    steps: [
+      {
+        target: '.nav_betrieb',
+        locale: { 
+          skip: <strong aria-label="skip">Beenden</strong>, 
+          next: <strong aria-label="skip">Nächster Schritt</strong>
+         },
+        content: ONBOARDING_EINSTELLUNGEN_NAV_BETRIEB,
+        title: "Einstellungen"
+      },
+      {
+        target: '.input_betrieb',
+        content: ONBOARDING_EINSTELLUNGEN_BETRIEB_NAME,
+        locale: { 
+            skip: <strong aria-label="skip">Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Einstellungen"
+      },
+      {
+        target: '.input_position',
+        content: ONBOARDING_EINSTELLUNGEN_POSITIONEN,
+        locale: { 
+            skip: <strong aria-label="skip">Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Einstellungen"
+      },
+      {
+        target: '.nav_shiftplan',
+        content: ONBOARDING_EINSTELLUNGEN_NAV_SHIFTPLAN,
+        locale: { 
+            back: <strong aria-label="skip">Zurück</strong>,
+            last: <strong aria-label="skip">Beenden</strong> 
+          },
+        title: "Einstellungen"
+      }
+    ]
+  });
+  const { run, steps } = state;
+
   const selectMeta = state => state.Meta;
   const selectLoadingMeta = state => state.loadings.isFetchingMeta;
   const selectDate = state => state.date;
@@ -33,6 +79,11 @@ const EinstellungenContainer = () => {
 
   useEffect(() => {
       store.dispatch(FetchOrg)
+      store.dispatch({ type: "ResetCurrentShiftPlan"})
+      store.dispatch({ type: "resetShiftplan"})
+      store.dispatch({ type: "ResetShiftSlot"})
+      store.dispatch({ type: "stopShiftPlanIsActive"})
+      store.dispatch({ type: "stopShiftPlanIsImported"})
     }, []); 
 
      useEffect(() => {
@@ -108,6 +159,19 @@ const EinstellungenContainer = () => {
     };
         return(
       <>
+       <Joyride
+          continuous={true}
+          run={run}
+          scrollToFirstStep={true}
+          showProgress={true}
+          showSkipButton={true}
+          steps={steps}
+          styles={{
+            options: {
+              zIndex: 10000,
+            },
+          }}
+        />
       { !Meta ? 
       <Row className="text-center mt-2">
         <Col className="mt-2" xs={12}>

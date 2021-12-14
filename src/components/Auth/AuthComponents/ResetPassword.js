@@ -43,6 +43,11 @@ import { Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 
 const ResetPassword = (props) => {
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            props.resetPassword()
+        }
+      }
     return (
             <>
             <LandingNavbar 
@@ -71,7 +76,13 @@ const ResetPassword = (props) => {
                                     <i className="ni ni-email-83" />
                                 </InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Email" type="email" name="username" onChange={(e) => props.handleInputChange(e)}/>
+                                <Input 
+                                placeholder="Email" 
+                                type="email" 
+                                name="username" 
+                                onChange={(e) => props.handleInputChange(e)}
+                                onKeyPress={(event) => handleKeyPress(event)}
+                                />
                             </InputGroup>
                             </FormGroup>
                             <div className="text-center">

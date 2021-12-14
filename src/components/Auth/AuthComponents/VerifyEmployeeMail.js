@@ -43,6 +43,11 @@ import { Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 
 const VerifyEmployeeMail = (props) => {
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            props.confirmResetPassword()
+        }
+      }
     return (
         <>
     <LandingNavbar 

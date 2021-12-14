@@ -44,6 +44,11 @@ import { Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 
 const Register = (props) => {
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            props.signUp()
+        }
+      }
     return (
 <>
             <LandingNavbar 
@@ -93,7 +98,13 @@ const Register = (props) => {
                                     <i className="ni ni-email-83" />
                                 </InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Email" type="email" name="username" onChange={(e) => props.handleInputChange(e)}/>
+                                <Input 
+                                    placeholder="Email" 
+                                    type="email" 
+                                    name="username" 
+                                    onChange={(e) => props.handleInputChange(e)}
+                                    onKeyPress={(event) => handleKeyPress(event)}
+                                    />
                             </InputGroup>
                             </FormGroup>
                             <FormGroup>
@@ -108,6 +119,7 @@ const Register = (props) => {
                                 type="password"
                                 name="password"
                                 autoComplete="off"
+                                onKeyPress={(event) => handleKeyPress(event)}
                                 onChange={(e) => props.handleInputChange(e)}
                                 />
                             </InputGroup>
@@ -124,6 +136,7 @@ const Register = (props) => {
                                 type="password"
                                 name="passwordAgain"
                                 autoComplete="off"
+                                onKeyPress={(event) => handleKeyPress(event)}
                                 onChange={(e) => props.handleInputChange(e)}
                                 />
                             </InputGroup>

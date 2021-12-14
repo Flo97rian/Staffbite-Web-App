@@ -22,23 +22,23 @@ function Navs (props) {
           <NavItem>
             <NavLink
               aria-selected={props.navIndex === 1}
-              className={classnames("mb-sm-3 mb-md-0", {
+              className={classnames("mb-sm-3 mb-md-0 nav_vorlage", {
                 active: props.navIndex === 1
               })}
               onClick={() => props.onNavChange(1)}
               role="tab"
             >              
             {props.navIndex === 1 ? 
-              <p className="m-0 text-white">Entwurf</p>
+              <p className="m-0 text-white">Vorlage</p>
               :
-              <p className="m-0 text-muted">Entwurf</p>
+              <p className="m-0 text-muted">Vorlage</p>
               }
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink
               aria-selected={props.navIndex === 2}
-              className={classnames("mb-sm-3 mb-md-0", {
+              className={classnames("mb-sm-3 mb-md-0 nav_eintragen", {
                 active: props.navIndex === 2
               })}
               onClick={() => props.onNavChange(2)}
@@ -54,7 +54,7 @@ function Navs (props) {
           <NavItem>
             <NavLink
               aria-selected={props.navIndex === 3}
-              className={classnames("mb-sm-3 mb-md-0", {
+              className={classnames("mb-sm-3 mb-md-0 nav_ueberpruefen", {
                 active: props.navIndex === 3
               })}
               onClick={() => props.onNavChange(3)}
@@ -70,7 +70,7 @@ function Navs (props) {
           <NavItem>
             <NavLink
               aria-selected={props.navIndex === 4}
-              className={classnames("mb-sm-3 mb-md-0", {
+              className={classnames("mb-sm-3 mb-md-0 nav_veroeffentlichen", {
                 active: props.navIndex === 4
               })}
               onClick={() => props.onNavChange(4)}

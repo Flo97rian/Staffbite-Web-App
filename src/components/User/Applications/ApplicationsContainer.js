@@ -95,9 +95,7 @@ const ApplicationsContainer = () => {
   const handleUploadApplication = () => {
     store.dispatch({type: "startFetchingEmployeePlans"});
     store.dispatch(thunkUploadApplication(Shiftplan));
-    if ("saveChanges" in Modal) {
-      store.dispatch({type: "CLOSE", payload: "saveChanges"});
-    }
+    store.dispatch({type: "CLOSE"});
   }
 
   function onClickBack () {

@@ -5,6 +5,7 @@ import { thunkUploadApplication } from "../../../store/middleware/UploadApplicat
 import Spinner from 'react-bootstrap/Spinner'
 import ButtonZurueck from "../../Admin/Schichtplan/FormElements/ButtonZurueck"
 import { useSelector } from "react-redux";
+import InfoSidebar from "../../Sidebar/InfoSidebar";
 import 'moment/locale/de';
 import {
     Col,
@@ -34,6 +35,7 @@ const ShiftplanContainer = () => {
   const selectShiftSlot = state => state.shiftSlot;
   const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive;
   const selectLoadingFetchingSafe = state => state.loadings.isFetchingPlansFromDB;
+  const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
@@ -44,6 +46,7 @@ const ShiftplanContainer = () => {
   const currentShiftPlan = useSelector(selectCurrentShiftPlan);
   const Shiftplan = useSelector(selectShiftplan);
   const LoadingFetchingSafe = useSelector(selectLoadingFetchingSafe);
+  const SidebarInfo = useSelector(selectInfoSidebar);
 
 
   // Initiales laden der aktuellen Users
@@ -97,9 +100,7 @@ const ShiftplanContainer = () => {
     store.dispatch({ type: "stopShiftPlanIsImported"})
     store.dispatch({ type: "stopShiftPlanIsActive"})
     store.dispatch({ type: "resetShiftplan"})
-    if ("saveChanges" in Modal) {
-      store.dispatch({type: "CLOSE", payload: "saveChanges"});
-    }
+    store.dispatch({type: "CLOSE"});
   }
 
   function onClickBack () {
@@ -231,6 +232,7 @@ const ShiftplanContainer = () => {
         <OpenModal
             show={Modal}
             plaene={Plans}
+            User={User}
             onTrade={handleTradeShift}
             shiftslot={ShiftSlot}
             plan={currentShiftPlan}
@@ -242,6 +244,8 @@ const ShiftplanContainer = () => {
             ></OpenModal>
       </>
       }
+      <InfoSidebar
+      sidebarInfo={SidebarInfo}/>
       </>
             );
         }

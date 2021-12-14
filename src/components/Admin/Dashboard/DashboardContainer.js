@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { Spinner } from "reactstrap";
 import Chart from "chart.js";
+import Joyride from 'react-joyride';
 import {
     Card,
     Col,
@@ -29,6 +30,7 @@ import DashboardSchichtenTabelle from "./DashboardSchichtenTabelle.js";
 import { thunkStartReport } from "../../../store/middleware/StartReport";
 import { WARNING_INVALID_REPORT_INPUT } from "../../../constants/Alerts"; 
 import InfoSidebar from "../../Sidebar/InfoSidebar.js";
+import { ONBOARDING_OVERVIEW_SHIFTPLAN, ONBOARDING_OVERVIEW_SHIFTRADE, ONBOARDING_OVERVIEW_TEAM } from "../../../constants/OnBoardingTexts.js";
 
 
 const DashboardContainer = (props) => {
@@ -36,7 +38,42 @@ const DashboardContainer = (props) => {
   const [filter, setFilter] = useState(null);
   const [filterIsActive, setFilterIsActive] = useState(!1);
   const [errMsg, setErrMsg] = useState({ InvalidReportInput: !1});
+  const [state, setState] = useState({
+    run: !0,
+    steps: [
+      {
+        target: '.card_mitarbeiter',
+        locale: { 
+          skip: <strong aria-label="skip">Beenden</strong>, 
+          next: <strong aria-label="skip">Nächster Schritt</strong>
+         },
+        content: ONBOARDING_OVERVIEW_TEAM,
+        title: "Einleitung"
+      },
+      {
+        target: '.card_tauschanfragen',
+        content: ONBOARDING_OVERVIEW_SHIFTRADE,
+        locale: { 
+            skip: <strong aria-label="skip">Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Einleitung"
+      },
+      {
+        target: '.card_aktuellerSchichtplan',
+        content: ONBOARDING_OVERVIEW_SHIFTPLAN,
+        locale: { 
+          next: <strong aria-label="skip">Nächster Schritt</strong>,
+          back: <strong aria-label="skip">Zurück</strong>,
+          last: <strong aria-label="skip">Beenden</strong>
+         },
+        title: "Einleitung"
+      }
+    ]
+  })
   let notificationAlert = useRef(null)
+  const { run, steps } = state;
 
   //REDUX-Filter für UI-Data
   const selectPlans = state => state.DB.plans;
@@ -62,6 +99,11 @@ const DashboardContainer = (props) => {
   useEffect(() => {
     store.dispatch(FetchFromDB);
     store.dispatch(FetchEmployees);
+    store.dispatch({ type: "ResetCurrentShiftPlan"})
+    store.dispatch({ type: "resetShiftplan"})
+    store.dispatch({ type: "ResetShiftSlot"})
+    store.dispatch({ type: "stopShiftPlanIsActive"})
+    store.dispatch({ type: "stopShiftPlanIsImported"})
   }, []);
 
   const handleFilterIsActive = (modal) => {
@@ -177,6 +219,19 @@ const DashboardContainer = (props) => {
     };
         return (
           <>
+          <Joyride
+          continuous={true}
+          run={run}
+          scrollToFirstStep={true}
+          showProgress={true}
+          showSkipButton={true}
+          steps={steps}
+          styles={{
+            options: {
+              zIndex: 10000,
+            },
+          }}
+        />
             {errMsg !== null && errMsg.InvalidReportInput ? 
             Notify("warning", WARNING_INVALID_REPORT_INPUT, "InvalidReportInput")
             :
@@ -195,7 +250,7 @@ const DashboardContainer = (props) => {
               </div>  
                 <Col lg="6" xl="6">
                   <Link to="/admin/mitarbeiter" tag={Link}>
-                  <Card className="card-stats mb-4 mb-xl-0 shadow" to="admin/mitarbeiter">
+                  <Card className="card-stats mb-4 mb-xl-0 shadow card_mitarbeiter" to="admin/mitarbeiter">
                       <CardBody>
                       <Row>
                         <div className="col">
@@ -223,7 +278,7 @@ const DashboardContainer = (props) => {
                 </Col>
                 <Col lg="6" xl="6">
                 <Link to="/admin/schichtplan" tag={Link} onClick={() => setCurrentPlan(currentShiftPlan)}>
-                  <Card className="card-stats mb-4 mb-xl-0 shadow">
+                  <Card className="card-stats mb-4 mb-xl-0 shadow card_tauschanfragen">
                     <CardBody>
                       <Row>
                         <div className="col">
@@ -259,7 +314,7 @@ const DashboardContainer = (props) => {
                     <Col xs={9}>
                     </Col>
                     </Row>
-                  <Card className="shadow">
+                  <Card className="shadow card_aktuellerSchichtplan">
                     <CardBody>
                       <DashboardSchichtenTabelle
                         shiftplan={Shiftplan}

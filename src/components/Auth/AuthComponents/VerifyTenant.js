@@ -43,6 +43,11 @@ import { Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 
 const VerifyTenant = (props) => {
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            props.confirmSignUp()
+        }
+      }
     return (
       <>
       {props.msg !== null && props.msg.changedPassword ? 
@@ -84,7 +89,13 @@ const VerifyTenant = (props) => {
                                     <i className="fas fa-paper-plane" />
                                 </InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Bestätigungcode" type="number" name="code" onChange={(e) => props.handleInputChange(e)}/>
+                                <Input 
+                                placeholder="Bestätigungcode" 
+                                type="number" 
+                                name="code" 
+                                onChange={(e) => props.handleInputChange(e)}
+                                onKeyPress={(event) => handleKeyPress(event)}
+                                />
                             </InputGroup>
                             </FormGroup>
                             <PasswordChecklist

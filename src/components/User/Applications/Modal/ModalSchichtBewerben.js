@@ -17,11 +17,15 @@ const ModalSchichtBewerben = (props) => {
     const day = props.shiftslot.col;
     const row = props.shiftslot.row;
     const shiftplan = props.shiftplan.plan
-    let applyedApplicants = shiftplan[row][day].applicants
-    function includesUser(applyedApplicants) {
+    let shift = shiftplan[row][day]
+    let includesApplicants = Object.keys(shift).includes("applicants")
+    function includesUser() {
         let valid = !1;
-        if(props.User.SK in applyedApplicants) {
-            valid = !0;
+        if(includesApplicants) {
+            let applyedApplicants = shiftplan[row][day].applicants
+            if(props.User.SK in applyedApplicants) {
+                valid = !0;
+            }
         }
         return valid;
 
@@ -43,7 +47,7 @@ const ModalSchichtBewerben = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button color="" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
-                    {includesUser(applyedApplicants)
+                    {includesUser()
                     ?
                     <Button className="" color="danger" onClick={() => props.onDelete(props.modalkey)}>Bewerbung zurückziehen</Button>
                     :

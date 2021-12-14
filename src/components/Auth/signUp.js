@@ -71,10 +71,8 @@ async function signUp() {
             category: 'User',
             action: 'Created a Tenant'
           });
-        console.log(user)
         setUser(user)
         setAuthState(AuthState.ConfirmSignUp)
-        console.log(authState)
     } catch (error) {
         console.log(error);
         setErr(error)

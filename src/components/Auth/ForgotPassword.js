@@ -62,7 +62,6 @@ const ForgotPassword = () => {
 async function resetPassword() {
     Auth.forgotPassword(username)
     .then(data => {
-        console.log(data);
         setReset(!0);
     })
     .catch(err => console.log(err));

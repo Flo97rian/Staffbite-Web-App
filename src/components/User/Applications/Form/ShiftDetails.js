@@ -15,8 +15,13 @@ const ShiftDetails = (props) => {
     const row = props.shiftslot.row;
     const shiftplan = props.shiftplan.plan
     let shift = shiftplan[row][day]
+    let includesApplicants = Object.keys(shift).includes("applicants")
     let applyedApplicants = shiftplan[row][day].applicants
-    let hasApplicants = Object.keys(applyedApplicants).length > 0;
+
+    let hasApplicants = !1;
+    if(includesApplicants) {
+        hasApplicants = Object.keys(applyedApplicants).length > 0;
+    }
     const shiftname = shiftplan[row]["Wochentag"].ShiftName
     const shiftstart = shiftplan[row]["Wochentag"].ShiftStart
     const shiftend = shiftplan[row]["Wochentag"].ShiftEnd
@@ -52,7 +57,7 @@ const ShiftDetails = (props) => {
             }
         return value;
     }
-    if(hasShiftNotice() && hasApplicants) {
+    if(hasShiftNotice() && includesApplicants && hasApplicants) {
         let notice = shift.notice;
         return (
             <>
@@ -84,7 +89,7 @@ const ShiftDetails = (props) => {
                     </Row>
             </>
         );
-    } else if(!hasShiftNotice() && hasApplicants){
+    } else if(!hasShiftNotice() && includesApplicants && hasApplicants){
         return (
             <>
                 <Row className="mx-4">
@@ -105,7 +110,7 @@ const ShiftDetails = (props) => {
                 </Row>
             </>
         );
-    } else if(hasShiftNotice() && !hasApplicants){
+    } else if(hasShiftNotice() && ((includesApplicants && !hasApplicants) || (!includesApplicants)) ){
         let notice = shift.notice;
         return (
             <>
@@ -123,14 +128,6 @@ const ShiftDetails = (props) => {
                     </Col>
                     <Col xs={6}>
                         <p className="font-weight-bold">{notice}</p>
-                    </Col>
-                </Row>
-                <Row className="mx-4">
-                    <Col xs={6}>
-                        <p className="mt-2">Bewerber</p>
-                    </Col>
-                    <Col xs={6}>
-                        <FormNames names={applyedApplicants}></FormNames>
                     </Col>
                 </Row>
             </>
