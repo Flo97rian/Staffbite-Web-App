@@ -8,7 +8,7 @@ import {
   } from "reactstrap";
 import { planIdColor } from "../../../Application/functions/PlanIdColor";
 import store from "../../../../store";
-import { isValidPlans } from "../../../Application/functionalComponents/ValidFunctions";
+import { isValidMeta, isValidPlans } from "../../../Application/functionalComponents/ValidFunctions";
 
 const SchichtplanImport = (props) => {
     const ID = (status, item) => {
@@ -51,8 +51,9 @@ const SchichtplanImport = (props) => {
     }
 
     let hasPlans = isValidPlans(props.plaene);
+    let hasMeta = isValidMeta(props.org);
     let isActivePlan = props.bearbeiten;
-    if (!isActivePlan && hasPlans) {
+    if (!isActivePlan && hasPlans && hasMeta) {
       let Plans = props.plaene;
       if(getHeaders(props.status)) {
         return(
@@ -91,7 +92,7 @@ const SchichtplanImport = (props) => {
                             {planIdColor(item.id)}
                         </Col>
                         <Col xs={12} md={2} lg={2}>
-                          <Button className="mt-2" name={item.label} outline color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
+                          <Button className="mt-2" name={item.label} outline disabled={props.org.onboarding.shiftplan} color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
                         </Col>
                         <Col xs={12} md={2} lg={2}>
                         <i className="fa fa-trash fa-2x text-danger mt-3 ml-4" aria-hidden="true" onClick={() => props.onDelete(index)}></i>
@@ -150,7 +151,7 @@ const SchichtplanImport = (props) => {
                         {planIdColor(item.id)}
                     </Col>
                     <Col xs={12} md={2} lg={2}>
-                      <Button className="mt-2" name={item.label} outline color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
+                      <Button className="mt-2" name={item.label} outline disabled={props.org.onboarding.shiftplan} color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
                     </Col>
                     <Col xs={12} md={2} lg={2}>
                     <i className="fa fa-trash fa-2x text-danger mt-3 ml-4" aria-hidden="true" onClick={() => props.onDelete(index)}></i>

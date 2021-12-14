@@ -50,6 +50,7 @@ import InfoSidebar from "../../Sidebar/InfoSidebar";
 import ModalFreigebenButton from "./FormElements/ModalFreigebenButton";
 import ModalAlgButton from "./FormElements/ModalAlgButton";
 import { ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN, ONBOARDING_SHIFTPLAN_VORLAGE, ONBOARDING_SHIFTPLAN_EINTRAGEN, ONBOARDING_SHIFTPLAN_UEBERPRUEFUNG, ONBOARDING_SHIFTPLAN_VEROEFFENTLICHUNG } from "../../../constants/OnBoardingTexts"
+import { validMeta } from "../../Application/functionalComponents/ValidFunctions";
 const SchichtplanContainer = () => {
   const [userInput, setUserInput] = useState();
   const [navIndex, setNavIndex] = useState(1);
@@ -103,7 +104,6 @@ const SchichtplanContainer = () => {
         target: '.nav_veroeffentlichen',
         content: ONBOARDING_SHIFTPLAN_VEROEFFENTLICHUNG,
         locale: { 
-          next: <strong aria-label="skip">Nächster Schritt</strong>,
           back: <strong aria-label="skip">Zurück</strong>,
           last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>
          },
@@ -185,8 +185,8 @@ const SchichtplanContainer = () => {
   }, [Plans]);
 
   useEffect(() => {
-    if (Meta) {
-    setUserInput({...shiftplanStates, position: Meta.schichten[0]})
+    if (validMeta(Meta)) {
+      setUserInput({...shiftplanStates, position: Meta.schichten[0]})
       let showShfitplan = Meta.onboarding.shiftplan
       setState({...state, run: showShfitplan})
     }
@@ -209,10 +209,11 @@ const SchichtplanContainer = () => {
   };
 
   const handleOnboarding = () => {
-    let shiftplan = Meta.onboarding.shiftplan;
-    let meta = Meta;
-    meta.onboarding.shiftplan = !shiftplan;
-    store.dispatch(thunkUpdateProfile(meta));
+    let meta = store.getState().Meta;
+    if(validMeta(meta)) {
+      meta.onboarding.shiftplan = !1;
+      store.dispatch(thunkUpdateProfile(meta));
+    }
   }
 
   // Handling von Userinputs
@@ -601,6 +602,7 @@ const SchichtplanContainer = () => {
 
         return(
         <>
+        {validMeta(Meta) ?
         <Joyride
           continuous={true}
           run={run}
@@ -614,6 +616,9 @@ const SchichtplanContainer = () => {
             },
           }}
         />
+        :
+        <></>
+        }
         { !Meta && !Employees && !Plans ?
         <Row className="text-center">
           <br/>
