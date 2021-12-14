@@ -130,7 +130,7 @@ export const ShowSingleApplicant = (FirstApplicant) => {
 export const ShowMultipleApplicantsWithPrio = (FirstApplicant, ApplicantsLength, prio) => {
     return (<ListGroup>
          <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success">
-                <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+                <i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true"/>
                 <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
                     {FirstApplicant}
                     <br/>
@@ -142,8 +142,8 @@ export const ShowMultipleApplicantsWithPrio = (FirstApplicant, ApplicantsLength,
 
 export const ShowTwoApplicantsWithPrio = (FirstApplicant, SecondApplicant, prio) => {
     return (<ListGroup>
-         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success">
-                <small className="float-right" ><Badge color="success">{prio}</Badge></small>
+         <ListGroupItem className="m-1 p-0" style={{"cursor": "pointer"}} color="success">
+                <i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true"/>
                 <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
                     {FirstApplicant}
                     <br/>
@@ -153,11 +153,11 @@ export const ShowTwoApplicantsWithPrio = (FirstApplicant, SecondApplicant, prio)
     </ListGroup>
 )}
 
-export const ShowSingleApplicantWithPrio = (FirstApplicant, prio) => {
+export const ShowSingleApplicantWithPrio = (FirstApplicant) => {
     return (<ListGroup>
-                         <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success">
-                        <small className="float-right" ><Badge color="success">{prio}</Badge></small>
-                    <p className="mb-0 mt-2 pt-4 pr-2 pl-2 pb-4 text-center">
+                    <ListGroupItem className="mb-0 p-0" style={{"cursor": "pointer"}} color="success">
+                    <i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true"/>
+                    <p className="mb-2 mt-1 pt-4 pr-2 pl-2 pb-4 text-center">
                     {FirstApplicant}
                    </p>
                 </ListGroupItem>

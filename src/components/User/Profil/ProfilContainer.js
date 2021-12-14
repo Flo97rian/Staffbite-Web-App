@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import store from "../../../store";
 import { getUser } from "../../../store/middleware/FetchUser";
 import 'moment/locale/de';
+import Joyride from 'react-joyride';
 import {
     Card,
     Col,
@@ -11,8 +12,24 @@ import {
     CardBody,
   } from "reactstrap";
 import Button from 'react-bootstrap/Button';
+import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee";
+import { ONBOARDING_EMPLOYEE_NAME, ONBOARDING_EMPLOYEE_PICTURE, ONBOARDING_EMPLOYEE_SCHICHTPLAN, ONBOARDING_EMPLOYEE_SHIFTS_PER_WEEK } from "../../../constants/OnBoardingTexts";
 
 const ProfilContainer = (props) => {
+  const [state, setState] = useState({
+    run: !1,
+    steps: [
+      {
+        target: '.card_profile_picture',
+        locale: { 
+          last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
+         },
+        content: ONBOARDING_EMPLOYEE_NAME,
+        title: "Dein Profil"
+      }
+    ]
+  })
+  const { run, steps } = state;
   const selectUser = state => state.user
 
   const User = useSelector(selectUser);
@@ -20,11 +37,38 @@ const ProfilContainer = (props) => {
   useEffect(() => {
     store.dispatch(getUser)
   }, []);
+  useEffect(() => {
+    if(User) {
+      let showProfile = User.onboarding.profile
+      setState({...state, run: showProfile})
+    }
+  }, [User]);
 
+  const handleOnboarding = () => {
+    if (User) {
+      let profile = User.onboarding.profile;
+      let user = User;
+      user.onboarding.profile = !profile;
+      store.dispatch(thunkUpdateEmployee(user));
+    }
+  }
   return (
       <>
+      <Joyride
+      continuous={true}
+      run={run}
+      scrollToFirstStep={true}
+      showProgress={true}
+      showSkipButton={true}
+      steps={steps}
+      styles={{
+        options: {
+          zIndex: 10000,
+        },
+      }}
+    />
             <Col className="order-xl-2 mb-5 mb-xl-0" xl="12">
-              <Card className="card-profile shadow">
+              <Card className="card-profile shadow card_profile_picture">
                 <Row className="justify-content-center">
                   <Col className="order-lg-2" lg="3">
                     <div className="card-profile-image">
@@ -60,7 +104,7 @@ const ProfilContainer = (props) => {
                   <br/>
                 <hr className="my-4" />
                   <Row>
-                    <div className="col">
+                    <div className="col div_shifts_per_week">
                       <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                         <div>
                           <span className="heading">
@@ -71,7 +115,7 @@ const ProfilContainer = (props) => {
                       </div>
                     </div>
                   </Row>
-                  <div className="text-center">
+                  <div className="text-center div_name">
                     <h3>
                     {User ? <>{User.name}</>: <></>}
                       <span className="font-weight-light"></span>

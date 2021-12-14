@@ -39,7 +39,8 @@ exports.handler = async (event) => {
    "#zielmtlh": "zielmtlh",
    "#erfahrung": "erfahrung",
    "#schichtenwoche": "schichtenwoche",
-   "#position": "position"
+   "#position": "position",
+   "#onboarding": "onboarding"
   }, 
   ExpressionAttributeValues: {
                 ":name": {
@@ -74,11 +75,14 @@ exports.handler = async (event) => {
                 },
                 ":position": {
                  "S": JSON.stringify(employee.position)
+                },
+                ":onboarding": {
+                 "S": JSON.stringify(employee.onboarding)
                 }
   }, 
   ReturnValues: "ALL_NEW", 
   TableName: "Staffbite-DynamoDB", 
-  UpdateExpression: "SET #name = :name, #stundenlohn = :stundenlohn, #zielmtleuro = :zielmtleuro, #zielmtlh = :zielmtlh, #ueberstunden = :ueberstunden, #frei = :frei, #aktiv = :aktiv, #email = :email, #erfahrung = :erfahrung, #schichtenwoche = :schichtenwoche, #position = :position"
+  UpdateExpression: "SET #name = :name, #stundenlohn = :stundenlohn, #zielmtleuro = :zielmtleuro, #zielmtlh = :zielmtlh, #ueberstunden = :ueberstunden, #frei = :frei, #aktiv = :aktiv, #email = :email, #erfahrung = :erfahrung, #schichtenwoche = :schichtenwoche, #position = :position, #onboarding = :onboarding"
     };
     
      

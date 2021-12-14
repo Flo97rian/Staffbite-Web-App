@@ -2,7 +2,7 @@ import { API, Auth } from "aws-amplify";
 import { FetchFromDB } from "./FetchPlansFromDB";
 import { API_HOSTNAME, UPDATE_SHIFTPLAN } from "../../constants/ApiConstants";
 
-export function thunkUpdateShiftPlan(shiftplan) {
+export function thunkUpdateShiftPlan(shiftplan, reload) {
   return async function updateShiftPlan(dispatch, getState) {
     Auth.currentAuthenticatedUser().then( user => {
       const apiName = API_HOSTNAME; // replace this with your api name.
@@ -17,11 +17,14 @@ export function thunkUpdateShiftPlan(shiftplan) {
       })
     .then(response => {
       dispatch(FetchFromDB);
-      dispatch({type: "stopShiftPlanIsActive"});
-      dispatch({type: "stopShiftPlanIsImported"});
-      dispatch({type: "resetShiftplan"});
-      dispatch({ type: "ResetShiftSlot"});
-      dispatch({type: "ResetCurrentShiftPlan"});
+      if(reload) {
+        dispatch({type: "stopShiftPlanIsActive"});
+        dispatch({type: "stopShiftPlanIsImported"});
+        dispatch({type: "resetShiftplan"});
+        dispatch({ type: "ResetShiftSlot"});
+        dispatch({type: "ResetCurrentShiftPlan"});
+        dispatch({type: "resetShiftplanChanged"});
+      }
     })
   }
 }

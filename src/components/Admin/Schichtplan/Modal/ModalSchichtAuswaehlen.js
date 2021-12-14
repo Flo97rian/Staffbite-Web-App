@@ -47,7 +47,7 @@ const ModalSchichtAuswaehlen = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button  color="secondary" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
-                    <Button color="success" onClick={() => props.selectBewerber(props.modalkey, DragAndDropRef)}>Änderungen speichern</Button>
+                    <Button color="success" onClick={() => props.selectBewerber(props.modalkey, DragAndDropRef)}>Änderungen übernehmen</Button>
                 </Modal.Footer>
             </Modal>
         );

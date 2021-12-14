@@ -93,7 +93,6 @@ const LogIn = (props) => {
                                 type="email" 
                                 name="username" 
                                 onChange={(e) => props.handleInputChange(e)}
-                                onKeyPress={(event) => handleKeyPress(event)}
                                 />
                             </InputGroup>
                             </FormGroup>

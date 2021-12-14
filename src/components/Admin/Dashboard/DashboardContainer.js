@@ -20,6 +20,7 @@ import {
   chartOptions,
   parseOptions,
 } from "./Form/charts.js";
+import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile";
 import NotificationAlert from "react-notification-alert";
 import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
@@ -39,12 +40,12 @@ const DashboardContainer = (props) => {
   const [filterIsActive, setFilterIsActive] = useState(!1);
   const [errMsg, setErrMsg] = useState({ InvalidReportInput: !1});
   const [state, setState] = useState({
-    run: !0,
+    run: !1,
     steps: [
       {
         target: '.card_mitarbeiter',
         locale: { 
-          skip: <strong aria-label="skip">Beenden</strong>, 
+          skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
           next: <strong aria-label="skip">Nächster Schritt</strong>
          },
         content: ONBOARDING_OVERVIEW_TEAM,
@@ -54,7 +55,7 @@ const DashboardContainer = (props) => {
         target: '.card_tauschanfragen',
         content: ONBOARDING_OVERVIEW_SHIFTRADE,
         locale: { 
-            skip: <strong aria-label="skip">Beenden</strong>, 
+            skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
             next: <strong aria-label="skip">Nächster Schritt</strong>,
             back: <strong aria-label="skip">Zurück</strong>
           },
@@ -66,7 +67,7 @@ const DashboardContainer = (props) => {
         locale: { 
           next: <strong aria-label="skip">Nächster Schritt</strong>,
           back: <strong aria-label="skip">Zurück</strong>,
-          last: <strong aria-label="skip">Beenden</strong>
+          last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>
          },
         title: "Einleitung"
       }
@@ -76,6 +77,7 @@ const DashboardContainer = (props) => {
   const { run, steps } = state;
 
   //REDUX-Filter für UI-Data
+  const selectMeta = state => state.Meta;
   const selectPlans = state => state.DB.plans;
   const selectEmployees = state => state.DB.employees;
   const selectShiftplan = state => state.Shiftplan;
@@ -86,6 +88,7 @@ const DashboardContainer = (props) => {
   const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
+  const Meta = useSelector(selectMeta);
   const Plans = useSelector(selectPlans);
   const Employees = useSelector(selectEmployees);
   const Shiftplan = useSelector(selectShiftplan);
@@ -128,6 +131,13 @@ const DashboardContainer = (props) => {
   }, [Date]);
 
   useEffect(() => {
+    if (Meta) {
+      let showOverview = Meta.onboarding.overview
+      setState({...state, run: showOverview})
+    }
+  }, [Meta]);
+
+  useEffect(() => {
   }, [filter]);
 
   if (window.Chart) {
@@ -139,6 +149,12 @@ const DashboardContainer = (props) => {
     return shiftTradeCount;
   };
 
+  const handleOnboarding = () => {
+    let overview = Meta.onboarding.overview;
+    let meta = Meta;
+    meta.onboarding.overview = !overview;
+    store.dispatch(thunkUpdateProfile(meta));
+  }
   function Notify (type, title, err) {
     let options = {
       place: "tc",

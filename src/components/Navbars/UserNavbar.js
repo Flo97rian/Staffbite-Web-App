@@ -38,6 +38,7 @@ import store from "../../store";
 import { Auth } from 'aws-amplify';
 import { getUser } from "../../store/middleware/FetchUser";
 import { userroutes } from "../../routes";
+import { thunkUpdateEmployee } from "../../store/middleware/UpdateEmployee";
 
 const UserNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -114,6 +115,17 @@ async function signOut() {
         console.log('error signing out: ', error);
     }
 }
+function tourStarten() {
+  let onboarding = {
+    overview: true,
+    eintragen: true,
+    shiftplan: true,
+    profile: true
+  }
+  let user = User;
+  user.onboarding = onboarding;
+  store.dispatch(thunkUpdateEmployee(user));
+}
 
   return (
     <>
@@ -152,6 +164,10 @@ async function signOut() {
                   <i className="ni ni-single-02" />
                   <span>Mein Profil</span>
                 </DropdownItem>
+                <DropdownItem onClick={() => tourStarten()}>
+                    <i className="fas fa-eye" />
+                    <span>Tour starten</span>
+                  </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem href="/auth" onClick={() => signOut()}>
                   <i className="ni ni-user-run" />

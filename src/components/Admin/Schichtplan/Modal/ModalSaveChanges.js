@@ -10,11 +10,11 @@ import store from "../../../../store"
 const ModalSaveChanges = (props) => {
 
     function ResetShiftplan (modalkey) {
-        
         store.dispatch({ type: "ResetCurrentShiftPlan"})
         store.dispatch({ type: "resetShiftplan"})
         store.dispatch({ type: "stopShiftPlanIsActive"})
         store.dispatch({ type: "stopShiftPlanIsImported"})
+        store.dispatch({ type: "resetShiftplanChanged"})
         store.dispatch({type: "CLOSE", payload: modalkey})
     }
         return (
@@ -36,7 +36,7 @@ const ModalSaveChanges = (props) => {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button  color="secondary" onClick={() => ResetShiftplan(props.modalkey)}> Schließen </Button>
+                    <Button  color="warning" onClick={() => ResetShiftplan(props.modalkey)}> Änderungen ablehnen </Button>
                     <Button color="success" onClick={() => props.handleUpdate()}>Änderungen speichern</Button>
                 </Modal.Footer>
             </Modal>

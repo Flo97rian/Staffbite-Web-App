@@ -18,7 +18,7 @@ const ShiftplanImport = (props) => {
 
         return(
           <>
-              <Card className="mb-1 mt-0">
+              <Card className="mb-1 mt-0 card_shiftplan">
               <CardBody className="p-1">
               <Row className="text-center">
                   <Col xs={3}>

@@ -20,7 +20,9 @@ import { API_HOSTNAME, FETCH_ORGANISATION } from "../../constants/ApiConstants";
             abrechnungende: response.Item.AbrechnungEnde["S"],
             reverse: response.Item.reverse["BOOL"],
             schichten: JSON.parse(response.Item.schichten["S"]),
+            onboarding: JSON.parse(response.Item.onboarding["S"]),
           }
           dispatch({type: "setMeta", payload: org})
+          dispatch({type: "stopFetchingMeta"})
             })
       };

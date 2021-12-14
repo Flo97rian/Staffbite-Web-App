@@ -29,12 +29,12 @@ const TableContainer = (props) => {
   const [position, setPosition] = useState();
   const [errMsg, setErrMsg] = useState({InvalidInputForCreation: !1})
   const [state, setState] = useState({
-    run: !0,
+    run: !1,
     steps: [
       {
         target: '.button_mitartbeitereinladen',
         locale: { 
-          skip: <strong aria-label="skip">Beenden</strong>, 
+          skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
           next: <strong aria-label="skip">Nächster Schritt</strong>
          },
         content: ONBOARDING_TEAM_INVITE,
@@ -44,7 +44,7 @@ const TableContainer = (props) => {
         target: '.card_mitarbeiterliste',
         content: ONBOARDING_TEAM_OVERVIEW,
         locale: { 
-            last: <strong aria-label="skip">Beenden</strong>,
+            last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>,
             back: <strong aria-label="skip">Zurück</strong>
           },
         title: "Team verwalten"
@@ -80,13 +80,24 @@ const TableContainer = (props) => {
     }, [userInput]);
 
     useEffect(() => {
+      if (Meta) {
+        let showTeam = Meta.onboarding.team
+        setState({...state, run: showTeam})
+      }
+    }, [Meta]);
+    useEffect(() => {
     }, [Employees]);
     // Filtert auf Basis der Id, die zugehörigen Mitarbeiterdaten
     const handleFilter = (idToSearch) => {
       const data = Employees[idToSearch];
       return data;
   };
-
+  const handleOnboarding = () => {
+    let team = Meta.onboarding.team;
+    let meta = Meta;
+    meta.onboarding.team = !team;
+    store.dispatch(thunkUpdateProfile(meta));
+  }
  // Handling von Userinputs
  const handleInputChange = (event) => {
     const key = event.target.name;

@@ -66,9 +66,6 @@ const SchichtplanDnDEntwurf = (props) => {
     if (result.destination.index === 0) {
       return;
     }
-    if (result.destination.index === 1) {
-      return;
-    }
     if (result.destination.index === Items.length - 1) {
       return;
     }
@@ -95,7 +92,7 @@ const SchichtplanDnDEntwurf = (props) => {
             >
               <tbody>
                 {Items.map((item, index) => ( Number(item.id) !== 0 && Number(item.id) !== Items.length - 1 ?
-                  <Draggable key={"Entwurf" + String(index)} draggableId={item.id} index={index}>
+                  <Draggable key={"Entwurf" + String(item.id)} draggableId={item.id} index={index}>
                      {(provided, snapshot) => (
                       <tr>
                         <td color="primary"
@@ -106,7 +103,7 @@ const SchichtplanDnDEntwurf = (props) => {
                           snapshot.isDragging,
                           provided.draggableProps.style
                         )}>
-                            <SchichtplanElementEntwurf wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[Number(item.id)].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
+                            <SchichtplanElementEntwurf wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[index].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
                         </td>
                         <td style={{"padding": "0"}}>
                             <SchichtplanElementEntwurf wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
@@ -135,28 +132,28 @@ const SchichtplanDnDEntwurf = (props) => {
                   :
                   <tr>
                     <td color="primary" style={{"padding": "0"}}>
-                        <SchichtplanElementEntwurf wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
+                        <SchichtplanElementEntwurf wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementEntwurf wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
+                        <SchichtplanElementEntwurf wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementEntwurf wochentag={item.Dienstag} index={Number(item.id)} col="Dienstag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
+                        <SchichtplanElementEntwurf wochentag={item.Dienstag} index={Number(item.id)} col="Dienstag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementEntwurf wochentag={item.Mittwoch} index={Number(item.id)} col="Mittwoch" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
+                        <SchichtplanElementEntwurf wochentag={item.Mittwoch} index={Number(item.id)} col="Mittwoch" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementEntwurf wochentag={item.Donnerstag} index={Number(item.id)} col="Donnerstag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
+                        <SchichtplanElementEntwurf wochentag={item.Donnerstag} index={Number(item.id)} col="Donnerstag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementEntwurf wochentag={item.Freitag} index={Number(item.id)} col="Freitag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
+                        <SchichtplanElementEntwurf wochentag={item.Freitag} index={Number(item.id)} col="Freitag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementEntwurf wochentag={item.Samstag} index={Number(item.id)} col="Samstag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
+                        <SchichtplanElementEntwurf wochentag={item.Samstag} index={Number(item.id)} col="Samstag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementEntwurf wochentag={item.Sonntag} index={Number(item.id)} col="Sonntag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
+                        <SchichtplanElementEntwurf wochentag={item.Sonntag} index={Number(item.id)} col="Sonntag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementEntwurf>
                     </td>
                 </tr>
                 ))}
