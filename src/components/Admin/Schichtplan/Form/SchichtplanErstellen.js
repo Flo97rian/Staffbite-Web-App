@@ -40,7 +40,7 @@ const SchichtplanErstellen = (props) => {
             <Row>
                 <Col xs={1} ></Col>
                 <Col xs={10} >
-                <InputStringShiftName info={true} description={INFO_SHIFTPLAN_NAME} label="Name des Schichtplanes" name="name" currentValue={props.userInput.name} isValid={validShiftplanName(props.userInput.name)} placeholder="Name" onChange={(e) => props.onChange(e, "userInput")} {...props}></InputStringShiftName>
+                <InputStringShiftName info={true} description={INFO_SHIFTPLAN_NAME} label="Name der Vorlage" name="name" currentValue={props.userInput.name} isValid={validShiftplanName(props.userInput.name)} placeholder="Name" onChange={(e) => props.onChange(e, "userInput")} {...props}></InputStringShiftName>
                     <br/>
                     <InputNumber info={true} description={INFO_SHIFTPLAN_NUMBER_OF_SHIFTS} label="Schichten pro Tag" name="schichtentag"  placeholder="" onChange={(e) => props.onChange(e, "userInput")}></InputNumber>
                     {!1 === !0 ? 
