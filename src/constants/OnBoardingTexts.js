@@ -1,8 +1,8 @@
 export const ONBOARDING_TEAM_INVITE = "Hier kannst du neue Mitarbeiter einladen!";
 export const ONBOARDING_TEAM_OVERVIEW = "Hier wird dein gesamtes Team aufgelistet. Klicke auf ein Teammitglied um detaillierte Informationen zu erhalten.";
 export const ONBOARDING_OVERVIEW_TEAM = "Hier kannst du auf einen Blick sehen wie groß dein Team derzeit ist.";
-export const ONBOARDING_OVERVIEW_SHIFTRADE = "Hier werden in Zukunft die Tauschanfragen deiner Mitarbeiter angezeigt!";
-export const ONBOARDING_OVERVIEW_SHIFTPLAN = "Hier wird in Zukunft dein aktueller Schichtplan angezeigt.";
+export const ONBOARDING_OVERVIEW_SHIFTRADE = "Hier kannst du die aktuelle Anzahl der Tauschanfragen deines Teams sehen!";
+export const ONBOARDING_OVERVIEW_SHIFTPLAN = "Hier wird in Zukunft dein aktueller & veröffentlichter Schichtplan angezeigt.";
 export const ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN = "Klicke auf diesen Button, um eine neue Vorlage für deinen Schichtplan zu erstellen. Deine individuellen Vorlagen kannst du jederzeit wiederverwenden!";
 export const ONBOARDING_SHIFTPLAN_VORLAGE = "In diesem Reiter findest du deine Vorlagen. Wenn du zufrieden mit deiner Vorlage bist, kannst du den Schichtplan an dein Team freigeben.";
 export const ONBOARDING_SHIFTPLAN_EINTRAGEN = "Hier findest du die Schichtpläne, die du an dein Team freigegeben hast. Du kannst sehen wie sich dein Team eingetragen hat und die Befüllung starten sobald du bereit bist.";
