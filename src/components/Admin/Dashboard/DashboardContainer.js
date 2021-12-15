@@ -65,7 +65,6 @@ const DashboardContainer = (props) => {
         target: '.card_aktuellerSchichtplan',
         content: ONBOARDING_OVERVIEW_SHIFTPLAN,
         locale: { 
-          next: <strong aria-label="skip">Nächster Schritt</strong>,
           back: <strong aria-label="skip">Zurück</strong>,
           last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>
          },

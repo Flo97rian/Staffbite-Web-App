@@ -8,11 +8,16 @@ import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 import { INFO_ORGANISATION_FIRSTNAME_AND_LASTNAME, INFO_ORGANISATION_NAME, INFO_ORGANISATION_POSITIONS, INFO_ORGANISATION_STUNDENERFASSUNG } from "../../../../constants/InfoTexts";
 import store from "../../../../store";
 import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
+import { validMeta, validMetaData } from "../../../Application/functionalComponents/ValidFunctions";
 const Unternehmensprofil = (props) => {
-
+    function handleKeyPress(event) {
+        if(event.key === 'Enter'){
+            props.handlePositionErstellen()
+        }
+      }
     function showPositions () {
         let meta = props.metaData;
-        if(meta !== null) {
+        if(validMetaData(meta)) {
             let schichten = meta.schichten;
             let schichtenLength = schichten.length;
             if (schichtenLength > 1) {
@@ -44,7 +49,7 @@ const Unternehmensprofil = (props) => {
                 <h3 className="float-left pt-4 font-weight-bold text-lg">Einstellungen</h3>
             </Col>
             <Col xs={10}>
-                <Button className="float-right mt-4" color="primary" onClick={() => props.onClick()}><p className="m-0 text-white">Änderungen speichern</p></Button>
+                <Button className="float-right mt-4 button_speichern" color="primary" onClick={() => props.onClick()}><p className="m-0 text-white">Änderungen speichern</p></Button>
             </Col>
             </Row>
             <Card className="shadow">
@@ -58,7 +63,7 @@ const Unternehmensprofil = (props) => {
                     <Col xs={12}>
                     <InfoLabel title="Positionen bearbeiten" description={INFO_ORGANISATION_POSITIONS}></InfoLabel>
                     {props.showPositionHinzufuegen ?
-                    <Input type="text" size="lg" className='bg-secondary' label="Position" name="position"  placeholder="" onChange={(e) => props.handlePositionChange(e)}></Input>
+                    <Input type="text" size="lg" className='bg-secondary' label="Position" name="position"  placeholder="" onKeyPress={(event) => handleKeyPress(event)} onChange={(e) => props.handlePositionChange(e)}></Input>
                         :
                         <></>
                     }

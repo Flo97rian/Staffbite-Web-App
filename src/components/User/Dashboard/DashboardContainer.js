@@ -211,7 +211,7 @@ const DashboardContainer = (props) => {
                   </Link>
                 </Col>
               </Row>
-            <Row >
+            <Row className="card_aktuellerSchichtplan">
               <Col xs={3} className="mt-4">
                 <h3 className="float-left pt-4 font-weight-bold text-lg">aktueller Schichtplan</h3>
               </Col>

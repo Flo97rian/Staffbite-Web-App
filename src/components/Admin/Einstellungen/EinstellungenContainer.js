@@ -16,7 +16,8 @@ import store from "../../../store";
 import InfoSidebar from "../../Sidebar/InfoSidebar";
 import Joyride from 'react-joyride';
 import {INFO_CREATED_POSITION, SUCCESS_LOADING_META} from "../../../constants/Alerts";
-import { ONBOARDING_EINSTELLUNGEN_BETRIEB_NAME, ONBOARDING_EINSTELLUNGEN_POSITIONEN, ONBOARDING_EINSTELLUNGEN_NAV_BETRIEB, ONBOARDING_EINSTELLUNGEN_SHIFTPLAN_REVERSE, ONBOARDING_EINSTELLUNGEN_SHIFTPLAN_ORDER, ONBOARDING_EINSTELLUNGEN_NAV_SHIFTPLAN } from "../../../constants/OnBoardingTexts"
+import { ONBOARDING_EINSTELLUNGEN_BETRIEB_NAME, ONBOARDING_EINSTELLUNGEN_POSITIONEN, ONBOARDING_EINSTELLUNGEN_NAV_BETRIEB, ONBOARDING_EINSTELLUNGEN_SHIFTPLAN_REVERSE, ONBOARDING_EINSTELLUNGEN_SHIFTPLAN_ORDER, ONBOARDING_EINSTELLUNGEN_NAV_SHIFTPLAN, ONBOARDING_EINSTELLUNGEN_SPEICHERN } from "../../../constants/OnBoardingTexts"
+import { validMeta } from "../../Application/functionalComponents/ValidFunctions";
 
 const EinstellungenContainer = () => {
   const [metaData, setMetaData] = useState(null)
@@ -48,6 +49,16 @@ const EinstellungenContainer = () => {
       {
         target: '.input_position',
         content: ONBOARDING_EINSTELLUNGEN_POSITIONEN,
+        locale: { 
+            skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Deine Einstellungen"
+      },
+      {
+        target: '.button_speichern',
+        content: ONBOARDING_EINSTELLUNGEN_SPEICHERN,
         locale: { 
             skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
             next: <strong aria-label="skip">Nächster Schritt</strong>,
@@ -90,13 +101,10 @@ const EinstellungenContainer = () => {
     }, []); 
 
      useEffect(() => {
-       if(Meta !== !1) {
+       if(validMeta(Meta)) {
         setMetaData({...metaData, schichten: Meta.schichten})
        }
     }, [Meta]);
-
-    useEffect(() => {
-   }, [metaData]);
 
 
   useEffect(() => {
@@ -105,6 +113,7 @@ const EinstellungenContainer = () => {
       setState({...state, run: showSettings})
     }
   }, [Meta]);
+
 
   useEffect(() => {
     if(Date.start !== undefined) {
@@ -136,10 +145,11 @@ const EinstellungenContainer = () => {
 
   };
   const handleOnboarding = () => {
-    let settings = Meta.onboarding.settings;
-    let meta = Meta;
-    meta.onboarding.settings = !settings;
-    store.dispatch(thunkUpdateProfile(meta));
+    let meta = store.getState().Meta;
+    if(validMeta(meta)) {
+      meta.onboarding.settings = !1;
+      store.dispatch(thunkUpdateProfile(meta));
+    }
   }
   // Handling von Userinputs
   const handleInputChange = (event) => {

@@ -29,7 +29,7 @@ const DashboardSchichtenTabelle = (props) => {
         let Sonntag = props.shiftplan.zeitraum.split(" - ")[1]
         return (
             <>
-            <Card className="card_aktuellerSchichtplan">
+            <Card>
                 <CardBody>
                 <Row className="text-center mt-4" noGutters={true}>
                     <Col xs={3}>

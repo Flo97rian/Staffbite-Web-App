@@ -20,6 +20,20 @@ export function validMeta (Meta) {
     return hasMeta;
 }
 
+export function validMetaData (MetaData) {
+    let hasMetaData = !1;
+    if(MetaData !== undefined) {
+        if (MetaData !== !1) {
+            if(MetaData !== null) {
+                if(typeof MetaData === "object") {
+                    hasMetaData = !0;
+                }
+            }
+        }
+    }
+    return hasMetaData;
+}
+
 export function isValidUser (User) {
     let hasUser = !1;
     if (User !== undefined) {
