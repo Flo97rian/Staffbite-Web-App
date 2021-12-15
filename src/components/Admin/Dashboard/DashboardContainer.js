@@ -320,7 +320,6 @@ const DashboardContainer = (props) => {
                   </Link>
                 </Col>
               </Row>
-              { Shiftplan ?
                 <>
                   <Row>
                     <Col xs={3}>
@@ -331,6 +330,7 @@ const DashboardContainer = (props) => {
                     </Row>
                   <Card className="shadow card_aktuellerSchichtplan">
                     <CardBody>
+                    { Shiftplan ?
                       <DashboardSchichtenTabelle
                         shiftplan={Shiftplan}
                         bearbeiten={!0}
@@ -338,12 +338,12 @@ const DashboardContainer = (props) => {
                         import={!0}
                       >
                       </DashboardSchichtenTabelle>
+                      :
+                      <></>
+                      }
                       </CardBody>
                   </Card>
                 </>
-              :
-                <></>
-              }
             <Row>
               <Col xs={3}>
               <h3 className="float-left pt-5 pr-2 font-weight-bold mr-2 text-lg">
