@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, {useEffect} from "react";
 
 // reactstrap components
 import {
@@ -24,14 +24,34 @@ import {
   Col
 } from "reactstrap";
 // core components
+import ReactGA from "react-ga";
+import { Helmet } from "react-helmet";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { Link } from "react-router-dom";
+import { IMPRESSUM_DESCRIPTION, IMPRESSUM_TITLE } from "../../constants/MetaTexts";
 
-function Impressum () {
+function Impressum (props) {
+  useEffect(() => {
+    pageViewsTracking()
+  },[])
+
+  function pageViewsTracking () {
+    const pathname = props.match.path;
+    let pageView;
+    if(pathname === "*") pageView = "/not_found";
+    else pageView = pathname;
+  
+    ReactGA.pageview(pageView);
+  } 
     return (
     <>
+        <Helmet>
+          <title>{IMPRESSUM_TITLE}</title>
+          <meta name="description" content={IMPRESSUM_DESCRIPTION}/>
+          <link rel="canonical" href="https://www.staffbite.de/impressum" />
+        </Helmet>
        <LandingNavBar
               logo={{
                 innerLink: "/",

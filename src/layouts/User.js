@@ -15,7 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, {useEffect} from "react";
+import ReactGA from "react-ga";
 import { useLocation, Route, Switch, Redirect } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
@@ -33,6 +34,18 @@ Amplify.configure(awsconfig);
 const User = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
+  useEffect(() => {
+    pageViewsTracking()
+  },[])
+
+  function pageViewsTracking () {
+    const pathname = props.match.path;
+    let pageView;
+    if(pathname === "*") pageView = "/not_found";
+    else pageView = pathname;
+  
+    ReactGA.pageview(pageView);
+  } 
 
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;

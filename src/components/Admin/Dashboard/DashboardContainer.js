@@ -32,6 +32,7 @@ import { thunkStartReport } from "../../../store/middleware/StartReport";
 import { WARNING_INVALID_REPORT_INPUT } from "../../../constants/Alerts"; 
 import InfoSidebar from "../../Sidebar/InfoSidebar.js";
 import { ONBOARDING_OVERVIEW_SHIFTPLAN, ONBOARDING_OVERVIEW_SHIFTRADE, ONBOARDING_OVERVIEW_TEAM } from "../../../constants/OnBoardingTexts.js";
+import { validMeta } from "../../Application/functionalComponents/ValidFunctions.js";
 
 
 const DashboardContainer = (props) => {
@@ -234,6 +235,7 @@ const DashboardContainer = (props) => {
     };
         return (
           <>
+           {validMeta(Meta) ?
           <Joyride
           continuous={true}
           run={run}
@@ -247,6 +249,9 @@ const DashboardContainer = (props) => {
             },
           }}
         />
+        : 
+        <></>
+        }
             {errMsg !== null && errMsg.InvalidReportInput ? 
             Notify("warning", WARNING_INVALID_REPORT_INPUT, "InvalidReportInput")
             :

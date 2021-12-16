@@ -22,6 +22,7 @@ import { Employee } from "./processing/Employee.js";
 import { WARNING_MISSING_EMPLOYEE_DETAILS } from "../../../constants/Alerts.js";
 import InfoSidebar from "../../Sidebar/InfoSidebar.js";
 import { ONBOARDING_TEAM_INVITE, ONBOARDING_TEAM_OVERVIEW } from "../../../constants/OnBoardingTexts.js";
+import { validMeta } from "../../Application/functionalComponents/ValidFunctions.js";
 
 const TableContainer = (props) => {
   const [userInput, setUserInput] = useState(employeeStates);
@@ -258,6 +259,7 @@ const setSelectEmployee = (ma) => {
 
         return(
         <>
+         {validMeta(Meta) ?
         <Joyride
           continuous={true}
           run={run}
@@ -271,6 +273,9 @@ const setSelectEmployee = (ma) => {
             },
           }}
         />
+        :
+        <></>
+        }
         { !Meta && !Employees ?
         <Row className="text-center">
           <br/>

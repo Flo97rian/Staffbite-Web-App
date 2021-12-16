@@ -27,12 +27,25 @@ import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import awsconfig from '../aws-exports';
 import { authroutes } from "../routes"
 import AuthFooter from "../components/Footers/AuthFooter"
+import ReactGA from "react-ga";
 
 Amplify.configure(awsconfig);
 
-const AuthUI = () => {
+const AuthUI = (props) => {
     const [authState, setAuthState] = useState();
     const [user, setUser] = useState();
+    useEffect(() => {
+      pageViewsTracking()
+    },[])
+  
+    function pageViewsTracking () {
+      const pathname = props.match.path;
+      let pageView;
+      if(pathname === "*") pageView = "/not_found";
+      else pageView = pathname;
+    
+      ReactGA.pageview(pageView);
+    } 
 
     const getRoutes = (adminroutes) => {
       return authroutes.map((prop, key) => {

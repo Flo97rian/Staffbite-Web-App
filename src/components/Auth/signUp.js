@@ -46,7 +46,7 @@ import ConfirmTenant from "./AuthComponents/ConfirmTenant";
 import VerifyTenant from "./AuthComponents/VerifyTenant";
 import Register from "./AuthComponents/Register";
 
-const SignUp = () => {
+const SignUp = (props) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
@@ -58,7 +58,19 @@ const SignUp = () => {
     const [user, setUser] = useState();
     const [code, setCode] = useState("");
     const [tenant, setTenant] = useState(!1);
-
+    
+    useEffect(() => {
+        pageViewsTracking()
+      },[])
+    
+      function pageViewsTracking () {
+        const pathname = props.match.path;
+        let pageView;
+        if(pathname === "*") pageView = "/not_found";
+        else pageView = pathname;
+      
+        ReactGA.pageview(pageView);
+      } 
 async function signUp() {
     if(isValid && checkValid) {
     setErr(null);

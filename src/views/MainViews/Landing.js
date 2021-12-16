@@ -15,12 +15,14 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, {useEffect, useState, useRef} from "react";
 // nodejs library that concatenates classes
+import { Helmet } from "react-helmet";
 import "../../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../assets/scss/argon-dashboard-react.scss";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
+import BildSchichtplanErstellen from "../../assets/img/theme/Schichtplan-erstellen.png";
 import MitarbeiterAppBeispiel from "../../assets/img/theme/Schichtplan-App-Mitarbeiter.png"
 import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.png"
 
@@ -42,19 +44,48 @@ import {
 
 // core components
 import LandingFooter from "../../components/Footers/LandingFooter.js";
+import { pageview } from "react-ga";
+import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
+import SchichtplanErstellen from "../../components/Admin/Schichtplan/Form/SchichtplanErstellen";
 
 
-class Landing extends React.Component {
-  state = {};
-  componentDidMount() {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
-  }
-  render() {
+const Landing = (props) => {
+  const [state, setState] = useState({})
+
+  useEffect(() => {
+    pageViewsTracking()
+  },[])
+
+  function pageViewsTracking () {
+    const pathname = props.match.path;
+  
+    let pageView;
+    if(pathname === "*") pageView = "/not_found";
+    else pageView = pathname;
+  
+    pageview(pageView);
+  } 
+
     return (
       <>
-        <main ref="main" className="mt-5">
+        <main className="mt-5">
+        <Helmet>
+          <title>{LANDING_TITLE}</title>
+          <meta name="description" charSet="utf-8" content={LANDING_DESCRIPTION}/>
+          <meta property="og:title" content="Staffbite - Digitale Schichtplanung jederzeit online und per App."/>
+          <meta property="og:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
+          <meta property="og:url" content="https://www.staffbite.de"></meta>
+          <meta property="og:type" content="website"></meta>
+          <meta property="og:image" content={BildSchichtplanErstellen}></meta>
+          <meta property="og:site_name" content="Staffbite"></meta>
+          <meta property="twitter:title" content="Staffbite - Digitale Schichtplanung jederzeit online und per App."/>
+          <meta property="twitter:card" content="summary_large_image"/>
+          <meta property="twitter:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
+          <meta property="twitter:url" content="https://www.staffbite.de"></meta>
+          <meta property="twitter:image" content={BildSchichtplanErstellen}></meta>
+          <meta property="twitter:type" content="website"></meta>
+          <link rel="canonical" href="https://www.staffbite.de" />
+        </Helmet>
           <div className="position-relative">
             {/* shape Hero */}
             <section className="section section-lg section-hero section-shaped pb-250 bg-gradient-info">
@@ -134,7 +165,7 @@ class Landing extends React.Component {
                           <p className="description mt-3">
                             Mit wenigen Klicks erstellst du deinen digitalen Schichtplan für dich und dein Team. 
                           </p>
-                          <a href="/shiftplan/#sectioncreate" class="stretched-link"></a>
+                          <a href="/schichtplan/#sectioncreate" class="stretched-link"></a>
                         </CardBody>
                       </Card>
                     </Col>
@@ -150,7 +181,7 @@ class Landing extends React.Component {
                           <p className="description mt-3">
                             Deine Mitarbeiter*innen tragen ihre Verfügbarkeiten ein. Das geht jederzeit per Smartphone oder Laptop.
                           </p>
-                          <a href="/shiftplan/#sectionapp" class="stretched-link"></a>
+                          <a href="/schichtplan/#sectionapp" class="stretched-link"></a>
                         </CardBody>
                       </Card>
                     </Col>
@@ -166,7 +197,7 @@ class Landing extends React.Component {
                           <p className="description mt-3">
                             Unsere Lösung befüllt deinen Schichtplan automatisiert innerhalb weniger Sekunden.
                           </p>
-                          <a href="/shiftplan/#sectionalg" class="stretched-link"></a>
+                          <a href="/schichtplan/#sectionalg" class="stretched-link"></a>
                           <br />
                         </CardBody>
                       </Card>
@@ -183,7 +214,7 @@ class Landing extends React.Component {
                           <p className="description mt-3">
                             Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den fertigen Schichtplan mit einem Klick.
                           </p>
-                          <a href="/shiftplan/#sectionalg" class="stretched-link"></a>
+                          <a href="/schichtplan/#sectionalg" class="stretched-link"></a>
                           <br />
                         </CardBody>
                       </Card>
@@ -284,7 +315,7 @@ class Landing extends React.Component {
                           <p className="description mt-3">
                           Zeit ist Geld – auch für unsere Kunden. Deshalb automatisieren wir die zeitfressende Zuordnung von Personal und Schichten.
                           </p>
-                          <a href="/shiftplan/#sectionalg" class="stretched-link"></a>
+                          <a href="/schichtplan/#sectionalg" class="stretched-link"></a>
                           <br />
                         </CardBody>
                       </Card>
@@ -315,7 +346,6 @@ class Landing extends React.Component {
         <LandingFooter/>
       </>
     );
-  }
 }
 
 export default Landing;

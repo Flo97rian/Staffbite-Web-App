@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -30,16 +30,32 @@ import {
 
 } from "reactstrap";
 // core components
+import { pageview } from "react-ga";
+import ReactGA from "react-ga";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { Helmet } from "react-helmet";
 
-function Pricing () {
+const Pricing = (props) => {
+  useEffect(() => {
+    pageViewsTracking()
+  },[])
+
+  function pageViewsTracking () {
+    const pathname = props.match.path;
+    let pageView;
+    if(pathname === "*") pageView = "/not_found";
+    else pageView = pathname;
+  
+    ReactGA.pageview(pageView);
+  } 
+
     return (
     <>
         <Helmet>
           <title>Preise</title>
           <meta name="description" content="Preise & Vertragsbedingungen. Kostenloser Probemonat" />
+          <link rel="canonical" href="http://www.staffbite.de/pricing" />
         </Helmet>
        <LandingNavBar
               logo={{
