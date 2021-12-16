@@ -62,10 +62,15 @@ const createUserInCognito = async (event, body, user) => {
 }
 
 const createUserInDynamoDB = async (event, body, data, user) => {
+            let onboarding = {
+                overview: !0,
+                eintragen: !0,
+                shiftplan: !0,
+                profile: !0
+            }
           let zielmtleuroValue = Object.keys(body.employee).includes("zielmtleuro") ? String(body.employee.zielmtleuro) : "0"
           let stundenlohnValue = Object.keys(body.employee).includes("stundenlohn") ? String(body.employee.zielmtleuro) : "0"
           let schichtenwocheValue = Object.keys(body.employee).includes("schichtenwoche") ? body.employee.schichtenwoche : "0"
-    
           let positionValue = Object.keys(body.employee).includes("position") ? body.employee.position : []
           console.log(positionValue)
           let zielhValue = stundenlohnValue !== "0" && zielmtleuroValue !== "0" ? String(Number(stundenlohnValue) / Number(zielmtleuroValue)) : "0"
@@ -123,6 +128,9 @@ const createUserInDynamoDB = async (event, body, data, user) => {
                 schichten: {
                   S: "{}"
                 },
+                onboarding: {
+                    S: JSON.stringify(onboarding)
+                }
                 
             },
           ReturnConsumedCapacity: "TOTAL", 

@@ -213,6 +213,9 @@ class Shiftplan {
     setCurrentApplicantInCurrentShift() {
         let applicant = new Employee(this.employees.getEmployee(this.currentApplicant))
         let name = applicant.getName();
+        if(name === "Aenne Moby") {
+            console.log("current in current", this.currentDay, this.currentIndex, this.plan[this.currentIndex][this.currentDay])
+        }
         this.plan[this.currentIndex][this.currentDay].setApplicants[this.currentApplicant] = name;
     }
     
@@ -230,6 +233,9 @@ class Shiftplan {
         let alternativeApplicant = new Employee(this.employees.getEmployee(this.alternativeApplicantsId))
         let shiftDetails = this.alternativeShift
         let name = alternativeApplicant.getName();
+        if(name === "Aenne Moby") {
+            console.log("alt in target", this.currentDay, this.currentIndex, this.plan[this.currentIndex][this.currentDay])
+        }
         this.plan[shiftDetails.row][shiftDetails.day].setApplicants[this.alternativeApplicantsId] = name;
         }
         
@@ -342,8 +348,11 @@ class Shiftplan {
                 if(applicantId !== this.currentApplicant) {
                     let applicant = new Employee(this.employees.getEmployee(applicantId));
                     let isAtMaximumShifts = applicant.getIsMaxShiftThisWeek();
-                    console.log(isAtMaximumShifts);
-                    if(!isAtMaximumShifts) {
+                    let currentApplicant = new Employee(this.employees.getEmployee(this.currentApplicant));
+                    let isSetInTargetDay = this.getApplicantIsSetInTargetShift(applicant, selectedReference[currentIndex].day);
+                    let isSetInCurrentDay = this.getApplicantIsSetThisDay(currentApplicant);
+                    console.log(this.currentApplicant)
+                    if(!isAtMaximumShifts && !isSetInCurrentDay && !isSetInTargetDay) {
                         this.alternativeApplicantsId = applicantId;
                         this.alternativeShift = selectedReference[currentIndex];
                         notFound = !1;
@@ -351,6 +360,19 @@ class Shiftplan {
                 }
             }
         }
+        
+    getApplicantIsSetInTargetShift(applicant, targetDay) {
+        let hasShift = !1;
+        if(this.getEmployeeHasShifts(applicant)) {
+            applicant.schichten.forEach(shift => {
+                let day = shift.split("#")[2];
+                if(day === targetDay) {
+                    hasShift = !0;
+                }
+            })
+        }
+        return hasShift;
+    }
     
     createSwapDetails(shiftsReferences, currentIndex) {
         let selectedReference = shiftsReferences[currentIndex];
@@ -370,6 +392,9 @@ class Shiftplan {
             
     startSetApplicants() {
         const {name, shiftName, shiftPosistion } = this.getDetailsToSetApplicant();
+        if(name === "Aenne Moby") {
+            console.log("forwardset", this.currentDay, this.currentIndex, this.plan[this.currentIndex][this.currentDay])
+        }
         this.plan[this.currentIndex][this.currentDay].setApplicants[this.currentShiftsFirstValidApplicant] = name;
         this.employees.addShiftToShiftObject(this.currentShiftsFirstValidApplicant, shiftName, this.currentDay, shiftPosistion);
     }
@@ -518,13 +543,36 @@ class Shiftplan {
         let employee = this.createApplicantInstance(applicant);
         let validQualifikation = this.getApplicantHasMinimumQualifikation(employee);
         let validShiftsCount = this.getApplicantAtMaximumShiftsThisWeek(employee);
-        valid = this.isCountAndQaulifikationValid(validQualifikation, validShiftsCount);
+        let validIsSetThisDay = this.getApplicantIsSetThisDay(employee);
+        valid = this.isCountAndQaulifikationAndNotSetValid(validQualifikation, validShiftsCount, validIsSetThisDay);
         employee = this.deleteApplicantInstance();
         return valid;
-    }   
+    }
+    
+    getApplicantIsSetThisDay(employee) {
+        let hasShift = !1;
+        if(this.getEmployeeHasShifts(employee)) {
+            employee.schichten.forEach(shift => {
+                let day = shift.split("#")[2];
+                if(day === this.currentDay) {
+                    hasShift = !0;
+                }
+            })
+        }
+        return hasShift;
+    }
+    
+    getEmployeeHasShifts(employee) {
+        let hasShifts = !1;
+        if(employee.schichten.length > 0) {
+            hasShifts = !0
+        }
+        return hasShifts;
+    }
+    
         
-    isCountAndQaulifikationValid(validQualifikation, validShiftsCount) {
-        return validQualifikation && validShiftsCount;
+    isCountAndQaulifikationAndNotSetValid(validQualifikation, validShiftsCount, validIsSetThisDay) {
+        return (validQualifikation && validShiftsCount && !validIsSetThisDay);
     }
         
     createApplicantInstance(applicantId) {

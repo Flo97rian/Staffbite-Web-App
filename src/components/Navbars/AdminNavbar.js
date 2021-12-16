@@ -33,6 +33,7 @@ import {
   NavbarToggler,
   NavbarBrand,
 } from "reactstrap";
+import { thunkUpdateProfile } from "../../store/middleware/UpdateProfile";
 import { useSelector } from "react-redux";
 import store from "../../store";
 import { Auth } from 'aws-amplify';
@@ -118,6 +119,18 @@ async function signOut() {
     }
 }
 
+function tourStarten() {
+  let onboarding = {
+    overview: true,
+    shiftplan: true,
+    team: true,
+    settings: true
+  }
+  let meta = Meta;
+  meta.onboarding = onboarding;
+  store.dispatch(thunkUpdateProfile(meta));
+}
+
       return (
     <>
     <Container className="ml-2 mr-2 ">
@@ -155,6 +168,10 @@ async function signOut() {
                   <DropdownItem to="/admin/einstellungen" tag={Link}>
                     <i className="ni ni-settings-gear-65" />
                     <span>Einstellungen</span>
+                  </DropdownItem>
+                  <DropdownItem onClick={() => tourStarten()}>
+                    <i className="fas fa-eye" />
+                    <span>Tour starten</span>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem href="/auth" onClick={() => signOut()}>

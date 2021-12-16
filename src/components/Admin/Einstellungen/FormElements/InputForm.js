@@ -21,7 +21,7 @@ import {
                 placeholder={this.props?.org?.name ? this.props.org.name: "Name eintragen" }
                 type="text"
                 name="name"
-                className="bg-secondary"
+                className="bg-secondary input_betrieb"
                 onChange={(e) => this.props.onChange(e, "updateProfile")}
                 />
             </FormGroup>

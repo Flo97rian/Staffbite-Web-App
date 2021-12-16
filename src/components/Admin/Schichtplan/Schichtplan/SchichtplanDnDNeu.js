@@ -64,9 +64,6 @@ const TableDnD = (props) => {
     if (result.destination.index === 0) {
       return;
     }
-    if (result.destination.index === 1) {
-      return;
-    }
     if (result.destination.index === Items.length - 1) {
       return;
     }
@@ -92,8 +89,8 @@ const TableDnD = (props) => {
               style={getListStyle(snapshot.isDraggingOver)}
             >
               <tbody>
-                {Items.map((item, index) => ( item.id !== "0" && item.id !== "1" && item.id !== String(Items.length - 1) ?
-                  <Draggable key={"New" + String(index)} draggableId={item.id} index={index}>
+                {Items.map((item, index) => ( Number(item.id) !== 0 && Number(item.id) !== Items.length - 1 ?
+                  <Draggable key={"New" + item.id} draggableId={item.id} index={index}>
                      {(provided, snapshot) => (
                       <tr>
                         <td color="primary"
@@ -104,28 +101,28 @@ const TableDnD = (props) => {
                           snapshot.isDragging,
                           provided.draggableProps.style
                         )}>
-                            <SchichtplanElementNeu wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                            <SchichtplanElementNeu wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[index].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementNeu wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                            <SchichtplanElementNeu wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementNeu wochentag={item.Dienstag} index={Number(item.id)} col="Dienstag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                            <SchichtplanElementNeu wochentag={item.Dienstag} index={Number(item.id)} col="Dienstag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementNeu wochentag={item.Mittwoch} index={Number(item.id)} col="Mittwoch" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                            <SchichtplanElementNeu wochentag={item.Mittwoch} index={Number(item.id)} col="Mittwoch" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementNeu wochentag={item.Donnerstag} index={Number(item.id)} col="Donnerstag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                            <SchichtplanElementNeu wochentag={item.Donnerstag} index={Number(item.id)} col="Donnerstag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementNeu wochentag={item.Freitag} index={Number(item.id)} col="Freitag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                            <SchichtplanElementNeu wochentag={item.Freitag} index={Number(item.id)} col="Freitag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementNeu wochentag={item.Samstag} index={Number(item.id)} col="Samstag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                            <SchichtplanElementNeu wochentag={item.Samstag} index={Number(item.id)} col="Samstag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                         </td>
                         <td style={{"padding": "0"}}>
-                            <SchichtplanElementNeu wochentag={item.Sonntag} index={Number(item.id)} col="Sonntag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                            <SchichtplanElementNeu wochentag={item.Sonntag} index={Number(item.id)} col="Sonntag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                         </td>
                     </tr>
                     )}
@@ -133,28 +130,28 @@ const TableDnD = (props) => {
                   :
                   <tr>
                     <td color="primary" style={{"padding": "0"}}>
-                        <SchichtplanElementNeu wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                        <SchichtplanElementNeu wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementNeu wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                        <SchichtplanElementNeu wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementNeu wochentag={item.Dienstag} index={Number(item.id)} col="Dienstag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                        <SchichtplanElementNeu wochentag={item.Dienstag} index={Number(item.id)} col="Dienstag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementNeu wochentag={item.Mittwoch} index={Number(item.id)} col="Mittwoch" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                        <SchichtplanElementNeu wochentag={item.Mittwoch} index={Number(item.id)} col="Mittwoch" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementNeu wochentag={item.Donnerstag} index={Number(item.id)} col="Donnerstag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                        <SchichtplanElementNeu wochentag={item.Donnerstag} index={Number(item.id)} col="Donnerstag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementNeu wochentag={item.Freitag} index={Number(item.id)} col="Freitag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                        <SchichtplanElementNeu wochentag={item.Freitag} index={Number(item.id)} col="Freitag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementNeu wochentag={item.Samstag} index={Number(item.id)} col="Samstag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                        <SchichtplanElementNeu wochentag={item.Samstag} index={Number(item.id)} col="Samstag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                     </td>
                     <td style={{"padding": "0"}}>
-                        <SchichtplanElementNeu wochentag={item.Sonntag} index={Number(item.id)} col="Sonntag" anzahl={Items[2].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                        <SchichtplanElementNeu wochentag={item.Sonntag} index={Number(item.id)} col="Sonntag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                     </td>
                 </tr>
                 ))}

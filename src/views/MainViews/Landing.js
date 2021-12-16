@@ -92,7 +92,7 @@ class Landing extends React.Component {
                       <div>
                         <i className="fas fa-check fas-lg mr-2 text-white float-left pt-2" />
                         <p className="lead text-white m-1">
-                          Probiere es direkt aus! Im kostenlosen Probemonat!
+                          Probiere es direkt aus - im kostenlosen Probemonat!
                         </p>
                       </div>
                     </Col>

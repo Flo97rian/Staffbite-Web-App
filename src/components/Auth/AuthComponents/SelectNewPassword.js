@@ -94,7 +94,6 @@ const SelectNewPassword = (props) => {
                                 type="email" 
                                 name="username" 
                                 onChange={(e) => props.handleInputChange(e)}
-                                onKeyPress={(event) => handleKeyPress(event)}
                                 />
                             </InputGroup>
                             </FormGroup>
@@ -111,7 +110,6 @@ const SelectNewPassword = (props) => {
                                 name="password"
                                 autoComplete="off"
                                 onChange={(e) => props.handleInputChange(e)}
-                                onKeyPress={(event) => handleKeyPress(event)}
                                 />
                             </InputGroup>
                             </FormGroup>

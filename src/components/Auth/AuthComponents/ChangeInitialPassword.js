@@ -81,7 +81,6 @@ const ChangeInitalPassword = (props) => {
                             type="password" 
                             name="password" 
                             onChange={(e) => props.handleInputChange(e)}
-                            onKeyPress={(event) => handleKeyPress(event)}
                             />
                         </InputGroup>
                         </FormGroup>
@@ -98,7 +97,6 @@ const ChangeInitalPassword = (props) => {
                             name="newpassword"
                             autoComplete="off"
                             onChange={(e) => props.handleInputChange(e)}
-                            onKeyPress={(event) => handleKeyPress(event)}
                             />
                         </InputGroup>
                         </FormGroup>

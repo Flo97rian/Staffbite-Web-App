@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { Spinner } from "reactstrap";
 import Chart from "chart.js";
+import Joyride from 'react-joyride';
 import {
     Card,
     Col,
@@ -19,6 +20,7 @@ import {
   chartOptions,
   parseOptions,
 } from "./Form/charts.js";
+import { thunkUpdateProfile } from "../../../store/middleware/UpdateProfile";
 import NotificationAlert from "react-notification-alert";
 import { FetchFromDB } from "../../../store/middleware/FetchPlansFromDB";
 import { FetchEmployees } from "../../../store/middleware/FetchEmployees";
@@ -29,6 +31,7 @@ import DashboardSchichtenTabelle from "./DashboardSchichtenTabelle.js";
 import { thunkStartReport } from "../../../store/middleware/StartReport";
 import { WARNING_INVALID_REPORT_INPUT } from "../../../constants/Alerts"; 
 import InfoSidebar from "../../Sidebar/InfoSidebar.js";
+import { ONBOARDING_OVERVIEW_SHIFTPLAN, ONBOARDING_OVERVIEW_SHIFTRADE, ONBOARDING_OVERVIEW_TEAM } from "../../../constants/OnBoardingTexts.js";
 
 
 const DashboardContainer = (props) => {
@@ -36,9 +39,44 @@ const DashboardContainer = (props) => {
   const [filter, setFilter] = useState(null);
   const [filterIsActive, setFilterIsActive] = useState(!1);
   const [errMsg, setErrMsg] = useState({ InvalidReportInput: !1});
+  const [state, setState] = useState({
+    run: !1,
+    steps: [
+      {
+        target: '.card_mitarbeiter',
+        locale: { 
+          skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
+          next: <strong aria-label="skip">Nächster Schritt</strong>
+         },
+        content: ONBOARDING_OVERVIEW_TEAM,
+        title: "Einleitung"
+      },
+      {
+        target: '.card_tauschanfragen',
+        content: ONBOARDING_OVERVIEW_SHIFTRADE,
+        locale: { 
+            skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Einleitung"
+      },
+      {
+        target: '.card_aktuellerSchichtplan',
+        content: ONBOARDING_OVERVIEW_SHIFTPLAN,
+        locale: { 
+          back: <strong aria-label="skip">Zurück</strong>,
+          last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>
+         },
+        title: "Einleitung"
+      }
+    ]
+  })
   let notificationAlert = useRef(null)
+  const { run, steps } = state;
 
   //REDUX-Filter für UI-Data
+  const selectMeta = state => state.Meta;
   const selectPlans = state => state.DB.plans;
   const selectEmployees = state => state.DB.employees;
   const selectShiftplan = state => state.Shiftplan;
@@ -49,6 +87,7 @@ const DashboardContainer = (props) => {
   const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
+  const Meta = useSelector(selectMeta);
   const Plans = useSelector(selectPlans);
   const Employees = useSelector(selectEmployees);
   const Shiftplan = useSelector(selectShiftplan);
@@ -91,6 +130,13 @@ const DashboardContainer = (props) => {
   }, [Date]);
 
   useEffect(() => {
+    if (Meta) {
+      let showOverview = Meta.onboarding.overview
+      setState({...state, run: showOverview})
+    }
+  }, [Meta]);
+
+  useEffect(() => {
   }, [filter]);
 
   if (window.Chart) {
@@ -102,6 +148,12 @@ const DashboardContainer = (props) => {
     return shiftTradeCount;
   };
 
+  const handleOnboarding = () => {
+    let overview = Meta.onboarding.overview;
+    let meta = Meta;
+    meta.onboarding.overview = !overview;
+    store.dispatch(thunkUpdateProfile(meta));
+  }
   function Notify (type, title, err) {
     let options = {
       place: "tc",
@@ -182,6 +234,19 @@ const DashboardContainer = (props) => {
     };
         return (
           <>
+          <Joyride
+          continuous={true}
+          run={run}
+          scrollToFirstStep={true}
+          showProgress={true}
+          showSkipButton={true}
+          steps={steps}
+          styles={{
+            options: {
+              zIndex: 10000,
+            },
+          }}
+        />
             {errMsg !== null && errMsg.InvalidReportInput ? 
             Notify("warning", WARNING_INVALID_REPORT_INPUT, "InvalidReportInput")
             :
@@ -200,7 +265,7 @@ const DashboardContainer = (props) => {
               </div>  
                 <Col lg="6" xl="6">
                   <Link to="/admin/mitarbeiter" tag={Link}>
-                  <Card className="card-stats mb-4 mb-xl-0 shadow" to="admin/mitarbeiter">
+                  <Card className="card-stats mb-4 mb-xl-0 shadow card_mitarbeiter" to="admin/mitarbeiter">
                       <CardBody>
                       <Row>
                         <div className="col">
@@ -228,7 +293,7 @@ const DashboardContainer = (props) => {
                 </Col>
                 <Col lg="6" xl="6">
                 <Link to="/admin/schichtplan" tag={Link} onClick={() => setCurrentPlan(currentShiftPlan)}>
-                  <Card className="card-stats mb-4 mb-xl-0 shadow">
+                  <Card className="card-stats mb-4 mb-xl-0 shadow card_tauschanfragen">
                     <CardBody>
                       <Row>
                         <div className="col">
@@ -255,7 +320,6 @@ const DashboardContainer = (props) => {
                   </Link>
                 </Col>
               </Row>
-              { Shiftplan ?
                 <>
                   <Row>
                     <Col xs={3}>
@@ -264,8 +328,9 @@ const DashboardContainer = (props) => {
                     <Col xs={9}>
                     </Col>
                     </Row>
-                  <Card className="shadow">
+                  <Card className="shadow card_aktuellerSchichtplan">
                     <CardBody>
+                    { Shiftplan ?
                       <DashboardSchichtenTabelle
                         shiftplan={Shiftplan}
                         bearbeiten={!0}
@@ -273,12 +338,12 @@ const DashboardContainer = (props) => {
                         import={!0}
                       >
                       </DashboardSchichtenTabelle>
+                      :
+                      <></>
+                      }
                       </CardBody>
                   </Card>
                 </>
-              :
-                <></>
-              }
             <Row>
               <Col xs={3}>
               <h3 className="float-left pt-5 pr-2 font-weight-bold mr-2 text-lg">

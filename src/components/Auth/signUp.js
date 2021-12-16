@@ -106,7 +106,7 @@ async function confirmSignUp() {
     useEffect((authState) => {
        if(authState === undefined) {
                   Auth.currentAuthenticatedUser().then(authData => {
-                    setAuthState(AuthState.SigningUp);
+                    setAuthState(AuthState.SignUp);
                     setUser(authData);
                   });
             }

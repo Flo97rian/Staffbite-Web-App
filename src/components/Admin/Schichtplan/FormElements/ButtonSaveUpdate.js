@@ -10,7 +10,15 @@ const ButtonSaveUpdate = (props) => {
         )}
     const showUpdateButton = () => {
         return (
-        <Button color="white" size="lg" className="float-right mt-2 ml-2 mr-0" onClick={() => props.handleUpdate()}><p className="m-0 text-muted">Aktualisieren</p></Button>
+            <>
+            {
+            props.ShiftplanChanged
+            ?
+            <Button color="success" size="lg" className="float-right mt-2 ml-2 mr-0" onClick={() => props.handleUpdate()}><p className="m-0 text-white mb-0">Aktualisieren</p></Button>
+            :
+            <Button color="white" size="lg" className="float-right mt-2 ml-2 mr-0" onClick={() => props.handleUpdate()}><p className="m-0 text-muted mb-0">Aktualisieren</p></Button>
+            }
+            </>
         )}
         return (
             <>

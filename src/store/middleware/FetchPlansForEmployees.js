@@ -25,5 +25,6 @@ export async function FetchEmployeePlansFromDB(dispatch, getState) {
             });
             // Add your code here
             dispatch({type: "All/GetPlansForEmployee", payload: plans})
+            dispatch({ type: "resetShiftplanChanged"})
             })
     }

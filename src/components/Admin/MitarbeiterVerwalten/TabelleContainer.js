@@ -3,7 +3,8 @@ import {
     Col,
     Row,
   } from "reactstrap";
-  import Spinner from 'react-bootstrap/Spinner';
+import Spinner from 'react-bootstrap/Spinner';
+import Joyride from 'react-joyride';
 import NotificationAlert from "react-notification-alert";
 import MitarbeiterTabelle from "./MitarbeiterTabelle.js";
 import ButtonMitarbeiterErstellen from "./Modal/ButtonMitarbeiterErstellen.js";
@@ -20,13 +21,38 @@ import employeeStates from "../../Application/defaults/EmployeeDefault.js";
 import { Employee } from "./processing/Employee.js";
 import { WARNING_MISSING_EMPLOYEE_DETAILS } from "../../../constants/Alerts.js";
 import InfoSidebar from "../../Sidebar/InfoSidebar.js";
+import { ONBOARDING_TEAM_INVITE, ONBOARDING_TEAM_OVERVIEW } from "../../../constants/OnBoardingTexts.js";
 
 const TableContainer = (props) => {
   const [userInput, setUserInput] = useState(employeeStates);
   const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1);
   const [position, setPosition] = useState();
   const [errMsg, setErrMsg] = useState({InvalidInputForCreation: !1})
-  let notificationAlert = useRef(null)
+  const [state, setState] = useState({
+    run: !1,
+    steps: [
+      {
+        target: '.button_mitartbeitereinladen',
+        locale: { 
+          skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
+          next: <strong aria-label="skip">Nächster Schritt</strong>
+         },
+        content: ONBOARDING_TEAM_INVITE,
+        title: "Dein Team"
+      },
+      {
+        target: '.card_mitarbeiterliste',
+        content: ONBOARDING_TEAM_OVERVIEW,
+        locale: { 
+            last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Dein Team"
+      }
+    ]
+  })
+  let notificationAlert = useRef(null);
+  const { run, steps } = state;
     
   const selectEmployees = state => state.DB.employees;
   const selectModal = state => state.modal;
@@ -54,13 +80,24 @@ const TableContainer = (props) => {
     }, [userInput]);
 
     useEffect(() => {
+      if (Meta) {
+        let showTeam = Meta.onboarding.team
+        setState({...state, run: showTeam})
+      }
+    }, [Meta]);
+    useEffect(() => {
     }, [Employees]);
     // Filtert auf Basis der Id, die zugehörigen Mitarbeiterdaten
     const handleFilter = (idToSearch) => {
       const data = Employees[idToSearch];
       return data;
   };
-
+  const handleOnboarding = () => {
+    let team = Meta.onboarding.team;
+    let meta = Meta;
+    meta.onboarding.team = !team;
+    store.dispatch(thunkUpdateProfile(meta));
+  }
  // Handling von Userinputs
  const handleInputChange = (event) => {
     const key = event.target.name;
@@ -221,6 +258,19 @@ const setSelectEmployee = (ma) => {
 
         return(
         <>
+        <Joyride
+          continuous={true}
+          run={run}
+          scrollToFirstStep={true}
+          showProgress={true}
+          showSkipButton={true}
+          steps={steps}
+          styles={{
+            options: {
+              zIndex: 10000,
+            },
+          }}
+        />
         { !Meta && !Employees ?
         <Row className="text-center">
           <br/>
@@ -239,7 +289,7 @@ const setSelectEmployee = (ma) => {
         <h3 className="float-left pt-5 font-weight-bold text-lg">Team verwalten</h3>
         </Col>
         <Col xs={9}>
-          <ButtonMitarbeiterErstellen></ButtonMitarbeiterErstellen>{' '}
+          <ButtonMitarbeiterErstellen className="button_mitartbeitereinladen"></ButtonMitarbeiterErstellen>{' '}
         </Col>
         </Row>
                 <Row className="text-center mt-0">

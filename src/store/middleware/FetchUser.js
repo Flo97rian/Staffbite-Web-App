@@ -25,7 +25,8 @@ export async function getUser(dispatch, getState) {
                 erfahrung: response.Item.erfahrung.S,
                 schichtenwoche: response.Item.schichtenwoche.N,
                 position: JSON.parse(response.Item.position.S),
-                bewerbungen: JSON.parse(response.Item.bewerbungen.S)
+                bewerbungen: JSON.parse(response.Item.bewerbungen.S),
+                onboarding: JSON.parse(response.Item.onboarding.S)
             };
             dispatch({type: "setUser", payload: user});
             })

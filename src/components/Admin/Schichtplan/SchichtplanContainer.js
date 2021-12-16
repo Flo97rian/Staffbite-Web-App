@@ -11,6 +11,7 @@ import {
   } from "reactstrap";
 
 import NotificationAlert from "react-notification-alert";
+import Joyride from 'react-joyride';
 import shiftplanStates from "../../Application/defaults/ShiftplanDefault";
 import Nav from "./Nav/Nav";
 import { Spinner } from "reactstrap";
@@ -48,6 +49,8 @@ import { thunkReleaseForApplication } from "../../../store/middleware/ReleaseFor
 import InfoSidebar from "../../Sidebar/InfoSidebar";
 import ModalFreigebenButton from "./FormElements/ModalFreigebenButton";
 import ModalAlgButton from "./FormElements/ModalAlgButton";
+import { ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN, ONBOARDING_SHIFTPLAN_VORLAGE, ONBOARDING_SHIFTPLAN_EINTRAGEN, ONBOARDING_SHIFTPLAN_UEBERPRUEFUNG, ONBOARDING_SHIFTPLAN_VEROEFFENTLICHUNG } from "../../../constants/OnBoardingTexts"
+import { validMeta } from "../../Application/functionalComponents/ValidFunctions";
 const SchichtplanContainer = () => {
   const [userInput, setUserInput] = useState();
   const [navIndex, setNavIndex] = useState(1);
@@ -55,8 +58,62 @@ const SchichtplanContainer = () => {
   const [ShiftSwitch, setShiftSwitch] = useState(!1);
   const [changeNotice, setChangeNotice] = useState(!1);
   const [ErrMsng, setErrMsng] = useState({MissingShiftDetails: !1, MissingShiftPosition: !1, ShiftDetailsNotUpToDate: !1});
+  const [state, setState] = useState({
+    run: !1,
+    steps: [
+      {
+        target: '.button_vorlage_erstellen',
+        locale: { 
+          skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
+          next: <strong aria-label="skip">Nächster Schritt</strong>
+         },
+        content: ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN,
+        title: "Dein Schichtplan"
+      },
+      {
+        target: '.nav_vorlage',
+        content: ONBOARDING_SHIFTPLAN_VORLAGE,
+        locale: { 
+            skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Dein Schichtplan"
+      },
+      {
+        target: '.nav_eintragen',
+        content: ONBOARDING_SHIFTPLAN_EINTRAGEN,
+        locale: { 
+            skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Dein Schichtplan"
+      },
+      {
+        target: '.nav_ueberpruefen',
+        content: ONBOARDING_SHIFTPLAN_UEBERPRUEFUNG,
+        locale: { 
+            skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
+            next: <strong aria-label="skip">Nächster Schritt</strong>,
+            back: <strong aria-label="skip">Zurück</strong>
+          },
+        title: "Dein Schichtplan"
+      },
+      {
+        target: '.nav_veroeffentlichen',
+        content: ONBOARDING_SHIFTPLAN_VEROEFFENTLICHUNG,
+        locale: { 
+          back: <strong aria-label="skip">Zurück</strong>,
+          last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>
+         },
+        title: "Dein Schichtplan"
+      }
+    ]
+  });
   let notificationAlert = useRef(null)
   const location = useLocation();
+  const { run, steps } = state;
 
   const selectMeta = state => state.Meta;
   const selectEmployees = state => state.DB.employees;
@@ -76,6 +133,7 @@ const SchichtplanContainer = () => {
   const selectLoadingFetchingSafe = state => state.loadings.isFetchingSafe;
   const selectLoadingFetchingRelease = state => state.loadings.isFetchingRelease;
   const selectInfoSidebar = state => state.InfoSidebar;
+  const selectShiftplanChanged = state => state.ShiftplanChanged;
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
@@ -96,12 +154,14 @@ const SchichtplanContainer = () => {
   const LoadingFetchingSafe = useSelector(selectLoadingFetchingSafe);
   const LoadingFetchingRelease = useSelector(selectLoadingFetchingRelease);
   const SidebarInfo = useSelector(selectInfoSidebar);
+  const ShiftplanChanged = useSelector(selectShiftplanChanged);
 
   useEffect(() => {
     store.dispatch({ type: "ResetCurrentShiftPlan"});
     store.dispatch({ type: "resetShiftplan"});
     store.dispatch({ type: "stopShiftPlanIsImported"});
     store.dispatch({ type: "stopShiftPlanIsActive"})
+    store.dispatch({type: "resetShiftplanChanged"})
     store.dispatch(FetchFromDB);
     store.dispatch(FetchOrg);
     store.dispatch(user);
@@ -125,8 +185,11 @@ const SchichtplanContainer = () => {
   }, [Plans]);
 
   useEffect(() => {
-    if (Meta)
-    setUserInput({...shiftplanStates, position: Meta.schichten[0]})
+    if (validMeta(Meta)) {
+      setUserInput({...shiftplanStates, position: Meta.schichten[0]})
+      let showShfitplan = Meta.onboarding.shiftplan
+      setState({...state, run: showShfitplan})
+    }
   }, [Meta]);
 
   useEffect(() => {
@@ -144,6 +207,14 @@ const SchichtplanContainer = () => {
   const handleNavChange = (index) => {
     setNavIndex(index);
   };
+
+  const handleOnboarding = () => {
+    let meta = store.getState().Meta;
+    if(validMeta(meta)) {
+      meta.onboarding.shiftplan = !1;
+      store.dispatch(thunkUpdateProfile(meta));
+    }
+  }
 
   // Handling von Userinputs
   const handleInputChange = (event) => {
@@ -222,7 +293,7 @@ const SchichtplanContainer = () => {
     } else {
     let copyPlan = new ShiftPlan({...Shiftplan})
     copyPlan.setPrio(ShiftSlot, qualifikation);
-    let shiftplan = copyPlan.getAllPlanDetails()
+    let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch({type: "setShiftplan", payload: shiftplan});
     }
     }
@@ -232,9 +303,10 @@ const SchichtplanContainer = () => {
     copyPlan.changeNotice(userInput, ShiftSlot)
     copyPlan.adminSetApplicant(updateApplicant.current, ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails();
-    store.dispatch({type: "setShiftplan", payload: shiftplan})
-    store.dispatch({type: "CLOSE", payload: modal})
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    store.dispatch({type: "CLOSE", payload: modal});
     setChangeNotice(!1);
+    store.dispatch({type: "setShiftplanChanged"})
   };
 
   function Notify (type, title, err) {
@@ -290,17 +362,19 @@ const SchichtplanContainer = () => {
         copyPlan.updateShiftDescription(index, userInput);
       }
       copyPlan.updateShiftDescription(index, userInput);
-      let shiftplan = copyPlan.getAllPlanDetails()
+      let shiftplan = copyPlan.getAllPlanDetails();
       store.dispatch({type: "setNewShiftplan", payload: shiftplan});
     }
+    setUserInput(shiftplanStates);
     store.dispatch({type: "CLOSE", payload: index});
   };
 
   const handleActiveShift = () => {
-    let copyPlan = new ShiftPlan({...NewShiftplan})
+    let copyPlan = new ShiftPlan({...NewShiftplan});
     copyPlan.shiftIsActive(ShiftSlot);
-    let shiftplan = copyPlan.getAllPlanDetails()
+    let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch({type: "setShiftplan", payload: shiftplan});
+    store.dispatch({type: "setShiftplanChanged"});
     }
 
   const handleActiveInactiveShift = (index) => {
@@ -317,6 +391,7 @@ const SchichtplanContainer = () => {
     let shiftplan = copyPlan.getAllPlanDetails()
     store.dispatch({type: "setShiftplan", payload: shiftplan});
     store.dispatch({type: "CLOSE", payload: index});
+    store.dispatch({type: "setShiftplanChanged"});
     }
     }
 
@@ -348,7 +423,9 @@ const SchichtplanContainer = () => {
       store.dispatch({ type: "setNewShiftplan", payload: shiftplan });
       setUserInput(shiftplanStates)
     }
+    setUserInput(shiftplanStates)
     store.dispatch({type: "CLOSE", payload: index});
+    store.dispatch({type: "setShiftplanChanged"});
   };
 
   //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
@@ -366,8 +443,8 @@ const SchichtplanContainer = () => {
       copyPlan.getAllPlanDetails();
       let shiftplan = copyPlan.getAllPlanDetails();
       store.dispatch({ type: "setShiftplan", payload: shiftplan });
+      store.dispatch({type: "setShiftplanChanged"});
     }
-    store.dispatch(thunkUpdateShiftPlan);
     store.dispatch({type: "ResetShiftSlot"});
     setUserInput(shiftplanStates);
     store.dispatch({type: "CLOSE", payload: modal});
@@ -387,6 +464,7 @@ const SchichtplanContainer = () => {
       copyPlan.getAllPlanDetails()
       let shiftplan = copyPlan.getAllPlanDetails()
       store.dispatch({ type: "setShiftplan", payload: shiftplan });
+      store.dispatch({type: "setShiftplanChanged"});
     }
     setUserInput(shiftplanStates);
   }
@@ -399,38 +477,49 @@ const SchichtplanContainer = () => {
         copyShiftplan.changeShiftsOrder(ShiftSwitch);
         let shiftplan = copyShiftplan.getAllPlanDetails();
         store.dispatch({type: "isFetchPlansFromDB"});
-        store.dispatch(thunkUpdateShiftPlan(shiftplan, Plans, currentShiftPlan));
+        store.dispatch(thunkUpdateShiftPlan(shiftplan, !0));
       } else {
         let shiftplan = copyShiftplan.getAllPlanDetails();
         store.dispatch({type: "isFetchPlansFromDB"});
-        store.dispatch(thunkUpdateShiftPlan(shiftplan, Plans, currentShiftPlan));
+        store.dispatch(thunkUpdateShiftPlan(shiftplan, !0));
       }
       store.dispatch({type: "CLOSE"});
   };
 
   function onClickBack () {
-    if (Plans[currentShiftPlan] !== Shiftplan) {
+    if (ShiftplanChanged) {
       store.dispatch({type: "OPEN", payload: "saveChanges"});
     } else {
         store.dispatch({ type: "ResetCurrentShiftPlan"})
         store.dispatch({ type: "resetShiftplan"})
         store.dispatch({ type: "ResetShiftSlot"})
+        store.dispatch({ type: "resetShiftplanChanged"})
         store.dispatch({ type: "stopShiftPlanIsActive"})
         store.dispatch({ type: "stopShiftPlanIsImported"})
     }
   }
 
   function onClickFreigeben (modal) {
-    if (Plans[currentShiftPlan] !== Shiftplan) {
-      store.dispatch({type: "OPEN", payload: "saveChanges"});
+    if (ShiftplanChanged) {
+      let copyShiftplan = new ShiftPlan({...Shiftplan});
+      let shiftplan = copyShiftplan.getAllPlanDetails();
+      store.dispatch({type: "isFetchPlansFromDB"});
+      store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
+      store.dispatch({type: "OPEN", payload: modal})
+      store.dispatch({type: "resetShiftplanChanged"})
     } else {
       store.dispatch({type: "OPEN", payload: modal})
     }
   }
 
   function onClickStartAlg (modal) {
-    if (Plans[currentShiftPlan] !== Shiftplan) {
-      store.dispatch({type: "OPEN", payload: "saveChanges"});
+    if (ShiftplanChanged) {
+      let copyShiftplan = new ShiftPlan({...Shiftplan});
+      let shiftplan = copyShiftplan.getAllPlanDetails();
+      store.dispatch({type: "isFetchPlansFromDB"});
+      store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
+      store.dispatch({type: "OPEN", payload: modal})
+      store.dispatch({type: "resetShiftplanChanged"})
     } else {
       store.dispatch({type: "OPEN", payload: modal})
     }
@@ -454,14 +543,14 @@ const SchichtplanContainer = () => {
     let copyPlan = new ShiftPlan({...Shiftplan});
     copyPlan.setAcceptTradeShift(userInput, index);
     let shiftplan = copyPlan.getAllPlanDetails();
-    store.dispatch(thunkUpdateShiftPlan(shiftplan));
+    store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
   };
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleCancelShiftTradeToDB = (index) => {
     let copyPlan = new ShiftPlan({...Shiftplan});
     copyPlan.setDeclineShiftTrade(index);
     let shiftplan = copyPlan.getAllPlanDetails();
-    store.dispatch(thunkUpdateShiftPlan(shiftplan));
+    store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
   };
   //Diese Funktion löscht eine ausgewählte Schicht innerhalb eines ausgewählten Schichtplans
   const handleDeleteShift = (index) => {
@@ -470,6 +559,7 @@ const SchichtplanContainer = () => {
       copyPlan.deleteShift(index)
       let shiftplan = copyPlan.getAllPlanDetails();
       store.dispatch({ type: "setShiftplan", payload: shiftplan });
+      store.dispatch({type: "setShiftplanChanged"})
     } else {
       deleteShiftFromNewShiftPlan({index, NewShiftplan});
     }
@@ -477,8 +567,9 @@ const SchichtplanContainer = () => {
   };
   //Diese Funktion löscht einen ausgewählten Schichtplan in der Datenbank
   const handlePublishShiftPlan = () => {
-    if (Plans[currentShiftPlan] !== Shiftplan) {
+    if (ShiftplanChanged) {
       store.dispatch({type: "OPEN", payload: "saveChanges"});
+      store.dispatch({type: "resetShiftplanChanged"})
     } else {
       store.dispatch({type: "startFetchingPublish"});
       store.dispatch(thunkPublishShiftPlan(Plans[currentShiftPlan]));
@@ -511,6 +602,23 @@ const SchichtplanContainer = () => {
 
         return(
         <>
+        {validMeta(Meta) ?
+        <Joyride
+          continuous={true}
+          run={run}
+          scrollToFirstStep={true}
+          showProgress={true}
+          showSkipButton={true}
+          steps={steps}
+          styles={{
+            options: {
+              zIndex: 10000,
+            },
+          }}
+        />
+        :
+        <></>
+        }
         { !Meta && !Employees && !Plans ?
         <Row className="text-center">
           <br/>
@@ -531,7 +639,7 @@ const SchichtplanContainer = () => {
       <Row className="mt-6">
         <div className="rna-wrapper">
           <NotificationAlert ref={notificationAlert} />
-        </div>     
+        </div>
       <Col xs={2} className="mt-4">
       <h3 className="float-left pt-4 font-weight-bold text-lg">Schichtplan</h3>
       { LoadingAlg ? <Spinner color="success" /> : <></>}
@@ -542,6 +650,7 @@ const SchichtplanContainer = () => {
       </Col>
       <Col xs={10} className="mt-2 mr-0">
       <ButtonSaveUpdate
+          ShiftplanChanged={ShiftplanChanged}
           handleUpdate={handleUpdatedShiftPlanToDB}
           handleUpload={handleUploadShiftPlanToDB}
           trigger={ShiftPlanIsActive}

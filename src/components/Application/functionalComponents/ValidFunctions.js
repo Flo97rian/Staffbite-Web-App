@@ -8,6 +8,32 @@ export function isValidShiftplan (Shiftplan) {
     return hasShfitplan;
 }
 
+export function validMeta (Meta) {
+    let hasMeta = !1;
+    if(Meta !== undefined) {
+        if (Meta !== !1) {
+            if(typeof Meta === "object") {
+                hasMeta = !0;
+            }
+        }
+    }
+    return hasMeta;
+}
+
+export function validMetaData (MetaData) {
+    let hasMetaData = !1;
+    if(MetaData !== undefined) {
+        if (MetaData !== !1) {
+            if(MetaData !== null) {
+                if(typeof MetaData === "object") {
+                    hasMetaData = !0;
+                }
+            }
+        }
+    }
+    return hasMetaData;
+}
+
 export function isValidUser (User) {
     let hasUser = !1;
     if (User !== undefined) {
@@ -26,6 +52,16 @@ export function isValidPlans (Plans) {
         }
     }
     return hasPlans;
+}
+
+export function isValidMeta (Meta) {
+    let hasMeta = !1;
+    if (Meta !== undefined) {
+        if (Meta !== !1) {
+            hasMeta = !0;
+        }
+    }
+    return hasMeta;
 }
 
 export function isValidEmployees (Employees) {
