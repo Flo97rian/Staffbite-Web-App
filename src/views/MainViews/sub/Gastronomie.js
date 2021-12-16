@@ -15,10 +15,11 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, {useEffect} from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ImageGroup, Image } from 'react-fullscreen-image'
 import { Helmet } from "react-helmet";
+import ReactGA from "react-ga";
 // reactstrap components
 import {
   Container,
@@ -33,7 +34,20 @@ import TeamVerwalten from "../../../assets/img/theme/Mitarbeiter-erstellen-und-v
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 
-function Gastronomie () {
+function Gastronomie (props) {
+  useEffect(() => {
+    pageViewsTracking()
+  },[])
+
+  function pageViewsTracking () {
+    const pathname = props.match.path;
+    let pageView;
+    if(pathname === "*") pageView = "/not_found";
+    else pageView = pathname;
+  
+    ReactGA.pageview(pageView);
+  } 
+
     return (
     <>
         <Helmet>

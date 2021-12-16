@@ -37,6 +37,7 @@ import {
 
 // core components
 import LandingNavbar from "../Navbars/LandingNavbar"
+import ReactGA from "react-ga";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect, Link } from "react-router-dom";
@@ -44,7 +45,7 @@ import PasswordChecklist from "react-password-checklist";
 import ResetPassword from "./AuthComponents/ResetPassword";
 import SelectNewPassword from "./AuthComponents/SelectNewPassword";
 
-const ForgotPassword = () => {
+const ForgotPassword = (props) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
@@ -57,7 +58,19 @@ const ForgotPassword = () => {
     const [code, setCode] = useState("");
     const [reset, setReset] = useState(!1);
     const [tenant, setTenant] = useState(!1);
-
+    
+    useEffect(() => {
+        pageViewsTracking()
+      },[])
+    
+      function pageViewsTracking () {
+        const pathname = props.match.path;
+        let pageView;
+        if(pathname === "*") pageView = "/not_found";
+        else pageView = pathname;
+      
+        ReactGA.pageview(pageView);
+      } 
 
 async function resetPassword() {
     Auth.forgotPassword(username)

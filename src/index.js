@@ -25,18 +25,14 @@ import Pricing from './views/MainViews/Pricing';
 import Impressum from "./views/MainViews/Impressum"
 import Gastronomie from "./views/MainViews/sub/Gastronomie";
 import FAQ from "./views/MainViews/FAQ";
+import Themen from './views/MainViews/Themen';
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
-const onUpdate = () => {
-  ReactGA.set({ page: window.location.pathname })
-  ReactGA.pageview(window.location.pathname)
-}
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter onUpdate={onUpdate}>
-    <RouteChangeTracker />
+    <BrowserRouter>
     <Switch>
       <Route path="/" exact render={props => <Landing {...props} />} />
       <Route path="/signup" render={(props) => <SignUp {...props} />} />
@@ -44,8 +40,9 @@ ReactDOM.render(
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/aboutus" render={(props) => <AboutUs {...props} />} />
       <Route path="/impressum" render={(props) => <Impressum {...props} />} />
-      <Route path="/shiftplan" render={(props) => <Shiftplan {...props} />} />
+      <Route path="/schichtplan" render={(props) => <Shiftplan {...props} />} />
       <Route path="/faq" render={(props) => <FAQ {...props} />} />
+      <Route path="/themen" render={(props) => <Themen {...props} />} />
       <Route path="/schichtplan/gastronomie" render={(props) => <Gastronomie {...props} />} />
       <Route path="/pricing" render={(props) => <Pricing {...props} />} />
       <Route path="/contact" render={(props) => <Contact {...props} />} />

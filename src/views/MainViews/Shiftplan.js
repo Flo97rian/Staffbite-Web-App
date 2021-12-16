@@ -15,10 +15,11 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, {useEffect} from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ImageGroup, Image } from 'react-fullscreen-image'
 import { Helmet } from "react-helmet";
+import ReactGA from "react-ga";
 
 // reactstrap components
 import {
@@ -33,14 +34,28 @@ import TeamVerwalten from "../../assets/img/theme/Team-verwalten.png"
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
 //import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
+import {SCHICHTPLAN_TITLE, SCHICHTPLAN_DESCRIPTION} from "../../constants/MetaTexts"
 import LandingFooter from "../../components/Footers/LandingFooter";
 
-function Shiftplan () {
+function Shiftplan (props) {
+  useEffect(() => {
+    pageViewsTracking()
+  },[])
+
+  function pageViewsTracking () {
+    const pathname = props.match.path;
+    let pageView;
+    if(pathname === "*") pageView = "/not_found";
+    else pageView = pathname;
+  
+    ReactGA.pageview(pageView);
+  } 
     return (
     <>
         <Helmet>
-          <title>Staffbite | Dein Schichtplan</title>
-          <meta name="description" content="Individuell anpassbar. Automatisierte Schichtpläne"/>
+          <title>{SCHICHTPLAN_TITLE}</title>
+          <meta name="description" content={SCHICHTPLAN_DESCRIPTION}/>
+          <link rel="canonical" href="https://www.staffbite.de/schichtplan" />
         </Helmet>
        <LandingNavBar
               logo={{

@@ -15,8 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, {useEffect} from "react";
 import { Helmet } from "react-helmet";
+import ReactGA from "react-ga";
 // reactstrap components
 import {
   Container,
@@ -27,13 +28,28 @@ import {
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
+import { ABOUTUS_DESCIPTION, ABOUTUS_TITLE } from "../../constants/MetaTexts";
 
-function Pricing () {
+function Pricing (props) {
+  useEffect(() => {
+    pageViewsTracking()
+  },[])
+
+  function pageViewsTracking () {
+    const pathname = props.match.path;
+  
+    let pageView;
+    if(pathname === "*") pageView = "/not_found";
+    else pageView = pathname;
+  
+    ReactGA.pageview(pageView);
+  } 
     return (
     <>
         <Helmet>
-          <title>Über uns</title>
-          <meta name="description" content="Florian Zellmann. Daniel Zellmann."/>
+          <title>{ABOUTUS_TITLE}</title>
+          <meta name="description" content={ABOUTUS_DESCIPTION}/>
+          <link rel="canonical" href="https://www.staffbite.de/aboutus" />
         </Helmet>
        <LandingNavBar
               logo={{

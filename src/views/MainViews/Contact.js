@@ -17,6 +17,7 @@
 */
 import React, {useState, useRef, useEffect} from "react";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 // reactstrap components
 import {
   Container,
@@ -38,12 +39,25 @@ import store from "../../store.js";
 import contactDefaults from "../../components/Application/defaults/ContactDefault.js";
 import NotificationAlert from "react-notification-alert";
 import { SUCCESS_EMAIL_IS_SEND, WARNING_EMAIL_NOT_SEND } from "../../constants/Alerts.js";
+import ReactGA from "react-ga";
+import { KONTAKT_DESCRIPTION, KONTAKT_TITLE } from "../../constants/MetaTexts.js";
 
-function Contact () {
+function Contact (props) {
     const [form, setForm] = useState(contactDefaults);
     const [ErrMsng, setErrMsng] = useState({EmailNotSend: !1, EmailIsSend: !1});
     let notificationAlert = useRef(null)
-
+    useEffect(() => {
+      pageViewsTracking()
+    },[])
+  
+    function pageViewsTracking () {
+      const pathname = props.match.path;
+      let pageView;
+      if(pathname === "*") pageView = "/not_found";
+      else pageView = pathname;
+    
+      ReactGA.pageview(pageView);
+    } 
     const selectErrorMessage = state => state.ErrorMessages;
 
 
@@ -92,6 +106,11 @@ function Contact () {
 
     return (
     <>
+        <Helmet>
+          <title>{KONTAKT_TITLE}</title>
+          <meta name="description" content={KONTAKT_DESCRIPTION}/>
+          <link rel="canonical" href="https://www.staffbite.de/contact" />
+        </Helmet>
        <LandingNavBar
               logo={{
                 innerLink: "/",

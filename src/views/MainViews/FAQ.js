@@ -15,8 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import { Link, NavLink } from "react-router-dom";
+import ReactGA from "react-ga";
 import { ImageGroup, Image } from 'react-fullscreen-image'
 import { Helmet } from "react-helmet";
 // reactstrap components
@@ -32,9 +33,22 @@ import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan-erstellen.png
 import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
+import { FAQ_DESCRIPTION, FAQ_TITLE } from "../../constants/MetaTexts";
 
-function FAQ () {
+function FAQ (props) {
   const [open, setOpen] = useState({Registrieren: !1, MitarbeiterAnlegen: !1, SchichtenTauschen: !1, Support: !1, ProbeMonat: !1, MARegistrieren: !1})
+  useEffect(() => {
+    pageViewsTracking()
+  },[])
+
+  function pageViewsTracking () {
+    const pathname = props.match.path;
+    let pageView;
+    if(pathname === "*") pageView = "/not_found";
+    else pageView = pathname;
+  
+    ReactGA.pageview(pageView);
+  } 
 
 
   function toggleOpen(id) {
@@ -43,8 +57,9 @@ function FAQ () {
     return (
     <>
         <Helmet>
-          <title>Automatisierter Schichtplan</title>
-          <meta name="description" content="Individuell anpassbar. Automatisierte Schichtpläne"/>
+          <title>{FAQ_TITLE}</title>
+          <meta name="description" content={FAQ_DESCRIPTION}/>
+          <link rel="canonical" href="https://www.staffbite.de/faq" />
         </Helmet>
        <LandingNavBar
               logo={{
