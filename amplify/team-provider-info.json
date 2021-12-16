@@ -227,7 +227,7 @@
         },
         "releaseShiftplan": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/releaseShiftplan-326e6b6974634c794c4c-build.zip"
+          "s3Key": "amplify-builds/releaseShiftplan-356270615349686e5a58-build.zip"
         },
         "startAlgorithm": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
