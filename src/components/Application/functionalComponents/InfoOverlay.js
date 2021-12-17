@@ -80,7 +80,7 @@ const  InfoOverlay = (props) => {
       className="flex flex-col items-center mb-2"
       ref={containerRef}
     >
-      <p className="mb-0">
+      <p className="mb-0 form-control-label lead">
       {infotitle}{' '}{' '}
       <i className="fa fa-info-circle text-light"
       ref={triggerRef}
