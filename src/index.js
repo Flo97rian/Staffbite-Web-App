@@ -43,8 +43,8 @@ ReactDOM.render(
       <Route path="/impressum" render={(props) => <Impressum {...props} />} />
       <Route path="/schichtplan" render={(props) => <Shiftplan {...props} />} />
       <Route path="/faq" render={(props) => <FAQ {...props} />} />
-      <Route path="/themen" render={(props) => <Themen {...props} />} />
       <Route path="/themen/cloudservice" render={(props) => <CloudService {...props} />} />
+      <Route path="/themen" render={(props) => <Themen {...props} />} />
       <Route path="/schichtplan/gastronomie" render={(props) => <Gastronomie {...props} />} />
       <Route path="/pricing" render={(props) => <Pricing {...props} />} />
       <Route path="/contact" render={(props) => <Contact {...props} />} />
