@@ -40,6 +40,7 @@ import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verw
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import SchichtplanErstellen from "../../assets/img/theme/Schichtplan-erstellen.png"
 import StaffbiteLogo from "../../assets/img/brand/Staffbite_Logo.png"
+import CloudPicture from "../../assets/img/themen/CloudComputingImage.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { FAQ_DESCRIPTION, FAQ_TITLE, THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -76,11 +77,59 @@ function Themen (props) {
                     </Row>
                     <Row className="justify-content-center ml-1 mt-2">
                         <p className="lead">
-                            Entdecke spanndende Artikel rund um das Thema Schichtpläne online erstellen.
+                            Entdecke spanndende Artikel rund um das Thema: Schichtplan online erstellen.
                         </p>
                     </Row>
             </Container>
+            
             <Container className="mb-4 pt-4">
+            
+            <Row className="mt-4" >
+                <Col xs="6">
+                <Card>
+                            <CardImg
+                            className="p-2"
+                            src={CloudPicture}
+                            alt="Schichtplan online erstellen"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                Schichtplanung als Cloud Service
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Warum ist Staffbite ein Cloud Service und was ist das eigentlich?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                In diesem Beiträg beantworten wir eine kürzlich gestellte Frage und gehen weiter auf die Vorteile von Cloud Services für unsere Kunden ein. 
+                            </CardText>
+                            <CardText className="pl-4 pb-4 pr-4" tag="p">
+                                <Link to="/themen/cloudservice" >Hier gehts zum Artikel!</Link>
+                            </CardText>
+                        </Card>
+                </Col>
+
+                <Col xs="6">
+                <Card>
+                            <CardImg
+                            className="p-2"
+                            src={StaffbiteLogo}
+                            alt="Schichtplan online erstellen"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                Automatisierte Befüllung deines Schichtplans
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Kann die Befüllung deines Schichtplans automatisiert werden?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                Erfahre in diesem Beitrag wie du die Befüllung deines Schichtplans durch unseren intelligenten Algorithmus innerhalb weniger Sekunden abbilden kannst!   
+                            </CardText>
+                            <CardText className="pl-4 pb-4" tag="p">
+                                <Link to="/" >In kürze verfügbar: Automatisierte Schichtplanung</Link>
+                            </CardText>
+                        </Card>
+                </Col>
+                </Row>
+                
                 <Row className="mt-4">
                     <Col xs="6">
                         <Card>
@@ -96,13 +145,14 @@ function Themen (props) {
                                 Wie erstelle ich einen Schichtplan online?
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    Einen Schichtplan online erstellen? Welche Vor- und Nachteile haben online Schichtplaner gegenüber Zettel und Sift?
+                                    Einen Schichtplan online erstellen? Welche Vor- und Nachteile haben online Schichtplaner gegenüber Zettel und Stift?
                             </CardText>
                             <CardText className="pl-4 pb-4 pr-4" tag="p">
                                 <Link to="/" >In kürze verfügbar: Schichtplan online erstellen</Link>
                             </CardText>
                         </Card>
                     </Col>
+                    
                     <Col xs="6">
                     <Card>
                             <CardImg
@@ -127,6 +177,7 @@ function Themen (props) {
                         </Card>
                 </Col>
                 </Row>
+                
                 <Row className="mt-4" >
                 <Col xs="6">
                 <Card>
@@ -149,6 +200,7 @@ function Themen (props) {
                             </CardText>
                         </Card>
                 </Col>
+                
                 <Col xs="6">
                 <Card>
                             <CardImg
@@ -173,6 +225,7 @@ function Themen (props) {
                         </Card>
                 </Col>
                 </Row>
+                
                 <Row className="mt-4" >
                 <Col xs="6">
                 <Card>
@@ -195,6 +248,7 @@ function Themen (props) {
                             </CardText>
                         </Card>
                 </Col>
+                
                 <Col xs="6">
                 <Card>
                             <CardImg
