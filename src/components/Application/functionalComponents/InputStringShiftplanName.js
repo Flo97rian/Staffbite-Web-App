@@ -19,15 +19,15 @@ function InputString (props) {
         if (isPlaceholder) {
             return (
                 <FormGroup className="mb-0">
-                    <p className="mb-0">{props.label}</p>
-                    <Input type="text" size="lg" className='bg-secondary' label={props.label} name={props.name} placeholder={props.placeholder} onChange={props.onChange}></Input>
+                    <InfoLabel title={props.label} description={props.description}></InfoLabel>
+                    <Input type="text" size="lg" className="form-control-alternative edit-event--description input-autosize form-control" label={props.label} name={props.name} placeholder={props.placeholder} onChange={props.onChange}></Input>
                 </FormGroup>
             )
         } else if(hasIsValid) {
             return (   
                 <FormGroup className="mb-0">
                     <InfoLabel title={props.label} description={props.description}></InfoLabel>
-                    <Input type="text" size="lg" className='bg-secondary' valid={props.isValid} label={props.label} name={props.name} value={props.currentValue} defaultValue={props.placeholder} placeholder={props.placeholder} onChange={props.onChange}></Input>
+                    <Input type="text" size="lg" className="form-control-alternative edit-event--description input-autosize form-control" valid={props.isValid} label={props.label} name={props.name} value={props.currentValue} defaultValue={props.placeholder} placeholder={props.placeholder} onChange={props.onChange}></Input>
                     <FormFeedback valid>{FEEDBACK_VALID_SHIFTPLAN_NAME}</FormFeedback>
                 </FormGroup>
             )
@@ -35,7 +35,7 @@ function InputString (props) {
             return (   
             <FormGroup className="mb-0">
                 <InfoLabel title={props.label} description={props.description}></InfoLabel>
-                <Input type="text" size="lg" className='bg-secondary' invalid={!props.isValid} label={props.label} name={props.name} value={props.currentValue} defaultValue={props.placeholder} placeholder={props.placeholder} onChange={props.onChange}></Input>
+                <Input type="text" size="lg" className="form-control-alternative edit-event--description input-autosize form-control" invalid={!props.isValid} label={props.label} name={props.name} value={props.currentValue} defaultValue={props.placeholder} placeholder={props.placeholder} onChange={props.onChange}></Input>
                 <FormFeedback>{FEEDBACK_INVALID_SHIFTPLAN_NAME}</FormFeedback>
             </FormGroup>
         )}

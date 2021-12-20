@@ -13,12 +13,12 @@ export default class InputNumber extends React.PureComponent {
                         {this.props.info ?
                         <>
                             <InfoLabel title={this.props.label} description={this.props.description}></InfoLabel>
-                            <Input type="number" size="lg" className='bg-secondary' name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} defaultValue={this.props.placeholder} onChange={this.props.onChange}></Input>
+                            <Input type="number" size="lg" className="form-control-alternative edit-event--description input-autosize form-control" name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} defaultValue={this.props.placeholder} onChange={this.props.onChange}></Input>
                         </>
                         : 
                         <>
-                            <p className="mb-0">{this.props.label}</p>
-                            <Input type="number" size="lg" className='bg-secondary' name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} defaultValue={this.props.placeholder} onChange={this.props.onChange}></Input>
+                            <InfoLabel title={this.props.label} description={this.props.description}></InfoLabel>
+                            <Input type="number" size="lg" className="form-control-alternative edit-event--description input-autosize form-control" name={this.props.name} value={this.props.value} placeholder={this.props.placeholder} defaultValue={this.props.placeholder} onChange={this.props.onChange}></Input>
                         </>
                         }            
                 </>

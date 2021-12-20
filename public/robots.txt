@@ -1,3 +1,4 @@
 # https://www.robotstxt.org/robotstxt.html
+sitemap: http://www.staffbite.de/sitemap.xml
 User-agent: *
 Disallow:

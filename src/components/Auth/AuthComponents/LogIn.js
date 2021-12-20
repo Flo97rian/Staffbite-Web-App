@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // reactstrap components
 import {
   Button,
@@ -37,8 +37,31 @@ import {
 // core components
 import LandingNavbar from "../../Navbars/LandingNavbar"
 import { Link } from "react-router-dom";
+import NotificationAlert from "react-notification-alert";
+import { WARNING_WRONG_MAIL_OR_PASSWORD } from "../../../constants/Alerts";
 
 const LogIn = (props) => {
+    let notificationAlert = useRef(null)
+    function Notify (type, title, err) {
+        let options = {
+          place: "tc",
+          message: (
+            <div className="alert-text">
+              <span className="alert-title" data-notify="title">
+                {" "}
+              </span>
+              <span data-notify="message">
+                {title}
+              </span>
+            </div>
+          ),
+          type: type,
+          icon: "ni ni-bell-55",
+          autoDismiss: 7
+        };
+        notificationAlert.current.notificationAlert(options);
+        props.setErrMsng({...props.ErrMsng, [err]: !1})
+      };
     const handleKeyPress = (event) => {
         if(event.key === 'Enter'){
             props.signIn()
@@ -53,21 +76,10 @@ const LogIn = (props) => {
                 imgSrc: require("../../../assets/img/brand/Staffbite_Logo.png").default,
                 imgAlt: "...",
                 }}/>
-                { props.err !== null && props.err.code === "NotAuthorizedException" ? 
-                <div>
-                <Alert color="warning">
-            <Row>
-              <Col xs="10">
-                <p className="mb-0">{props.err.message}</p> 
-              </Col>
-              <Col xs="2">
-                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => props.setErr({...props.err, code: !1})}></i>
-              </Col>
-            </Row>
-            </Alert>
+                 { props.ErrMsng.WrongLogInData ? Notify("warning", WARNING_WRONG_MAIL_OR_PASSWORD, "WrongLogInData") : null}
+                <div className="rna-wrapper">
+                    <NotificationAlert ref={notificationAlert} />
                 </div>
-                : <></>
-                }
             <main className="bg-secondary">
             <section className="section section-shaped section-lg">
                 <Container className="pt-lg-7">
@@ -113,19 +125,6 @@ const LogIn = (props) => {
                                 />
                             </InputGroup>
                             </FormGroup>
-                            <div className="custom-control custom-control-alternative custom-checkbox">
-                            <input
-                                className="custom-control-input"
-                                id=" customCheckLogin"
-                                type="checkbox"
-                            />
-                            <label
-                                className="custom-control-label"
-                                htmlFor=" customCheckLogin"
-                            >
-                                <span>Anmeldedaten merken</span>
-                            </label>
-                            </div>
                             <div className="text-center">
                             <Button
                                 className="my-4"

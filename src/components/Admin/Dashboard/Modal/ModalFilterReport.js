@@ -13,12 +13,13 @@ const ModalFilterReport = (props) => {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
+                    className="modal-secondary"
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
             >
-                <Modal.Header>
-                            <Label className="h3 mb-2 align-items-center">Report filtern</Label>
+                <Modal.Header className="pb-0" closeButton>
+                    <Label className="h2 m-3 align-items-center">Report starten</Label>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="pt-1">
                     <ReportFilter {...props}></ReportFilter>
                 </Modal.Body>
                 <Modal.Footer>

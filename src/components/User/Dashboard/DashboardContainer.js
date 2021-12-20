@@ -17,6 +17,8 @@ import store from "../../../store";
 import DashboardSchichtenTabelle from "./DashboardTable";
 import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_OVERVIEW_APPLICATIONS, ONBOARDING_EMPLOYEE_OVERVIEW_TRADE_SHIFT, ONBOARDING_EMPLOYEE_OVERVIEW_SHIFTPLAN } from "../../../constants/OnBoardingTexts"
+import NewsFeed from "../../Admin/Dashboard/Form/NewsFeed";
+import { FetchOrg } from "../../../store/middleware/FetchOrg";
 
 
 const DashboardContainer = (props) => {
@@ -59,12 +61,14 @@ const DashboardContainer = (props) => {
   const { run, steps } = state;
 
   //REDUX-Filter für UI-Data
+  const selectMeta = state => state.Meta;
   const selectPlans = state => state.DB.plans;
   const selectUser = state => state.user;
   const selectShiftplan = state => state.Shiftplan;
 
 
   //REDUX-Listener für UI-Data
+  const Meta = useSelector(selectMeta);
   const Plans = useSelector(selectPlans);
   const User = useSelector(selectUser);
   const Shiftplan = useSelector(selectShiftplan);
@@ -74,6 +78,7 @@ const DashboardContainer = (props) => {
   useEffect(() => {
     store.dispatch(FetchEmployeePlansFromDB);
     store.dispatch(getUser);
+    store.dispatch(FetchOrg)
   }, []);
 
 
@@ -213,18 +218,25 @@ const DashboardContainer = (props) => {
               </Row>
             <Row className="card_aktuellerSchichtplan">
               <Col xs={3} className="mt-4">
-                <h3 className="float-left pt-4 font-weight-bold text-lg">aktueller Schichtplan</h3>
+                <h3 className="float-left pt-4 font-weight-bold text-lg">Neuste Aktivitäten</h3>
               </Col>
               <Col xs={9} className="mt-2">
               </Col>
             </Row>
-                <Row className="text-center" noGutters={true}></Row>
-                <DashboardSchichtenTabelle
-                  shiftplan={Shiftplan}
-                  bearbeiten={ActivePlan}
-                  currentUser={User}
-                >
-                </DashboardSchichtenTabelle>
+            <Row className="text-center" noGutters={true}>
+              <Col>
+                <Card className="shadow card_aktuellerSchichtplan">
+                  <CardBody>
+                    <NewsFeed
+                    meta={Meta}
+                    >
+                    </NewsFeed>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col>
+              </Col>
+            </Row>
         </>
 );
 }

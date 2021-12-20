@@ -139,6 +139,8 @@ export const PrioSchicht = (props) => {
                                     <Input
                                     name="notice"
                                     type="textarea"
+                                    size="lg"
+                                    className="form-control-alternative edit-event--description input-autosize form-control"
                                     placeholder={getShiftNotice()}
                                     onChange={(e) => props.onChange(e)}
                                     />
@@ -146,8 +148,10 @@ export const PrioSchicht = (props) => {
                                 :
                                 <FormGroup className="mb-1">
                                     <Input
+                                    size="lg"
                                     name="notice"
                                     type="textarea"
+                                    className="form-control-alternative edit-event--description input-autosize form-control"
                                     invalid={noticeIsValid()}
                                     placeholder={getShiftNotice()}
                                     onChange={(e) => props.onChange(e)}

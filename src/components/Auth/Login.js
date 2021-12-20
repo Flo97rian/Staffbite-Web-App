@@ -53,6 +53,7 @@ const Login = () => {
     const [password, setPassword] = useState(null);
     const [passwordAgain, setPasswordAgain] = useState("");
     const [code, setCode] = useState("");
+    const [ErrMsng, setErrMsng] = useState({WrongLogInData: !1});
     const [isValid, setIsValid] = useState(!1);
     const [msg, setMsg] = useState(null);
     const [err, setErr] = useState(null)
@@ -121,6 +122,7 @@ const Login = () => {
             }
         } catch (error) {
             setErr(error);
+            setErrMsng({...ErrMsng, WrongLogInData: !0})
             handleError(error);
             console.log(error)
         }   
@@ -269,6 +271,8 @@ const Login = () => {
                 handleInputChange={handleInputChange}
                 password={password}
                 err={err}
+                setErrMsng={setErrMsng}
+                ErrMsng={ErrMsng}
                 setErr={setErr}
                 signIn={signIn}
                 ></LogIn>

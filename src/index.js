@@ -26,6 +26,7 @@ import Impressum from "./views/MainViews/Impressum"
 import Gastronomie from "./views/MainViews/sub/Gastronomie";
 import FAQ from "./views/MainViews/FAQ";
 import Themen from './views/MainViews/Themen';
+import CloudService from './views/MainViews/Themen/CloudService';
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
@@ -42,6 +43,7 @@ ReactDOM.render(
       <Route path="/impressum" render={(props) => <Impressum {...props} />} />
       <Route path="/schichtplan" render={(props) => <Shiftplan {...props} />} />
       <Route path="/faq" render={(props) => <FAQ {...props} />} />
+      <Route path="/themen/cloudservice" render={(props) => <CloudService {...props} />} />
       <Route path="/themen" render={(props) => <Themen {...props} />} />
       <Route path="/schichtplan/gastronomie" render={(props) => <Gastronomie {...props} />} />
       <Route path="/pricing" render={(props) => <Pricing {...props} />} />

@@ -1,7 +1,8 @@
 import React from "react";
 import {
     Col,
-    Button
+    Button,
+    Label
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import FormMitarbeiterErstellen from "../FormElements/FormMitarbeiterErstellen";
@@ -13,24 +14,22 @@ const ModalMitarbeiterErstellen = (props) => {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
-                    className="modal"
+                    className="modal modal-secondary"
                     scrollable
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: "showErstellen"})}}
             >
-                <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Mitarbeiter hinzufügen
-                </Modal.Title>
+                <Modal.Header className="pb-0"closeButton>
+                    <Label className="h2 m-3 align-items-center">Mitarbeiter einladen</Label>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="pt-1">
                     <FormMitarbeiterErstellen {...props}></FormMitarbeiterErstellen>
                 </Modal.Body>
                 <Modal.Footer>
                     <Col xs={2}>
-                        <Button color="secondary"onClick={() => {store.dispatch({type: "CLOSE", payload: "showErstellen"})}}> Schließen </Button>
+                        <Button color="link"onClick={() => {store.dispatch({type: "CLOSE", payload: "showErstellen"})}}> Schließen </Button>
                     </Col>
                     <Col xs={2}>
-                        <Button color="primary" onClick={() => props.handleRegister(props.modalkey)}> Speichern</Button>
+                        <Button color="success" onClick={() => props.handleRegister(props.modalkey)}> Einladen</Button>
                   </Col>
                 </Modal.Footer>
             </Modal>

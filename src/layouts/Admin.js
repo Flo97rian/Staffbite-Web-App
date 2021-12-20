@@ -84,7 +84,7 @@ const Admin = (props) => {
 
   return (
     <>
-      <div className="main-content" ref={mainContent}>
+      <div className="main-content " ref={mainContent}>
         <AdminNavbar
           {...props}
           routes={adminroutes}

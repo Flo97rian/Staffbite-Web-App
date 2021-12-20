@@ -53,6 +53,7 @@ const SignUp = (props) => {
     const [isValid, setIsValid] = useState(!1)
     const [checkValid, setCheckValid] = useState(!1);
     const [err, setErr] = useState(null)
+    const [ErrMsng, setErrMsng] = useState({MissingAGB: !1, MissingMail: !1, MissingPassword: !1, MailAlreadyUsed: !1});
     const [msg, setMsg] = useState(null)
     const [authState, setAuthState] = useState(AuthState.SigningUp);
     const [user, setUser] = useState();
@@ -72,23 +73,30 @@ const SignUp = (props) => {
         ReactGA.pageview(pageView);
       } 
 async function signUp() {
-    if(isValid && checkValid) {
-    setErr(null);
-    try {
-        const { user } = await Auth.signUp({
-            username,
-            password,
-        });
-        ReactGA.event({
-            category: 'User',
-            action: 'Created a Tenant'
-          });
-        setUser(user)
-        setAuthState(AuthState.ConfirmSignUp)
-    } catch (error) {
-        console.log(error);
-        setErr(error)
-    }
+    if(checkValid) {
+        if(isValid && checkValid) {
+            setErr(null);
+            try {
+                const { user } = await Auth.signUp({
+                    username,
+                    password,
+                });
+                ReactGA.event({
+                    category: 'User',
+                    action: 'Created a Tenant'
+                });
+                setUser(user)
+                setAuthState(AuthState.ConfirmSignUp)
+            } catch (error) {
+                console.log(error);
+                if(error.code === "UsernameExistsException") {
+                    setErrMsng({...ErrMsng, MailAlreadyUsed: !0})
+                }
+                setErr(error)
+            }
+        }
+    } else {
+        setErrMsng({...ErrMsng, MissingAGB: !0})
     }
 }
 
@@ -157,6 +165,8 @@ async function confirmSignUp() {
             password={password}
             code={code}
             err={err}
+            setErrMsng={setErrMsng}
+            ErrMsng={ErrMsng}
             checkChanged={checkChanged}
             setIsValid={setIsValid}
             signUp={signUp}

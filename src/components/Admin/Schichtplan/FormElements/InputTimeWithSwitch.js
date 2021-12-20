@@ -47,7 +47,7 @@ function InputTimeWithSwitch (props) {
                         {openEnd ? 
                         null
                         : 
-                        <Input type="time" size="lg" name={props.name} value={props.value} defaultValue={props.placeholder} onChange={props.onChange}></Input>
+                        <Input type="time" size="lg" className="form-control-alternative edit-event--description input-autosize form-control" name={props.name} value={props.value} defaultValue={props.placeholder} onChange={props.onChange}></Input>
                         }
                     </FormGroup>
                 </Form>

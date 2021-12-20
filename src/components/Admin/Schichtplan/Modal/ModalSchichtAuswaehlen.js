@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import {
     Button,
+    Label
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import store from "../../../../store"
@@ -25,16 +26,14 @@ const ModalSchichtAuswaehlen = (props) => {
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     scrollable={true}
+                    className="modal-secondary"
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
             >
-                <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Schicht zuteilen
-                </Modal.Title>
+                <Modal.Header className="pb-0" closeButton>
+                    <Label className="h2 m-3 align-items-center">Schicht zuteilen</Label>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="pt-1">
                     <FormSetApplicantsDetails {...props}/>
-                    <br/>
                     <DragAndDrop
                     ref={DragAndDropRef}
                     applyed={applyedApplicants}
@@ -46,7 +45,7 @@ const ModalSchichtAuswaehlen = (props) => {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button  color="secondary" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
+                    <Button  color="link" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
                     <Button color="success" onClick={() => props.selectBewerber(props.modalkey, DragAndDropRef)}>Änderungen übernehmen</Button>
                 </Modal.Footer>
             </Modal>

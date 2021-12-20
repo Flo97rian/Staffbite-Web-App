@@ -15,6 +15,7 @@ const ModalSchichtplanImportieren = (props) => {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
+                    className="modal-secondary"
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: "showSchichtplanImportieren"})}}
             >
                 <Modal.Header closeButton>

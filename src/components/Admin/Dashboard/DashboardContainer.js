@@ -33,6 +33,7 @@ import { WARNING_INVALID_REPORT_INPUT } from "../../../constants/Alerts";
 import InfoSidebar from "../../Sidebar/InfoSidebar.js";
 import { ONBOARDING_OVERVIEW_SHIFTPLAN, ONBOARDING_OVERVIEW_SHIFTRADE, ONBOARDING_OVERVIEW_TEAM } from "../../../constants/OnBoardingTexts.js";
 import { validMeta } from "../../Application/functionalComponents/ValidFunctions.js";
+import NewsFeed from "./Form/NewsFeed.js";
 
 
 const DashboardContainer = (props) => {
@@ -325,30 +326,28 @@ const DashboardContainer = (props) => {
                   </Link>
                 </Col>
               </Row>
-                <>
-                  <Row>
+                <Row>
+
                     <Col xs={3}>
-                    <h3 className="float-left pt-5 font-weight-bold text-lg">aktueller Schichtplan</h3>
+                    <h3 className="float-left pt-5 font-weight-bold text-lg">Neuste Aktivitäten</h3>
                     </Col>
-                    <Col xs={9}>
+                    <Col xs="9">
                     </Col>
                     </Row>
-                  <Card className="shadow card_aktuellerSchichtplan">
-                    <CardBody>
-                    { Shiftplan ?
-                      <DashboardSchichtenTabelle
-                        shiftplan={Shiftplan}
-                        bearbeiten={!0}
-                        employees={Employees}
-                        import={!0}
-                      >
-                      </DashboardSchichtenTabelle>
-                      :
-                      <></>
-                      }
-                      </CardBody>
-                  </Card>
-                </>
+                    <Row>
+                      <Col>
+                        <Card className="shadow card_aktuellerSchichtplan">
+                          <CardBody>
+                            <NewsFeed
+                            meta={Meta}
+                            >
+                            </NewsFeed>
+                          </CardBody>
+                        </Card>
+                      </Col>
+                      <Col>
+                      </Col>
+                    </Row>
             <Row>
               <Col xs={3}>
               <h3 className="float-left pt-5 pr-2 font-weight-bold mr-2 text-lg">

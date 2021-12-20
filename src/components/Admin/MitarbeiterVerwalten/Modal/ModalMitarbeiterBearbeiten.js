@@ -2,7 +2,8 @@ import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import {
     Col,
-    Button
+    Button,
+    Label
 } from "reactstrap"
 
 import FormMitarbeiterBearbeiten from "../FormElements/FormMitarbeiterBearbeiten"
@@ -17,27 +18,19 @@ const ModalMitarbeiterBearbeiten = (props) => {
             aria-labelledby="contained-modal-title-vcenter"
             centered
             scrollable
+            className="modal-secondary"
             show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
             >
-                <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <h3>
-                        Mitarbeiter bearbeiten
-                    </h3>
-                </Modal.Title>
+               <Modal.Header className="pb-0" closeButton>
+                    <Label className="h2 m-3 align-items-center">Mitarbeiter bearbeiten</Label>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="pt-1">
                     <FormMitarbeiterBearbeiten mitarbeiterdaten={mitarbeiterdaten} {...props}></FormMitarbeiterBearbeiten>
                 </Modal.Body>
                 <hr className="my-4" />
                 <Modal.Footer>
-                        <Col xs={2}>
                             <Button outline color="danger" type="Button" onClick={() => props.handleDelete(mitarbeiterdaten.id)}>Entfernen</Button>{' '}
-                        </Col>
-                        <Col xs={2}>
                             <Button color="primary" type="Button" onClick={() => props.handleUpdate(mitarbeiterdaten)}> Aktualisieren</Button>{' '}
-                        </Col>
-                        <Col xs={1}></Col>
                 </Modal.Footer>
             </Modal>
         )

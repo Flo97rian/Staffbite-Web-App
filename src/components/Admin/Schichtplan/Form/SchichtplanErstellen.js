@@ -41,9 +41,12 @@ const SchichtplanErstellen = (props) => {
             <Row>
                 <Col xs={1} ></Col>
                 <Col xs={10} >
+                    <FormGroup>
                         <InputStringShiftName info={true} description={INFO_SHIFTPLAN_NAME} label="Name deiner Vorlage" name="name" currentValue={props.userInput.name} isValid={validShiftplanName(props.userInput.name)} placeholder="Name" onChange={(e) => props.onChange(e, "userInput")} {...props}></InputStringShiftName>
-                    <br/>
-                    <InputNumber info={true} description={INFO_SHIFTPLAN_NUMBER_OF_SHIFTS} label="Schichten pro Tag" name="schichtentag"  placeholder="" onChange={(e) => props.onChange(e, "userInput")}></InputNumber>
+                    </FormGroup>
+                    <FormGroup className="mt-2">
+                        <InputNumber info={true} description={INFO_SHIFTPLAN_NUMBER_OF_SHIFTS} label="Schichten pro Tag" name="schichtentag"  placeholder="" onChange={(e) => props.onChange(e, "userInput")}></InputNumber>
+                    </FormGroup>
                     {!1 === !0 ? 
                     <>
                     <br/>
@@ -54,7 +57,7 @@ const SchichtplanErstellen = (props) => {
                     <></>
                     }
                     <br/>
-                    <Row className="text-center">
+                    <Row className="text-center mt-0">
                         <Col xs={12}>
                             <InfoOverlay info={true} description={INFO_SHIFTPLAN_DAYS_IS_CLOSED} infotitle="An welchen Tagen ist dein Betrieb geschlossen?" InfoOverlay/>
                         </Col>

@@ -20,8 +20,9 @@ import {
                 id="exampleFormControlInput1"
                 placeholder={this.props?.org?.name ? this.props.org.name: "Name eintragen" }
                 type="text"
-                name="name"
-                className="bg-secondary input_betrieb"
+                name={this.props.name}
+                size="lg" 
+                className="form-control-alternative edit-event--description input-autosize form-control input_betrieb"
                 onChange={(e) => this.props.onChange(e, "updateProfile")}
                 />
             </FormGroup>

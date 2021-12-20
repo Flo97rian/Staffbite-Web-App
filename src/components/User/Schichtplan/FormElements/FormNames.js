@@ -5,10 +5,10 @@ export default class FormNames extends React.PureComponent {
     typeofnames(names) {
         if (Object.keys(names).length === 0) {
             return(
-                <p className="mt-2 font-weight-bold">Keine Bewerbungen vorhanden</p>
+                <p className="mt-2 lead font-weight-bold">Keine Bewerbungen vorhanden</p>
         )} else if (Object.keys(names).length === 1){
             return(
-                <p className="mt-2 font-weight-bold">{names[Object.keys(names)[0]]}</p>
+                <p className="mt-2 lead font-weight-bold">{names[Object.keys(names)[0]]}</p>
         )} else {
             let keys = Object.keys(names)
             return(

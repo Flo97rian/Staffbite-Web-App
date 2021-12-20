@@ -2,7 +2,8 @@ import React from "react";
 import {
     Col,
     Row,
-    Button
+    Button,
+    Label
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -15,14 +16,13 @@ const ModalBefuellungStarten = (props) => {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
+                    className="modal-secondary"
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
             >
-                <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Zusammenfassung
-                </Modal.Title>
+                <Modal.Header className="pb-0" closeButton>
+                    <Label className="h2 m-3 align-items-center">Befüllung starten</Label>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="pt-1">
                     <Row className="text-center">
                         <Col xs={6}>
                             <Form.Label>Datum</Form.Label>
