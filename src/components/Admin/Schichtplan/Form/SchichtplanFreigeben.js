@@ -25,7 +25,7 @@ const SchichtplanFreigeben = (props) => {
                     <Col xs={10} >
 
                         <InfoLabel title={"Neuer Name"} description={INFO_SHIFTPLAN_RELEASE_WITH_NEW_NAME}/>
-                        <Input type="text" size="lg" placeholder={plan.name} name="name" onChange={(e) => props.onChange(e)}/> 
+                        <Input type="text" className="form-control-alternative edit-event--description input-autosize form-control" size="lg" placeholder={plan.name} name="name" onChange={(e) => props.onChange(e)}/> 
                         <br/>
                         <InfoLabel title={"Kalenderwoche"} description={INFO_SHIFTPLAN_RELEASE_FOR_NEW_PERIOD}/>
                         <Datepicker size="lg" getDates={props.getDates} start="WochenStart" ende="WochenEnde" placeholderAnfang={currentStart} placeholderEnde={currentEnde} />  

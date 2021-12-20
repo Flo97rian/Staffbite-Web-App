@@ -24,19 +24,14 @@ function FormMitarbeiterErstellen (props) {
                         </Col>
                         <Col xs={10}>
                             <InputStringValid info={true} description={INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME} label="Vorname, Nachname *" name="name"  placeholder="" isValid={props.userInput.name} onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></InputStringValid>
-                            <br/>
                             <InputStringValid info={true} description={INFO_EMPLOYEE_EMAIL_ADRESS} label="E-Mail Adresse *" name="email"  placeholder="" isValid={props.userInput.email} onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></InputStringValid>
-                            <br/>
+
                             <InputNumber info={true} description={INFO_EMPLOYEE_HOURLY_WAGES} label="Stundenlohn (€)" name="stundenlohn"  placeholder="" onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></InputNumber>
-                            <br/>
                             <InputNumber info={true} description={INFO_EMPLOYEE_MONTHLY_INCOME} label="Ziel mtl. (€)" name="zielmtleuro"  placeholder="" onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></InputNumber>
-                            <br/>
                             <ControlErfahrung info={true} description={INFO_EMPLOYEE_QUALIFIKATION} label="Erfahrung" name="erfahrung"  placeholder="" defaultVal="Anfänger" onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></ControlErfahrung>
-                            <br/>
                             <InputNumber info={true} description={INFO_EMPLOYEE_SHIFTS_PER_WEEK} label="Schichten/Woche" name="schichtenwoche"  placeholder="" onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></InputNumber>
-                            <br/>
                             <InputString info={true} description={INFO_EMPLOYEE_POSITIONS} label="Position" name="position" placeholder="" onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></InputString>
-                            <br/>
+
                         </Col>
                         <Col xs={1}>
                         </Col>
@@ -50,13 +45,9 @@ function FormMitarbeiterErstellen (props) {
                             </Col>
                             <Col xs={10}>
                                 <InputStringValid info={true} description={INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME} label="Vorname, Nachname *" valid={FEEDBACK_VALID_EMPLOYEE_NAME} invalid={FEEDBACK_INVALID_EMPLOYEE_NAME} isValid={validName(props.userInput.name)} name="name"  currentValue={props.userInput.name} placeholder="Max Mustermann" onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></InputStringValid>
-                                <br/>
                                 <InputStringValid info={true} description={INFO_EMPLOYEE_EMAIL_ADRESS} label="E-Mail Adresse *" valid={FEEDBACK_VALID_EMPLOYEE_EMAIL} invalid={FEEDBACK_INVALID_EMPLOYEE_EMAIL} isValid={validEmail(props.userInput.email)} name="email"  currentValue={props.userInput.email} placeholder="max@mustermann.de" onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></InputStringValid>
-                                <br/>
                                 <ControlErfahrung info={true} description={INFO_EMPLOYEE_QUALIFIKATION} label="Erfahrung" name="erfahrung"  placeholder="" defaultVal="Anfänger" onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></ControlErfahrung>
-                                <br/>
                                 <InputNumber info={true} description={INFO_EMPLOYEE_SHIFTS_PER_WEEK} label="Schichten/Woche" name="schichtenwoche"  placeholder="" onChange={(e) => props.onChange(e, "neuerMitarbeiter")}></InputNumber>
-                                <br/>
                                 <FormPositions {...props}></FormPositions>
                             </Col>
                             <Col xs={1}>

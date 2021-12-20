@@ -22,6 +22,9 @@ import { API_HOSTNAME, FETCH_ORGANISATION } from "../../constants/ApiConstants";
             schichten: JSON.parse(response.Item.schichten["S"]),
             onboarding: JSON.parse(response.Item.onboarding["S"]),
           }
+          if(Object.keys(response.Item).includes("newsfeed")) {
+              org.newsfeed = JSON.parse(response.Item.newsfeed["S"])
+          }
           dispatch({type: "setMeta", payload: org})
           dispatch({type: "stopFetchingMeta"})
             })

@@ -330,6 +330,24 @@ const SchichtplanContainer = () => {
     setErrMsng({...ErrMsng, [err]: !1})
 
   };
+
+  const handleSetTenantInShift = () => {
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.setTenantInShift(ShiftSlot);
+    let shiftplan = copyPlan.getAllPlanDetails();
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    setUserInput({...shiftplanStates})
+    store.dispatch({type: "CLOSE"});
+  }
+
+  const handleRemoveTenantFromShift = () => {
+    let copyPlan = new ShiftPlan({...Shiftplan});
+    copyPlan.removeTenantFromShift(ShiftSlot);
+    let shiftplan = copyPlan.getAllPlanDetails();
+    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    setUserInput({...shiftplanStates})
+    store.dispatch({type: "CLOSE"});
+  }
   // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter)
   const handleEditShiftDetails = (index) => {
     if (ShiftPlanIsImported) {
@@ -759,6 +777,8 @@ const SchichtplanContainer = () => {
             handlePrio={handlePrioShiftToDB}
             handleChangeNotice={handleChangeNotice}
             onDelete={handleDeleteShiftPlan}
+            handleSetTenantInShift={handleSetTenantInShift}
+            handleRemoveTenantFromShift={handleRemoveTenantFromShift}
             handleLoeschen={handleDeleteShift}
             onSaveHinzufuegen={handleAddShift}
             selectBewerber={handleSetApplicant}

@@ -575,6 +575,22 @@ export default class ShiftPlan {
     this.plan = copyPlan;
   }
 
+  setTenantInShift(ShiftSlot) {
+    let copyPlan = [...this.plan];
+    let row = this.getRow(ShiftSlot);
+    let day = this.getDay(ShiftSlot);
+    copyPlan[row][day].setApplicants["TENANT"] = "Name"
+    this.plan = copyPlan;
+  }
+
+  removeTenantFromShift(ShiftSlot) {
+    let copyPlan = [...this.plan];
+    let row = this.getRow(ShiftSlot);
+    let day = this.getDay(ShiftSlot);
+    delete copyPlan[row][day].setApplicants.TENANT
+    this.plan = copyPlan;
+  }
+
   shiftIsActive(ShiftSlot) {
     let copyPlan = [...this.plan];
     let row = this.getRow(ShiftSlot);

@@ -15,8 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { HashLink } from 'react-router-hash-link';
+import NotificationAlert from "react-notification-alert";
 // reactstrap components
 import {
   Button,
@@ -42,8 +43,31 @@ import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
+import { WARNING_AGB_NOT_ACCEPTED, WARNING_MAIL_ALREADY_USED, WARNING_MISSING_MAIL, WARNING_MISSING_PASSWORD } from "../../../constants/Alerts";
 
 const Register = (props) => {
+    let notificationAlert = useRef(null)
+
+    function Notify (type, title, err) {
+        let options = {
+          place: "tc",
+          message: (
+            <div className="alert-text">
+              <span className="alert-title" data-notify="title">
+                {" "}
+              </span>
+              <span data-notify="message">
+                {title}
+              </span>
+            </div>
+          ),
+          type: type,
+          icon: "ni ni-bell-55",
+          autoDismiss: 7
+        };
+        notificationAlert.current.notificationAlert(options);
+        props.setErrMsng({...props.ErrMsng, [err]: !1})
+      };
     const handleKeyPress = (event) => {
         if(event.key === 'Enter'){
             props.signUp()
@@ -57,6 +81,13 @@ const Register = (props) => {
                 imgSrc: require("../../../assets/img/brand/Staffbite_Logo.png").default,
                 imgAlt: "...",
                 }}/>
+                { props.ErrMsng.MissingAGB ? Notify("warning", WARNING_AGB_NOT_ACCEPTED, "MissingAGB") : null}
+                { props.ErrMsng.MissingMail ? Notify("warning", WARNING_MISSING_MAIL, "MissingMail") : null}
+                { props.ErrMsng.MissingPassword ? Notify("warning", WARNING_MISSING_PASSWORD, "MissingPassword") : null}
+                { props.ErrMsng.MailAlreadyUsed ? Notify("warning", WARNING_MAIL_ALREADY_USED, "MailAlreadyUsed") : null}
+                <div className="rna-wrapper">
+                    <NotificationAlert ref={notificationAlert} />
+                </div>
                   { props.err !== null && props.err.code === "UsernameExistsException" ? 
                 <div>
                 <Alert color="warning">

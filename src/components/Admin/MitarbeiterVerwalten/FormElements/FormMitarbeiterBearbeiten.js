@@ -28,7 +28,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                     </Row>
                     <Row>
                         <Col xs={5}>
-                        <Form.Label><p>Persönliche Daten</p></Form.Label>
+                        <p className="lead">Persönliche Daten</p>
                         <InputStringValid info={true} description={INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME} label="Vorname, Nachname" name="name" placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputStringValid>
                         <br/>
                         <InputString info={true} description={INFO_EMPLOYEE_EMAIL_ADRESS} label="E-Mail Adresse" name="email"  placeholder={employee["email"]}></InputString>
@@ -67,24 +67,18 @@ const FormMitarbeiterBearbeiten = (props) => {
                     </Row>
                     <Row>
                         <Col xs={5}>
-                        <Form.Label><p>Persönliche Daten</p></Form.Label>
+                        <p className="lead">Persönliche Daten</p>
                         <InputStringValid info={true} label="Vorname, Nachname" name="name" valid={FEEDBACK_VALID_EMPLOYEE_NAME} invalid={FEEDBACK_INVALID_EMPLOYEE_NAME} isValid={validName(props.userInput.name)} currentValue={props.userInput.name} placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputStringValid>
-                        <br/>
                         <InputString label="E-Mail Adresse" name="email"  value={employee["email"]}></InputString>
-                        <br/>
                         <Switch info={true} description={INFO_EMPLOYEE_VACATION} type="switch" label="Urlaub" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
-                        <br/>
                         <Switch  info={true} description={INFO_EMPLOYEE_OVERTIME} type="switch" label="Überstunden" name="ueberstunden" value={employee["ueberstunden"]} onChange={(e) => props.onChange(e)}></Switch>
-                        <br/>
                         </Col>
                         <Col xs={2}></Col>
                         <Col xs={5} >
-                        <Form.Label><p>betriebliche Einstellungen</p></Form.Label>
+                        <p className="lead">Betriebliche Einstellungen</p>
                         <ControlErfahrung label="Erfahrung" name="erfahrung"  {...props} defaultVal={employee["erfahrung"]}></ControlErfahrung>
-                        <br/>
                         <FormPositions {...props}></FormPositions>
                         <InputNumber label="Schichten/Woche" name="schichtenwoche"  placeholder={employee["schichtenwoche"]} onChange={(e) => props.onChange(e)}></InputNumber>
-                        <br/>
                         </Col>
                     </Row>
                 </>

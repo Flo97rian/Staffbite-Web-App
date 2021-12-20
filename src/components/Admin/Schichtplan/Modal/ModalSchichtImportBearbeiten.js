@@ -1,6 +1,7 @@
 import React from "react";
 import {
-    Button
+    Button,
+    Label
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import SchichtBearbeiten from "../Form/SchichtBearbeiten";
@@ -12,14 +13,13 @@ const ModalSchichtImportBearbeiten = (props) => {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
+                    className="modal-secondary"
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
             >
-                <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Schicht bearbeiten
-                </Modal.Title>
+                <Modal.Header className="pb-0"closeButton>
+                    <Label className="h2 m-3 align-items-center">Schicht bearbeiten</Label>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="pt-1">
                     <SchichtBearbeiten {...props} modalkey={props.modalkey}></SchichtBearbeiten>
                 </Modal.Body>
                 <Modal.Footer>

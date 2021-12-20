@@ -55,7 +55,9 @@ const Unternehmensprofil = (props) => {
             <Card className="shadow">
                 <CardBody>
                 <InfoLabel title="Name des Betriebs" description={INFO_ORGANISATION_NAME}></InfoLabel>
-                <InputForm {...props}/>
+                <InputForm name="name" {...props}/>
+                <InfoLabel title="Dein Vor- & Nachname" description={INFO_ORGANISATION_NAME}></InfoLabel>
+                <InputForm name="vorname" {...props}/>
                 <InfoLabel title="Stundenerfassung" description={INFO_ORGANISATION_STUNDENERFASSUNG}></InfoLabel>
                 <Form.Check custom type="switch" size="lg" disabled name="stundenerfassung"></Form.Check>
                 </CardBody>
@@ -63,7 +65,7 @@ const Unternehmensprofil = (props) => {
                     <Col xs={12}>
                     <InfoLabel title="Positionen bearbeiten" description={INFO_ORGANISATION_POSITIONS}></InfoLabel>
                     {props.showPositionHinzufuegen ?
-                    <Input type="text" size="lg" className='bg-secondary' label="Position" name="position"  placeholder="" onKeyPress={(event) => handleKeyPress(event)} onChange={(e) => props.handlePositionChange(e)}></Input>
+                    <Input type="text" size="lg" className="form-control-alternative edit-event--description input-autosize form-control" label="Position" name="position"  placeholder="" onKeyPress={(event) => handleKeyPress(event)} onChange={(e) => props.handlePositionChange(e)}></Input>
                         :
                         <></>
                     }

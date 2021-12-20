@@ -66,7 +66,7 @@ const ShiftDetails = (props) => {
                         <InfoLabel title="Schicht" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs={6}>
-                        <p>{shiftname} {day} {shiftstart} - {shiftend}</p>
+                        <p className="lead  mt-0">{shiftname} {day} {shiftstart} - {shiftend}</p>
                     </Col>
                 </Row>
                 <Row className="mx-4">
@@ -74,14 +74,14 @@ const ShiftDetails = (props) => {
                     <InfoLabel title="Notiz" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs={6}>
-                        <p className="font-weight-bold">
+                        <p className="lead font-weight-bold">
                             {notice}
                         </p>
                     </Col>
                 </Row>
                 <Row className="mx-4">
                         <Col xs={6}>
-                            <p className="mt-2">Bewerber</p>
+                            <p className="mt-2 lead">Bewerber</p>
                         </Col>
                         <Col xs={6}>
                             <FormNames names={applyedApplicants}></FormNames>
@@ -97,12 +97,12 @@ const ShiftDetails = (props) => {
                         <InfoLabel title="Schicht" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs={6}>
-                        <p>{shiftname} {day} {shiftstart} - {shiftend}</p>
+                        <p className="lead  mt-0">{shiftname} {day} {shiftstart} - {shiftend}</p>
                     </Col>
                 </Row>
                 <Row className="mx-4">
                         <Col xs={6}>
-                            <p className="mt-2">Bewerber</p>
+                            <p className="mt-2 lead">Bewerber</p>
                         </Col>
                         <Col xs={6}>
                             <FormNames names={applyedApplicants}></FormNames>
@@ -119,7 +119,7 @@ const ShiftDetails = (props) => {
                         <InfoLabel title="Schicht" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs={6}>
-                        <p>{shiftname} {day} {shiftstart} - {shiftend}</p>
+                        <p className="lead  mt-0">{shiftname} {day} {shiftstart} - {shiftend}</p>
                     </Col>
                 </Row>
                 <Row className="mx-4">
@@ -127,7 +127,7 @@ const ShiftDetails = (props) => {
                         <InfoLabel title="Notiz" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs={6}>
-                        <p className="font-weight-bold">{notice}</p>
+                        <p className="lead font-weight-bold">{notice}</p>
                     </Col>
                 </Row>
             </>
@@ -140,7 +140,7 @@ const ShiftDetails = (props) => {
                         <InfoLabel title="Schicht" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs={6}>
-                        <p>{shiftname} {day} {shiftstart} - {shiftend}</p>
+                        <p className="lead mt-0">{shiftname} {day} {shiftstart} - {shiftend}</p>
                     </Col>
                 </Row>
             </>

@@ -25,6 +25,23 @@ const FormSetApplicantsDetails = (props) => {
     const shiftend = shiftplan[row]["Wochentag"].ShiftEnd
     let hasNotice = getHasNotice(shift);
     let hasPrio = getHasPrio(shift);
+
+
+    function selfShift(shift) {
+        let keys = Object.keys(shift.setApplicants)
+        let includesTenant = keys.includes("TENANT")
+        if(includesTenant) {
+            return (
+                <>
+                <p className="text-success font-weight-bold">Selbst eingetragen<Button className="float-right" size="sm" color="danger" onClick={() => props.handleRemoveTenantFromShift()}>Zurücksetzen</Button></p>
+                </>
+            )
+        } else {
+            return (
+                <Button size="sm" color="success" onClick={() => props.handleSetTenantInShift()}>Eintragen</Button>
+            )
+        }
+    }
     if (hasNotice && hasPrio) {
         let prio = shift.prio;
         let notice = shift.notice;
@@ -54,6 +71,14 @@ const FormSetApplicantsDetails = (props) => {
                         <p>{shiftname} {day} {shiftstart} - {shiftend}</p>
                     </Col>
                 </Row>
+                <Row className="mx-4  mb-2">
+                <Col xs="6">
+                    <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
+                </Col>
+                <Col xs="6">
+                    {selfShift(shift)}
+                </Col>
+            </Row>
             </>
         )
     } else if (!hasNotice && hasPrio) {
@@ -84,6 +109,14 @@ const FormSetApplicantsDetails = (props) => {
                         <p>{shiftname} {day} {shiftstart} - {shiftend}</p>
                     </Col>
                 </Row>
+                <Row className="mx-4 mb-2">
+                <Col xs="6">
+                    <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
+                </Col>
+                <Col xs="6">
+                    {selfShift(shift)}
+                </Col>
+            </Row>
             </>
         )
     }  else if(hasNotice && !hasPrio) {
@@ -106,6 +139,14 @@ const FormSetApplicantsDetails = (props) => {
                         <p>{shiftname} {day} {shiftstart} - {shiftend}</p>
                     </Col>
                 </Row>
+                <Row className="mx-4 mb-2">
+                <Col xs="6">
+                    <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
+                </Col>
+                <Col xs="6">
+                    {selfShift(shift)}
+                </Col>
+            </Row>
             </>
         )
     } else {
@@ -125,6 +166,14 @@ const FormSetApplicantsDetails = (props) => {
                 </Col>
                 <Col xs="6">
                     <p>{shiftname} {day} {shiftstart} - {shiftend}</p>
+                </Col>
+            </Row>
+            <Row className="mx-4 mb-2">
+                <Col xs="6">
+                    <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
+                </Col>
+                <Col xs="6">
+                    {selfShift(shift)}
                 </Col>
             </Row>
             </>

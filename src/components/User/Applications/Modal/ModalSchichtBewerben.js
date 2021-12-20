@@ -3,6 +3,7 @@ import {
     Col,
     Row,
     Input,
+    Label,
     Button
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
@@ -35,18 +36,17 @@ const ModalSchichtBewerben = (props) => {
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
+                    className="modal-secondary"
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
             >
-                <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Auf Schicht bewerben
-                </Modal.Title>
+                <Modal.Header className="pb-0" closeButton>
+                    <Label className="h2 m-3 align-items-center">In Schicht eintragen</Label>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="pt-1">
                     <ShiftDetails {...props}/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button color="" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
+                    <Button color="link" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
                     {includesUser()
                     ?
                     <Button className="" color="danger" onClick={() => props.onDelete(props.modalkey)}>Bewerbung zurückziehen</Button>

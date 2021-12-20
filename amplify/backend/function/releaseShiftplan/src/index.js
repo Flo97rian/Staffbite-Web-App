@@ -20,6 +20,9 @@ exports.handler = async (event, context, callback) => {
     console.log(body);
     let user = body.user;
     let plan = await getPlan(body);
+    let meta = await getMeta(body);
+    let planName = plan.name["S"]
+    await addNews(body, meta, planName);
     let name = plan.name["S"];
     if (name !== body.name && body.name !== "Name" && body.name !== "") {
         name = body.name;
@@ -147,3 +150,76 @@ const getPlan = async (body) => {
       console.log(data);
  return data.Item
 };
+
+const getMeta = async (body) => {
+    var ORG = "ORG#" + body.user["custom:TenantId"];
+    var META = "ORG#" + "METADATA#" + body.user["custom:TenantId"];
+    console.log(ORG)
+     var params = {
+      Key: {
+       "PK": {
+         S: ORG
+        }, 
+       "SK": {
+         S: META
+        }
+      }, 
+      TableName: "Staffbite-DynamoDB"
+     };
+    let data = null;
+    try {
+        data = await dynamodb.getItem(params).promise();
+    } catch(error) {
+      console.log(error);
+      };
+      console.log(data);
+ return data.Item
+};
+
+const addNews = async (body, meta, planName) => {
+    var META = "ORG#" + "METADATA#" + body.user["custom:TenantId"];
+    let newsfeed = JSON.parse(meta.newsfeed["S"])
+    let currentDate = new Date();
+    let message = "Der Schichtplan " + planName + " wurde zum Eintragen freigeben."
+    let feedObject = {timestamp:currentDate,title: "Schichtplan zum Entragen bereit",message:message,type:"Eintragen"}
+    newsfeed.unshift(feedObject)
+     var params = {
+    Key: {
+   "PK": {
+     "S": "ORG#" + body.user["custom:TenantId"]
+    }, 
+   "SK": {
+     "S": META
+    }
+},
+  ExpressionAttributeNames: {
+   "#newsfeed": "newsfeed",
+  }, 
+  ExpressionAttributeValues: {
+                ":newsfeed": {
+                 "S": JSON.stringify(newsfeed)
+                }
+  }, 
+  ReturnValues: "ALL_NEW", 
+  TableName: "Staffbite-DynamoDB", 
+  UpdateExpression: "SET #newsfeed = :newsfeed"
+    };
+    
+     
+    try {
+      await dynamodb.updateItem(params).promise();
+    } catch(error) {
+      console.log(error);
+      }
+        const response = {
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Headers" : "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            "Access-Control-Allow-Credentials": "true"
+        },
+        body: JSON.stringify("META updated!")
+    };
+    return response;
+}

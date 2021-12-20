@@ -1,7 +1,8 @@
 import React from "react";
 import {
     Row,
-    Button
+    Button,
+    Label
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -23,16 +24,15 @@ const ModalSaveChanges = (props) => {
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     scrollable={true}
+                    className="modal-secondary"
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
             >
-                <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Änderungen speichern
-                </Modal.Title>
+               <Modal.Header className="pb-0" closeButton>
+                    <Label className="h2 m-3 align-items-center">Änderungen speichern</Label>
                 </Modal.Header>
-                <Modal.Body>
-                <Row className="text-center">
-                            <Form.Label>Du hast einen Schichtplan geändert, aber nicht gespeichert. Ohne Speicherung gehen deine Anpassungen leider verloren!</Form.Label>
+                <Modal.Body className="pt-1">
+                <Row className="text-center m-2">
+                            <p>Du hast einen Schichtplan geändert, aber nicht gespeichert. Ohne Speicherung gehen deine Anpassungen leider verloren!</p>
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>

@@ -72,7 +72,7 @@ const Landing = (props) => {
         <Helmet>
           <title>{LANDING_TITLE}</title>
           <meta name="description" charSet="utf-8" content={LANDING_DESCRIPTION}/>
-          <meta property="og:title" content="Staffbite - Digitale Schichtplanung jederzeit online und per App."/>
+          <meta property="og:title" content={LANDING_TITLE}/>
           <meta property="og:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
           <meta property="og:url" content="https://www.staffbite.de"></meta>
           <meta property="og:type" content="website"></meta>

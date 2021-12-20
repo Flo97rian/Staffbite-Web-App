@@ -18,6 +18,7 @@ exports.handler = async (event, context, callback) => {
     let body = JSON.parse(event.body);
     let plan = await getPlan(event, body);
     let employees = await getEmployees(event);
+    let planName = plan.name["S"]
     let updatedEmployeesAndPlan = await setSchichten(employees, plan);
     let newEmployees = updatedEmployeesAndPlan[0]
     let newPlan = updatedEmployeesAndPlan[1]
@@ -25,7 +26,8 @@ exports.handler = async (event, context, callback) => {
         let newEmployeesData = newEmployees[item]
         updateEmployees(event, body, item, newEmployeesData );
     });
-    
+    let meta = await getMeta(body);
+    await addNews(body, meta, planName);
     let response = await updatePlan(event, plan, newPlan)
     return response
 };
@@ -121,7 +123,7 @@ function setSchichten(employees, plan) {
                 Object.keys(schichtplan[lastRow]).forEach( day => {
                     let hasSetApplicantsKey = Object.keys(schichtplan[index][day]).includes("setApplicants")
                     console.log(hasSetApplicantsKey);
-                    let hasSetApplicants = hasSetApplicantsKey  && Object.keys(schichtplan[index][day]["setApplicants"]).length > 0 ? !0 : !1
+                    let hasSetApplicants = hasSetApplicantsKey  && Object.keys(schichtplan[index][day]["setApplicants"]).length > 0
                     if ( day !== "Wochentag" && hasSetApplicantsKey && hasSetApplicants) {
                         console.log(diffInHours);
                         schichtplan[lastRow][day] = Number(schichtplan[lastRow][day]) + Number(diffInHours)
@@ -141,6 +143,7 @@ function setEmployeesShifts(setApplicants, Employees, row, schichtname, tag, zei
     let copyEmployees = Employees;
     if(setApplicants) {
     Object.keys(setApplicants).forEach(applicant => {
+        if(applicant !== "TENANT") {
         let schichtenObject = copyEmployees[applicant]["schichten"];
         if( !Object.keys(schichtenObject).includes(zeitraum)) {
             schichtenObject[zeitraum] = [];
@@ -149,7 +152,7 @@ function setEmployeesShifts(setApplicants, Employees, row, schichtname, tag, zei
         schichtenObject[zeitraum].push(String(row) + "#" + String(schichtname) + "#" + String(tag));
         }
         copyEmployees[applicant]["schichten"] = schichtenObject;
-    })}
+    }})}
     return copyEmployees;
 }
 
@@ -278,4 +281,77 @@ const updatePlan = async (event, plan, newPlan) => {
         body: JSON.stringify("Schiftplan updated!")
     }; 
     return response
+}
+
+const getMeta = async (body) => {
+    var ORG = "ORG#" + body.user["custom:TenantId"];
+    var META = "ORG#" + "METADATA#" + body.user["custom:TenantId"];
+    console.log(ORG)
+     var params = {
+      Key: {
+       "PK": {
+         S: ORG
+        }, 
+       "SK": {
+         S: META
+        }
+      }, 
+      TableName: "Staffbite-DynamoDB"
+     };
+    let data = null;
+    try {
+        data = await dynamodb.getItem(params).promise();
+    } catch(error) {
+      console.log(error);
+      };
+      console.log(data);
+ return data.Item
+};
+
+const addNews = async (body, meta, planName) => {
+    var META = "ORG#" + "METADATA#" + body.user["custom:TenantId"];
+    let newsfeed = JSON.parse(meta.newsfeed["S"])
+    let currentDate = new Date();
+    let message = "Der Schichtplan " + planName + " kann nun eingesehen werden."
+    let feedObject = {timestamp:currentDate,title: "Neuer Schichtplan",message:message,type:"Schichtplan"}
+    newsfeed.unshift(feedObject)
+     var params = {
+    Key: {
+   "PK": {
+     "S": "ORG#" + body.user["custom:TenantId"]
+    }, 
+   "SK": {
+     "S": META
+    }
+},
+  ExpressionAttributeNames: {
+   "#newsfeed": "newsfeed",
+  }, 
+  ExpressionAttributeValues: {
+                ":newsfeed": {
+                 "S": JSON.stringify(newsfeed)
+                }
+  }, 
+  ReturnValues: "ALL_NEW", 
+  TableName: "Staffbite-DynamoDB", 
+  UpdateExpression: "SET #newsfeed = :newsfeed"
+    };
+    
+     
+    try {
+      await dynamodb.updateItem(params).promise();
+    } catch(error) {
+      console.log(error);
+      }
+        const response = {
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Headers" : "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            "Access-Control-Allow-Credentials": "true"
+        },
+        body: JSON.stringify("META updated!")
+    };
+    return response;
 }

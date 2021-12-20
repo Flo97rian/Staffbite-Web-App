@@ -81,7 +81,7 @@ const  InfoOverlayWithSwitch = (props) => {
       className="flex flex-col items-center"
       ref={containerRef}
     >
-      <p className="mb-0">
+      <p className="mb-1 form-control-label lead mt-0">
       {infotitle}{' '}{' '}
       <i className="fa fa-info-circle text-light"
       ref={triggerRef}

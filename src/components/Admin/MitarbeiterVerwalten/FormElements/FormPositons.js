@@ -1,7 +1,7 @@
 import React from "react";
 
 import {
-    Badge
+    Badge, FormGroup
 } from "reactstrap"
 import InputString from "../../../Application/functionalComponents/InputString";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
@@ -13,7 +13,7 @@ import { INFO_EMPLOYEE_POSITIONS, INFO_ORGANISATION_POSITIONS } from "../../../.
 
 const FormPositions = (props) => {
         return(
-            <>
+            <FormGroup className="mt-4">
                 {props.showPositionHinzufuegen ?
                 <InputString info={true} description={INFO_ORGANISATION_POSITIONS} label="Position" name="position"  placeholder="" onChange={(e) => props.handlePositionChange(e)}></InputString>
                 :
@@ -36,7 +36,7 @@ const FormPositions = (props) => {
                 :
                 <Badge className="mt-2 mb-4" color="light" onClick={() => props.handlePositionHinzufuegen()}>Position erstellen</Badge>
                 }
-            </>
+            </FormGroup>
         )
 }
 
