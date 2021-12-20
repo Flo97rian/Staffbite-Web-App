@@ -184,7 +184,7 @@ const ApplicationsContainer = () => {
         <>
         <Row className="mt-6">
         <Col xs={2} className="mt-4">
-        <h3 className="float-left pt-4 font-weight-bold text-lg">Bewerbungen</h3>
+        <h3 className="float-left pt-4 font-weight-bold text-lg">Trag dich ein!</h3>
         { LoadingFetchingEmployeePlans ? <Spinner color="success" /> : <></>}
         </Col>
         <Col xs={10} className="mt-2">

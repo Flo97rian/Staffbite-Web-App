@@ -51,7 +51,7 @@ const ModalSchichtBewerben = (props) => {
                     ?
                     <Button className="" color="danger" onClick={() => props.onDelete(props.modalkey)}>Bewerbung zurückziehen</Button>
                     :
-                    <Button color="success" onClick={() => props.onBewerben(props.modalkey)}> Bewerben </Button>  
+                    <Button color="success" onClick={() => props.onBewerben(props.modalkey)}> Eintragen </Button>  
                     }
                 </Modal.Footer>
             </Modal>

@@ -28,7 +28,7 @@ const ApplicationsTable = (props) => {
             <Row className="text-center mt-4" noGutters={true}>
                 <Col xs={3}>
                     <p>Status</p>
-                    <p style={{"color": "#5e72e4"}}>offen für Bewerbungen</p>
+                    <p style={{"color": "#5e72e4"}}>Bereit zum eintragen</p>
                 </Col>
                 <Col xs={6}>
                 <p>Zeitraum</p>
@@ -36,9 +36,9 @@ const ApplicationsTable = (props) => {
                 </Col>
                 <Col xs={3}>
                     <p>Legende</p>
-                    <Badge color="success">beworben</Badge>
-                    <Badge color="light">kein Bewerber / Bewerber vorhanden</Badge>
-                    <Badge color="default">nicht verfügbar</Badge>
+                    <Badge color="success">Eingetragen</Badge>
+                    <Badge color="light">Weitere Bewerber vorhanden</Badge>
+                    <Badge color="default">Nicht verfügbar</Badge>
                 </Col>
             </Row>
                     <br/>

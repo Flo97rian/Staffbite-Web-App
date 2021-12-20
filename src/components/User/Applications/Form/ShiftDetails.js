@@ -69,6 +69,7 @@ const ShiftDetails = (props) => {
                         <p className="lead  mt-0">{shiftname} {day} {shiftstart} - {shiftend}</p>
                     </Col>
                 </Row>
+
                 <Row className="mx-4">
                     <Col xs={6}>
                     <InfoLabel title="Notiz" description={INFO_USER_NOTICE}></InfoLabel>
@@ -79,6 +80,7 @@ const ShiftDetails = (props) => {
                         </p>
                     </Col>
                 </Row>
+
                 <Row className="mx-4">
                         <Col xs={6}>
                             <p className="mt-2 lead">Bewerber</p>
@@ -100,9 +102,10 @@ const ShiftDetails = (props) => {
                         <p className="lead  mt-0">{shiftname} {day} {shiftstart} - {shiftend}</p>
                     </Col>
                 </Row>
+
                 <Row className="mx-4">
                         <Col xs={6}>
-                            <p className="mt-2 lead">Bewerber</p>
+                            <p className="mt-2 lead">Weitere Bewerber</p>
                         </Col>
                         <Col xs={6}>
                             <FormNames names={applyedApplicants}></FormNames>
