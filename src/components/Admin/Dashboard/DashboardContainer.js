@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { Spinner } from "reactstrap";
@@ -75,6 +75,8 @@ const DashboardContainer = (props) => {
     ]
   })
   let notificationAlert = useRef(null)
+  let mainContent = useRef("mainContent")
+  let location = useLocation()
   const { run, steps } = state;
 
   //REDUX-Filter für UI-Data
@@ -229,13 +231,19 @@ const DashboardContainer = (props) => {
       }
     };
 
+    React.useEffect(() => {
+      document.documentElement.scrollTop = 0;
+      document.scrollingElement.scrollTop = 0;
+      mainContent.current.scrollTop = 0;
+    }, [location]);
+
     const handleResetReport = () => {
       setFilter(null);
       setFilterIsActive(!1);
       store.dispatch({type: "All/Report", payload: !1});
     };
         return (
-          <>
+          <div className="main-content mt-8 px-4" ref={mainContent}>
            {validMeta(Meta) ?
           <Joyride
           continuous={true}
@@ -265,7 +273,7 @@ const DashboardContainer = (props) => {
             </Row>
             : 
           <>
-              <Row>
+              <Row className="pt-6">
               <div className="rna-wrapper">
                 <NotificationAlert ref={notificationAlert} />
               </div>  
@@ -429,7 +437,7 @@ const DashboardContainer = (props) => {
           ></OpenModal>
         <InfoSidebar
           sidebarInfo={SidebarInfo}/>
-      </>
+      </div>
 );
 }
 

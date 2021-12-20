@@ -10,6 +10,7 @@ import {
     CardTitle,
     Row,
     CardBody,
+    Container,
   } from "reactstrap";
 import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansForEmployees";
 import { getUser } from "../../../store/middleware/FetchUser";
@@ -140,7 +141,7 @@ const DashboardContainer = (props) => {
     })}
 
         return (
-          <>
+          <div className="pt-8">
           {User !== !1 ? 
           <Joyride
           continuous={true}
@@ -237,7 +238,7 @@ const DashboardContainer = (props) => {
               <Col>
               </Col>
             </Row>
-        </>
+        </div>
 );
 }
 

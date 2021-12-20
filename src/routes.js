@@ -33,7 +33,7 @@ var authroutes = [
   {
     path: "",
     name: "Anmeldung",
-    component: Login,
+    component: <Login/>,
     layout: "/auth",
   },
   {

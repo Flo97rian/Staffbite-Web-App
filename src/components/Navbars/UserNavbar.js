@@ -16,7 +16,7 @@
 
 */
 import React, { useEffect, useState } from "react";
-import { NavLink as NavLinkRRD, Link } from "react-router-dom";
+import { NavLink as NavLinkRRD, Link, useNavigate } from "react-router-dom";
 // reactstrap components
 import {
   DropdownToggle,
@@ -38,11 +38,13 @@ import store from "../../store";
 import { Auth } from 'aws-amplify';
 import { getUser } from "../../store/middleware/FetchUser";
 import { userroutes } from "../../routes";
+import { useLocation, Route, Navigate } from "react-router-dom";
 import { thunkUpdateEmployee } from "../../store/middleware/UpdateEmployee";
 
 const UserNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const location = useLocation();
+  const navigate = useNavigate()
   const selectUser = state => state.user;
 
   const User = useSelector(selectUser);
@@ -55,22 +57,28 @@ const UserNavbar = (props) => {
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
-    return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+    return location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
 
   // closes the collapse
   const closeCollapse = () => {
     setIsOpen(false);
   };
+
+  const handleNavigate = (route) => {
+    navigate(route, { replace: false})
+  };
+
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
+      let route = prop.layout + prop.path
       return (
         <NavItem key={key}
         className="mr-4 ml-2">
           <NavLink
             to={prop.layout + prop.path}
             tag={NavLinkRRD}
-            onClick={closeCollapse}
+            onClick={() => handleNavigate(route)}
             activeClassName={"active"}
           >
             {activeRoute(prop.layout + prop.path) === "active" ?
@@ -111,6 +119,7 @@ const UserNavbar = (props) => {
 async function signOut() {
     try {
         await Auth.signOut();
+        navigate("/auth")
     } catch (error) {
         console.log('error signing out: ', error);
     }
@@ -129,10 +138,12 @@ function tourStarten() {
 
   return (
     <>
-    <Container className="ml-2 mr-2 ">
+    <Container className="ml-2 mr-2 mt-0 pt-0">
       <Navbar 
       className="navbar-top bg-white shadow fixed-top sticky" 
       expand="lg" 
+      fixed="true"
+      sticky="top"
       >
           <NavbarBrand className=" ml-2" {...navbarBrandProps}>
             <img

@@ -113,6 +113,7 @@ const SchichtplanContainer = () => {
   });
   let notificationAlert = useRef(null)
   const location = useLocation();
+  const mainContent = useRef()
   const { run, steps } = state;
 
   const selectMeta = state => state.Meta;
@@ -618,8 +619,14 @@ const SchichtplanContainer = () => {
       store.dispatch({type: "CLOSE", payload: modal});
   };
 
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, [location]);
+
         return(
-        <>
+        <div className="main-content mt-9 px-4" ref={mainContent}>
         {validMeta(Meta) ?
         <Joyride
           continuous={true}
@@ -654,7 +661,7 @@ const SchichtplanContainer = () => {
           onNavChange={handleNavChange}
           navIndex={navIndex}
           ></Nav>
-      <Row className="mt-6">
+      <Row>
         <div className="rna-wrapper">
           <NotificationAlert ref={notificationAlert} />
         </div>
@@ -792,7 +799,7 @@ const SchichtplanContainer = () => {
     }
       <InfoSidebar
       sidebarInfo={SidebarInfo}/>
-    </>
+    </div>
             );
         }
 export default SchichtplanContainer;

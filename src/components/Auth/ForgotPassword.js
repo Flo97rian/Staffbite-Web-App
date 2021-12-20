@@ -40,7 +40,7 @@ import LandingNavbar from "../Navbars/LandingNavbar"
 import ReactGA from "react-ga";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { Switch, Redirect, Link } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 import ResetPassword from "./AuthComponents/ResetPassword";
 import SelectNewPassword from "./AuthComponents/SelectNewPassword";
@@ -64,7 +64,7 @@ const ForgotPassword = (props) => {
       },[])
     
       function pageViewsTracking () {
-        const pathname = props.match.path;
+        const pathname = "/forgotpassword";
         let pageView;
         if(pathname === "*") pageView = "/not_found";
         else pageView = pathname;
@@ -126,9 +126,7 @@ async function confirmResetPassword() {
     if (resetted) {
         return (
             <>
-                <Switch>
-                    <Redirect from="*" to="/auth"></Redirect>
-                </Switch>
+                    <Navigate from="*" to="/auth"></Navigate>
             </>
         );
     } else if(reset) {

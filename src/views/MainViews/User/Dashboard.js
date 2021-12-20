@@ -11,37 +11,80 @@
 * Coded by Creative Tim
 
 =========================================================
- 
+
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
 
+import React, {useEffect} from "react";
+import ReactGA from "react-ga";
+import { useLocation, Route, Navigate } from "react-router-dom";
 // reactstrap components
-import {
-  Container,
-  Row,
-} from "reactstrap";
+import { Container, Row } from "reactstrap";
+import Header from "../../../components/Headers/Header";
 // core components
-import Header from "../../../components/Headers/Header.js";
-import DashboardContainer from "../../../components/User/Dashboard/DashboardContainer.js";
+import UserNavbar from "../../../components/Navbars/UserNavbar";
+import DashboardContainer from "../../../components/User/Dashboard/DashboardContainer"
+import UserFooter from "../../../components/Footers/AdminFooter"
+
+import { userroutes } from "../../../routes";
 
 
-export default class UserDashboard extends React.Component {
-  render() {
-    return (
+const UserDashboard = (props) => {
+  const mainContent = React.useRef(null);
+  const location = useLocation();
+  useEffect(() => {
+    pageViewsTracking()
+  },[])
+
+  function pageViewsTracking () {
+    const pathname = "/user/index";
+    let pageView;
+    if(pathname === "*") pageView = "/not_found";
+    else pageView = pathname;
+  
+    ReactGA.pageview(pageView);
+  } 
+
+  React.useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, [location]);
+
+  const getBrandText = (path) => {
+    for (let i = 0; i < userroutes.length; i++) {
+      if (
+        path.pathname.indexOf(userroutes[i].layout + userroutes[i].path) !==
+        -1
+      ) {
+        return userroutes[i].name;
+      }
+    }
+    return "Brand";
+  };
+
+  return (
     <>
-      <Header />
-      {/* Page content */}
-      <Container className="mt--7" fluid>
-        {/* Table */}
-        <Row>
-          <div className="col">
-            <DashboardContainer></DashboardContainer>
-          </div>
-        </Row>
-      </Container>
+      <div className="main-content" ref={mainContent}>
+        <UserNavbar
+          {...props}
+          routes={userroutes}
+          logo={{
+            innerLink: "/user/index",
+            imgSrc: require("../../../assets/img/brand/Staffbite_Logo.png").default,
+            imgAlt: "Abbildung des Logos von Staffbite",
+          }}
+          brandText={getBrandText(location)}
+        />
+        <Container fluid>
+          <DashboardContainer></DashboardContainer>
+          <UserFooter />
+        </Container>
+      </div>
     </>
-    );
-  }
-}
+  );
+};
+
+export default UserDashboard;
+

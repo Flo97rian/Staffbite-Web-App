@@ -17,7 +17,7 @@
 */
 import React, { useState } from "react";
 import ReactGA from "react-ga"
-import { useLocation, Route, Switch, Redirect } from "react-router-dom";
+import { useLocation, Route, Navigate, useNavigate, useParams, Routes } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
@@ -33,13 +33,14 @@ Amplify.configure(awsconfig);
 
 const Admin = (props) => {
   const mainContent = React.useRef(null);
-  const location = useLocation();
+  const navigate = useNavigate()
+  let location = useLocation()
   React.useEffect(() => {
     pageViewsTracking()
   },[])
 
   function pageViewsTracking () {
-    const pathname = props.match.path;
+    const pathname = "/admin";
   
     let pageView;
     if(pathname === "*") pageView = "/not_found";
@@ -54,26 +55,10 @@ const Admin = (props) => {
     mainContent.current.scrollTop = 0;
   }, [location]);
 
-  const getRoutes = (adminroutes) => {
-    return adminroutes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
-
   const getBrandText = (path) => {
     for (let i = 0; i < adminroutes.length; i++) {
       if (
-        props.location.pathname.indexOf(adminroutes[i].layout + adminroutes[i].path) !==
+        path.pathname.indexOf(adminroutes[i].layout + adminroutes[i].path) !==
         -1
       ) {
         return adminroutes[i].name;
@@ -93,12 +78,9 @@ const Admin = (props) => {
             imgSrc: require("../assets/img/brand/Staffbite_Logo.png").default,
             imgAlt: "Abbildung des Logos von Staffbite",
           }}
-          brandText={getBrandText(props.location.pathname)}
+          brandText={getBrandText(location)}
         />
-        <Switch>
-          {getRoutes(adminroutes)}
-          <Redirect from="*" to="/admin/index" />
-        </Switch>
+        {navigate(location.pathname)}
         <Container fluid>
           <AdminFooter />
         </Container>

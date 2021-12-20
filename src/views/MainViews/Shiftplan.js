@@ -43,7 +43,7 @@ function Shiftplan (props) {
   },[])
 
   function pageViewsTracking () {
-    const pathname = props.match.path;
+    const pathname = "/schichtplan";
     let pageView;
     if(pathname === "*") pageView = "/not_found";
     else pageView = pathname;

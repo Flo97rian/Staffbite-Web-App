@@ -57,7 +57,7 @@ const Landing = (props) => {
   },[])
 
   function pageViewsTracking () {
-    const pathname = props.match.path;
+    const pathname = "/";
   
     let pageView;
     if(pathname === "*") pageView = "/not_found";

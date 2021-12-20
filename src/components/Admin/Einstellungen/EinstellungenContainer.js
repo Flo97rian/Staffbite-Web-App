@@ -78,6 +78,7 @@ const EinstellungenContainer = () => {
     ]
   });
   let notificationAlert = useRef(null)
+  let mainContent = useRef(null)
   const { run, steps } = state;
 
   const selectMeta = state => state.Meta;
@@ -207,7 +208,7 @@ const EinstellungenContainer = () => {
       setMetaData(copymeta);
     };
         return(
-      <>
+      <div className="main-content px-4 mt-9" ref={mainContent}>
        <Joyride
           continuous={true}
           run={run}
@@ -254,7 +255,7 @@ const EinstellungenContainer = () => {
       }
       <InfoSidebar
       sidebarInfo={SidebarInfo}/>
-    </>
+    </div>
             );
         }
 export default EinstellungenContainer;

@@ -21,6 +21,7 @@ import employeeStates from "../../Application/defaults/EmployeeDefault.js";
 import { Employee } from "./processing/Employee.js";
 import { WARNING_MISSING_EMPLOYEE_DETAILS } from "../../../constants/Alerts.js";
 import InfoSidebar from "../../Sidebar/InfoSidebar.js";
+import { useLocation } from "react-router-dom";
 import { ONBOARDING_TEAM_INVITE, ONBOARDING_TEAM_OVERVIEW } from "../../../constants/OnBoardingTexts.js";
 import { validMeta } from "../../Application/functionalComponents/ValidFunctions.js";
 
@@ -53,6 +54,8 @@ const TableContainer = (props) => {
     ]
   })
   let notificationAlert = useRef(null);
+  const location = useLocation();
+  const mainContent = useRef()
   const { run, steps } = state;
     
   const selectEmployees = state => state.DB.employees;
@@ -256,9 +259,14 @@ const setSelectEmployee = (ma) => {
       store.dispatch({type: "CLOSE", payload: modal});
     }
   };
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, [location]);
 
         return(
-        <>
+          <div className="main-content px-4 mt-9" ref={mainContent}>
          {validMeta(Meta) ?
         <Joyride
           continuous={true}
@@ -346,7 +354,7 @@ const setSelectEmployee = (ma) => {
           }
       <InfoSidebar
         sidebarInfo={SidebarInfo}/>
-        </>
+        </div>
         );
     }
 export default TableContainer;

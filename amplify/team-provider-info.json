@@ -219,7 +219,7 @@
         },
         "publishShiftplan": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/publishShiftplan-4e4948726e7948674b39-build.zip"
+          "s3Key": "amplify-builds/publishShiftplan-4b4a4e393374614e6e45-build.zip"
         },
         "addEmployee": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
@@ -227,7 +227,7 @@
         },
         "releaseShiftplan": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/releaseShiftplan-356270615349686e5a58-build.zip"
+          "s3Key": "amplify-builds/releaseShiftplan-4551556c614a4b71644f-build.zip"
         },
         "startAlgorithm": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",

@@ -1,6 +1,21 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ReactGA from 'react-ga';
+
+export const withRouter = (Component) => {
+  const Wrapper = (props) => {
+    const history = useNavigate();
+    
+    return (
+      <Component
+        history={history}
+        {...props}
+        />
+    );
+  };
+  
+  return Wrapper;
+};
 const RouteChangeTracker = ({ history }) => {
 
     history.listen((location, action) => {

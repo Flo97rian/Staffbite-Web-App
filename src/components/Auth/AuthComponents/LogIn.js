@@ -40,7 +40,7 @@ import { Link } from "react-router-dom";
 import NotificationAlert from "react-notification-alert";
 import { WARNING_WRONG_MAIL_OR_PASSWORD } from "../../../constants/Alerts";
 
-const LogIn = (props) => {
+const LogIn = (props) => { 
     let notificationAlert = useRef(null)
     function Notify (type, title, err) {
         let options = {

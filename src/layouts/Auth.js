@@ -16,7 +16,7 @@
 
 */
 import React, { useState, useEffect} from "react";
-import { Switch, Redirect, Route} from "react-router-dom";
+import { Navigate, Route, Routes} from "react-router-dom";
 // reactstrap components
 import { Container, Row } from "reactstrap";
 // core components
@@ -28,6 +28,7 @@ import awsconfig from '../aws-exports';
 import { authroutes } from "../routes"
 import AuthFooter from "../components/Footers/AuthFooter"
 import ReactGA from "react-ga";
+import Login from "../components/Auth/Login";
 
 Amplify.configure(awsconfig);
 
@@ -39,7 +40,7 @@ const AuthUI = (props) => {
     },[])
   
     function pageViewsTracking () {
-      const pathname = props.match.path;
+      const pathname = "/auth";
       let pageView;
       if(pathname === "*") pageView = "/not_found";
       else pageView = pathname;
@@ -47,15 +48,11 @@ const AuthUI = (props) => {
       ReactGA.pageview(pageView);
     } 
 
-    const getRoutes = (adminroutes) => {
+    const getRoutes = (authroutes) => {
       return authroutes.map((prop, key) => {
-        if (prop.layout === "/auth") {
+        if (prop.layout === "/auth" && prop.path === "") {
           return (
-            <Route
-              path={prop.layout + prop.path}
-              component={prop.component}
-              key={key}
-            />
+            <Login/>
           );
         } else {
           return null;
@@ -77,19 +74,14 @@ const AuthUI = (props) => {
           <div>Hello, {user.username}</div>
           <Container className="mt--8 pb-5">
           <Row className="justify-content-center">
-            <Switch>
-              { user.attributes !== undefined ? (user.username === user.attributes["custom:TenantId"] ? <Redirect from="*" to="/admin/index" /> : <Redirect from="*" to="/user/index" />) : <Redirect from="*" to="/auth" />}
-            </Switch>
+              { user.attributes !== undefined ? (user.username === user.attributes["custom:TenantId"] ? <Navigate from="*" to="/admin/index" /> : <Navigate from="*" to="/user/index" />) : <Navigate from="*" to="/auth" />}
           </Row>
         </Container>
       </div>
     ) : (
       <Authenticator hideDefault={true}>
         <div className="pt-8">
-        <Switch>
           {getRoutes(authroutes)}
-          <Redirect from="*" to="/auth" />
-        </Switch>
         </div>
       </Authenticator>
   )}

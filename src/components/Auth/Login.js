@@ -40,7 +40,7 @@ import LandingNavbar from "../Navbars/LandingNavbar"
 import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { Switch, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 import ChangeInitalPassword from "./AuthComponents/ChangeInitialPassword";
 import VerifyEmployeeMail from "./AuthComponents/VerifyEmployeeMail";
@@ -242,28 +242,20 @@ const Login = () => {
             if("challengeParam" in user ) {
                 if(user.username === user.challengeParam.userAttributes["cutom:TenantId"]) {
                     return (
-                        <Switch>
-                            <Redirect from="*" to="/admin/index" />
-                        </Switch>
+                            <Navigate from="*" to="/admin/index" />
                     )
                 } else if (user.username !== user.challengeParam.userAttributes["cutom:TenantId"]) {
                     return (
-                        <Switch>
-                            <Redirect from="*" to="/user/index" />
-                        </Switch>
+                            <Navigate from="*" to="/user/index" />
                     )
                 }
             } else if (user.username === user.attributes["custom:TenantId"]) {
                 return (
-                    <Switch>
-                        <Redirect from="*" to="/admin/index" />
-                    </Switch>
+                        <Navigate from="*" to="/admin/index" />
                 )
             } else {
                 return (
-                    <Switch>
-                        <Redirect from="*" to="/user/index" />
-                    </Switch>
+                        <Navigate from="*" to="/user/index" />
                 )}
         } else {
             return (

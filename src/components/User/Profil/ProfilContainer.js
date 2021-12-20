@@ -53,7 +53,7 @@ const ProfilContainer = (props) => {
     }
   }
   return (
-      <>
+      <div className="pt-9">
       <Joyride
       continuous={true}
       run={run}
@@ -129,7 +129,7 @@ const ProfilContainer = (props) => {
               </Card>
 
             </Col>
-      </>
+      </div>
     );
   };
 

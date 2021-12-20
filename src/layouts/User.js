@@ -17,7 +17,7 @@
 */
 import React, {useEffect} from "react";
 import ReactGA from "react-ga";
-import { useLocation, Route, Switch, Redirect } from "react-router-dom";
+import { useLocation, Route, Navigate } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
@@ -94,10 +94,8 @@ const User = (props) => {
           }}
           brandText={getBrandText(props.location.pathname)}
         />
-        <Switch>
           {getRoutes(userroutes)}
-          <Redirect from="*" to="/user/index" />
-        </Switch>
+          <Navigate from="*" to="/user/index" />
         <Container fluid>
           <AdminFooter />
         </Container>

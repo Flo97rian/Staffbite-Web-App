@@ -16,7 +16,7 @@
 
 */
 import React, { useEffect, useState } from "react";
-import { NavLink as NavLinkRRD, Link } from "react-router-dom";
+import { NavLink as NavLinkRRD, Link, useLocation, useNavigate } from "react-router-dom";
 // reactstrap components
 import {
   DropdownMenu,
@@ -39,9 +39,12 @@ import store from "../../store";
 import { Auth } from 'aws-amplify';
 import { FetchOrg } from "../../store/middleware/FetchOrg";
 import {adminroutes} from "../../routes"
+import { replace } from "lodash";
 
 const AdminNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  let location = useLocation()
+  let navigate = useNavigate()
   const selectMeta = state => state.Meta;
 
   const Meta = useSelector(selectMeta);
@@ -56,7 +59,7 @@ useEffect(() => {
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
-    return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+    return location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
 
   const toggle = () => setIsOpen(!isOpen);
@@ -65,15 +68,20 @@ useEffect(() => {
   const closeCollapse = () => {
     setIsOpen(false);
   };
+
+  const handleNavigate = (route) => {
+    navigate(route, {replace: false})
+  }
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
+      let route = prop.layout + prop.path
       return (
         <NavItem key={key}
         className="mr-4  ml-2">
           <NavLink
             to={prop.layout + prop.path}
             tag={NavLinkRRD}
-            onClick={closeCollapse}
+            onClick={() => handleNavigate(route)}
             activeClassName={"active"}
           >
             {activeRoute(prop.layout + prop.path) === "active" ?
@@ -114,6 +122,7 @@ useEffect(() => {
 async function signOut() {
     try {
         await Auth.signOut();
+        navigate("/auth", { replace: true })
     } catch (error) {
         console.log('error signing out: ', error);
     }

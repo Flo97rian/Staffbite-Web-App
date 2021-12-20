@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Routes } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './store';
 import ReactGA from 'react-ga';
@@ -27,6 +27,14 @@ import Gastronomie from "./views/MainViews/sub/Gastronomie";
 import FAQ from "./views/MainViews/FAQ";
 import Themen from './views/MainViews/Themen';
 import CloudService from './views/MainViews/Themen/CloudService';
+import AdminDashboard from './views/MainViews/Admin/Dashboard';
+import MitarbeiterVerwalten from './views/MainViews/Admin/MitarbeiterVerwalten';
+import Einstellungen from './views/MainViews/Admin/Einstellungen';
+import Schichtplan from "./views/MainViews/Admin/Schichtplan"
+import UserDashboard from './views/MainViews/User/Dashboard';
+import SchichtplanBewerben from './views/MainViews/User/SchichtplanBewerben';
+import UserProfil from './views/MainViews/User/UserProfil';
+import ApplicationsMainView from './views/MainViews/User/ShiftplanApplications';
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
@@ -34,23 +42,39 @@ ReactGA.initialize(TRACKING_ID);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-    <Switch>
-      <Route path="/" exact render={props => <Landing {...props} />} />
-      <Route path="/signup" render={(props) => <SignUp {...props} />} />
-      <Route path="/forgotpassword" render={(props) => <ForgotPassword {...props} />} />
-      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      <Route path="/aboutus" render={(props) => <AboutUs {...props} />} />
-      <Route path="/impressum" render={(props) => <Impressum {...props} />} />
-      <Route path="/schichtplan" render={(props) => <Shiftplan {...props} />} />
-      <Route path="/faq" render={(props) => <FAQ {...props} />} />
-      <Route path="/themen/cloudservice" render={(props) => <CloudService {...props} />} />
-      <Route path="/themen" render={(props) => <Themen {...props} />} />
-      <Route path="/schichtplan/gastronomie" render={(props) => <Gastronomie {...props} />} />
-      <Route path="/pricing" render={(props) => <Pricing {...props} />} />
-      <Route path="/contact" render={(props) => <Contact {...props} />} />
-      <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-      <Route path="/user" render={(props) => <UserLayout {...props} />} />
-    </Switch>
+      <Routes>
+        <Route path="/" element={<Landing/>} />
+        <Route path="/signup" element={<SignUp/>} />
+        <Route path="/forgotpassword" element={<ForgotPassword/>} />
+        <Route path="/admin"/>
+          <Route path="/admin/index" element={<AdminDashboard />} />
+          <Route path="/admin/schichtplan" element={<Schichtplan />} />
+          <Route path="/admin/mitarbeiter" element={<MitarbeiterVerwalten />} />
+          <Route path="/admin/einstellungen" element={<Einstellungen />} />
+        <Route path="/aboutus" element={<AboutUs/>} />
+        <Route path="/impressum" element={<Impressum/>} />
+        <Route path="/schichtplan" element={<Shiftplan />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/themen/cloudservice" element={<CloudService />} />
+        <Route path="/themen" element={<Themen />} />
+        <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
+        <Route path="/pricing" element={ <Pricing  />} />
+        <Route path="/contact" element={ <Contact />} />
+        <Route path="/auth" element={ <AuthLayout />} />
+        <Route path="/user"/>
+        <Route path="/user/index" element={<UserDashboard/>}/>
+        <Route path="/user/bewerben" element={<SchichtplanBewerben/>}/>
+        <Route path="/user/schichtplan" element={<ApplicationsMainView/>}/>
+        <Route path="/user/profil" element={<UserProfil/>}/>
+        <Route
+          path="*"
+          element={
+          <main style={{ padding: "1rem" }}>
+            <p>There's nothing here!</p>
+          </main>
+          }
+    />
+      </Routes>
   </BrowserRouter>
   </Provider>,
   document.getElementById('root')

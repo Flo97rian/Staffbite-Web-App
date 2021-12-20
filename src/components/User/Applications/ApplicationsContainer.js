@@ -159,7 +159,7 @@ const ApplicationsContainer = () => {
   }
 
   return(
-          <>
+          <div className="pt-6">
           <Joyride
           continuous={true}
           run={run}
@@ -252,7 +252,7 @@ const ApplicationsContainer = () => {
       }
        <InfoSidebar
       sidebarInfo={SidebarInfo}/>
-      </>
+      </div>
             );
         }
 export default ApplicationsContainer;

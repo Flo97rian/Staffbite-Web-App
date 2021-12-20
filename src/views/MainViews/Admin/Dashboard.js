@@ -22,26 +22,61 @@ import {
   Container,
   Row,
 } from "reactstrap";
+import ReactGA from "react-ga"
 // core components
+import { adminroutes } from "../../../routes.js";
+import { Router, useNavigate, useLocation } from "react-router-dom";
 import Header from "../../../components/Headers/Header.js";
 import DashboardContainer from "../../../components/Admin/Dashboard/DashboardContainer.js";
+import AdminNavbar from "../../../components/Navbars/AdminNavbar.js";
+import AdminFooter from "../../../components/Footers/AdminFooter"
 
 
-export default class AdminDashboard extends React.Component {
-  render() {
+const AdminDashboard = () => {
+  const navigate = useNavigate()
+  let location = useLocation()
+
+  React.useEffect(() => {
+    pageViewsTracking()
+  },[])
+
+  function pageViewsTracking () {
+    const pathname = "/admin";
+  
+    let pageView;
+    if(pathname === "*") pageView = "/not_found";
+    else pageView = pathname;
+  
+    ReactGA.pageview(pageView);
+  } 
+
+  const getBrandText = (path) => {
+    for (let i = 0; i < adminroutes.length; i++) {
+      if (
+        path.pathname.indexOf(adminroutes[i].layout + adminroutes[i].path) !==
+        -1
+      ) {
+        return adminroutes[i].name;
+      }
+    }
+    return "Brand";
+  };
     return (
-    <>
-    <Header/>
-      {/* Page content */}
-      <Container className="mt--7" fluid>
-        {/* Table */}
-        <Row>
-          <div className="col">
-            <DashboardContainer></DashboardContainer>
-          </div>
-        </Row>
-      </Container>
-      </>
+      <div>
+        <Container fluid>
+          <AdminNavbar
+            routes={adminroutes}
+            logo={{
+              innerLink: "/admin/index",
+              imgSrc: require("../../../assets/img/brand/Staffbite_Logo.png").default,
+              imgAlt: "Abbildung des Logos von Staffbite",
+            }}
+            brandText={getBrandText(location)}
+          />
+          <DashboardContainer></DashboardContainer>
+          <AdminFooter />
+        </Container>
+      </div>
     );
   }
-}
+export default AdminDashboard;
