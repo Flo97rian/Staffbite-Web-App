@@ -87,7 +87,7 @@ function FAQ (props) {
                     ? 
                     <>
                       <p className="mt-2">
-                      Um deinen Betrieb zu registrieren, kannst du einfach oben auf unserer Website auf „Kostenlos Testen“ klicken. Anschließend benötigst du deine Mailadresse und ein sicheres Passwort. Hierbei fallen keinerlei Kosten an – starte direkt in deinen <Link to="/signup" target="_blank">kostenlosen Probemonat</Link>!
+                      Um deinen Betrieb zu registrieren, kannst du einfach oben auf unserer Website auf „Kostenlos testen“ klicken. Anschließend benötigst du deine Mailadresse und ein sicheres Passwort. Hierbei fallen keinerlei Kosten an – starte direkt in deinen <Link to="/signup" target="_blank">kostenlosen Probemonat</Link>!
                       
                       </p>
                       In diesem Video kannst du mehr über die Registrierung und die ersten Schritte mit Staffbite erfahren:
