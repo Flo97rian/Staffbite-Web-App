@@ -339,9 +339,15 @@ const DashboardContainer = (props) => {
                     <Col xs={3}>
                     <h3 className="float-left pt-5 font-weight-bold text-lg">Neuste Aktivitäten</h3>
                     </Col>
-                    <Col xs="9">
+                    <Col xs="3">
                     </Col>
-                    </Row>
+                    <Col xs="3">
+                      <h3 className="float-left pt-5 font-weight-bold text-lg">Reporting</h3>
+                      { LoadingReport ? <Spinner color="success" /> : <></>}
+                    </Col>
+                    <Col xs="3">
+                    </Col>
+                </Row>
                     <Row>
                       <Col>
                         <Card className="shadow card_aktuellerSchichtplan">
@@ -354,25 +360,18 @@ const DashboardContainer = (props) => {
                         </Card>
                       </Col>
                       <Col>
+                        <Card className="shadow card_aktuellerSchichtplan">
+                            <CardBody>
+                            <Reporting
+                              loadingReport={LoadingReport}
+                              Report={Report}
+                              filterIsActive={filterIsActive}
+                              filter={filter}
+                              Employees={Employees}/>
+                            </CardBody>
+                          </Card>
                       </Col>
                     </Row>
-            <Row>
-              <Col xs={3}>
-              <h3 className="float-left pt-5 pr-2 font-weight-bold mr-2 text-lg">
-                Reporting
-                { LoadingReport ? <Spinner color="success" /> : <></>}
-              </h3>
-              </Col>
-              <Col xs={9}>
-                {Report ? <Button className="mt-4 float-right" onClick={() => {handleResetReport()}}><p className="pb-0 mb-0">Filter zurücksetzen</p></Button> : <></>}
-              </Col>
-              </Row>
-              <Reporting
-              loadingReport={LoadingReport}
-              Report={Report}
-              filterIsActive={filterIsActive}
-              filter={filter}
-              Employees={Employees}/>
         </>
         
       }

@@ -37,7 +37,7 @@ function CloudService (props) {
   },[])
 
   function pageViewsTracking () {
-    const pathname = props.match.path;
+    const pathname = "/themen/cloudservice";
   
     let pageView;
     if(pathname === "*") pageView = "/not_found";

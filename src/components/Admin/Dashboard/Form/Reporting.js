@@ -4,10 +4,12 @@ import {
     Col,
     Card,
     Badge,
-    CardBody
+    CardBody,
+    Button
   } from "reactstrap";
   import ReportingElement from "./ReportElement";
   import store from "../../../../store";
+import ReportingHeader from "./ReportingHeader";
 
 const Reporting = (props) => {
     var hasFilter = props.filter !== null;
@@ -18,38 +20,28 @@ const Reporting = (props) => {
         return (
             <>
             {!props.Report ? 
-            <Card className="mb-1 mt-0">
-            <CardBody className="p-1">
             <Row className="text-center">
-                <Col xs={2} className="mt-3">
-                <Card className="bg-secondary mb-1 mt-2 mb-2 p-3 pl-3 mr-2 ml-4"onClick={() =>  store.dispatch({type: "OPEN", payload: "showReportFilter"})}>
-                    <p className="fas fa-filter"> Filter</p>
-                </Card>
+                <Col xs={4} className="mt-4">
+                    <Button color="primary" className="fas fa-filter" onClick={() =>  store.dispatch({type: "OPEN", payload: "showReportFilter"})}> Filter</Button>
                 </Col>
-                <Col xs={5} className="mt-2 p-3">
+                <Col xs={4} className="mt-2 p-3">
                     <p className="mt-3 font-weight-bold">Zeitraum</p>
                 </Col>
-                <Col xs={5} className="mt-2 p-3">
+                <Col xs={4} className="mt-2 p-3">
                     <p className="mt-3 font-weight-bold">Auswahl</p>
                 </Col>
                 </Row>
-            </CardBody>
-            </Card>
             :
             <>
-            <Card className="mb-1 mt-0">
-            <CardBody className="p-1">
             <Row className="text-center">
-                <Col xs={3} className="mt-4">
-                <Card className=" bg-secondary mb-1 mt-2 mb-2 p-3 pl-3 mr-2 ml-4" onClick={() =>  store.dispatch({type: "OPEN", payload: "showReportFilter"})}>
-                    <i className="fas fa-filter">Filter</i>
-                </Card>
+                <Col xs={4} className="mt-4">
+                <Button color="primary" className="fas fa-filter" onClick={() =>  store.dispatch({type: "OPEN", payload: "showReportFilter"})}> Filter</Button>
                 </Col>
-                <Col xs={5} className="mt-2 p-3">
+                <Col xs={4} className="mt-2 p-3">
                     <p className="font-weight-bold">Zeitraum</p>
                     <p>{zeitraum}</p>
                 </Col>
-                <Col xs={5} className="mt-2 p-3">
+                <Col xs={4} className="mt-2 p-3">
                     <p className="font-weight-bold">Auswahl</p>
                     {hasFilterBewerbungen ? 
                         <Badge color="primary" pill>Bewerbungen</Badge>
@@ -64,8 +56,11 @@ const Reporting = (props) => {
                     
                 </Col>
                 </Row>
-            </CardBody>
-            </Card>
+                <ReportingHeader
+                filter={props.filter}
+                hasFilterBewerbungen={hasFilterBewerbungen}
+                hasFilterSchichten={hasFilterSchichten}
+                />
                         {Object.keys(props.Employees).map((employee, index) => 
                             <ReportingElement
                             filter={props.filter}

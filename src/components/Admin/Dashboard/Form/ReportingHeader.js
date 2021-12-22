@@ -6,22 +6,22 @@ import {
     CardBody
   } from "reactstrap";
 
-  function ReportingElement(props) {
-    function showElement(employee, Report) {
-        var hasBewerbungen = "bewerbungscount" in Report[employee] && Report[employee].bewerbungscount !== undefined;
-        var hasSchichten = "schichtencount" in Report[employee] && Report[employee].schichtencount !== undefined;
+  function ReportingHeader(props) {
+    function showElement() {
+        var hasBewerbungen = props.hasFilterBewerbungen
+        var hasSchichten = props.hasFilterSchichten
         var showAll = !0;
         if (showAll && hasBewerbungen && hasSchichten) {
             return (
                         <Row className="text-center mt-2">
                             <Col xs={4}>
-                                <p>{props.Report[employee].name}</p>
+                                <p className="font-weight-bold">Name</p>
                             </Col>
                             <Col xs={4}>
-                                <p>{props.Report[employee].bewerbungscount}</p>
+                                <p className="font-weight-bold">Anzahl Bewerbungen</p>
                             </Col>
                             <Col xs={4}>
-                                <p>{props.Report[employee].schichtencount}</p>
+                                <p className="font-weight-bold">Anzahl Schichten</p>
                             </Col>
                         </Row>
             );
@@ -29,10 +29,10 @@ import {
             return (
                         <Row className="text-center mt-3">
                             <Col xs={6}>
-                                <p>{props.Report[employee].name}</p>
+                                <p className="font-weight-bold">Name</p>
                             </Col>
                             <Col xs={6}>
-                                <p>{props.Report[employee].bewerbungscount}</p>
+                                <p className="font-weight-bold">Anzahl Bewerbungen</p>
                             </Col>
                         </Row>
             );
@@ -40,10 +40,10 @@ import {
             return (
                         <Row className="text-center mt-3">
                             <Col xs={6}>
-                                <p>{props.Report[employee].name}</p>
+                                <p className="font-weight-bold">Name</p>
                             </Col>
                             <Col xs={6}>
-                                <p>{props.Report[employee].schichtencount}</p>
+                                <p className="font-weight-bold">Anzahl Schichten</p>
                             </Col>
                         </Row>
             );
@@ -51,8 +51,8 @@ import {
     }
     return (
         <>
-            {showElement(props.employee, props.Report)}
+            {showElement()}
         </>
     );
 }
-export default ReportingElement;
+export default ReportingHeader;

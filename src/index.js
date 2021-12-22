@@ -66,14 +66,6 @@ ReactDOM.render(
         <Route path="/user/bewerben" element={<SchichtplanBewerben/>}/>
         <Route path="/user/schichtplan" element={<ApplicationsMainView/>}/>
         <Route path="/user/profil" element={<UserProfil/>}/>
-        <Route
-          path="*"
-          element={
-          <main style={{ padding: "1rem" }}>
-            <p>There's nothing here!</p>
-          </main>
-          }
-    />
       </Routes>
   </BrowserRouter>
   </Provider>,

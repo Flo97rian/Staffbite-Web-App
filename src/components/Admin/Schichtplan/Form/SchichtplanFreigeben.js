@@ -5,7 +5,7 @@ import {
     Row
 } from "reactstrap"
 import { INFO_SHIFTPLAN_RELEASE_FOR_NEW_PERIOD, INFO_SHIFTPLAN_RELEASE_WITH_NEW_NAME } from "../../../../constants/InfoTexts";
-import Datepicker from "../../../Application/functionalComponents/DateRangePickerExample";
+import Datepicker from "../../../Application/functionalComponents/DateWeekPicker";
 import InfoOverlay from "../../../Application/functionalComponents/InfoOverlay";
 import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
 
