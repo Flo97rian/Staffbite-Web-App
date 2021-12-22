@@ -39,7 +39,7 @@ function Automatisierung (props) {
   },[])
 
   function pageViewsTracking () {
-    const pathname = props.match.path;
+    const pathname = "/themen/automatisierung";
   
     let pageView;
     if(pathname === "*") pageView = "/not_found";
