@@ -41,6 +41,7 @@ import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import SchichtplanErstellen from "../../assets/img/theme/Schichtplan-erstellen.png"
 import StaffbiteLogo from "../../assets/img/brand/Staffbite_Logo.png"
 import CloudPicture from "../../assets/img/themen/CloudComputingImage.png"
+import Paperwork from "../../assets/img/themen/PaperworkImage.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { FAQ_DESCRIPTION, FAQ_TITLE, THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -111,8 +112,8 @@ function Themen (props) {
                 <Card>
                             <CardImg
                             className="p-2"
-                            src={StaffbiteLogo}
-                            alt="Schichtplan online erstellen"
+                            src={Paperwork}
+                            alt="Schreibtisch mit Kaffee, Zettel und Stift"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
                                 Automatisierte Befüllung deines Schichtplans
@@ -121,10 +122,10 @@ function Themen (props) {
                                 Kann die Befüllung deines Schichtplans automatisiert werden?
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                Erfahre in diesem Beitrag wie du die Befüllung deines Schichtplans durch unseren intelligenten Algorithmus innerhalb weniger Sekunden abbilden kannst!   
+                                Erfahre in diesem Beitrag wie du die Befüllung deines Schichtplans durch unseren intelligenten Algorithmus innerhalb weniger Sekunden abbilden kannst. 
                             </CardText>
                             <CardText className="pl-4 pb-4" tag="p">
-                                <Link to="/" >In kürze verfügbar: Automatisierte Schichtplanung</Link>
+                                <Link to="/themen/automatisierung" >Hier gehts zum Artikel!</Link>
                             </CardText>
                         </Card>
                 </Col>

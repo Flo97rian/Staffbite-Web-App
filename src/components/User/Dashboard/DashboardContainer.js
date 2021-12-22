@@ -170,9 +170,9 @@ const DashboardContainer = (props) => {
                             tag="h5"
                             className="text-uppercase text-muted mb-4"
                           >
-                            Deine Bewerbungen
+                            Du hast dich in den Plan eingetragen:
                             <br/>
-                            <small>aktuelle Woche</small>
+                            <small>diese Woche</small>
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
                           {userShiftCount ? <>{userShiftCount}</> : <>0</>}

@@ -37,7 +37,7 @@ const  ImportSchichtplanTabelle = (props) => {
                 return (
                     <>
                         <Badge className="m-1" color="success">Bewerber vorhanden</Badge>
-                        <Badge className="m-1" color="light">Betrieb geöffnet / kein Bewerber</Badge>
+                        <Badge className="m-1" color="light">Keine Bewerber</Badge>
                         <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
                     </>
                 )
@@ -45,7 +45,7 @@ const  ImportSchichtplanTabelle = (props) => {
                 return (
                     <>
                         <Badge className="m-1" color="success">Bewerber vorhanden</Badge>
-                        <Badge className="m-1" color="light">Betrieb geöffnet / kein Bewerber</Badge>
+                        <Badge className="m-1" color="light">Keine Bewerber</Badge>
                         <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
                     </>
                 )
@@ -53,7 +53,7 @@ const  ImportSchichtplanTabelle = (props) => {
                 return (
                     <>
                         <Badge className="m-1" color="success">Bewerber vorhanden</Badge>
-                        <Badge className="m-1" color="light">Betrieb geöffnet / kein Bewerber</Badge>
+                        <Badge className="m-1" color="light">Keine Bewerber</Badge>
                         <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
                     </>
                 )

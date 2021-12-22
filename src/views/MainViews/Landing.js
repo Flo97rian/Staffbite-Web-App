@@ -100,7 +100,7 @@ const Landing = (props) => {
                   <Row className="mt-6">
                     <Col md="12" lg="10">
                       <h1 className="display-3 text-white pb-5">
-                      Müde vom stundenlangen Schichtplan Puzzeln?{" "}
+                      Müde vom stundenlangen Schichtplan puzzeln?{" "}
                       </h1>
                       <div>
                         <i className="fas fa-check fas-lg mr-2 text-white float-left pt-2" />

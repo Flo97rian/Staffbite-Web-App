@@ -34,9 +34,9 @@ const DashboardSchichtenTabelle = (props) => {
                 </Col>
                 <Col xs={3}>
                     <p>Legende</p>
-                    <Badge color="success">beworben</Badge>
-                    <Badge color="warning">Bewerber vorhanden</Badge>
-                    <Badge color="light">nicht verfügbar</Badge>
+                    <Badge color="success">Eingetragen</Badge>
+                    <Badge color="warning">Weitere Bewerber vorhanden</Badge>
+                    <Badge color="light">Nicht verfügbar</Badge>
                 </Col>
             </Row>
                     <br/>

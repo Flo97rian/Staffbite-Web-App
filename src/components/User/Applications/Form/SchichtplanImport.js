@@ -48,7 +48,7 @@ const ApplicationsImport = (props) => {
                         <p className="mt-3 ml-3 float-left"><i className="fas fa-calendar mr-2"></i>{item.zeitraum.split(" - ")[0]} - {item.zeitraum.split(" - ")[1]}</p>
                     </Col>
                     <Col xs={3}>
-                        <p className="mt-3 ml-3 float-left" style={{"color": "#5e72e4"}}>Offen für Bewerbungen</p>
+                        <p className="mt-3 ml-3 float-left" style={{"color": "#5e72e4"}}>Bereit zum eintragen</p>
                     </Col>
                     <Col xs={3}>
                       <Button className="mt-2 ml-3 float-left" name={item.label} outline color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
