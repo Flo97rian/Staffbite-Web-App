@@ -36,7 +36,7 @@ import LandingFooter from "../../components/Footers/LandingFooter";
 import { FAQ_DESCRIPTION, FAQ_TITLE } from "../../constants/MetaTexts";
 
 function FAQ (props) {
-  const [open, setOpen] = useState({Registrieren: !1, MitarbeiterAnlegen: !1, SchichtenTauschen: !1, Support: !1, ProbeMonat: !1, MARegistrieren: !1})
+  const [open, setOpen] = useState({Registrieren: !1, MitarbeiterAnlegen: !1, SchichtenTauschen: !1, Support: !1, ProbeMonat: !1, MARegistrieren: !1, AV: !1})
   useEffect(() => {
     pageViewsTracking()
   },[])
@@ -73,6 +73,7 @@ function FAQ (props) {
                         <h1>Häufig gestelle Fragen</h1>
                     </Row>
                 </Container>
+            
             <Container className="mb-4 pt-4">
               <Row className="align-items-center mb-2">
               <Col className="order-md-1 pr-md-5" md="12" lg="12">
@@ -98,6 +99,7 @@ function FAQ (props) {
                 </Card>
                 </Col>
               </Row>
+
               <Row className="align-items-center mb-2">
               <Col className="order-md-1 pr-md-5" md="12" lg="12">
               <Card 
@@ -121,6 +123,34 @@ function FAQ (props) {
                 </Card>
                 </Col>
               </Row>
+              
+              <Row className="align-items-center mb-2">
+              <Col className="order-md-1 pr-md-5" md="12" lg="12">
+              <Card 
+                className="p-3"
+                onClick={(() => toggleOpen("MARegistrieren"))}>
+                    <h2 className="h3 mb-0">
+                      Wie sind die ersten Schritte bei Staffbite als Mitarbeiter*in?
+                      {open.MARegistrieren ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
+                    </h2>
+                    {open.MARegistrieren 
+                    ? 
+                    <>
+                      <p className="mt-2">
+                      Schau als erstes direkt in deine Mails. Um dich anmelden zu können, musst du bereits von der verantwortlichen Person aus deinem Betrieb eingeladen worden sein. Schau am besten auch im Spam-Ordner nach, falls du die Mail nicht findest.
+                      </p>
+                      <p className="mt-2">
+                      Nachdem du den nötigen Prozess durchlaufen hast, kannst du dich mit deinen individuellen Daten anmelden. Wenn bereits ein Schichtplan erstellt wurde, dann klick oben in der Leiste auf „Eintragen“. Dort kannst du dich einfach und bequem eintragen.
+                      </p>
+                      Wenn du noch mehr Informationen haben möchtest, guck dir doch dieses Video an: 
+                      <Link to={{ pathname: "https://youtu.be/vo-mdjMPtyY" }} target="_blank">Erste Schritte als Mitarbeiter*in</Link>
+                    </>
+                  :
+                  <></>}
+                </Card>
+                </Col>
+              </Row>
+
               <Row className="align-items-center mb-2">
               <Col className="order-md-1 pr-md-5" md="12" lg="12">
               <Card 
@@ -144,6 +174,7 @@ function FAQ (props) {
                 </Card>
                 </Col>
               </Row>
+              
               <Row className="align-items-center mb-2">
               <Col className="order-md-1 pr-md-5" md="12" lg="12">
               <Card 
@@ -165,6 +196,7 @@ function FAQ (props) {
                 </Card>
                 </Col>
               </Row>
+              
               <Row className="align-items-center mb-2">
               <Col className="order-md-1 pr-md-5" md="12" lg="12">
               <Card 
@@ -186,26 +218,28 @@ function FAQ (props) {
                 </Card>
                 </Col>
               </Row>
+              
               <Row className="align-items-center mb-2">
               <Col className="order-md-1 pr-md-5" md="12" lg="12">
               <Card 
                 className="p-3"
-                onClick={(() => toggleOpen("MARegistrieren"))}>
+                onClick={(() => toggleOpen("AV"))}>
                     <h2 className="h3 mb-0">
-                      Wie sind die ersten Schritte bei Staffbite als Mitarbeiter*in?
-                      {open.MARegistrieren ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
+                      Wo finde ich die Auftragsdatenverarbeitung?
+                      {open.AV ? <i className="fas fa-angle-up float-right mr-3 mt-1"></i>: <i className="fas fa-angle-down fas-lg float-right mr-3 mt-1"></i>}
                     </h2>
-                    {open.MARegistrieren 
+                    {open.AV 
                     ? 
                     <>
                       <p className="mt-2">
-                      Schau als erstes direkt in deine Mails. Um dich anmelden zu können, musst du bereits von der verantwortlichen Person aus deinem Betrieb eingeladen worden sein. Schau am besten auch im Spam-Ordner nach, falls du die Mail nicht findest.
+                      Da wir im Rahmen unserer Lösung personenbezogene Daten deiner Mitarbeiter*innen (z.B. E-Mail, Name und Position) benötigen, stellen wir dir eine AV (Auftragsdatenverarbeitung) zur Verfügung.
                       </p>
                       <p className="mt-2">
-                      Nachdem du den nötigen Prozess durchlaufen hast, kannst du dich mit deinen individuellen Daten anmelden. Wenn bereits ein Schichtplan erstellt wurde, dann klick oben in der Leiste auf „Eintragen“. Dort kannst du dich einfach und bequem eintragen.
+                      Unter dem unten stehenden Link findest du die AV. Schreib uns einfach eine kurze Mail an info@staffbite.de, damit du eine unterschriebene Version erhälst.
                       </p>
-                      Wenn du noch mehr Informationen haben möchtest, guck dir doch dieses Video an: 
-                      <Link to={{ pathname: "https://youtu.be/vo-mdjMPtyY" }} target="_blank">Erste Schritte als Mitarbeiter*in</Link>
+                      <p className="mt-2">
+                        Hier findest du die Blanko-Version: <Link to="/AV" target="_blank">Auftragsdatenverarbeitung</Link>.
+                      </p>
                     </>
                   :
                   <></>}

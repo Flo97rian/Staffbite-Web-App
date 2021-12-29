@@ -18,4 +18,6 @@ export const FAQ_DESCRIPTION = "Die häufigsten Fragen werden hier direkt beantw
 export const KONTAKT_TITLE = "Staffbite - Kontakt";
 export const KONTAKT_DESCRIPTION = "Bei Fragen kannst du dich jederzeit an uns wenden. Lass uns einfach deine Kontaktdaten da und wir melden uns schnellstmöglich bei dir!";
 export const ABOUTUS_TITLE = "Staffbite - Über uns";
-export const ABOUTUS_DESCIPTION = "Du willst mehr über die beiden Gründer von Staffbite erfahren? Dann bist du hier genau richtig.";
+export const ABOUTUS_DESCRIPTION = "Du willst mehr über die beiden Gründer von Staffbite erfahren? Dann bist du hier genau richtig.";
+export const AV_TITLE = "Staffbite - Auftragsdatenverarbeitung";
+export const AV_DESCRIPTION = "Hier findest du unsere Auftragsdatenverarbeitung.";

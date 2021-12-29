@@ -21,6 +21,7 @@ import ForgotPassword from "./components/Auth/ForgotPassword";
 import Shiftplan from "./views/MainViews/Shiftplan";
 import Contact from "./views/MainViews/Contact";
 import AboutUs from "./views/MainViews/AboutUs";
+import AV from "./views/MainViews/AV";
 import Pricing from './views/MainViews/Pricing';
 import Impressum from "./views/MainViews/Impressum"
 import Gastronomie from "./views/MainViews/sub/Gastronomie";
@@ -53,6 +54,7 @@ ReactDOM.render(
           <Route path="/admin/mitarbeiter" element={<MitarbeiterVerwalten />} />
           <Route path="/admin/einstellungen" element={<Einstellungen />} />
         <Route path="/aboutus" element={<AboutUs/>} />
+        <Route path="/AV" element={<AV/>} />
         <Route path="/impressum" element={<Impressum/>} />
         <Route path="/schichtplan" element={<Shiftplan />} />
         <Route path="/faq" element={<FAQ />} />

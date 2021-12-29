@@ -5,6 +5,7 @@ import ForgotPassword from "./components/Auth/ForgotPassword";
 import Shiftplan from "./views/MainViews/Shiftplan";
 import Contact from "./views/MainViews/Contact";
 import AboutUs from "./views/MainViews/AboutUs";
+import AV from "./views/MainViews/AV";
 import Pricing from './views/MainViews/Pricing';
 import Impressum from "./views/MainViews/Impressum"
 import Gastronomie from "./views/MainViews/sub/Gastronomie";
@@ -33,5 +34,6 @@ export default (
       <Route path="/contact" />
       <Route path="/auth" />
       <Route path="/user" />
+      <Route path="/AV" />
     </BrowserRouter>
 );
