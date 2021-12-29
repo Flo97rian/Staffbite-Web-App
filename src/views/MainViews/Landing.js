@@ -23,8 +23,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../assets/scss/argon-dashboard-react.scss";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import BildSchichtplanErstellen from "../../assets/img/theme/Schichtplan-erstellen.png";
-import MitarbeiterAppBeispiel from "../../assets/img/theme/Schichtplan-App-Mitarbeiter.png"
-import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.png"
+import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
 
 
 // reactstrap components
@@ -95,41 +94,61 @@ const Landing = (props) => {
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
                 imgAlt: "Das Logo von Staffbite",
                 }}/>
+
               <Container className="py-lg-md d-flex">
                 <div className="col px-0">
                   <Row className="mt-6">
-                    <Col md="12" lg="10">
+                    <Col md="6" lg="7">
                       <h1 className="display-3 text-white pb-5">
                       Müde vom stundenlangen Schichtplan puzzeln?{" "}
                       </h1>
+                      
                       <div>
-                        <i className="fas fa-check fas-lg mr-2 text-white float-left pt-2" />
                         <p className="lead text-white m-1">
-                            Mit unserer Lösung erstellst du mit wenigen Klicks deinen digitalen Schichtplan 
+                        💻 Mit wenigen Klicks zu deinem digitalen Schichtplan 
                         </p>
                       </div>
+                      
                       <div>
-                        <i className="fas fa-check fas-lg mr-2 text-white float-left pt-2" />
                         <p className="lead text-white m-1">
-                            Einfach und übersichtlich  
+                          ✅ Einfach und übersichtlich  
                         </p>
                       </div>
+                      
                       <div>
-                        <i className="fas fa-check fas-lg mr-2 text-white float-left pt-2" />
                         <p className="lead text-white m-1">
-                            Wir bieten die benötigte Flexibilität für die Gastronomie, Hotellerie und den Einzelhandel  
+                          🥇 Hohe Flexibilität für Gastronomie, Hotellerie und Einzelhandel  
                         </p>
                       </div>
+                      
                       <div>
-                        <i className="fas fa-check fas-lg mr-2 text-white float-left pt-2" />
                         <p className="lead text-white m-1">
-                          Probiere es direkt aus - im kostenlosen Probemonat!
+                        🔐 Hoher Datenschutz nach DSGVO
                         </p>
                       </div>
+
+                      <div>
+                        <p className="lead text-white m-1">
+                        🤝 Probiere es direkt aus - im kostenlosen Probemonat!
+                        </p>
+                      </div>
+                      
+                      
                     </Col>
+                    <Col className="order-md-2" md="6" lg="5">
+                  <img
+                    className="pt-7 pb-0"
+                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                    src={SchichtplanBeispiel}
+                    title="Team erstellen und verwalten"
+                    height="100%"
+                    width="100%"
+                  />
+                </Col>                    
                   </Row>
                 </div>
               </Container>
+              
               <div className="separator separator-bottom separator-skew">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +176,7 @@ const Landing = (props) => {
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="py-5 pb-6">
                           <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
-                            <i className="fas fa-laptop" />
+                          👩‍💻
                           </div>
                           <h3 className="h6 text-primary text-uppercase">
                              1. Schichtplan erstellen
@@ -172,8 +191,8 @@ const Landing = (props) => {
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="py-5 pb-2">
-                          <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
-                            <i className="far fa-edit" />
+                          <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
+                          📲
                           </div>
                           <h3 className="h6 text-success text-uppercase">
                           2. Verfügbarkeiten eintragen
@@ -188,8 +207,8 @@ const Landing = (props) => {
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="py-5 pb-2">
-                          <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                            <i className="far fa-grin-hearts" />
+                          <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
+                          🤩
                           </div>
                           <h3 className="h6 text-warning text-uppercase">
                             3. Automatisierte Befüllung
@@ -205,8 +224,8 @@ const Landing = (props) => {
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="pt-5 pl-4 pr-4 pb-0">
-                          <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
-                            <i className="fas fa-cloud" />
+                          <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
+                          🎉
                           </div>
                           <h3 className="h6 text-info text-uppercase">
                             4. Schichtplan veröffentlichen
@@ -224,40 +243,41 @@ const Landing = (props) => {
               </Row>
             </Container>
           </section>
+          
           <section className="section section-lg pt-lg-0 mt-8">
             <Container>
               <Row className="justify-content-center">
                 <h2 className="display-3 text-default">Vorteile für dein Team</h2>
               </Row>
+              
               <Col md="12" lg="6">
                     <Row className="mt-6">
-                        <i className="fas fa-check fas-lg mr-2 text-success float-left pt-2" />
                         <p className="lead text-default m-1">
-                            Jederzeit in den Schichtplan eintragen
+                        🕗 Jederzeit in den Schichtplan eintragen
                         </p>
               </Row>
+              
               <Row>
-                        <i className="fas fa-check fas-lg mr-2 text-success float-left pt-2" />
                         <p className="lead text-default m-1">
-                            Von überall fertigen Schichtplan einsehen
+                        🌍 Von überall fertigen Schichtplan einsehen
                         </p>
               </Row>
+              
               <Row>
-                        <i className="fas fa-check fas-lg mr-2 text-success float-left pt-2" />
                         <p className="lead text-default m-1">
-                            Tauschanfragen innerhalb von Sekunden stellen
+                        ⚡ Tauschanfragen innerhalb von Sekunden stellen
                         </p>
               </Row>
+              
               <Row>
-                        <i className="fas fa-check fas-lg mr-2 text-success float-left pt-2" />
                         <p className="lead text-default m-1">
-                            Faire Verteilung der Schichten
+                        😇 Faire Verteilung der Schichten
                         </p>
               </Row>
+              
               <Row>
-                        <i className="fas fa-check fas-lg mr-2 text-success float-left pt-2" />
                         <p className="lead text-default m-1">
-                            Transparenz im Prozess der Schichtplanung
+                        👏 Transparente Schichtplanung
                         </p>
               </Row>
             </Col>
@@ -265,17 +285,19 @@ const Landing = (props) => {
             </Col>          
           </Container>
           </section>
+          
           <section className="section section-lg pt-lg-0 mt-8">
             <Container>
               <Row className="justify-content-center">
                 <Col lg="12">
                   <h2 className="display-3 text-default">Unser Leistungsversprechen</h2>
                   <Row className="row-grid">
+                    
                     <Col lg="3">
                       <Card className="card-lift--hover border-1 border-ocean">
                         <CardBody className="py-5 pb-6">
                           <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
-                            <i className="ni ni-check-bold" />
+                            🎯
                           </div>
                           <h3 className="h6 text-primary text-uppercase">
                             Einfach
@@ -287,11 +309,12 @@ const Landing = (props) => {
                         </CardBody>
                       </Card>
                     </Col>
+
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="pt-5 pl-4 pr-4 pb-1">
                           <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
-                            <i className="fas fa-calendar" />
+                          📈
                           </div>
                           <h3 className="h6 text-success text-uppercase">
                           Flexibel
@@ -303,11 +326,12 @@ const Landing = (props) => {
                         </CardBody>
                       </Card>
                     </Col>
+
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="pt-5 pl-4 pr-4 pb-6">
                           <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                            <i className="ni ni-settings-gear-65" />
+                          🚀
                           </div>
                           <h3 className="h6 text-warning text-uppercase">
                             Automatisiert
@@ -320,11 +344,12 @@ const Landing = (props) => {
                         </CardBody>
                       </Card>
                     </Col>
+
                     <Col lg="3">
                       <Card border="primary" className="card-lift--hover shadow border-4">
                         <CardBody className="pt-5 pl-4 pr-4 pb-1">
                           <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
-                            <i className="ni ni-tag" />
+                          🤑
                           </div>
                           <h3 className="h6 text-info text-uppercase">
                           Faire Preise
