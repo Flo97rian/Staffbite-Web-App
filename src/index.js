@@ -37,6 +37,7 @@ import SchichtplanBewerben from './views/MainViews/User/SchichtplanBewerben';
 import UserProfil from './views/MainViews/User/UserProfil';
 import ApplicationsMainView from './views/MainViews/User/ShiftplanApplications';
 import Automatisierung from './views/MainViews/Themen/Automatisierung';
+import Schichtplanerstellen from './views/MainViews/Themen/Schichtplanerstellen';
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
@@ -60,6 +61,7 @@ ReactDOM.render(
         <Route path="/faq" element={<FAQ />} />
         <Route path="/themen/automatisierung" element={<Automatisierung />} />
         <Route path="/themen/cloudservice" element={<CloudService />} />
+        <Route path="/themen/schichtplanerstellen" element={<Schichtplanerstellen />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
         <Route path="/pricing" element={ <Pricing  />} />

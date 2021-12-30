@@ -117,7 +117,7 @@ const Landing = (props) => {
                       
                       <div>
                         <p className="lead text-white m-1">
-                          🥇 Hohe Flexibilität für Gastronomie, Hotellerie und Einzelhandel  
+                          🥇 Hohe Flexibilität für verschiedene Branchen 
                         </p>
                       </div>
                       
