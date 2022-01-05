@@ -45,10 +45,18 @@ import { KONTAKT_DESCRIPTION, KONTAKT_TITLE } from "../../constants/MetaTexts.js
 function Contact (props) {
     const [form, setForm] = useState(contactDefaults);
     const [ErrMsng, setErrMsng] = useState({EmailNotSend: !1, EmailIsSend: !1});
+    let mainContent = useRef("mainContent")
+
     let notificationAlert = useRef(null)
     useEffect(() => {
       pageViewsTracking()
     },[])
+
+    useEffect(() => {
+      document.documentElement.scrollTop = 0;
+      document.scrollingElement.scrollTop = 0;
+      mainContent.current.scrollTop = 0;
+    }, []);
   
     function pageViewsTracking () {
       const pathname = "/contact";
@@ -105,7 +113,7 @@ function Contact (props) {
         }
 
     return (
-    <>
+    <div ref={mainContent}>
         <Helmet>
           <title>{KONTAKT_TITLE}</title>
           <meta name="description" content={KONTAKT_DESCRIPTION}/>
@@ -228,7 +236,7 @@ function Contact (props) {
         </Container>
       </Container>
       <LandingFooter></LandingFooter>
-    </>
+    </div>
   );
 };
 export default Contact;

@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useEffect} from "react";
+import React, { useEffect, useRef} from "react";
 import { Link } from "react-router-dom";
 import ReactGA from "react-ga";
 import { Helmet } from "react-helmet";
@@ -40,9 +40,16 @@ import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
 function Themen (props) {
+    let mainContent = useRef("mainContent")
   useEffect(() => {
     pageViewsTracking()
   },[])
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, []);
 
   function pageViewsTracking () {
     const pathname = "/themen";
@@ -53,7 +60,7 @@ function Themen (props) {
     ReactGA.pageview(pageView);
   } 
     return (
-    <>
+    <div ref={mainContent}>
         <Helmet>
           <title>{THEMEN_TITLE}</title>
           <meta name="description" content={THEMEN_DESCRIPTION}/>
@@ -276,7 +283,7 @@ function Themen (props) {
             </Container>
       </Container>
       <LandingFooter></LandingFooter>
-    </>
+    </div>
   );
 };
 export default Themen;

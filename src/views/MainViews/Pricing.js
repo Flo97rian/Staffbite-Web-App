@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -37,9 +37,16 @@ import LandingFooter from "../../components/Footers/LandingFooter";
 import { Helmet } from "react-helmet";
 
 const Pricing = (props) => {
+  let mainContent = useRef("mainContent")
   useEffect(() => {
     pageViewsTracking()
   },[])
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, []);
 
   function pageViewsTracking () {
     const pathname = "/contact";
@@ -51,7 +58,7 @@ const Pricing = (props) => {
   } 
 
     return (
-    <>
+    <div ref={mainContent}>
         <Helmet>
           <title>Preise</title>
           <meta name="description" content="Preise & Vertragsbedingungen. Kostenloser Probemonat" />
@@ -202,7 +209,7 @@ const Pricing = (props) => {
             </Container>
       </Container>
       <LandingFooter></LandingFooter>
-    </>
+    </div>
   );
 };
 export default Pricing;

@@ -15,8 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 import ReactGA from "react-ga";
 // reactstrap components
 import {
@@ -31,10 +32,17 @@ import LandingFooter from "../../components/Footers/LandingFooter";
 import { ABOUTUS_DESCRIPTION, ABOUTUS_TITLE } from "../../constants/MetaTexts";
 
 function Pricing (props) {
+  let mainContent = useRef("mainContent")
+
   useEffect(() => {
     pageViewsTracking()
   },[])
 
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, []);
   function pageViewsTracking () {
     const pathname = "/aboutus";
   
@@ -45,7 +53,7 @@ function Pricing (props) {
     ReactGA.pageview(pageView);
   } 
     return (
-    <>
+    <div ref={mainContent}>
         <Helmet>
           <title>{ABOUTUS_TITLE}</title>
           <meta name="description" content={ABOUTUS_DESCRIPTION}/>
@@ -105,7 +113,7 @@ function Pricing (props) {
         </Container>
       </Container>
       <LandingFooter></LandingFooter>
-    </>
+    </div>
   );
 };
 export default Pricing;
