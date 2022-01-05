@@ -16,16 +16,23 @@ var dynamodb = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
     let body = JSON.parse(event.body)
+    let employee = body.employee;
+    let SK;
+    if ("id" in employee) {
+     SK = employee.id
+    } else {
+     SK = employee.SK
+    }
     console.log(body);
     let user = body.user;
-    let employee = body.employee;
+    
  var params = {
     Key: {
    "PK": {
      "S": "ORG#" + user["custom:TenantId"]
     }, 
    "SK": {
-     "S": employee.id
+     "S": SK
     }
 },
   ExpressionAttributeNames: {
@@ -88,6 +95,7 @@ exports.handler = async (event) => {
      
     try {
       await dynamodb.updateItem(params).promise();
+      console.log("done")
     } catch(error) {
       console.log(error);
       }
