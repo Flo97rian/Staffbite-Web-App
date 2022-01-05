@@ -19,12 +19,23 @@ const SchichtplanEinstellungen = (props) => {
             </Row>
             <Card className="shadow">
                 <CardBody>
+                    <Row>
+                        <Col>
                         <p className="lead mt-2">
                         Mit diesen Einstellungen können Sie die Funktionsweise des Algorithmus beeinflussen. Dies kann zu besseren - aber auch zu schlechteren Ergebnissen führen. Wir empfehlen die Standard-Einstellungen zu verwenden
                         </p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
                         <Switch info={true} type="switch" description={INFO_SETTINGS_ALGORITHM_REVERSE}label="Befüllung am Wochenende starten" name="reverse" value={props.org?.reverse ? props.org?.reverse["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
-                        <br/>
-                        <Switch info={true} type="switch" description={INFO_SETTINGS_ALGORITHM_FAIR} label="Tag/Abend-Schichten gleichmäßig verteilen" name="fair" value={props.org?.fair ? props.org?.fair["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Switch info={true} type="switch" description={INFO_SETTINGS_ALGORITHM_FAIR} label="Tag/Abend-Schichten gleichmäßig verteilen" name="fair" value={props.org?.fair ? props.org?.fair["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                        </Col>
+                    </Row>
                 </CardBody>
             </Card>
             </>
