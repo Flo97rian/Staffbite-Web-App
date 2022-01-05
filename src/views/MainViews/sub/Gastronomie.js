@@ -137,7 +137,7 @@ function Gastronomie (props) {
                     <p>
                     Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten. 
                     </p>
-                    <Link to={{ pathname: "https://www.youtube.com/watch?v=RtKKaWkCPrs" }} target="_blank">Dein Team erstellen & verwalten</Link>
+                    <a href="https://www.youtube.com/watch?v=RtKKaWkCPrs">Dein Team erstellen & verwalten</a>
                   </div>
                 </Col>
               </Row>

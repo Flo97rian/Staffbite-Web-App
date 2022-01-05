@@ -88,7 +88,7 @@ function Impressum (props) {
                     </p>
                     <h2 className="h3">EU-Streitschlichtung</h2>
                     <p className="mb-4">
-                      Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <Link to="https://ec.europa.eu/consumers/odr ">Hier</Link>
+                      Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr">Hier</a>
                       <br/>
                       Unsere E-Mail-Adresse finden Sie oben im Impressum. 
                     </p>
