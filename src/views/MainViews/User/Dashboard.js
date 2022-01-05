@@ -18,10 +18,9 @@
 
 import React, {useEffect} from "react";
 import ReactGA from "react-ga";
-import { useLocation, Route, Navigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // reactstrap components
-import { Container, Row } from "reactstrap";
-import Header from "../../../components/Headers/Header";
+import { Container } from "reactstrap";
 // core components
 import UserNavbar from "../../../components/Navbars/UserNavbar";
 import DashboardContainer from "../../../components/User/Dashboard/DashboardContainer"

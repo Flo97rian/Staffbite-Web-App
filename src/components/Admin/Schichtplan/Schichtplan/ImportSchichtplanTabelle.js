@@ -2,13 +2,12 @@ import React from "react";
 
 // reactstrap components
 import {
-  Row,
-  Col,
-  Badge,
-  Card,
-  CardBody
-}
-from "reactstrap";
+    Row,
+    Card,
+    CardBody,
+    Col,
+} from "reactstrap"
+import { Badge } from "reactstrap";
 // core components
 import PlanId from "../FormElements/PlanId"
 import SchichtplanDnDEntwurf from "./SchichtplanDnDEntwurf"
@@ -29,8 +28,8 @@ const  ImportSchichtplanTabelle = (props) => {
             if (idEntwurf) {
                 return (
                     <>
-                        <Badge className="m-1" color="light">Betrieb geöffnet</Badge>
-                        <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
+                                <Badge className="m-1" color="light">Betrieb geöffnet</Badge>
+                                <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
                     </>
                 )
             } else if (idFreigegeben) {
@@ -98,7 +97,7 @@ const  ImportSchichtplanTabelle = (props) => {
                 <>
                 <Card>
                     <CardBody>
-                        <Row className="text-center mt-4" noGutters={true}>
+                        <Row className="text-center mt-4">
                             <Col xs={4}>
                                 <p>Name</p>
                                 <p>{props.shiftplan.name}</p>
@@ -109,7 +108,7 @@ const  ImportSchichtplanTabelle = (props) => {
                             </Col>
                             <Col xs={4}>
                                 <p>Legende</p>
-                                { getLegend()}
+                                {getLegend()}                                
                             </Col>
                         </Row>
                         <br/>
@@ -128,7 +127,7 @@ const  ImportSchichtplanTabelle = (props) => {
             <>
             <Card>
                 <CardBody>
-                    <Row className="text-center mt-4" noGutters={true}>
+                    <Row className="text-center mt-4">
                         <Col xs={3}>
                             <p>Name</p>
                             <p>{props.shiftplan.name}</p>

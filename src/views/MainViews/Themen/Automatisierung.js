@@ -53,7 +53,6 @@ function Automatisierung (props) {
           <title>{THEMEN_AUTOMATISIERUNG_TITLE}</title>
           <meta name="description" content={THEMEN_AUTOMATISIERUNG_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/themen/automatisierung" />
-
           <meta property="og:title" content="Staffbite - Automatisierte Befüllung deines Schichtplans"/>
           <meta property="og:description" content="In diesem Beitrag stelle ich dir die automatisierte Befüllung deiner Schichtpläne mit Staffbite vor."/>
           <meta property="og:url" content="https://www.staffbite.de/themen/automatisierung"></meta>

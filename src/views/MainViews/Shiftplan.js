@@ -16,8 +16,7 @@
 
 */
 import React, {useEffect} from "react";
-import { Link, NavLink } from "react-router-dom";
-import { ImageGroup, Image } from 'react-fullscreen-image'
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
 

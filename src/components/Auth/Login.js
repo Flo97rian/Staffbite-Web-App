@@ -40,7 +40,7 @@ import LandingNavbar from "../Navbars/LandingNavbar"
 import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 import ChangeInitalPassword from "./AuthComponents/ChangeInitialPassword";
 import VerifyEmployeeMail from "./AuthComponents/VerifyEmployeeMail";
@@ -60,6 +60,7 @@ const Login = () => {
     const [newpassword, setNewPassword] = useState("");
     const [authState, setAuthState] = useState();
     const [user, setUser] = useState();
+    const navigate = useNavigate()
 
     useEffect(() => {
        if(authState === undefined) {
@@ -114,7 +115,7 @@ const Login = () => {
                 }
             } else if (userAttributes !== undefined && !("email_verified" in userAttributes)) {
                 sendVerifyCurrentUserAttribute()
-            }else {
+            } else {
                 setAuthState(AuthState.SignedIn);
                 setUser(user);
                 store.dispatch({type:"currentUser", payload: user.attributes})
@@ -241,22 +242,19 @@ const Login = () => {
         } else if (authState === AuthState.SignedIn && user) {
             if("challengeParam" in user ) {
                 if(user.username === user.challengeParam.userAttributes["cutom:TenantId"]) {
-                    return (
-                            <Navigate from="*" to="/admin/index" />
-                    )
+                    navigate("/admin/index")
+                    return null
                 } else if (user.username !== user.challengeParam.userAttributes["cutom:TenantId"]) {
-                    return (
-                            <Navigate from="*" to="/user/index" />
-                    )
+                    navigate("/user/index")
+                    return null
                 }
             } else if (user.username === user.attributes["custom:TenantId"]) {
-                return (
-                        <Navigate from="*" to="/admin/index" />
-                )
+                navigate("/admin/index")
+                return null
             } else {
-                return (
-                        <Navigate from="*" to="/user/index" />
-                )}
+                navigate("/user/index")
+                return null
+                }
         } else {
             return (
                 <LogIn

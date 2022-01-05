@@ -31,7 +31,7 @@ const DashboardSchichtenTabelle = (props) => {
             <>
             <Card>
                 <CardBody>
-                <Row className="text-center mt-4" noGutters={true}>
+                <Row className="text-center mt-4" >
                     <Col xs={3}>
                         <p>Status</p>
                         <PlanId id={id}></PlanId>

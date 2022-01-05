@@ -40,7 +40,7 @@ import {
 import LandingNavbar from "../Navbars/LandingNavbar"
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { Navigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 import ConfirmTenant from "./AuthComponents/ConfirmTenant";
 import VerifyTenant from "./AuthComponents/VerifyTenant";
@@ -59,6 +59,7 @@ const SignUp = (props) => {
     const [user, setUser] = useState();
     const [code, setCode] = useState("");
     const [tenant, setTenant] = useState(!1);
+    const navigate = useNavigate()
     
     useEffect(() => {
         pageViewsTracking()
@@ -186,9 +187,8 @@ async function confirmSignUp() {
             ></ConfirmTenant>
         )
     } else if(authState === AuthState.SignUp) {
-        return (
-                <Navigate from="*" to="/auth" />
-        )
+        navigate("/auth")
+        return null
     }
     return null;
   }

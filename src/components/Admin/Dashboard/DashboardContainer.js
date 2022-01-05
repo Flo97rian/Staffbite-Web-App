@@ -10,8 +10,10 @@ import {
     Col,
     CardTitle,
     Row,
+    CardHeader,
     CardBody,
     Button,
+    Container,
     Alert
   } from "reactstrap";
 
@@ -34,6 +36,7 @@ import InfoSidebar from "../../Sidebar/InfoSidebar.js";
 import { ONBOARDING_OVERVIEW_SHIFTPLAN, ONBOARDING_OVERVIEW_SHIFTRADE, ONBOARDING_OVERVIEW_TEAM } from "../../../constants/OnBoardingTexts.js";
 import { validMeta } from "../../Application/functionalComponents/ValidFunctions.js";
 import NewsFeed from "./Form/NewsFeed.js";
+import Timeline from "./Timeline.js";
 
 
 const DashboardContainer = (props) => {
@@ -352,10 +355,7 @@ const DashboardContainer = (props) => {
                       <Col>
                         <Card className="shadow card_aktuellerSchichtplan">
                           <CardBody>
-                            <NewsFeed
-                            meta={Meta}
-                            >
-                            </NewsFeed>
+                          <Timeline meta={Meta}></Timeline>
                           </CardBody>
                         </Card>
                       </Col>

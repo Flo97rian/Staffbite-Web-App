@@ -22,6 +22,7 @@ exports.handler = async (event, context, callback) => {
     let plan = await getPlan(body);
     let meta = await getMeta(body);
     let planName = plan.name["S"]
+    
     await addNews(body, meta, planName);
     let name = plan.name["S"];
     if (name !== body.name && body.name !== "Name" && body.name !== "") {

@@ -1,17 +1,10 @@
 import React from "react";
 import {
-    Col,
-    Row,
-    Input,
     Label,
     Button
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
-import FormNames from "../../Schichtplan/FormElements/FormNames";
 import store from "../../../../store";
-import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
-import { INFO_USER_NOTICE } from "../../../../constants/InfoTexts";
 import ShiftDetails from "../Form/ShiftDetails";
 
 const ModalSchichtBewerben = (props) => {

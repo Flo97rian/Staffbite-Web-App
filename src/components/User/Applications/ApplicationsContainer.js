@@ -101,10 +101,9 @@ const ApplicationsContainer = () => {
   }, [Shiftplan]);
 
   const handleOnboarding = () => {
+    let user = store.getState().user;
     if(User) {
-      let eintragen = User.onboarding.eintragen;
-      let user = User;
-      user.onboarding.eintragen = !eintragen;
+      user.onboarding.eintragen = !1;
       store.dispatch(thunkUpdateEmployee(user));
     }
   }
@@ -184,7 +183,7 @@ const ApplicationsContainer = () => {
         <>
         <Row className="mt-6">
         <Col xs={2} className="mt-4">
-        <h3 className="float-left pt-4 font-weight-bold text-lg">Trag dich ein!</h3>
+        <h3 className="float-left pt-4 font-weight-bold text-lg">Eintragen</h3>
         { LoadingFetchingEmployeePlans ? <Spinner color="success" /> : <></>}
         </Col>
         <Col xs={10} className="mt-2">

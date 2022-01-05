@@ -25,7 +25,7 @@ const ApplicationsTable = (props) => {
         <>
         <Card>
             <CardBody>
-            <Row className="text-center mt-4" noGutters={true}>
+            <Row className="text-center mt-4">
                 <Col xs={3}>
                     <p>Status</p>
                     <p style={{"color": "#5e72e4"}}>Bereit zum eintragen</p>
@@ -36,9 +36,9 @@ const ApplicationsTable = (props) => {
                 </Col>
                 <Col xs={3}>
                     <p>Legende</p>
-                    <Badge color="success">Eingetragen</Badge>
-                    <Badge color="light">Weitere Bewerber vorhanden</Badge>
-                    <Badge color="default">Nicht verfügbar</Badge>
+                    <Badge className="m-1" color="success">Eingetragen</Badge>
+                    <Badge className="m-1" color="light" >Weitere Bewerber vorhanden</Badge>
+                    <Badge className="m-1" color="default">Nicht verfügbar</Badge>
                 </Col>
             </Row>
                     <br/>

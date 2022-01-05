@@ -16,9 +16,8 @@
 
 */
 import React, { useState, useEffect} from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ReactGA from "react-ga";
-import { ImageGroup, Image } from 'react-fullscreen-image'
 import { Helmet } from "react-helmet";
 // reactstrap components
 import {

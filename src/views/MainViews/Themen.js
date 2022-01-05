@@ -15,10 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect} from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect} from "react";
+import { Link } from "react-router-dom";
 import ReactGA from "react-ga";
-import { ImageGroup, Image } from 'react-fullscreen-image'
 import { Helmet } from "react-helmet";
 // reactstrap components
 import {
@@ -26,24 +25,18 @@ import {
   Row,
   Col,
   Card,
-  CardHeader,
-  CardBody,
   CardImg,
   CardTitle,
   CardText,
   CardSubtitle,
 } from "reactstrap";
 // core components
-import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-automatisiert-erstellen.png"
-import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan-erstellen.png"
-import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
-import SchichtplanErstellen from "../../assets/img/theme/Schichtplan-erstellen.png"
 import StaffbiteLogo from "../../assets/img/brand/Staffbite_Logo.png"
 import CloudPicture from "../../assets/img/themen/CloudComputingImage.png"
 import Paperwork from "../../assets/img/themen/PaperworkImage.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
-import { FAQ_DESCRIPTION, FAQ_TITLE, THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
+import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
 function Themen (props) {
   useEffect(() => {

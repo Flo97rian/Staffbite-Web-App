@@ -1,6 +1,7 @@
 import { API, Auth } from "aws-amplify";
 import { FetchEmployees } from "./FetchEmployees";
 import { API_HOSTNAME, UPDATE_EMPLOYEE } from "../../constants/ApiConstants";
+import store from "../../store";
 
 export function thunkUpdateEmployee(updatedEmployee) { 
   // Aktualisiert einen Mitarbeiter in der Datenbank
