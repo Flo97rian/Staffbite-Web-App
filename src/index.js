@@ -28,6 +28,7 @@ import ForgotPassword from "./components/Auth/ForgotPassword";
 import Shiftplan from "./views/MainViews/Shiftplan";
 import Contact from "./views/MainViews/Contact";
 import AboutUs from "./views/MainViews/AboutUs";
+import AV from "./views/MainViews/AV";
 import Pricing from './views/MainViews/Pricing';
 import Impressum from "./views/MainViews/Impressum"
 import Gastronomie from "./views/MainViews/sub/Gastronomie";
@@ -43,6 +44,7 @@ import SchichtplanBewerben from './views/MainViews/User/SchichtplanBewerben';
 import UserProfil from './views/MainViews/User/UserProfil';
 import ApplicationsMainView from './views/MainViews/User/ShiftplanApplications';
 import Automatisierung from './views/MainViews/Themen/Automatisierung';
+import Schichtplanerstellen from './views/MainViews/Themen/Schichtplanerstellen';
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
@@ -60,11 +62,13 @@ ReactDOM.render(
           <Route path="/admin/mitarbeiter" element={<MitarbeiterVerwalten />} />
           <Route path="/admin/einstellungen" element={<Einstellungen />} />
         <Route path="/aboutus" element={<AboutUs/>} />
+        <Route path="/AV" element={<AV/>} />
         <Route path="/impressum" element={<Impressum/>} />
         <Route path="/schichtplan" element={<Shiftplan />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/themen/automatisierung" element={<Automatisierung />} />
         <Route path="/themen/cloudservice" element={<CloudService />} />
+        <Route path="/themen/schichtplanerstellen" element={<Schichtplanerstellen />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
         <Route path="/pricing" element={ <Pricing  />} />

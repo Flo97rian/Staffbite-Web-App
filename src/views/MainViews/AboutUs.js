@@ -28,7 +28,7 @@ import {
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
-import { ABOUTUS_DESCIPTION, ABOUTUS_TITLE } from "../../constants/MetaTexts";
+import { ABOUTUS_DESCRIPTION, ABOUTUS_TITLE } from "../../constants/MetaTexts";
 
 function Pricing (props) {
   useEffect(() => {
@@ -48,7 +48,7 @@ function Pricing (props) {
     <>
         <Helmet>
           <title>{ABOUTUS_TITLE}</title>
-          <meta name="description" content={ABOUTUS_DESCIPTION}/>
+          <meta name="description" content={ABOUTUS_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/aboutus" />
         </Helmet>
        <LandingNavBar

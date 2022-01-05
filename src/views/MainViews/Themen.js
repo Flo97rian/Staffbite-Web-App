@@ -35,6 +35,7 @@ import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import StaffbiteLogo from "../../assets/img/brand/Staffbite_Logo.png"
 import CloudPicture from "../../assets/img/themen/CloudComputingImage.png"
 import Paperwork from "../../assets/img/themen/PaperworkImage.png"
+import Possibilities from "../../assets/img/themen/Possibilities.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -77,8 +78,53 @@ function Themen (props) {
             </Container>
             
             <Container className="mb-4 pt-4">
-            
             <Row className="mt-4" >
+                <Col xs="6">
+                        <Card>
+                            <CardImg
+                            className="p-2"
+                            src={Possibilities}
+                            alt="Bild von drei unterschiedlichen Wegen"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                    Schichtplan erstellen
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie erstelle ich meinen Schichtplan?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.
+                            </CardText>
+                            <CardText className="pl-4 pb-4 pr-4" tag="p">
+                                <Link to="/themen/schichtplanerstellen" >Hier geht's zum Artikel!</Link>
+                            </CardText>
+                        </Card>
+                </Col>
+
+                <Col xs="6">
+                        <Card>
+                            <CardImg
+                            className="p-2"
+                            src={Paperwork}
+                            alt="Schreibtisch mit Kaffee, Zettel und Stift"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                Automatisierte Befüllung deines Schichtplans
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Kann die Befüllung deines Schichtplans automatisiert werden?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                Erfahre in diesem Beitrag wie du die Befüllung deines Schichtplans durch unseren intelligenten Algorithmus innerhalb weniger Sekunden abbilden kannst. 
+                            </CardText>
+                            <CardText className="pl-4 pb-4" tag="p">
+                                <Link to="/themen/automatisierung" >Hier gehts zum Artikel!</Link>
+                            </CardText>
+                        </Card>
+                </Col>
+            </Row>
+                
+                <Row className="mt-4">
                 <Col xs="6">
                 <Card>
                             <CardImg
@@ -100,52 +146,14 @@ function Themen (props) {
                             </CardText>
                         </Card>
                 </Col>
-
-                <Col xs="6">
-                <Card>
-                            <CardImg
-                            className="p-2"
-                            src={Paperwork}
-                            alt="Schreibtisch mit Kaffee, Zettel und Stift"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                Automatisierte Befüllung deines Schichtplans
-                            </CardTitle>
-                            <CardSubtitle className="pl-4">
-                                Kann die Befüllung deines Schichtplans automatisiert werden?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                Erfahre in diesem Beitrag wie du die Befüllung deines Schichtplans durch unseren intelligenten Algorithmus innerhalb weniger Sekunden abbilden kannst. 
-                            </CardText>
-                            <CardText className="pl-4 pb-4" tag="p">
-                                <Link to="/themen/automatisierung" >Hier gehts zum Artikel!</Link>
-                            </CardText>
-                        </Card>
-                </Col>
-                </Row>
-                
-                <Row className="mt-4">
-                    <Col xs="6">
-                        <Card>
-                            <CardImg
-                            className="p-2"
-                            src={StaffbiteLogo}
-                            alt="Schichtplan online erstellen"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Schichtplan online erstellen
-                            </CardTitle>
-                            <CardSubtitle className="pl-4">
-                                Wie erstelle ich einen Schichtplan online?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    Einen Schichtplan online erstellen? Welche Vor- und Nachteile haben online Schichtplaner gegenüber Zettel und Stift?
-                            </CardText>
-                            <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/" >In kürze verfügbar: Schichtplan online erstellen</Link>
-                            </CardText>
-                        </Card>
-                    </Col>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     <Col xs="6">
                     <Card>
