@@ -98,7 +98,7 @@ function FAQ (props) {
                       
                       </p>
                       In diesem Video kannst du mehr über die Registrierung und die ersten Schritte mit Staffbite erfahren:
-                      <Link to={{ pathname: "https://youtu.be/R0SpszGT0k8" }} target="Zum Video:"> Wie registriere ich meinen Betrieb?</Link>
+                      <a href="https://youtu.be/R0SpszGT0k8">Wie registriere ich meinen Betrieb?</a>
                     </>
                   :
                   <></>}
@@ -122,7 +122,7 @@ function FAQ (props) {
                       Nachdem du dich bei uns registriert hast, kannst du sofort starten. Im Reiter „Team“ kannst du dein Team verwalten. Klicke auf „Mitarbeiter einladen“ und gib die benötigten Daten ein. Deine Mitarbeiter*innen erhalten anschließend eine Mail mit ihren persönlichen Login-Daten. 
                       </p>
                       Hier findest du ein Video zu den grundlegenden Schritten, um dein Team einzuladen:
-                      <Link to={{ pathname: "https://youtu.be/RtKKaWkCPrs" }} target="_blank">Mitarbeiter anlegen</Link>
+                      <a href="https://youtu.be/RtKKaWkCPrs">Mitarbeiter anlegen</a>
                     </>
                   :
                   <></>}
@@ -149,7 +149,7 @@ function FAQ (props) {
                       Nachdem du den nötigen Prozess durchlaufen hast, kannst du dich mit deinen individuellen Daten anmelden. Wenn bereits ein Schichtplan erstellt wurde, dann klick oben in der Leiste auf „Eintragen“. Dort kannst du dich einfach und bequem eintragen.
                       </p>
                       Wenn du noch mehr Informationen haben möchtest, guck dir doch dieses Video an: 
-                      <Link to={{ pathname: "https://youtu.be/vo-mdjMPtyY" }} target="_blank">Erste Schritte als Mitarbeiter*in</Link>
+                      <a href="https://youtu.be/vo-mdjMPtyY">Erste Schritte als Mitarbeiter*in</a>
                     </>
                   :
                   <></>}

@@ -44,7 +44,7 @@ const DashboardSchichtenTabelle = (props) => {
                         <p>Legende</p>
                         {idVeröffentlicht ? <Badge color="success">Schicht erhalten</Badge> : <Badge color="success">beworben</Badge> }
                         {idVeröffentlicht ? <Badge color="">Schicht unbelegt / Schicht nicht erhalten</Badge> : <Badge color="light">kein Bewerber / Bewerber vorhanden</Badge> }
-                        <Badge color="default">nicht verfügbar</Badge>
+                        <Badge color="default">Nicht verfügbar</Badge>
                     </Col>
                 </Row>
                         <br/>
