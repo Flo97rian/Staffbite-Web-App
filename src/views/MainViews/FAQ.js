@@ -15,10 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect} from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState, useEffect, useRef} from "react";
+import { Link } from "react-router-dom";
 import ReactGA from "react-ga";
-import { ImageGroup, Image } from 'react-fullscreen-image'
 import { Helmet } from "react-helmet";
 // reactstrap components
 import {
@@ -36,10 +35,17 @@ import LandingFooter from "../../components/Footers/LandingFooter";
 import { FAQ_DESCRIPTION, FAQ_TITLE } from "../../constants/MetaTexts";
 
 function FAQ (props) {
+  let mainContent = useRef("mainContent")
   const [open, setOpen] = useState({Registrieren: !1, MitarbeiterAnlegen: !1, SchichtenTauschen: !1, Support: !1, ProbeMonat: !1, MARegistrieren: !1, AV: !1})
   useEffect(() => {
     pageViewsTracking()
   },[])
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, []);
 
   function pageViewsTracking () {
     const pathname = "/faq";
@@ -55,7 +61,7 @@ function FAQ (props) {
     setOpen({...open, [id]: !open[id]})
   }
     return (
-    <>
+    <div ref={mainContent}>
         <Helmet>
           <title>{FAQ_TITLE}</title>
           <meta name="description" content={FAQ_DESCRIPTION}/>
@@ -249,7 +255,7 @@ function FAQ (props) {
             </Container>
       </Container>
       <LandingFooter></LandingFooter>
-    </>
+    </div>
   );
 };
 export default FAQ;

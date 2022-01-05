@@ -1,36 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url> <loc>https://www.staffbite.de/</loc><lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/signup</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/forgotpassword</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/admin</loc><lastmod>2021-12-15</lastmod> </url>
-<url> <loc>https://www.staffbite.de/aboutus</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/impressum</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/themen/cloudservice</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/themen</loc><lastmod>2021-12-15</lastmod> </url>
-<url> <loc>https://www.staffbite.de/impressum/*</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/schichtplan</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/schichtplan/*</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/faq</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/pricing</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/schichtplan/gastronomie</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/auth</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://www.staffbite.de/user</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/signup</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/forgotpassword</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/admin</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/aboutus</loc> <lastmod>2021-12-29</lastmod></url>
-<url> <loc>https://www.staffbite.de/AV</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/impressum</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/themen/cloudservice</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/themen</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/impressum/*</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/schichtplan</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/schichtplan/*</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/faq</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/pricing</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/schichtplan/gastronomie</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/auth</loc> <lastmod>2021-12-15</lastmod></url>
-<url> <loc>https://staffbite.de/user</loc> <lastmod>2021-12-15</lastmod></url>
+<url> <loc>https://www.staffbite.de/</loc><lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/signup</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/forgotpassword</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/admin</loc><lastmod>2021-01-05</lastmod> </url>
+<url> <loc>https://www.staffbite.de/aboutus</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/impressum</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/themen/schichtplanerstellen</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/themen/automatisierung</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/themen/cloudservice</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/themen</loc><lastmod>2021-01-05</lastmod> </url>
+<url> <loc>https://www.staffbite.de/impressum/*</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/schichtplan</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/schichtplan/*</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/faq</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/pricing</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/schichtplan/gastronomie</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/auth</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/user</loc> <lastmod>2021-01-05</lastmod></url>
+<url> <loc>https://www.staffbite.de/AV</loc> <lastmod>2021-01-05</lastmod></url>
 </urlset>

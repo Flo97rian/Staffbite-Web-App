@@ -20,6 +20,7 @@ import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_OVERVIEW_APPLICATIONS, ONBOARDING_EMPLOYEE_OVERVIEW_TRADE_SHIFT, ONBOARDING_EMPLOYEE_OVERVIEW_SHIFTPLAN } from "../../../constants/OnBoardingTexts"
 import NewsFeed from "../../Admin/Dashboard/Form/NewsFeed";
 import { FetchOrg } from "../../../store/middleware/FetchOrg";
+import Timeline from "../../Admin/Dashboard/Timeline";
 
 
 const DashboardContainer = (props) => {
@@ -118,10 +119,9 @@ const DashboardContainer = (props) => {
   }, [Plans, Shiftplan, User])
 
   const handleOnboarding = () => {
+    let user = store.getState().user;
     if(User) {
-      let overview = User.onboarding.overview;
-      let user = User;
-      user.onboarding.overview = !overview;
+      user.onboarding.overview = !1;
       store.dispatch(thunkUpdateEmployee(user));
     }
   }
@@ -224,14 +224,14 @@ const DashboardContainer = (props) => {
               <Col xs={9} className="mt-2">
               </Col>
             </Row>
-            <Row className="text-center" noGutters={true}>
+            <Row className="text-center">
               <Col>
                 <Card className="shadow card_aktuellerSchichtplan">
                   <CardBody>
-                    <NewsFeed
+                    <Timeline
                     meta={Meta}
                     >
-                    </NewsFeed>
+                    </Timeline>
                   </CardBody>
                 </Card>
               </Col>

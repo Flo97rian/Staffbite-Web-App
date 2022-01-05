@@ -104,10 +104,9 @@ const ShiftplanContainer = () => {
   }, [Shiftplan]);
 
   const handleOnboarding = () => {
+    let user = store.getState().user;
     if(User) {
-      let shiftplan = User.onboarding.shiftplan;
-      let user = User;
-      user.onboarding.shiftplan = !shiftplan;
+      user.onboarding.shiftplan = !1;
       store.dispatch(thunkUpdateEmployee(user));
     }
   }

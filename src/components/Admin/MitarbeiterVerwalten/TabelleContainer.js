@@ -24,6 +24,7 @@ import InfoSidebar from "../../Sidebar/InfoSidebar.js";
 import { useLocation } from "react-router-dom";
 import { ONBOARDING_TEAM_INVITE, ONBOARDING_TEAM_OVERVIEW } from "../../../constants/OnBoardingTexts.js";
 import { validMeta } from "../../Application/functionalComponents/ValidFunctions.js";
+import UserDashboard from "../../../views/MainViews/User/Dashboard.js";
 
 const TableContainer = (props) => {
   const [userInput, setUserInput] = useState(employeeStates);
@@ -186,7 +187,8 @@ const TableContainer = (props) => {
   };
 
   const handleEmployeeUpdate = (employee) => {
-    const updatedEmployee = mergeEmployeeDetails(employee, userInput);
+    let updatedEmployee = mergeEmployeeDetails(employee, userInput);
+    updatedEmployee = {...updatedEmployee, onboarding: Meta.onboarding};
     store.dispatch(thunkUpdateEmployee(updatedEmployee));
     let copyMeta = Meta;
     if (userInput.position !== Meta.schichten) {

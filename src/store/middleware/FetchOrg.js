@@ -25,6 +25,9 @@ import { API_HOSTNAME, FETCH_ORGANISATION } from "../../constants/ApiConstants";
           if(Object.keys(response.Item).includes("newsfeed")) {
               org.newsfeed = JSON.parse(response.Item.newsfeed["S"])
           }
+          if(Object.keys(response.Item).includes("vorname")) {
+            org.vorname = response.Item.vorname["S"]
+        }
           dispatch({type: "setMeta", payload: org})
           dispatch({type: "stopFetchingMeta"})
             })

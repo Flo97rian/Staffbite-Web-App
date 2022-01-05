@@ -25,7 +25,7 @@ const ShiftplanTable = (props) => {
         <>
         <Card>
             <CardBody>
-            <Row className="text-center mt-4" noGutters={true}>
+            <Row className="text-center mt-4" >
                 <Col xs={3}>
                     <p>Status</p>
                     <p style={{"color": "#2dce89"}}>Veröffentlicht</p>

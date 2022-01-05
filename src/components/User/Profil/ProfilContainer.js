@@ -45,10 +45,9 @@ const ProfilContainer = (props) => {
   }, [User]);
 
   const handleOnboarding = () => {
+    let user = store.getState().user;
     if (User) {
-      let profile = User.onboarding.profile;
-      let user = User;
-      user.onboarding.profile = !profile;
+      user.onboarding.profile = !1;
       store.dispatch(thunkUpdateEmployee(user));
     }
   }

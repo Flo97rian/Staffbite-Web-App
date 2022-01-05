@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
@@ -35,9 +35,16 @@ import PlanABC from "../../../assets/img/themen/PlanABC.png"
 
 
 function Schichtplanerstellen (props) {
+  let mainContent = useRef("mainContent")
   useEffect(() => {
     pageViewsTracking()
   },[])
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, []);
 
   function pageViewsTracking () {
     const pathname = "/themen/schichtplanerstellen";
@@ -49,7 +56,7 @@ function Schichtplanerstellen (props) {
     ReactGA.pageview(pageView);
   } 
     return (
-    <>
+    <div ref={mainContent}>
         <Helmet>
           <title>{THEMEN_SCHICHTPLANERSTELLEN_TITLE}</title>
           <meta name="description" content={THEMEN_SCHICHTPLANERSTELLEN_DESCRIPTION}/>
@@ -167,7 +174,7 @@ function Schichtplanerstellen (props) {
         </Container>
       </Container>
       <LandingFooter></LandingFooter>
-    </>
+    </div>
   );
 };
 export default Schichtplanerstellen;

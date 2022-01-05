@@ -98,7 +98,7 @@ const updateOrg = async (user, org) => {
     
     
     try {
-      var profile = await dynamodb.updateItem(params).promise();
+      var profile = await dynamodb.putItem(params).promise();
     } catch(error) {
       console.log(error);
       }

@@ -16,7 +16,7 @@
 
 */
 import React, { useState, useEffect} from "react";
-import { Navigate, Route, Routes} from "react-router-dom";
+import { useNavigate, Route, Routes} from "react-router-dom";
 // reactstrap components
 import { Container, Row } from "reactstrap";
 // core components
@@ -35,6 +35,7 @@ Amplify.configure(awsconfig);
 const AuthUI = (props) => {
     const [authState, setAuthState] = useState();
     const [user, setUser] = useState();
+    const navigate = useNavigate()
     useEffect(() => {
       pageViewsTracking()
     },[])
@@ -74,7 +75,7 @@ const AuthUI = (props) => {
           <div>Hello, {user.username}</div>
           <Container className="mt--8 pb-5">
           <Row className="justify-content-center">
-              { user.attributes !== undefined ? (user.username === user.attributes["custom:TenantId"] ? <Navigate from="*" to="/admin/index" /> : <Navigate from="*" to="/user/index" />) : <Navigate from="*" to="/auth" />}
+              { user.attributes !== undefined ? (user.username === user.attributes["custom:TenantId"] ? navigate("/admin/index") : navigate("/user/index")) : navigate("/auth")}
           </Row>
         </Container>
       </div>

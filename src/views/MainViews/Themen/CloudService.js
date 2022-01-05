@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
@@ -32,9 +32,16 @@ import {THEMEN_CLOUDSERVICE_DESCRIPTION, THEMEN_CLOUDSERVICE_TITLE} from "../../
 import CloudPicture from "../../../assets/img/themen/CloudComputingImage.png"
 
 function CloudService (props) {
+  let mainContent = useRef("mainContent")
   useEffect(() => {
     pageViewsTracking()
   },[])
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, []);
 
   function pageViewsTracking () {
     const pathname = "/themen/cloudservice";
@@ -46,7 +53,7 @@ function CloudService (props) {
     ReactGA.pageview(pageView);
   } 
     return (
-    <>
+    <div ref={mainContent}>
         <Helmet>
           <title>{THEMEN_CLOUDSERVICE_TITLE}</title>
           <meta name="description" content={THEMEN_CLOUDSERVICE_DESCRIPTION}/>
@@ -114,7 +121,7 @@ function CloudService (props) {
         </Container>
       </Container>
       <LandingFooter></LandingFooter>
-    </>
+    </div>
   );
 };
 export default CloudService;

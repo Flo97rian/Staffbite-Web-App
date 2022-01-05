@@ -334,7 +334,7 @@ const SchichtplanContainer = () => {
 
   const handleSetTenantInShift = () => {
     let copyPlan = new ShiftPlan({...Shiftplan});
-    copyPlan.setTenantInShift(ShiftSlot);
+    copyPlan.setTenantInShift(ShiftSlot, Meta);
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch({type: "setShiftplan", payload: shiftplan});
     setUserInput({...shiftplanStates})
@@ -600,7 +600,8 @@ const SchichtplanContainer = () => {
     let copyPlan = new ShiftPlan({...Shiftplan});
     let shiftplan = copyPlan.getAllPlanDetails();
     let detailsFilled = copyPlan.checkShiftHasDetails()
-    if (detailsFilled) {
+    let hasDate = NewDate.startDate !== undefined;
+    if (detailsFilled && hasDate) {
       store.dispatch({type: "startFetchingRelease"})
       store.dispatch(thunkReleaseForApplication(shiftplan, NewDate, userInput))
       setNavIndex(2);

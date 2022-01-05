@@ -17,7 +17,7 @@
 */
 import React, {useEffect} from "react";
 import ReactGA from "react-ga";
-import { useLocation, Route, Navigate } from "react-router-dom";
+import { useLocation, useNavigate, Route } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
@@ -33,6 +33,7 @@ Amplify.configure(awsconfig);
 
 const User = (props) => {
   const mainContent = React.useRef(null);
+  const navigate = useNavigate()
   const location = useLocation();
   useEffect(() => {
     pageViewsTracking()
@@ -95,7 +96,7 @@ const User = (props) => {
           brandText={getBrandText(props.location.pathname)}
         />
           {getRoutes(userroutes)}
-          <Navigate from="*" to="/user/index" />
+          {navigate("/user/index")}
         <Container fluid>
           <AdminFooter />
         </Container>

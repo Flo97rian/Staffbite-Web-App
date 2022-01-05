@@ -575,11 +575,15 @@ export default class ShiftPlan {
     this.plan = copyPlan;
   }
 
-  setTenantInShift(ShiftSlot) {
+  setTenantInShift(ShiftSlot, meta) {
     let copyPlan = [...this.plan];
     let row = this.getRow(ShiftSlot);
     let day = this.getDay(ShiftSlot);
-    copyPlan[row][day].setApplicants["TENANT"] = "Name"
+    let name = "Name"
+    if("vorname" in meta) {
+      name = meta.vorname
+    }
+    copyPlan[row][day].setApplicants["TENANT"] = name
     this.plan = copyPlan;
   }
 

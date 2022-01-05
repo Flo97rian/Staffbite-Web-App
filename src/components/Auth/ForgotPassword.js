@@ -40,7 +40,7 @@ import LandingNavbar from "../Navbars/LandingNavbar"
 import ReactGA from "react-ga";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { Navigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 import ResetPassword from "./AuthComponents/ResetPassword";
 import SelectNewPassword from "./AuthComponents/SelectNewPassword";
@@ -58,6 +58,7 @@ const ForgotPassword = (props) => {
     const [code, setCode] = useState("");
     const [reset, setReset] = useState(!1);
     const [tenant, setTenant] = useState(!1);
+    const navigate = useNavigate()
     
     useEffect(() => {
         pageViewsTracking()
@@ -123,12 +124,10 @@ async function confirmResetPassword() {
         }
       }
     console.log(AuthState)
+    
     if (resetted) {
-        return (
-            <>
-                    <Navigate from="*" to="/auth"></Navigate>
-            </>
-        );
+        navigate("/auth")
+        return null
     } else if(reset) {
         return (
             <SelectNewPassword

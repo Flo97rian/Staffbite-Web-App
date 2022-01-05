@@ -16,8 +16,7 @@
 
 */
 import React, {useEffect} from "react";
-import { Link, NavLink } from "react-router-dom";
-import { ImageGroup, Image } from 'react-fullscreen-image'
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
 
@@ -65,14 +64,13 @@ function Shiftplan (props) {
                 }}/>
       {/* Page content */}
       <Container className="pt-5 pb-2" fluid>
-      <Container className="mt-6">
+      <Container className="mt-6 mb-8">
                     <Row className="justify-content-left ml-0 mt-4">
                         <h1>Dein digitaler & automatisierter Schichtplan</h1>
                     </Row>
                 </Container>
-      
-                <section className="section" id={"sectionregister"}>
-            <Container className="mb-4 pt-4">
+                <section className="section section-lg pt-lg-0 mt--7" id={"sectionregister"}>
+            <Container className="mb-4 pt-4 ">
               <Row className="align-items-center mb-4 mt-3">
               <Col className="order-md-1 pr-md-5" md="12" lg="6">
 

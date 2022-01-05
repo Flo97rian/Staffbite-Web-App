@@ -55,11 +55,11 @@ const Unternehmensprofil = (props) => {
             <Card className="shadow">
                 <CardBody>
                 <InfoLabel title="Name des Betriebs" description={INFO_ORGANISATION_NAME}></InfoLabel>
-                <InputForm name="name" {...props}/>
+                <InputForm name="name" placeholder={props.org?.name}{...props}/>
                 <InfoLabel title="Dein Vor- & Nachname" description={INFO_ORGANISATION_NAME}></InfoLabel>
-                <InputForm name="vorname" {...props}/>
+                <InputForm name="vorname" placeholder={"vorname" in props.org ? props.org.vorname : "Max Mustermann"} {...props}/>
                 <InfoLabel title="Stundenerfassung" description={INFO_ORGANISATION_STUNDENERFASSUNG}></InfoLabel>
-                <Form.Check custom type="switch" size="lg" disabled name="stundenerfassung"></Form.Check>
+                <Form.Check className="ml-6" custom type="switch" size="lg" disabled name="stundenerfassung"></Form.Check>
                 </CardBody>
                 <Row className="m-2 mb-4 input_position">
                     <Col xs={12}>

@@ -20,7 +20,7 @@ const NeuerSchichtplanTabelle = (props) => {
                 <>
                 <Card>
                     <CardBody>
-                        <Row className="text-center mt-4" noGutters={true}>
+                        <Row className="text-center mt-4">
                             <Col xs={6}>
                                 <p>Status</p>
                                 <p style={{"color": "#5e72e4"}}>Entwurf</p>

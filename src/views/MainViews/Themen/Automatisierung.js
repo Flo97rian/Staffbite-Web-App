@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
@@ -34,9 +34,17 @@ import HappyEmployee from "../../../assets/img/themen/HappyEmployeeImage.png"
 
 
 function Automatisierung (props) {
+  let mainContent = useRef("mainContent");
+
   useEffect(() => {
     pageViewsTracking()
   },[])
+
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, []);
 
   function pageViewsTracking () {
     const pathname = "/themen/automatisierung";
@@ -46,14 +54,14 @@ function Automatisierung (props) {
     else pageView = pathname;
   
     ReactGA.pageview(pageView);
-  } 
+    } 
+    
     return (
-    <>
+    <div ref={mainContent}>
         <Helmet>
           <title>{THEMEN_AUTOMATISIERUNG_TITLE}</title>
           <meta name="description" content={THEMEN_AUTOMATISIERUNG_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/themen/automatisierung" />
-
           <meta property="og:title" content="Staffbite - Automatisierte Befüllung deines Schichtplans"/>
           <meta property="og:description" content="In diesem Beitrag stelle ich dir die automatisierte Befüllung deiner Schichtpläne mit Staffbite vor."/>
           <meta property="og:url" content="https://www.staffbite.de/themen/automatisierung"></meta>
@@ -145,7 +153,7 @@ function Automatisierung (props) {
         </Container>
       </Container>
       <LandingFooter></LandingFooter>
-    </>
+    </div>
   );
 };
 export default Automatisierung;
