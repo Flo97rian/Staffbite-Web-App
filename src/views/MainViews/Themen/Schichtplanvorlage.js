@@ -58,7 +58,6 @@ function Schichtplanvorlage (props) {
           <title>{THEMEN_SCHICHTPLANVORLAGE_TITLE}</title>
           <meta name="description" content={THEMEN_SCHICHTPLANVORLAGE_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/themen/schichtplanvorlage" />
-
           <meta property="og:title" content="Staffbite - Schichtplan Vorlage erstellen"/>
           <meta property="og:description" content="In diesem Beitrag zeige ich dir wie du eine Vorlage für deinen Schichtplan erstellen kannst."/>
           <meta property="og:url" content="https://www.staffbite.de/themen/schichtplanvorlage"></meta>

@@ -35,7 +35,7 @@ function AV (props) {
   },[])
 
   function pageViewsTracking () {
-    const pathname = "/AV";
+    const pathname = "/av";
   
     let pageView;
     if(pathname === "*") pageView = "/not_found";
@@ -48,7 +48,7 @@ function AV (props) {
         <Helmet>
           <title>{AV_TITLE}</title>
           <meta name="description" content={AV_DESCRIPTION}/>
-          <link rel="canonical" href="https://www.staffbite.de/AV" />
+          <link rel="canonical" href="https://www.staffbite.de/av" />
         </Helmet>
        <LandingNavBar
               logo={{

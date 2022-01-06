@@ -24,7 +24,11 @@ import {
   CardFooter,
   CardHeader,
   CardBody,
+  CardImg,
   Card,
+  CardTitle,
+  CardText,
+  CardSubtitle,
   Col,
   Button
 
@@ -32,6 +36,8 @@ import {
 // core components
 import { pageview } from "react-ga";
 import ReactGA from "react-ga";
+import Paperwork from "../../assets/img/themen/PaperworkImage.png"
+import Possibilities from "../../assets/img/themen/Possibilities.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { Helmet } from "react-helmet";
@@ -49,7 +55,7 @@ const Pricing = (props) => {
   }, []);
 
   function pageViewsTracking () {
-    const pathname = "/contact";
+    const pathname = "/pricing";
     let pageView;
     if(pathname === "*") pageView = "/not_found";
     else pageView = pathname;
@@ -62,7 +68,7 @@ const Pricing = (props) => {
         <Helmet>
           <title>Preise</title>
           <meta name="description" content="Preise & Vertragsbedingungen. Kostenloser Probemonat" />
-          <link rel="canonical" href="http://www.staffbite.de/pricing" />
+          <link rel="canonical" href="https://www.staffbite.de/pricing" />
         </Helmet>
        <LandingNavBar
               logo={{
@@ -79,7 +85,7 @@ const Pricing = (props) => {
                 </Container>
                 <Container className="mb-4 pt-4">
                   <Card className="shadow">
-                    <h3 className="pl-3 pt-3 pb-0 mb-0">Diese Funktionalitäten sind in allen Paketen enthalten!</h3>
+                    <h2 className="h3 pl-3 pt-3 pb-0 mb-0">Diese Funktionalitäten sind in allen Paketen enthalten!</h2>
                     <Row className="align-items-center p-1 pt-3">
                       <Col xs="12" lg="6">
                       <Row className="align-items-center">
@@ -207,6 +213,63 @@ const Pricing = (props) => {
                 </Col>
               </Row>
             </Container>
+      </Container>
+      <Container className="pt-5" fluid>
+          <Container className="mt-6">
+              <Row className="justify-content-left ml-1 mt-4">
+                  <h2>Noch unschlüssig? Hier findest du einige Beispiele zum Schichtplan erstellen.</h2>
+              </Row>
+          </Container>
+          <Container className="mb-4 pt-0">
+              <Row className="align-items-center p-1 pt-0">
+              <Container className="mb-0 pt-0">
+            <Row className="mt-0" >
+                <Col xs="6">
+                        <Card>
+                            <CardImg
+                            className="p-2"
+                            src={Possibilities}
+                            alt="Bild von drei unterschiedlichen Wegen"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2 h2" tag="h3">
+                                    Schichtplan erstellen
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie erstelle ich meinen Schichtplan?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.
+                            </CardText>
+                            <CardText className="pl-4 pb-4 pr-4" tag="p">
+                                <Link to="/themen/schichtplanerstellen" >Schichtplan erstellen</Link>
+                            </CardText>
+                        </Card>
+                </Col>
+                <Col xs="6">
+                        <Card>
+                            <CardImg
+                            className="p-2"
+                            src={Paperwork}
+                            alt="Schreibtisch mit Kaffee, Zettel und Stift"
+                            ></CardImg>
+                             <CardTitle className="pl-4 pt-4 mb-2 h2" tag="h3">
+                                Automatisierte Befüllung deines Schichtplans
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Kann die Befüllung deines Schichtplans automatisiert werden?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                Erfahre in diesem Beitrag wie du die Befüllung deines Schichtplans durch unseren intelligenten Algorithmus innerhalb weniger Sekunden abbilden kannst. 
+                            </CardText>
+                            <CardText className="pl-4 pb-4" tag="p">
+                                <Link to="/themen/automatisierung" >Automatisierte Befüllung</Link>
+                            </CardText>
+                        </Card>
+                </Col>
+            </Row>
+            </Container>
+            </Row>
+          </Container>
       </Container>
       <LandingFooter></LandingFooter>
     </div>

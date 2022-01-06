@@ -63,7 +63,7 @@ ReactDOM.render(
           <Route path="/admin/mitarbeiter" element={<MitarbeiterVerwalten />} />
           <Route path="/admin/einstellungen" element={<Einstellungen />} />
         <Route path="/aboutus" element={<AboutUs/>} />
-        <Route path="/AV" element={<AV/>} />
+        <Route path="/av" element={<AV/>} />
         <Route path="/impressum" element={<Impressum/>} />
         <Route path="/schichtplan" element={<Shiftplan />} />
         <Route path="/faq" element={<FAQ />} />

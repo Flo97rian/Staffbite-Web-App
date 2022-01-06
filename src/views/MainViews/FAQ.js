@@ -65,7 +65,7 @@ function FAQ (props) {
         <Helmet>
           <title>{FAQ_TITLE}</title>
           <meta name="description" content={FAQ_DESCRIPTION}/>
-          <link rel="canonical" href="https://www.staffbite.de/faq" />
+          <link rel="canonical" href="https://www.staffbite.de/faq"/>
         </Helmet>
        <LandingNavBar
               logo={{
@@ -244,7 +244,7 @@ function FAQ (props) {
                       Unter dem unten stehenden Link findest du die AV. Schreib uns einfach eine kurze Mail an info@staffbite.de, damit du eine unterschriebene Version erhälst.
                       </p>
                       <p className="mt-2">
-                        Hier findest du die Blanko-Version: <Link to="/AV" target="_blank">Auftragsdatenverarbeitung</Link>.
+                        Hier findest du die Blanko-Version: <Link to="/av" target="_blank">Auftragsdatenverarbeitung</Link>.
                       </p>
                     </>
                   :

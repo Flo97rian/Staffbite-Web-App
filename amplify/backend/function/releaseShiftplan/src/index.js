@@ -21,13 +21,13 @@ exports.handler = async (event, context, callback) => {
     let user = body.user;
     let plan = await getPlan(body);
     let meta = await getMeta(body);
-    let planName = plan.name["S"]
-    
-    await addNews(body, meta, planName);
     let name = plan.name["S"];
     if (name !== body.name && body.name !== "Name" && body.name !== "") {
         name = body.name;
     }
+    await addNews(body, meta, name);
+    console.log(body)
+    console.log(name, body.name);
     let newShiftplan = null;
         let shiftplan = JSON.parse(plan.data["S"])
         let keys = Object.keys(shiftplan[0]);

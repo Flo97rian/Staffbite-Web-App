@@ -41,6 +41,7 @@ import NotificationAlert from "react-notification-alert";
 import { SUCCESS_EMAIL_IS_SEND, WARNING_EMAIL_NOT_SEND } from "../../constants/Alerts.js";
 import ReactGA from "react-ga";
 import { KONTAKT_DESCRIPTION, KONTAKT_TITLE } from "../../constants/MetaTexts.js";
+import { Link } from "react-router-dom";
 
 function Contact (props) {
     const [form, setForm] = useState(contactDefaults);
@@ -142,11 +143,19 @@ function Contact (props) {
                 <Col lg="12">
                   <Card className="bg-white shadow mb-4 mt-4">
                     <CardBody className="p-lg-5">
-                      <p className="mb-3">Du möchtest Staffbite testen oder hast Fragen?</p>
+                      <p className="ml-1 mb-3">Du möchtest Staffbite testen oder hast Fragen?</p>
                       <Row className="ml-1">
                       <p className="mb-3 mr-1">Schreib uns an </p>
                       <p className="font-weight-bold mb-0 mr-1">info@staffbite.de </p> 
                       <p className="mb-3">oder füll das Formular unten aus.</p>
+                      </Row>
+                      <Row className="ml-1">
+                        <p className="mb-3 mr-1">Oder starte direkt in useren </p>
+                        <Link to="/auth" > kostenlosen Probemonat</Link>
+                        <p className="mb-0 ml-1"> und bilde dir eine eigene Meinung!</p>
+                      </Row>
+                      <Row className="ml-1">
+                        <p className="mb-3 ml-1"> Wir freuen uns über dein Feedback! </p>
                       </Row>
                       <FormGroup className="pt-4">
                           <Row>
