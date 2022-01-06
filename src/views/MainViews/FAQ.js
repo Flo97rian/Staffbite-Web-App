@@ -194,7 +194,7 @@ function FAQ (props) {
                     ? 
                     <>
                       <p className="mt-2">
-                        Wenn du Support benötigst, schreib uns einfach eine Mail an: info@staffbite.de - wir melden uns schnellstmöglich bei dir!
+                        Wenn du Support benötigst, ruf uns einfach an unter: 0157 30 64 46 50 oder schreib uns einfach eine Mail an: info@staffbite.de - wir melden uns schnellstmöglich bei dir!<br/> Wir sind Montag - Freitag von 10 bis 16 Uhr erreichbar.
                       </p>
                     </>
                   :

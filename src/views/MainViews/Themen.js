@@ -97,7 +97,7 @@ function Themen (props) {
                                     Schichtplan erstellen
                             </CardTitle>
                             <CardSubtitle className="pl-4">
-                                Wie erstelle ich meinen Schichtplan?
+                                Wie erstelle ich meinen Schichtplan? Papier, Excel oder Software?
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
                                     Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.

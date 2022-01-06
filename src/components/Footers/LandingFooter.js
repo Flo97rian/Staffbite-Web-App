@@ -96,7 +96,9 @@ const LandingFooter = () => {
                       <p>
                       Zellmann GbR.
                       <br/>
-                      Möllingstraße 8, 24103 Kiel
+                      Möllingstraße 8
+                      <br/>
+                      24103 Kiel
                       <br/>
                       Tel.: 0157 30 64 46 50
                       </p>

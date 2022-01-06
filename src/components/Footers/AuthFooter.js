@@ -74,26 +74,31 @@ const AuthFooter = () => {
               </NavItem>
               <NavItem className="ml-2 float-right">
               <NavLink
-                    className="text-muted"
-                      href="https://www.instagram.com/staffbite_de"
-                      target="_blank"
-                    >
-                      Youtube
-                    </NavLink>
+                        className="text-muted"
+                          href="https://www.youtube.com/channel/UCGpprwCbFvAfKhCtg0DUX3g/featured"
+                          target="_blank"
+                        >
+                        <p className="mb-0">
+                        Youtube
+                        </p>
+                      </NavLink>
               </NavItem>
           </Nav>
-          <Nav className="ml-2" navbar>
-              <NavItem className="ml-2 float-right text-muted">
-                    <h4>Kontaktieren Sie uns</h4>
-                    Anschrift:
-                    <br/>
-                    Zellmann GbR.
-                    <br/>
-                    Möllingstraße 8, 24103 Kiel
-                    <br/>
-                    Tel.: 
-              </NavItem>
-          </Nav>
+
+          <Nav className="ml-2 position-right" navbar vertical>
+                <NavItem className="ml-2 text-muted">
+                      <h2 className="h4 ">Kontaktieren Sie uns</h2>
+                      <p>
+                      Zellmann GbR.
+                      <br/>
+                      Möllingstraße 8
+                      <br/>
+                      24103 Kiel
+                      <br/>
+                      Tel.: 0157 30 64 46 50
+                      </p>
+                </NavItem>
+            </Nav>
       </Container>
     </Navbar>
     </>

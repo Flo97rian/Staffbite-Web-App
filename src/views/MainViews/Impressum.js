@@ -174,7 +174,7 @@ function Impressum (props) {
                     </p> 
                     <h2>5. Support</h2> 
                     <p>
-                      5.1. Treten Probleme bei der Nutzung eines Cloud Services von Staffbite auf, können Kunden diese während der Supportzeiten telefonisch melden. Die Supportzeiten und Kontaktinformationen sind auf <a href="www.staffbite.de">staffbite.de</a> dargestellt. 
+                      5.1. Treten Probleme bei der Nutzung eines Cloud Services von Staffbite auf, können Kunden diese während der Supportzeiten telefonisch melden. Die Supportzeiten und Kontaktinformationen sind auf <Link to="/FAQ">unserer Website </Link> dargestellt. 
                     </p> 
                     <h2>6. Dokumentation </h2>
                     <p>

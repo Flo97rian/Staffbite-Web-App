@@ -217,7 +217,7 @@ const Pricing = (props) => {
       <Container className="pt-5" fluid>
           <Container className="mt-6">
               <Row className="justify-content-left ml-1 mt-4">
-                  <h2>Noch unschlüssig? Hier findest du einige Beispiele zum Schichtplan erstellen.</h2>
+                  <h2>Noch unschlüssig? Hier findest du einige Beispiele wie du deinen individuellen Schichtplan erstellen kannst.</h2>
               </Row>
           </Container>
           <Container className="mb-4 pt-0">
@@ -235,7 +235,7 @@ const Pricing = (props) => {
                                     Schichtplan erstellen
                             </CardTitle>
                             <CardSubtitle className="pl-4">
-                                Wie erstelle ich meinen Schichtplan?
+                                Wie erstelle ich meinen Schichtplan? Papier, Excel oder Software?
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
                                     Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.
