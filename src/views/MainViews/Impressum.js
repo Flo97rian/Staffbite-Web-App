@@ -100,6 +100,7 @@ function Impressum (props) {
                     <p className="mb-4">
                     Wenden Sie sich bei Fragen gerne an: info@stafftbite.de  
                     </p>
+                    <Link to="/av">Hier gehts zur Auftragsdatenverarbeitung</Link>
                   </div>
                 </Col>
               </Row>

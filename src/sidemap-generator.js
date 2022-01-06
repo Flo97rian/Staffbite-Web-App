@@ -7,7 +7,7 @@ require("babel-register")({
   function generateSitemap() {
       return (
         new Sitemap(router)
-            .build("https://staffbite.de/")
+            .build("https://www.staffbite.de/")
             .save("./public/sitemap.xml")
       );
   }

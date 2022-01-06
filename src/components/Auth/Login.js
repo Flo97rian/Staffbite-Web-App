@@ -47,6 +47,8 @@ import VerifyEmployeeMail from "./AuthComponents/VerifyEmployeeMail";
 import LogIn from "./AuthComponents/LogIn";
 import { off } from "process";
 import ConfirmTenant from "./AuthComponents/ConfirmTenant";
+import { ShowTwoApplicantsWithOutUser } from "../Application/functionalComponents/SchichtplanElements";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
     const [username, setUsername] = useState(null);
@@ -209,6 +211,7 @@ const Login = () => {
         });
     }
 
+    function showLogin() {
         if (authState === AuthState.ResetPassword && user) {
             return (
                 <ChangeInitalPassword
@@ -268,6 +271,17 @@ const Login = () => {
                 ></LogIn>
             )
         }
+    }
+        return (
+            <div>
+            <Helmet>
+            <title>Staffbite - Anmeldung</title>
+            <meta name="description" charSet="utf-8" content="Melde dich hier für Staffbite an."/>
+            <link rel="canonical" href="https://www.staffbite.de/auth"/>
+            </Helmet>
+            {showLogin()}
+            </div>
+        )
   }
 
 export default Login;
