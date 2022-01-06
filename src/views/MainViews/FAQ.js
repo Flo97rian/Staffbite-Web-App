@@ -65,7 +65,7 @@ function FAQ (props) {
         <Helmet>
           <title>{FAQ_TITLE}</title>
           <meta name="description" content={FAQ_DESCRIPTION}/>
-          <link rel="canonical" href="https://www.staffbite.de/faq" />
+          <link rel="canonical" href="https://www.staffbite.de/faq"/>
         </Helmet>
        <LandingNavBar
               logo={{

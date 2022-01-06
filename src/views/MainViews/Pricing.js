@@ -62,7 +62,7 @@ const Pricing = (props) => {
         <Helmet>
           <title>Preise</title>
           <meta name="description" content="Preise & Vertragsbedingungen. Kostenloser Probemonat" />
-          <link rel="canonical" href="http://www.staffbite.de/pricing" />
+          <link rel="canonical" href="https://www.staffbite.de/pricing" />
         </Helmet>
        <LandingNavBar
               logo={{
