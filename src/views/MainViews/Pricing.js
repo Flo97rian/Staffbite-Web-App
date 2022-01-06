@@ -67,7 +67,7 @@ const Pricing = (props) => {
     <div ref={mainContent}>
         <Helmet>
           <title>Preise</title>
-          <meta name="description" content="Preise & Vertragsbedingungen. Kostenloser Probemonat" />
+          <meta name="description" charSet="utf-8" content="Preise & Vertragsbedingungen. Kostenloser Probemonat" />
           <link rel="canonical" href="https://www.staffbite.de/pricing" />
         </Helmet>
        <LandingNavBar

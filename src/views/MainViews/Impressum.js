@@ -139,7 +139,7 @@ function Impressum (props) {
                       3.1. Nach erfolgreicher Registrierung und Erhalt der Auftragsbestätigung wird dem Kunden der Zugriff auf den Cloud Services Staffbite gemäß der vereinbarten Konditionen durch den Anbieter erteilt. Anschließend können die, in der Auftragsbestätigung vereinbarten, Services zur Schicht- und Personalplanung genutzt werden.  
                     </p>
                     <p>
-                      3.2. Die Konditionen und Servicebeschreibungen des Cloud Services sind auf der Website <a href="www.staffbite.de">staffbite.de</a> dargestellt. 
+                      3.2. Die Konditionen und Servicebeschreibungen des Cloud Services sind auf der Website <Link to="/">staffbite.de</Link> dargestellt. 
                     </p>
                     <p>
                       3.3. Die Services von Staffbite werden ständig weiterentwickelt. Kunden erhalten stets und ohne Aufpreis die neueste Version der, in der Auftragsbestätigung vereinbarten, Services. Somit soll der Nutzen und das Erlebnis der Kunden stetig verbessert werden. Die Inanspruchnahme weiterer Services bedarf eines gesonderten Angebots, das vom Anbieter erneut durch eine Auftragsbestätigung angenommen werden muss. Ein Anspruch auf die Nutzung einer älteren Version durch den Kunden besteht nicht. 
@@ -149,7 +149,7 @@ function Impressum (props) {
                     </p> 
                     <h2>4. Preise, Laufzeit, Rechnungsstellung </h2> 
                     <p>
-                      4.1. Der Anbieter bietet verschiedene Konditionen, um die Cloud Services von Staffbite in Anspruch zu nehmen. Die wesentliche Kennzahl hierbei ist die Anzahl der Teammitglieder des Kunden. Während des Registrierungsprozesses wird die Anzahl der Beschäftigten des Kunden abgefragt. Anhand dieser Angabe wird der Preis zur Nutzung des Cloud Services bemessen. Die Preise entsprechend der Teamgröße sind als Nettopreise zuzüglich Mehrwertsteuer zu verstehen und auf <a href="www.staffbite.de">staffbite.de</a>. 
+                      4.1. Der Anbieter bietet verschiedene Konditionen, um die Cloud Services von Staffbite in Anspruch zu nehmen. Die wesentliche Kennzahl hierbei ist die Anzahl der Teammitglieder des Kunden. Während des Registrierungsprozesses wird die Anzahl der Beschäftigten des Kunden abgefragt. Anhand dieser Angabe wird der Preis zur Nutzung des Cloud Services bemessen. Die Preise entsprechend der Teamgröße sind als Nettopreise zuzüglich Mehrwertsteuer zu verstehen und auf <Link to="/">staffbite.de</Link>. 
                     </p> 
                     <p>
                       4.2. Der Kunde kann jederzeit neue Teammitglieder einladen oder ausladen. Hierbei ist zu beachten, dass gemäß der vereinbarten Konditionen eine maximale Anzahl Teammitglieder festgelegt ist. Wird diese Anzahl überschritten, gilt der Preis der zutreffenden Teamgröße ab dem nächsten Kalendermonat. Dies gilt sowohl für das monatliche als auch das jährliche Abonnement. Um dies zu gewährleisten, wird die Teamgröße des Kunden monatlich automatisiert überprüft. 
@@ -174,7 +174,7 @@ function Impressum (props) {
                     </p> 
                     <h2>5. Support</h2> 
                     <p>
-                      5.1. Treten Probleme bei der Nutzung eines Cloud Services von Staffbite auf, können Kunden diese während der Supportzeiten telefonisch melden. Die Supportzeiten und Kontaktinformationen sind auf <a href="www.staffbite.de">staffbite.de</a> dargestellt. 
+                      5.1. Treten Probleme bei der Nutzung eines Cloud Services von Staffbite auf, können Kunden diese während der Supportzeiten telefonisch melden. Die Supportzeiten und Kontaktinformationen sind auf <Link to="/">staffbite.de</Link> dargestellt. 
                     </p> 
                     <h2>6. Dokumentation </h2>
                     <p>
@@ -209,10 +209,10 @@ function Impressum (props) {
                     </p> 
                     <h2>10. Datenschutz </h2>
                     <p>
-                      10.1. Damit die Cloud Services von Staffbite genutzt werden können, müssen die Mitarbeiter des Kunden einbezogen werden. Aus diesem Grund wird der Anbieter vom Kunden als Auftragsverarbeiter der Daten beauftragt. Der Anbieter versichert, dass keinerlei personenbezogenen Daten an Dritte weitergegeben werden. Die Vereinbarung ist unter <a href="www.staffbite.de">staffbite.de</a> zu finden. 
+                      10.1. Damit die Cloud Services von Staffbite genutzt werden können, müssen die Mitarbeiter des Kunden einbezogen werden. Aus diesem Grund wird der Anbieter vom Kunden als Auftragsverarbeiter der Daten beauftragt. Der Anbieter versichert, dass keinerlei personenbezogenen Daten an Dritte weitergegeben werden. Die Vereinbarung ist unter <Link to="/">staffbite.de</Link> zu finden. 
                     </p>
                     <p>
-                      10.2. Alle weiteren Informationen bezüglich der Speicherung der Daten, Informationspflichten und des allgemeinen Datenschutzes sind auf <a href="www.staffbite.de">staffbite.de</a> einsehbar. 
+                      10.2. Alle weiteren Informationen bezüglich der Speicherung der Daten, Informationspflichten und des allgemeinen Datenschutzes sind auf <Link to="/">staffbite.de</Link> einsehbar. 
                     </p>
                     <h2>11. Haftung, Haftungsbeschränkung</h2>
                     <p>

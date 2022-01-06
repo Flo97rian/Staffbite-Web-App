@@ -117,7 +117,7 @@ function Contact (props) {
     <div ref={mainContent}>
         <Helmet>
           <title>{KONTAKT_TITLE}</title>
-          <meta name="description" content={KONTAKT_DESCRIPTION}/>
+          <meta name="description" charSet="utf-8" content={KONTAKT_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/contact" />
         </Helmet>
        <LandingNavBar

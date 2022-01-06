@@ -46,6 +46,8 @@ import LandingFooter from "../../components/Footers/LandingFooter.js";
 import { pageview } from "react-ga";
 import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
 import SchichtplanErstellen from "../../components/Admin/Schichtplan/Form/SchichtplanErstellen";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 
 const Landing = (props) => {
@@ -184,7 +186,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                             Mit wenigen Klicks erstellst du deinen digitalen Schichtplan für dich und dein Team. 
                           </p>
-                          <a href="/schichtplan/#sectioncreate" class="stretched-link"></a>
+                          <HashLink to="/schichtplan/#sectioncreate" class="stretched-link"></HashLink>
                         </CardBody>
                       </Card>
                     </Col>
@@ -200,7 +202,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                             Deine Mitarbeiter*innen tragen ihre Verfügbarkeiten ein. Das geht jederzeit per Smartphone oder Laptop.
                           </p>
-                          <a href="/schichtplan/#sectionapp" class="stretched-link"></a>
+                          <HashLink to="/schichtplan/#sectionapp" class="stretched-link"></HashLink>
                         </CardBody>
                       </Card>
                     </Col>
@@ -216,7 +218,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                             Unsere Lösung befüllt deinen Schichtplan automatisiert innerhalb weniger Sekunden.
                           </p>
-                          <a href="/schichtplan/#sectionalg" class="stretched-link"></a>
+                          <Link to="/schichtplan/#sectionalg" class="stretched-link"></Link>
                           <br />
                         </CardBody>
                       </Card>
@@ -233,7 +235,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                             Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den fertigen Schichtplan mit einem Klick.
                           </p>
-                          <a href="/schichtplan/#sectionalg" class="stretched-link"></a>
+                          <HashLink to="/schichtplan/#sectionalg" class="stretched-link"></HashLink>
                           <br />
                         </CardBody>
                       </Card>
@@ -339,7 +341,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                           Zeit ist Geld – auch für unsere Kunden. Deshalb automatisieren wir die zeitfressende Zuordnung von Personal und Schichten.
                           </p>
-                          <a href="/schichtplan/#sectionalg" class="stretched-link"></a>
+                          <HashLink to="/schichtplan/#sectionalg" class="stretched-link"></HashLink>
                           <br />
                         </CardBody>
                       </Card>
@@ -357,7 +359,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                           Transparente Preise sind die Grundlage für eine vertrauensvolle Zusammenarbeit. Deshalb gestalten wir unsere Preise nachvollziehbar und fair - besonders für kleine Geschäfte.
                           </p>
-                          <a href="/pricing" class="stretched-link"></a>
+                          <HashLink to="/pricing" class="stretched-link"></HashLink>
                           <br />
                         </CardBody>
                       </Card>

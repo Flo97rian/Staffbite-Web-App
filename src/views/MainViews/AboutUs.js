@@ -63,7 +63,7 @@ function Pricing (props) {
     <div ref={mainContent}>
         <Helmet>
           <title>{ABOUTUS_TITLE}</title>
-          <meta name="description" content={ABOUTUS_DESCRIPTION}/>
+          <meta name="description" charSet="utf-8" content={ABOUTUS_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/aboutus" />
         </Helmet>
        <LandingNavBar
