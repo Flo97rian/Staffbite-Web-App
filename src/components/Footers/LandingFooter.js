@@ -98,7 +98,7 @@ const LandingFooter = () => {
                       <br/>
                       Möllingstraße 8, 24103 Kiel
                       <br/>
-                      Tel.: 0172 7018493
+                      Tel.: 0157 30 64 46 50
                       </p>
                 </NavItem>
             </Nav>

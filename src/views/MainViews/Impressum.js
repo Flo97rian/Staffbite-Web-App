@@ -74,7 +74,7 @@ function Impressum (props) {
                       <br/>
                       info@staffbite.de
                       <br/>
-                      0172 7018493
+                      0157 30 64 46 50
                     </p>
                     <h2 className="h3">Vertretungsberechtigte</h2>
                     <p className="mb-4">
@@ -284,7 +284,7 @@ function Impressum (props) {
 
                       
 
-                    <p>Telefon: 01727018493<br /> 
+                    <p>Telefon: 0157 30 64 46 50<br /> 
 
                     E-Mail: info@staffbite.de</p> 
 
