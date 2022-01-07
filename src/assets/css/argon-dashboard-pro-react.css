@@ -12429,6 +12429,21 @@ a.btn-icon-only {
     .card-lift--hover:hover {
       transition: none; } }
 
+.laptop-img {
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: ease-in-out;
+  -webkit-animation-name: Floatingy;
+  -moz-animation-name: Floatingy;
+  float: left;
+}
+.laptop-img {
+  -webkit-animation-duration: 14s;
+  -moz-animation-duration: 14s;
+  -webkit-animation-name: Floatingx;
+  -moz-animation-name: Floatingx;
+}
 .card-blockquote {
   padding: 2rem;
   position: relative; }

@@ -139,7 +139,7 @@ const Landing = (props) => {
                     </Col>
                     <Col className="order-md-2" md="6" lg="5">
                   <img
-                    className="pt-7 pb-0"
+                    className="pt-7 pb-0 laptop-img"
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={SchichtplanBeispiel}
                     title="Team erstellen und verwalten"
@@ -359,13 +359,25 @@ const Landing = (props) => {
                           <p className="description mt-3">
                           Transparente Preise sind die Grundlage für eine vertrauensvolle Zusammenarbeit. Deshalb gestalten wir unsere Preise nachvollziehbar und fair - besonders für kleine Geschäfte.
                           </p>
-                          <HashLink to="/pricing" class="stretched-link"></HashLink>
+                          <Link to="/pricing" class="stretched-link"></Link>
                           <br />
                         </CardBody>
                       </Card>
                     </Col>
                   </Row>
                 </Col>
+              </Row>
+              <Row>
+                <Container>
+              <img
+                    className="pt-7 pb-0 laptop-img"
+                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                    src={SchichtplanBeispiel}
+                    title="Team erstellen und verwalten"
+                    height="80%"
+                    width="80%"
+                  />
+                  </Container>
               </Row>
             </Container>
           </section>
