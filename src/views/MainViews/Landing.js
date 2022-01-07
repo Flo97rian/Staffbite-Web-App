@@ -48,6 +48,7 @@ import { pageview } from "react-ga";
 import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
 import SchichtplanErstellen from "../../components/Admin/Schichtplan/Form/SchichtplanErstellen";
 import { HashLink } from "react-router-hash-link";
+import ErstellenShow from "./sub/ErstellenShow";
 
 
 const Landing = (props) => {
@@ -139,7 +140,7 @@ const Landing = (props) => {
                     </Col>
                     <Col className="order-md-2" md="6" lg="5">
                   <img
-                    className="pt-7 pb-0 laptop-img"
+                    className="pt-7 pb-0"
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={SchichtplanBeispiel}
                     title="Team erstellen und verwalten"
@@ -367,18 +368,11 @@ const Landing = (props) => {
                   </Row>
                 </Col>
               </Row>
-              <Row>
-                <Container>
-              <img
-                    className="pt-7 pb-0 laptop-img"
-                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
-                    src={SchichtplanBeispiel}
-                    title="Team erstellen und verwalten"
-                    height="80%"
-                    width="80%"
-                  />
-                  </Container>
-              </Row>
+{ /*             <Container>
+                <Row>
+                <ErstellenShow></ErstellenShow>
+                </Row>
+</Container>*/}
             </Container>
           </section>
         </main>
