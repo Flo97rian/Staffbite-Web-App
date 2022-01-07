@@ -177,7 +177,7 @@ const Landing = (props) => {
                   <Row className="row-grid">
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-4 pb-4">
+                        <CardBody className="py-5 pb-6">
                           <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
                           👩‍💻
                           </div>
@@ -193,7 +193,7 @@ const Landing = (props) => {
                     </Col>
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-4 pb-4">
+                        <CardBody className="py-4 pb-5">
                           <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
                           📲
                           </div>
@@ -209,7 +209,7 @@ const Landing = (props) => {
                     </Col>
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-4 pb-4">
+                        <CardBody className="py-4 pb-6">
                           <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
                           🤩
                           </div>
@@ -219,14 +219,14 @@ const Landing = (props) => {
                           <p className="description mt-3">
                             Unsere Lösung befüllt deinen Schichtplan automatisiert innerhalb weniger Sekunden.
                           </p>
-                          <Link to="/schichtplan/#sectionalg" class="stretched-link"></Link>
+                          <Link to="/themen/automatisierung" class="stretched-link"></Link>
                           <br />
                         </CardBody>
                       </Card>
                     </Col>
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="pt-5 pb-4">
+                        <CardBody className="pt-4 pb-0">
                           <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
                           🎉
                           </div>
@@ -236,7 +236,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                             Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den fertigen Schichtplan mit einem Klick.
                           </p>
-                          <HashLink to="/schichtplan/#sectionalg" class="stretched-link"></HashLink>
+                          <HashLink to="/schichtplan/#sectiondone" class="stretched-link"></HashLink>
                           <br />
                         </CardBody>
                       </Card>

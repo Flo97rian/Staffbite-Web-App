@@ -37,6 +37,7 @@ import CloudPicture from "../../assets/img/themen/CloudComputingImage.png"
 import Paperwork from "../../assets/img/themen/PaperworkImage.png"
 import Possibilities from "../../assets/img/themen/Possibilities.png"
 import VorlageThumbnail from "../../assets/img/themen/SchichtplanVorlageThumbnail.png"
+import Calendar from "../../assets/img/themen/CalendarImage.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -86,7 +87,32 @@ function Themen (props) {
             </Container>
             
             <Container className="mb-4 pt-4">
+            
+            
             <Row className="mt-4">
+                                
+            <Col xs="6">
+                        <Card>
+                            <CardImg
+                            className="p-4"
+                            src={Calendar}
+                            alt="Bild eines Kalenders"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                    Schichtplanung für einen ganzen Monat
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie kann ich Schichtpläne für einen ganzen Monat erstellen?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle Vorlage nutzen kannst, um die Schichtplanung für einen ganzen Monat zu erledigen. 
+                            </CardText>
+                            <CardText className="pl-4 pb-4 pr-4" tag="p">
+                                <Link to="/themen/monatsplanung">Schichtplan für einen ganzen Monat</Link>
+                            </CardText>
+                        </Card>
+                </Col>
+                
                 <Col xs="6">
                         <Card>
                             <CardImg
@@ -104,11 +130,16 @@ function Themen (props) {
                                     In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle & wiederverwendbare Vorlage erstellen kannst. Schau dir hier unsere Schritt für Schritt Anleitung an. 
                             </CardText>
                             <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/schichtplanvorlage" >Hier geht's zum Artikel!</Link>
+                                <Link to="/themen/schichtplanvorlage" >Schichtplan Vorlage</Link>
                             </CardText>
                         </Card>
                 </Col>
-
+                
+                </Row>
+                
+                
+                <Row className="mt-4" >
+                
                 <Col xs="6">
                     <Card>
                             <CardImg
@@ -120,18 +151,17 @@ function Themen (props) {
                                     Schichtplan erstellen
                             </CardTitle>
                             <CardSubtitle className="pl-4">
-                                Wie erstelle ich meinen Schichtplan? Papier, Excel oder Software?
+                                Wie erstelle ich meinen Schichtplan? 
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
                                     Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.
                             </CardText>
                             <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/schichtplanerstellen" >Hier geht's zum Artikel!</Link>
+                                <Link to="/themen/schichtplanerstellen" >Papier, Excel oder Software?</Link>
                             </CardText>
                         </Card>
                 </Col>
-                </Row>
-                <Row className="mt-4" >
+
                 <Col xs="6">
                         <Card>
                             <CardImg
@@ -149,11 +179,15 @@ function Themen (props) {
                                 Erfahre in diesem Beitrag wie du die Befüllung deines Schichtplans durch unseren intelligenten Algorithmus innerhalb weniger Sekunden abbilden kannst. 
                             </CardText>
                             <CardText className="pl-4 pb-4" tag="p">
-                                <Link to="/themen/automatisierung" >Hier gehts zum Artikel!</Link>
+                                <Link to="/themen/automatisierung" >Zeit & Geld sparen?</Link>
                             </CardText>
                         </Card>
                 </Col>
 
+                </Row>
+
+
+                <Row className="mt-4" >
                 <Col xs="6">
                 <Card>
                             <CardImg
@@ -171,14 +205,12 @@ function Themen (props) {
                                 In diesem Beiträg beantworten wir eine kürzlich gestellte Frage und gehen weiter auf die Vorteile von Cloud Services für unsere Kunden ein. 
                             </CardText>
                             <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/cloudservice" >Hier gehts zum Artikel!</Link>
+                                <Link to="/themen/cloudservice" >Online Schichtplanung</Link>
                             </CardText>
                         </Card>
                 </Col>
-                    
-                </Row>
                 
-                <Row className="mt-4" >
+
                 <Col xs="6">
                 <Card>
                             <CardImg
@@ -187,19 +219,23 @@ function Themen (props) {
                             alt="Schichtplan online erstellen"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Schichtplan Vorlagen erstellen
+                                    Schichtplan veröffentlichen
                             </CardTitle>
                             <CardSubtitle className="pl-4">
-                                Was ist bei einer Schichtplan Vorlage zu beachten?
+                                Was ist bei der Veröffentlichtung von einem Schichtplan zu beachten?
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    In diesem Artikel klären wir die Besonderheiten, auf die Sie unbedingt achten sollten, damit eine Schichtplanvorlage für ihren Betrieb passt.
+                                    In diesem Artikel klären wir worauf zu achten ist, wenn ein fertiger Plan veröffentlicht wird. Welche Aufgaben fallen danach noch an?
                             </CardText>
                             <CardText className="pl-4 pb-4 pr-4" tag="p">
                                 <Link to="/" >In kürze verfügbar: Schichtplan Vorlage erstellen</Link>
                             </CardText>
                         </Card>
                 </Col>
+
+                </Row>
+
+                <Row className="mt-4" >
                 
                 <Col xs="6">
                 <Card>
@@ -224,9 +260,9 @@ function Themen (props) {
                             </CardText>
                         </Card>
                 </Col>
-                </Row>
+
                 
-                <Row className="mt-4" >
+
                 <Col xs="6">
                 <Card>
                             <CardImg
@@ -248,29 +284,10 @@ function Themen (props) {
                             </CardText>
                         </Card>
                 </Col>
-                
-                <Col xs="6">
-                <Card>
-                            <CardImg
-                            className="p-2"
-                            src={StaffbiteLogo}
-                            alt="Schichtplan online erstellen"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                Automatisierte Schichtplanung
-                            </CardTitle>
-                            <CardSubtitle className="pl-4">
-                                Wie funktioniert eine automatisierte Schichtplanung?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    Einen Schichtplan automatisiert Befüllen? Wie soll das funktionieren? In diesem Artikel zeigen wir praktische Beispiele einer automatisierten Schichtplanung.
-                            </CardText>
-                            <CardText className="pl-4 pb-4" tag="p">
-                                <Link to="/" >In kürze verfügbar: Automatisierte Schichtplanung</Link>
-                            </CardText>
-                        </Card>
-                </Col>
+
                 </Row>
+
+
             </Container>
       </Container>
       <LandingFooter></LandingFooter>
