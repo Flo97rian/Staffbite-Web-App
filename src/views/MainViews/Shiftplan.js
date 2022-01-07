@@ -30,6 +30,7 @@ import {
 //import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-automatisiert-erstellen.png"
 import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan-erstellen.png"
 import TeamVerwalten from "../../assets/img/theme/Team-verwalten.png"
+import TeamÜbersicht from "../../assets/img/theme/MAÜbersicht-min.png"
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
 //import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
@@ -102,12 +103,12 @@ function Shiftplan (props) {
                     Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten. 
                     </p>
                     Hier gehts zum Video:
-                    <a href="https://www.youtube.com/watch?v=RtKKaWkCPrs">Dein Team erstellen & verwalten</a>
+                    <a href="https://www.youtube.com/watch?v=RtKKaWkCPrs"> Dein Team erstellen & verwalten</a>
                 </Col>
                 <Col className="order-md-2" md="12" lg="6">
                   <img
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
-                    src={TeamVerwalten}
+                    src={TeamÜbersicht}
                     title="Team erstellen und verwalten"
                     height="100%"
                     width="100%"
