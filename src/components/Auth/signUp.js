@@ -45,6 +45,8 @@ import PasswordChecklist from "react-password-checklist";
 import ConfirmTenant from "./AuthComponents/ConfirmTenant";
 import VerifyTenant from "./AuthComponents/VerifyTenant";
 import Register from "./AuthComponents/Register";
+import { ShowTwoApplicantsWithOutUser } from "../Application/functionalComponents/SchichtplanElements";
+import { Helmet } from "react-helmet";
 
 const SignUp = (props) => {
     const [username, setUsername] = useState("")
@@ -157,6 +159,7 @@ async function confirmSignUp() {
         }
       }
 
+    function showSignUp () {
     if(authState === AuthState.SigningUp) {
         //Tenant registrieren
         return (
@@ -192,5 +195,15 @@ async function confirmSignUp() {
     }
     return null;
   }
-
+  return (
+      <div>
+            <Helmet>
+            <title>Staffbite - Registrierung</title>
+            <meta name="description" charSet="utf-8" content="Registriere dich hier."/>
+            <link rel="canonical" href="https://www.staffbite.de/auth"/>
+            </Helmet>
+          {showSignUp()}
+      </div>
+  )
+}
 export default SignUp;

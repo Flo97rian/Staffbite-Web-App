@@ -47,6 +47,7 @@ import LandingFooter from "../../components/Footers/LandingFooter.js";
 import { pageview } from "react-ga";
 import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
 import SchichtplanErstellen from "../../components/Admin/Schichtplan/Form/SchichtplanErstellen";
+import { HashLink } from "react-router-hash-link";
 
 
 const Landing = (props) => {
@@ -138,7 +139,7 @@ const Landing = (props) => {
                     </Col>
                     <Col className="order-md-2" md="6" lg="5">
                   <img
-                    className="pt-7 pb-0"
+                    className="pt-7 pb-0 laptop-img"
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={SchichtplanBeispiel}
                     title="Team erstellen und verwalten"
@@ -185,10 +186,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                             Mit wenigen Klicks erstellst du deinen digitalen Schichtplan für dich und dein Team. 
                           </p>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <Link to="themen/schichtplanerstellen">Wie erstelle ich einen Schichtplan?</Link>
+                          <Link to="/schichtplan" class="stretched-link"></Link>
                         </CardBody>
                       </Card>
                     </Col>
@@ -204,9 +202,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                             Deine Mitarbeiter*innen tragen ihre Verfügbarkeiten ein. Das geht jederzeit per Smartphone oder Laptop.
                           </p>
-                          <br/>
-                          <br/>
-                          <Link to="/schichtplan/#sectionapp">Schau mal hier!</Link>
+                          <HashLink to="/schichtplan/#sectionapp" class="stretched-link"></HashLink>
                         </CardBody>
                       </Card>
                     </Col>
@@ -222,11 +218,8 @@ const Landing = (props) => {
                           <p className="description mt-3">
                             Unsere Lösung befüllt deinen Schichtplan automatisiert innerhalb weniger Sekunden.
                           </p>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <Link to="/themen/automatisierung">Wie funktioniert das?</Link>
+                          <Link to="/schichtplan/#sectionalg" class="stretched-link"></Link>
+                          <br />
                         </CardBody>
                       </Card>
                     </Col>
@@ -242,8 +235,8 @@ const Landing = (props) => {
                           <p className="description mt-3">
                             Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den fertigen Schichtplan mit einem Klick.
                           </p>
-                          <Link to="/schichtplan/#sectiondone">Zeig mir mehr!</Link>
-                          <br/>
+                          <HashLink to="/schichtplan/#sectionalg" class="stretched-link"></HashLink>
+                          <br />
                         </CardBody>
                       </Card>
                     </Col>
@@ -348,7 +341,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                           Zeit ist Geld – auch für unsere Kunden. Deshalb automatisieren wir die zeitfressende Zuordnung von Personal und Schichten.
                           </p>
-                          <a href="https://youtu.be/R0SpszGT0k8" class="stretched-link"></a>
+                          <HashLink to="/schichtplan/#sectionalg" class="stretched-link"></HashLink>
                           <br />
                         </CardBody>
                       </Card>
@@ -366,13 +359,25 @@ const Landing = (props) => {
                           <p className="description mt-3">
                           Transparente Preise sind die Grundlage für eine vertrauensvolle Zusammenarbeit. Deshalb gestalten wir unsere Preise nachvollziehbar und fair - besonders für kleine Geschäfte.
                           </p>
-                          <a href="https://youtu.be/RtKKaWkCPrs" class="stretched-link"></a>
+                          <Link to="/pricing" class="stretched-link"></Link>
                           <br />
                         </CardBody>
                       </Card>
                     </Col>
                   </Row>
                 </Col>
+              </Row>
+              <Row>
+                <Container>
+              <img
+                    className="pt-7 pb-0 laptop-img"
+                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                    src={SchichtplanBeispiel}
+                    title="Team erstellen und verwalten"
+                    height="80%"
+                    width="80%"
+                  />
+                  </Container>
               </Row>
             </Container>
           </section>

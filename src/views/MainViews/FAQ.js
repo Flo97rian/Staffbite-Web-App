@@ -64,7 +64,7 @@ function FAQ (props) {
     <div ref={mainContent}>
         <Helmet>
           <title>{FAQ_TITLE}</title>
-          <meta name="description" content={FAQ_DESCRIPTION}/>
+          <meta name="description" charSet="utf-8" content={FAQ_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/faq"/>
         </Helmet>
        <LandingNavBar
@@ -249,6 +249,21 @@ function FAQ (props) {
                     </>
                   :
                   <></>}
+                </Card>
+                </Col>
+              </Row>
+              <Row className="align-items-center mb-2">
+              <Col className="order-md-1 pr-md-5" md="12" lg="12">
+              <Card 
+                className="p-3"
+                onClick={(() => toggleOpen("AV"))}>
+                    <h2 className="h3 mb-0">
+                      Probiere es jetzt aus
+                    </h2>
+                      <p className="mt-2">
+                      Wenn du mehr über unsere online Schichtplanung erfahren willst, dann schau dich gerne auf unserer Website um oder starte direkt mit dem
+                      <Link className="ml-1" to="/av" target="_blank">kostenlosen Probemonat.</Link>
+                      </p>
                 </Card>
                 </Col>
               </Row>

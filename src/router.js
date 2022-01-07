@@ -20,7 +20,6 @@ import CloudService from './views/MainViews/Themen/CloudService';
 export default (
     <BrowserRouter>
       <Route path="/" />
-      <Route path="/signup" />
       <Route path="/forgotpassword" />
       <Route path="/admin" />
       <Route path="/aboutus" />
@@ -32,8 +31,6 @@ export default (
       <Route path="/schichtplan/gastronomie" />
       <Route path="/pricing" />
       <Route path="/contact" />
-      <Route path="/auth" />
-      <Route path="/user" />
       <Route path="/AV" />
     </BrowserRouter>
 );

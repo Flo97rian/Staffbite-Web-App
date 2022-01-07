@@ -63,7 +63,7 @@ function Pricing (props) {
     <div ref={mainContent}>
         <Helmet>
           <title>{ABOUTUS_TITLE}</title>
-          <meta name="description" content={ABOUTUS_DESCRIPTION}/>
+          <meta name="description" charSet="utf-8" content={ABOUTUS_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/aboutus" />
         </Helmet>
        <LandingNavBar
@@ -113,6 +113,9 @@ function Pricing (props) {
                       <p>
                       Daniel Zellmann (M.A. Business Management) ist Mitgründer von Staffbite. Er ist verantwortlich für die operativen Geschäfte. Vor der Gründung von Staffbite arbeitete er mehrere Jahre als IT-Berater. Während der verschiedenen Kundenprojekte in ganz Deutschland sammelte er viel Erfahrung im Aufbau von skalierbaren Cloud-Infrastrukturen, Datenanalyse und der Automatisierung von Arbeitsabläufen. Sein Schwerpunkt liegt derzeit auf der kundenzentrierten Produktentwicklung. 
                       </p>
+                    </Row>
+                    <Row className="mt-4">
+                      <Link to="/impressum">Hier gehts zum Impressum</Link>
                     </Row>
                   </div>
                 </Col>

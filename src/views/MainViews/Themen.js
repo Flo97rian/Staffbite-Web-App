@@ -36,6 +36,7 @@ import StaffbiteLogo from "../../assets/img/brand/Staffbite_Logo.png"
 import CloudPicture from "../../assets/img/themen/CloudComputingImage.png"
 import Paperwork from "../../assets/img/themen/PaperworkImage.png"
 import Possibilities from "../../assets/img/themen/Possibilities.png"
+import VorlageThumbnail from "../../assets/img/themen/SchichtplanVorlageThumbnail.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -85,9 +86,31 @@ function Themen (props) {
             </Container>
             
             <Container className="mb-4 pt-4">
-            <Row className="mt-4" >
+            <Row className="mt-4">
                 <Col xs="6">
                         <Card>
+                            <CardImg
+                            className="p-2"
+                            src={VorlageThumbnail}
+                            alt="Vier Menschen am Tisch mit Zettel und Block"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                    Schichtplan Vorlage erstellen
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie erstelle ich eine Schichtplan Vorlage?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle & wiederverwendbare Vorlage erstellen kannst. Schau dir hier unsere Schritt für Schritt Anleitung an. 
+                            </CardText>
+                            <CardText className="pl-4 pb-4 pr-4" tag="p">
+                                <Link to="/themen/schichtplanvorlage" >Hier geht's zum Artikel!</Link>
+                            </CardText>
+                        </Card>
+                </Col>
+
+                <Col xs="6">
+                    <Card>
                             <CardImg
                             className="p-2"
                             src={Possibilities}
@@ -107,6 +130,8 @@ function Themen (props) {
                             </CardText>
                         </Card>
                 </Col>
+                </Row>
+                <Row className="mt-4" >
                 <Col xs="6">
                         <Card>
                             <CardImg
@@ -128,9 +153,7 @@ function Themen (props) {
                             </CardText>
                         </Card>
                 </Col>
-            </Row>
-                
-                <Row className="mt-4">
+
                 <Col xs="6">
                 <Card>
                             <CardImg
@@ -153,37 +176,6 @@ function Themen (props) {
                         </Card>
                 </Col>
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <Col xs="6">
-                    <Card>
-                            <CardImg
-                            className="p-2"
-                            src={StaffbiteLogo}
-                            alt="Schichtplan online erstellen"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Schichtplan in Excel erstellen
-                            </CardTitle>
-                            <CardSubtitle className="pl-4">
-                                Wie erstelle ich einen Schichtplan in Excel?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                Wie funktioniert Schichtplanung mit Excel? Ein Erfahrungsbericht.
-                                <br/>
-                                <br/>
-                            </CardText>
-                            <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/" >In kürze verfügbar: Schichtplan in Excel erstellen</Link>
-                            </CardText>
-                        </Card>
-                </Col>
                 </Row>
                 
                 <Row className="mt-4" >
