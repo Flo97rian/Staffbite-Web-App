@@ -86,7 +86,7 @@ function Themen (props) {
             </Container>
             
             <Container className="mb-4 pt-4">
-            <Row className="mt-4" >
+            <Row className="mt-4">
                 <Col xs="6">
                         <Card>
                             <CardImg
@@ -101,13 +101,37 @@ function Themen (props) {
                                 Wie erstelle ich eine Schichtplan Vorlage?
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    In diesem Artikel zeige ich dir, wie du mit Staffbite eine wiederverwendbare Vorlage erstellen kannst.
+                                    In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle & wiederverwendbare Vorlage erstellen kannst. Schau dir hier unsere Schritt für Schritt Anleitung an. 
                             </CardText>
                             <CardText className="pl-4 pb-4 pr-4" tag="p">
                                 <Link to="/themen/schichtplanvorlage" >Hier geht's zum Artikel!</Link>
                             </CardText>
                         </Card>
                 </Col>
+
+                <Col xs="6">
+                    <Card>
+                            <CardImg
+                            className="p-2"
+                            src={Possibilities}
+                            alt="Bild von drei unterschiedlichen Wegen"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                    Schichtplan erstellen
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie erstelle ich meinen Schichtplan?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.
+                            </CardText>
+                            <CardText className="pl-4 pb-4 pr-4" tag="p">
+                                <Link to="/themen/schichtplanerstellen" >Hier geht's zum Artikel!</Link>
+                            </CardText>
+                        </Card>
+                </Col>
+                </Row>
+                <Row className="mt-4" >
                 <Col xs="6">
                         <Card>
                             <CardImg
@@ -129,9 +153,7 @@ function Themen (props) {
                             </CardText>
                         </Card>
                 </Col>
-            </Row>
-                
-                <Row className="mt-4">
+
                 <Col xs="6">
                 <Card>
                             <CardImg
@@ -153,27 +175,7 @@ function Themen (props) {
                             </CardText>
                         </Card>
                 </Col>
-                    <Col xs="6">
-                    <Card>
-                            <CardImg
-                            className="p-2"
-                            src={Possibilities}
-                            alt="Bild von drei unterschiedlichen Wegen"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Schichtplan erstellen
-                            </CardTitle>
-                            <CardSubtitle className="pl-4">
-                                Wie erstelle ich meinen Schichtplan?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.
-                            </CardText>
-                            <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/schichtplanerstellen" >Hier geht's zum Artikel!</Link>
-                            </CardText>
-                        </Card>
-                </Col>
+                    
                 </Row>
                 
                 <Row className="mt-4" >
