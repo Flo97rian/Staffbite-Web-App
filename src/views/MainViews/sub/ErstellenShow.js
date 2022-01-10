@@ -14,7 +14,7 @@ function ErstellenShow() {
                 alt="..."
                 className="uebersicht-img"
                 src={
-                  require("../../../assets/img/landing/KeinPlan.png")
+                  require("../../../assets/img/landing/Landing_KeinPlan_Tablet-min.png")
                     .default
                 }
                 height="900px"
@@ -23,15 +23,15 @@ function ErstellenShow() {
               <img
                 alt="..."
                 className="vorlageErstellen-img"
-                src={require("../../../assets/img/landing/VorlageFenster.png").default}
+                src={require("../../../assets/img/landing/Landing_VorlageFenster_Full_Tablet-min.png").default}
                 height="900px"
                 width="1200px"
               />
-              <img
+               <img
                 alt="..."
                 className="vorlageKlick-img"
                 src={
-                  require("../../../assets/img/landing/KlickErstellen.png").default
+                  require("../../../assets/img/landing/Landing_VorlageFenster_Full_Tablet-min.png").default
                 }
                 height="900px"
                 width="1200px"
@@ -40,7 +40,7 @@ function ErstellenShow() {
                 alt="..."
                 className="vorlagePlan-img"
                 src={
-                  require("../../../assets/img/landing/VorlagePlan.png")
+                  require("../../../assets/img/landing/Landing_VorlagePlan_Tablet-min.png")
                     .default
                 }
                 height="900px"
