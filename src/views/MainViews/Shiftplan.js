@@ -32,7 +32,8 @@ import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan-erstellen.png
 import TeamVerwalten from "../../assets/img/theme/Team-verwalten.png"
 import TeamÜbersicht from "../../assets/img/theme/MAÜbersicht-min.png"
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
-//import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
+import SchichtplanPublish from "../../assets/img/theme/PlanVeröffentlichen-min.png"
+import SchichtplanVorlage from "../../assets/img/theme/SchichtplanVorlageShiftplan-min.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import {SCHICHTPLAN_TITLE, SCHICHTPLAN_DESCRIPTION} from "../../constants/MetaTexts"
 import LandingFooter from "../../components/Footers/LandingFooter";
@@ -134,9 +135,8 @@ function Shiftplan (props) {
                 </Col>
                 <Col className="order-md-2"  md="12" lg="6">
                   <img
-                    className="shadow-lg rounded img-center img-fluid"
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
-                    src={SchichtplanEntwurf}
+                    src={SchichtplanVorlage}
                     title="Schichtplan Vorlage erstellen"
                     height="100%"
                     width="100%"
@@ -211,9 +211,9 @@ function Shiftplan (props) {
                   </Col>
                 <Col className="order-md-2" md="12" lg="6">
                   <img
-                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
-                    src={SchichtplanBeispiel}
-                    title="Team erstellen und verwalten"
+                    alt="Fertiger Schichtplan bereit zur Veröffentlichung"
+                    src={SchichtplanPublish}
+                    title="Fertiger Schichtplan"
                     height="100%"
                     width="100%"
                   />
