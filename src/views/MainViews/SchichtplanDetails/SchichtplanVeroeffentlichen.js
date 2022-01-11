@@ -35,7 +35,7 @@ import StaffbiteLogo from "../../../assets/img/brand/Staffbite_Logo.png"
 import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
 import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
-import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constants/MetaTexts"
+import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION, SCHICHTPLAN_VEROEFFENTLICHEN_TITLE, SCHICHTPLAN_VEROEFFENTLICHEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 
 function SchichtplanVeroeffentlichen (props) {
@@ -56,8 +56,8 @@ function SchichtplanVeroeffentlichen (props) {
     return (
     <>
         <Helmet>
-          <title>{ERSTEANMELDUNG_TITLE}</title>
-          <meta name="description" content={ERSTEANMELDUNG_DESCRIPTION}/>
+          <title>{SCHICHTPLAN_VEROEFFENTLICHEN_TITLE}</title>
+          <meta name="description" content={SCHICHTPLAN_VEROEFFENTLICHEN_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/schichtplan-veroeffentlichen" />
         </Helmet>
        <LandingNavBar

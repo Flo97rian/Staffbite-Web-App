@@ -35,7 +35,7 @@ import StaffbiteLogo from "../../../assets/img/brand/Staffbite_Logo.png"
 import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
 import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
-import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constants/MetaTexts"
+import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION, TEAM_VORTEILE_TITLE, TEAM_VORTEILE_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 
 function VorteileTeam (props) {
@@ -56,8 +56,8 @@ function VorteileTeam (props) {
     return (
     <>
         <Helmet>
-          <title>{ERSTEANMELDUNG_TITLE}</title>
-          <meta name="description" content={ERSTEANMELDUNG_DESCRIPTION}/>
+          <title>{TEAM_VORTEILE_TITLE}</title>
+          <meta name="description" content={TEAM_VORTEILE_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/fuer-dein-team" />
         </Helmet>
        <LandingNavBar

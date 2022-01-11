@@ -34,7 +34,7 @@ import {
 import StaffbiteLogo from "../../../assets/img/brand/Staffbite_Logo.png"
 import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
-import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constants/MetaTexts"
+import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION, AUTOMATISIERTE_SCHICHTPLANUNG_TITLE, AUTOMATISIERTE_SCHICHTPLANUNG_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 
 function AutomatisierteBefüllung (props) {
@@ -55,8 +55,8 @@ function AutomatisierteBefüllung (props) {
     return (
     <>
         <Helmet>
-          <title>{ERSTEANMELDUNG_TITLE}</title>
-          <meta name="description" content={ERSTEANMELDUNG_DESCRIPTION}/>
+          <title>{AUTOMATISIERTE_SCHICHTPLANUNG_TITLE}</title>
+          <meta name="description" content={AUTOMATISIERTE_SCHICHTPLANUNG_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/automatisierter-schichtplan" />
         </Helmet>
        <LandingNavBar
