@@ -5,11 +5,14 @@ export const LANDING_TITLE = "Staffbite - Dein digitaler Schichtplan online & al
 export const LANDING_DESCRIPTION = "Wir bieten dir digitale Schichtpläne für die Gastronomie, Hotellerie, den Einzelhandel und viele mehr. Durch einen online Schichtplan und unsere Automatisierung der Befüllung kannst du jede Woche mehrere Stunden Zeit sparen.";
 export const SCHICHTPLAN_TITLE = "Staffbite - Unsere Funktionalitäten";
 export const SCHICHTPLAN_DESCRIPTION = "Hier findest du einen Überblick über unsere Funktionalitäten. Von deinen ersten Schritten zum digitalen Schichtplan, der automatisierten Befüllung bis zur Veröffentlichung des fertigen Plans. Natürlich gibt es auch jede Menge Vorteile für dein Team!";
-
 export const ERSTEANMELDUNG_TITLE = "Staffbite - Die erste Anmeldung";
 export const ERSTEANMELDUNG_DESCRIPTION = "Auf dieser Seite zeigen wir dir die ersten Schritte mit Staffbite.";
-
-
+export const TEAMVERWALTEN_TITLE = "Staffbite - Verwalte dein Team";
+export const TEAMVERWALTEN_DESCRIPTION = "Mit Staffbite behälst du dein Team einfach und übersichtlich im Blick.";
+export const SCHICHTPLANERSTELLEN_TITLE = "Staffbite - Schichtplan erstellen";
+export const SCHICHTPLANERSTELLEN_DESCRIPTION = "Erstelle deinen individuellen Schichtplan innerhalb kürzester Zeit.";
+export const VERFÜGBARKEITENEINTRAGEN_TITLE = "Staffbite - Verfügbarkeiten eintragen";
+export const VERFÜGBARKEITENEINTRAGEN_DESCRIPTION = "Dein Team kann sich jederzeit online in den Schichtplan eintragen - per Smartphone, Tablet oder Laptop.";
 export const THEMEN_TITLE = "Staffbite - Themen";
 export const THEMEN_DESCRIPTION = "Auf dieser Seite beantworten wir Fragen, geben Tipps & Tricks an die Hand und halten dich auf dem laufenden!";
 export const THEMEN_CLOUDSERVICE_TITLE = "Staffbite - Dein Online Schichtplan durch die Cloud";
