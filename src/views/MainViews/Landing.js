@@ -185,7 +185,7 @@ const Landing = (props) => {
                              1. Schichtplan erstellen
                           </h3>
                           <p className="description mt-3">
-                            Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan" class="stretched-link">digitalen Schichtplan</Link> für dich und dein Team. 
+                            Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen" class="stretched-link">digitalen Schichtplan</Link> für dich und dein Team. 
                           </p>
                           
                         </CardBody>

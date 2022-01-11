@@ -40,6 +40,8 @@ import GanzerMonat from "../../../assets/img/themen/SchichtpläneGanzerMonat.png
 function Monatsplanung (props) {
   useEffect(() => {
     pageViewsTracking()
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
   },[])
 
   function pageViewsTracking () {
@@ -91,7 +93,7 @@ function Monatsplanung (props) {
                     Moin zusammen 🚀
                     </p>
                     <p>
-                        In diesem Beitrag zeige ich dir, wie du deine individuelle Schichtplan Vorlage nutzen kannst, um die Planung für einen ganzen Monat vorzubereiten. Im letzten Artikel habe ich dir gezeigt, wie du deine Vorlage erstellen kannst. Falls du die Schritt für Schritt Anleitung noch nicht gesehen hast, <Link to="/themen/schichtplan-vorlage">schau sie dir hier einfach an</Link>.
+                        In diesem Beitrag zeige ich dir, wie du deine individuelle Schichtplan Vorlage nutzen kannst, um die Planung für einen ganzen Monat vorzubereiten. Im letzten Artikel habe ich dir gezeigt, wie du deine <Link to="/themen/schichtplan-vorlage">Schichtplanvorlage erstellen</Link> kannst.
                     </p>
                     <p>
                         Um die Schichtplanung für einen ganzen Monat vorzubereiten, wählst du zunächst erneut deine Vorlage aus. Wenn du keine Anpassungen vornehmen möchtest, klickst du oben rechts auf „Schichtplan freigeben“. 🙌

@@ -25,6 +25,11 @@ import {
   Container,
   Row,
   Col,
+  Card,
+  CardText,
+  CardTitle,
+  CardSubtitle
+
 } from "reactstrap";
 
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
@@ -35,6 +40,8 @@ import TeamVerwalten from "../../../assets/img/theme/Team-verwalten.png"
 function VerfügbarkeitenEintragen (props) {
   useEffect(() => {
     pageViewsTracking()
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
   },[])
 
   function pageViewsTracking () {
@@ -89,7 +96,6 @@ function VerfügbarkeitenEintragen (props) {
                   <br/>
                 
 
-                <Container className="pb-2"fluid>
                 <Row className="text-center ml-0 mt-4">
                 <Col md="12" lg="12">
                   <br/>
@@ -105,6 +111,44 @@ function VerfügbarkeitenEintragen (props) {
 
                 </Row>
                 </Container>
+                <Container className="pb-2 pt-6 px-9" fluid>
+                <Row className="mt-2" >
+                <Col xs="6">
+                <Card>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                    Automatisierter Schichtplan
+                            </CardTitle>
+                            <CardSubtitle className="pl-4 p">
+                                Einen Schichtplan automatisiert Befüllen? Wie geht das?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
+                                     Mit wenigen Klicks kannst du deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> für dich befüllen lassen.
+                                    <br/>
+                                    <br/>
+                            </CardText>
+                        </Card>
+                </Col>
+
+                
+
+                <Col xs="6">
+                <Card>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                Vorteile für dein Team
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie profitiert mein Team von der Umstellung auf eine digitale Schichtplanung?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
+                                Siehe hier, welche <Link to="/fuer-dein-team" >Vorteile für dein Team</Link> in einer digitalen Schichtplanung stecken.
+                                <br/>
+                                <br/>
+                            </CardText>
+                        </Card>
+                </Col>
+
+                </Row>
+
             </Container>
           
       <LandingFooter></LandingFooter>

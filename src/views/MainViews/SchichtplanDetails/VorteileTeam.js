@@ -70,7 +70,7 @@ function VorteileTeam (props) {
       <Container className="pt-5 pb-2" fluid>
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-8">
-                        <h1 className="display-3">Deinen Team</h1>
+                        <h1 className="display-3">Dein Team</h1>
                     </Row>
       </Container>    
             <Container className="pb-2"fluid>

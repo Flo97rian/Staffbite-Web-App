@@ -41,6 +41,8 @@ import FertigeVorlage from "../../../assets/img/themen/SchichtplanVorlageFertig.
 function Schichtplanvorlage (props) {
   useEffect(() => {
     pageViewsTracking()
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
   },[])
 
   function pageViewsTracking () {
@@ -166,7 +168,7 @@ function Schichtplanvorlage (props) {
 
 
                     <p>
-                        Im nächsten Artikel zeige ich dir wie du mit einer Vorlage direkt die Schichtplanung für einen ganzen Monat vorbereiten kannst. 😍
+                        Im nächsten Artikel zeige ich dir wie du mit einer Vorlage direkt die <Link to="/themen/monatsplanung">Schichtplanung für einen ganzen Monat</Link> vorbereiten kannst. 😍
                     </p>
                     
                     <h2>Starte jetzt deinen kostenfreien Probemonat</h2>

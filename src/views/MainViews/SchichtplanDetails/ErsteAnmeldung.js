@@ -25,6 +25,10 @@ import {
   Container,
   Row,
   Col,
+  Card,
+  CardText,
+  CardSubtitle,
+  CardTitle
 } from "reactstrap";
 
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
@@ -34,6 +38,8 @@ import LandingFooter from "../../../components/Footers/LandingFooter";
 function ErsteAnmeldung (props) {
   useEffect(() => {
     pageViewsTracking()
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
   },[])
 
   function pageViewsTracking () {
@@ -100,7 +106,43 @@ function ErsteAnmeldung (props) {
                 </Row>
                 
             </Container>
-          
+            <Container className="pb-2 pt-6 px-9" fluid>
+                <Row className="mt-2" >
+                <Col xs="6">
+                <Card>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                    Automatisierter Schichtplan
+                            </CardTitle>
+                            <CardSubtitle className="pl-4 p">
+                                Einen Schichtplan automatisiert Befüllen? Wie geht das?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
+                                     Mit wenigen Klicks kannst du deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> für dich befüllen lassen.
+                                    <br/>
+                                    <br/>
+                            </CardText>
+                        </Card>
+                </Col>
+
+                
+
+                <Col xs="6">
+                <Card>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                    Schichtplan erstellen
+                            </CardTitle>
+                            <CardSubtitle className="pl-4 p">
+                                Wie erstelle ich einen guten Schichtplan?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
+                                     Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen" class="stretched-link">digitalen Schichtplan</Link> für dich und dein Team. 
+                                    <br/>
+                                    <br/>
+                            </CardText>
+                        </Card>
+                </Col>
+                </Row>
+                </Container>
       </Container>
       <LandingFooter></LandingFooter>
     </>

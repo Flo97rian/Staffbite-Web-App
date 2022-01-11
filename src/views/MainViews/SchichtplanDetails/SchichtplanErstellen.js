@@ -25,6 +25,10 @@ import {
   Container,
   Row,
   Col,
+  CardTitle,
+  Card,
+  CardSubtitle,
+  CardText
 } from "reactstrap";
 
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
@@ -35,6 +39,8 @@ import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShif
 function SchichtplanErstellen (props) {
   useEffect(() => {
     pageViewsTracking()
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
   },[])
 
   function pageViewsTracking () {
@@ -104,6 +110,43 @@ function SchichtplanErstellen (props) {
                      
                 </Col>
 
+                </Row>
+                </Container>
+                <Container className="pb-2 pt-6 px-9" fluid>
+                <Row className="mt-2" >
+                <Col xs="6">
+                <Card>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                    Automatisierter Schichtplan
+                            </CardTitle>
+                            <CardSubtitle className="pl-4 p">
+                                Einen Schichtplan automatisiert Befüllen? Wie geht das?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
+                                     Mit wenigen Klicks kannst du deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> für dich befüllen lassen.
+                                    <br/>
+                                    <br/>
+                            </CardText>
+                        </Card>
+                </Col>
+
+                
+
+                <Col xs="6">
+                <Card>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                    Verfügbarkeiten eintragen
+                            </CardTitle>
+                            <CardSubtitle className="pl-4 p">
+                                Wie trage ich mich in einen Schichtplan ein?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
+                                     Mit wenigen Klicks kann dein Team ihre <Link to="/verfuegbarkeiten-eintragen" class="stretched-link">Verfügbarkeiten eintragen</Link>.
+                                    <br/>
+                                    <br/>
+                            </CardText>
+                        </Card>
+                </Col>
                 </Row>
                 </Container>
             </Container>

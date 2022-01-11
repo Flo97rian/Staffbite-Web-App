@@ -111,7 +111,7 @@ function SchichtplanVeroeffentlichen (props) {
                                 Einen Schichtplan automatisiert Befüllen? Wie geht das?
                             </CardSubtitle>
                             <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
-                                     Mit wenigen Klicks kannst du deinen <Link to="/schichtplan-veroeffentlichen" class="stretched-link">Schichtplan automatisiert</Link> für dich befüllen lassen.
+                                     Mit wenigen Klicks kannst du deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> für dich befüllen lassen.
                                     <br/>
                                     <br/>
                             </CardText>
