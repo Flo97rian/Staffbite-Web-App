@@ -44,7 +44,7 @@ function Schichtplanvorlage (props) {
   },[])
 
   function pageViewsTracking () {
-    const pathname = "/themen/schichtplanvorlage";
+    const pathname = "/themen/schichtplan-vorlage";
   
     let pageView;
     if(pathname === "*") pageView = "/not_found";
@@ -57,17 +57,17 @@ function Schichtplanvorlage (props) {
         <Helmet>
           <title>{THEMEN_SCHICHTPLANVORLAGE_TITLE}</title>
           <meta name="description" content={THEMEN_SCHICHTPLANVORLAGE_DESCRIPTION}/>
-          <link rel="canonical" href="https://www.staffbite.de/themen/schichtplanvorlage" />
+          <link rel="canonical" href="https://www.staffbite.de/themen/schichtplan-vorlage" />
           <meta property="og:title" content="Staffbite - Schichtplan Vorlage erstellen"/>
           <meta property="og:description" content="In diesem Beitrag zeige ich dir wie du eine Vorlage für deinen Schichtplan erstellen kannst."/>
-          <meta property="og:url" content="https://www.staffbite.de/themen/schichtplanvorlage"></meta>
+          <meta property="og:url" content="https://www.staffbite.de/themen/schichtplan-vorlage"></meta>
           <meta property="og:type" content="blog"></meta>
           <meta property="og:image" content={SchichtplanVorlageThumbnail}></meta>
           <meta property="og:site_name" content="Staffbite"></meta>
           <meta property="twitter:title" content="Staffbite - Schichtplan Vorlage erstellen"/>
           <meta property="twitter:card" content="summary_large_image"/>
           <meta property="twitter:description" content="In diesem Beitrag zeige ich dir wie du eine Vorlage für deinen Schichtplan erstellen kannst."></meta>
-          <meta property="twitter:url" content="https://www.staffbite.de/themen/schichtplanvorlage"></meta>
+          <meta property="twitter:url" content="https://www.staffbite.de/themen/schichtplan-vorlage"></meta>
           <meta property="twitter:image" content={SchichtplanVorlageThumbnail}></meta>
           <meta property="twitter:type" content="blog"></meta>
 

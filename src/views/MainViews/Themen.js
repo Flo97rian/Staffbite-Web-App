@@ -130,7 +130,7 @@ function Themen (props) {
                                     In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle & wiederverwendbare Vorlage erstellen kannst. Schau dir hier unsere Schritt für Schritt Anleitung an. 
                             </CardText>
                             <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/schichtplanvorlage" >Schichtplan Vorlage</Link>
+                                <Link to="/themen/schichtplan-vorlage" >Schichtplan Vorlage</Link>
                             </CardText>
                         </Card>
                 </Col>
@@ -157,7 +157,7 @@ function Themen (props) {
                                     Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.
                             </CardText>
                             <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/schichtplanerstellen" >Papier, Excel oder Software?</Link>
+                                <Link to="/themen/schichtplan-erstellen" >Papier, Excel oder Software?</Link>
                             </CardText>
                         </Card>
                 </Col>

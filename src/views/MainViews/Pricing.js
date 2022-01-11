@@ -241,7 +241,7 @@ const Pricing = (props) => {
                                     Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.
                             </CardText>
                             <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/schichtplanerstellen" >Schichtplan erstellen</Link>
+                                <Link to="/themen/schichtplan-erstellen" >Schichtplan erstellen</Link>
                             </CardText>
                         </Card>
                 </Col>

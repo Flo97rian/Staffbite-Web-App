@@ -47,7 +47,7 @@ function Schichtplanerstellen (props) {
   }, []);
 
   function pageViewsTracking () {
-    const pathname = "/themen/schichtplanerstellen";
+    const pathname = "/themen/schichtplan-erstellen";
   
     let pageView;
     if(pathname === "*") pageView = "/not_found";
@@ -60,18 +60,18 @@ function Schichtplanerstellen (props) {
         <Helmet>
           <title>{THEMEN_SCHICHTPLANERSTELLEN_TITLE}</title>
           <meta name="description" content={THEMEN_SCHICHTPLANERSTELLEN_DESCRIPTION}/>
-          <link rel="canonical" href="https://www.staffbite.de/themen/schichtplanerstellen" />
+          <link rel="canonical" href="https://www.staffbite.de/themen/schichtplan-erstellen" />
 
           <meta property="og:title" content="Staffbite - Wie erstelle ich einen Schichtplan? Papier, Excel oder Software?"/>
           <meta property="og:description" content="In diesem Beitrag zeige ich dir die Vor-und Nachteile von drei verschiedenen Möglichkeit zur Erstellung deiner Schichtpläne."/>
-          <meta property="og:url" content="https://www.staffbite.de/themen/schichtplanerstellen"></meta>
+          <meta property="og:url" content="https://www.staffbite.de/themen/schichtplan-erstellen"></meta>
           <meta property="og:type" content="blog"></meta>
           <meta property="og:image" content={Possibilities}></meta>
           <meta property="og:site_name" content="Staffbite"></meta>
           <meta property="twitter:title" content="Staffbite - Wie erstelle ich einen Schichtplan? Papier, Excel oder Software?"/>
           <meta property="twitter:card" content="summary_large_image"/>
           <meta property="twitter:description" content="In diesem Beitrag zeige ich dir die Vor-und Nachteile von drei verschiedenen Möglichkeit zur Erstellung deiner Schichtpläne."/>
-          <meta property="twitter:url" content="https://www.staffbite.de/themen/schichtplanerstellen"></meta>
+          <meta property="twitter:url" content="https://www.staffbite.de/themen/schichtplan-erstellen"></meta>
           <meta property="twitter:image" content={Possibilities}></meta>
           <meta property="twitter:type" content="blog"></meta>
 

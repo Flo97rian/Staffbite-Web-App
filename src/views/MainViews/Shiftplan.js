@@ -172,7 +172,7 @@ function Shiftplan (props) {
             </Container>
           </section>
 
-          <section className="section" id={"sectionalg"}>
+          <section className="section" id="sectionalg">
             <Container className="mb-4 pt-4">
               <Row className="justify-content-center mb-4 mt-8">
               <Col className="order-md-1"  xs="12" md="12" lg="6">

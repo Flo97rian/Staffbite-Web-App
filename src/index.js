@@ -70,8 +70,8 @@ ReactDOM.render(
         <Route path="/faq" element={<FAQ />} />
         <Route path="/themen/automatisierung" element={<Automatisierung />} />
         <Route path="/themen/cloudservice" element={<CloudService />} />
-        <Route path="/themen/schichtplanerstellen" element={<Schichtplanerstellen />} />
-        <Route path="/themen/schichtplanvorlage" element={<Schichtplanvorlage />} />
+        <Route path="/themen/schichtplan-erstellen" element={<Schichtplanerstellen />} />
+        <Route path="/themen/schichtplan-vorlage" element={<Schichtplanvorlage />} />
         <Route path="/themen/monatsplanung" element={<Monatsplanung />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />

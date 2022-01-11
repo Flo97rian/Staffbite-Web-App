@@ -75,14 +75,14 @@ const Landing = (props) => {
           <title>{LANDING_TITLE}</title>
           <meta name="description" charSet="utf-8" content={LANDING_DESCRIPTION}/>
           <meta property="og:title" content={LANDING_TITLE}/>
-          <meta property="og:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
+          <meta property="og:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatisiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
           <meta property="og:url" content="https://www.staffbite.de"></meta>
           <meta property="og:type" content="website"></meta>
           <meta property="og:image" content={BildSchichtplanErstellen}></meta>
           <meta property="og:site_name" content="Staffbite"></meta>
           <meta property="twitter:title" content="Staffbite - Digitale Schichtplanung jederzeit online und per App."/>
           <meta property="twitter:card" content="summary_large_image"/>
-          <meta property="twitter:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
+          <meta property="twitter:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatisiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
           <meta property="twitter:url" content="https://www.staffbite.de"></meta>
           <meta property="twitter:image" content={BildSchichtplanErstellen}></meta>
           <meta property="twitter:type" content="website"></meta>
@@ -185,9 +185,8 @@ const Landing = (props) => {
                              Schichtplan erstellen
                           </h3>
                           <p className="description mt-3">
-                            Mit wenigen Klicks erstellst du deinen digitalen Schichtplan für dich und dein Team. 
+                            Mit wenigen Klicks erstellst du deinen digitalen <Link to="/schichtplan" class="stretched-link">Schichtplan</Link> für dich und dein Team. 
                           </p>
-                          <Link to="/schichtplan" class="stretched-link"></Link>
                         </CardBody>
                       </Card>
                     </Col>
@@ -217,9 +216,10 @@ const Landing = (props) => {
                             Automatisierte Befüllung
                           </h3>
                           <p className="description mt-3">
-                            Unsere Lösung befüllt deinen Schichtplan automatisiert innerhalb weniger Sekunden.
+                            Unsere Lösung befüllt deinen <Link to="/themen/automatisierung" class="stretched-link">
+                            Schichtplan automatisiert
+                          </Link> innerhalb weniger Sekunden.
                           </p>
-                          <Link to="/themen/automatisierung" class="stretched-link"></Link>
                           <br />
                         </CardBody>
                       </Card>
@@ -342,7 +342,7 @@ const Landing = (props) => {
                           <p className="description mt-3">
                           Zeit ist Geld – auch für unsere Kunden. Deshalb automatisieren wir die zeitfressende Zuordnung von Personal und Schichten.
                           </p>
-                          <HashLink to="/schichtplan/#sectionalg" class="stretched-link"></HashLink>
+                          <HashLink to="/schichtplan/#sectionalg" class="stretched-link">hier</HashLink>
                           <br />
                         </CardBody>
                       </Card>
