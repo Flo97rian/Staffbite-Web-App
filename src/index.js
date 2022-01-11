@@ -27,6 +27,9 @@ import SignUp from "./components/Auth/signUp";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import Shiftplan from "./views/MainViews/Shiftplan";
 import ErsteAnmeldung from './views/MainViews/SchichtplanDetails/ErsteAnmeldung';
+import TeamVerwalten from './views/MainViews/SchichtplanDetails/TeamVerwalten';
+import SchichtplanErstellen from './views/MainViews/SchichtplanDetails/SchichtplanErstellen';
+import VerfügbarkeitenEintragen from './views/MainViews/SchichtplanDetails/VerfügbarkeitenEintragen';
 import Contact from "./views/MainViews/Contact";
 import AboutUs from "./views/MainViews/AboutUs";
 import AV from "./views/MainViews/AV";
@@ -69,7 +72,10 @@ ReactDOM.render(
         <Route path="/av" element={<AV/>} />
         <Route path="/impressum" element={<Impressum/>} />
         <Route path="/schichtplan" element={<Shiftplan />} />
-        <Route path="/schichtplan/erste-anmeldung" element={<ErsteAnmeldung />} />
+        <Route path="/erste-anmeldung" element={<ErsteAnmeldung />} />
+        <Route path="/team-verwalten" element={<TeamVerwalten />} />
+        <Route path="/schichtplan-erstellen" element={<SchichtplanErstellen />} />
+        <Route path="/verfuegbarkeiten-eintragen" element={<VerfügbarkeitenEintragen />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/themen/automatisierung" element={<Automatisierung />} />
         <Route path="/themen/cloudservice" element={<CloudService />} />

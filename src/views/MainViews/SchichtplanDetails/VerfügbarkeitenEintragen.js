@@ -28,16 +28,17 @@ import {
 } from "reactstrap";
 
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
-import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constants/MetaTexts"
+import {VERFÜGBARKEITENEINTRAGEN_TITLE, VERFÜGBARKEITENEINTRAGEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
+import TeamVerwalten from "../../../assets/img/theme/Team-verwalten.png"
 
-function ErsteAnmeldung (props) {
+function VerfügbarkeitenEintragen (props) {
   useEffect(() => {
     pageViewsTracking()
   },[])
 
   function pageViewsTracking () {
-    const pathname = "/schichtplan/erste-anmeldung";
+    const pathname = "/verfuegbarkeiten-eintragen";
     let pageView;
     if(pathname === "*") pageView = "/not_found";
     else pageView = pathname;
@@ -47,9 +48,9 @@ function ErsteAnmeldung (props) {
     return (
     <>
         <Helmet>
-          <title>{ERSTEANMELDUNG_TITLE}</title>
-          <meta name="description" content={ERSTEANMELDUNG_DESCRIPTION}/>
-          <link rel="canonical" href="https://www.staffbite.de/schichtplan/erste-anmeldung" />
+          <title>{VERFÜGBARKEITENEINTRAGEN_TITLE}</title>
+          <meta name="description" content={VERFÜGBARKEITENEINTRAGEN_DESCRIPTION}/>
+          <link rel="canonical" href="https://www.staffbite.de/verfuegbarkeiten-eintragen" />
         </Helmet>
        <LandingNavBar
               logo={{
@@ -58,33 +59,38 @@ function ErsteAnmeldung (props) {
                 imgAlt: "Das Logo von Staffbite",
                 }}/>
       {/* Page content */}
-      <Container className="pt-5 pb-2" fluid>
       <Container className="mt-6">
-                    <Row className="justify-content-center ml-0 mt-4">
-                        <h1>Die erste Anmeldung</h1>
+                    <Row className="justify-content-center ml-0 mt-4 pt-6">
+                        <h1>Verfügbarkeiten eintragen</h1>
                     </Row>
       </Container>
                 
-            <Container className="pb-2"fluid>
-                <Row className="text-center">
-                <Col>
+            <Container className="pb-2">
+              <Row className="justify-content-center ml-0 mt-4">
+                
                 <p>
                   Moin! Wir freuen uns, dass du dich für Staffbite interessierst.
                   <br/>
                   Um dir den Einstieg so leicht wie möglich zu machen, haben wir ein Video vorbereitet.
                 </p>
-                </Col>
-                </Row>
-
-                <Row className="text-center">      
-                <Col className="col-xs-12"  md="12" lg="12">
-                  <iframe width="560" height="315" src="https://www.youtube.com/embed/R0SpszGT0k8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </Col>
-                  <br/>
-                </Row>
-
                 
-                <Row className="text-center">
+                    
+                
+                <Col md="12" lg="7">
+                  <img
+                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                    src={TeamVerwalten}
+                    title="Team erstellen und verwalten"
+                    height="100%"
+                    width="100%"
+                  />
+                </Col>
+                </Row>
+                  <br/>
+                
+
+                <Container className="pb-2"fluid>
+                <Row className="text-center ml-0 mt-4">
                 <Col md="12" lg="12">
                   <br/>
                   <p>
@@ -98,12 +104,11 @@ function ErsteAnmeldung (props) {
                 </Col>
 
                 </Row>
-                
+                </Container>
             </Container>
           
-      </Container>
       <LandingFooter></LandingFooter>
     </>
   );
 };
-export default ErsteAnmeldung;
+export default VerfügbarkeitenEintragen;
