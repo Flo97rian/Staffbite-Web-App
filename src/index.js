@@ -48,6 +48,9 @@ import Automatisierung from './views/MainViews/Themen/Automatisierung';
 import Schichtplanerstellen from './views/MainViews/Themen/Schichtplanerstellen';
 import Schichtplanvorlage from './views/MainViews/Themen/Schichtplanvorlage';
 import Monatsplanung from './views/MainViews/Themen/Monatsplanung';
+import AutomatisierteBefüllung from './views/MainViews/SchichtplanDetails/AutomatisierteBefüllung';
+import SchichtplanVeroeffentlichen from './views/MainViews/SchichtplanDetails/SchichtplanVeroeffentlichen';
+import VorteileTeam from './views/MainViews/SchichtplanDetails/VorteileTeam';
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -69,7 +72,10 @@ ReactDOM.render(
         <Route path="/av" element={<AV/>} />
         <Route path="/impressum" element={<Impressum/>} />
         <Route path="/schichtplan" element={<Shiftplan />} />
-        <Route path="/schichtplan/erste-anmeldung" element={<ErsteAnmeldung />} />
+        <Route path="/erste-anmeldung" element={<ErsteAnmeldung />} />
+        <Route path="/automatisierter-schichtplan" element={<AutomatisierteBefüllung />} />
+        <Route path="/schichtplan-veroeffentlichen" element={<SchichtplanVeroeffentlichen />} />
+        <Route path="/fuer-dein-team" element={<VorteileTeam />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/themen/automatisierung" element={<Automatisierung />} />
         <Route path="/themen/cloudservice" element={<CloudService />} />

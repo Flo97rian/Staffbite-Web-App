@@ -201,7 +201,7 @@ const Landing = (props) => {
                           2. Eintragen
                           </h3>
                           <p className="description mt-3">
-                            Deine Mitarbeiter*innen tragen sich in deinen <HashLink to="/schichtplan/#sectionapp" class="stretched-link">online Schichtplan</HashLink>ein. Das geht jederzeit per Smartphone oder Laptop.
+                            Deine Mitarbeiter*innen tragen sich in deinen <HashLink to="/fuer-dein-team" class="stretched-link">online Schichtplan</HashLink>ein. Das geht jederzeit per Smartphone oder Laptop.
                           </p>
                         </CardBody>
                       </Card>
@@ -216,7 +216,7 @@ const Landing = (props) => {
                             3. Automatisierte Befüllung
                           </h3>
                           <p className="description mt-3">
-                            Unsere Lösung befüllt deinen <HashLink to="/schichtplan#sectionalg" class="stretched-link">Schichtplan automatisiert</HashLink> innerhalb weniger Sekunden.
+                            Unsere Lösung befüllt deinen <HashLink to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</HashLink> innerhalb weniger Sekunden.
                           </p>
                           <br />
                         </CardBody>
@@ -232,7 +232,7 @@ const Landing = (props) => {
                             4. Schichtplan veröffentlichen
                           </h3>
                           <p className="description mt-3">
-                            Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den <HashLink to="/schichtplan/#sectiondone" class="stretched-link">fertigen Schichtplan</HashLink> mit einem Klick.
+                            Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den <HashLink to="/schichtplan-veroeffentlichen" class="stretched-link">fertigen Schichtplan</HashLink> mit einem Klick.
                           </p>
                           <br />
                         </CardBody>
@@ -335,9 +335,8 @@ const Landing = (props) => {
                             Automatisiert
                           </h3>
                           <p className="description mt-3">
-                          Zeit ist Geld. Deshalb automatisieren wir die zeitfressende Zuordnung von <HashLink to="/schichtplan/#sectionalg" class="stretched-link">Personal und Schichten</HashLink>.
+                          Zeit ist Geld. Deshalb automatisieren wir die zeitfressende Zuordnung von <HashLink to="/automatisierter-schichtplan" class="stretched-link">Personal und Schichten</HashLink>.
                           </p>
-                          <HashLink to="/schichtplan/#sectionalg" class="stretched-link">hier</HashLink>
                           <br />
                         </CardBody>
                       </Card>

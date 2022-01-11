@@ -68,7 +68,7 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
                 
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/schichtplan/#sectionregister">
+                  <HashLink className="p text-muted p-0" to="/erste-anmeldung">
                   <p className="p-0 m-0">
                       Erste Anmeldung
                       </p>
@@ -76,7 +76,7 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
 
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/schichtplan/#sectionteam">
+                  <HashLink className="p text-muted p-0" to="/team-verwalten">
                   <p className="p-0 m-0">
                       Team verwalten
                       </p>
@@ -84,7 +84,7 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
 
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/schichtplan/#sectioncreate">
+                  <HashLink className="p text-muted p-0" to="/schichtplan-erstellen">
                   <p className="p-0 m-0">
                       Schichtplan erstellen
                       </p>
@@ -92,7 +92,7 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
                
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/schichtplan/#sectionavailable">
+                  <HashLink className="p text-muted p-0" to="/verfuegbarkeiten-eintragen">
                   <p className="p-0 m-0">
                       Verfügbarkeiten eintragen
                       </p>
@@ -100,7 +100,7 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
 
                 <DropdownItem>
-                <HashLink className="p text-muted p-0" to="/schichtplan/#sectionalg">
+                <HashLink className="p text-muted p-0" to="/automatisierter-schichtplan">
                 <p className="p-0 m-0">
                       Automatisierte Befüllung
                       </p>
@@ -108,7 +108,7 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
                 
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/schichtplan/#sectiondone">
+                  <HashLink className="p text-muted p-0" to="/schichtplan-veroeffentlichen">
                   <p className="p-0 m-0">
                       Schichtplan veröffentlichen
                       </p>
@@ -116,7 +116,7 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
 
                 <DropdownItem className="text-muted">
-                <HashLink className="p text-muted p-0" to="/schichtplan/#sectionapp">
+                <HashLink className="p text-muted p-0" to="/fuer-dein-team">
                     <p className="p-0 m-0">
                       Für dein Team
                       </p>

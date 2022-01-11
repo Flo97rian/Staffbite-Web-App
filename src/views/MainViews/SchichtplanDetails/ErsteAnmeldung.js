@@ -37,7 +37,7 @@ function ErsteAnmeldung (props) {
   },[])
 
   function pageViewsTracking () {
-    const pathname = "/schichtplan/erste-anmeldung";
+    const pathname = "/erste-anmeldung";
     let pageView;
     if(pathname === "*") pageView = "/not_found";
     else pageView = pathname;
@@ -49,7 +49,7 @@ function ErsteAnmeldung (props) {
         <Helmet>
           <title>{ERSTEANMELDUNG_TITLE}</title>
           <meta name="description" content={ERSTEANMELDUNG_DESCRIPTION}/>
-          <link rel="canonical" href="https://www.staffbite.de/schichtplan/erste-anmeldung" />
+          <link rel="canonical" href="https://www.staffbite.de/erste-anmeldung" />
         </Helmet>
        <LandingNavBar
               logo={{
