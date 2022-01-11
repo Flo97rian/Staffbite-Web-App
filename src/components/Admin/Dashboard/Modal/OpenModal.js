@@ -2,6 +2,7 @@
 
 import React from "react";
 import ModalFilterReport from "./ModalFilterReport";
+import ModalPaymentDetails from "./ModalPaymentDetails";
 import { useSelector } from "react-redux";
 
 
@@ -12,7 +13,11 @@ const OpenModal = (props) => {
     const dataModal = () => {
         if (modalkey === "showReportFilter") {
             return ( <ModalFilterReport modalkey={modalkey} keytrue={keytrue} {...props}></ModalFilterReport>
-        )}}
+        )}
+        else if(modalkey === "requiredPaymentDetails") {
+            return ( <ModalPaymentDetails modalkey={modalkey} keytrue={keytrue} {...props}></ModalPaymentDetails>
+        )} 
+    }
         return (
         <>
             {keytrue ? dataModal() : <></>}

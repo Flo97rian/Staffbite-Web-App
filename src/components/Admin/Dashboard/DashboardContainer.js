@@ -37,6 +37,7 @@ import { ONBOARDING_OVERVIEW_SHIFTPLAN, ONBOARDING_OVERVIEW_SHIFTRADE, ONBOARDIN
 import { validMeta } from "../../Application/functionalComponents/ValidFunctions.js";
 import NewsFeed from "./Form/NewsFeed.js";
 import Timeline from "./Timeline.js";
+import { Auth } from "aws-amplify";
 
 
 const DashboardContainer = (props) => {
@@ -141,6 +142,13 @@ const DashboardContainer = (props) => {
       let showOverview = Meta.onboarding.overview
       setState({...state, run: showOverview})
     }
+    if(Meta) {
+      if( "tenantCategorie" in Meta) {
+        if(!Meta.tenantCategorie.trial && !Meta.tenantCategorie.PaymentDetails) {
+          store.dispatch({type: "OPEN", payload: "requiredPaymentDetails"})
+          }
+        }
+      }
   }, [Meta]);
 
   useEffect(() => {
@@ -427,6 +435,7 @@ const DashboardContainer = (props) => {
         <OpenModal
           show={Modal}
           plaene={Plans}
+          Employees={Employees}
           plan={currentShiftPlan}
           checkTrue={getModalTrue}
           checkModalKey={getModalKey}
