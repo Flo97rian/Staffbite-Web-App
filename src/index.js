@@ -26,6 +26,7 @@ import reportWebVitals from './reportWebVitals';
 import SignUp from "./components/Auth/signUp";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import Shiftplan from "./views/MainViews/Shiftplan";
+import ErsteAnmeldung from './views/MainViews/SchichtplanDetails/ErsteAnmeldung';
 import Contact from "./views/MainViews/Contact";
 import AboutUs from "./views/MainViews/AboutUs";
 import AV from "./views/MainViews/AV";
@@ -48,6 +49,7 @@ import Schichtplanerstellen from './views/MainViews/Themen/Schichtplanerstellen'
 import Schichtplanvorlage from './views/MainViews/Themen/Schichtplanvorlage';
 import Monatsplanung from './views/MainViews/Themen/Monatsplanung';
 
+
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
 
@@ -67,6 +69,7 @@ ReactDOM.render(
         <Route path="/av" element={<AV/>} />
         <Route path="/impressum" element={<Impressum/>} />
         <Route path="/schichtplan" element={<Shiftplan />} />
+        <Route path="/schichtplan/erste-anmeldung" element={<ErsteAnmeldung />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/themen/automatisierung" element={<Automatisierung />} />
         <Route path="/themen/cloudservice" element={<CloudService />} />
