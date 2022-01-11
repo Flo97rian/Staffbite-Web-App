@@ -139,7 +139,7 @@ const Pricing = (props) => {
                 <Col lg="4">
                   <Card className="card-pricing bg-gradient-white zoom-in shadow-lg rounded border-0 text-center mb-4 card">
                   <CardHeader className="bg-transparent card-header">
-                      <h2 className="h1 ls-1 text-info lead py-3 mb-0">Bis 25 Mitarbeiter</h2>
+                      <h2 className="h1 ls-1 text-info lead py-3 mb-0">Bis 25 Mitarbeiter*innen</h2>
                     </CardHeader>
                     <CardBody className="p-lg-4">
                     <h3 className="h1 text-info display-2">
@@ -164,7 +164,7 @@ const Pricing = (props) => {
                 <Col lg="4">
                   <Card className="card-pricing bg-gradient-info zoom-in shadow-lg rounded border-0 text-center mb-4 card">
                   <CardHeader className="bg-transparent card-header">
-                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Bis 50 Mitarbeiter</h2>
+                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Bis 50 Mitarbeiter*innen</h2>
                     </CardHeader>
                     <CardBody className="p-lg-4">
                     <h3 className="h1 text-white display-2">
@@ -189,7 +189,7 @@ const Pricing = (props) => {
                 <Col lg="4">
                   <Card className="card-pricing bg-gradient-success zoom-in shadow-lg rounded border-0 text-center mb-4 card">
                   <CardHeader className="bg-transparent card-header">
-                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Ab 51 Mitarbeiter</h2>
+                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Ab 51 Mitarbeiter*innen</h2>
                     </CardHeader>
                     <CardBody className="p-lg-4">
                     <h3 className="h1 text-white display-2">

@@ -173,7 +173,7 @@ const Landing = (props) => {
             <Container className="">
               <Row className="justify-content-center">
                 <Col lg="12">
-                  <h2 className="display-3 text-white">So funktioniert's</h2>
+                  <h2 className="display-3 text-white">So funktioniert's - in nur vier Schritten</h2>
                   <Row className="row-grid">
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
@@ -182,44 +182,42 @@ const Landing = (props) => {
                           👩‍💻
                           </div>
                           <h3 className="h5 text-primary text-uppercase">
-                             Schichtplan erstellen
+                             1. Schichtplan erstellen
                           </h3>
                           <p className="description mt-3">
-                            Mit wenigen Klicks erstellst du deinen digitalen Schichtplan für dich und dein Team. 
+                            Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan" class="stretched-link">digitalen Schichtplan</Link> für dich und dein Team. 
                           </p>
-                          <Link to="/schichtplan" class="stretched-link"></Link>
+                          
+                        </CardBody>
+                      </Card>
+                    </Col>
+                    <Col lg="3">
+                      <Card className="card-lift--hover shadow border-0">
+                        <CardBody className="py-5 pb-5">
+                          <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
+                          📲
+                          </div>
+                          <h3 className="h5 text-success text-uppercase">
+                          2. Eintragen
+                          </h3>
+                          <p className="description mt-3">
+                            Deine Mitarbeiter*innen tragen sich in deinen <HashLink to="/schichtplan/#sectionapp" class="stretched-link">online Schichtplan</HashLink>ein. Das geht jederzeit per Smartphone oder Laptop.
+                          </p>
                         </CardBody>
                       </Card>
                     </Col>
                     <Col lg="3">
                       <Card className="card-lift--hover shadow border-0">
                         <CardBody className="py-4 pb-5">
-                          <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                          📲
-                          </div>
-                          <h3 className="h5 text-success text-uppercase">
-                          Verfügbarkeiten eintragen
-                          </h3>
-                          <p className="description mt-3">
-                            Deine Mitarbeiter*innen tragen ihre Verfügbarkeiten ein. Das geht jederzeit per Smartphone oder Laptop.
-                          </p>
-                          <HashLink to="/schichtplan/#sectionapp" class="stretched-link"></HashLink>
-                        </CardBody>
-                      </Card>
-                    </Col>
-                    <Col lg="3">
-                      <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-4 pb-6">
                           <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
                           🤩
                           </div>
                           <h3 className="h5 text-warning text-uppercase">
-                            Automatisierte Befüllung
+                            3. Automatisierte Befüllung
                           </h3>
                           <p className="description mt-3">
-                            Unsere Lösung befüllt deinen Schichtplan automatisiert innerhalb weniger Sekunden.
+                            Unsere Lösung befüllt deinen <HashLink to="/schichtplan#sectionalg" class="stretched-link">Schichtplan automatisiert</HashLink> innerhalb weniger Sekunden.
                           </p>
-                          <Link to="/themen/automatisierung" class="stretched-link"></Link>
                           <br />
                         </CardBody>
                       </Card>
@@ -231,12 +229,11 @@ const Landing = (props) => {
                           🎉
                           </div>
                           <h3 className="h5 text-info text-uppercase">
-                            Schichtplan veröffentlichen
+                            4. Schichtplan veröffentlichen
                           </h3>
                           <p className="description mt-3">
-                            Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den fertigen Schichtplan mit einem Klick.
+                            Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den <HashLink to="/schichtplan/#sectiondone" class="stretched-link">fertigen Schichtplan</HashLink> mit einem Klick.
                           </p>
-                          <HashLink to="/schichtplan/#sectiondone" class="stretched-link"></HashLink>
                           <br />
                         </CardBody>
                       </Card>
@@ -302,13 +299,12 @@ const Landing = (props) => {
                           <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
                             🎯
                           </div>
-                          <h3 className="h6 text-primary text-uppercase">
+                          <h3 className="h5 text-primary text-uppercase">
                             Einfach
                           </h3>
                           <p className="description mt-3">
-                          Wir legen höchsten Wert auf eine einfache Bedienbarkeit. Diese Qualität stellen wir durch regelmäßige und umfangreiche Produkttests sicher.
+                            Wir legen höchsten Wert auf eine <a href="https://youtu.be/R0SpszGT0k8" class="stretched-link">einfache Bedienbarkeit</a>. Wir entwickeln unsere Lösung stetig weiter und gehen dabei die Wünsche unserer Kunden ein.
                           </p>
-                          <a href="https://youtu.be/R0SpszGT0k8" class="stretched-link"></a>
                         </CardBody>
                       </Card>
                     </Col>
@@ -319,13 +315,12 @@ const Landing = (props) => {
                           <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
                           📈
                           </div>
-                          <h3 className="h6 text-success text-uppercase">
-                          Flexibel
+                          <h3 className="h5 text-success text-uppercase">
+                            Flexibel
                           </h3>
                           <p className="description mt-3">
-                          Jedes Geschäft ist auf seine Weise einzigartig und so muss auch das Personal geplant werden. Aus diesem Grund bieten wir die Möglichkeit, in wenigen Minuten flexible Schichtpläne zu entwerfen und zu verwalten.
+                            Jeder Betrieb ist einzigartig und so muss auch das Personal geplant werden. Aus diesem Grund bieten wir die Möglichkeit, in wenigen Minuten <a href="https://youtu.be/fHdCLhBIYIA" class="stretched-link">flexible Schichtpläne</a> zu entwerfen und zu verwalten.
                           </p>
-                          <a href="https://youtu.be/fHdCLhBIYIA" class="stretched-link"></a>
                         </CardBody>
                       </Card>
                     </Col>
@@ -336,13 +331,12 @@ const Landing = (props) => {
                           <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
                           🚀
                           </div>
-                          <h3 className="h6 text-warning text-uppercase">
+                          <h3 className="h5 text-warning text-uppercase">
                             Automatisiert
                           </h3>
                           <p className="description mt-3">
-                          Zeit ist Geld – auch für unsere Kunden. Deshalb automatisieren wir die zeitfressende Zuordnung von Personal und Schichten.
+                          Zeit ist Geld. Deshalb automatisieren wir die zeitfressende Zuordnung von <HashLink to="/schichtplan/#sectionalg" class="stretched-link">Personal und Schichten</HashLink>.
                           </p>
-                          <HashLink to="/schichtplan/#sectionalg" class="stretched-link"></HashLink>
                           <br />
                         </CardBody>
                       </Card>
@@ -354,13 +348,12 @@ const Landing = (props) => {
                           <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
                           🤑
                           </div>
-                          <h3 className="h6 text-info text-uppercase">
+                          <h3 className="h5 text-info text-uppercase">
                           Faire Preise
                           </h3>
                           <p className="description mt-3">
-                          Transparente Preise sind die Grundlage für eine vertrauensvolle Zusammenarbeit. Deshalb gestalten wir unsere Preise nachvollziehbar und fair - besonders für kleine Geschäfte.
+                          <Link to="/pricing" class="stretched-link">Transparente Preise</Link> sind die Grundlage für eine vertrauensvolle Zusammenarbeit. Deshalb sind unsere Preise nachvollziehbar und fair - besonders für kleine Geschäfte.
                           </p>
-                          <Link to="/pricing" class="stretched-link"></Link>
                           <br />
                         </CardBody>
                       </Card>
