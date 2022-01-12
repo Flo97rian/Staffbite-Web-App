@@ -149,7 +149,7 @@ function Pricing (props) {
                                 In diesem Beiträg beantworten wir eine kürzlich gestellte Frage und gehen weiter auf die Vorteile von Cloud Services für unsere Kunden ein. 
                             </CardText>
                             <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/cloudservice" >Schichtplanung als Cloud Service</Link>
+                                <Link to="/themen/cloud-service" >Schichtplanung als Cloud Service</Link>
                             </CardText>
                         </Card>
                 </Col>

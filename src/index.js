@@ -84,7 +84,7 @@ ReactDOM.render(
         <Route path="/verfuegbarkeiten-eintragen" element={<VerfügbarkeitenEintragen />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/themen/automatisierung" element={<Automatisierung />} />
-        <Route path="/themen/cloudservice" element={<CloudService />} />
+        <Route path="/themen/cloud-service" element={<CloudService />} />
         <Route path="/themen/schichtplan-erstellen" element={<Schichtplanerstellen />} />
         <Route path="/themen/schichtplan-vorlage" element={<Schichtplanvorlage />} />
         <Route path="/themen/monatsplanung" element={<Monatsplanung />} />

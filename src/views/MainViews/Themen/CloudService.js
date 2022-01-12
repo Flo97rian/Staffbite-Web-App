@@ -44,7 +44,7 @@ function CloudService (props) {
   }, []);
 
   function pageViewsTracking () {
-    const pathname = "/themen/cloudservice";
+    const pathname = "/themen/cloud-service";
   
     let pageView;
     if(pathname === "*") pageView = "/not_found";
@@ -57,18 +57,18 @@ function CloudService (props) {
         <Helmet>
           <title>{THEMEN_CLOUDSERVICE_TITLE}</title>
           <meta name="description" content={THEMEN_CLOUDSERVICE_DESCRIPTION}/>
-          <link rel="canonical" href="https://www.staffbite.de/themen/cloudservice" />
+          <link rel="canonical" href="https://www.staffbite.de/themen/cloud-service" />
 
           <meta property="og:title" content="Staffbite - Online Schichtplanung als Cloud Service."/>
           <meta property="og:description" content="In diesem Beitrag erklären wir warum Staffbite als Cloud Service angeboten wird. Außerdem gehen wir auf die Vorteile der online Schichtplanung ein."/>
-          <meta property="og:url" content="https://www.staffbite.de/themen/cloudservice"></meta>
+          <meta property="og:url" content="https://www.staffbite.de/themen/cloud-service"></meta>
           <meta property="og:type" content="blog"></meta>
           <meta property="og:image" content={CloudPicture}></meta>
           <meta property="og:site_name" content="Staffbite"></meta>
           <meta property="twitter:title" content="Online Schichtplanung als Cloud Service."/>
           <meta property="twitter:card" content="summary_large_image"/>
           <meta property="twitter:description" content="In diesem Beitrag erklären wir warum Staffbite als Cloud Service angeboten wird. Außerdem gehen wir auf die Vorteile der online Schichtplanung ein."/>
-          <meta property="twitter:url" content="https://www.staffbite.de/themen/cloudservice"></meta>
+          <meta property="twitter:url" content="https://www.staffbite.de/themen/cloud-service"></meta>
           <meta property="twitter:image" content={CloudPicture}></meta>
           <meta property="twitter:type" content="blog"></meta>
 

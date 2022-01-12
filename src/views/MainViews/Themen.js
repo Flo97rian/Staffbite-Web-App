@@ -119,16 +119,13 @@ function Themen (props) {
                             alt="Vier Menschen am Tisch mit Zettel und Block"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/schichtplanvorlage"class="stretched-link">Schichtplan Vorlage</Link> erstellen
+                            <Link to="/themen/schichtplan-vorlage"class="stretched-link">Schichtplan Vorlage erstellen</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie erstelle ich eine Schichtplan Vorlage?
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
                                     In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle & wiederverwendbare Vorlage erstellen kannst. Schau dir hier unsere Schritt für Schritt Anleitung an. 
-                            </CardText>
-                            <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/schichtplan-vorlage" >Schichtplan Vorlage</Link>
                             </CardText>
                         </Card>
                 </Col>
@@ -146,16 +143,13 @@ function Themen (props) {
                             alt="Bild von drei unterschiedlichen Wegen"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/schichtplanerstellen"class="stretched-link">Schichtplan mit Papier, Excel oder Software</Link>
+                            <Link to="/themen/schichtplan-erstellen"class="stretched-link">Schichtplan mit Papier, Excel oder Software</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie erstelle ich meinen Schichtplan? 
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
                                     Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.
-                            </CardText>
-                            <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/schichtplan-erstellen" >Papier, Excel oder Software?</Link>
                             </CardText>
                         </Card>
                 </Col>
@@ -192,7 +186,7 @@ function Themen (props) {
                             alt="Schichtplan online erstellen"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/cloudservice" class="stretched-link">Schichtplanung in der Cloud</Link>
+                            <Link to="/themen/cloud-service" class="stretched-link">Schichtplanung in der Cloud</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Warum ist Staffbite ein Cloud Service und was ist das eigentlich?
