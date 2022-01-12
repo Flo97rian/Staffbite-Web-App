@@ -88,7 +88,6 @@ function Themen (props) {
             
             <Container className="mb-4 pt-4">
             
-            
             <Row className="mt-2">
                                 
             <Col xs="6">
@@ -125,8 +124,10 @@ function Themen (props) {
                                 Wie erstelle ich eine Schichtplan Vorlage?
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle & wiederverwendbare Vorlage erstellen kannst. Schau dir hier unsere Schritt für Schritt Anleitung an. 
+                                    In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle & wiederverwendbare Vorlage erstellen kannst. 
+                                    Schau dir hier unsere Schritt für Schritt Anleitung an. 
                             </CardText>
+                            <br/>
                         </Card>
                 </Col>
                 
@@ -151,6 +152,7 @@ function Themen (props) {
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
                                     Es gibt viele verschiedene Möglichkeiten die Schichtplanung umzusetzen. In diesem Beitrag zeige ich dir drei davon und gehe kurz auf Vor- und Nachteile ein.
                             </CardText>
+                            <br/>
                         </Card>
                 </Col>
 

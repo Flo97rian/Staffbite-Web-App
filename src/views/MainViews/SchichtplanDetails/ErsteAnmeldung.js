@@ -26,6 +26,7 @@ import {
   Row,
   Col,
   Card,
+  CardImg,
   CardText,
   CardSubtitle,
   CardTitle
@@ -34,6 +35,8 @@ import {
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
+import VorlageThumbnail from "../../../assets/img/themen/SchichtplanVorlageThumbnail.png"
+import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShiftplan-min.png"
 
 function ErsteAnmeldung (props) {
   useEffect(() => {
@@ -74,10 +77,12 @@ function ErsteAnmeldung (props) {
             <Container className="pb-2"fluid>
                 <Row className="text-center">
                 <Col>
-                <p>
-                  Moin! Wir freuen uns, dass du dich für Staffbite interessierst.
+                <p className="lead">
+                  Wir freuen uns, dass du dich für Staffbite interessierst.
                   <br/>
                   Um dir den Einstieg so leicht wie möglich zu machen, haben wir ein Video vorbereitet.
+                  <br/>
+                  In diesem Video zeige ich dir die ersten Schritte mit unserer Lösung.
                 </p>
                 </Col>
                 </Row>
@@ -93,54 +98,66 @@ function ErsteAnmeldung (props) {
                 <Row className="text-center">
                 <Col md="12" lg="12">
                   <br/>
-                  <p>
+                  <p className="lead">
                     Um dich das erste Mal bei Staffbite anzumelden, musst du dich zunächst registrieren. 
                     <br/>
-                    Klicke dafür einfach oben rechts auf "Kostenlos Registrieren" und gib die benötigten Daten ein.
-                  </p>
-                  <p>
+                    Klicke dafür einfach oben rechts auf <Link to="/signup">"Kostenlos testen"</Link> und gib die benötigten Daten ein.
+                  <br/>
                     Nachdem du deinen Account verifiziert hast, kannst du sofort loslegen! Herbei fallen keinerlei Kosten an.
+                    <br/>
+                    Wenn du mehr über unsere Lösung erfahren willst, klick einfach unten auf einen der Links.
                   </p>    
                 </Col>
 
                 </Row>
                 
             </Container>
-            <Container className="pb-2 pt-6 px-9" fluid>
-                <Row className="mt-2" >
+            
+            <Container mt-4>
+                <Row className="mt-6" >
+
                 <Col xs="6">
                 <Card>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Automatisierter Schichtplan
-                            </CardTitle>
-                            <CardSubtitle className="pl-4 p">
-                                Einen Schichtplan automatisiert Befüllen? Wie geht das?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
-                                     Mit wenigen Klicks kannst du deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> für dich befüllen lassen.
-                                    <br/>
-                                    <br/>
-                            </CardText>
-                        </Card>
+                <CardImg
+                  className="p-4"
+                  src={SchichtplanVorlage}
+                  alt="Tablet mit Schichtplan"
+                  ></CardImg>
+                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                  <Link to="/schichtplan-erstellen" class="stretched-link">Einfache und unkomplizierte Schichtpläne</Link>
+                  </CardTitle>
+                  <CardSubtitle className="pl-4 p">
+                      Mit Staffbite erstellst du deine Schichtpläne innerhalb kürzester Zeit.
+                  </CardSubtitle>
+                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
+                      Schaue dir hier an wie du mit Staffbite einen Schichtplan erstellen kannst.
+                      Du kannst die Schichtpläne jederzeit online per Smartphone, Tablet oder Laptop einsehen und bearbeiten.
+                  </CardText>
+                  <br/>
+                  </Card>
                 </Col>
-
                 
-
                 <Col xs="6">
-                <Card>
+                        <Card>
+                            <CardImg
+                            className="p-4"
+                            src={VorlageThumbnail}
+                            alt="Vier Menschen am Tisch mit Zettel und Block"
+                            ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Schichtplan erstellen
+                            <Link to="/themen/schichtplan-vorlage"class="stretched-link">Schichtplan Vorlage erstellen</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4 p">
-                                Wie erstelle ich einen guten Schichtplan?
+                                Wie erstelle ich eine Schichtplan Vorlage?
                             </CardSubtitle>
-                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
-                                     Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen" class="stretched-link">digitalen Schichtplan</Link> für dich und dein Team. 
-                                    <br/>
-                                    <br/>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle & wiederverwendbare Vorlage erstellen kannst. 
+                                    Schau dir hier unsere Schritt für Schritt Anleitung an. 
                             </CardText>
+                            <br/>
                         </Card>
                 </Col>
+
                 </Row>
                 </Container>
       </Container>

@@ -27,6 +27,7 @@ import {
   Col,
   CardTitle,
   Card,
+  CardImg,
   CardSubtitle,
   CardText
 } from "reactstrap";
@@ -35,6 +36,8 @@ import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {TEAMVERWALTEN_TITLE, TEAMVERWALTEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png"
+import Preise from "../../../assets/img/theme/ZeitGeld.png"
+import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
 
 function TeamVerwalten (props) {
   useEffect(() => {
@@ -75,7 +78,7 @@ function TeamVerwalten (props) {
     <Container className="pb-2"fluid>
         <Row className="text-center ml-0 mt-4">
         <Col>
-        <p>
+        <p className="lead">
             Staffbite liefert dir einfach und unkompliziert die wichtigsten Informationen zu deinem Team.
             <br/>
             
@@ -83,8 +86,8 @@ function TeamVerwalten (props) {
         </Col>
         </Row>
         
-        <Row className="text-center">
-        <Col className="col-xs-12"  md="12" lg="9">
+        <Row className="justify-content-center">
+        <Col className="col-xs-12"  md="12" lg="8">
             <img
             alt="Übersicht zur Erstellung und Verwaltung deines Teams"
             src={TeamÜbersicht}
@@ -101,7 +104,7 @@ function TeamVerwalten (props) {
         <Row className="text-center ml-0 mt-4">
         <Col md="12" lg="12">
             <br/>
-            <p>
+            <p className="lead">
             Damit sich dein Team in den Schichtplan eintragen kann, musst du deine Mitarbeiter*innen nur einmalig einladen. 
             <br/>
             Dafür brauchst du nur ihren Namen, ihre E-Mail-Adresse und die Anzahl der Schichten, die sie pro Woche arbeiten sollen. 
@@ -113,41 +116,53 @@ function TeamVerwalten (props) {
         </Col>
         </Row>
         </Container>
-        <Container className="pb-2 pt-6 px-9" fluid>
-                <Row className="mt-2" >
+
+        <Container mt-4>
+                <Row className="mt-6" >
+
                 <Col xs="6">
                 <Card>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Automatisierter Schichtplan
-                            </CardTitle>
-                            <CardSubtitle className="pl-4 p">
-                                Einen Schichtplan automatisiert Befüllen? Wie geht das?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
-                                     Mit wenigen Klicks kannst du deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> für dich befüllen lassen.
-                                    <br/>
-                                    <br/>
-                            </CardText>
-                        </Card>
+                <CardImg
+                  className="p-4"
+                  src={SchichtplanPublish}
+                  alt="Vollständig befüllter Schichtplan"
+                  ></CardImg>
+                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                  <Link to="/fuer-dein-team" class="stretched-link">Vorteile für dein Team</Link>
+                  </CardTitle>
+                  <CardSubtitle className="pl-4 p">
+                      Wir liefern Mehrwerte für dich und dein gesamtes Team.
+                  </CardSubtitle>
+                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
+                      Schaue dir hier die Vorteile unserer Lösung für dein gesamtes Team an.
+                      Biete deinen Mitarbeiter*innen die Schichtpläne, die sie verdient haben.
+                  </CardText>
+                  <br/>
+                  <br/>
+                  </Card>
                 </Col>
-
                 
-
                 <Col xs="6">
-                <Card>
+                        <Card>
+                            <CardImg
+                            className="p-4"
+                            src={Preise}
+                            alt="Eine Wage im Gleichgewicht mit einer Uhr und Geld"
+                            ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Schichtplan erstellen
+                            <Link to="/pricing"class="stretched-link">Unsere Preise</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4 p">
-                                Wie erstelle ich einen guten Schichtplan?
+                                Wie viel kostet dich unsere Lösung nach dem Probemonat?
                             </CardSubtitle>
-                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
-                                     Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen" class="stretched-link">digitalen Schichtplan</Link> für dich und dein Team. 
-                                    <br/>
-                                    <br/>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    Wenn du Staffbite testen möchtest, erhälst du einen kostenlosen Probemonat. 
+                                    Nachdem dieser abgelaufen ist, prüfen wir gemeinsam, welches Paket für dich passt.
+                                    Bei uns gibt es keinen Preis pro Mitarbeiter*in, damit du nicht jeden Monat etwas anderes zahlen musst. 
                             </CardText>
                         </Card>
                 </Col>
+
                 </Row>
                 </Container>
     </Container>
