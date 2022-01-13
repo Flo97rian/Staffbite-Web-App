@@ -70,19 +70,33 @@ function SchichtplanErstellen (props) {
       {/* Page content */}
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-4 pt-6">
-                        <h1>Einfache und unkomplizierte Schichtpläne für dich und dein Team</h1>
+                        <h1>Dein digitaler Schichtplan</h1>
                     </Row>
       </Container>
                 
             <Container fluid>
-              <Row className="justify-content-center">
-                <p className="lead">
+            <Row className="ml-0 mt-10">
+        <Col className="mt-4 ml-6">
+        <p className="lead">
+        <br/>
+        <br/>
+        <br/>
+        <h2 class="display-4">Einfache und unkomplizierte Schichtpläne für dich und dein Team</h2>
                   Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. 
                   <br/>
                   Du kannst mit wenigen Klicks die wichtigsten Informationen zu deinen Schichten angeben. 
                   <br/>
                   Den vorbereiteten Plan gibst du anschließend deinem Team frei.
+                  <br/>
+                  <br/>
+                  Jetzt musst du nur noch abwarten, bis dein Team sich in den Plan eingetragen hat.
+                    <br/> 
+                    Dein Team bekommt ebenfalls einen Zugang zu Staffbite und kann sich jederzeit per Smartphone, Tablet oder Laptop in den Plan eintragen. 
+                    <br/>
+                    Über unser Reporting kannst du außerdem nachschauen wer sich noch nicht eingetragen hat.
+                
                 </p>
+                </Col>
                       
                 <Col md="12" lg="8">
                   <img
@@ -94,23 +108,6 @@ function SchichtplanErstellen (props) {
                   />
                 </Col>
                 </Row>
-
-                <Container className="pb-2">
-                <Row className="text-center ml-0 mt-4">
-                <Col md="12" lg="12">
-                  <br/>
-                  <p className="lead">
-                    Jetzt musst du nur noch abwarten, bis dein Team sich in den Plan eingetragen hat.
-                    <br/> 
-                    Dein Team bekommt ebenfalls einen Zugang zu Staffbite und kann sich jederzeit per Smartphone, Tablet oder Laptop in den Plan eintragen. 
-                    <br/>
-                    Über unser Reporting kannst du außerdem nachschauen wer sich noch nicht eingetragen hat.
-                  </p>
-                     
-                </Col>
-
-                </Row>
-                </Container>
 
                 <Container mt-4>
                 <Row className="mt-6" >

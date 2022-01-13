@@ -71,22 +71,33 @@ function TeamVerwalten (props) {
     <Container className="pt-5 pb-2" fluid>
     <Container className="mt-6">
                 <Row className="justify-content-center ml-0 mt-4">
-                <h1 class="text-center">Behalte dein Team im Blick!</h1>
+                <h1 class="text-center">Dein digitaler Schichtplan - Team verwalten</h1>
                 </Row>
     </Container>
                 
     <Container className="pb-2"fluid>
-        <Row className="text-center ml-0 mt-4">
-        <Col>
+        <Row className="ml-0 mt-10">
+        <Col className="mt-4 ml-6">
         <p className="lead">
+        <br/>
+        <br/>
+        <br/>
+        <h2 class="display-4">Behalte dein Team im Blick!</h2>
             Staffbite liefert dir einfach und unkompliziert die wichtigsten Informationen zu deinem Team.
             <br/>
+            <p className="lead">
+            Damit sich dein Team in den Schichtplan eintragen kann, musst du deine Mitarbeiter*innen nur einmalig einladen. 
+            <br/>
+            Dafür brauchst du nur ihren Namen, ihre E-Mail-Adresse und die Anzahl der Schichten, die sie pro Woche arbeiten sollen. 
+            <br/>
+            Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. 
+            <br/>
+            Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten.
+            </p>  
             
         </p>
         </Col>
-        </Row>
-        
-        <Row className="justify-content-center">
+
         <Col className="col-xs-12"  md="12" lg="8">
             <img
             alt="Übersicht zur Erstellung und Verwaltung deines Teams"
@@ -100,25 +111,10 @@ function TeamVerwalten (props) {
         </Row>
         
 
-        <Container className="pb-2"fluid>
-        <Row className="text-center ml-0 mt-4">
-        <Col md="12" lg="12">
-            <br/>
-            <p className="lead">
-            Damit sich dein Team in den Schichtplan eintragen kann, musst du deine Mitarbeiter*innen nur einmalig einladen. 
-            <br/>
-            Dafür brauchst du nur ihren Namen, ihre E-Mail-Adresse und die Anzahl der Schichten, die sie pro Woche arbeiten sollen. 
-            <br/>
-            Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. 
-            <br/>
-            Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten.
-            </p>  
-        </Col>
-        </Row>
-        </Container>
-
-        <Container mt-4>
+        <Container mt-6>
+        
                 <Row className="mt-6" >
+                  
 
                 <Col xs="6">
                 <Card>

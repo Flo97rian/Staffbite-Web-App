@@ -71,24 +71,33 @@ function VerfügbarkeitenEintragen (props) {
       {/* Page content */}
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-4 pt-6">
-                        <h1>Verfügbarkeiten eintragen</h1>
+                        <h1>Dein digitlaer Schichtplan - Eintragen</h1>
                     </Row>
       </Container>
                 
-            <Container className="pb-2">
-              <Row className="justify-content-center ml-0 mt-4">
-                
+      <Container className="pb-2"fluid>
+            <Row className="ml-0 mt-10">
+              <Col className="mt-4 ml-6">
+              
+              <br/>
+              <br/>
+              <br/>
+              <h2 class="display-4">Verfügbarkeiten eintragen</h2>
                 <p className="lead">
                   Jedes deiner Teammitglieder bekommt einen eigenen Zugang zu Staffbite. 
                   <br/>
                   Anschließend können sie per Smartphone, Tablet oder Laptop ihre Verfügbarkeiten eintragen.
                   <br/>
                   Auf diese Weise spart ihr euch einen Haufen WhatsApp-Nachrichten, Mails, Zettel und Stress.
+                  <br/>
+                  <br/>
+                  Übrigens: Wir arbeiten derzeit mit Hochdruck an einer kostenlosen iOS & Android-App für deine Mitarbeiter*innen.
                 </p>
+                </Col>
                 
                     
                 
-                <Col md="12" lg="7">
+                <Col md="12" lg="6">
                   <img
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={TeamVerwalten}
@@ -98,19 +107,8 @@ function VerfügbarkeitenEintragen (props) {
                   />
                 </Col>
                 </Row>
-                  <br/>
-                
-
-                <Row className="text-center ml-0 mt-4">
-                <Col md="12" lg="12">
-                  <br/>
-                  <p className="lead">
-                    Ubrigens: Wir arbeiten derzeit mit Hochdruck an einer kostenlosen iOS & Android-App für deine Mitarbeiter*innen.
-                  </p>    
-                </Col>
-
-                </Row>
                 </Container>
+
                 <Container mt-4>
                 <Row className="mt-6" >
 

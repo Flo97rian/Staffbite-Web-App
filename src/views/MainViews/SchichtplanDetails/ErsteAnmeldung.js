@@ -105,7 +105,7 @@ function ErsteAnmeldung (props) {
                   <br/>
                     Nachdem du deinen Account verifiziert hast, kannst du sofort loslegen! Herbei fallen keinerlei Kosten an.
                     <br/>
-                    Wenn du mehr über unsere Lösung erfahren willst, klick einfach unten auf einen der Links.
+                    Wenn du mehr über unsere Lösung erfahren willst, klick einfach unten auf eines der Bilder.
                   </p>    
                 </Col>
 
