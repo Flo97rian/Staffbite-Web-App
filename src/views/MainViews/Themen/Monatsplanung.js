@@ -89,13 +89,13 @@ function Monatsplanung (props) {
         <Container className=" mb-4 pt-4">
               <Row>
                 <Col>
-                    <p>
+                    <p className="lead">
                     Moin zusammen 🚀
                     </p>
-                    <p>
+                    <p className="lead">
                         In diesem Beitrag zeige ich dir, wie du deine individuelle Schichtplan Vorlage nutzen kannst, um die Planung für einen ganzen Monat vorzubereiten. Im letzten Artikel habe ich dir gezeigt, wie du deine <Link to="/themen/schichtplan-vorlage">Schichtplanvorlage erstellen</Link> kannst.
                     </p>
-                    <p>
+                    <p className="lead">
                         Um die Schichtplanung für einen ganzen Monat vorzubereiten, wählst du zunächst erneut deine Vorlage aus. Wenn du keine Anpassungen vornehmen möchtest, klickst du oben rechts auf „Schichtplan freigeben“. 🙌
                     </p>
 
@@ -113,7 +113,7 @@ function Monatsplanung (props) {
 
                     <br/>
                     <h2>Der erste Schichtplan</h2>
-                    <p>
+                    <p className="lead">
                         Anschließend öffnet sich dieses Fenster. Gib deinem Schichtplan einen Namen wie beispielsweise „1. Woche Januar“ und wähle im Feld darunter die entsprechende Kalenderwoche aus. Anschließend klickst du auf „Freigeben“. ✅
                     </p>
                     
@@ -130,7 +130,7 @@ function Monatsplanung (props) {
                     </Row>
                     <br/>
                     <h2>Die Schichtpläne für den ganzen Monat</h2>
-                    <p>
+                    <p className="lead">
                         Der vorbereitete Schichtplan taucht anschließend in deinem Reiter „Bewerbung“ auf und ist für dein gesamtes Team einsehbar. Wechsel nun zurück in deine Vorlage und führe die oben genannten Schritte erneut durch. Innerhalb von zwei Minuten bist du fertig und kannst deine vorbereiteten Schichtpläne für den ganzen Monat einsehen. 😎
                     </p>
                    
@@ -148,12 +148,12 @@ function Monatsplanung (props) {
                     <br/>
 
 
-                    <p>
+                    <p className="lead">
                         Dein Team kann die Pläne nun ebenfalls einsehen und sich für den gesamten Monat eintragen. Im nächsten Artikel zeige ich dir wie du einzelne Schichten bearbeiten und somit deinen individuellen Schichtplan jederzeit abbilden kannst. Schau doch in der Zwischenzeit einfach mal in unsere Lösung rein – ich würde mich freuen! 
                     </p>
                     
                     <h2>Starte jetzt deinen kostenfreien Probemonat</h2>
-                    <p>
+                    <p className="lead">
                       Wenn du mehr über unsere online Schichtplanung erfahren willst, dann schau dich gerne auf unserer Website um oder starte direkt mit dem <Link to="/signup" >kostenlosen Probemonat</Link>!</p>
                   </Col>
               </Row>

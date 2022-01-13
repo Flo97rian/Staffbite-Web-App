@@ -172,7 +172,7 @@ export const PrioSchicht = (props) => {
                 <Row className="mt-4">
                     <Col xs={1} ></Col>
                     <Col xs={10} >
-                            <InfoOverlay infotitle="Schicht deaktiveieren" description={INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION}/>
+                            <InfoOverlay infotitle="Schicht deaktivieren" description={INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION}/>
                             <Row className="ml-0">
                                 <Button color="warning" disabled={getShiftActive()} onClick={() => props.onHandleActiveInactiveShift(props.modalkey)}>Deaktivieren</Button>
                                 <Button color="success" disabled={!getShiftActive()} onClick={() => props.onHandleActiveInactiveShift(props.modalkey)}>Aktivieren</Button>

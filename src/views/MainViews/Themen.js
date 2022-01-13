@@ -38,6 +38,7 @@ import Paperwork from "../../assets/img/themen/PaperworkImage.png"
 import Possibilities from "../../assets/img/themen/Possibilities.png"
 import VorlageThumbnail from "../../assets/img/themen/SchichtplanVorlageThumbnail.png"
 import Calendar from "../../assets/img/themen/CalendarImage.png"
+import Individuell from "../../assets/img/themen/Individuell.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -45,6 +46,8 @@ function Themen (props) {
     let mainContent = useRef("mainContent")
   useEffect(() => {
     pageViewsTracking()
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
   },[])
 
   useEffect(() => {
@@ -89,6 +92,28 @@ function Themen (props) {
             <Container className="mb-4 pt-4">
             
             <Row className="mt-2">
+
+            <Col xs="6">
+                <Card>
+                            <CardImg
+                            className="p-2"
+                            src={Individuell}
+                            alt="Schichtplan online erstellen"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                <br/>
+                                <Link to="/themen/individueller-schichtplan" class="stretched-link">Dein individueller Schichtplan</Link>
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie kann die individuellen Anforderungen meines Betriebs abbilden?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Artikel zeige ich dir, wie du deine Anforderungen an einen Schichtplan direkt umsetzen kannst.
+                                    Wir bieten dir die Möglichkeit Mindestanforderungen und Notizen für einzelne Schichten einzustellen und Schichten flexibel zu deaktiveren.
+                            </CardText>
+                            <br/>
+                        </Card>
+            </Col>
                                 
             <Col xs="6">
                         <Card>
@@ -110,6 +135,11 @@ function Themen (props) {
                         </Card>
                 </Col>
                 
+                </Row>
+                
+                
+                <Row className="mt-2" >
+
                 <Col xs="6">
                         <Card>
                             <CardImg
@@ -131,11 +161,6 @@ function Themen (props) {
                         </Card>
                 </Col>
                 
-                </Row>
-                
-                
-                <Row className="mt-2" >
-                
                 <Col xs="6">
                     <Card>
                             <CardImg
@@ -156,6 +181,11 @@ function Themen (props) {
                         </Card>
                 </Col>
 
+                </Row>
+
+
+                <Row className="mt-2" >
+
                 <Col xs="6">
                         <Card>
                             <CardImg
@@ -175,11 +205,6 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
-
-                </Row>
-
-
-                <Row className="mt-2" >
                 <Col xs="6">
                 <Card>
                             <CardImg
@@ -201,27 +226,7 @@ function Themen (props) {
                 </Col>
                 
 
-                <Col xs="6">
-                <Card>
-                            <CardImg
-                            className="p-2"
-                            src={StaffbiteLogo}
-                            alt="Schichtplan online erstellen"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Schichtplan veröffentlichen
-                            </CardTitle>
-                            <CardSubtitle className="pl-4">
-                                Was ist bei der Veröffentlichtung von einem Schichtplan zu beachten?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    In diesem Artikel klären wir worauf zu achten ist, wenn ein fertiger Plan veröffentlicht wird. Welche Aufgaben fallen danach noch an?
-                            </CardText>
-                            <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/" >In kürze verfügbar: Schichtplan Vorlage erstellen</Link>
-                            </CardText>
-                        </Card>
-                </Col>
+
 
                 </Row>
 

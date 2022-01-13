@@ -89,32 +89,32 @@ function CloudService (props) {
         <Container className=" mb-4 pt-4">
               <Row>
                 <Col>
-                    <p>
+                    <p className="lead">
                       Moin und herzlich willkommen zu unserem Blog 😊
                     </p>
-                    <p>
+                    <p className="lead">
                       In unserem Blog werden wir regelmäßig Fragen beantworten, Tipps & Tricks mit euch teilen und auf aktuelle Neuigkeiten eingehen. Wenn du also eine Frage an uns hast, dann schreib gerne eine Mail an info@staffbite.de – wir freuen uns deine Nachricht!
                     </p>
-                    <p>
+                    <p className="lead">
                       Kürzlich erreichte uns eine Nachricht mit der Frage: Warum ist Staffbite ein Cloud Service und was ist das eigentlich?  
                     </p>
                     <h2>Was ist ein Cloud Service?</h2>
-                    <p>
+                    <p className="lead">
                       Um diese Frage zu beantworten, muss zunächst der Begriff „Cloud Service“ verstanden werden. Ein Cloud Service (auch SaaS – Software as a Service genannt) ist im Prinzip eine gewöhnliche Software. Der entscheidende Unterschied liegt darin, dass du bei einem Cloud Service nichts herunterladen und installieren musst. Die Software wird über das Internet bereitgestellt und ist jederzeit und von überall aus nutzbar!
                     </p>
-                    <p>
+                    <p className="lead">
                       Häufig sorgt der Begriff Cloud für Verunsicherung. Gerade Unternehmer*innen haben große Angst gegen Datenschutzrichtlinien zu verstoßen und bleiben deshalb lieber bei ihrer Excel-Tabelle. Doch auch Excel ist inzwischen größtenteils ein Cloud Service – auch wenn du deine Tabellen lokal auf deinem Computer speicherst. 
                     </p>
                     <h2>Vorteile für dich als Kunden</h2>
-                    <p>
+                    <p className="lead">
                       Die Vorteile von Cloud Services sind unumstritten. Die Miete eines Cloud Servers ist deutlich günstiger als die Anschaffung eines eigenen Servers. Aus diesem Grund können wir dir unseren Cloud Service deutlich günstiger anbieten!
                       Hinzu kommt, dass Cloud Server regelmäßig von Experten gewartet werden und die neuesten Sicherheitsupdates erhalten. Das bedeutet für dich als Kunden, dass unser Service jederzeit verfügbar ist und eine hohe Performance gewährleistet!
                     </p>
-                    <p>
+                    <p className="lead">
                       Aus diesen Gründen haben wir uns dazu entschlossen Staffbite als Cloud Service aufzubauen und anzubieten. Wir sind uns sicher, dass diese Entscheidung das Erlebnis unserer Kunden nachhaltig verbessert.
                     </p>
                     <h2>Probiere es jetzt aus</h2>
-                    <p>
+                    <p className="lead">
                       Wenn du mehr über unsere online Schichtplanung erfahren willst, dann schau dich gerne auf unserer Website um oder starte direkt mit dem <Link to="/signup" >kostenlosen Probemonat</Link>!</p>
                   </Col>
               </Row>
