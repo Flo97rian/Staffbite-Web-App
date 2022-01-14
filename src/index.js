@@ -51,6 +51,7 @@ import Automatisierung from './views/MainViews/Themen/Automatisierung';
 import Schichtplanerstellen from './views/MainViews/Themen/Schichtplanerstellen';
 import Schichtplanvorlage from './views/MainViews/Themen/Schichtplanvorlage';
 import Monatsplanung from './views/MainViews/Themen/Monatsplanung';
+import IndividuellerSchichtplan from './views/MainViews/Themen/IndividuellerSchichtplan';
 import AutomatisierteBefüllung from './views/MainViews/SchichtplanDetails/AutomatisierteBefüllung';
 import SchichtplanVeroeffentlichen from './views/MainViews/SchichtplanDetails/SchichtplanVeroeffentlichen';
 import VorteileTeam from './views/MainViews/SchichtplanDetails/VorteileTeam';
@@ -84,10 +85,11 @@ ReactDOM.render(
         <Route path="/verfuegbarkeiten-eintragen" element={<VerfügbarkeitenEintragen />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/themen/automatisierung" element={<Automatisierung />} />
-        <Route path="/themen/cloudservice" element={<CloudService />} />
+        <Route path="/themen/cloud-service" element={<CloudService />} />
         <Route path="/themen/schichtplan-erstellen" element={<Schichtplanerstellen />} />
         <Route path="/themen/schichtplan-vorlage" element={<Schichtplanvorlage />} />
         <Route path="/themen/monatsplanung" element={<Monatsplanung />} />
+        <Route path="/themen/individueller-schichtplan" element={<IndividuellerSchichtplan />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
         <Route path="/pricing" element={ <Pricing  />} />

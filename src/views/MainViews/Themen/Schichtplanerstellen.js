@@ -92,35 +92,35 @@ function Schichtplanerstellen (props) {
         <Container className=" mb-4 pt-4">
               <Row>
                 <Col>
-                    <p>
+                    <p className="lead">
                     Moin zusammen 👋
                     </p>
-                    <p>
+                    <p className="lead">
                       In unserem Blog werden wir regelmäßig Fragen beantworten, Tipps & Tricks mit euch teilen und auf aktuelle Neuigkeiten eingehen. Wenn du also eine Frage an uns hast, dann schreib gerne eine Mail an info@staffbite.de – wir freuen uns deine Nachricht!
                     </p>
-                    <p>
+                    <p className="lead">
                     Heute möchte ich euch die verschiedenen Möglichkeiten vorstellen, die es gibt, um einen Schichtplan zu erstellen. Jede dieser Möglichkeiten hat Vor- und Nachteile, die abgewogen werden müssen.  
                     </p>
-                    <p>
+                    <p className="lead">
                     Im Sommer 2021 habe ich meine Masterthesis über die Schichtplanung in kleinen und mittleren Betrieben geschrieben. Um ein besseres Verständnis für die Probleme und Anforderungen der Personalplaner*innen zu bekommen, habe ich diverse Interviews geführt und mir im Detail den Prozess der Schichtplanung erklären zu lassen.
                     </p>
                     
                     <h2>Was sind die Probleme der Schichtplanung?</h2>
-                    <p>
+                    <p className="lead">
                     Interessant war hierbei, dass bereits das Einholen der Verfügbarkeiten der Mitarbeiter*innen in vielen Betrieben eine Herausforderung darstellt. Es existiert eine Vielzahl an Kommunikationswegen, die die Mitarbeiter*innen nutzen, um mitzuteilen wann sie arbeiten können.
                     </p>
-                    <p>
+                    <p className="lead">
                     Die Verantwortlichen müssen anschließend eine große Menge WhatsApp-Nachrichten, Mails und Zettel durchsuchen und sich Notizen machen. Häufig gehen hierbei Informationen verloren oder sind bereits veraltet. Das Ergebnis ist ein Schichtplan, der in den meisten Fällen bereits kurz nach der Veröffentlichung wieder angepasst werden muss.
                     </p>
-                    <p>
+                    <p className="lead">
                     Die Befüllung der Schichtpläne an sich stellt jedoch die größte Herausforderung dar. Es müssen Faktoren wie die Gehaltsvorstellung der Mitarbeiter*innen, die Wunscharbeitszeiten, Überstunden, Urlaub, Positionen und Qualifikationen berücksichtigt werden. In den meisten Fällen haben die Verantwortlichen diese Faktoren im Kopf. Aus diesem Grund kann die manuelle Befüllung der Schichtpläne auch nicht abgegeben werden. Urlaub oder ein Ausfall wegen Krankheit ist kaum möglich.
                     </p>
 
                     <h2>Wie werden 2021 Schichtpläne erstellt?</h2>
-                    <p>
+                    <p className="lead">
                     Zu meiner Überraschung gaben viele Betriebe an, dass sie auch im Jahre 2021 immer noch ihre Schichtpläne mit Zettel und Stift erstellen. Hierbei wird meist eine Vorlage verwendet, die vor einigen Monaten erstellt und ausgedruckt wurde. Die Verantwortlichen planten in der Regel einige Stunden am Wochenende ein, um in mühevoller Kleinstarbeit den Schichtplan zu befüllen.
                     </p>
-                    <p>
+                    <p className="lead">
                     Wird ein Teammitglied krank oder kann aus einem anderen Grund nicht erscheinen, wird erneut der Stift gezückt und der Plan angepasst. Das Ergebnis ist ein schwierig zu verstehender und meist unvollständiger Schichtplan. Dieser Plan muss anschließend nach den Änderungen fotografiert und dem Team zugeschickt werden. Spätestens nach der dritten Änderung hat der Großteil des Teams leider den Überblick verloren.
                     </p>
 
@@ -137,37 +137,37 @@ function Schichtplanerstellen (props) {
                 </Row>
 
                     <h2>Schichtplanung mit Excel</h2>
-                    <p>
+                    <p className="lead">
                     Die meisten Betriebe, mit denen ich gesprochen habe, erstellen ihre Schichtpläne mit Excel. Manche verteilen ihre Schichtplanvorlage über eine Dropbox oder die Cloud. Diese Betriebe nutzen bereits die ersten Vorteile der technologischen Entwicklung der letzten Jahre.
                     </p>                    
-                    <p>
+                    <p className="lead">
                     Das Einholen der Verfügbarkeiten der Mitarbeiter*innen und die Befüllung der Schichtpläne erfolgt jedoch immer noch in manueller Kleinstarbeit und dauert somit mehrere Stunden jede Woche. Zusätzlich sollte erwähnt werden, dass die Excel Vorlagen, die aus dem Internet heruntergeladen werden, nur selten die individuellen Bedürfnisse der Betriebe vollständig abbilden.
                     </p>                    
-                    <p>
+                    <p className="lead">
                     Dennoch ist die Planung mit Excel sehr beliebt, da kaum Kosten entstehen. Es wird lediglich eine Microsoft Excel Lizenz benötigt, die viele Betriebe sowieso besitzen, da sie für die Buchhaltung benötigt wird. Der hohe manuelle Aufwand kann durch Excel jedoch nicht umgangen werden.    
                     </p>
 
                     <h2>Software zur Schichtplanung</h2>
-                    <p>
+                    <p className="lead">
                     Nur ein kleiner Bruchteil der Betriebe, mit denen ich gesprochen habe, verwendet eine professionelle Software, um die Schichtplanung zu erledigen. Die wesentlichen Gründe sind hierbei die hohen Preise, die manche Anbieter aufrufen sowie das fehlende Vertrauen, dass eine Software die vielen individuellen Anforderungen abbilden kann.
                     </p>
-                    <p>
+                    <p className="lead">
                     Die hohen Preise der Anbieter sind in den meisten Fällen damit zu begründen, dass die Software für große Betriebe und Unternehmensketten konzipiert wurden. Es können Schichtpläne für mehrere Filialen und hunderte Mitarbeiter*innen abgebildet können. Für kleine und mittlere Betriebe sind diese umfassenden Systeme jedoch weder geeignet noch bezahlbar.
                     </p>                    
                     
                     <h2>Die Lösung für kleine und mittlere Betriebe</h2>
-                    <p>
+                    <p className="lead">
                     Wir von Staffbite haben die Anforderungen und Probleme bei der Schichtplanung genau analysiert und bieten eine bezahlbare, flexible und automatisierte Lösung für kleine und mittlere Betriebe. Die Mitarbeiter*innen deines Betriebs erhalten einen Zugang zu unserem System (in Kürze veröffentlichen wir unsere kostenfreie Mitarbeitenden-App) und können dort direkt ihre Verfügbarkeiten eintragen. Auf diese Weise kannst du bereits eine Menge Zeit und Nerven einsparen.
                     </p>
-                    <p>
+                    <p className="lead">
                     Nachdem sich dein Team in den Schichtplan eingetragen hat, kannst du die automatisierte Befüllung starten. Nach wenigen Sekunden ist dein Schichtplan fertig. Bei Bedarf kannst du Anpassungen vornehmen und den Plan anschließend veröffentlichen.
                     </p>
-                    <p>
+                    <p className="lead">
                     Dein Team kann jederzeit online den Schichtplan einsehen und weiß genau Bescheid. Jede Änderung im Plan erscheint automatisch auch bei deinen Mitarbeiter*innen. Eine Win-Win-Situation für dich und dein Team.
                     </p>
                     
                     <h2>Starte jetzt deinen kostenfreien Probemonat</h2>
-                    <p>
+                    <p className="lead">
                       Wenn du mehr über unsere online Schichtplanung erfahren willst, dann schau dich gerne auf unserer Website um oder starte direkt mit dem <Link to="/signup" >kostenlosen Probemonat</Link>!</p>
                   </Col>
               </Row>

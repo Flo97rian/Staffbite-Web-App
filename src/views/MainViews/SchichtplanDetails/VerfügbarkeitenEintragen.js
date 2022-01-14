@@ -28,7 +28,8 @@ import {
   Card,
   CardText,
   CardTitle,
-  CardSubtitle
+  CardSubtitle,
+  CardImg
 
 } from "reactstrap";
 
@@ -36,6 +37,8 @@ import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {VERFÜGBARKEITENEINTRAGEN_TITLE, VERFÜGBARKEITENEINTRAGEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamVerwalten from "../../../assets/img/theme/Team-verwalten.png"
+import Possibilities from "../../../assets/img/themen/Possibilities.png"
+import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
 
 function VerfügbarkeitenEintragen (props) {
   useEffect(() => {
@@ -68,22 +71,33 @@ function VerfügbarkeitenEintragen (props) {
       {/* Page content */}
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-4 pt-6">
-                        <h1>Verfügbarkeiten eintragen</h1>
+                        <h1>Dein digitlaer Schichtplan - Eintragen</h1>
                     </Row>
       </Container>
                 
-            <Container className="pb-2">
-              <Row className="justify-content-center ml-0 mt-4">
-                
-                <p>
-                  Moin! Wir freuen uns, dass du dich für Staffbite interessierst.
+      <Container className="pb-2"fluid>
+            <Row className="ml-0 mt-10">
+              <Col className="mt-4 ml-6">
+              
+              <br/>
+              <br/>
+              <br/>
+              <h2 class="display-4">Verfügbarkeiten eintragen</h2>
+                <p className="lead">
+                  Jedes deiner Teammitglieder bekommt einen eigenen Zugang zu Staffbite. 
                   <br/>
-                  Um dir den Einstieg so leicht wie möglich zu machen, haben wir ein Video vorbereitet.
+                  Anschließend können sie per Smartphone, Tablet oder Laptop ihre Verfügbarkeiten eintragen.
+                  <br/>
+                  Auf diese Weise spart ihr euch einen Haufen WhatsApp-Nachrichten, Mails, Zettel und Stress.
+                  <br/>
+                  <br/>
+                  Übrigens: Wir arbeiten derzeit mit Hochdruck an einer kostenlosen iOS & Android-App für deine Mitarbeiter*innen.
                 </p>
+                </Col>
                 
                     
                 
-                <Col md="12" lg="7">
+                <Col md="12" lg="6">
                   <img
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={TeamVerwalten}
@@ -93,63 +107,55 @@ function VerfügbarkeitenEintragen (props) {
                   />
                 </Col>
                 </Row>
-                  <br/>
-                
+                </Container>
 
-                <Row className="text-center ml-0 mt-4">
-                <Col md="12" lg="12">
+                <Container mt-4>
+                <Row className="mt-6" >
+
+                <Col xs="6">
+                <Card>
+                <CardImg
+                  className="p-4"
+                  src={SchichtplanBeispiel}
+                  alt="Vollständig befüllter Schichtplan"
+                  ></CardImg>
+                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                  <Link to="/automatisierter-schichtplan" class="stretched-link">Dein automatisierter Schichtplan</Link>
+                  </CardTitle>
+                  <CardSubtitle className="pl-4 p">
+                      Wir wollen dir dabei helfen deine Schichtpläne deutlich schneller zu befüllen.
+                  </CardSubtitle>
+                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
+                      Aus diesem Grund haben wir automatisierte Befüllung entwickelt.
+                      Unser Algorithmus teilt deine Mitarbeiter*innen fair & ausgeglichen in den Schichtplan ein.
+                  </CardText>
                   <br/>
-                  <p>
-                    Um dich das erste Mal bei Staffbite anzumelden, musst du dich zunächst registrieren. 
-                    <br/>
-                    Klicke dafür einfach oben rechts auf "Kostenlos Registrieren" und gib die benötigten Daten ein.
-                  </p>
-                  <p>
-                    Nachdem du deinen Account verifiziert hast, kannst du sofort loslegen! Herbei fallen keinerlei Kosten an.
-                  </p>    
+                  </Card>
+                </Col>
+                
+                <Col xs="6">
+                        <Card>
+                            <CardImg
+                            className="p-4"
+                            src={Possibilities}
+                            alt="Ein Mensch steht vor 3 Wegen"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                            <Link to="/themen/schichtplan-erstellen"class="stretched-link">Schichtplan mit Papier, Excel oder Software</Link>
+                            </CardTitle>
+                            <CardSubtitle className="pl-4 p">
+                                Wie viel kostet dich unsere Lösung nach dem Probemonat?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    Wenn du Staffbite testen möchtest, erhälst du einen kostenlosen Probemonat. 
+                                    Nachdem dieser abgelaufen ist, prüfen wir gemeinsam, welches Paket für dich passt.
+                                    Bei uns gibt es keinen Preis pro Mitarbeiter*in, damit du nicht jeden Monat etwas anderes zahlen musst. 
+                            </CardText>
+                        </Card>
                 </Col>
 
                 </Row>
                 </Container>
-                <Container className="pb-2 pt-6 px-9" fluid>
-                <Row className="mt-2" >
-                <Col xs="6">
-                <Card>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Automatisierter Schichtplan
-                            </CardTitle>
-                            <CardSubtitle className="pl-4 p">
-                                Einen Schichtplan automatisiert Befüllen? Wie geht das?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
-                                     Mit wenigen Klicks kannst du deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> für dich befüllen lassen.
-                                    <br/>
-                                    <br/>
-                            </CardText>
-                        </Card>
-                </Col>
-
-                
-
-                <Col xs="6">
-                <Card>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                Vorteile für dein Team
-                            </CardTitle>
-                            <CardSubtitle className="pl-4">
-                                Wie profitiert mein Team von der Umstellung auf eine digitale Schichtplanung?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
-                                Siehe hier, welche <Link to="/fuer-dein-team" >Vorteile für dein Team</Link> in einer digitalen Schichtplanung stecken.
-                                <br/>
-                                <br/>
-                            </CardText>
-                        </Card>
-                </Col>
-
-                </Row>
-
-            </Container>
           
       <LandingFooter></LandingFooter>
     </>

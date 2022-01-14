@@ -90,10 +90,10 @@ function Schichtplanvorlage (props) {
         <Container className=" mb-4 pt-4">
               <Row>
                 <Col>
-                    <p>
+                    <p className="lead">
                     Moin 👋
                     </p>
-                    <p>
+                    <p className="lead">
                     Im heutigen Artikel möchte ich dir zeigen, wie du mit unserer Lösung eine Vorlage für deinen Schichtplan erstellst. Diese kannst du jederzeit wiederverwenden oder bei Bedarf anpassen.
                     </p>
 
@@ -111,7 +111,7 @@ function Schichtplanvorlage (props) {
 
                     <br/>
                     <h2>Grundlegenden Plan vorbereiten</h2>
-                    <p>
+                    <p className="lead">
                         Um deine individuelle Vorlage zu erstellen, benötigst du nur die wichtigsten Informationen. Im ersten Schritt wählst du einen Namen und die Anzahl der Schichten pro Tag. Anschließend wählst du aus an welchen Tagen dein Betrieb geschlossen ist. Klicke auf „Erstellen“, damit dein grundlegender Plan vorbereitet wird. 🚀
                     </p>
                     
@@ -128,7 +128,7 @@ function Schichtplanvorlage (props) {
                     </Row>
                     <br/>
                     <h2>Schichtdetails eintragen</h2>
-                    <p>
+                    <p className="lead">
                     Nach wenigen Sekunden ist der Plan da. Jetzt fehlen noch die Schichtdetails, damit dein Team sich in den Plan eintragen kann. <br/>Hierfür gibst du an:<br/>
                         -	Name der Schicht<br/>
                         -	benötigte Position (Kasse, Lager, Küche, Schichtleitung, etc.)<br/>
@@ -149,7 +149,7 @@ function Schichtplanvorlage (props) {
                     </Row>
                     <br/>
                     
-                    <p>
+                    <p className="lead">
                     Nachdem du die benötigten Schichtdetails eingetragen hast, ist deine Vorlage fertig! Du kannst den Plan nun für dein Team freigeben. 🎉
                     </p>                    
 
@@ -166,13 +166,12 @@ function Schichtplanvorlage (props) {
                     </Row>
                     <br/>
 
-
-                    <p>
+                    <p className="lead">
                         Im nächsten Artikel zeige ich dir wie du mit einer Vorlage direkt die <Link to="/themen/monatsplanung">Schichtplanung für einen ganzen Monat</Link> vorbereiten kannst. 😍
                     </p>
                     
                     <h2>Starte jetzt deinen kostenfreien Probemonat</h2>
-                    <p>
+                    <p className="lead">
                       Wenn du mehr über unsere online Schichtplanung erfahren willst, dann schau dich gerne auf unserer Website um oder starte direkt mit dem <Link to="/signup" >kostenlosen Probemonat</Link>!</p>
                   </Col>
               </Row>

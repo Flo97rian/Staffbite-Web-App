@@ -37,6 +37,7 @@ import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION, SCHICHTPLAN_VEROEFFENTLICHEN_TITLE, SCHICHTPLAN_VEROEFFENTLICHEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
+import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png";
 
 function SchichtplanVeroeffentlichen (props) {
   useEffect(() => {
@@ -100,45 +101,58 @@ function SchichtplanVeroeffentlichen (props) {
                 </Row>
                 </Container>
                 <div>
-                <Container className="pb-2 pt-6 px-9" fluid>
-                <Row className="mt-2" >
+                
+                <Container mt-4>
+                <Row className="mt-6" >
+
                 <Col xs="6">
                 <Card>
+                <CardImg
+                  className="p-4"
+                  src={SchichtplanPublish}
+                  alt="Vollständig befüllter Schichtplan"
+                  ></CardImg>
+                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                  <Link to="/fuer-dein-team" class="stretched-link">Vorteile für dein Team</Link>
+                  </CardTitle>
+                  <CardSubtitle className="pl-4 p">
+                      Noch nicht überzeugt?
+                  </CardSubtitle>
+                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
+                    Wir wollen dir UND deinem Team helfen.
+                    Unsere digitalen Schichtpläne bieten sowohl dir als auch deinem Team jede Menge Vorteile. Schau dir hier die wichtigsten im Überblick an.
+                  </CardText>
+                  <br/>
+                  <br/>
+                  </Card>
+                </Col>
+                
+                <Col xs="6">
+                        <Card>
+                            <CardImg
+                            className="p-4"
+                            src={TeamÜbersicht}
+                            alt="Übersicht der Teammitglieder"
+                            ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    Automatisierter Schichtplan
+                            <Link to="/automatisierter-schichtplan"class="stretched-link">Automatisierte Befüllung</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4 p">
-                                Einen Schichtplan automatisiert Befüllen? Wie geht das?
+                                Unsere Automatisierung spart dir jede Menge Zeit & Geld
                             </CardSubtitle>
-                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
-                                     Mit wenigen Klicks kannst du deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> für dich befüllen lassen.
-                                    <br/>
-                                    <br/>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    Normalerweise dauert die Schichtplanung jede Woche aufs Neue mehrere Stunden.
+                                    Durch unsere Lösung kannst du deine Schichtpläne innerhalb weniger Sekunden befüllen lassen.
                             </CardText>
-                        </Card>
-                </Col>
-
-                
-
-                <Col xs="6">
-                <Card>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                Vorteile für dein Team
-                            </CardTitle>
-                            <CardSubtitle className="pl-4">
-                                Wie profitiert mein Team von der Umstellung auf eine digitale Schichtplanung?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-2 pr-4 lead" tag="p">
-                                Siehe hier, welche <Link to="/fuer-dein-team" >Vorteile für dein Team</Link> in einer digitalen Schichtplanung stecken.
-                                <br/>
-                                <br/>
-                            </CardText>
+                            <br/>
                         </Card>
                 </Col>
 
                 </Row>
-
                 </Container>
+                
+
+                
                 </div>
       </Container>
       <LandingFooter></LandingFooter>
