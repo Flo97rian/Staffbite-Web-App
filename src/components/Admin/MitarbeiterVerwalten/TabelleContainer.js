@@ -36,6 +36,7 @@ const TableContainer = (props) => {
     steps: [
       {
         target: '.button_mitartbeitereinladen',
+        showProgress: true,
         locale: { 
           skip: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>, 
           next: <strong aria-label="skip">Nächster Schritt</strong>
@@ -46,6 +47,7 @@ const TableContainer = (props) => {
       {
         target: '.card_mitarbeiterliste',
         content: ONBOARDING_TEAM_OVERVIEW,
+        showProgress: true,
         locale: { 
             last: <strong aria-label="skip" onClick={() => handleOnboarding()}>Beenden</strong>,
             back: <strong aria-label="skip">Zurück</strong>
@@ -262,9 +264,11 @@ const setSelectEmployee = (ma) => {
     }
   };
   useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    mainContent.current.scrollTop = 0;
+    if(Meta && !Meta.onboarding.team) {
+      document.documentElement.scrollTop = 0;
+      document.scrollingElement.scrollTop = 0;
+      mainContent.current.scrollTop = 0;
+    }
   }, [location]);
 
         return(
@@ -273,7 +277,8 @@ const setSelectEmployee = (ma) => {
         <Joyride
           continuous={true}
           run={run}
-          scrollToFirstStep={true}
+          scrollOffset={200}
+          top
           showProgress={true}
           showSkipButton={true}
           steps={steps}

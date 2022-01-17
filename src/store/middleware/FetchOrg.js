@@ -27,7 +27,11 @@ import { API_HOSTNAME, FETCH_ORGANISATION } from "../../constants/ApiConstants";
           }
           if(Object.keys(response.Item).includes("vorname")) {
             org.vorname = response.Item.vorname["S"]
-        }
+          }
+          if(Object.keys(response.Item).includes("tenantCategorie")) {
+            org.tenantCategorie = JSON.parse(response.Item.tenantCategorie["S"])
+          }
+          console.log(new Date())
           dispatch({type: "setMeta", payload: org})
           dispatch({type: "stopFetchingMeta"})
             })

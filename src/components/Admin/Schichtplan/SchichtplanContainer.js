@@ -158,6 +158,8 @@ const SchichtplanContainer = () => {
   const ShiftplanChanged = useSelector(selectShiftplanChanged);
 
   useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
     store.dispatch({ type: "ResetCurrentShiftPlan"});
     store.dispatch({ type: "resetShiftplan"});
     store.dispatch({ type: "stopShiftPlanIsImported"});
@@ -632,7 +634,8 @@ const SchichtplanContainer = () => {
         <Joyride
           continuous={true}
           run={run}
-          scrollToFirstStep={true}
+          scrollOffset={200}
+          top
           showProgress={true}
           showSkipButton={true}
           steps={steps}
