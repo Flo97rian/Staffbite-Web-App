@@ -179,13 +179,10 @@ const getMeta = async (body) => {
 
 const addNews = async (body, meta, planName) => {
     var META = "ORG#" + "METADATA#" + body.user["custom:TenantId"];
-    let newsfeed = [];
-    if("newsfeed" in meta) {
-        newsfeed = JSON.parse(meta.newsfeed["S"])
-    }
+    let newsfeed = JSON.parse(meta.newsfeed["S"])
     let currentDate = new Date();
-    let message = "Der Schichtplan " + planName + " wurde zum Eintragen freigeben."
-    let feedObject = {timestamp:currentDate,title: "Zum Entragen bereit",message:message,type:"Eintragen"}
+    let message = planName + " wurde zum Eintragen freigeben."
+    let feedObject = {timestamp:currentDate,title: "Schichtplan zum Entragen bereit",message:message,type:"Eintragen"}
     newsfeed.unshift(feedObject)
      var params = {
     Key: {
