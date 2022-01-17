@@ -93,7 +93,7 @@ function Monatsplanung (props) {
                     Moin zusammen 🚀
                     </p>
                     <p className="lead">
-                        In diesem Beitrag zeige ich dir, wie du deine individuelle Schichtplan Vorlage nutzen kannst, um die Planung für einen ganzen Monat vorzubereiten. Im letzten Artikel habe ich dir gezeigt, wie du deine <Link to="/themen/schichtplan-vorlage">Schichtplanvorlage erstellen</Link> kannst.
+                        In diesem Beitrag zeige ich dir, wie du deine individuelle <Link to="/themen/schichtplan-vorlage">Schichtplan Vorlage</Link> nutzen kannst, um die Planung für einen ganzen Monat vorzubereiten. Im letzten Artikel habe ich dir gezeigt, wie du deine <Link to="/themen/schichtplan-vorlage">Schichtplanvorlage erstellen</Link> kannst.
                     </p>
                     <p className="lead">
                         Um die Schichtplanung für einen ganzen Monat vorzubereiten, wählst du zunächst erneut deine Vorlage aus. Wenn du keine Anpassungen vornehmen möchtest, klickst du oben rechts auf „Schichtplan freigeben“. 🙌
