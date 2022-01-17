@@ -93,6 +93,8 @@ const EinstellungenContainer = () => {
   const SidebarInfo = useSelector(selectInfoSidebar);
 
   useEffect(() => {
+      document.documentElement.scrollTop = 0;
+      document.scrollingElement.scrollTop = 0;
       store.dispatch(FetchOrg)
       store.dispatch({ type: "ResetCurrentShiftPlan"})
       store.dispatch({ type: "resetShiftplan"})
@@ -212,7 +214,8 @@ const EinstellungenContainer = () => {
        <Joyride
           continuous={true}
           run={run}
-          scrollToFirstStep={true}
+          scrollOffset={200}
+          top
           showProgress={true}
           showSkipButton={true}
           steps={steps}

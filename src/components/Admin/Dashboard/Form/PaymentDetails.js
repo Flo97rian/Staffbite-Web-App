@@ -37,7 +37,7 @@ import {
                        </Col>
                        <Col>
                             <p className="lead">
-                                {Object.keys(props.Employees).length}
+                                {props.Employees ? Object.keys(props.Employees).length : <></>}
                             </p>
                        </Col>
                 </Row>

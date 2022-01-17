@@ -107,6 +107,8 @@ const DashboardContainer = (props) => {
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
     store.dispatch(FetchFromDB);
     store.dispatch(FetchEmployees);
     store.dispatch({ type: "ResetCurrentShiftPlan"})
@@ -259,7 +261,8 @@ const DashboardContainer = (props) => {
           <Joyride
           continuous={true}
           run={run}
-          scrollToFirstStep={true}
+          scrollOffset={200}
+          top
           showProgress={true}
           showSkipButton={true}
           steps={steps}
