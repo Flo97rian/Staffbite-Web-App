@@ -296,7 +296,7 @@ const Landing = (props) => {
               <Row className="justify-content-center text-center mb-4">
                 <Col md="10">
                   <p className="lead">
-                  Wir legen höchsten Wert auf eine einfache Bedienbarkeit. Wir entwickeln unsere Lösung stetig weiter und gehen dabei die Wünsche unserer Kunden ein.
+                  Wir helfen dir Zeit & Geld zu sparen. Deshalb entwickeln unsere Lösung stetig weiter und gehen dabei die Wünsche unserer Kunden ein. Somit erhälst du mit Staffbite die Lösung, die dir wirklich weiterhilft.
                   </p>
                 </Col>
               </Row>
@@ -356,7 +356,7 @@ const Landing = (props) => {
                               <Row>
                                 <Col>
                                   <p className="description mt-0">
-                                  Erstelle flexible Schichtpläne in wenigen Minuten.
+                                  Erstelle flexible Schichtpläne für deine Bedürfnisse in wenigen Minuten.
                                   </p>
                                 </Col>
                               </Row>      
@@ -413,14 +413,14 @@ const Landing = (props) => {
                               <Row>
                                 <Col>
                                 <h3 className="lead mb-0 mt-0">
-                                <Link to="/pricing" class="stretched-link">Preise</Link>  <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                <Link to="/pricing" class="stretched-link">Faire Preise</Link>  <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
                                 </h3>
                                 </Col>
                               </Row>
                               <Row>
                                 <Col>
                                   <p className="description mt-0">
-                                  Faire & transparente Preise - ideal für kleine Geschäfte.
+                                  Schau dir hier unsere Preise an - ideal für kleine Geschäfte.
                                   </p>
                                 </Col>
                               </Row>      
@@ -465,7 +465,7 @@ const Landing = (props) => {
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary">
-                        Jederzeit Einsehbar
+                      <Link to="/themen/schichtplan-erstellen">Jederzeit Einsehbar</Link>
                       </CardTitle>
                       <CardText>
                         Online via Computer & App
@@ -503,10 +503,10 @@ const Landing = (props) => {
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary">
-                      <Link to="/verfuegbarkeiten-eintragen">Rollen & Positionen</Link>
+                      <Link to="/team-verwalten">Rollen & Positionen</Link>
                       </CardTitle>
                       <CardText>
-                        Erweiterbar je Mitarbeiter
+                        Behalte dein Team im Blick
                       </CardText>
                     </CardBody>
                   </Card>
@@ -515,10 +515,10 @@ const Landing = (props) => {
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary">
-                      <Link to="/verfuegbarkeiten-eintragen">Selbst eintragen</Link>
+                      <Link to="/schichtplan-veroeffentlichen">Selbst eintragen</Link>
                       </CardTitle>  
                       <CardText>
-                        Springe bei Bedarf selbst ein
+                        Trage dich bei Bedarf einfach selbst ein
                       </CardText>                  
                     </CardBody>
                   </Card>
