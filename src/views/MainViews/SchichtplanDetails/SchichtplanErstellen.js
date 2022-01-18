@@ -158,9 +158,9 @@ function SchichtplanErstellen (props) {
                     <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
-                    alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                    alt="Abbildung der Erstellung einer anpassbaren Schichtplan Vorlage von Staffbite"
                     src={VorlageErstellen}
-                    title="Schichtplan Vorlage erstellen"
+                    title="Erstellung Schichtplan Vorlage"
                     height="100%"
                     width="100%"
                   />
@@ -249,7 +249,7 @@ function SchichtplanErstellen (props) {
                     <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
-                    alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                    alt="Abbildung einer anpassbaren Schichtplan Vorlage in der eine Schicht hinhugefügt wird."
                     src={Schichthinzufuegen}
                     title="Schicht hinzufuegen"
                     height="100%"
@@ -277,9 +277,9 @@ function SchichtplanErstellen (props) {
                     <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
-                    alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                    alt="Abbildung einer fertigen Schichtplan Vorlage von Staffbite"
                     src={SchichtplanVorlageVerwenden}
-                    title="Schicht hinzufuegen"
+                    title="Fertige Schichtplan Vorlage"
                     height="100%"
                     width="100%"
                   />
