@@ -36,7 +36,9 @@ import {
   CardHeader,
   Row,
   Col,
-  CardFooter
+  CardFooter,
+  CardTitle,
+  CardText
 } from "reactstrap";
 
 // index page sections
@@ -182,7 +184,7 @@ const Landing = (props) => {
                           👩‍💻
                           </div>
                           <h3 className="h5 text-primary text-uppercase">
-                             1. Schichtplan erstellen
+                             <Link to="/schichtplan-erstellen">1. Schichtplan erstellen</Link>
                           </h3>
                           <p className="description mt-3">
                             Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen" class="stretched-link">digitalen Schichtplan</Link> für dich und dein Team. 
@@ -198,10 +200,10 @@ const Landing = (props) => {
                           📲
                           </div>
                           <h3 className="h5 text-success text-uppercase">
-                          2. Eintragen
+                          <Link to="/fuer-dein-team" class="stretched-link">2. In Schichtplan Eintragen</Link>
                           </h3>
                           <p className="description mt-3">
-                            Deine Mitarbeiter*innen tragen sich in deinen <HashLink to="/fuer-dein-team" class="stretched-link">online Schichtplan</HashLink>ein. Das geht jederzeit per Smartphone oder Laptop.
+                            Deine Mitarbeiter*innen tragen sich in deinen <Link to="/fuer-dein-team" class="stretched-link">online Schichtplan</Link>ein. Das geht jederzeit per Smartphone oder Laptop.
                           </p>
                         </CardBody>
                       </Card>
@@ -213,10 +215,10 @@ const Landing = (props) => {
                           🤩
                           </div>
                           <h3 className="h5 text-warning text-uppercase">
-                            3. Automatisierte Befüllung
+                            <Link to="/automatisierter-schichtplan" class="stretched-link">3. Automatisierte Befüllung</Link>
                           </h3>
                           <p className="description mt-3">
-                            Unsere Lösung befüllt deinen <HashLink to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</HashLink> innerhalb weniger Sekunden.
+                            Unsere Lösung befüllt deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> innerhalb weniger Sekunden.
                           </p>
                           <br />
                         </CardBody>
@@ -229,10 +231,10 @@ const Landing = (props) => {
                           🎉
                           </div>
                           <h3 className="h5 text-info text-uppercase">
-                            4. Schichtplan veröffentlichen
+                            <Link to="/schichtplan-veroeffentlichen" class="stretched-link">4. Schichtplan veröffentlichen</Link>
                           </h3>
                           <p className="description mt-3">
-                            Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den <HashLink to="/schichtplan-veroeffentlichen" class="stretched-link">fertigen Schichtplan</HashLink> mit einem Klick.
+                            Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den <Link to="/schichtplan-veroeffentlichen" class="stretched-link">fertigen Schichtplan</Link> mit einem Klick.
                           </p>
                           <br />
                         </CardBody>
@@ -285,89 +287,244 @@ const Landing = (props) => {
             </Col>          
           </Container>
           </section>
-          
-          <section className="section section-lg pt-lg-0 mt-8">
-            <Container>
-              <Row className="justify-content-center">
-                <Col lg="12">
+          <Container className="mt-6">
+              <Row className="justify-content-center text-center">
+                <Col md="12">
                   <h2 className="display-3 text-default">Unser Leistungsversprechen</h2>
-                  <Row className="row-grid">
-                    
-                    <Col lg="3">
-                      <Card className="card-lift--hover border-1 border-ocean">
-                        <CardBody className="py-5 pb-6">
-                          <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
-                            🎯
-                          </div>
-                          <h3 className="h5 text-primary text-uppercase">
-                            Einfach
-                          </h3>
-                          <p className="description mt-3">
-                            Wir legen höchsten Wert auf eine <a href="https://youtu.be/R0SpszGT0k8" class="stretched-link">einfache Bedienbarkeit</a>. Wir entwickeln unsere Lösung stetig weiter und gehen dabei die Wünsche unserer Kunden ein.
-                          </p>
-                        </CardBody>
-                      </Card>
-                    </Col>
-
-                    <Col lg="3">
-                      <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="pt-5 pl-4 pr-4 pb-1">
-                          <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
-                          📈
-                          </div>
-                          <h3 className="h5 text-success text-uppercase">
-                            Flexibel
-                          </h3>
-                          <p className="description mt-3">
-                            Jeder Betrieb ist einzigartig und so muss auch das Personal geplant werden. Aus diesem Grund bieten wir die Möglichkeit, in wenigen Minuten <a href="https://youtu.be/fHdCLhBIYIA" class="stretched-link">flexible Schichtpläne</a> zu entwerfen und zu verwalten.
-                          </p>
-                        </CardBody>
-                      </Card>
-                    </Col>
-
-                    <Col lg="3">
-                      <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="pt-5 pl-4 pr-4 pb-6">
-                          <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                          🚀
-                          </div>
-                          <h3 className="h5 text-warning text-uppercase">
-                            Automatisiert
-                          </h3>
-                          <p className="description mt-3">
-                          Zeit ist Geld. Deshalb automatisieren wir die zeitfressende Zuordnung von <HashLink to="/automatisierter-schichtplan" class="stretched-link">Personal und Schichten</HashLink>.
-                          </p>
-                          <br />
-                        </CardBody>
-                      </Card>
-                    </Col>
-
-                    <Col lg="3">
-                      <Card border="primary" className="card-lift--hover shadow border-4">
-                        <CardBody className="pt-5 pl-4 pr-4 pb-1">
-                          <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
-                          🤑
-                          </div>
-                          <h3 className="h5 text-info text-uppercase">
-                          Faire Preise
-                          </h3>
-                          <p className="description mt-3">
-                          <Link to="/pricing" class="stretched-link">Transparente Preise</Link> sind die Grundlage für eine vertrauensvolle Zusammenarbeit. Deshalb sind unsere Preise nachvollziehbar und fair - besonders für kleine Geschäfte.
-                          </p>
-                          <br />
-                        </CardBody>
-                      </Card>
-                    </Col>
-                  </Row>
                 </Col>
               </Row>
-{ /*             <Container>
-                <Row>
-                <ErstellenShow></ErstellenShow>
-                </Row>
-</Container>*/}
+              <Row className="justify-content-center text-center mb-4">
+                <Col md="10">
+                  <p className="lead">
+                  Wir legen höchsten Wert auf eine einfache Bedienbarkeit. Wir entwickeln unsere Lösung stetig weiter und gehen dabei die Wünsche unserer Kunden ein.
+                  </p>
+                </Col>
+              </Row>
+              <Row className="mt-4">
+                    <Col xs="12" sm="4">
+                    <div>
+                        <Row className="">
+                          <Col  xs="2">
+                            <Row className="justify-content-center">
+                              <div className=" mb-0 icon icon-shape font-size-700 p-0 justify-content-center text-center mb-0">
+                              🎯
+                              </div>
+                            </Row>
+                          </Col>
+                          <Col>
+                            <Row className="justify-content-center">
+                              <Col>
+                              <Row>
+                                <Col>
+                                <h3 className="lead mb-0 mt-0">
+                                <a href="https://youtu.be/R0SpszGT0k8" class="stretched-link">Einfache Bedienbarkeit</a> <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                </h3>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col>
+                                  <p className="description mt-0">
+                                  Wir legen höchsten Wert auf eine einfache Bedienbarkeit.
+                                  </p>
+                                </Col>
+                              </Row>      
+                          </Col>
+                          </Row>
+                          </Col>
+                        </Row>
+                      </div>
+                      <hr className="m-2"/>
+                      <div>
+                        <Row className="">
+                          <Col  xs="2">
+                            <Row className="justify-content-center">
+                              <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
+                              📈
+                              </div>
+                            </Row>
+                          </Col>
+                          <Col>
+                            <Row className="justify-content-center">
+                              <Col>
+                              <Row>
+                                <Col>
+                                <h3 className="lead mb-0 mt-0">
+                                <Link to="/schichtplan-erstellen" class="stretched-link">Flexible Schichtpläne</Link> <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                </h3>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col>
+                                  <p className="description mt-0">
+                                  Erstelle flexible Schichtpläne in wenigen Minuten.
+                                  </p>
+                                </Col>
+                              </Row>      
+                          </Col>
+                          </Row>
+                          </Col>
+                        </Row>
+                      </div>
+                      <hr className="m-2"/>
+                      <div>
+                        <Row className="">
+                          <Col  xs="2">
+                            <Row className="justify-content-center">
+                              <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
+                              🚀
+                              </div>
+                            </Row>
+                          </Col>
+                          <Col>
+                            <Row className="justify-content-center">
+                              <Col>
+                              <Row>
+                                <Col>
+                                <h3 className="lead mb-0 mt-0">
+                                  <Link to="/automatisierter-schichtplan" class="stretched-link">Automatisierte Zuordnung </Link><i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                </h3>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col>
+                                  <p className="description mt-0">
+                                  Nutze unsere automatisierte Zuordnung von Personal und Schichten.
+                                  </p>
+                                </Col>
+                              </Row>      
+                          </Col>
+                          </Row>
+                          </Col>
+                        </Row>
+                      </div>
+                      <hr className="m-2"/>
+                    <div>
+                        <Row className="">
+                          <Col  xs="2">
+                            <Row className="justify-content-center">
+                              <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
+                              🤑
+                              </div>
+                            </Row>
+                          </Col>
+                          <Col>
+                            <Row className="justify-content-center">
+                              <Col>
+                              <Row>
+                                <Col>
+                                <h3 className="lead mb-0 mt-0">
+                                <Link to="/pricing" class="stretched-link">Preise</Link>  <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                </h3>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col>
+                                  <p className="description mt-0">
+                                  Faire & transparente Preise - ideal für kleine Geschäfte.
+                                  </p>
+                                </Col>
+                              </Row>      
+                          </Col>
+                          </Row>
+                          </Col>
+                        </Row>
+                      </div>
+                    </Col>
+                <Col className="" xs="12" sm="8">
+                <img
+                    className="pt-0 pb-0"
+                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                    src={SchichtplanBeispiel}
+                    title="Team erstellen und verwalten"
+                    height="100%"
+                    width="100%"
+                  />
+                </Col>
+              </Row>
             </Container>
-          </section>
+          <Container>
+              <Row className="justify-content-center mt-4 mb-4">
+                <Col lg="12">
+                  <h2 className="display-3 text-default">Alles auf einen Blick</h2>
+                </Col>
+              </Row>
+              <Row className="justify-content-center text-center">
+                <Col>
+                  <Card>
+                    <CardBody>
+                      <CardTitle className="lead mt-0 mb-0 text-primary">
+                        <Link to="/schichtplan-erstellen">Vorlagen erstellen</Link>
+                      </CardTitle>
+                      <CardText>
+                        Wiederverwendbare Vorlagen
+                      </CardText>
+                    </CardBody>
+                  </Card>
+                </Col>
+                <Col>
+                  <Card>
+                    <CardBody>
+                      <CardTitle className="lead mt-0 mb-0 text-primary">
+                        Jederzeit Einsehbar
+                      </CardTitle>
+                      <CardText>
+                        Online via Computer & App
+                      </CardText>
+                    </CardBody>
+                  </Card>
+                </Col>
+                <Col>
+                  <Card>
+                    <CardBody>
+                      <CardTitle className="lead mt-0 mb-0 text-primary">
+                      <Link to="/verfuegbarkeiten-eintragen">Schichten tauschen</Link>
+                      </CardTitle>
+                      <CardText>
+                        Tauschanfragen schnell genehmigen
+                      </CardText>
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+              <Row className="justify-content-center text-center">
+                <Col>
+                  <Card>
+                    <CardBody>
+                      <CardTitle className="lead mt-0 mb-0 text-primary bold">
+                      <Link to="/automatisierter-schichtplan">Automatisch</Link>
+                      </CardTitle>
+                      <CardText>
+                        Automatisiere deinen Schichtplan
+                      </CardText>
+                    </CardBody>
+                  </Card>
+                </Col>
+                <Col>
+                  <Card>
+                    <CardBody>
+                      <CardTitle className="lead mt-0 mb-0 text-primary">
+                      <Link to="/verfuegbarkeiten-eintragen">Rollen & Positionen</Link>
+                      </CardTitle>
+                      <CardText>
+                        Erweiterbar je Mitarbeiter
+                      </CardText>
+                    </CardBody>
+                  </Card>
+                </Col>
+                <Col>
+                  <Card>
+                    <CardBody>
+                      <CardTitle className="lead mt-0 mb-0 text-primary">
+                      <Link to="/verfuegbarkeiten-eintragen">Selbst eintragen</Link>
+                      </CardTitle>  
+                      <CardText>
+                        Springe bei Bedarf selbst ein
+                      </CardText>                  
+                    </CardBody>
+                  </Card>
+                </Col>
+              </Row>
+          </Container>
         </main>
         <LandingFooter/>
       </>
