@@ -29,13 +29,20 @@ import {
   Card,
   CardImg,
   CardSubtitle,
-  CardText
+  CardText,
+  ListGroup,
+  ListGroupItem,
+  ListGroupItemText
 } from "reactstrap";
 
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {SCHICHTPLANERSTELLEN_TITLE, SCHICHTPLANERSTELLEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
+import VorlageErstellen from "../../../assets/img/theme/Vorlage-erstellen.png"
 import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShiftplan-min.png"
+import Schichthinzufuegen from "../../../assets/img/theme/Schicht-hinzufuegen.png"
+import SchichtplanVorlageVerwenden from "../../../assets/img/theme/Schichtplan-vorlage-verwenden.png"
+
 import CloudPicture from "../../../assets/img/themen/CloudComputingImage.png"
 import Calendar from "../../../assets/img/themen/CalendarImage.png"
 
@@ -70,46 +77,217 @@ function SchichtplanErstellen (props) {
       {/* Page content */}
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-4 pt-6">
-                        <h1>Dein digitaler Schichtplan</h1>
+                        <h1>Erstelle deinen Schichtplan online</h1>
                     </Row>
       </Container>
                 
-            <Container fluid>
-            <Row className="ml-0 mt-10">
-        <Col className="mt-4 ml-6">
-        <p className="lead">
-        <br/>
-        <br/>
-        <br/>
-        <h2 class="display-4">Einfache und unkomplizierte Schichtpläne für dich und dein Team</h2>
-                  Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. 
-                  <br/>
-                  Du kannst mit wenigen Klicks die wichtigsten Informationen zu deinen Schichten angeben. 
-                  <br/>
-                  Den vorbereiteten Plan gibst du anschließend deinem Team frei.
-                  <br/>
-                  <br/>
-                  Jetzt musst du nur noch abwarten, bis dein Team sich in den Plan eingetragen hat.
-                    <br/> 
-                    Dein Team bekommt ebenfalls einen Zugang zu Staffbite und kann sich jederzeit per Smartphone, Tablet oder Laptop in den Plan eintragen. 
-                    <br/>
-                    Über unser Reporting kannst du außerdem nachschauen wer sich noch nicht eingetragen hat.
-                
-                </p>
+      <Container fluid className="mt-3 mx-6">
+        <Row className="ml-0">
+        <Col className="mt-4">
+          <Row className="mt-6">
+            <h2 className="m-3 ml-2 p-0">Digitale Schichtpläne für dich und dein Team</h2>
+          </Row>
+          <Row className="mt-2">
+            <Col xs="12">
+          <p className="lead m-0">
+              Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. 
+          </p>
+              <Row className="mt-2 justify-content-center">
+                <Col xs="1" className="mt-2">
+                  <i className="fas fa-check-circle text-info"></i>
+                </Col>
+                <Col>
+                  <p className="lead m-0">Position & Rechte festlegen</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="1" className="mt-2">
+                  <i className="fas fa-check-circle text-info"></i>
+                </Col>
+                <Col>
+                  <p className="lead m-0">Beginn & Ende bestimmen</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="1" className="mt-2">
+                  <i className="fas fa-check-circle text-info"></i>
+                </Col>
+                <Col>
+                  <p className="lead m-0">Notizen für dein Team </p>
+                </Col>
+              </Row>
+              {/*<Row className="mt-6">
+              <p>
+              Du kannst mit wenigen Klicks die wichtigsten Informationen zu deinen Schichten angeben. 
+              <br/>
+              Den vorbereiteten Plan gibst du anschließend deinem Team frei.
+              <br/>
+              <br/>
+              Jetzt musst du nur noch abwarten, bis dein Team sich in den Plan eingetragen hat.
+              <br/> 
+              Dein Team bekommt ebenfalls einen Zugang zu Staffbite und kann sich jederzeit per Smartphone, Tablet oder Laptop in den Plan eintragen. 
+              <br/>
+              Über unser Reporting kannst du außerdem nachschauen wer sich noch nicht eingetragen hat.
+            </p>
+            </Row>*/}
+            </Col>
+          </Row>
                 </Col>
                       
-                <Col md="12" lg="8">
+                <Col md="12" lg="7">
                   <img
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                     src={SchichtplanVorlage}
                     title="Schichtplan Vorlage erstellen"
-                    height="100%"
+                    height="80%"
                     width="100%"
                   />
                 </Col>
+      </Row>
+      <Container>
+        <Row className="text-center">
+          <Col>
+            <h2 className="display-4">In zwei Schritten zur Schichtplanvorlage</h2>
+          </Col>
+        </Row>
+      </Container>
+      </Container>
+                <Container className="mt-6">
+                  <Row>
+                    <Col md="12" lg="6">
+                    <img
+                    className="shadow"
+                    style={{borderRadius: "10px"}}
+                    alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                    src={VorlageErstellen}
+                    title="Schichtplan Vorlage erstellen"
+                    height="100%"
+                    width="100%"
+                  />
+                    </Col>
+                    <Col className="ml-6">
+                    <Row className="mt-4">
+                      <h2 className="m-0 p-0">1. Erstelle deine Vorlagen</h2>
+                    </Row>
+                    <Row className="mt-2">
+                    <p className="m-0">
+                    Du kannst mit wenigen Klicks die wichtigsten Informationen <br/> zu deinen Schichten angeben. 
+                    </p>
+                  </Row>
+                  <Row className="justify-content-center mt-4">
+                <Col xs="1" className="mt-2">
+                  <i className="fas fa-check-circle text-info"></i>
+                </Col>
+                <Col>
+                  <p className="lead m-0">Namen festlegen</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="1" className="mt-2">
+                  <i className="fas fa-check-circle text-info"></i>
+                </Col>
+                <Col>
+                  <p className="lead m-0">Schichten bestimmen</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="1" className="mt-2">
+                  <i className="fas fa-check-circle text-info"></i>
+                </Col>
+                <Col>
+                  <p className="lead m-0">Ruhetage auswählen</p>
+                </Col>
+              </Row>
+                    </Col>
+                  </Row>
+                </Container>
+                <Container className="mt-8">
+                  <Row>
+                    <Col md="12" lg="6">
+                        <Row className="mt-4">
+                          <h2 className="m-0 p-0">2. Erstelle weitere Schichten</h2>
+                        </Row>
+                        <Row className="mt-2">
+                        <p className="m-0">
+                        Du kannst mit wenigen Klicks die wichtigsten Informationen <br/> zu deinen Schichten angeben. 
+                        </p>
+                      </Row>
+                      <Row className="justify-content-center mt-4">
+                    <Col xs="1" className="mt-2">
+                      <i className="fas fa-check-circle text-info"></i>
+                    </Col>
+                    <Col>
+                      <p className="lead m-0">Namen festlegen</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs="1" className="mt-2">
+                      <i className="fas fa-check-circle text-info"></i>
+                    </Col>
+                    <Col>
+                      <p className="lead m-0">Position auswählen</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs="1" className="mt-2">
+                      <i className="fas fa-check-circle text-info"></i>
+                    </Col>
+                    <Col>
+                      <p className="lead m-0">Beginn & Ende bestimmen</p>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs="1" className="mt-2">
+                      <i className="fas fa-check-circle text-info"></i>
+                    </Col>
+                    <Col>
+                      <p className="lead m-0">Anzahl benötigter Mitarbeiter eintragen</p>
+                    </Col>
+                  </Row>
+                    </Col>
+                    <Col className="">
+                    <img
+                    className="shadow"
+                    style={{borderRadius: "10px"}}
+                    alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                    src={Schichthinzufuegen}
+                    title="Schicht hinzufuegen"
+                    height="100%"
+                    width="100%"
+                  />
+                    
+                    </Col>
+                  </Row>
+                </Container>
+                <Container className="mt-8">
+                  <Row className="mt-4 text-center">
+                    <Col>
+                          <h2 className="m-0 p-0">Fertigen Schichtplan benutzen</h2>
+                          </Col>
                 </Row>
-
-                <Container mt-4>
+                      <Row className="mt-4 mb-4 text-center">
+                        <Col>
+                          <p className="m-0">
+                            Deine neue Schichtplanvorlage kannst du nun verwenden.
+                          </p>
+                        </Col>
+                      </Row>
+                  <Row>
+                    <Col md="12" lg="12">
+                    <img
+                    className="shadow"
+                    style={{borderRadius: "10px"}}
+                    alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                    src={SchichtplanVorlageVerwenden}
+                    title="Schicht hinzufuegen"
+                    height="100%"
+                    width="100%"
+                  />
+                    
+                    </Col>
+                  </Row>
+                </Container>
+                <Container className="mt-4">
                 <Row className="mt-6" >
 
                 <Col xs="6">
@@ -159,7 +337,6 @@ function SchichtplanErstellen (props) {
 
 
                 
-            </Container>
       <LandingFooter></LandingFooter>
     </>
   );

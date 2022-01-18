@@ -12431,14 +12431,15 @@ a.btn-icon-only {
 
 .image-container {
   width: auto;
-  left: 200px;
-  top: 2300px;
   height: 100%;
   position: absolute;
 }
 
 .uebersicht-img {
   opacity: 0;
+  top: -391px;
+  margin-left: 78px;
+  position: relative;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-in-out;
   -moz-animation-iteration-count: 1;
@@ -12453,9 +12454,10 @@ a.btn-icon-only {
   -moz-animation-name: OpacityLaptop;
 }
 .vorlageErstellen-img {
-  top: -900px;
+  top: -714px;
   position: relative;
   opacity: 0;
+  margin-left: 78px;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-in-out;
   -moz-animation-iteration-count: 1;
@@ -12471,7 +12473,8 @@ a.btn-icon-only {
 }
 
 .vorlageKlick-img {
-  top: -1800px;
+  top: -1037px;
+  margin-left: 78px;
   position: relative;
   opacity: 0;
   -webkit-animation-iteration-count: 1;
@@ -12488,7 +12491,8 @@ a.btn-icon-only {
   -moz-animation-name: OpacityKlick;
 }
 .vorlagePlan-img {
-  top: -2700px;
+  top: -1038px;
+  margin-left: 78px;
   position: relative;
   opacity: 1;
   -webkit-animation-iteration-count: 1;
@@ -12506,19 +12510,20 @@ a.btn-icon-only {
 }
 
 .laptop-img {
-  position: -500px;
-  -webkit-animation-iteration-count: 1;
+  opacity: 1;
+/*  -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-in-out;
   -moz-animation-iteration-count: 1;
   -moz-animation-timing-function: ease-in-out;
   -webkit-animation-name: Floatingy;
   -moz-animation-name: Floatingy;
+  */
 }
 .laptop-img {
-  -webkit-animation-duration: 1s;
+ /* -webkit-animation-duration: 1s;
   -moz-animation-duration: 1s;
   -webkit-animation-name: Floatingy;
-  -moz-animation-name: Floatingy;
+  -moz-animation-name: Floatingy; */
 }
 
 
@@ -12526,7 +12531,10 @@ a.btn-icon-only {
   from {
     opacity: 0;
   }
-  60% {
+  50% {
+    opacity: 1;
+  }
+  65% {
     opacity: 1;
   }
   to {
@@ -12540,13 +12548,13 @@ a.btn-icon-only {
   40% {
     opacity: 0;
   }
-  70% {
+  55% {
     opacity: 1;
   }
   80% {
-    opacity: 0.8;
+    opacity: 1;
   }
-  90% {
+  95% {
     opacity: 1;
   }
   to {
@@ -12558,13 +12566,13 @@ a.btn-icon-only {
     opacity: 0;
   }
   55% {
-    opacity: 0;
+    opacity: 1;
   }
   70% {
     opacity: 1;
   }
-  90% {
-    opacity: 1;
+  80% {
+    opacity: 0;
   }
   95% {
     opacity: 0;
@@ -12580,7 +12588,7 @@ a.btn-icon-only {
   50% {
     opacity: 0;
   }
-  80% {
+  60% {
     opacity: 1;
   }
   to {

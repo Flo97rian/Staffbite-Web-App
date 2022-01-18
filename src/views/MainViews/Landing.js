@@ -93,6 +93,17 @@ const Landing = (props) => {
           <div className="position-relative">
             {/* shape Hero */}
             <section className="section section-lg section-hero section-shaped pb-250 bg-gradient-info">
+              <div className="shape shape-style-1 shape-default">
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
             <LandingNavBar
               logo={{
                 innerLink: "/",
@@ -103,7 +114,7 @@ const Landing = (props) => {
               <Container className="py-lg-md d-flex">
                 <div className="col px-0">
                   <Row className="mt-6">
-                    <Col md="6" lg="7">
+                    <Col md="12" lg="6">
                       <h1 className="display-3 text-white pb-5">
                       Müde vom stundenlangen Schichtplan puzzeln?{" "}
                       </h1>
@@ -141,15 +152,12 @@ const Landing = (props) => {
                       
                     </Col>
                     <Col className="order-md-2" md="6" lg="5">
-                  <img
-                    className="pt-7 pb-0"
-                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
-                    src={SchichtplanBeispiel}
-                    title="Team erstellen und verwalten"
-                    height="100%"
-                    width="100%"
-                  />
-                </Col>                    
+                      <Container>
+                        <Row className="align-center">
+                          <ErstellenShow></ErstellenShow>
+                        </Row>
+                      </Container>
+                    </Col>                    
                   </Row>
                 </div>
               </Container>
@@ -172,7 +180,7 @@ const Landing = (props) => {
             </section>
           </div>
           <section className="section section-lg pt-lg-0 mt--150">
-            <Container className="">
+            <Container className="mt-4">
               <Row className="justify-content-center">
                 <Col lg="12">
                   <h2 className="display-3 text-white">So funktioniert's - in nur vier Schritten</h2>
