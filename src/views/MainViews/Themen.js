@@ -194,7 +194,7 @@ function Themen (props) {
                             alt="Schreibtisch mit Kaffee, Zettel und Stift"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/automatisierung" class="stretched-link">Automatisierte Befüllung</Link> deines Schichtplans
+                            <Link to="/themen/automatisierung" class="stretched-link">Automatisierte Befüllung deines Schichtplans</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Kann die Befüllung deines Schichtplans automatisiert werden?

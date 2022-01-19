@@ -91,13 +91,12 @@ function SchichtplanErstellen (props) {
             <Col xs="12">
           <p className="lead m-0">
               Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. 
-          </p>
               <Row className="mt-2 justify-content-center">
                 <Col xs="1" className="mt-2">
                   <i className="fas fa-check-circle text-info"></i>
                 </Col>
                 <Col>
-                  <p className="lead m-0">Position & Rechte festlegen</p>
+                  Position & Rechte festlegen
                 </Col>
               </Row>
               <Row>
@@ -105,7 +104,7 @@ function SchichtplanErstellen (props) {
                   <i className="fas fa-check-circle text-info"></i>
                 </Col>
                 <Col>
-                  <p className="lead m-0">Beginn & Ende bestimmen</p>
+                  Beginn & Ende bestimmen
                 </Col>
               </Row>
               <Row>
@@ -113,9 +112,10 @@ function SchichtplanErstellen (props) {
                   <i className="fas fa-check-circle text-info"></i>
                 </Col>
                 <Col>
-                  <p className="lead m-0">Notizen für dein Team </p>
+                  Notizen für dein Team
                 </Col>
               </Row>
+              </p>
               {/*<Row className="mt-6">
               <p>
               Du kannst mit wenigen Klicks die wichtigsten Informationen zu deinen Schichten angeben. 
@@ -170,16 +170,15 @@ function SchichtplanErstellen (props) {
                       <h2 className="m-0 p-0">1. Erstelle deine Vorlagen</h2>
                     </Row>
                     <Row className="mt-2">
-                    <p className="m-0">
-                    Du kannst mit wenigen Klicks die wichtigsten Informationen <br/> zu deinen Schichten angeben. 
-                    </p>
+                    <CardSubtitle className="lead">In wenigen Klicks kannst du die wichtigsten Informationen zu deinem Schichtplan angeben. </CardSubtitle>
                   </Row>
+                  <p className="m-0 lead">
                   <Row className="justify-content-center mt-4">
                 <Col xs="1" className="mt-2">
                   <i className="fas fa-check-circle text-info"></i>
                 </Col>
                 <Col>
-                  <p className="lead m-0">Namen festlegen</p>
+                  Namen festlegen
                 </Col>
               </Row>
               <Row>
@@ -187,7 +186,7 @@ function SchichtplanErstellen (props) {
                   <i className="fas fa-check-circle text-info"></i>
                 </Col>
                 <Col>
-                  <p className="lead m-0">Schichten bestimmen</p>
+                  Schichten bestimmen
                 </Col>
               </Row>
               <Row>
@@ -195,9 +194,10 @@ function SchichtplanErstellen (props) {
                   <i className="fas fa-check-circle text-info"></i>
                 </Col>
                 <Col>
-                  <p className="lead m-0">Ruhetage auswählen</p>
+                  Ruhetage auswählen
                 </Col>
               </Row>
+              </p>
                     </Col>
                   </Row>
                 </Container>
@@ -208,16 +208,15 @@ function SchichtplanErstellen (props) {
                           <h2 className="m-0 p-0">2. Erstelle weitere Schichten</h2>
                         </Row>
                         <Row className="mt-2">
-                        <p className="m-0">
-                        Du kannst mit wenigen Klicks die wichtigsten Informationen <br/> zu deinen Schichten angeben. 
-                        </p>
+                        <CardSubtitle className="lead">Als letzten Schritt gibst du die wichtigsten Informationen zu deinen Schichten an. </CardSubtitle>
                       </Row>
+                      <p className="m-0 lead">
                       <Row className="justify-content-center mt-4">
                     <Col xs="1" className="mt-2">
                       <i className="fas fa-check-circle text-info"></i>
                     </Col>
                     <Col>
-                      <p className="lead m-0">Namen festlegen</p>
+                      Namen festlegen
                     </Col>
                   </Row>
                   <Row>
@@ -225,7 +224,7 @@ function SchichtplanErstellen (props) {
                       <i className="fas fa-check-circle text-info"></i>
                     </Col>
                     <Col>
-                      <p className="lead m-0">Position auswählen</p>
+                      Position auswählen
                     </Col>
                   </Row>
                   <Row>
@@ -233,7 +232,7 @@ function SchichtplanErstellen (props) {
                       <i className="fas fa-check-circle text-info"></i>
                     </Col>
                     <Col>
-                      <p className="lead m-0">Beginn & Ende bestimmen</p>
+                      Beginn & Ende bestimmen
                     </Col>
                   </Row>
                   <Row>
@@ -241,9 +240,10 @@ function SchichtplanErstellen (props) {
                       <i className="fas fa-check-circle text-info"></i>
                     </Col>
                     <Col>
-                      <p className="lead m-0">Anzahl benötigter Mitarbeiter eintragen</p>
+                      Anzahl benötigter Mitarbeiter eintragen
                     </Col>
                   </Row>
+                  </p>
                     </Col>
                     <Col className="">
                     <img

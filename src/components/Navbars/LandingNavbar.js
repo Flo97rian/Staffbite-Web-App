@@ -30,7 +30,7 @@ const LandingNavBar = (props) =>  {
   if (logo && logo.innerLink) {
     navbarBrandProps = {
       to: logo.innerLink,
-      tag: HashLink,
+      tag: Link,
     };
   } else if (logo && logo.outterLink) {
     navbarBrandProps = {
@@ -49,6 +49,7 @@ const LandingNavBar = (props) =>  {
               height="40px"
               width="120px"
               title="Staffbite"
+              to="/"
               src={logo.imgSrc}
             />
           </NavbarBrand>
@@ -68,59 +69,59 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
                 
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/erste-anmeldung">
+                  <Link className="p text-muted p-0" to="/erste-anmeldung">
                   <p className="p-0 m-0">
                       Erste Anmeldung
                       </p>
-                  </HashLink>
+                  </Link>
                 </DropdownItem>
 
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/team-verwalten">
+                  <Link className="p text-muted p-0" to="/team-verwalten">
                   <p className="p-0 m-0">
                       Team verwalten
                       </p>
-                  </HashLink>
+                  </Link>
                 </DropdownItem>
 
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/schichtplan-erstellen">
+                  <Link className="p text-muted p-0" to="/schichtplan-erstellen">
                   <p className="p-0 m-0">
                       Schichtplan erstellen
                       </p>
-                  </HashLink>
+                  </Link>
                 </DropdownItem>
                
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/verfuegbarkeiten-eintragen">
+                  <Link className="p text-muted p-0" to="/verfuegbarkeiten-eintragen">
                   <p className="p-0 m-0">
                       Verfügbarkeiten eintragen
                       </p>
-                  </HashLink>
+                  </Link>
                 </DropdownItem>
 
                 <DropdownItem>
-                <HashLink className="p text-muted p-0" to="/automatisierter-schichtplan">
+                <Link className="p text-muted p-0" to="/automatisierter-schichtplan">
                 <p className="p-0 m-0">
                       Automatisierte Befüllung
                       </p>
-                  </HashLink>
+                  </Link>
                 </DropdownItem>
                 
                 <DropdownItem>
-                  <HashLink className="p text-muted p-0" to="/schichtplan-veroeffentlichen">
+                  <Link className="p text-muted p-0" to="/schichtplan-veroeffentlichen">
                   <p className="p-0 m-0">
                       Schichtplan veröffentlichen
                       </p>
-                  </HashLink>
+                  </Link>
                 </DropdownItem>
 
                 <DropdownItem className="text-muted">
-                <HashLink className="p text-muted p-0" to="/fuer-dein-team">
+                <Link className="p text-muted p-0" to="/fuer-dein-team">
                     <p className="p-0 m-0">
                       Für dein Team
                       </p>
-                  </HashLink>
+                  </Link>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

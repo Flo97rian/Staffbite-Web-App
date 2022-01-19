@@ -38,7 +38,8 @@ import {
   Col,
   CardFooter,
   CardTitle,
-  CardText
+  CardText,
+  CardSubtitle
 } from "reactstrap";
 
 // index page sections
@@ -122,29 +123,13 @@ const Landing = (props) => {
                       <div>
                         <p className="lead text-white m-1">
                         💻 Mit wenigen Klicks zu deinem digitalen Schichtplan 
-                        </p>
-                      </div>
-                      
-                      <div>
-                        <p className="lead text-white m-1">
-                          ✅ Einfach und übersichtlich  
-                        </p>
-                      </div>
-                      
-                      <div>
-                        <p className="lead text-white m-1">
-                          🥇 Hohe Flexibilität für verschiedene Branchen 
-                        </p>
-                      </div>
-                      
-                      <div>
-                        <p className="lead text-white m-1">
+                        <br/>
+                        ✅ Einfach und übersichtlich  
+                        <br/>
+                        🥇 Hohe Flexibilität für verschiedene Branchen 
+                        <br/>
                         🔐 Hoher Datenschutz nach DSGVO
-                        </p>
-                      </div>
-
-                      <div>
-                        <p className="lead text-white m-1">
+                        <br/>
                         🤝 Probiere es direkt aus - im kostenlosen Probemonat!
                         </p>
                       </div>
@@ -191,12 +176,12 @@ const Landing = (props) => {
                           <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
                           👩‍💻
                           </div>
-                          <h3 className="h5 text-primary text-uppercase">
+                          <CardTitle className="h5 text-primary text-uppercase">
                              <Link to="/schichtplan-erstellen">1. Schichtplan erstellen</Link>
-                          </h3>
-                          <p className="description mt-3">
+                          </CardTitle>
+                          <CardSubtitle className="description mt-3" tag="p">
                             Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen" class="stretched-link">digitalen Schichtplan</Link> für dich und dein Team. 
-                          </p>
+                          </CardSubtitle>
                           
                         </CardBody>
                       </Card>
@@ -207,12 +192,12 @@ const Landing = (props) => {
                           <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
                           📲
                           </div>
-                          <h3 className="h5 text-success text-uppercase">
+                          <CardTitle className="h5 text-success text-uppercase">
                           <Link to="/fuer-dein-team" class="stretched-link">2. In Schichtplan Eintragen</Link>
-                          </h3>
-                          <p className="description mt-3">
+                          </CardTitle>
+                          <CardSubtitle className="description mt-3" tag="p">
                             Deine Mitarbeiter*innen tragen sich in deinen <Link to="/fuer-dein-team" class="stretched-link">online Schichtplan</Link>ein. Das geht jederzeit per Smartphone oder Laptop.
-                          </p>
+                          </CardSubtitle>
                         </CardBody>
                       </Card>
                     </Col>
@@ -222,12 +207,12 @@ const Landing = (props) => {
                           <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
                           🤩
                           </div>
-                          <h3 className="h5 text-warning text-uppercase">
+                          <CardTitle className="h5 text-warning text-uppercase">
                             <Link to="/automatisierter-schichtplan" class="stretched-link">3. Automatisierte Befüllung</Link>
-                          </h3>
-                          <p className="description mt-3">
+                          </CardTitle>
+                          <CardSubtitle className="description mt-3" tag="p">
                             Unsere Lösung befüllt deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> innerhalb weniger Sekunden.
-                          </p>
+                          </CardSubtitle>
                           <br />
                         </CardBody>
                       </Card>
@@ -238,12 +223,12 @@ const Landing = (props) => {
                           <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
                           🎉
                           </div>
-                          <h3 className="h5 text-info text-uppercase">
+                          <CardTitle className="h5 text-info text-uppercase">
                             <Link to="/schichtplan-veroeffentlichen" class="stretched-link">4. Schichtplan veröffentlichen</Link>
-                          </h3>
-                          <p className="description mt-3">
+                          </CardTitle>
+                          <CardSubtitle className="description mt-3" tag="p">
                             Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den <Link to="/schichtplan-veroeffentlichen" class="stretched-link">fertigen Schichtplan</Link> mit einem Klick.
-                          </p>
+                          </CardSubtitle>
                           <br />
                         </CardBody>
                       </Card>
@@ -261,35 +246,23 @@ const Landing = (props) => {
               </Row>
               
               <Col md="12" lg="6">
+              <p className="lead text-default m-1">
                     <Row className="mt-6">
-                        <p className="lead text-default m-1">
                         🕗 Jederzeit in den Schichtplan eintragen
-                        </p>
               </Row>
-              
-              <Row>
-                        <p className="lead text-default m-1">
+              <Row className="mt-2">
                         🌍 Von überall fertigen Schichtplan einsehen
-                        </p>
               </Row>
-              
-              <Row>
-                        <p className="lead text-default m-1">
+              <Row  className="mt-2">
                         ⚡ Tauschanfragen innerhalb von Sekunden stellen
-                        </p>
               </Row>
-              
-              <Row>
-                        <p className="lead text-default m-1">
+              <Row className="mt-2">
                         😇 Faire Verteilung der Schichten
-                        </p>
               </Row>
-              
-              <Row>
-                        <p className="lead text-default m-1">
+              <Row className="mt-2">
                         👏 Transparente Schichtplanung
-                        </p>
               </Row>
+              </p>
             </Col>
             <Col md="12" lg="6">
             </Col>          

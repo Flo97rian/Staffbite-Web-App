@@ -94,17 +94,16 @@ function Automatisierung (props) {
                 <Col>
                     <p className="lead">
                     Moin zusammen 😊
-                    </p>
-                    <p className="lead">
-                      In unserem Blog werden wir regelmäßig Fragen beantworten, Tipps & Tricks mit euch teilen und auf aktuelle Neuigkeiten eingehen. Wenn du also eine Frage an uns hast, dann schreib gerne eine Mail an info@staffbite.de – wir freuen uns deine Nachricht!
-                    </p>
-                    <p className="lead">
-                        In diesem kurzen Beitrag möchte ich dir die automatisierte Befüllung deiner Schichtpläne vorstellen.  
-                    </p>
-                    <p className="lead">
+                    <br/>
+                    In unserem Blog werden wir regelmäßig Fragen beantworten, Tipps & Tricks mit euch teilen und auf aktuelle Neuigkeiten eingehen. Wenn du also eine Frage an uns hast, dann schreib gerne eine Mail an info@staffbite.de – wir freuen uns deine Nachricht!
+                    <br/>
+                    <br/>
+                    In diesem kurzen Beitrag möchte ich dir die automatisierte Befüllung deiner Schichtpläne vorstellen.  
+                    <br/>
+                    <br/>
                     Du kennst das sicherlich: Jede Woche aufs Neue bekommst du unzählige WhatsApp-Nachrichten, E-Mails und Anrufe deines Teams mit Wünschen und Terminen, an denen sie arbeiten können. Nun musst du dich hinsetzen und in mühevoller Kleinstarbeit einen Schichtplan puzzeln.
-                    </p>
-                    <p className="lead">
+                    <br/>
+                    <br/>
                     In der Regel dauert dieser Prozess jede Woche circa 1-2 Stunden. Nachdem du den fertigen <Link to="/schichtplan-veroeffentlichen">Schichtplan veröffentlicht</Link> hast, brauchst du meist nicht lange zu warten, bis die ersten Rückmeldungen kommen, da Jemand krank geworden ist oder eine Familienfeier vergessen hat. Also musst du dich wieder hinsetzen und Änderungen vornehmen.
                     </p>
                 <Row className="pb-6">
@@ -112,7 +111,7 @@ function Automatisierung (props) {
                     <img
                         alt="Schreibtisch mit Kaffee, Zettel und Stift"
                         src={Paperwork}
-                        title="PaperworkImage"
+                        title="Papierarbeit beim Schichtplan erstellen"
                         height="110%"
                         width="110%"
                     />
