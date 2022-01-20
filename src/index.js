@@ -51,6 +51,7 @@ import Automatisierung from './views/MainViews/Themen/Automatisierung';
 import Schichtplanerstellen from './views/MainViews/Themen/Schichtplanerstellen';
 import Schichtplanvorlage from './views/MainViews/Themen/Schichtplanvorlage';
 import Monatsplanung from './views/MainViews/Themen/Monatsplanung';
+import AutomatisierteBefüllungStarten from './views/MainViews/Themen/AutomatisierteBefüllung';
 import IndividuellerSchichtplan from './views/MainViews/Themen/IndividuellerSchichtplan';
 import AutomatisierteBefüllung from './views/MainViews/SchichtplanDetails/AutomatisierteBefüllung';
 import SchichtplanVeroeffentlichen from './views/MainViews/SchichtplanDetails/SchichtplanVeroeffentlichen';
@@ -90,6 +91,7 @@ ReactDOM.render(
         <Route path="/themen/schichtplan-vorlage" element={<Schichtplanvorlage />} />
         <Route path="/themen/monatsplanung" element={<Monatsplanung />} />
         <Route path="/themen/individueller-schichtplan" element={<IndividuellerSchichtplan />} />
+        <Route path="/themen/automatisierte-befuellung-starten" element={<AutomatisierteBefüllungStarten />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
         <Route path="/pricing" element={ <Pricing  />} />

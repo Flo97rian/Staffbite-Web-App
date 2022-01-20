@@ -39,6 +39,7 @@ import Possibilities from "../../assets/img/themen/Possibilities.png"
 import VorlageThumbnail from "../../assets/img/themen/SchichtplanVorlageThumbnail.png"
 import Calendar from "../../assets/img/themen/CalendarImage.png"
 import Individuell from "../../assets/img/themen/Individuell.png"
+import BefüllungStarten from "../../assets/img/themen/BefüllungStarten.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -92,6 +93,28 @@ function Themen (props) {
             <Container className="mb-4 pt-4">
             
             <Row className="mt-2">
+            <Col xs="6">
+                <Card>
+                            <CardImg
+                            className="p-2"
+                            src={BefüllungStarten}
+                            alt="Schichtplan online erstellen"
+                            height="80%"
+                            width="80%"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                <Link to="/themen/automatisierte-befuellung-starten" class="stretched-link">Schritt für Schritt: Automatisierte Befüllung starten</Link>
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie lasse ich meinen Schichtplan automatisiert befüllen?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Artikel zeige ich dir, wie du die automatisierte Befüllung starten kannst.
+                                    Diese Schritt für Schritt Anleitung zeigt den einfachsten Weg, um die Zuordnung von Mitarbeiter*innen und Schichten innerhalb weniger Sekunden abzubilden.
+                            </CardText>
+                            <br/>
+                        </Card>
+            </Col>
 
             <Col xs="6">
                 <Card>
@@ -112,10 +135,16 @@ function Themen (props) {
                                     Wir bieten dir die Möglichkeit Mindestanforderungen und Notizen für einzelne Schichten einzustellen und Schichten flexibel zu deaktiveren.
                             </CardText>
                             <br/>
+                            <br/>
                         </Card>
             </Col>
                                 
-            <Col xs="6">
+                </Row>
+                
+                
+                <Row className="mt-2" >
+                
+                <Col xs="6">
                         <Card>
                             <CardImg
                             className="p-4"
@@ -134,11 +163,6 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
-                
-                </Row>
-                
-                
-                <Row className="mt-2" >
 
                 <Col xs="6">
                         <Card>
@@ -160,7 +184,12 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
-                
+
+                </Row>
+
+
+                <Row className="mt-2" >
+
                 <Col xs="6">
                     <Card>
                             <CardImg
@@ -181,11 +210,6 @@ function Themen (props) {
                         </Card>
                 </Col>
 
-                </Row>
-
-
-                <Row className="mt-2" >
-
                 <Col xs="6">
                         <Card>
                             <CardImg
@@ -205,6 +229,10 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
+
+                </Row>
+
+                <Row className="mt-2" >
                 <Col xs="6">
                 <Card>
                             <CardImg
@@ -224,14 +252,7 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
-                
 
-
-
-                </Row>
-
-                <Row className="mt-2" >
-                
                 <Col xs="6">
                 <Card>
                             <CardImg
