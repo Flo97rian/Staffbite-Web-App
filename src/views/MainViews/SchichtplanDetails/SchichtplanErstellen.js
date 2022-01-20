@@ -172,8 +172,8 @@ function SchichtplanErstellen (props) {
                     <Row className="mt-2">
                     <CardSubtitle className="lead">In wenigen Klicks kannst du die wichtigsten Informationen zu deinem Schichtplan angeben. </CardSubtitle>
                   </Row>
-                  <p className="m-0 lead">
-                  <Row className="justify-content-center mt-4">
+            <p className="m-0 lead">
+              <Row className="justify-content-center mt-4">
                 <Col xs="1" className="mt-2">
                   <i className="fas fa-check-circle text-info"></i>
                 </Col>
@@ -197,7 +197,12 @@ function SchichtplanErstellen (props) {
                   Ruhetage auswählen
                 </Col>
               </Row>
-              </p>
+              <Row>
+                <Col className="mt-6">
+                  Weitere Informationen findest du in unserem  Artikel <Link to="/themen/schichtplan-vorlage">Schichtplan Vorlage erstellen</Link>
+                </Col>
+              </Row>
+            </p>
                     </Col>
                   </Row>
                 </Container>
@@ -241,6 +246,11 @@ function SchichtplanErstellen (props) {
                     </Col>
                     <Col>
                       Anzahl benötigter Mitarbeiter eintragen
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="mt-6">
+                      Weitere Informationen findest du in unserem Artikel <Link to="/themen/individueller-schichtplan">individuellen Schichtplan erstellen</Link>
                     </Col>
                   </Row>
                   </p>

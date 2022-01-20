@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
 
+
 // reactstrap components
 import {
   Container,
@@ -68,7 +69,6 @@ function AutomatisierteBefüllung (props) {
                 imgAlt: "Das Logo von Staffbite",
                 }}/>
       {/* Page content */}
-      <Container className="pt-5 pb-2" fluid>
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-8">
                         <h1 className="display-3">Dein automatisierter Schichtplan</h1>
@@ -102,11 +102,129 @@ function AutomatisierteBefüllung (props) {
                     width="100%"
                   />
                 </Col>
-                  <br/>
                 </Row>
                 </Container>
-                <div>
+              <Container className="mt-6 mx-8" fluid>
+              <Row className="justify-content-center text-center">
+                <Col md="12">
+                  <h2 className="display-3 text-default">In wenigen Schritten zum automatisierten Schichtplan</h2>
+                </Col>
+              </Row>
+              <Row className="justify-content-center text-center mb-4">
+                <Col md="10">
+                  <p className="lead">
+                  Wir helfen dir Zeit & Geld zu sparen. Deshalb entwickeln unsere Lösung stetig weiter und gehen dabei die Wünsche unserer Kunden ein. Somit erhälst du mit Staffbite die Lösung, die dir wirklich weiterhilft.
+                  </p>
+                </Col>
+              </Row>
+              <Row className="mt-4">
+                    <Col xs="12" sm="4">
 
+                    <Row className="mt-6">
+                          <Col  xs="2">
+                            <Row className="justify-content-center">
+                              <div className=" mb-0 icon icon-shape font-size-700 p-0 justify-content-center text-center mb-0">
+                              🎯
+                              </div>
+                            </Row>
+                          </Col>
+                          <Col>
+                            <Row className="justify-content-center">
+                              <Col>
+                              <Row>
+                                <Col>
+                                <h3 className="lead mb-0 mt-0">
+                                1. Schichtplan auswählen <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                </h3>
+                                </Col>
+                              </Row>   
+                          </Col>
+                          </Row>
+                          </Col>
+                        </Row>
+                      <hr className=""/>
+                        <Row className="mt-6">
+                          <Col  xs="2">
+                            <Row className="justify-content-center">
+                              <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
+                              📈
+                              </div>
+                            </Row>
+                          </Col>
+                          <Col>
+                            <Row className="justify-content-center">
+                              <Col>
+                              <Row>
+                                <Col>
+                                <h3 className="lead mb-0 mt-0">
+                                2. Automatisierte Befüllung starten <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                </h3>
+                                </Col>
+                              </Row>  
+                          </Col>
+                          </Row>
+                          </Col>
+                        </Row>
+                      <hr className=""/>
+                      <Row className="mt-6">
+                          <Col  xs="2">
+                            <Row className="justify-content-center">
+                              <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
+                              🚀
+                              </div>
+                            </Row>
+                          </Col>
+                          <Col>
+                            <Row className="justify-content-center">
+                              <Col>
+                              <Row>
+                                <Col>
+                                <h3 className="lead mb-0 mt-0">
+                                  3. Letzte Änderungen vornehmen <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                </h3>
+                                </Col>
+                              </Row>     
+                          </Col>
+                          </Row>
+                          </Col>
+                        </Row>
+                      <hr className=""/>
+                      <Row className="mt-6">
+                          <Col  xs="2">
+                            <Row className="justify-content-center">
+                              <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
+                              🤑
+                              </div>
+                            </Row>
+                          </Col>
+                          <Col>
+                            <Row className="justify-content-center">
+                              <Col>
+                              <Row>
+                                <Col>
+                                <h3 className="lead mb-0 mt-0">
+                                4. Schichtplan veröffentlichen <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                </h3>
+                                </Col>
+                              </Row>    
+                          </Col>
+                          </Row>
+                          </Col>
+                        </Row>
+                        <hr className=""/>
+                    </Col>
+                <Col className="" xs="12" sm="8">
+                <img
+                    className="pt-0 pb-0"
+                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                    src={SchichtplanBeispiel}
+                    title="Team erstellen und verwalten"
+                    height="100%"
+                    width="100%"
+                  />
+                </Col>
+              </Row>
+            </Container>
 
                 <Container mt-4>
                 <Row className="mt-6" >
@@ -156,8 +274,6 @@ function AutomatisierteBefüllung (props) {
 
                 </Row>
                 </Container>
-                </div>
-      </Container>
       <LandingFooter></LandingFooter>
     </>
   );

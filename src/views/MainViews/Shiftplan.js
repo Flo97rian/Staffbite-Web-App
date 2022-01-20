@@ -37,6 +37,7 @@ import SchichtplanVorlage from "../../assets/img/theme/SchichtplanVorlageShiftpl
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import {SCHICHTPLAN_TITLE, SCHICHTPLAN_DESCRIPTION} from "../../constants/MetaTexts"
 import LandingFooter from "../../components/Footers/LandingFooter";
+import { HashLink } from "react-router-hash-link";
 
 function Shiftplan (props) {
   useEffect(() => {
@@ -91,7 +92,6 @@ function Shiftplan (props) {
               </Row>
             </Container>
           </section>
-          
           <section className="section" id={"sectionteam"}>
             <Container className="mb-4 pt-4">
               <Row className="align-items-center mb-4 mt-8">
