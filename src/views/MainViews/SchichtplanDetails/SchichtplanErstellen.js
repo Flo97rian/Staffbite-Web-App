@@ -19,7 +19,6 @@ import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
-
 // reactstrap components
 import {
   Container,
@@ -29,12 +28,8 @@ import {
   Card,
   CardImg,
   CardSubtitle,
-  CardText,
-  ListGroup,
-  ListGroupItem,
-  ListGroupItemText
+  CardText
 } from "reactstrap";
-
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {SCHICHTPLANERSTELLEN_TITLE, SCHICHTPLANERSTELLEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
@@ -42,9 +37,9 @@ import VorlageErstellen from "../../../assets/img/theme/Vorlage-erstellen.png"
 import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShiftplan-min.png"
 import Schichthinzufuegen from "../../../assets/img/theme/Schicht-hinzufuegen.png"
 import SchichtplanVorlageVerwenden from "../../../assets/img/theme/Schichtplan-vorlage-verwenden.png"
+import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
+import Calendar from "../../../assets/img/themen/Monatsplanung/CalendarImage.png"
 
-import CloudPicture from "../../../assets/img/themen/CloudComputingImage.png"
-import Calendar from "../../../assets/img/themen/CalendarImage.png"
 
 function SchichtplanErstellen (props) {
   useEffect(() => {

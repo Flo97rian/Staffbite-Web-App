@@ -29,9 +29,8 @@ import {
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import {THEMEN_SCHICHTPLANERSTELLEN_DESCRIPTION, THEMEN_SCHICHTPLANERSTELLEN_TITLE} from "../../../constants/MetaTexts";
-import Possibilities from "../../../assets/img/themen/Possibilities.png"
-import PlanABC from "../../../assets/img/themen/PlanABC.png"
-
+import Possibilities from "../../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
+import PlanABC from "../../../assets/img/themen/SchichtplanErstellen/PlanABC.png"
 
 
 function Schichtplanerstellen (props) {

@@ -16,10 +16,8 @@
 
 */
 import React, {useEffect} from "react";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
-
 // reactstrap components
 import {
   Container,
@@ -27,8 +25,6 @@ import {
   Col,
 } from "reactstrap";
 // core components
-//import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-automatisiert-erstellen.png"
-import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan-erstellen.png"
 import TeamVerwalten from "../../assets/img/theme/Team-verwalten.png"
 import TeamÜbersicht from "../../assets/img/theme/MAÜbersicht-min.png"
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
@@ -37,6 +33,7 @@ import SchichtplanVorlage from "../../assets/img/theme/SchichtplanVorlageShiftpl
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import {SCHICHTPLAN_TITLE, SCHICHTPLAN_DESCRIPTION} from "../../constants/MetaTexts"
 import LandingFooter from "../../components/Footers/LandingFooter";
+
 
 function Shiftplan (props) {
   useEffect(() => {

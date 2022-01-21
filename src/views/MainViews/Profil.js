@@ -16,7 +16,6 @@
 
 */
 import React from "react";
-
 // reactstrap components
 import {
   Container,
@@ -25,6 +24,7 @@ import {
 // core components
 import UserHeader from "../../components/Headers/UserHeader.js";
 import AccountProfil from "../../components/Profil/AccountProfil.js"
+
 
 export default class Profil extends React.PureComponent {
   render() {

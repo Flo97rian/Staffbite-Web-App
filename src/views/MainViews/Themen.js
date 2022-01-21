@@ -33,15 +33,16 @@ import {
 // core components
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import StaffbiteLogo from "../../assets/img/brand/Staffbite_Logo.png"
-import CloudPicture from "../../assets/img/themen/CloudComputingImage.png"
-import Paperwork from "../../assets/img/themen/PaperworkImage.png"
-import Possibilities from "../../assets/img/themen/Possibilities.png"
-import VorlageThumbnail from "../../assets/img/themen/SchichtplanVorlageThumbnail.png"
-import Calendar from "../../assets/img/themen/CalendarImage.png"
-import Individuell from "../../assets/img/themen/Individuell.png"
-import BefüllungStarten from "../../assets/img/themen/BefüllungStarten.png"
+import CloudPicture from "../../assets/img/themen/CloudService/CloudComputingImage.png"
+import Paperwork from "../../assets/img/themen/AutomatisierteBefüllung/PaperworkImage.png"
+import Possibilities from "../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
+import VorlageThumbnail from "../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageThumbnail.png"
+import Calendar from "../../assets/img/themen/Monatsplanung/CalendarImage.png"
+import Individuell from "../../assets/img/themen/IndividuellerSchichtplan/Individuell.png"
+import BefüllungStarten from "../../assets/img/themen/BefüllungStarten/BefüllungStarten.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
+
 
 function Themen (props) {
     let mainContent = useRef("mainContent")

@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect, useState, useRef} from "react";
+import React, {useEffect, useState} from "react";
 // nodejs library that concatenates classes
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
@@ -32,27 +32,18 @@ import {isMobile} from 'react-device-detect';
 import {
   Card,
   CardBody,
-  CardImg,
   Container,
-  CardHeader,
   Row,
   Badge,
   Col,
-  CardFooter,
   CardTitle,
   CardText,
   CardSubtitle
 } from "reactstrap";
-
-// index page sections
-
-
 // core components
 import LandingFooter from "../../components/Footers/LandingFooter.js";
 import { pageview } from "react-ga";
 import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
-import SchichtplanErstellen from "../../components/Admin/Schichtplan/Form/SchichtplanErstellen";
-import { HashLink } from "react-router-hash-link";
 import ErstellenShow from "./sub/ErstellenShow";
 import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png"
 

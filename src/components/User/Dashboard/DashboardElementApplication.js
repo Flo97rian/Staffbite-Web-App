@@ -5,7 +5,6 @@ import {
     ShiftDescription,
     CompanyClosed,
     ApplicantDoesntMatchesPosition,
-    ApplicantDoesntMatchesPrio,
     ShowMultipleApplicantsWithOutUser,
     ShowMultipleApplicantsWithUser,
     ShowSingleApplicantWithOutUser,
@@ -13,6 +12,7 @@ import {
     ShowDefault
 } from "../../Application/functionalComponents/SchichtplanElements";
 import { getIsObject, getSecondApplicant, getCompanyIsOpen, getAnzahl, getHasApplicants, getApplicantsLength, getFirstApplicant, getUserMatchesPosition, getUserMatchesPrio, getShiftIncludesApplicant } from "../../Application/functionalComponents/ElementFunctions";
+
 
 const DashboardElementApplication = (props) => {
     let ItemLength = props.ItemLength;

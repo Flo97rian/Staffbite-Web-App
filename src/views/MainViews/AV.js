@@ -29,6 +29,7 @@ import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { AV_DESCRIPTION, AV_TITLE } from "../../constants/MetaTexts";
 
+
 function AV (props) {
   useEffect(() => {
     pageViewsTracking()

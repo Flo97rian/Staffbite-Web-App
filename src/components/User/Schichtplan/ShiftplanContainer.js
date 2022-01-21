@@ -3,7 +3,6 @@ import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansFo
 import { getUser } from "../../../store/middleware/FetchUser";
 import { thunkUploadApplication } from "../../../store/middleware/UploadApplication";
 import Spinner from 'react-bootstrap/Spinner'
-import ButtonZurueck from "../../Admin/Schichtplan/FormElements/ButtonZurueck"
 import { useSelector } from "react-redux";
 import InfoSidebar from "../../Sidebar/InfoSidebar";
 import Joyride from 'react-joyride';
@@ -15,7 +14,6 @@ import {
     CardBody,
     CardHeader
   } from "reactstrap";
-
 import SchichtenTabelle from "./ShiftplanTable";
 import OpenModal from "./Modal/OpenModal";
 import store from "../../../store";
@@ -23,7 +21,6 @@ import SchichtplanImport from "./Form/ShiftplanImport";
 import { thunkUpdateTradeShift } from "../../../store/middleware/UpdateTradeShift";
 import ApplyTradeShift from "./FormElements/applyShiftTrade";
 import ShiftPlan from "../../Admin/Schichtplan/processing/Shiftplan";
-import ButtonSave from "./FormElements/ButtonSave";
 import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_SCHICHTPLAN } from "../../../constants/OnBoardingTexts";
 

@@ -23,9 +23,7 @@ import { Container } from "reactstrap";
 // core components
 import UserNavbar from "../components/Navbars/UserNavbar";
 import AdminFooter from "../components/Footers/AdminFooter.js";
-
 import { userroutes } from "../routes.js";
-
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 Amplify.configure(awsconfig);

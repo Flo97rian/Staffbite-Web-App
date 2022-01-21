@@ -9,16 +9,13 @@ import {
     Col,
     CardTitle,
     Row,
-    CardBody,
-    Container,
+    CardBody
   } from "reactstrap";
 import { FetchEmployeePlansFromDB } from "../../../store/middleware/FetchPlansForEmployees";
 import { getUser } from "../../../store/middleware/FetchUser";
 import store from "../../../store";
-import DashboardSchichtenTabelle from "./DashboardTable";
 import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_OVERVIEW_APPLICATIONS, ONBOARDING_EMPLOYEE_OVERVIEW_TRADE_SHIFT, ONBOARDING_EMPLOYEE_OVERVIEW_SHIFTPLAN } from "../../../constants/OnBoardingTexts"
-import NewsFeed from "../../Admin/Dashboard/Form/NewsFeed";
 import { FetchOrg } from "../../../store/middleware/FetchOrg";
 import Timeline from "../../Admin/Dashboard/Timeline";
 

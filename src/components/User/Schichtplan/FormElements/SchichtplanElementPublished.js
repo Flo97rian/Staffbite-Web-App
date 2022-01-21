@@ -1,5 +1,3 @@
-import React from "react";
-// core components
 import { 
     DateOrWeekDayRow,
     ShiftDescription,
@@ -27,6 +25,7 @@ import {
     getHasNotice
  } from "../../../Application/functionalComponents/ElementFunctions";
 
+ 
 const tradeShift = (index, col) => {
      store.dispatch({type: "OPEN", payload: "tradeShift"});
      store.dispatch({type: "setShiftSlot", payload: { row: index, col: col}});

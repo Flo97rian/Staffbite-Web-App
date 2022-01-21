@@ -3,7 +3,6 @@ import {
     Col,
     Row
 } from "reactstrap"
-import Form from 'react-bootstrap/Form';
 import InfoLabel from "../../../Application/functionalComponents/InfoLabel";
 import { INFO_USER_NOTICE } from "../../../../constants/InfoTexts";
 import FormNames from "../FormElements/FormNames";

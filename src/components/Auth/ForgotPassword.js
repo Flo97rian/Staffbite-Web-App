@@ -16,32 +16,12 @@
 
 */
 import React, { useState, useEffect } from "react";
-
-// reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Alert,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col
-} from "reactstrap";
-
 // core components
 import LandingNavbar from "../Navbars/LandingNavbar"
 import ReactGA from "react-ga";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { useNavigate, Link } from "react-router-dom";
-import PasswordChecklist from "react-password-checklist";
 import ResetPassword from "./AuthComponents/ResetPassword";
 import SelectNewPassword from "./AuthComponents/SelectNewPassword";
 

@@ -19,7 +19,6 @@ import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
-
 // reactstrap components
 import {
   Container,
@@ -31,13 +30,12 @@ import {
   Card,
   CardTitle
 } from "reactstrap";
-import StaffbiteLogo from "../../../assets/img/brand/Staffbite_Logo.png"
 import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
-import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
-import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION, SCHICHTPLAN_VEROEFFENTLICHEN_TITLE, SCHICHTPLAN_VEROEFFENTLICHEN_DESCRIPTION} from "../../../constants/MetaTexts"
+import {SCHICHTPLAN_VEROEFFENTLICHEN_TITLE, SCHICHTPLAN_VEROEFFENTLICHEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png";
+
 
 function SchichtplanVeroeffentlichen (props) {
   useEffect(() => {
