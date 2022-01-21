@@ -68,16 +68,15 @@ function SchichtplanVeroeffentlichen (props) {
                 imgAlt: "Das Logo von Staffbite",
                 }}/>
       {/* Page content */}
-      <Container className="pt-5 pb-2" fluid>
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-8">
                         <h1 className="display-3">Deinen Schichtplan veröffentlichen</h1>
                     </Row>
       </Container>    
-            <Container className="pb-2"fluid>
-            <Row className="justify-content-center ml-0 mt-4">
-                <Col className="mt-6">
-                <Row className=" justify-content-center mt-4 ml-6">
+            <Container className="pb-2">
+            <Row className="mt-4">
+                <Col className="">
+                <Row className="mt-5 ml-6">
                     <Col>
                         <h2 class="display-4">Fertigen Schichtplan veröffentlichen</h2>
                         <p className="lead">
@@ -88,7 +87,7 @@ function SchichtplanVeroeffentlichen (props) {
                 </Row>
                     
                 </Col>
-                <Col className="col-xs-12 text-center"  md="6" lg="6">
+                <Col className="col-xs-12"  md="6" lg="6">
                 <img
                     alt="Fertiger Schichtplan bereit zur Veröffentlichung"
                     src={SchichtplanPublish}
@@ -97,10 +96,8 @@ function SchichtplanVeroeffentlichen (props) {
                     width="100%"
                   />
                 </Col>
-                  <br/>
                 </Row>
                 </Container>
-                <div>
                 
                 <Container mt-4>
                 <Row className="mt-6" >
@@ -153,8 +150,6 @@ function SchichtplanVeroeffentlichen (props) {
                 
 
                 
-                </div>
-      </Container>
       <LandingFooter></LandingFooter>
     </>
   );
