@@ -25,20 +25,16 @@ import {
   Row,
   Col
 } from "reactstrap";
-
 // core components
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import {THEMEN_INDIVIDUELLERSCHICHTPLAN_DESCRIPTION, THEMEN_INDIVIDUELLERSCHICHTPLAN_TITLE} from "../../../constants/MetaTexts"
-import Individuell from "../../../assets/img/themen/Individuell.png"
-import FertigeVorlage from "../../../assets/img/themen/SchichtplanVorlageFertig.png"
-import Qualifikation from "../../../assets/img/themen/Vorlage-Qualifikationen.png"
-import Deaktivieren from "../../../assets/img/themen/Vorlage-Schicht-deaktivieren.png"
-import Änderungen from "../../../assets/img/themen/Vorlage-Details-Geändert.png"
-import Notiz from "../../../assets/img/themen/Vorlage-Notiz.png";
-
-
-
+import Individuell from "../../../assets/img/themen/IndividuellerSchichtplan/Individuell.png"
+import FertigeVorlage from "../../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageFertig.png"
+import Qualifikation from "../../../assets/img/themen/IndividuellerSchichtplan/Vorlage-Qualifikationen.png"
+import Deaktivieren from "../../../assets/img/themen/IndividuellerSchichtplan/Vorlage-Schicht-deaktivieren.png"
+import Änderungen from "../../../assets/img/themen/IndividuellerSchichtplan/Vorlage-Details-Geändert.png"
+import Notiz from "../../../assets/img/themen/IndividuellerSchichtplan/Vorlage-Notiz.png";
 
 
 function IndividuellerSchichtplan (props) {

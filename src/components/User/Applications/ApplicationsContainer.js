@@ -5,7 +5,6 @@ import { thunkUploadApplication } from "../../../store/middleware/UploadApplicat
 import Spinner from 'react-bootstrap/Spinner'
 import ButtonZurueck from "../../Admin/Schichtplan/FormElements/ButtonZurueck"
 import InfoSidebar from "../../Sidebar/InfoSidebar";
-import { thunkDeleteApplication } from "../../../store/middleware/DeleteApplication";
 import { useSelector } from "react-redux";
 import Joyride from 'react-joyride';
 import 'moment/locale/de';
@@ -13,7 +12,6 @@ import {
     Col,
     Row,
   } from "reactstrap";
-
 import ApplicationsTable from "./Form/ApplicationsTable";
 import OpenModal from "./Modal/OpenModal";
 import store from "../../../store";
@@ -22,6 +20,7 @@ import ShiftPlan from "../../Admin/Schichtplan/processing/Shiftplan";
 import ButtonSave from "../Schichtplan/FormElements/ButtonSave";
 import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_EINTRAGEN } from "../../../constants/OnBoardingTexts";
+
 
 const ApplicationsContainer = () => {
   const [state, setState] = useState({

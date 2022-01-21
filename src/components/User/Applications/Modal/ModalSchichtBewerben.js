@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import store from "../../../../store";
 import ShiftDetails from "../Form/ShiftDetails";
 
+
 const ModalSchichtBewerben = (props) => {
     const day = props.shiftslot.col;
     const row = props.shiftslot.row;

@@ -30,10 +30,10 @@ import {
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import {THEMEN_AUTOMATISIERTEBEFÜLLUNG_DESCRIPTION, THEMEN_AUTOMATISIERTEBEFÜLLUNG_TITLE} from "../../../constants/MetaTexts";
-import Calendar from "../../../assets/img/themen/CalendarImage.png"
-import FreigegebenerPlan from "../../../assets/img/themen/FreigegebenerPlan.png"
-import PlanMitBewerbern from "../../../assets/img/themen/PlanMitBewerbern.png"
-import PlanÜberprüfen from "../../../assets/img/themen/PlanÜberprüfen.png"
+import Calendar from "../../../assets/img/themen/Monatsplanung/CalendarImage.png"
+import FreigegebenerPlan from "../../../assets/img/themen/BefüllungStarten/FreigegebenerPlan.png"
+import PlanMitBewerbern from "../../../assets/img/themen/BefüllungStarten/PlanMitBewerbern.png"
+import PlanÜberprüfen from "../../../assets/img/themen/BefüllungStarten/PlanÜberprüfen.png"
 
 
 

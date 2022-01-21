@@ -25,7 +25,6 @@ import { Container } from "reactstrap";
 import UserNavbar from "../../../components/Navbars/UserNavbar";
 import ApplicationsContainer from "../../../components/User/Applications/ApplicationsContainer";
 import UserFooter from "../../../components/Footers/AdminFooter"
-
 import { userroutes } from "../../../routes";
 
 

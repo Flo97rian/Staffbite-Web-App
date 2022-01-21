@@ -29,7 +29,7 @@ import {
 // core components
 import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-automatisiert-erstellen.png"
 import SchichtplanEntwurf from "../../../assets/img/theme/Schichtplan-erstellen.png"
-import TeamVerwalten from "../../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
+import TeamVerwalten from "../../../assets/img/theme/MAÜbersicht-min.png"
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 

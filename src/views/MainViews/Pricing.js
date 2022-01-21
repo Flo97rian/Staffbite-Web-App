@@ -36,11 +36,12 @@ import {
 // core components
 import { pageview } from "react-ga";
 import ReactGA from "react-ga";
-import Paperwork from "../../assets/img/themen/PaperworkImage.png"
-import Possibilities from "../../assets/img/themen/Possibilities.png"
+import Paperwork from "../../assets/img/themen/AutomatisierteBefüllung/PaperworkImage.png"
+import Possibilities from "../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { Helmet } from "react-helmet";
+
 
 const Pricing = (props) => {
   let mainContent = useRef("mainContent")

@@ -1,5 +1,4 @@
 import React from "react";
-
 // reactstrap components
 import {
   Row,
@@ -12,6 +11,7 @@ from "reactstrap";
 // core components
 import SchichtplanElementPublished from "./FormElements/SchichtplanElementPublished";
 import { Badge } from "reactstrap";
+
 
 const ShiftplanTable = (props) => {
     const id = props.shiftplan.id

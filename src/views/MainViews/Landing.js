@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect, useState, useRef} from "react";
+import React, {useEffect, useState} from "react";
 // nodejs library that concatenates classes
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
@@ -25,32 +25,21 @@ import "../../assets/scss/argon-dashboard-react.scss";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import BildSchichtplanErstellen from "../../assets/img/theme/Schichtplan-erstellen.png";
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
-
-
 // reactstrap components
 import {
   Card,
   CardBody,
-  CardImg,
   Container,
-  CardHeader,
   Row,
   Col,
-  CardFooter,
   CardTitle,
   CardText,
   CardSubtitle
 } from "reactstrap";
-
-// index page sections
-
-
 // core components
 import LandingFooter from "../../components/Footers/LandingFooter.js";
 import { pageview } from "react-ga";
 import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
-import SchichtplanErstellen from "../../components/Admin/Schichtplan/Form/SchichtplanErstellen";
-import { HashLink } from "react-router-hash-link";
 import ErstellenShow from "./sub/ErstellenShow";
 
 

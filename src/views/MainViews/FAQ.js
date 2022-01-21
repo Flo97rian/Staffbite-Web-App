@@ -27,12 +27,10 @@ import {
   Card,
 } from "reactstrap";
 // core components
-import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-automatisiert-erstellen.png"
-import SchichtplanEntwurf from "../../assets/img/theme/Schichtplan-erstellen.png"
-import TeamVerwalten from "../../assets/img/theme/Mitarbeiter-erstellen-und-verwalten.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { FAQ_DESCRIPTION, FAQ_TITLE } from "../../constants/MetaTexts";
+
 
 function FAQ (props) {
   let mainContent = useRef("mainContent")

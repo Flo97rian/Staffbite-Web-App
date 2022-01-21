@@ -19,7 +19,6 @@ import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
-
 // reactstrap components
 import {
   Container,
@@ -31,13 +30,13 @@ import {
   Card,
   CardTitle
 } from "reactstrap";
-import StaffbiteLogo from "../../../assets/img/brand/Staffbite_Logo.png"
 import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
-import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION, TEAM_VORTEILE_TITLE, TEAM_VORTEILE_DESCRIPTION} from "../../../constants/MetaTexts"
+import {TEAM_VORTEILE_TITLE, TEAM_VORTEILE_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
-import CloudPicture from "../../../assets/img/themen/CloudComputingImage.png"
+import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
 import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShiftplan-min.png";
+
 
 function VorteileTeam (props) {
   useEffect(() => {

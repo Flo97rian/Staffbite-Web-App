@@ -29,13 +29,11 @@ import {
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import {THEMEN_SCHICHTPLANVORLAGE_DESCRIPTION, THEMEN_SCHICHTPLANVORLAGE_TITLE} from "../../../constants/MetaTexts";
-import SchichtplanVorlageThumbnail from "../../../assets/img/themen/SchichtplanVorlageThumbnail.png"
-import VorlageMetaInfos from "../../../assets/img/themen/VorlageMetaInfos.png"
-import BasicPlanVorlage from "../../../assets/img/themen/GrundlegenderPlanVorlage.png"
-import Schichtdetails from "../../../assets/img/themen/Schichtdetailseintragen.png"
-import FertigeVorlage from "../../../assets/img/themen/SchichtplanVorlageFertig.png"
-
-
+import SchichtplanVorlageThumbnail from "../../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageThumbnail.png"
+import VorlageMetaInfos from "../../../assets/img/themen/SchichtplanVorlage/VorlageMetaInfos.png"
+import BasicPlanVorlage from "../../../assets/img/themen/SchichtplanVorlage/GrundlegenderPlanVorlage.png"
+import Schichtdetails from "../../../assets/img/themen/SchichtplanVorlage/Schichtdetailseintragen.png"
+import FertigeVorlage from "../../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageFertig.png"
 
 
 function Schichtplanvorlage (props) {

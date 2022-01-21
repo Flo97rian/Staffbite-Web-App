@@ -29,12 +29,10 @@ import {
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import {THEMEN_MONATSPLANUNG_DESCRIPTION, THEMEN_MONATSPLANUNG_TITLE} from "../../../constants/MetaTexts";
-import Calendar from "../../../assets/img/themen/CalendarImage.png"
-import VorlageFreigeben from "../../../assets/img/themen/VorlageFreigeben.png"
-import FreigabeDetails from "../../../assets/img/themen/FreigabeDetails.png"
-import GanzerMonat from "../../../assets/img/themen/SchichtpläneGanzerMonat.png"
-
-
+import Calendar from "../../../assets/img/themen/Monatsplanung/CalendarImage.png"
+import VorlageFreigeben from "../../../assets/img/themen/Monatsplanung/VorlageFreigeben.png"
+import FreigabeDetails from "../../../assets/img/themen/Monatsplanung/FreigabeDetails.png"
+import GanzerMonat from "../../../assets/img/themen/Monatsplanung/SchichtpläneGanzerMonat.png"
 
 
 function Monatsplanung (props) {

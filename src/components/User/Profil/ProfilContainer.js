@@ -11,9 +11,9 @@ import {
     Row,
     CardBody,
   } from "reactstrap";
-import Button from 'react-bootstrap/Button';
 import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee";
-import { ONBOARDING_EMPLOYEE_NAME, ONBOARDING_EMPLOYEE_PICTURE, ONBOARDING_EMPLOYEE_SCHICHTPLAN, ONBOARDING_EMPLOYEE_SHIFTS_PER_WEEK } from "../../../constants/OnBoardingTexts";
+import { ONBOARDING_EMPLOYEE_NAME} from "../../../constants/OnBoardingTexts";
+
 
 const ProfilContainer = (props) => {
   const [state, setState] = useState({

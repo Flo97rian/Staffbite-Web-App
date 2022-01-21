@@ -16,11 +16,10 @@
 
 */
 import React, { useState, useEffect} from "react";
-import { useNavigate, Route, Routes} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 // reactstrap components
 import { Container, Row } from "reactstrap";
 // core components
-
 import Amplify from 'aws-amplify';
 import { Authenticator} from 'aws-amplify-react';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
