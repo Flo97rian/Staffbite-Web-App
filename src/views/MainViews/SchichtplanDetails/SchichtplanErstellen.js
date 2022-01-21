@@ -263,7 +263,7 @@ function SchichtplanErstellen (props) {
                       <Row className="mt-4 mb-4 text-center">
                         <Col>
                           <p className="m-0">
-                            Deine neue Schichtplanvorlage kannst du nun verwenden.
+                            Deine neue Schichtplanvorlage kannst du nun verwenden. In unserem Artikel <Link to="/themen/individueller-schichtplan">individuellen Schichtplan erstellen</Link> erfährst du, wie du deinen Schichtplan genau auf deinen Betrieb anpassen kannst.
                           </p>
                         </Col>
                       </Row>
