@@ -35,6 +35,7 @@ class Shiftplan {
     }
     
     scopeShiftRow(shiftRow, index, currentRun) {
+        this.createActiveDays(index)
         this.createCurrentIndexAndShift(shiftRow, index);
         this.createHeatMapRows();
         if(this.getCurrentShiftsMaximumApplicants() >= currentRun) {
@@ -62,7 +63,6 @@ class Shiftplan {
     }
     
     createInitalState() {
-        this.createActiveDays()
         this.planLength = this.getShiftplanLength() - 1;
         this.MaximumSetApplicants = this.getMaxAnzahl()
         this.createShiftLookUp()
@@ -624,16 +624,16 @@ class Shiftplan {
     }        
         
          // get nessesary days to iterate over
-    createActiveDays() {
-        this.getDays();
+    createActiveDays(index) {
+        this.getDays(index);
         this.removeWochentag()
-        this.filterActiveDays();
+        this.filterActiveDays(index);
         this.sortDaysTypeSplit();
         };
         
         
-    getDays() {
-        let days = Object.keys(this.plan[2])
+    getDays(index) {
+        let days = Object.keys(this.plan[index])
         this.days = days
         }
             
@@ -641,8 +641,8 @@ class Shiftplan {
         return this.days.shift();
     }
 
-    filterActiveDays() {
-        let days = this.days.filter(day => this.isActive(this.plan[2], day) === !0);
+    filterActiveDays(index) {
+        let days = this.days.filter(day => this.isActive(this.plan[index], day) === !0);
         this.days = days;
     }
 
