@@ -111,7 +111,7 @@ function AutomatisierteBefüllung (props) {
                     Inhaltsverzeichnis:
                     <br/>
                     
-                    <HashLink className="p text-muted p-0" to="/themen/automatisierte-befuellung-starten#vorbereitung">
+                    <HashLink className="text-muted p-0" to="/themen/automatisierte-befuellung-starten#vorbereitung">
                       Vorbereitung
                     </HashLink>
                     <br/>
@@ -126,7 +126,7 @@ function AutomatisierteBefüllung (props) {
                     <br/>
                     </p>
 
-                    <section className="section" id={"vorbereitung"}>
+                    <section className="section pt-7" id={"vorbereitung"}>
                     <h2>Die Vorbereitung</h2>
                     <p className="lead">
                     Um die Befüllung deines Schichtplans zu automatisieren, musst du zuvor eine Schichtplan Vorlage erstellt und freigegeben haben. Ich verwende für dieses Beispiel den bereits erstellten Plan aus den vorherigen Artikeln. Der bereits freigegebe Plan hat somit den Status „Bewerbung“.
@@ -153,7 +153,7 @@ function AutomatisierteBefüllung (props) {
                     
 
                     
-                    <section className="section" id={"befüllung"}>
+                    <section className="section pt-7" id={"befüllung"}>
                     <h2>Automatisierte Befüllung</h2>
                     <p className="lead">
                     Nachdem sich das Team in den Schichtplan eingetragen hat, sieht der Schichtplan so aus:
@@ -199,7 +199,7 @@ function AutomatisierteBefüllung (props) {
                     </section>
 
 
-                    <section className="section" id={"next"}>
+                    <section className="section pt-7" id={"next"}>
                     <h2>Nächste Schritte</h2>
                     <p className="lead">
                     Im nächsten Artikel zeige ich dir, wie du manuell die Lücken in deinem Schichtplan schließen kannst. Dafür kannst du dich entweder selbst eintragen oder einen deiner Mitarbeiter*innen einteilen. Anschließend brauchst du den fertigen Plan nur noch mit 1 Klick veröffentlichen, sodass dein gesamtes Team den Plan einsehen kann.

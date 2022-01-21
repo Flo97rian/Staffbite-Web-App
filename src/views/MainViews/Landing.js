@@ -25,12 +25,16 @@ import "../../assets/scss/argon-dashboard-react.scss";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import BildSchichtplanErstellen from "../../assets/img/theme/Schichtplan-erstellen.png";
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
+import {isMobile} from 'react-device-detect';
+
+
 // reactstrap components
 import {
   Card,
   CardBody,
   Container,
   Row,
+  Badge,
   Col,
   CardTitle,
   CardText,
@@ -41,6 +45,7 @@ import LandingFooter from "../../components/Footers/LandingFooter.js";
 import { pageview } from "react-ga";
 import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
 import ErstellenShow from "./sub/ErstellenShow";
+import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png"
 
 
 const Landing = (props) => {
@@ -154,78 +159,271 @@ const Landing = (props) => {
             </section>
           </div>
           <section className="section section-lg pt-lg-0 mt--150">
-            <Container className="mt-4">
-              <Row className="justify-content-center">
+            <Container>
+              <Row className="mt-4 text-center">
                 <Col lg="12">
                   <h2 className="display-3 text-white">So funktioniert's - in nur vier Schritten</h2>
-                  <Row className="row-grid">
-                    <Col lg="3">
-                      <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-5 pb-6">
-                          <div className="icon icon-shape icon-shape-primary rounded-circle mb-4">
-                          👩‍💻
-                          </div>
-                          <CardTitle className="h5 text-primary text-uppercase">
-                             <Link to="/schichtplan-erstellen">1. Schichtplan erstellen</Link>
-                          </CardTitle>
-                          <CardSubtitle className="description mt-3" tag="p">
-                            Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen" class="stretched-link">digitalen Schichtplan</Link> für dich und dein Team. 
-                          </CardSubtitle>
-                          
-                        </CardBody>
-                      </Card>
+                </Col>
+              </Row>
+              <Row className="pt-6 mx-4">
+                <Col>
+                <Row className="text-left">
+                    <Col xs="12" md="6">
+                    <img
+                          className="shadow mb-3"
+                          alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                          src={SchichtplanVorlage}
+                          title="Schichtplan Vorlage erstellen"
+                          height="70%"
+                          width="100%"
+                          ></img>
                     </Col>
-                    <Col lg="3">
-                      <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-5 pb-5">
-                          <div className="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                          📲
-                          </div>
-                          <CardTitle className="h5 text-success text-uppercase">
-                          <Link to="/fuer-dein-team" class="stretched-link">2. In Schichtplan Eintragen</Link>
-                          </CardTitle>
-                          <CardSubtitle className="description mt-3" tag="p">
-                            Deine Mitarbeiter*innen tragen sich in deinen <Link to="/fuer-dein-team" class="stretched-link">online Schichtplan</Link>ein. Das geht jederzeit per Smartphone oder Laptop.
-                          </CardSubtitle>
-                        </CardBody>
-                      </Card>
-                    </Col>
-                    <Col lg="3">
-                      <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="py-4 pb-5">
-                          <div className="icon icon-shape icon-shape-info rounded-circle mb-4">
-                          🤩
-                          </div>
-                          <CardTitle className="h5 text-warning text-uppercase">
-                            <Link to="/automatisierter-schichtplan" class="stretched-link">3. Automatisierte Befüllung</Link>
-                          </CardTitle>
-                          <CardSubtitle className="description mt-3" tag="p">
-                            Unsere Lösung befüllt deinen <Link to="/automatisierter-schichtplan" class="stretched-link">Schichtplan automatisiert</Link> innerhalb weniger Sekunden.
-                          </CardSubtitle>
-                          <br />
-                        </CardBody>
-                      </Card>
-                    </Col>
-                    <Col lg="3">
-                      <Card className="card-lift--hover shadow border-0">
-                        <CardBody className="pt-4 pb-0">
-                          <div className="icon icon-shape icon-shape-success rounded-circle mb-4">
-                          🎉
-                          </div>
-                          <CardTitle className="h5 text-info text-uppercase">
-                            <Link to="/schichtplan-veroeffentlichen" class="stretched-link">4. Schichtplan veröffentlichen</Link>
-                          </CardTitle>
-                          <CardSubtitle className="description mt-3" tag="p">
-                            Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den <Link to="/schichtplan-veroeffentlichen" class="stretched-link">fertigen Schichtplan</Link> mit einem Klick.
-                          </CardSubtitle>
-                          <br />
-                        </CardBody>
-                      </Card>
+                    <Col xs="12" md="6">
+                      <Row className="pt-3" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                        <Col>
+                        <Row className="text-left">
+                          <Col xs="2" className="">
+                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ml-4 ">1</Badge>
+                          </Col>
+                          <Col xs="10">
+                            <h2 className="display-4">Schichtplan erstellen</h2>
+                          </Col>
+                          </Row>
+                        </Col>
+                      </Row>
+                      <Row className="" style={isMobile ? { transform: "translateY(100%)"}: {}}>
+                        <Col>
+                          <p className="lead mt-2">
+                            <Row className="text-left">
+                              <Col xs="2"
+                              ></Col>
+                              <Col xs="10">
+                                Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen"> digitalen Schichtplan</Link> für dich und dein Team.
+                              </Col>
+                            </Row>
+                            <Row className="mt-4 text-left">
+                              <Col xs="2"></Col>
+                            <Col xs="1" className="mt-0">
+                              <i className="fas fa-check-circle text-success"></i>
+                            </Col>
+                            <Col xs="9">
+                              Namen festlegen
+                            </Col>
+                            </Row>
+                            <Row className="mt-2 text-left">
+                              <Col xs="2"></Col>
+                            <Col xs="1" className="mt-0">
+                              <i className="fas fa-check-circle text-success"></i>
+                            </Col>
+                            <Col xs="9">
+                              Schichten pro Tag bestimmen
+                            </Col>
+                            </Row>
+                            <Row className="mt-2 text-left">
+                              <Col xs="2"></Col>
+                            <Col xs="1" className="mt-0">
+                              <i className="fas fa-check-circle text-success"></i>
+                            </Col>
+                            <Col xs="9">
+                              Ruhetage auswählen
+                            </Col>
+                            </Row>
+                            </p>
+                          </Col>
+                      </Row>
+                      { isMobile ? 
+                      <></>
+                      :
+                       <Row>
+                      <svg height="300" width="300">
+                        <path d=" M 0 100 A 200 200 0 0 1 150 300" stroke="Gainsboro" stroke-width="3" fill="none" stroke-dasharray="10, 10" />
+                    </svg>
+                      </Row>
+                      }
                     </Col>
                   </Row>
                 </Col>
-              </Row>
-            </Container>
+                </Row>
+                <Row className="mx-4">
+                <Col>
+                <Row className="text-center">
+                    <Col xs="12" md="6">
+                    <Row className="pt-3" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                        <Col>
+                        <Row className="text-left">
+                          <Col xs="2" className="">
+                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ml-4 ">2</Badge>
+                          </Col>
+                          <Col xs="10">
+                            <h2 className="display-4">Für dein Team</h2>
+                          </Col>
+                          </Row>
+                        </Col>
+                      </Row>
+                      <p className="lead mt-4" style={isMobile ? { transform: "translateY(50%)"} : {}}>
+                      <Row className="text-left">
+                        <Col>Deine Mitarbeiter*innen tragen sich in deinen <Link to="/fuer-dein-team" class="stretched-link">online Schichtplan</Link> ein. Das geht jederzeit per Smartphone oder Laptop.
+                          </Col>
+                      </Row>
+                      <Row className="mt-4 text-left">
+                            <Col xs="1" className="mt-0">
+                              <i className="fas fa-check-circle text-success"></i>
+                            </Col>
+                            <Col xs="9">
+                              Schicht auswählen
+                            </Col>
+                            </Row>
+                            <Row className="mt-2 text-left">
+                            <Col xs="1" className="mt-0">
+                              <i className="fas fa-check-circle text-success"></i>
+                            </Col>
+                            <Col xs="9">
+                              In Wunschschicht eintragen
+                            </Col>
+                            </Row>
+                      </p>
+                      { isMobile ? 
+                      <></>
+                      :
+                       <Row className="float-right">
+                      <svg height="300" width="300">
+                        <path d=" M 300 100 A 200 200 200 0 0 150 300" stroke="Gainsboro" stroke-width="3" fill="none" stroke-dasharray="10, 10" />
+                    </svg>
+                      </Row>
+                      }
+                    </Col>
+                    <Col xs="12" md="6" className="px-0">
+                    <img
+                          className="shadow mb-3"
+                          alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                          src={SchichtplanVorlage}
+                          title="Schichtplan Vorlage erstellen"
+                          height="70%"
+                          width="100%"
+                          ></img>
+                    </Col>
+                  </Row>
+                  </Col>
+                  </Row>
+                  <Row className=" mx-4">
+                <Col>
+                <Row className="text-center">
+                    <Col xs="12" md="6">
+                    <img
+                          className="shadow mb-3"
+                          alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                          src={SchichtplanVorlage}
+                          title="Schichtplan Vorlage erstellen"
+                          height="70%"
+                          width="100%"
+                          ></img>
+                    </Col>
+                    <Col xs="12" md="6">
+                    <Row className="pt-3" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                        <Col>
+                        <Row className="text-left">
+                          <Col xs="2" className="">
+                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ml-4 ">3</Badge>
+                          </Col>
+                          <Col xs="10">
+                            <h2 className="display-4">Automatisierte Befüllung</h2>
+                          </Col>
+                          </Row>
+                        </Col>
+                      </Row>
+                      <p className="lead mt-4 ">
+                      <Row className="text-left" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                        <Col xs="2"></Col>
+                        <Col>
+                          Unsere Lösung befüllt deinen <Link to="/automatisierter-schichtplan">Schichtplan automatisiert</Link> innerhalb weniger Sekunden.
+                          </Col>
+                      </Row>
+                      <Row className="mt-4 text-left">
+                      <Col xs="2"></Col>
+                            <Col xs="1" className="mt-0">
+                              <i className="fas fa-check-circle text-success"></i>
+                            </Col>
+                            <Col xs="9">
+                              Schichtplan auswählen
+                            </Col>
+                            </Row>
+                            <Row className="mt-2 text-left">
+                            <Col xs="2"></Col>
+                            <Col xs="1" className="mt-0">
+                              <i className="fas fa-check-circle text-success"></i>
+                            </Col>
+                            <Col xs="9">
+                              Befüllung starten
+                            </Col>
+                            </Row>
+                      </p>
+                      { isMobile ? 
+                      <></>
+                      :
+                       <Row>
+                      <svg height="300" width="300">
+                        <path d=" M 0 100 A 200 200 0 0 1 150 300" stroke="Gainsboro" stroke-width="3" fill="none" stroke-dasharray="10, 10" />
+                    </svg>
+                      </Row>
+                      }
+                    </Col>
+                  </Row>
+                  </Col>
+                  </Row>
+                  <Row className="mx-4">
+                <Col>
+                <Row className="text-center">
+                    <Col xs="12" md="6">
+                    <Row className="pt-3" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                        <Col>
+                        <Row className="text-left">
+                          <Col xs="2" className="">
+                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ml-4 ">4</Badge>
+                          </Col>
+                          <Col xs="10">
+                            <h2 className="display-4">Schichtplan veröffentlichen</h2>
+                          </Col>
+                          </Row>
+                        </Col>
+                      </Row>
+                      <p className="lead mt-4 pt-0">
+                      <Row className="text-left mt-0 pt-0" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                        <Col className="">
+                          Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den <Link to="/schichtplan-veroeffentlichen">fertigen Schichtplan</Link> mit einem Klick.
+                          </Col>
+                      </Row>
+                      <Row className="mt-4 text-left">
+                            <Col xs="1" className="mt-0">
+                              <i className="fas fa-check-circle text-success"></i>
+                            </Col>
+                            <Col xs="9">
+                              Jederzeit einsehbar
+                            </Col>
+                            </Row>
+                            <Row className="mt-2 text-left">
+                            <Col xs="1" className="mt-0">
+                              <i className="fas fa-check-circle text-success"></i>
+                            </Col>
+                            <Col xs="9">
+                              Tauschanfragen genehmigen
+                            </Col>
+                            </Row>
+                    </p>
+                    </Col>
+                    <Col xs="12" md="6">
+                      <img
+                            className="shadow mb-3"
+                            alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                            src={SchichtplanVorlage}
+                            title="Schichtplan Vorlage erstellen"
+                            height="80%"
+                            width="100%"
+                            ></img>
+                    </Col>
+                  </Row>
+                  </Col>
+                  </Row>
+              </Container>
           </section>
           
           <section className="section section-lg pt-lg-0 mt-8">
@@ -237,7 +435,7 @@ const Landing = (props) => {
               <Col md="12" lg="6">
               <p className="lead text-default m-1">
                     <Row className="mt-6">
-                        🕗 Jederzeit in den Schichtplan eintragen
+                        🕗 Jederzeit in den digitalen Schichtplan eintragen
               </Row>
               <Row className="mt-2">
                         🌍 Von überall fertigen Schichtplan einsehen
@@ -326,7 +524,7 @@ const Landing = (props) => {
                               <Row>
                                 <Col>
                                   <p className="description mt-0">
-                                  Erstelle flexible Schichtpläne für deine Bedürfnisse in wenigen Minuten.
+                                  Erstelle digitale, flexible Schichtpläne für deine Bedürfnisse in wenigen Minuten.
                                   </p>
                                 </Col>
                               </Row>      
