@@ -47,6 +47,8 @@ import UserDashboard from './views/MainViews/User/Dashboard';
 import SchichtplanBewerben from './views/MainViews/User/SchichtplanBewerben';
 import UserProfil from './views/MainViews/User/UserProfil';
 import ApplicationsMainView from './views/MainViews/User/ShiftplanApplications';
+import SchichtplanVeroeffentlichen from './views/MainViews/SchichtplanDetails/SchichtplanVeroeffentlichen';
+import VorteileTeam from './views/MainViews/SchichtplanDetails/VorteileTeam';
 import Automatisierung from './views/MainViews/Themen/Automatisierung';
 import Schichtplanerstellen from './views/MainViews/Themen/Schichtplanerstellen';
 import Schichtplanvorlage from './views/MainViews/Themen/Schichtplanvorlage';
@@ -54,8 +56,7 @@ import Monatsplanung from './views/MainViews/Themen/Monatsplanung';
 import AutomatisierteBefüllungStarten from './views/MainViews/Themen/AutomatisierteBefüllung';
 import IndividuellerSchichtplan from './views/MainViews/Themen/IndividuellerSchichtplan';
 import AutomatisierteBefüllung from './views/MainViews/SchichtplanDetails/AutomatisierteBefüllung';
-import SchichtplanVeroeffentlichen from './views/MainViews/SchichtplanDetails/SchichtplanVeroeffentlichen';
-import VorteileTeam from './views/MainViews/SchichtplanDetails/VorteileTeam';
+import Anpassungen from './views/MainViews/Themen/Anpassungen';
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -92,6 +93,7 @@ ReactDOM.render(
         <Route path="/themen/monatsplanung" element={<Monatsplanung />} />
         <Route path="/themen/individueller-schichtplan" element={<IndividuellerSchichtplan />} />
         <Route path="/themen/automatisierte-befuellung-starten" element={<AutomatisierteBefüllungStarten />} />
+        <Route path="/themen/anpassungen-vornehmen" element={<Anpassungen />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
         <Route path="/pricing" element={ <Pricing  />} />
