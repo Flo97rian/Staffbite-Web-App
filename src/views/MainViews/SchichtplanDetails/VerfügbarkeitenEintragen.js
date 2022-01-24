@@ -73,20 +73,26 @@ function VerfügbarkeitenEintragen (props) {
                     </Row>
       </Container>
                 
-      <Container className="pb-2 pt-6 px-0">
+      <Container className="pb-2 pt-6">
             <Row>
               <Col className="mt-4" xs="12" sm="6">
-                <Row className="pr-4">
+                <Row className="">
+                  <Col>
                   <h2 class="display-4">Verfügbarkeiten eintragen</h2>
+                  </Col>
                 </Row>
                 <p className="lead">
-                <Row className="pr-6">
+                <Row className="">
+                  <Col>
                 Jedes deiner Teammitglieder bekommt einen eigenen Zugang zu Staffbite. 
                 Anschließend können sie per Smartphone, Tablet oder Laptop ihre Verfügbarkeiten eintragen.
                 Auf diese Weise spart ihr euch einen Haufen WhatsApp-Nachrichten, Mails, Zettel und Stress.
+                </Col>
                 </Row>
-                <Row className="mt-4 pr-6">
-                Übrigens: Wir arbeiten derzeit mit Hochdruck an einer kostenlosen iOS & Android-App für deine Mitarbeiter*innen.
+                <Row className="mt-4 ">
+                  <Col>
+                      Übrigens: Wir arbeiten derzeit mit Hochdruck an einer kostenlosen iOS & Android-App für deine Mitarbeiter*innen.
+                </Col>
                 </Row>
                 </p>
                 </Col>
@@ -144,7 +150,7 @@ function VerfügbarkeitenEintragen (props) {
                 <Container className="mt-4">
                 <Row className="mt-6" >
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                 <CardImg
                   className="p-4"
@@ -165,7 +171,7 @@ function VerfügbarkeitenEintragen (props) {
                   </Card>
                 </Col>
                 
-                <Col xs="6">
+                <Col xs="12" md="6">
                         <Card>
                             <CardImg
                             className="p-4"

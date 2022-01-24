@@ -36,6 +36,7 @@ import {AUTOMATISIERTE_SCHICHTPLANUNG_TITLE, AUTOMATISIERTE_SCHICHTPLANUNG_DESCR
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png"
 import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
+import { isMobile } from "react-device-detect";
 
 
 function AutomatisierteBefüllung (props) {
@@ -72,51 +73,58 @@ function AutomatisierteBefüllung (props) {
                         <h1 className="display-3">Dein automatisierter Schichtplan</h1>
                     </Row>
       </Container>    
-            <Container className="pb-2"fluid>
-            <Row className="justify-content-center ml-0 mt-4">
+            <Container className="pb-2">
+            <Row className="mt-4">
                 <Col className="mt-6">
-                <Row className=" justify-content-center mt-4 ml-6">
+                <Row className="mt-4">
                     <Col>
                         <h2 class="display-4">Deine Zeit ist zu wertvoll, um sie mit der Schichtplanung zu verbringen</h2>
-                        <p className="lead">
-                        Nachdem dein Team sich in deinen Schichtplan eingetragen hat, kannst du die automatisierte Befüllung starten. Dafür reicht ein Klick aus. Wenige Sekunden später ist dein Schichtplan fertig. Dein Team wird ausschließlich in Schichten eingeteilt, in die sie sich eingetragen haben. Somit entsteht ein fairer Schichtplan für dein ganzes Team. 
-                        </p>
-                        <p className="lead">
-                        Bisher hast du wahrscheinlich stundenlang per Hand mit Papier und einer Excel-Tabelle deinen Schichtplan befüllt. Mit unserer Lösung ist das Vergangenheit! Wir wollen dir helfen sowohl Zeit als auch Nerven zu sparen. 
-                        </p>
-                        <p className="lead">
-                        Schau dir einfach an wie unsere <Link to="/themen/automatisierung">automatisierte Schichtplanung</Link> funktioniert.
-                        </p> 
+                        </Col>
+                </Row>
+                <p className="lead">
+                <Row className="mt-4">
+                    <Col>
+                      Nachdem dein Team sich in deinen Schichtplan eingetragen hat, kannst du die automatisierte Befüllung starten. Dafür reicht ein Klick aus. Wenige Sekunden später ist dein Schichtplan fertig. Dein Team wird ausschließlich in Schichten eingeteilt, in die sie sich eingetragen haben. Somit entsteht ein fairer Schichtplan für dein ganzes Team. 
                     </Col>
                 </Row>
-                    
+                <Row className="mt-4">
+                    <Col>
+                      Bisher hast du wahrscheinlich stundenlang per Hand mit Papier und einer Excel-Tabelle deinen Schichtplan befüllt. Mit unserer Lösung ist das Vergangenheit! Wir wollen dir helfen sowohl Zeit als auch Nerven zu sparen. 
+                    </Col>
+                </Row>
+                <Row className="mt-4">
+                    <Col>
+                      Schau dir einfach an wie unsere <Link to="/themen/automatisierung">automatisierte Schichtplanung</Link> funktioniert.
+                    </Col>
+                </Row>
+                </p>     
                 </Col>
-                <Col className="col-xs-12 text-center"  md="6" lg="6">
+                <Col className={isMobile ? "" : "pt-8"}  md="12" lg="6">
                 <img
                     alt="Abbildung eines automatisiert erstellen Schichtplans von Staffbite"
                     title="Schichtplan automatisiert erstellen"
                     src={SchichtplanBeispiel}
-                    height="100%"
+                    height={isMobile ? "100%" : "60%"}
                     width="100%"
                   />
                 </Col>
                 </Row>
                 </Container>
-              <Container className="mt-6 mx-8" fluid>
-              <Row className="justify-content-center text-center">
+              <Container className="mt-6">
+              <Row className="text-center">
                 <Col md="12">
                   <h2 className="display-3 text-default">In wenigen Schritten zum automatisierten Schichtplan</h2>
                 </Col>
               </Row>
               <Row className="justify-content-center text-center mb-4">
-                <Col md="10">
+                <Col md="12">
                   <p className="lead">
                   Wir helfen dir Zeit & Geld zu sparen. Deshalb entwickeln unsere Lösung stetig weiter und gehen dabei die Wünsche unserer Kunden ein. Somit erhälst du mit Staffbite die Lösung, die dir wirklich weiterhilft.
                   </p>
                 </Col>
               </Row>
               <Row className="mt-4">
-                    <Col xs="12" sm="4">
+                    <Col xs="12" md="4">
 
                     <Row className="mt-6">
                           <Col  xs="2">
@@ -132,7 +140,7 @@ function AutomatisierteBefüllung (props) {
                               <Row>
                                 <Col>
                                 <h3 className="lead mb-0 mt-0">
-                                1. Schichtplan auswählen <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                <Link to="/schichtplan-erstellen">1. Schichtplan auswählen <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i></Link>
                                 </h3>
                                 </Col>
                               </Row>   
@@ -141,7 +149,7 @@ function AutomatisierteBefüllung (props) {
                           </Col>
                         </Row>
                       <hr className=""/>
-                        <Row className="mt-6">
+                        <Row className="mt-4">
                           <Col  xs="2">
                             <Row className="justify-content-center">
                               <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
@@ -155,7 +163,7 @@ function AutomatisierteBefüllung (props) {
                               <Row>
                                 <Col>
                                 <h3 className="lead mb-0 mt-0">
-                                2. Automatisierte Befüllung starten <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                <Link to="/themen/automatisierte-befuellung-starten">2. Automatisierte Befüllung starten <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i></Link>
                                 </h3>
                                 </Col>
                               </Row>  
@@ -164,7 +172,7 @@ function AutomatisierteBefüllung (props) {
                           </Col>
                         </Row>
                       <hr className=""/>
-                      <Row className="mt-6">
+                      <Row className="mt-4">
                           <Col  xs="2">
                             <Row className="justify-content-center">
                               <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
@@ -178,7 +186,7 @@ function AutomatisierteBefüllung (props) {
                               <Row>
                                 <Col>
                                 <h3 className="lead mb-0 mt-0">
-                                  3. Letzte Änderungen vornehmen <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                  <Link to="/themen/anpassungen-vornehmen">3. Letzte Änderungen vornehmen <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i></Link>
                                 </h3>
                                 </Col>
                               </Row>     
@@ -187,7 +195,7 @@ function AutomatisierteBefüllung (props) {
                           </Col>
                         </Row>
                       <hr className=""/>
-                      <Row className="mt-6">
+                      <Row className="mt-4">
                           <Col  xs="2">
                             <Row className="justify-content-center">
                               <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
@@ -201,7 +209,7 @@ function AutomatisierteBefüllung (props) {
                               <Row>
                                 <Col>
                                 <h3 className="lead mb-0 mt-0">
-                                4. Schichtplan veröffentlichen <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                <Link to="/schichtplan-veroeffentlichen">4. Schichtplan veröffentlichen <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i></Link>
                                 </h3>
                                 </Col>
                               </Row>    
@@ -227,7 +235,7 @@ function AutomatisierteBefüllung (props) {
                 <Container mt-4>
                 <Row className="mt-6" >
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                 <CardImg
                   className="p-4"
@@ -249,7 +257,7 @@ function AutomatisierteBefüllung (props) {
                   </Card>
                 </Col>
                 
-                <Col xs="6">
+                <Col xs="12" md="6">
                         <Card>
                             <CardImg
                             className="p-4"

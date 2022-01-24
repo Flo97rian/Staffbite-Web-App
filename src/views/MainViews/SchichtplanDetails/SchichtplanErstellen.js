@@ -39,6 +39,7 @@ import Schichthinzufuegen from "../../../assets/img/theme/Schicht-hinzufuegen.pn
 import SchichtplanVorlageVerwenden from "../../../assets/img/theme/Schichtplan-vorlage-verwenden.png"
 import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
 import Calendar from "../../../assets/img/themen/Monatsplanung/CalendarImage.png"
+import { isMobile } from "react-device-detect";
 
 
 function SchichtplanErstellen (props) {
@@ -76,13 +77,13 @@ function SchichtplanErstellen (props) {
                     </Row>
       </Container>
                 
-      <Container fluid className="mt-3 mx-6">
-        <Row className="ml-0">
-        <Col className="mt-4">
-          <Row className="mt-6">
-            <h2 className="m-3 ml-2 p-0">Digitale Schichtpläne für dich und dein Team</h2>
+      <Container className="mt-3">
+        <Row >
+        <Col className="mt-4" md="12" lg="5">
+          <Row className="mt-4">
+            <h2 className="m-3 p-0">Digitale Schichtpläne für dich und dein Team</h2>
           </Row>
-          <Row className="mt-2">
+          <Row className="mt-2 text-left">
             <Col xs="12">
           <p className="lead m-0">
               Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. 
@@ -132,6 +133,7 @@ function SchichtplanErstellen (props) {
                 <Col md="12" lg="7">
                   <img
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                    className="mt-2"
                     src={SchichtplanVorlage}
                     title="Schichtplan Vorlage erstellen"
                     height="80%"
@@ -149,7 +151,7 @@ function SchichtplanErstellen (props) {
       </Container>
                 <Container className="mt-6">
                   <Row>
-                    <Col md="12" lg="6">
+                    <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6">
                     <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
@@ -160,15 +162,17 @@ function SchichtplanErstellen (props) {
                     width="100%"
                   />
                     </Col>
-                    <Col className="ml-6">
-                    <Row className="mt-4">
-                      <h2 className="m-0 p-0">1. Erstelle deine Vorlagen</h2>
-                    </Row>
+                    <Col className="" xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6">
+                    <Row className="mt-4 text-left">
+                      <Col xs="12">
+                      <h2 className="">1. Erstelle deine Vorlagen</h2>
+                    <p className="lead">
                     <Row className="mt-2">
-                    <CardSubtitle className="lead">In wenigen Klicks kannst du die wichtigsten Informationen zu deinem Schichtplan angeben. </CardSubtitle>
+                      <Col>
+                        In wenigen Klicks kannst du die wichtigsten Informationen zu deinem Schichtplan angeben.
+                    </Col>
                   </Row>
-                  <p className="m-0 lead">
-                  <Row className="justify-content-center mt-4">
+                  <Row className=" mt-4">
                 <Col xs="1" className="mt-0">
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
@@ -198,6 +202,8 @@ function SchichtplanErstellen (props) {
                 </Col>
               </Row>
             </p>
+            </Col>
+            </Row>
                     </Col>
                   </Row>
                 </Container>
@@ -205,12 +211,16 @@ function SchichtplanErstellen (props) {
                   <Row>
                     <Col md="12" lg="6">
                         <Row className="mt-4">
-                          <h2 className="m-0 p-0">2. Erstelle weitere Schichten</h2>
+                          <Col>
+                            <h2 className="">2. Erstelle weitere Schichten</h2>
+                          </Col>
                         </Row>
+                        <p className="lead">
                         <Row className="mt-2">
-                        <CardSubtitle className="lead">Als letzten Schritt gibst du die wichtigsten Informationen zu deinen Schichten an. </CardSubtitle>
+                          <Col>
+                            Als letzten Schritt gibst du die wichtigsten Informationen zu deinen Schichten an. 
+                          </Col>
                       </Row>
-                      <p className="m-0 lead">
                       <Row className="justify-content-center mt-4">
                     <Col xs="1" className="mt-2">
                       <i className="fas fa-check-circle text-success"></i>
@@ -295,7 +305,7 @@ function SchichtplanErstellen (props) {
                 <Container className="mt-4">
                 <Row className="mt-6" >
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                 <CardImg
                   className="p-4"
@@ -316,7 +326,7 @@ function SchichtplanErstellen (props) {
                   </Card>
                 </Col>
                 
-                <Col xs="6">
+                <Col xs="12" md="6">
                         <Card>
                             <CardImg
                             className="p-4"

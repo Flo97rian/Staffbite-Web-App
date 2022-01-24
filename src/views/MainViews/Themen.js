@@ -97,7 +97,7 @@ function Themen (props) {
 
             <Row className="mt-2">
 
-            <Col xs="6">
+            <Col xs="12" md="6">
                 <Card>
                             <CardImg
                             className="p-2"
@@ -120,7 +120,7 @@ function Themen (props) {
                         </Card>
             </Col>
 
-            <Col xs="6">
+            <Col xs="12" md="6">
                 <Card>
                             <CardImg
                             className="p-2"
@@ -149,7 +149,7 @@ function Themen (props) {
                 
                 <Row className="mt-2" >
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                             <CardImg
                             className="p-2"
@@ -172,7 +172,7 @@ function Themen (props) {
                         </Card>
             </Col>
                 
-                <Col xs="6">
+                <Col xs="12" md="6">
                         <Card>
                             <CardImg
                             className="p-4"
@@ -199,7 +199,7 @@ function Themen (props) {
                 <Row className="mt-2" >
 
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                         <Card>
                             <CardImg
                             className="p-2"
@@ -220,7 +220,7 @@ function Themen (props) {
                         </Card>
                 </Col>
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                     <Card>
                             <CardImg
                             className="p-2"
@@ -244,7 +244,7 @@ function Themen (props) {
 
                 <Row className="mt-2" >
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                         <Card>
                             <CardImg
                             className="p-2"
@@ -264,7 +264,7 @@ function Themen (props) {
                         </Card>
                 </Col>
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                             <CardImg
                             className="p-2"
@@ -284,7 +284,7 @@ function Themen (props) {
                         </Card>
                 </Col>
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                             <CardImg
                             className="p-2"
@@ -310,7 +310,7 @@ function Themen (props) {
 
                 
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                             <CardImg
                             className="p-2"

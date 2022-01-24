@@ -37,6 +37,7 @@ import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png"
 import Preise from "../../../assets/img/theme/ZeitGeld.png"
 import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
 import MitarbeiterHinzufuegen from "../../../assets/img/theme/Mitarbeiter-hinzufuegen.png"
+import { isMobile } from "react-device-detect";
 
 
 function TeamVerwalten (props) {
@@ -104,10 +105,10 @@ function TeamVerwalten (props) {
         </Container>
         <Container className="mt-8">
           <Row>
-            <Col>
+            <Col xs="12" md="4">
             <Card>
             <Row className="text-center">
-                <Col className="mt-3">
+                <Col className="mt-3" xs="12" md="4">
                 <i className="far fa-paper-plane"></i>
                 </Col>
             </Row>
@@ -127,7 +128,7 @@ function TeamVerwalten (props) {
             </Row>
             </Card>
             </Col>
-            <Col>
+            <Col xs="12" md="4">
             <Card>
             <Row className="text-center">
                 <Col className="mt-3">
@@ -150,7 +151,7 @@ function TeamVerwalten (props) {
             </Row>
             </Card>
             </Col>
-            <Col>
+            <Col xs="12" md="4">
             <Card>
             <Row className="text-center">
                 <Col className="mt-3">
@@ -188,8 +189,8 @@ function TeamVerwalten (props) {
                     width="100%"
                   />
                     </Col>
-                    <Col className="ml-6">
-                    <Row className="mt-4">
+                    <Col className={isMobile ? "" : "ml-6"}>
+                    <Row className="mt-4 text-left">
                       <h2 className="m-0 p-0 display-4">Einfach Mitarbeiter einladen</h2>
                     </Row>
                     <Row className="mt-2">
@@ -252,7 +253,7 @@ function TeamVerwalten (props) {
                 <Row className="mt-6" >
                   
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                 <CardImg
                   className="p-4"
@@ -274,7 +275,7 @@ function TeamVerwalten (props) {
                   </Card>
                 </Col>
                 
-                <Col xs="6">
+                <Col xs="12" md="6">
                         <Card>
                             <CardImg
                             className="p-4"

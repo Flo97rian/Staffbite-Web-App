@@ -36,6 +36,7 @@ import {TEAM_VORTEILE_TITLE, TEAM_VORTEILE_DESCRIPTION} from "../../../constants
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
 import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShiftplan-min.png";
+import { isMobile } from "react-device-detect";
 
 
 function VorteileTeam (props) {
@@ -73,10 +74,10 @@ function VorteileTeam (props) {
                         <h1 className="display-3">Dein individueller Schichtplan für dich und dein Team</h1>
                     </Row>
       </Container>    
-            <Container className="pb-2"fluid>
-            <Row className="justify-content-center ml-0 mt-4">
-                <Col className="mt-6">
-                <Row className=" justify-content-center mt-4 ml-6">
+            <Container className="pb-2">
+            <Row className="justify-content-center mt-4">
+                <Col className={isMobile ? "mt-2" : "mt-4"}>
+                <Row className=" justify-content-center mt-4">
                     <Col>
                         <h2 class="display-4">Vorteile für dein Team</h2>
                         <p className="lead">
@@ -92,12 +93,12 @@ function VorteileTeam (props) {
                 </Row>
                     
                 </Col>
-                <Col className="col-xs-12 text-center"  md="6" lg="6">
+                <Col className={isMobile ? "" : "pt-8"}  xs="12" md="6" lg="6">
                 <img
                     alt="Fertiger Schichtplan bereit zur Veröffentlichung"
                     src={SchichtplanPublish}
                     title="Fertiger Schichtplan"
-                    height="100%"
+                    height={isMobile ? "100%" : "50%"}
                     width="100%"
                   />
                 </Col>
@@ -110,7 +111,7 @@ function VorteileTeam (props) {
                 <Container mt-4>
                 <Row className="mt-6" >
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                 <CardImg
                   className="p-4"
@@ -133,7 +134,7 @@ function VorteileTeam (props) {
                 </Col>
                 
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                 <CardImg
                   className="p-4"
