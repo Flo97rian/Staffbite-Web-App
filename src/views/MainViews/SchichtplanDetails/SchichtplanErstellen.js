@@ -87,24 +87,24 @@ function SchichtplanErstellen (props) {
           <p className="lead m-0">
               Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. 
               <Row className="mt-2 justify-content-center">
-                <Col xs="1" className="mt-2">
-                  <i className="fas fa-check-circle text-info"></i>
+                <Col xs="1" className="mt-0">
+                  <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
                   Position & Rechte festlegen
                 </Col>
               </Row>
               <Row>
-                <Col xs="1" className="mt-2">
-                  <i className="fas fa-check-circle text-info"></i>
+                <Col xs="1" className="mt-0">
+                  <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
                   Beginn & Ende bestimmen
                 </Col>
               </Row>
               <Row>
-                <Col xs="1" className="mt-2">
-                  <i className="fas fa-check-circle text-info"></i>
+                <Col xs="1" className="mt-0">
+                  <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
                   Notizen für dein Team
@@ -169,24 +169,24 @@ function SchichtplanErstellen (props) {
                   </Row>
                   <p className="m-0 lead">
                   <Row className="justify-content-center mt-4">
-                <Col xs="1" className="mt-2">
-                  <i className="fas fa-check-circle text-info"></i>
+                <Col xs="1" className="mt-0">
+                  <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
                   Namen festlegen
                 </Col>
               </Row>
               <Row>
-                <Col xs="1" className="mt-2">
-                  <i className="fas fa-check-circle text-info"></i>
+                <Col xs="1" className="mt-0">
+                  <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
                   Schichten bestimmen
                 </Col>
               </Row>
               <Row>
-                <Col xs="1" className="mt-2">
-                  <i className="fas fa-check-circle text-info"></i>
+                <Col xs="1" className="mt-0">
+                  <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
                   Ruhetage auswählen
@@ -208,31 +208,31 @@ function SchichtplanErstellen (props) {
                       <p className="m-0 lead">
                       <Row className="justify-content-center mt-4">
                     <Col xs="1" className="mt-2">
-                      <i className="fas fa-check-circle text-info"></i>
+                      <i className="fas fa-check-circle text-success"></i>
                     </Col>
                     <Col>
                       Namen festlegen
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs="1" className="mt-2">
-                      <i className="fas fa-check-circle text-info"></i>
+                    <Col xs="1" className="mt-0">
+                      <i className="fas fa-check-circle text-success"></i>
                     </Col>
                     <Col>
                       Position auswählen
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs="1" className="mt-2">
-                      <i className="fas fa-check-circle text-info"></i>
+                    <Col xs="1" className="mt-0">
+                      <i className="fas fa-check-circle text-success"></i>
                     </Col>
                     <Col>
                       Beginn & Ende bestimmen
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs="1" className="mt-2">
-                      <i className="fas fa-check-circle text-info"></i>
+                    <Col xs="1" className="mt-0">
+                      <i className="fas fa-check-circle text-success"></i>
                     </Col>
                     <Col>
                       Anzahl benötigter Mitarbeiter eintragen

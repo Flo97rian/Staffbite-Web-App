@@ -73,27 +73,32 @@ function TeamVerwalten (props) {
                 </Row>
     </Container>
                 
-    <Container className="pb-2"fluid>
-        <Row className="ml-0 mt-10">
-        <Col className="mt-4 ml-6">
-        <p className="lead">
-        <br/>
-        <br/>
-        <br/>
+    <Container className="pb-2">
+        <Row className="ml-0 mt-6">
+        <Col className="" md="12" lg="4">
+          <Row>
         <h2 class="display-4">Behalte dein Team im Blick!</h2>
+        </Row>
+        <Row>
+        <p className="lead">
+          <Row>
             Staffbite liefert dir einfach und unkompliziert die wichtigsten Informationen zu deinem Team.
-            <br/>
-            <p className="lead">
+          </Row>
+          <Row className="mt-2">
             Damit sich dein Team in den Schichtplan eintragen kann, musst du deine Mitarbeiter*innen nur einmalig einladen. 
-            <br/>
+          </Row>
+          <Row>
             Dafür brauchst du nur ihren Namen, ihre E-Mail-Adresse und die Anzahl der Schichten, die sie pro Woche arbeiten sollen. 
-            <br/>
+            </Row>
+            <Row>
             Außerdem kannst du angeben wie viel Erfahrung sie bereits haben und welche Position (z.B. Service, Küche, etc.) sie ausfüllen. 
-            <br/>
+            </Row>
+            <Row>
             Diese Informationen kannst du später nutzen, um deine Schichtpläne noch besser zu gestalten.
-            </p>  
+            </Row>
             
         </p>
+        </Row>
         </Col>
 
         <Col className="col-xs-12"  md="12" lg="8">
@@ -101,7 +106,7 @@ function TeamVerwalten (props) {
             alt="Übersicht zur Erstellung und Verwaltung deines Teams"
             src={TeamÜbersicht}
             title="Team erstellen und verwalten"
-            height="100%"
+            height="80%"
             width="100%"
             />
         </Col>
