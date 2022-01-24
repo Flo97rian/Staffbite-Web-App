@@ -17,7 +17,7 @@
 */
 import React, {useEffect, useRef} from "react";
 import { Helmet } from "react-helmet";
-import { useLocation, Link } from "react-router-dom";
+import {Link } from "react-router-dom";
 import ReactGA from "react-ga";
 // reactstrap components
 import {
@@ -32,11 +32,12 @@ import {
 } from "reactstrap";
 // core components
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
-import CloudPicture from "../../assets/img/themen/CloudComputingImage.png"
-import Paperwork from "../../assets/img/themen/PaperworkImage.png"
+import CloudPicture from "../../assets/img/themen/CloudService/CloudComputingImage.png"
+import Paperwork from "../../assets/img/themen/AutomatisierteBefüllung/PaperworkImage.png"
 import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { ABOUTUS_DESCRIPTION, ABOUTUS_TITLE } from "../../constants/MetaTexts";
+
 
 function Pricing (props) {
   let mainContent = useRef("mainContent")

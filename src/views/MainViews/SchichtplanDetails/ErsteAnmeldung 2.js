@@ -16,20 +16,18 @@
 
 */
 import React, {useEffect} from "react";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
-
 // reactstrap components
 import {
   Container,
   Row,
   Col,
 } from "reactstrap";
-
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
+
 
 function ErsteAnmeldung (props) {
   useEffect(() => {

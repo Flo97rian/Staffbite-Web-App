@@ -1,12 +1,9 @@
 import React from "react";
 import {
-    Col,
     Button,
-    Row,
     Label
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
 import store from "../../../../store";
 import ShiftDetails from "../Form/ShiftDetails";
 

@@ -16,7 +16,6 @@
 
 */
 import React, {useEffect} from "react";
-
 // reactstrap components
 import {
   Container,
@@ -27,10 +26,10 @@ import {
 import ReactGA from "react-ga";
 import { Helmet } from "react-helmet";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
-import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { Link } from "react-router-dom";
 import { IMPRESSUM_DESCRIPTION, IMPRESSUM_TITLE } from "../../constants/MetaTexts";
+
 
 function Impressum (props) {
   useEffect(() => {

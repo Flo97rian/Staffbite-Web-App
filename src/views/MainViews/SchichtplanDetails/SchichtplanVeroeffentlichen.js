@@ -19,7 +19,6 @@ import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
-
 // reactstrap components
 import {
   Container,
@@ -31,13 +30,12 @@ import {
   Card,
   CardTitle
 } from "reactstrap";
-import StaffbiteLogo from "../../../assets/img/brand/Staffbite_Logo.png"
 import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
-import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
-import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION, SCHICHTPLAN_VEROEFFENTLICHEN_TITLE, SCHICHTPLAN_VEROEFFENTLICHEN_DESCRIPTION} from "../../../constants/MetaTexts"
+import {SCHICHTPLAN_VEROEFFENTLICHEN_TITLE, SCHICHTPLAN_VEROEFFENTLICHEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png";
+
 
 function SchichtplanVeroeffentlichen (props) {
   useEffect(() => {
@@ -68,16 +66,15 @@ function SchichtplanVeroeffentlichen (props) {
                 imgAlt: "Das Logo von Staffbite",
                 }}/>
       {/* Page content */}
-      <Container className="pt-5 pb-2" fluid>
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-8">
                         <h1 className="display-3">Deinen Schichtplan veröffentlichen</h1>
                     </Row>
       </Container>    
-            <Container className="pb-2"fluid>
-            <Row className="justify-content-center ml-0 mt-4">
-                <Col className="mt-6">
-                <Row className=" justify-content-center mt-4 ml-6">
+            <Container className="pb-2">
+            <Row className="mt-4">
+                <Col className="">
+                <Row className="mt-5 ml-6">
                     <Col>
                         <h2 class="display-4">Fertigen Schichtplan veröffentlichen</h2>
                         <p className="lead">
@@ -88,7 +85,7 @@ function SchichtplanVeroeffentlichen (props) {
                 </Row>
                     
                 </Col>
-                <Col className="col-xs-12 text-center"  md="6" lg="6">
+                <Col className="col-xs-12"  md="6" lg="6">
                 <img
                     alt="Fertiger Schichtplan bereit zur Veröffentlichung"
                     src={SchichtplanPublish}
@@ -97,10 +94,8 @@ function SchichtplanVeroeffentlichen (props) {
                     width="100%"
                   />
                 </Col>
-                  <br/>
                 </Row>
                 </Container>
-                <div>
                 
                 <Container mt-4>
                 <Row className="mt-6" >
@@ -153,8 +148,6 @@ function SchichtplanVeroeffentlichen (props) {
                 
 
                 
-                </div>
-      </Container>
       <LandingFooter></LandingFooter>
     </>
   );

@@ -33,14 +33,17 @@ import {
 // core components
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import StaffbiteLogo from "../../assets/img/brand/Staffbite_Logo.png"
-import CloudPicture from "../../assets/img/themen/CloudComputingImage.png"
-import Paperwork from "../../assets/img/themen/PaperworkImage.png"
-import Possibilities from "../../assets/img/themen/Possibilities.png"
-import VorlageThumbnail from "../../assets/img/themen/SchichtplanVorlageThumbnail.png"
-import Calendar from "../../assets/img/themen/CalendarImage.png"
-import Individuell from "../../assets/img/themen/Individuell.png"
+import CloudPicture from "../../assets/img/themen/CloudService/CloudComputingImage.png"
+import Paperwork from "../../assets/img/themen/AutomatisierteBefüllung/PaperworkImage.png"
+import Possibilities from "../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
+import VorlageThumbnail from "../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageThumbnail.png"
+import Calendar from "../../assets/img/themen/Monatsplanung/CalendarImage.png"
+import Individuell from "../../assets/img/themen/IndividuellerSchichtplan/Individuell.png"
+import BefüllungStarten from "../../assets/img/themen/BefüllungStarten/BefüllungStarten.png"
+import Overview from "../../assets/img/theme/AnpassungenOverview.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
+
 
 function Themen (props) {
     let mainContent = useRef("mainContent")
@@ -90,10 +93,63 @@ function Themen (props) {
             </Container>
             
             <Container className="mb-4 pt-4">
-            
+
+
             <Row className="mt-2">
 
             <Col xs="6">
+                <Card>
+                            <CardImg
+                            className="p-2"
+                            src={Overview}
+                            alt="Schichtplan online erstellen"
+                            height="100%"
+                            width="100%"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                <Link to="/themen/anpassungen-vornehmen" class="stretched-link">Schritt für Schritt: Anpassungen am Schichtplan</Link>
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie kann ich Anpassungen am automatisiert befüllten Schichtplan vornehmen?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Artikel zeige ich dir, wie du Anpassungen an deinem Schichtplan vornimmst.
+                                    Ich zeige dir, wie du dich selbst in den Plan einträgst oder auf Änderungswünsche deines Team eingehen kannst.
+                            </CardText>
+                            <br/>
+                        </Card>
+            </Col>
+
+            <Col xs="6">
+                <Card>
+                            <CardImg
+                            className="p-2"
+                            src={BefüllungStarten}
+                            alt="Schichtplan online erstellen"
+                            height="80%"
+                            width="80%"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                <Link to="/themen/automatisierte-befuellung-starten" class="stretched-link">Schritt für Schritt: Automatisierte Befüllung starten</Link>
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie lasse ich meinen Schichtplan automatisiert befüllen?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Artikel zeige ich dir, wie du die automatisierte Befüllung starten kannst.
+                                    Diese Schritt für Schritt Anleitung zeigt den einfachsten Weg, um die Zuordnung von Mitarbeiter*innen und Schichten innerhalb weniger Sekunden abzubilden.
+                            </CardText>
+                            <br/>
+                            <br/>
+                        </Card>
+            </Col>
+                                
+                </Row>
+                
+                
+                <Row className="mt-2" >
+
+                <Col xs="6">
                 <Card>
                             <CardImg
                             className="p-2"
@@ -102,7 +158,7 @@ function Themen (props) {
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
                                 <br/>
-                                <Link to="/themen/individueller-schichtplan" class="stretched-link">Dein individueller Schichtplan</Link>
+                                <Link to="/themen/individueller-schichtplan" class="stretched-link">Schritt für Schritt: Dein individueller Schichtplan</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie kann die individuellen Anforderungen meines Betriebs abbilden?
@@ -112,10 +168,11 @@ function Themen (props) {
                                     Wir bieten dir die Möglichkeit Mindestanforderungen und Notizen für einzelne Schichten einzustellen und Schichten flexibel zu deaktiveren.
                             </CardText>
                             <br/>
+                            <br/>
                         </Card>
             </Col>
-                                
-            <Col xs="6">
+                
+                <Col xs="6">
                         <Card>
                             <CardImg
                             className="p-4"
@@ -123,7 +180,7 @@ function Themen (props) {
                             alt="Bild eines Kalenders"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    <Link to="/themen/monatsplanung"class="stretched-link">Schichtplanung für einen ganzen Monat</Link>
+                                    <Link to="/themen/monatsplanung"class="stretched-link">Schritt für Schritt: Schichtplan freigeben</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie kann ich Schichtpläne für einen ganzen Monat erstellen?
@@ -132,13 +189,15 @@ function Themen (props) {
                                     In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle Vorlage nutzen kannst, um die Schichtplanung für einen ganzen Monat zu erledigen. 
                             </CardText>
                             <br/>
+                            <br/>
                         </Card>
                 </Col>
-                
+
                 </Row>
-                
-                
+
+
                 <Row className="mt-2" >
+
 
                 <Col xs="6">
                         <Card>
@@ -148,7 +207,7 @@ function Themen (props) {
                             alt="Vier Menschen am Tisch mit Zettel und Block"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/schichtplan-vorlage"class="stretched-link">Schichtplan Vorlage erstellen</Link>
+                            <Link to="/themen/schichtplan-vorlage"class="stretched-link">Schritt für Schritt: Schichtplan Vorlage erstellen</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie erstelle ich eine Schichtplan Vorlage?
@@ -160,7 +219,7 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
-                
+
                 <Col xs="6">
                     <Card>
                             <CardImg
@@ -183,7 +242,6 @@ function Themen (props) {
 
                 </Row>
 
-
                 <Row className="mt-2" >
 
                 <Col xs="6">
@@ -205,6 +263,7 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
+
                 <Col xs="6">
                 <Card>
                             <CardImg
@@ -224,14 +283,7 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
-                
 
-
-
-                </Row>
-
-                <Row className="mt-2" >
-                
                 <Col xs="6">
                 <Card>
                             <CardImg

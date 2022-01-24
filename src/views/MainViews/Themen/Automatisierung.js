@@ -29,8 +29,8 @@ import {
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import {THEMEN_AUTOMATISIERUNG_DESCRIPTION, THEMEN_AUTOMATISIERUNG_TITLE} from "../../../constants/MetaTexts";
-import Paperwork from "../../../assets/img/themen/PaperworkImage.png"
-import HappyEmployee from "../../../assets/img/themen/HappyEmployeeImage.png"
+import Paperwork from "../../../assets/img/themen/AutomatisierteBefüllung/PaperworkImage.png"
+import HappyEmployee from "../../../assets/img/themen/AutomatisierteBefüllung/HappyEmployeeImage.png"
 
 
 function Automatisierung (props) {

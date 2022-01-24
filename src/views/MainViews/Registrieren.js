@@ -16,7 +16,6 @@
 
 */
 import React from "react";
-
 // reactstrap components
 import {
   Button,
@@ -33,6 +32,7 @@ import {
   Col,
 } from "reactstrap";
 import LandingFooter from "../../components/Footers/LandingFooter";
+
 
 const Register = () => {
   return (

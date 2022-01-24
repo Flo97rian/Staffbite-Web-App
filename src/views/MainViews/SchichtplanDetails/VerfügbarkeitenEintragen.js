@@ -19,7 +19,6 @@ import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
-
 // reactstrap components
 import {
   Container,
@@ -30,15 +29,14 @@ import {
   CardTitle,
   CardSubtitle,
   CardImg
-
 } from "reactstrap";
-
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {VERFÜGBARKEITENEINTRAGEN_TITLE, VERFÜGBARKEITENEINTRAGEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamVerwalten from "../../../assets/img/theme/Team-verwalten.png"
-import Possibilities from "../../../assets/img/themen/Possibilities.png"
+import Possibilities from "../../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
 import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
+
 
 function VerfügbarkeitenEintragen (props) {
   useEffect(() => {
@@ -75,29 +73,25 @@ function VerfügbarkeitenEintragen (props) {
                     </Row>
       </Container>
                 
-      <Container className="pb-2"fluid>
-            <Row className="ml-0 mt-10">
-              <Col className="mt-4 ml-6">
-              
-              <br/>
-              <br/>
-              <br/>
-              <h2 class="display-4">Verfügbarkeiten eintragen</h2>
+      <Container className="pb-2 pt-6 px-0">
+            <Row>
+              <Col className="mt-4" xs="12" sm="6">
+                <Row className="pr-4">
+                  <h2 class="display-4">Verfügbarkeiten eintragen</h2>
+                </Row>
                 <p className="lead">
-                  Jedes deiner Teammitglieder bekommt einen eigenen Zugang zu Staffbite. 
-                  <br/>
-                  Anschließend können sie per Smartphone, Tablet oder Laptop ihre Verfügbarkeiten eintragen.
-                  <br/>
-                  Auf diese Weise spart ihr euch einen Haufen WhatsApp-Nachrichten, Mails, Zettel und Stress.
-                  <br/>
-                  <br/>
-                  Übrigens: Wir arbeiten derzeit mit Hochdruck an einer kostenlosen iOS & Android-App für deine Mitarbeiter*innen.
+                <Row className="pr-6">
+                Jedes deiner Teammitglieder bekommt einen eigenen Zugang zu Staffbite. 
+                Anschließend können sie per Smartphone, Tablet oder Laptop ihre Verfügbarkeiten eintragen.
+                Auf diese Weise spart ihr euch einen Haufen WhatsApp-Nachrichten, Mails, Zettel und Stress.
+                </Row>
+                <Row className="mt-4 pr-6">
+                Übrigens: Wir arbeiten derzeit mit Hochdruck an einer kostenlosen iOS & Android-App für deine Mitarbeiter*innen.
+                </Row>
                 </p>
                 </Col>
-                
-                    
-                
-                <Col md="12" lg="6">
+                <Col xs="12" sm="6">
+                  <Row className="right">
                   <img
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={TeamVerwalten}
@@ -105,11 +99,49 @@ function VerfügbarkeitenEintragen (props) {
                     height="100%"
                     width="100%"
                   />
+                  </Row>
                 </Col>
                 </Row>
                 </Container>
-
-                <Container mt-4>
+                <Container>
+                  <Row className="text-center">
+                    <Col xs="12">
+                      <Row className="text-center mt-8">
+                        <Col>
+                        <h2 className="display-4">In einen Schichtplan eintragen. So funktioniert's</h2>
+                        </Col>
+                      </Row>
+                      <Row className="text-center">
+                        <Col>
+                          <CardSubtitle className="lead">Als Teil des Teams erhälst du einen Zugang für deinen Betrieb. Dort wählst du einen Schichtplan für die nächste oder kommende Woche aus. Anschließend wählst du einen Tag und eine Uhrzeit aus. Nun musst du nur noch auf "Eintragen" klicken.</CardSubtitle>
+                        </Col>
+                      </Row>
+                      <Row className="mt-4">
+                        <Col xs="0"sm="2"></Col>
+                        <Col xs="12"sm="8">
+                        <img
+                          alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                          src={TeamVerwalten}
+                          title="Team erstellen und verwalten"
+                          height="100%"
+                          width="100%"
+                        />    
+                        </Col>
+                        <Col xs="0"sm="2"></Col>
+                        
+                      </Row>
+                      <Row>
+                        <Col>
+                        <p className="lead">
+                          Und schon ist deine Aufgabe erledigt! Warte nun bis der Schichtplan veröffentlicht wurde, um zu sehen, welche Schicht du erhalten hast.
+                        </p>
+                        </Col>
+                      </Row>
+                      
+                    </Col>
+                  </Row>
+                </Container>
+                <Container className="mt-4">
                 <Row className="mt-6" >
 
                 <Col xs="6">

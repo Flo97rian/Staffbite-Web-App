@@ -29,6 +29,8 @@ import Login from "./components/Auth/Login.js";
 import SignUp from "./components/Auth/signUp.js";
 import ForgotPassword from "./components/Auth/ForgotPassword.js";
 import { LANGUAGES } from "./constants/Titles.js";
+
+
 var authroutes = [
   {
     path: "",

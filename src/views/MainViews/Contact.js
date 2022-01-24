@@ -24,10 +24,8 @@ import {
   Row,
   Col,
   Card,
-  Form,
   FormGroup,
   Button,
-  FormText,
   Input,
   CardBody
 } from "reactstrap";
@@ -42,6 +40,7 @@ import { SUCCESS_EMAIL_IS_SEND, WARNING_EMAIL_NOT_SEND } from "../../constants/A
 import ReactGA from "react-ga";
 import { KONTAKT_DESCRIPTION, KONTAKT_TITLE } from "../../constants/MetaTexts.js";
 import { Link } from "react-router-dom";
+
 
 function Contact (props) {
     const [form, setForm] = useState(contactDefaults);

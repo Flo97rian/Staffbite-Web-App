@@ -15,17 +15,15 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState } from "react";
+import React from "react";
 import ReactGA from "react-ga"
-import { useLocation, Route, Navigate, useNavigate, useParams, Routes } from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
 import AdminNavbar from "../components/Navbars/AdminNavbar.js";
 import AdminFooter from "../components/Footers/AdminFooter.js";
-
 import { adminroutes } from "../routes.js";
-
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 Amplify.configure(awsconfig);

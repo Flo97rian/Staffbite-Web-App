@@ -29,7 +29,7 @@ import {
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import {THEMEN_CLOUDSERVICE_DESCRIPTION, THEMEN_CLOUDSERVICE_TITLE} from "../../../constants/MetaTexts";
-import CloudPicture from "../../../assets/img/themen/CloudComputingImage.png"
+import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
 
 function CloudService (props) {
   let mainContent = useRef("mainContent")

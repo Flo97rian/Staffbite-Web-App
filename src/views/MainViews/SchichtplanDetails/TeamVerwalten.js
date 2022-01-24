@@ -19,7 +19,6 @@ import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
-
 // reactstrap components
 import {
   Container,
@@ -31,7 +30,6 @@ import {
   CardSubtitle,
   CardText
 } from "reactstrap";
-
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {TEAMVERWALTEN_TITLE, TEAMVERWALTEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
@@ -96,7 +94,7 @@ function TeamVerwalten (props) {
             alt="Übersicht zur Erstellung und Verwaltung deines Teams"
             src={TeamÜbersicht}
             title="Team erstellen und verwalten"
-            height="100%"
+            height="80%"
             width="100%"
             />
             </Row>
