@@ -48,6 +48,7 @@ import { pageview } from "react-ga";
 import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
 import ErstellenShow from "./sub/ErstellenShow";
 import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png"
+import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png"
 
 
 const Landing = (props) => {
@@ -298,7 +299,7 @@ const Landing = (props) => {
                     <img
                           className="shadow mb-3"
                           alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
-                          src={SchichtplanVorlage}
+                          src={SchichtEintragen}
                           title="Schichtplan Vorlage erstellen"
                           height="70%"
                           width="100%"
