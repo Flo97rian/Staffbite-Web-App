@@ -25,6 +25,8 @@ import "../../assets/scss/argon-dashboard-react.scss";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import BildSchichtplanErstellen from "../../assets/img/theme/Schichtplan-erstellen.png";
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
+import BefuellungStarten from "../../assets/img/landing/Befuellung-starten.png"
+import SchichtplanVeroeffentlichen from "../../assets/img/landing/Schichtplan-veroeffentlichen.png"
 import {isMobile} from 'react-device-detect';
 
 
@@ -307,14 +309,14 @@ const Landing = (props) => {
                   </Row>
                   <Row className=" mx-4">
                 <Col>
-                <Row className="text-center">
+                <Row className="text-center mt-0">
                     <Col xs="12" md="6">
                     <img
                           className="shadow mb-3"
                           alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
-                          src={SchichtplanVorlage}
+                          src={BefuellungStarten}
                           title="Schichtplan Vorlage erstellen"
-                          height="70%"
+                          height="50%"
                           width="100%"
                           ></img>
                     </Col>
@@ -361,8 +363,8 @@ const Landing = (props) => {
                       <></>
                       :
                        <Row>
-                      <svg height="300" width="300">
-                        <path d=" M 0 100 A 200 200 0 0 1 150 300" stroke="Gainsboro" stroke-width="3" fill="none" stroke-dasharray="10, 10" />
+                      <svg height="200" width="200">
+                        <path d=" M 0 0 A 300 300 0 0 1 200 300" stroke="Gainsboro" stroke-width="3" fill="none" stroke-dasharray="10, 10" />
                     </svg>
                       </Row>
                       }
@@ -372,9 +374,9 @@ const Landing = (props) => {
                   </Row>
                   <Row className="mx-4">
                 <Col>
-                <Row className="text-center">
+                <Row className="text-center mt-3">
                     <Col xs="12" md="6">
-                    <Row className="pt-3" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                    <Row className="pt-0" style={isMobile ? { transform: "translateY(50%)"}: {}}>
                         <Col>
                         <Row className="text-left">
                           <Col xs="2" className="">
@@ -412,11 +414,11 @@ const Landing = (props) => {
                     </Col>
                     <Col xs="12" md="6">
                       <img
-                            className="shadow mb-3"
+                            className="mb-3"
                             alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
-                            src={SchichtplanVorlage}
+                            src={SchichtplanVeroeffentlichen}
                             title="Schichtplan Vorlage erstellen"
-                            height="80%"
+                            height="30%"
                             width="100%"
                             ></img>
                     </Col>
