@@ -115,7 +115,7 @@ function ErsteAnmeldung (props) {
             <Container mt-4>
                 <Row className="mt-6" >
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                 <CardImg
                   className="p-4"
@@ -136,7 +136,7 @@ function ErsteAnmeldung (props) {
                   </Card>
                 </Col>
                 
-                <Col xs="6">
+                <Col xs="12" md="6">
                         <Card>
                             <CardImg
                             className="p-4"

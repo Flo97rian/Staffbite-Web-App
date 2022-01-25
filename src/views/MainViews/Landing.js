@@ -49,6 +49,7 @@ import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
 import ErstellenShow from "./sub/ErstellenShow";
 import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png"
 import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png"
+import AppEintragen from "../../assets/img/app/App-eintragen-uebersicht-smartphone.png"
 
 
 const Landing = (props) => {
@@ -108,17 +109,14 @@ const Landing = (props) => {
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
                 imgAlt: "Das Logo von Staffbite",
                 }}/>
-
-              <Container className="py-lg-md d-flex">
-                <div className="col px-0">
-                  <Row className="mt-6">
-                    <Col md="12" lg="6">
+            <Row>
+              <Container className="py-lg-md-sm d-flex">
+                  <Row className="mt-6 ">
+                    <Col md="12" lg="8">
                       <h1 className="display-3 text-white pb-5">
                       Müde vom stundenlangen Schichtplan puzzeln?{" "}
                       </h1>
-                      
-                      <div>
-                        <p className="lead text-white m-1">
+                        <p className="lead text-white mt-2">
                         💻 Mit wenigen Klicks zu deinem digitalen Schichtplan 
                         <br/>
                         ✅ Einfach und übersichtlich  
@@ -129,22 +127,15 @@ const Landing = (props) => {
                         <br/>
                         🤝 Probiere es direkt aus - im kostenlosen Probemonat!
                         </p>
-                      </div>
-                      
-                      
                     </Col>
-                    <Col className="order-md-2" md="6" lg="5">
-                      <Container>
-                        <Row className="align-center">
+                    <Col className="justify-content-center" md="12" lg="4">
                           <ErstellenShow></ErstellenShow>
-                        </Row>
-                      </Container>
                     </Col>                    
                   </Row>
-                </div>
               </Container>
-              
-              <div className="separator separator-bottom separator-skew">
+              </Row>
+              <Row className={isMobile ? "pt-9": ""}>
+                <div className="separator separator-bottom separator-skew">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   preserveAspectRatio="none"
@@ -159,19 +150,21 @@ const Landing = (props) => {
                   />
                 </svg>
               </div>
+              </Row>
             </section>
-          </div>
-          <section className="section section-lg pt-lg-0 mt--150">
-            <Container>
+            </div>
+            <Row>
+            <Container className={isMobile ? "pt-9 mt-9": ""}>
               <Row className="mt-4 text-center">
-                <Col lg="12">
-                  <h2 className="display-3 text-white">So funktioniert's - in nur vier Schritten</h2>
+                <Col className="" xs="12">
+                  <h2 className="display-3">So funktioniert's - in nur vier Schritten</h2>
                 </Col>
               </Row>
               <Row className="pt-6 mx-4">
-                <Col>
-                <Row className="text-left">
-                    <Col xs="12" md="6">
+                <Col xs="12">
+                <Row className="text-center">
+                    <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6" className="order-sm-2 order-md-1">
+                      <Row>
                     <img
                           className="shadow mb-3"
                           alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
@@ -180,32 +173,32 @@ const Landing = (props) => {
                           height="70%"
                           width="100%"
                           ></img>
+                    </Row>
                     </Col>
-                    <Col xs="12" md="6">
-                      <Row className="pt-3" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                    <Col xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6" className={isMobile ? "order-0": ""}>
+                      <Row className="pt-3" style={!isMobile ? { transform: "translateY(50%)"}: {}}>
                         <Col>
-                        <Row className="text-left">
+                        <Row className="text-right">
                           <Col xs="2" className="">
-                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ml-4 ">1</Badge>
+                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ">1</Badge>
                           </Col>
-                          <Col xs="10">
-                            <h2 className="display-4">Schichtplan erstellen</h2>
+                          <Col xs="10" >
+                            <h2 className="display-4 text-left">Schichtplan erstellen</h2>
                           </Col>
                           </Row>
                         </Col>
                       </Row>
-                      <Row className="" style={isMobile ? { transform: "translateY(100%)"}: {}}>
+                      <Row className={ isMobile ? "text-center mt-4" : ""} style={!isMobile ? { transform: "translateY(10%)"}: {}}>
                         <Col>
                           <p className="lead mt-2">
                             <Row className="text-left">
-                              <Col xs="2"
-                              ></Col>
+                            <Col xs="0" md="2"></Col>
                               <Col xs="10">
                                 Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen"> digitalen Schichtplan</Link> für dich und dein Team.
                               </Col>
                             </Row>
                             <Row className="mt-4 text-left">
-                              <Col xs="2"></Col>
+                            <Col xs="0" md="2"></Col>
                             <Col xs="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
@@ -214,7 +207,7 @@ const Landing = (props) => {
                             </Col>
                             </Row>
                             <Row className="mt-2 text-left">
-                              <Col xs="2"></Col>
+                            <Col xs="0" md="2"></Col>
                             <Col xs="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
@@ -223,7 +216,7 @@ const Landing = (props) => {
                             </Col>
                             </Row>
                             <Row className="mt-2 text-left">
-                              <Col xs="2"></Col>
+                            <Col xs="0" md="2"></Col>
                             <Col xs="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
@@ -251,11 +244,11 @@ const Landing = (props) => {
                 <Col>
                 <Row className="text-center">
                     <Col xs="12" md="6">
-                    <Row className="pt-3" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                    <Row className="pt-3" style={!isMobile ? { transform: "translateY(50%)"}: {}}>
                         <Col>
                         <Row className="text-left">
-                          <Col xs="2" className="">
-                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ml-4 ">2</Badge>
+                          <Col xs="2" className="text-center">
+                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ">2</Badge>
                           </Col>
                           <Col xs="10">
                             <h2 className="display-4">Für dein Team</h2>
@@ -263,7 +256,7 @@ const Landing = (props) => {
                           </Row>
                         </Col>
                       </Row>
-                      <p className="lead mt-4" style={isMobile ? { transform: "translateY(50%)"} : {}}>
+                      <p className="lead mt-4" style={!isMobile ? { transform: "translateY(10%)"} : {}}>
                       <Row className="text-left">
                         <Col>Deine Mitarbeiter*innen tragen sich in deinen <Link to="/fuer-dein-team" class="stretched-link">online Schichtplan</Link> ein. Das geht jederzeit per Smartphone oder Laptop.
                           </Col>
@@ -295,13 +288,13 @@ const Landing = (props) => {
                       </Row>
                       }
                     </Col>
-                    <Col xs="12" md="6" className="px-0">
+                    <Col xs="12" md="6" className="px-0 pt-5">
                     <img
-                          className="shadow mb-3"
+                          className="shadow"
                           alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                           src={SchichtEintragen}
                           title="Schichtplan Vorlage erstellen"
-                          height="70%"
+                          height="50%"
                           width="100%"
                           ></img>
                     </Col>
@@ -311,38 +304,38 @@ const Landing = (props) => {
                   <Row className=" mx-4">
                 <Col>
                 <Row className="text-center mt-0">
-                    <Col xs="12" md="6">
+                    <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6">
                     <img
                           className="shadow mb-3"
                           alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                           src={BefuellungStarten}
                           title="Schichtplan Vorlage erstellen"
-                          height="50%"
+                          height={isMobile ? "80%" : "50%"}
                           width="100%"
                           ></img>
                     </Col>
-                    <Col xs="12" md="6">
+                    <Col xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6">
                     <Row className="pt-3" style={isMobile ? { transform: "translateY(50%)"}: {}}>
                         <Col>
-                        <Row className="text-left">
+                        <Row className="text-right">
                           <Col xs="2" className="">
-                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ml-4 ">3</Badge>
+                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ">3</Badge>
                           </Col>
                           <Col xs="10">
-                            <h2 className="display-4">Automatisierte Befüllung</h2>
+                            <h2 className="display-4 text-left">Automatisierte Befüllung</h2>
                           </Col>
                           </Row>
                         </Col>
                       </Row>
                       <p className="lead mt-4 ">
-                      <Row className="text-left" style={isMobile ? { transform: "translateY(50%)"}: {}}>
-                        <Col xs="2"></Col>
+                      <Row className={ isMobile ? "text-left mt-5" : "text-left"} style={!isMobile ? { transform: "translateY(10%)"}: {}}>
+                      {!isMobile ? <Col xs="2"></Col> : <></>}
                         <Col>
                           Unsere Lösung befüllt deinen <Link to="/automatisierter-schichtplan">Schichtplan automatisiert</Link> innerhalb weniger Sekunden.
                           </Col>
                       </Row>
-                      <Row className="mt-4 text-left">
-                      <Col xs="2"></Col>
+                      <Row className="text-left mt-4">
+                          {!isMobile ? <Col xs="2"></Col> : <></>}
                             <Col xs="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
@@ -350,8 +343,8 @@ const Landing = (props) => {
                               Schichtplan auswählen
                             </Col>
                             </Row>
-                            <Row className="mt-2 text-left">
-                            <Col xs="2"></Col>
+                            <Row className="text-left">
+                            {!isMobile ? <Col xs="2"></Col> : <></>}
                             <Col xs="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
@@ -379,18 +372,18 @@ const Landing = (props) => {
                     <Col xs="12" md="6">
                     <Row className="pt-0" style={isMobile ? { transform: "translateY(50%)"}: {}}>
                         <Col>
-                        <Row className="text-left">
+                        <Row className="text-center">
                           <Col xs="2" className="">
-                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ml-4 ">4</Badge>
+                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ">4</Badge>
                           </Col>
                           <Col xs="10">
-                            <h2 className="display-4">Schichtplan veröffentlichen</h2>
+                            <h2 className="display-4 text-left">Schichtplan veröffentlichen</h2>
                           </Col>
                           </Row>
                         </Col>
                       </Row>
                       <p className="lead mt-4 pt-0">
-                      <Row className="text-left mt-0 pt-0" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                      <Row className="text-left mt-0 pt-0" style={isMobile ? { transform: "translateY(10%)"}: {}}>
                         <Col className="">
                           Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den <Link to="/schichtplan-veroeffentlichen">fertigen Schichtplan</Link> mit einem Klick.
                           </Col>
@@ -419,7 +412,7 @@ const Landing = (props) => {
                             alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                             src={SchichtplanVeroeffentlichen}
                             title="Schichtplan Vorlage erstellen"
-                            height="30%"
+                            height={isMobile ? "70%" : "30%"}
                             width="100%"
                             ></img>
                     </Col>
@@ -427,16 +420,15 @@ const Landing = (props) => {
                   </Col>
                   </Row>
               </Container>
-          </section>
-          
+              </Row>
           <section className="section section-lg pt-lg-0 mt-8">
             <Container>
-              <Row className="justify-content-center">
+              <Row>
+              <Col md="12" lg="6">
+              <Row className="">
                 <h2 className="display-3 text-default">Vorteile für dein Team</h2>
               </Row>
-              
-              <Col md="12" lg="6">
-              <p className="lead text-default m-1">
+              <p className="lead text-default">
                     <Row className="mt-6">
                         🕗 Jederzeit in den digitalen Schichtplan eintragen
               </Row>
@@ -455,7 +447,16 @@ const Landing = (props) => {
               </p>
             </Col>
             <Col md="12" lg="6">
-            </Col>          
+            <img
+                          className=""
+                          alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                          src={AppEintragen}
+                          title="Schichtplan Vorlage erstellen"
+                          height="100%"
+                          width="60%"
+                          ></img>
+            </Col>  
+            </Row>        
           </Container>
           </section>
           <Container className="mt-6">
@@ -620,7 +621,7 @@ const Landing = (props) => {
                 </Col>
               </Row>
               <Row className="justify-content-center text-center">
-                <Col>
+                <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary">
@@ -632,7 +633,7 @@ const Landing = (props) => {
                     </CardBody>
                   </Card>
                 </Col>
-                <Col>
+                <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary">
@@ -644,7 +645,7 @@ const Landing = (props) => {
                     </CardBody>
                   </Card>
                 </Col>
-                <Col>
+                <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary">
@@ -658,7 +659,7 @@ const Landing = (props) => {
                 </Col>
               </Row>
               <Row className="justify-content-center text-center">
-                <Col>
+                <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary bold">
@@ -670,7 +671,7 @@ const Landing = (props) => {
                     </CardBody>
                   </Card>
                 </Col>
-                <Col>
+                <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary">
@@ -682,7 +683,7 @@ const Landing = (props) => {
                     </CardBody>
                   </Card>
                 </Col>
-                <Col>
+                <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary">

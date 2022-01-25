@@ -74,7 +74,7 @@ function SchichtplanVeroeffentlichen (props) {
             <Container className="pb-2">
             <Row className="mt-4">
                 <Col className="">
-                <Row className="mt-5 ml-6">
+                <Row className="mt-5">
                     <Col>
                         <h2 class="display-4">Fertigen Schichtplan veröffentlichen</h2>
                         <p className="lead">
@@ -100,7 +100,7 @@ function SchichtplanVeroeffentlichen (props) {
                 <Container mt-4>
                 <Row className="mt-6" >
 
-                <Col xs="6">
+                <Col xs="12" md="6">
                 <Card>
                 <CardImg
                   className="p-4"
@@ -122,7 +122,7 @@ function SchichtplanVeroeffentlichen (props) {
                   </Card>
                 </Col>
                 
-                <Col xs="6">
+                <Col xs="12" md="6">
                         <Card>
                             <CardImg
                             className="p-4"
