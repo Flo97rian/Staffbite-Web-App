@@ -33,6 +33,7 @@ import Calendar from "../../../assets/img/themen/Monatsplanung/CalendarImage.png
 import VorlageFreigeben from "../../../assets/img/themen/Monatsplanung/VorlageFreigeben.png"
 import FreigabeDetails from "../../../assets/img/themen/Monatsplanung/FreigabeDetails.png"
 import GanzerMonat from "../../../assets/img/themen/Monatsplanung/SchichtpläneGanzerMonat.png"
+import ThemenSlider from "./ThemenSlider";
 
 
 function Monatsplanung (props) {
@@ -156,6 +157,7 @@ function Monatsplanung (props) {
                   </Col>
               </Row>
         </Container>
+        <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </>

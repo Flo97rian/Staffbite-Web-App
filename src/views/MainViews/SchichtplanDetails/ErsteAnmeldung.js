@@ -35,6 +35,11 @@ import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constan
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import VorlageThumbnail from "../../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageThumbnail.png"
 import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShiftplan-min.png"
+import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
+import Calendar from "../../../assets/img/themen/Monatsplanung/CalendarImage.png"
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import ThemenSlider from "../Themen/ThemenSlider";
 
 
 function ErsteAnmeldung (props) {
@@ -111,54 +116,7 @@ function ErsteAnmeldung (props) {
                 </Row>
                 
             </Container>
-            
-            <Container mt-4>
-                <Row className="mt-6" >
-
-                <Col xs="12" md="6">
-                <Card>
-                <CardImg
-                  className="p-4"
-                  src={SchichtplanVorlage}
-                  alt="Tablet mit Schichtplan"
-                  ></CardImg>
-                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                  <Link to="/schichtplan-erstellen" class="stretched-link">Einfache und unkomplizierte Schichtpläne</Link>
-                  </CardTitle>
-                  <CardSubtitle className="pl-4 p">
-                      Mit Staffbite erstellst du deine Schichtpläne innerhalb kürzester Zeit.
-                  </CardSubtitle>
-                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
-                      Schaue dir hier an wie du mit Staffbite einen Schichtplan erstellen kannst.
-                      Du kannst die Schichtpläne jederzeit online per Smartphone, Tablet oder Laptop einsehen und bearbeiten.
-                  </CardText>
-                  <br/>
-                  </Card>
-                </Col>
-                
-                <Col xs="12" md="6">
-                        <Card>
-                            <CardImg
-                            className="p-4"
-                            src={VorlageThumbnail}
-                            alt="Vier Menschen am Tisch mit Zettel und Block"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/schichtplan-vorlage"class="stretched-link">Schichtplan Vorlage erstellen</Link>
-                            </CardTitle>
-                            <CardSubtitle className="pl-4 p">
-                                Wie erstelle ich eine Schichtplan Vorlage?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle & wiederverwendbare Vorlage erstellen kannst. 
-                                    Schau dir hier unsere Schritt für Schritt Anleitung an. 
-                            </CardText>
-                            <br/>
-                        </Card>
-                </Col>
-
-                </Row>
-                </Container>
+            <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </>

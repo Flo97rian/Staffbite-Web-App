@@ -38,6 +38,7 @@ import Preise from "../../../assets/img/theme/ZeitGeld.png"
 import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
 import MitarbeiterHinzufuegen from "../../../assets/img/theme/Mitarbeiter-hinzufuegen.png"
 import { isMobile } from "react-device-detect";
+import ThemenSlider from "../Themen/ThemenSlider";
 
 
 function TeamVerwalten (props) {
@@ -248,57 +249,7 @@ function TeamVerwalten (props) {
                     </Col>
                   </Row>
                 </Container>
-        <Container className="mt-6">
-        
-                <Row className="mt-6" >
-                  
-
-                <Col xs="12" md="6">
-                <Card>
-                <CardImg
-                  className="p-4"
-                  src={SchichtplanPublish}
-                  alt="Vollständig befüllter Schichtplan"
-                  ></CardImg>
-                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                  <Link to="/fuer-dein-team" class="stretched-link">Vorteile für dein Team</Link>
-                  </CardTitle>
-                  <CardSubtitle className="pl-4 p">
-                      Wir liefern Mehrwerte für dich und dein gesamtes Team.
-                  </CardSubtitle>
-                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
-                      Schaue dir hier die Vorteile unserer Lösung für dein gesamtes Team an.
-                      Biete deinen Mitarbeiter*innen die Schichtpläne, die sie verdient haben.
-                  </CardText>
-                  <br/>
-                  <br/>
-                  </Card>
-                </Col>
-                
-                <Col xs="12" md="6">
-                        <Card>
-                            <CardImg
-                            className="p-4"
-                            src={Preise}
-                            alt="Eine Wage im Gleichgewicht mit einer Uhr und Geld"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/pricing"class="stretched-link">Unsere Preise</Link>
-                            </CardTitle>
-                            <CardSubtitle className="pl-4 p">
-                                Wie viel kostet dich unsere Lösung nach dem Probemonat?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    Wenn du Staffbite testen möchtest, erhälst du einen kostenlosen Probemonat. 
-                                    Nachdem dieser abgelaufen ist, prüfen wir gemeinsam, welches Paket für dich passt.
-                                    Bei uns gibt es keinen Preis pro Mitarbeiter*in, damit du nicht jeden Monat etwas anderes zahlen musst. 
-                            </CardText>
-                        </Card>
-                </Col>
-
-                </Row>
-                </Container>
-          
+          <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </>

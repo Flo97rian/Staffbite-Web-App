@@ -38,6 +38,7 @@ import AnpassungNachBefüllung from "../../../assets/img/themen/AnpassungenVorne
 import PersonalEntfernen from "../../../assets/img/themen/AnpassungenVornehmen/PersonalAusSchichtEntfernen.png"
 import AnpassungVornehmen from "../../../assets/img/themen/AnpassungenVornehmen/AnpassungVornehmen.png"
 import PlanNachAnpassungen from "../../../assets/img/themen/AnpassungenVornehmen/PlanNachAnpassungen.png"
+import ThemenSlider from "./ThemenSlider";
 
 
 
@@ -287,6 +288,7 @@ function Anpassungen (props) {
                   </Col>
               </Row>
         </Container>
+        <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </>

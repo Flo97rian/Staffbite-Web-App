@@ -27,6 +27,7 @@ import {
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
+import ThemenSlider from "../Themen/ThemenSlider";
 
 
 function ErsteAnmeldung (props) {
@@ -97,6 +98,7 @@ function ErsteAnmeldung (props) {
 
                 </Row>
                 </Container>
+                <ThemenSlider></ThemenSlider>
             </Container>
           
       </Container>

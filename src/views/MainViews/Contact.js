@@ -40,6 +40,7 @@ import { SUCCESS_EMAIL_IS_SEND, WARNING_EMAIL_NOT_SEND } from "../../constants/A
 import ReactGA from "react-ga";
 import { KONTAKT_DESCRIPTION, KONTAKT_TITLE } from "../../constants/MetaTexts.js";
 import { Link } from "react-router-dom";
+import ThemenSlider from "./Themen/ThemenSlider.js";
 
 
 function Contact (props) {
@@ -242,6 +243,7 @@ function Contact (props) {
                 </Col>
               </Row>
         </Container>
+        <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </div>

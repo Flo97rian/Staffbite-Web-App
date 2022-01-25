@@ -40,6 +40,7 @@ import SchichtplanVorlageVerwenden from "../../../assets/img/theme/Schichtplan-v
 import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
 import Calendar from "../../../assets/img/themen/Monatsplanung/CalendarImage.png"
 import { isMobile } from "react-device-detect";
+import ThemenSlider from "../Themen/ThemenSlider";
 
 
 function SchichtplanErstellen (props) {
@@ -302,56 +303,7 @@ function SchichtplanErstellen (props) {
                     </Col>
                   </Row>
                 </Container>
-                <Container className="mt-4">
-                <Row className="mt-6" >
-
-                <Col xs="12" md="6">
-                <Card>
-                <CardImg
-                  className="p-4"
-                  src={CloudPicture}
-                  alt="Wolke auf die ein Finger zeigt"
-                  ></CardImg>
-                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                  <Link to="/verfuegbarkeiten-eintragen" class="stretched-link">Verfügbarkeiten eintragen</Link>
-                  </CardTitle>
-                  <CardSubtitle className="pl-4 p">
-                      Wie kann mein Team sich in den erstellen Schichtplan eintragen?
-                  </CardSubtitle>
-                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
-                      Dein Team bekommt ebenfalls einen Zugang zu Staffbite.
-                      Für deine Mitarbeiter*innen ist Staffbite vollständig kostenlos. Dein Team kann sich jederzeit online in den Schichtplan eintragen.
-                  </CardText>
-                  <br/>
-                  </Card>
-                </Col>
-                
-                <Col xs="12" md="6">
-                        <Card>
-                            <CardImg
-                            className="p-4"
-                            src={Calendar}
-                            alt="Bild eines Kalenders"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/monatsplanung"class="stretched-link">Schichtplanung für einen ganzen Monat</Link>
-                            </CardTitle>
-                            <CardSubtitle className="pl-4 p">
-                                Wie erstelle ich die Schichtpläne für einen ganzen Monat?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    In diesem Artikel zeige ich dir, wie du mit Staffbite die Schichtplanung für einen ganzen Monat erledigen kannst. 
-                                    Schau dir hier unsere Schritt für Schritt Anleitung an. 
-                            </CardText>
-                            <br/>
-                        </Card>
-                </Col>
-
-                </Row>
-                </Container>
-
-
-                
+                <ThemenSlider></ThemenSlider>
       <LandingFooter></LandingFooter>
     </>
   );

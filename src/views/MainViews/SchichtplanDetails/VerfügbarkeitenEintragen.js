@@ -36,6 +36,7 @@ import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamVerwalten from "../../../assets/img/theme/Team-verwalten.png"
 import Possibilities from "../../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
 import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
+import ThemenSlider from "../Themen/ThemenSlider";
 
 
 function VerfügbarkeitenEintragen (props) {
@@ -147,54 +148,7 @@ function VerfügbarkeitenEintragen (props) {
                     </Col>
                   </Row>
                 </Container>
-                <Container className="mt-4">
-                <Row className="mt-6" >
-
-                <Col xs="12" md="6">
-                <Card>
-                <CardImg
-                  className="p-4"
-                  src={SchichtplanBeispiel}
-                  alt="Vollständig befüllter Schichtplan"
-                  ></CardImg>
-                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                  <Link to="/automatisierter-schichtplan" class="stretched-link">Dein automatisierter Schichtplan</Link>
-                  </CardTitle>
-                  <CardSubtitle className="pl-4 p">
-                      Wir wollen dir dabei helfen deine Schichtpläne deutlich schneller zu befüllen.
-                  </CardSubtitle>
-                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
-                      Aus diesem Grund haben wir automatisierte Befüllung entwickelt.
-                      Unser Algorithmus teilt deine Mitarbeiter*innen fair & ausgeglichen in den Schichtplan ein.
-                  </CardText>
-                  <br/>
-                  </Card>
-                </Col>
-                
-                <Col xs="12" md="6">
-                        <Card>
-                            <CardImg
-                            className="p-4"
-                            src={Possibilities}
-                            alt="Ein Mensch steht vor 3 Wegen"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/schichtplan-erstellen"class="stretched-link">Schichtplan mit Papier, Excel oder Software</Link>
-                            </CardTitle>
-                            <CardSubtitle className="pl-4 p">
-                                Wie viel kostet dich unsere Lösung nach dem Probemonat?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    Wenn du Staffbite testen möchtest, erhälst du einen kostenlosen Probemonat. 
-                                    Nachdem dieser abgelaufen ist, prüfen wir gemeinsam, welches Paket für dich passt.
-                                    Bei uns gibt es keinen Preis pro Mitarbeiter*in, damit du nicht jeden Monat etwas anderes zahlen musst. 
-                            </CardText>
-                        </Card>
-                </Col>
-
-                </Row>
-                </Container>
-          
+          <ThemenSlider></ThemenSlider>
       <LandingFooter></LandingFooter>
     </>
   );

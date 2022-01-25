@@ -31,6 +31,7 @@ import LandingFooter from "../../../components/Footers/LandingFooter";
 import {THEMEN_AUTOMATISIERUNG_DESCRIPTION, THEMEN_AUTOMATISIERUNG_TITLE} from "../../../constants/MetaTexts";
 import Paperwork from "../../../assets/img/themen/AutomatisierteBefüllung/PaperworkImage.png"
 import HappyEmployee from "../../../assets/img/themen/AutomatisierteBefüllung/HappyEmployeeImage.png"
+import ThemenSlider from "./ThemenSlider";
 
 
 function Automatisierung (props) {
@@ -150,6 +151,7 @@ function Automatisierung (props) {
                   </Col>
               </Row>
         </Container>
+        <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </div>

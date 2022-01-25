@@ -31,6 +31,7 @@ import LandingFooter from "../../../components/Footers/LandingFooter";
 import {THEMEN_SCHICHTPLANERSTELLEN_DESCRIPTION, THEMEN_SCHICHTPLANERSTELLEN_TITLE} from "../../../constants/MetaTexts";
 import Possibilities from "../../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
 import PlanABC from "../../../assets/img/themen/SchichtplanErstellen/PlanABC.png"
+import ThemenSlider from "./ThemenSlider";
 
 
 function Schichtplanerstellen (props) {
@@ -171,6 +172,7 @@ function Schichtplanerstellen (props) {
                   </Col>
               </Row>
         </Container>
+        <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </div>

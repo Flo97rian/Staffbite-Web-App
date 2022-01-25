@@ -37,6 +37,7 @@ import Paperwork from "../../assets/img/themen/AutomatisierteBefüllung/Paperwor
 import Team from "../../assets/img/theme/Florian-Zellmann-und-Daniel-Zellmann.png"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { ABOUTUS_DESCRIPTION, ABOUTUS_TITLE } from "../../constants/MetaTexts";
+import ThemenSlider from "./Themen/ThemenSlider";
 
 
 function Pricing (props) {
@@ -129,56 +130,7 @@ function Pricing (props) {
                   <h2>Finde spanndende Artikel rund um die Entstehung von Staffbite</h2>
               </Row>
           </Container>
-          <Container className="mb-4 pt-0">
-              <Row className="align-items-center p-1 pt-0">
-              <Container className="mb-0 pt-0">
-            <Row className="mt-0" >
-            <Col xs="6">
-                <Card>
-                            <CardImg
-                            className="p-2"
-                            src={CloudPicture}
-                            alt="Schichtplan online erstellen"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                Schichtplanung als Cloud Service
-                            </CardTitle>
-                            <CardSubtitle className="pl-4">
-                                Warum ist Staffbite ein Cloud Service und was ist das eigentlich?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                In diesem Beiträg beantworten wir eine kürzlich gestellte Frage und gehen weiter auf die Vorteile von Cloud Services für unsere Kunden ein. 
-                            </CardText>
-                            <CardText className="pl-4 pb-4 pr-4" tag="p">
-                                <Link to="/themen/cloud-service" >Schichtplanung als Cloud Service</Link>
-                            </CardText>
-                        </Card>
-                </Col>
-                <Col xs="6">
-                        <Card>
-                            <CardImg
-                            className="p-2"
-                            src={Paperwork}
-                            alt="Schreibtisch mit Kaffee, Zettel und Stift"
-                            ></CardImg>
-                             <CardTitle className="pl-4 pt-4 mb-2 h2" tag="h3">
-                                Automatisierte Befüllung deines Schichtplans
-                            </CardTitle>
-                            <CardSubtitle className="pl-4">
-                                Kann die Befüllung deines Schichtplans automatisiert werden?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                Erfahre in diesem Beitrag wie du die Befüllung deines Schichtplans durch unseren intelligenten Algorithmus innerhalb weniger Sekunden abbilden kannst. 
-                            </CardText>
-                            <CardText className="pl-4 pb-4" tag="p">
-                                <Link to="/themen/automatisierung" >Automatisierte Befüllung</Link>
-                            </CardText>
-                        </Card>
-                </Col>
-            </Row>
-            </Container>
-            </Row>
-          </Container>
+          <ThemenSlider></ThemenSlider>
         </Container>
       <LandingFooter></LandingFooter>
     </div>

@@ -34,6 +34,7 @@ import Calendar from "../../../assets/img/themen/Monatsplanung/CalendarImage.png
 import FreigegebenerPlan from "../../../assets/img/themen/BefüllungStarten/FreigegebenerPlan.png"
 import PlanMitBewerbern from "../../../assets/img/themen/BefüllungStarten/PlanMitBewerbern.png"
 import PlanÜberprüfen from "../../../assets/img/themen/BefüllungStarten/PlanÜberprüfen.png"
+import ThemenSlider from "./ThemenSlider";
 
 
 
@@ -213,6 +214,7 @@ function AutomatisierteBefüllung (props) {
                   </Col>
               </Row>
         </Container>
+        <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </>

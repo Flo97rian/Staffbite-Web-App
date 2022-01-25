@@ -41,6 +41,7 @@ import SchichtTauschen from "../../../assets/img/app/App-tauschanfrage-smartphon
 import SchichtplanEintragen from "../../../assets/img/app/app-eintragen-smartphone.png"
 import NeewsFeed from "../../../assets/img/app/app-newsfeed-smartphone.png"
 import { isMobile } from "react-device-detect";
+import ThemenSlider from "../Themen/ThemenSlider";
 
 
 function VorteileTeam (props) {
@@ -236,55 +237,7 @@ function VorteileTeam (props) {
                     </Col>
                   </Row>
                 </Container>
-                <Container mt-4>
-                <Row className="mt-6" >
-
-                <Col xs="12" md="6">
-                <Card>
-                <CardImg
-                  className="p-4"
-                  src={SchichtplanVorlage}
-                  alt="Laptop mit leerem Schichtplan"
-                  ></CardImg>
-                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                  <Link to="/schichtplan-erstellen" class="stretched-link">Schichtplan erstellen</Link>
-                  </CardTitle>
-                  <CardSubtitle className="pl-4 p">
-                      Wie erstelle ich einen Schichtplan mit Staffbite?
-                  </CardSubtitle>
-                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
-                    Schau dir hier an wie du deinen individuellen & digitalen Schichtplan erstellen kannst.
-                    Mit wenigen Klicks gibst du die wichtigsten Informationen zu deinen Schichten an.
-                  </CardText>
-                  <br/>
-                  <br/>
-                  </Card>
-                </Col>
-                
-
-                <Col xs="12" md="6">
-                <Card>
-                <CardImg
-                  className="p-4"
-                  src={CloudPicture}
-                  alt="Wolke auf die ein Finger zeigt"
-                  ></CardImg>
-                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                  <Link to="/verfuegbarkeiten-eintragen" class="stretched-link">Verfügbarkeiten eintragen</Link>
-                  </CardTitle>
-                  <CardSubtitle className="pl-4 p">
-                      Wie kann mein Team sich in den erstellen Schichtplan eintragen?
-                  </CardSubtitle>
-                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
-                      Dein Team bekommt ebenfalls einen Zugang zu Staffbite.
-                      Für deine Mitarbeiter*innen ist Staffbite vollständig kostenlos. Dein Team kann sich jederzeit online in den Schichtplan eintragen.
-                  </CardText>
-                  <br/>
-                  </Card>
-                </Col>
-
-                </Row>
-                </Container>
+                <ThemenSlider></ThemenSlider>
                 </div>
       <LandingFooter></LandingFooter>
     </>

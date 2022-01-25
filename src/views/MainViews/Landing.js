@@ -50,6 +50,7 @@ import ErstellenShow from "./sub/ErstellenShow";
 import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png"
 import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png"
 import AppEintragen from "../../assets/img/app/App-eintragen-uebersicht-smartphone.png"
+import ThemenSlider from "./Themen/ThemenSlider";
 
 
 const Landing = (props) => {
@@ -697,6 +698,7 @@ const Landing = (props) => {
                 </Col>
               </Row>
           </Container>
+          <ThemenSlider></ThemenSlider>
         </main>
         <LandingFooter/>
       </>

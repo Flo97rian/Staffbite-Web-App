@@ -35,6 +35,7 @@ import Qualifikation from "../../../assets/img/themen/IndividuellerSchichtplan/V
 import Deaktivieren from "../../../assets/img/themen/IndividuellerSchichtplan/Vorlage-Schicht-deaktivieren.png"
 import Änderungen from "../../../assets/img/themen/IndividuellerSchichtplan/Vorlage-Details-Geändert.png"
 import Notiz from "../../../assets/img/themen/IndividuellerSchichtplan/Vorlage-Notiz.png";
+import ThemenSlider from "./ThemenSlider";
 
 
 function IndividuellerSchichtplan (props) {
@@ -202,6 +203,8 @@ function IndividuellerSchichtplan (props) {
                   </Col>
               </Row>
         </Container>
+
+        <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </>

@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import { Provider } from 'react-redux';
+import { Link } from "react-router-dom";
 import store from './store';
 import ReactGA from 'react-ga';
 import "./assets/plugins/nucleo/css/nucleo.css";
@@ -57,6 +58,7 @@ import AutomatisierteBefüllungStarten from './views/MainViews/Themen/Automatisi
 import IndividuellerSchichtplan from './views/MainViews/Themen/IndividuellerSchichtplan';
 import AutomatisierteBefüllung from './views/MainViews/SchichtplanDetails/AutomatisierteBefüllung';
 import Anpassungen from './views/MainViews/Themen/Anpassungen';
+import CookieConsent from "react-cookie-consent";
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -106,6 +108,23 @@ ReactDOM.render(
         <Route path="/user/profil" element={<UserProfil/>}/>
       </Routes>
   </BrowserRouter>
+  <CookieConsent
+  location="bottom"
+  className="shadow"
+  enableDeclineButton
+  buttonText="Alle erlauben"
+  setDeclineCookie
+  declineCookieValue="true"
+  declineButtonText="Unbedingt erforderlich"
+  cookieName="myAwesomeCookieName2"
+  style={{ background: "white", color:"grey" }}
+  buttonStyle={{ color: "white", backgroundColor: "#2dce89", fontSize: "13px", borderRadius: "5px" }}
+  declineButtonStyle={{ color: "white", backgroundColor: "#adb5bd",fontSize: "13px", borderRadius: "5px" }}
+  expires={426}
+>
+  Diese Seite benutzt Cookies, um das Nutzererlebnis zu verbessern. Beim benutzen dieser Seite stimmen Sie den Cookies zu.{" "}
+  <a href="https://www.staffbite.de/impressum">Erfahre mehr</a>
+</CookieConsent>
   </Provider>,
   document.getElementById('root')
 );

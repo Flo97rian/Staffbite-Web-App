@@ -34,6 +34,7 @@ import VorlageMetaInfos from "../../../assets/img/themen/SchichtplanVorlage/Vorl
 import BasicPlanVorlage from "../../../assets/img/themen/SchichtplanVorlage/GrundlegenderPlanVorlage.png"
 import Schichtdetails from "../../../assets/img/themen/SchichtplanVorlage/Schichtdetailseintragen.png"
 import FertigeVorlage from "../../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageFertig.png"
+import ThemenSlider from "./ThemenSlider";
 
 
 function Schichtplanvorlage (props) {
@@ -174,6 +175,7 @@ function Schichtplanvorlage (props) {
                   </Col>
               </Row>
         </Container>
+        <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </>

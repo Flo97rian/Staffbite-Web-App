@@ -30,6 +30,7 @@ import {
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { FAQ_DESCRIPTION, FAQ_TITLE } from "../../constants/MetaTexts";
+import ThemenSlider from "./Themen/ThemenSlider";
 
 
 function FAQ (props) {
@@ -266,6 +267,7 @@ function FAQ (props) {
                 </Col>
               </Row>
             </Container>
+            <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </div>

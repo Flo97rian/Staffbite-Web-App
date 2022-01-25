@@ -37,6 +37,7 @@ import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png"
 import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
 import { isMobile } from "react-device-detect";
+import ThemenSlider from "../Themen/ThemenSlider";
 
 
 function AutomatisierteBefüllung (props) {
@@ -230,56 +231,8 @@ function AutomatisierteBefüllung (props) {
                   />
                 </Col>
               </Row>
-            </Container>
-
-                <Container mt-4>
-                <Row className="mt-6" >
-
-                <Col xs="12" md="6">
-                <Card>
-                <CardImg
-                  className="p-4"
-                  src={SchichtplanPublish}
-                  alt="Vollständig befüllter Schichtplan"
-                  ></CardImg>
-                  <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                  <Link to="/schichtplan-veroeffentlichen" class="stretched-link">Schichtplan veröffentlichen</Link>
-                  </CardTitle>
-                  <CardSubtitle className="pl-4 p">
-                      Wie teile ich den fertigen Schichtplan mit meinem Team?
-                  </CardSubtitle>
-                  <CardText className="pl-4 pt-4 pr-4 pr-4" tag="p">
-                    Nachdem du den Schichtplan befüllt hast, musst du den fertigen Plan nur noch mit deinem Team teilen.
-                    Hierfür ist nur ein Klick nötig. Wie das funktioniert zeige ich dir hier.
-                  </CardText>
-                  <br/>
-                  <br/>
-                  </Card>
-                </Col>
-                
-                <Col xs="12" md="6">
-                        <Card>
-                            <CardImg
-                            className="p-4"
-                            src={TeamÜbersicht}
-                            alt="Bild eines Kalenders"
-                            ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/team-verwalten"class="stretched-link">Behalte dein Team im Blick!</Link>
-                            </CardTitle>
-                            <CardSubtitle className="pl-4 p">
-                                Wie können meine Mitarbeiter*innen sich in den Schichtplan eintragen?
-                            </CardSubtitle>
-                            <CardText className="pl-4 pt-4 pr-4" tag="p">
-                                    Unsere Lösung gibt dir die Möglichkeit dein Team einfach und unkompliziert zu überblicken.
-                                    Du kannst mit wenigen Klicks deine Mitarbeiter*innen einladen und die wichtigsten Informationen erhalten.
-                            </CardText>
-                            <br/>
-                        </Card>
-                </Col>
-
-                </Row>
-                </Container>
+              </Container>
+              <ThemenSlider></ThemenSlider>
       <LandingFooter></LandingFooter>
     </>
   );

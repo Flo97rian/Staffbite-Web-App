@@ -30,6 +30,7 @@ import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import {THEMEN_CLOUDSERVICE_DESCRIPTION, THEMEN_CLOUDSERVICE_TITLE} from "../../../constants/MetaTexts";
 import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
+import ThemenSlider from "./ThemenSlider";
 
 function CloudService (props) {
   let mainContent = useRef("mainContent")
@@ -119,6 +120,7 @@ function CloudService (props) {
                   </Col>
               </Row>
         </Container>
+        <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
     </div>
