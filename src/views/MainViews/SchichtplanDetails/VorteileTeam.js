@@ -36,6 +36,10 @@ import {TEAM_VORTEILE_TITLE, TEAM_VORTEILE_DESCRIPTION} from "../../../constants
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
 import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShiftplan-min.png";
+import SchichtplanÜbersicht from "../../../assets/img/app/App-eintragen-uebersicht-smartphone.png"
+import SchichtTauschen from "../../../assets/img/app/App-tauschanfrage-smartphone.png"
+import SchichtplanEintragen from "../../../assets/img/app/app-eintragen-smartphone.png"
+import NeewsFeed from "../../../assets/img/app/app-newsfeed-smartphone.png"
 import { isMobile } from "react-device-detect";
 
 
@@ -68,7 +72,6 @@ function VorteileTeam (props) {
                 imgAlt: "Das Logo von Staffbite",
                 }}/>
       {/* Page content */}
-      <Container className="pt-5 pb-2" fluid>
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-8">
                         <h1 className="display-3">Dein individueller Schichtplan für dich und dein Team</h1>
@@ -82,23 +85,17 @@ function VorteileTeam (props) {
                         <h2 class="display-4">Vorteile für dein Team</h2>
                         <p className="lead">
                         In vielen Betrieben sind Schichtpläne ein Streitthema. Unzufriedenheiten des Teams stehen an der Tagesordnung. Wir wollen diese Probleme lösen. Durch unsere Lösung ist der gesamte Prozess vom grundlegenden Plan bis zum fertigen Schichtplan transparent. Durch die automatisierte Verteilung der Schichten wird niemand bevorzugt und es geschehen weniger Fehler. 
-                        <br/>
-                        <br/>
-                        Viele der Mitarbeiter*innen in der Gastronomie sind jung. Sie sind es gewohnt digitale Produkte und Services zu nutzen. Warum sollte das beim Schichtplan anders sein?  
-                        <br/>
-                        <br/>
-                        Mit unserer Lösung kann sich dein Team jederzeit und überall in den Schichtplan eintragen. Ohne WhatsApp-Nachrichten, E-Mails, Excel-Tabellen oder Papier. Egal ob vom Smartphone, Tablet oder Laptop. Den fertigen Schichtplan kann dein Team natürlich auch jederzeit online einsehen. 
                         </p>
                     </Col>
                 </Row>
                     
                 </Col>
-                <Col className={isMobile ? "" : "pt-8"}  xs="12" md="6" lg="6">
+                <Col className={isMobile ? "" : "pt-2"}  xs="12" md="6" lg="6">
                 <img
                     alt="Fertiger Schichtplan bereit zur Veröffentlichung"
                     src={SchichtplanPublish}
                     title="Fertiger Schichtplan"
-                    height={isMobile ? "100%" : "50%"}
+                    height="100%"
                     width="100%"
                   />
                 </Col>
@@ -106,8 +103,139 @@ function VorteileTeam (props) {
                 </Row>
                 </Container>
                 <div>
-
-
+                <Container className="mt-8">
+                  <Row>
+                    <Col md="12" lg="6">
+                        <Row className="mt-4">
+                          <Col>
+                            <h2 className="">1. Schichtplan öffnen</h2>
+                          </Col>
+                        </Row>
+                        <p className="lead">
+                        <Row className="mt-2">
+                          <Col>
+                          Viele der Mitarbeiter*innen in der Gastronomie sind jung. Sie sind es gewohnt digitale Produkte und Services zu nutzen. Warum sollte das beim Schichtplan anders sein?  
+                          <br/>
+                          Über unsere App können sich Mitarbeiter*innen jederzeit in einen Schichtplan eintragen
+                          </Col>
+                      </Row>
+                  </p>
+                    </Col>
+                    <Col className="">
+                    <img
+                    className=""
+                    style={{borderRadius: "10px"}}
+                    alt="Abbildung einer anpassbaren Schichtplan Vorlage in der eine Schicht hinhugefügt wird."
+                    src={SchichtplanÜbersicht}
+                    title="Schicht hinzufuegen"
+                    height="100%"
+                    width="60%"
+                  />
+                    
+                    </Col>
+                  </Row>
+                </Container>
+                <Container className="mt-6">
+                  <Row>
+                    <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6">
+                    <img
+                    className=""
+                    style={{borderRadius: "10px"}}
+                    alt="Abbildung der Erstellung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                    src={SchichtplanEintragen}
+                    title="Erstellung Schichtplan Vorlage"
+                    height="100%"
+                    width="60%"
+                  />
+                    </Col>
+                    <Col className="" xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6">
+                    <Row className="mt-4 text-left">
+                      <Col xs="12">
+                      <h2 className="">2. In Schichtplan eintragen</h2>
+                    <p className="lead">
+                    <Row className="mt-2">
+                      <Col>
+                        In wenigen Klicks kannst du dich in einen zukünftigen Schichtplan eintragen
+                    </Col>
+                  </Row>
+                  <Row className=" mt-4">
+                <Col xs="1" className="mt-0">
+                  <i className="fas fa-check-circle text-success"></i>
+                </Col>
+                <Col>
+                  Tag & Schicht auswählen
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="1" className="mt-0">
+                  <i className="fas fa-check-circle text-success"></i>
+                </Col>
+                <Col>
+                  Direkt eintragen
+                </Col>
+              </Row>
+              <Row>
+                <Col className="mt-6">
+                  Weitere Informationen findest du in unserem  Artikel <Link to="/themen/schichtplan-vorlage">Schichtplan Vorlage erstellen</Link>
+                </Col>
+              </Row>
+            </p>
+            </Col>
+            </Row>
+                    </Col>
+                  </Row>
+                </Container>
+                <Container className="mt-8">
+                  <Row>
+                    <Col md="12" lg="6">
+                        <Row className="mt-4">
+                          <Col>
+                            <h2 className="">3. Bei Bedarf tauschen</h2>
+                          </Col>
+                        </Row>
+                        <p className="lead">
+                        <Row className="mt-2">
+                          <Col>
+                          Mit unserer Lösung kann dein Team jederzeit und überall Tauschanfragen senden. Ohne WhatsApp-Nachrichten, E-Mails, Excel-Tabellen oder Papier. Egal ob vom Smartphone, Tablet oder Laptop.  
+                          </Col>
+                      </Row>
+                      <Row className="justify-content-center mt-4">
+                    <Col xs="1" className="mt-2">
+                      <i className="fas fa-check-circle text-success"></i>
+                    </Col>
+                    <Col>
+                      Tag & Schicht auswählen
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs="1" className="mt-0">
+                      <i className="fas fa-check-circle text-success"></i>
+                    </Col>
+                    <Col>
+                      Tauschanfrage senden
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="mt-6">
+                      Weitere Informationen findest du in unserem Artikel <Link to="/themen/individueller-schichtplan">individuellen Schichtplan erstellen</Link>
+                    </Col>
+                  </Row>
+                  </p>
+                    </Col>
+                    <Col className="">
+                    <img
+                    className=""
+                    style={{borderRadius: "10px"}}
+                    alt="Abbildung einer anpassbaren Schichtplan Vorlage in der eine Schicht hinhugefügt wird."
+                    src={SchichtTauschen}
+                    title="Schicht hinzufuegen"
+                    height="90%"
+                    width="60%"
+                  />
+                    
+                    </Col>
+                  </Row>
+                </Container>
                 <Container mt-4>
                 <Row className="mt-6" >
 
@@ -158,7 +286,6 @@ function VorteileTeam (props) {
                 </Row>
                 </Container>
                 </div>
-      </Container>
       <LandingFooter></LandingFooter>
     </>
   );
