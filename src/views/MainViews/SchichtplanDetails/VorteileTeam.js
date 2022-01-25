@@ -92,13 +92,15 @@ function VorteileTeam (props) {
                     
                 </Col>
                 <Col className={isMobile ? "" : "pt-2"}  xs="12" md="6" lg="6">
-                <img
+                <Card className="bg-transparent shadow-none">
+                      <img 
                     alt="Fertiger Schichtplan bereit zur Veröffentlichung"
                     src={SchichtplanPublish}
                     title="Fertiger Schichtplan"
                     height="100%"
                     width="100%"
                   />
+                  </Card>
                 </Col>
                   <br/>
                 </Row>
@@ -123,7 +125,8 @@ function VorteileTeam (props) {
                   </p>
                     </Col>
                     <Col className="">
-                    <img
+                    <Card className="bg-transparent shadow-none">
+                      <img 
                     className=""
                     style={{borderRadius: "10px"}}
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage in der eine Schicht hinhugefügt wird."
@@ -132,6 +135,7 @@ function VorteileTeam (props) {
                     height="100%"
                     width="60%"
                   />
+                  </Card>
                     
                     </Col>
                   </Row>
@@ -139,7 +143,8 @@ function VorteileTeam (props) {
                 <Container className="mt-6">
                   <Row>
                     <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6">
-                    <img
+                    <Card className="bg-transparent shadow-none">
+                      <img 
                     className=""
                     style={{borderRadius: "10px"}}
                     alt="Abbildung der Erstellung einer anpassbaren Schichtplan Vorlage von Staffbite"
@@ -148,6 +153,7 @@ function VorteileTeam (props) {
                     height="100%"
                     width="60%"
                   />
+                  </Card>
                     </Col>
                     <Col className="" xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6">
                     <Row className="mt-4 text-left">
@@ -224,7 +230,8 @@ function VorteileTeam (props) {
                   </p>
                     </Col>
                     <Col className="">
-                    <img
+                    <Card className="bg-transparent shadow-none">
+                      <img 
                     className=""
                     style={{borderRadius: "10px"}}
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage in der eine Schicht hinhugefügt wird."
@@ -233,6 +240,7 @@ function VorteileTeam (props) {
                     height="90%"
                     width="60%"
                   />
+                  </Card>
                     
                     </Col>
                   </Row>

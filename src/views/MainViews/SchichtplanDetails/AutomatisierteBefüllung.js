@@ -101,13 +101,15 @@ function AutomatisierteBefüllung (props) {
                 </p>     
                 </Col>
                 <Col className={isMobile ? "" : "pt-8"}  md="12" lg="6">
-                <img
+                <Card className="bg-transparent shadow-none">
+                      <img
                     alt="Abbildung eines automatisiert erstellen Schichtplans von Staffbite"
                     title="Schichtplan automatisiert erstellen"
                     src={SchichtplanBeispiel}
                     height={isMobile ? "100%" : "60%"}
                     width="100%"
                   />
+                  </Card>
                 </Col>
                 </Row>
                 </Container>
@@ -221,7 +223,8 @@ function AutomatisierteBefüllung (props) {
                         <hr className=""/>
                     </Col>
                 <Col className="" xs="12" sm="8">
-                <img
+                <Card className="bg-transparent shadow-none">
+                      <img
                     className="pt-0 pb-0"
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={SchichtplanBeispiel}
@@ -229,6 +232,7 @@ function AutomatisierteBefüllung (props) {
                     height="100%"
                     width="100%"
                   />
+                  </Card>
                 </Col>
               </Row>
               </Container>

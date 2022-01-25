@@ -87,6 +87,7 @@ function SchichtplanVeroeffentlichen (props) {
                     
                 </Col>
                 <Col className="col-xs-12"  md="6" lg="6">
+                <Card className="bg-transparent shadow-none">
                 <img
                     alt="Fertiger Schichtplan bereit zur Veröffentlichung"
                     src={SchichtplanPublish}
@@ -94,6 +95,7 @@ function SchichtplanVeroeffentlichen (props) {
                     height="100%"
                     width="100%"
                   />
+                  </Card>
                 </Col>
                 </Row>
                 </Container>

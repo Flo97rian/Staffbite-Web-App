@@ -99,13 +99,15 @@ function VerfügbarkeitenEintragen (props) {
                 </Col>
                 <Col xs="12" sm="6">
                   <Row className="right">
-                  <img
+                  <Card className="bg-transparent shadow-none">
+                      <img
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                     src={TeamVerwalten}
                     title="Team erstellen und verwalten"
                     height="100%"
                     width="100%"
                   />
+                  </Card>
                   </Row>
                 </Col>
                 </Row>
@@ -126,6 +128,7 @@ function VerfügbarkeitenEintragen (props) {
                       <Row className="mt-4">
                         <Col xs="0"sm="2"></Col>
                         <Col xs="12"sm="8">
+                        <Card className="bg-transparent shadow-none">
                         <img
                           alt="Übersicht zur Erstellung und Verwaltung deines Teams"
                           src={TeamVerwalten}
@@ -133,6 +136,7 @@ function VerfügbarkeitenEintragen (props) {
                           height="100%"
                           width="100%"
                         />    
+                        </Card>
                         </Col>
                         <Col xs="0"sm="2"></Col>
                         

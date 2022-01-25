@@ -90,8 +90,9 @@ function TeamVerwalten (props) {
         </Col>
 
         <Col xs="12" sm="8" lg="8">
-          <Row>   
-            <img
+          <Row>  
+          <Card className="bg-transparent shadow-none">
+                      <img 
             className="right"
             alt="Übersicht zur Erstellung und Verwaltung deines Teams"
             src={TeamÜbersicht}
@@ -99,6 +100,7 @@ function TeamVerwalten (props) {
             height="80%"
             width="100%"
             />
+            </Card>
             </Row>
         </Col>
             <br/>
@@ -180,7 +182,8 @@ function TeamVerwalten (props) {
         <Container className="mt-8">
         <Row>
                     <Col md="12" lg="6">
-                    <img
+                    <Card className="bg-transparent shadow-none">
+                      <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
                     alt="Abbildung der Erstellung eines Mitarbeiters bei Staffbite"
@@ -189,6 +192,7 @@ function TeamVerwalten (props) {
                     height="100%"
                     width="100%"
                   />
+                  </Card>
                     </Col>
                     <Col className={isMobile ? "" : "ml-6"}>
                     <Row className="mt-4 text-left">

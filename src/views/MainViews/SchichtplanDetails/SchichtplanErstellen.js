@@ -132,7 +132,8 @@ function SchichtplanErstellen (props) {
                 </Col>
                       
                 <Col md="12" lg="7">
-                  <img
+                <Card className="bg-transparent shadow-none">
+                      <img
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                     className="mt-2"
                     src={SchichtplanVorlage}
@@ -140,6 +141,7 @@ function SchichtplanErstellen (props) {
                     height="80%"
                     width="100%"
                   />
+                  </Card>
                 </Col>
       </Row>
       <Container>
@@ -153,7 +155,8 @@ function SchichtplanErstellen (props) {
                 <Container className="mt-6">
                   <Row>
                     <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6">
-                    <img
+                    <Card className="bg-transparent shadow-none">
+                      <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
                     alt="Abbildung der Erstellung einer anpassbaren Schichtplan Vorlage von Staffbite"
@@ -162,6 +165,7 @@ function SchichtplanErstellen (props) {
                     height="100%"
                     width="100%"
                   />
+                  </Card>
                     </Col>
                     <Col className="" xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6">
                     <Row className="mt-4 text-left">
@@ -262,7 +266,8 @@ function SchichtplanErstellen (props) {
                   </p>
                     </Col>
                     <Col className="">
-                    <img
+                    <Card className="bg-transparent shadow-none">
+                      <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage in der eine Schicht hinhugefügt wird."
@@ -271,7 +276,7 @@ function SchichtplanErstellen (props) {
                     height="100%"
                     width="100%"
                   />
-                    
+                    </Card>
                     </Col>
                   </Row>
                 </Container>

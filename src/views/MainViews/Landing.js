@@ -40,7 +40,8 @@ import {
   Col,
   CardTitle,
   CardText,
-  CardSubtitle
+  CardSubtitle,
+  CardImg
 } from "reactstrap";
 // core components
 import LandingFooter from "../../components/Footers/LandingFooter.js";
@@ -130,7 +131,9 @@ const Landing = (props) => {
                         </p>
                     </Col>
                     <Col className="justify-content-center" md="12" lg="4">
+                    <Card className="bg-transparent shadow-none">
                           <ErstellenShow></ErstellenShow>
+                      </Card>
                     </Col>                    
                   </Row>
               </Container>
@@ -165,16 +168,16 @@ const Landing = (props) => {
                 <Col xs="12">
                 <Row className="text-center">
                     <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6" className="order-sm-2 order-md-1">
-                      <Row>
-                    <img
-                          className="shadow mb-3"
+                      <Card className="bg-transparent shadow-none mb-3">
+                      <img
+                          className="shadow"
                           alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                           src={SchichtplanVorlage}
                           title="Schichtplan Vorlage erstellen"
                           height="70%"
                           width="100%"
                           ></img>
-                    </Row>
+                          </Card>
                     </Col>
                     <Col xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6" className={isMobile ? "order-0": ""}>
                       <Row className="pt-3" style={!isMobile ? { transform: "translateY(50%)"}: {}}>
@@ -290,7 +293,8 @@ const Landing = (props) => {
                       }
                     </Col>
                     <Col xs="12" md="6" className="px-0 pt-5">
-                    <img
+                    <Card className="bg-transparent shadow-none">
+                      <img
                           className="shadow"
                           alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                           src={SchichtEintragen}
@@ -298,6 +302,7 @@ const Landing = (props) => {
                           height="50%"
                           width="100%"
                           ></img>
+                      </Card>
                     </Col>
                   </Row>
                   </Col>
@@ -306,7 +311,8 @@ const Landing = (props) => {
                 <Col>
                 <Row className="text-center mt-0">
                     <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6">
-                    <img
+                    <Card className="bg-transparent shadow-none">
+                      <img
                           className="shadow mb-3"
                           alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                           src={BefuellungStarten}
@@ -314,6 +320,7 @@ const Landing = (props) => {
                           height={isMobile ? "80%" : "50%"}
                           width="100%"
                           ></img>
+                          </Card>
                     </Col>
                     <Col xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6">
                     <Row className="pt-3" style={isMobile ? { transform: "translateY(50%)"}: {}}>
@@ -408,6 +415,7 @@ const Landing = (props) => {
                     </p>
                     </Col>
                     <Col xs="12" md="6">
+                    <Card className="bg-transparent shadow-none">
                       <img
                             className="mb-3"
                             alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
@@ -416,6 +424,7 @@ const Landing = (props) => {
                             height={isMobile ? "70%" : "30%"}
                             width="100%"
                             ></img>
+                      </Card>
                     </Col>
                   </Row>
                   </Col>
@@ -448,14 +457,15 @@ const Landing = (props) => {
               </p>
             </Col>
             <Col md="12" lg="6">
-            <img
-                          className=""
-                          alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
-                          src={AppEintragen}
-                          title="Schichtplan Vorlage erstellen"
-                          height="100%"
-                          width="60%"
-                          ></img>
+            <Card className="bg-transparent shadow-none">
+              <img
+                className=""
+                alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                src={AppEintragen}
+                title="Schichtplan Vorlage erstellen"
+                width="60%"
+                ></img>
+                </Card>
             </Col>  
             </Row>        
           </Container>
@@ -474,7 +484,7 @@ const Landing = (props) => {
                 </Col>
               </Row>
               <Row className="mt-4">
-                    <Col xs="12" sm="4">
+                    <Col xs="12" md="4">
                     <div>
                         <Row className="">
                           <Col  xs="2">
@@ -573,7 +583,7 @@ const Landing = (props) => {
                       <hr className="m-2"/>
                     <div>
                         <Row className="">
-                          <Col  xs="2">
+                          <Col  xs="12" md="2">
                             <Row className="justify-content-center">
                               <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
                               🤑
@@ -597,21 +607,23 @@ const Landing = (props) => {
                                   </p>
                                 </Col>
                               </Row>      
-                          </Col>
-                          </Row>
+                            </Col>
+                            </Row>
                           </Col>
                         </Row>
                       </div>
                     </Col>
-                <Col className="" xs="12" sm="8">
-                <img
-                    className="pt-0 pb-0"
-                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
-                    src={SchichtplanBeispiel}
-                    title="Team erstellen und verwalten"
-                    height="100%"
-                    width="100%"
-                  />
+                <Col className="" xs="12" md="8">
+                  <Card className="bg-transparent shadow-none">
+                    <CardImg
+                        className="pt-0 pb-0"
+                        alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                        src={SchichtplanBeispiel}
+                        title="Team erstellen und verwalten"
+                        height="100%"
+                        width="100%"
+                      />
+                  </Card>
                 </Col>
               </Row>
             </Container>
