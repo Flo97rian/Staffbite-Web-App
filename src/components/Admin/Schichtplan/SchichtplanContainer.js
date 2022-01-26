@@ -378,6 +378,8 @@ const SchichtplanContainer = () => {
         if(Meta.schichten.length === 0) {
           store.dispatch({type: "CLOSE", payload: index});
           setErrMsng({...ErrMsng, MissingShiftPosition: !0});
+        } else {
+          copyPlan.updateShiftDescription(index, {...userInput, position: Meta.schichten[0]});
         }
       } else {
         copyPlan.updateShiftDescription(index, userInput);
@@ -387,6 +389,7 @@ const SchichtplanContainer = () => {
       store.dispatch({type: "setNewShiftplan", payload: shiftplan});
     }
     setUserInput(shiftplanStates);
+    store.dispatch({type: "setShiftplanChanged"});
     store.dispatch({type: "CLOSE", payload: index});
   };
 
@@ -526,8 +529,8 @@ const SchichtplanContainer = () => {
       let shiftplan = copyShiftplan.getAllPlanDetails();
       store.dispatch({type: "isFetchPlansFromDB"});
       store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
-      store.dispatch({type: "OPEN", payload: modal})
-      store.dispatch({type: "resetShiftplanChanged"})
+      store.dispatch({type: "OPEN", payload: modal});
+      store.dispatch({type: "resetShiftplanChanged"});
     } else {
       store.dispatch({type: "OPEN", payload: modal})
     }
