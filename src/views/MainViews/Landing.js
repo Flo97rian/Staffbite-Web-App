@@ -122,11 +122,12 @@ const Landing = (props) => {
                         <br/>
                         ✅ Einfach und übersichtlich  
                         <br/>
-                        🥇 Hohe Flexibilität für verschiedene Branchen 
+                        🥇 Hohe Flexibilität
                         <br/>
-                        🔐 Hoher Datenschutz nach DSGVO
+                        🔐 Datenschutz nach DSGVO-Richtlinien
                         <br/>
-                        🤝 Probiere es direkt aus - im kostenlosen Probemonat!
+                        <br/>
+                        🤝 Probiere es direkt aus - im <a href="/signup" className="text-light">kostenlosen Probemonat!</a>
                         </p>
                     </Col>
                     <Col className="justify-content-center" md="12" lg="4">
@@ -158,7 +159,7 @@ const Landing = (props) => {
             <Container className={isMobile ? "pt-9 mt-9": ""}>
               <Row className="mt-4 text-center">
                 <Col className="" xs="12">
-                  <h2 className="display-3">So funktioniert's - in nur vier Schritten</h2>
+                  <h2 className="display-3">So funktioniert's - Nur vier Schritte nötig</h2>
                 </Col>
               </Row>
               <Row className="pt-6 mx-4">
@@ -170,7 +171,7 @@ const Landing = (props) => {
                           className="shadow mb-3"
                           alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                           src={SchichtplanVorlage}
-                          title="Schichtplan Vorlage erstellen"
+                          title="Schichtplan Vorlage"
                           height="70%"
                           width="100%"
                           ></img>
@@ -184,7 +185,7 @@ const Landing = (props) => {
                             <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ">1</Badge>
                           </Col>
                           <Col xs="10" >
-                            <h2 className="display-4 text-left">Schichtplan erstellen</h2>
+                            <h2 className="display-4 text-left">Erstelle deinen Schichtplan</h2>
                           </Col>
                           </Row>
                         </Col>
@@ -204,7 +205,7 @@ const Landing = (props) => {
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
                             <Col xs="9">
-                              Namen festlegen
+                              Name der Vorlage festlegen
                             </Col>
                             </Row>
                             <Row className="mt-2 text-left">
@@ -213,7 +214,7 @@ const Landing = (props) => {
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
                             <Col xs="9">
-                              Schichten pro Tag bestimmen
+                              Anzahl der Schichten pro Tag angeben
                             </Col>
                             </Row>
                             <Row className="mt-2 text-left">
@@ -252,14 +253,14 @@ const Landing = (props) => {
                             <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ">2</Badge>
                           </Col>
                           <Col xs="10">
-                            <h2 className="display-4">Für dein Team</h2>
+                            <h2 className="display-4">Dein Team tägt sich ein</h2>
                           </Col>
                           </Row>
                         </Col>
                       </Row>
                       <p className="lead mt-4" style={!isMobile ? { transform: "translateY(10%)"} : {}}>
                       <Row className="text-left">
-                        <Col>Deine Mitarbeiter*innen tragen sich in deinen <Link to="/fuer-dein-team" class="stretched-link">online Schichtplan</Link> ein. Das geht jederzeit per Smartphone oder Laptop.
+                        <Col>Deine Mitarbeiter*innen tragen sich <Link to="/fuer-dein-team" class="stretched-link">online in deinen Schichtplan</Link> ein. Das geht jederzeit per Smartphone, Tablet oder Laptop.
                           </Col>
                       </Row>
                       <Row className="mt-4 text-left">
@@ -267,7 +268,7 @@ const Landing = (props) => {
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
                             <Col xs="9">
-                              Schicht auswählen
+                              Schichtplan auswählen
                             </Col>
                             </Row>
                             <Row className="mt-2 text-left">
@@ -275,7 +276,7 @@ const Landing = (props) => {
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
                             <Col xs="9">
-                              In Wunschschicht eintragen
+                              In Wunschschichten eintragen
                             </Col>
                             </Row>
                       </p>
@@ -292,9 +293,9 @@ const Landing = (props) => {
                     <Col xs="12" md="6" className="px-0 pt-5">
                     <img
                           className="shadow"
-                          alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                          alt="Abbildung eines Schichtplans von Staffbite"
                           src={SchichtEintragen}
-                          title="Schichtplan Vorlage erstellen"
+                          title="Eintragen in den Schichtplan"
                           height="50%"
                           width="100%"
                           ></img>
@@ -308,9 +309,9 @@ const Landing = (props) => {
                     <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6">
                     <img
                           className="shadow mb-3"
-                          alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                          alt="Abbildung der Befüllung des Schichtplans"
                           src={BefuellungStarten}
-                          title="Schichtplan Vorlage erstellen"
+                          title="Automatisierte Befüllung starten"
                           height={isMobile ? "80%" : "50%"}
                           width="100%"
                           ></img>
@@ -332,7 +333,7 @@ const Landing = (props) => {
                       <Row className={ isMobile ? "text-left mt-5" : "text-left"} style={!isMobile ? { transform: "translateY(10%)"}: {}}>
                       {!isMobile ? <Col xs="2"></Col> : <></>}
                         <Col>
-                          Unsere Lösung befüllt deinen <Link to="/automatisierter-schichtplan">Schichtplan automatisiert</Link> innerhalb weniger Sekunden.
+                          Dein Schichtplan wird per Mausklick innerhalb weniger Sekunden <Link to="/automatisierter-schichtplan">automatisiert befüllt</Link>. Auf diese Weise sparst du mehrere Stunden Arbeit jede Woche!
                           </Col>
                       </Row>
                       <Row className="text-left mt-4">
@@ -386,7 +387,7 @@ const Landing = (props) => {
                       <p className="lead mt-4 pt-0">
                       <Row className="text-left mt-0 pt-0" style={isMobile ? { transform: "translateY(10%)"}: {}}>
                         <Col className="">
-                          Bei Bedarf kannst du noch Anpassungen vornehmen. Anschließend veröffentlichst du den <Link to="/schichtplan-veroeffentlichen">fertigen Schichtplan</Link> mit einem Klick.
+                          Nach der Befüllung kannst du entweder letzte Anpassungen vornehmen oder du veröffentlichst den <Link to="/schichtplan-veroeffentlichen">fertigen Schichtplan</Link> mit einem Klick.
                           </Col>
                       </Row>
                       <Row className="mt-4 text-left">
@@ -402,7 +403,7 @@ const Landing = (props) => {
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
                             <Col xs="9">
-                              Tauschanfragen genehmigen
+                              Tauschanfragen direkt im Plan verwalten
                             </Col>
                             </Row>
                     </p>
@@ -410,9 +411,9 @@ const Landing = (props) => {
                     <Col xs="12" md="6">
                       <img
                             className="mb-3"
-                            alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                            alt="Abbildung der Buttons zum Veröffentlichen des Schichtplans von Staffbite"
                             src={SchichtplanVeroeffentlichen}
-                            title="Schichtplan Vorlage erstellen"
+                            title="Schichtplan veröffentlichen"
                             height={isMobile ? "70%" : "30%"}
                             width="100%"
                             ></img>
@@ -434,7 +435,7 @@ const Landing = (props) => {
                         🕗 Jederzeit in den digitalen Schichtplan eintragen
               </Row>
               <Row className="mt-2">
-                        🌍 Von überall fertigen Schichtplan einsehen
+                        🌍 Von überall den fertigen Schichtplan einsehen
               </Row>
               <Row  className="mt-2">
                         ⚡ Tauschanfragen innerhalb von Sekunden stellen
@@ -450,9 +451,9 @@ const Landing = (props) => {
             <Col md="12" lg="6">
             <img
                           className=""
-                          alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                          alt="Abbildung der Mitarbeiter-App von Staffbite"
                           src={AppEintragen}
-                          title="Schichtplan Vorlage erstellen"
+                          title="Mitarbeiter-App"
                           height="100%"
                           width="60%"
                           ></img>
@@ -469,7 +470,7 @@ const Landing = (props) => {
               <Row className="justify-content-center text-center mb-4">
                 <Col md="10">
                   <p className="lead">
-                  Wir helfen dir Zeit & Geld zu sparen. Deshalb entwickeln unsere Lösung stetig weiter und gehen dabei die Wünsche unserer Kunden ein. Somit erhälst du mit Staffbite die Lösung, die dir wirklich weiterhilft.
+                  Wir helfen dir Zeit & Geld zu sparen. Wir entwickeln unsere Lösung stetig weiter und gehen dabei auf die Wünsche unserer Kunden ein. Somit erhälst du mit Staffbite die Lösung, die dir wirklich weiterhilft.
                   </p>
                 </Col>
               </Row>
@@ -606,9 +607,9 @@ const Landing = (props) => {
                 <Col className="" xs="12" sm="8">
                 <img
                     className="pt-0 pb-0"
-                    alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+                    alt="Fertiger Schichtplan für dich und dein Team"
                     src={SchichtplanBeispiel}
-                    title="Team erstellen und verwalten"
+                    title="Beispiel eines vollständigen Schichtplans"
                     height="100%"
                     width="100%"
                   />
@@ -653,7 +654,7 @@ const Landing = (props) => {
                       <Link to="/verfuegbarkeiten-eintragen">Schichten tauschen</Link>
                       </CardTitle>
                       <CardText>
-                        Tauschanfragen schnell genehmigen
+                        Tauschanfragen schnell verwalten
                       </CardText>
                     </CardBody>
                   </Card>
@@ -664,7 +665,7 @@ const Landing = (props) => {
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary bold">
-                      <Link to="/automatisierter-schichtplan">Automatisch</Link>
+                      <Link to="/automatisierter-schichtplan">Automatisisert</Link>
                       </CardTitle>
                       <CardText>
                         Automatisiere deinen Schichtplan

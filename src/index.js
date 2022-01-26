@@ -122,8 +122,8 @@ ReactDOM.render(
   declineButtonStyle={{ color: "white", backgroundColor: "#adb5bd",fontSize: "13px", borderRadius: "5px" }}
   expires={426}
 >
-  Diese Seite benutzt Cookies, um das Nutzererlebnis zu verbessern. Beim benutzen dieser Seite stimmen Sie den Cookies zu.{" "}
-  <a href="https://www.staffbite.de/impressum">Erfahre mehr</a>
+  Diese Seite benutzt Cookies, um das Nutzererlebnis zu verbessern. Bitte stimmen Sie hier dem Einsatz der Cookies zu.{" "}
+  <a href="https://www.staffbite.de/impressum/#sectiondatasecurity">Erfahre mehr</a>
 </CookieConsent>
   </Provider>,
   document.getElementById('root')

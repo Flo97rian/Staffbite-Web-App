@@ -26,7 +26,6 @@ import {
   Col,
   CardTitle,
   Card,
-  CardImg,
   CardSubtitle,
   CardText
 } from "reactstrap";
@@ -34,9 +33,8 @@ import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {TEAMVERWALTEN_TITLE, TEAMVERWALTEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png"
-import Preise from "../../../assets/img/theme/ZeitGeld.png"
-import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
-import MitarbeiterHinzufuegen from "../../../assets/img/theme/Mitarbeiter-hinzufuegen.png"
+import MitarbeiterEinladen from "../../../assets/img/landing/TeamVerwalten/MAEinladen.png"
+import MitarbeiterÜberblick from "../../../assets/img/landing/TeamVerwalten/TeamÜbersicht.png"
 import { isMobile } from "react-device-detect";
 import ThemenSlider from "../Themen/ThemenSlider";
 
@@ -76,35 +74,8 @@ function TeamVerwalten (props) {
                 <h1 class="text-center">Dein digitaler Schichtplan - Team verwalten</h1>
                 </Row>
     </Container>
-      <Container className="mt-6">
-        <Row className="mt-10">
-        <Col className="mt-4 ml-0" xs="12" sm="4" lg="4">
-          <Row className="pl-0">
-          <h2 class="display-4 ml-2">Behalte dein Team im Blick!</h2>
-        </Row>
-            <p className="lead pl-2 mt-2">
-            <Row>
-            Staffbite liefert dir einfach und unkompliziert die wichtigsten Informationen zu deinem Team.
-            </Row>
-            </p>  
-        </Col>
 
-        <Col xs="12" sm="8" lg="8">
-          <Row>   
-            <img
-            className="right"
-            alt="Übersicht zur Erstellung und Verwaltung deines Teams"
-            src={TeamÜbersicht}
-            title="Team erstellen und verwalten"
-            height="80%"
-            width="100%"
-            />
-            </Row>
-        </Col>
-            <br/>
-        </Row>
-        </Container>
-        <Container className="mt-8">
+    <Container className="mt-4">
           <Row>
             <Col xs="12" md="4">
             <Card>
@@ -177,25 +148,55 @@ function TeamVerwalten (props) {
             </Col>
           </Row>
         </Container>
+
+      <Container className="">
+        <Row className="">
+        <Col className="ml-0" xs="12" sm="4" lg="12">
+        <Row>   
+            <img
+            className="right"
+            alt="Übersicht zur Erstellung und Verwaltung deines Teams"
+            src={TeamÜbersicht}
+            title="Team erstellen und verwalten"
+            height="80%"
+            width="100%"
+            />
+            </Row>
+        </Col>
+          <br/>
+        </Row>
+        <Row className=" ml-0 mt-8">
+          <h2 class="display-4">Behalte dein Team im Blick</h2>
+        </Row>
+            <p className="lead pl-2 mt-2">
+            <Row>
+            Staffbite liefert dir einfach und unkompliziert die wichtigsten Informationen zu deinem Team.
+            <br/>
+            Sieh dir hier die einzelnen Schritte an, um dein Team zu verwalten.
+            </Row>
+            </p> 
+        </Container>
+        
         <Container className="mt-8">
         <Row>
-                    <Col md="12" lg="6">
+                    <Col md="12" lg="8">
                     <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
                     alt="Abbildung der Erstellung eines Mitarbeiters bei Staffbite"
-                    src={MitarbeiterHinzufuegen}
+                    src={MitarbeiterEinladen}
                     title="Erstellung eines Mitarbeiters"
                     height="100%"
                     width="100%"
                   />
                     </Col>
+
                     <Col className={isMobile ? "" : "ml-6"}>
                     <Row className="mt-4 text-left">
-                      <h2 className="m-0 p-0 display-4">Einfach Mitarbeiter einladen</h2>
+                      <h2 className="m-0 p-0 display-4">1. Team einladen</h2>
                     </Row>
                     <Row className="mt-2">
-                    <CardSubtitle className="lead">In wenigen Klicks kannst du die wichtigsten Informationen zu deinem Teammitglied angeben. </CardSubtitle>
+                    <CardSubtitle className="lead">Nur wenige Klicks & Informationen nötig, damit es losgehen kann 🎉</CardSubtitle>
                   </Row>
                   <p className="m-0 lead">
                   <Row className="justify-content-center mt-4">
@@ -203,7 +204,7 @@ function TeamVerwalten (props) {
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
-                  Namen eintragen
+                  Name
                 </Col>
               </Row>
               <Row>
@@ -211,7 +212,7 @@ function TeamVerwalten (props) {
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
-                  E-Mail eintragen
+                  E-Mail
                 </Col>
               </Row>
               <Row>
@@ -219,7 +220,7 @@ function TeamVerwalten (props) {
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
-                  Erfahrung bestimmen
+                  Erfahrung
                 </Col>
               </Row>
               <Row>
@@ -227,7 +228,7 @@ function TeamVerwalten (props) {
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
-                  Schichten pro Woche festlegen
+                  Schichten pro Woche
                 </Col>
               </Row>
               <Row>
@@ -235,20 +236,66 @@ function TeamVerwalten (props) {
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
-                  Position festlegen
+                  Position
+                </Col>
+              </Row>  
+              </p>
+              </Col>
+        </Row>
+            </Container>
+
+            <Container className="mt-8">
+        <Row>
+
+                    <Col className={isMobile ? "" : "ml-6"}>
+                    <Row className="mt-4 text-left">
+                      <h2 className="m-0 p-0 display-4">2. Team verwalten</h2>
+                    </Row>
+                    <Row className="mt-2">
+                    <CardSubtitle className="lead">Nachdem du dein Team eingeladen hast, kannst du deine Mitarbeiter*innen übersichtlich verwalten.</CardSubtitle>
+                  </Row>
+                  <p className="m-0 lead">
+                  <Row className="justify-content-center mt-4">
+                <Col xs="1" className="mt-1">
+                  <i className="fas fa-check-circle text-success"></i>
+                </Col>
+                <Col>
+                  Alles auf einen Blick
                 </Col>
               </Row>
               <Row>
-                <Col className="mt-6">
-                  <p className="lead">
-                  Weitere Informationen zum Thema findest du in unserem <Link to="/themen">Blog</Link>.
-                  </p>
+                <Col xs="1" className="mt-1">
+                  <i className="fas fa-check-circle text-success"></i>
+                </Col>
+                <Col>
+                  Änderungen vornehmen
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="1" className="mt-1">
+                  <i className="fas fa-check-circle text-success"></i>
+                </Col>
+                <Col>
+                Positionen vergeben
                 </Col>
               </Row>
               </p>
+              </Col>
+              
+              <Col md="12" lg="8">
+                    <img
+                    className="shadow"
+                    style={{borderRadius: "10px"}}
+                    alt="Abbildung der Erstellung eines Mitarbeiters bei Staffbite"
+                    src={MitarbeiterÜberblick}
+                    title="Erstellung eines Mitarbeiters"
+                    height="100%"
+                    width="100%"
+                  />
                     </Col>
-                  </Row>
-                </Container>
+              
+        </Row>
+        </Container>
           <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>

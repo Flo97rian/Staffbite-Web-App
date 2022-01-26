@@ -25,7 +25,7 @@ import {
   Col,
 } from "reactstrap";
 // core components
-import TeamVerwalten from "../../assets/img/theme/Team-verwalten.png"
+
 import TeamÜbersicht from "../../assets/img/theme/MAÜbersicht-min.png"
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
 import SchichtplanPublish from "../../assets/img/theme/PlanVeröffentlichen-min.png"
@@ -159,7 +159,7 @@ function Shiftplan (props) {
                 <Col className="order-md-2" md="12" lg="6">
                   <img
                     alt="Übersicht zur Erstellung und Verwaltung deines Teams"
-                    src={TeamVerwalten}
+                    src={TeamÜbersicht}
                     title="Team erstellen und verwalten"
                     height="100%"
                     width="100%"
@@ -226,7 +226,7 @@ function Shiftplan (props) {
                   <img
                     alt="Abbildung der Mitarbeiter Übersicht von Staffbite"
                     title="Mitarbeit Übersicht"
-                    src={TeamVerwalten}
+                    src={TeamÜbersicht}
                     height="300px"
                     width="500px"
                   />
