@@ -48,6 +48,9 @@ const Pricing = (props) => {
     pageViewsTracking()
   },[])
 
+
+
+
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -148,7 +151,13 @@ const Pricing = (props) => {
                       <span class="text-info ls-1 p">pro Monat</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
-                          <Button className="btn-icon btn-3" color="success" type="button"><p className="p-0 m-0">Auswählen</p></Button>
+                          <Button className="btn-icon btn-3" color="success" type="button" onClick={
+                            () => 
+                            ReactGA.event({
+                              category: 'Pricing',
+                              action: 'Auswahl Kategorie bis 25'
+                            })}
+                            ><p className="p-0 m-0">Auswählen</p></Button>
                         </Link>
                       </Row>
                     </CardBody>
@@ -173,7 +182,13 @@ const Pricing = (props) => {
                       <span class="text-white ls-1 p">pro Monat</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
-                          <Button className="btn-icon btn-3" color="success" type="button"><p className="p-0 m-0">Auswählen</p></Button>
+                          <Button className="btn-icon btn-3" color="success" type="button" 
+                          onClick={
+                            () => 
+                            ReactGA.event({
+                              category: 'Pricing',
+                              action: 'Auswahl Kategorie bis 50'
+                            })}><p className="p-0 m-0">Auswählen</p></Button>
                         </Link>
                       </Row>
                     </CardBody>
@@ -198,7 +213,16 @@ const Pricing = (props) => {
                       <span class="text-white ls-1 p">pro Monat</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
-                          <Button className="btn-icon btn-3" color="primary" type="button"><p className="p-0 m-0">Auswählen</p></Button>
+                          <Button className="btn-icon btn-3" color="primary" type="button" 
+                          onClick={
+
+                            
+                            () => 
+                            ReactGA.event({
+                              category: 'Pricing',
+                              action: 'Auswahl Kategorie ab 51'
+                            })}
+                            ><p className="p-0 m-0">Auswählen</p></Button>
                         </Link>
                       </Row>
                     </CardBody>
