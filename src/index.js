@@ -58,6 +58,7 @@ import AutomatisierteBefüllungStarten from './views/MainViews/Themen/Automatisi
 import IndividuellerSchichtplan from './views/MainViews/Themen/IndividuellerSchichtplan';
 import AutomatisierteBefüllung from './views/MainViews/SchichtplanDetails/AutomatisierteBefüllung';
 import Anpassungen from './views/MainViews/Themen/Anpassungen';
+import Veröffentlichung from './views/MainViews/Themen/Veröffentlichung'
 import CookieConsent from "react-cookie-consent";
 
 
@@ -96,6 +97,7 @@ ReactDOM.render(
         <Route path="/themen/individueller-schichtplan" element={<IndividuellerSchichtplan />} />
         <Route path="/themen/automatisierte-befuellung-starten" element={<AutomatisierteBefüllungStarten />} />
         <Route path="/themen/anpassungen-vornehmen" element={<Anpassungen />} />
+        <Route path="/themen/schichtplan-veroeffentlichen" element={<Veröffentlichung />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
         <Route path="/pricing" element={ <Pricing  />} />
