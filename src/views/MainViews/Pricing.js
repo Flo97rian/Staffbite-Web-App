@@ -109,10 +109,11 @@ const Pricing = (props) => {
                       </Row>
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 mt-0 pt-0">
-                    <span class="text-info ls-1 p">10% sparen</span>
+                    <span class="h1 text-info ls-1 p"><del>600€</del><br/></span>
                     <h3 className="h1 text-info display-3">
                       540€
                     </h3>
+                    <span class="text-info ls-1 p">10% sparen <br/></span>
                     <span class="text-info ls-1 p">bei jährlicher Zahlweise</span>
                     </CardFooter>
                   </Card>
@@ -141,10 +142,11 @@ const Pricing = (props) => {
                       </Row>
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
-                    <span class="text-white ls-1 p">10% sparen</span>
+                    <span class="h1 text-white ls-1 p"><del>1.200€</del><br/></span>
                     <h3 className="h1 text-white display-3">
                       1.080€
                     </h3>
+                    <span class="text-white ls-1 p">10% sparen<br/></span>
                     <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
                     </CardFooter>
                   </Card>
@@ -173,10 +175,11 @@ const Pricing = (props) => {
                       </Row>
                     </CardBody>
                     <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
-                    <span class="text-white ls-1 p">10% sparen</span>
+                    <span class="h1 text-white ls-1 p"><del>1.800€</del><br/></span>
                     <h3 className="h1 text-white display-3">
                       1.620€
                     </h3>
+                    <span class="text-white ls-1 p">10% sparen<br/></span>
                     <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
                     </CardFooter>
                   </Card>
