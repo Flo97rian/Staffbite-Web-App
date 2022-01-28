@@ -33,7 +33,7 @@ import {
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {VERFÜGBARKEITENEINTRAGEN_TITLE, VERFÜGBARKEITENEINTRAGEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
-import TeamVerwalten from "../../../assets/img/theme/Team-verwalten.png"
+import TeamVerwalten from "../../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
 import Possibilities from "../../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
 import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
 import ThemenSlider from "../Themen/ThemenSlider";
