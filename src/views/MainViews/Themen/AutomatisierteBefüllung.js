@@ -109,7 +109,7 @@ function AutomatisierteBefüllung (props) {
                     Heute möchte ich dir den nächsten Schritt zeigen: Die automatisierte Befüllung deines Schichtplans.
                     <br/>
                     <br/>
-                    Inhaltsverzeichnis:
+                    Inhaltsverzeichnis
                     <br/>
                     
                     <HashLink className="text-muted p-0" to="/themen/automatisierte-befuellung-starten#vorbereitung">

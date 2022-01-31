@@ -116,7 +116,7 @@ function Anpassungen (props) {
                     Heute machen wir den nächsten Schritt und gehen darauf ein, wie du am automatisiert befüllten Schichtplan Änderungen vornehmen kannst. 👀
                     <br/>
                     <br/>
-                    Inhaltsverzeichnis:
+                    Inhaltsverzeichnis
                     <br/>
                     <HashLink className="p text-muted p-0" to="/themen/anpassungen-vornehmen#vorbereitung">
                       Vorbereitung
