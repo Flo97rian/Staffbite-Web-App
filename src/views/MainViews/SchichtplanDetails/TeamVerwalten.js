@@ -37,6 +37,7 @@ import MitarbeiterEinladen from "../../../assets/img/landing/TeamVerwalten/MAEin
 import MitarbeiterÜberblick from "../../../assets/img/landing/TeamVerwalten/TeamÜbersicht.png"
 import { isMobile } from "react-device-detect";
 import ThemenSlider from "../Themen/ThemenSlider";
+import TrialBanner from "../sub/TrialBanner";
 
 
 function TeamVerwalten (props) {
@@ -61,6 +62,7 @@ function TeamVerwalten (props) {
           <meta name="description" content={TEAMVERWALTEN_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/team-verwalten" />
         </Helmet>
+        <TrialBanner></TrialBanner>
        <LandingNavBar
               logo={{
                 innerLink: "/",

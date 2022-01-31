@@ -8,6 +8,7 @@ import ReactGA from 'react-ga';
 import "./assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/argon-dashboard-react.scss";
+import "./assets/css/staffbite.css"
 import "./assets/vendor/font-awesome/css/font-awesome.css"
 import "react-notification-alert/dist/animate.css";
 // plugins styles from node_modules
@@ -59,6 +60,7 @@ import IndividuellerSchichtplan from './views/MainViews/Themen/IndividuellerSchi
 import AutomatisierteBefüllung from './views/MainViews/SchichtplanDetails/AutomatisierteBefüllung';
 import Anpassungen from './views/MainViews/Themen/Anpassungen';
 import CookieConsent from "react-cookie-consent";
+import SelectNewPassword from './components/Auth/AuthComponents/SelectNewPassword';
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -71,6 +73,7 @@ ReactDOM.render(
         <Route path="/" element={<Landing/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
+        <Route path="/setnewpassword" element={<SelectNewPassword/>} />
         <Route path="/admin"/>
           <Route path="/admin/index" element={<AdminDashboard />} />
           <Route path="/admin/schichtplan" element={<Schichtplan />} />

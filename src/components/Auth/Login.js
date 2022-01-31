@@ -204,7 +204,6 @@ const Login = () => {
         Auth.verifyCurrentUserAttribute("email")
         .then(() => {
             console.log('a verification code is sent');
-            setAuthState(AuthState.VerifyingAttributes)
         })
         .catch((e) => {
             console.log('failed with error', e);
@@ -222,16 +221,7 @@ const Login = () => {
                 setIsValid={setIsValid}
                 ></ChangeInitalPassword>
             )
-        } else if (authState === AuthState.VerifyingAttributes) {
-            return (
-                <VerifyEmployeeMail
-                handleInputChange={handleInputChange}
-                confirmUserAttribute={confirmUserAttribute}
-                sendVerifyCurrentUserAttribute={sendVerifyCurrentUserAttribute}
-                code={code}
-                ></VerifyEmployeeMail>
-            )
-        } else if (authState === AuthState.ConfirmSignUp) {
+        }  else if (authState === AuthState.ConfirmSignUp) {
             return (
                 <ConfirmTenant
                 handleInputChange={handleInputChange}

@@ -30,6 +30,7 @@ import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constan
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import ThemenSlider from "../Themen/ThemenSlider";
+import TrialBanner from "../sub/TrialBanner";
 
 
 function ErsteAnmeldung (props) {
@@ -54,6 +55,7 @@ function ErsteAnmeldung (props) {
           <meta name="description" content={ERSTEANMELDUNG_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/erste-anmeldung" />
         </Helmet>
+        <TrialBanner></TrialBanner>
        <LandingNavBar
               logo={{
                 innerLink: "/",

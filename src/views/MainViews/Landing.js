@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 // nodejs library that concatenates classes
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
@@ -27,6 +27,7 @@ import BildSchichtplanErstellen from "../../assets/img/theme/Schichtplan-erstell
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
 import BefuellungStarten from "../../assets/img/landing/Befuellung-starten.png"
 import SchichtplanVeroeffentlichen from "../../assets/img/landing/Schichtplan-veroeffentlichen.png"
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import {isMobile} from 'react-device-detect';
 
 
@@ -38,8 +39,11 @@ import {
   Row,
   Badge,
   Col,
+  Button,
   CardTitle,
   CardText,
+  UncontrolledAlert,
+  Alert,
   CardSubtitle
 } from "reactstrap";
 // core components
@@ -51,14 +55,23 @@ import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png"
 import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png"
 import AppEintragen from "../../assets/img/app/App-eintragen-uebersicht-smartphone.png"
 import ThemenSlider from "./Themen/ThemenSlider";
+import TrialBanner from "./sub/TrialBanner";
 
 
 const Landing = (props) => {
   const [state, setState] = useState({})
-
+  const SchichtplanSchritteRef = useRef()
   useEffect(() => {
     pageViewsTracking()
   },[])
+
+
+  function setSchichtplanSchritteTop(event) {
+    SchichtplanSchritteRef.current.focus()
+
+    console.log(SchichtplanSchritteRef);
+    window.scrollTo({ behavior: 'smooth', top: SchichtplanSchritteRef.current.offsetTop})
+  }
 
   function pageViewsTracking () {
     const pathname = "/";
@@ -90,9 +103,10 @@ const Landing = (props) => {
           <meta property="twitter:type" content="website"></meta>
           <link rel="canonical" href="https://www.staffbite.de" />
         </Helmet>
+        <TrialBanner></TrialBanner>
           <div className="position-relative">
             {/* shape Hero */}
-            <section className="section section-lg section-hero section-shaped pb-250 bg-gradient-info">
+            <section className="section section-lg section-hero section-shaped pb-150 bg-gradient-info">
               <div className="shape shape-style-1 shape-default">
                 <span />
                 <span />
@@ -104,6 +118,7 @@ const Landing = (props) => {
                 <span />
                 <span />
               </div>
+
             <LandingNavBar
               logo={{
                 innerLink: "/",
@@ -113,7 +128,7 @@ const Landing = (props) => {
             <Row>
               <Container className="py-lg-md-sm d-flex">
                   <Row className="mt-6 ">
-                    <Col md="12" lg="8">
+                    <Col md="12" lg="8" className="slide-from-left-30">
                       <h1 className="display-3 text-white pb-5">
                       Müde vom stundenlangen Schichtplan puzzeln?{" "}
                       </h1>
@@ -126,8 +141,14 @@ const Landing = (props) => {
                         <br/>
                         🔐 Datenschutz nach DSGVO-Richtlinien
                         <br/>
+                        🤝 Probiere es direkt aus - im <Link to="/signup" className="text-light">kostenlosen Probemonat!</Link>
                         <br/>
-                        🤝 Probiere es direkt aus - im <a href="/signup" className="text-light">kostenlosen Probemonat!</a>
+                        <Player 
+                          autoplay
+                          loop
+                          src="../../assets/json/animation/NavbarDashboard.json"
+                          style={{ height: '300px', width: '300px' }}>
+                          </Player>
                         </p>
                     </Col>
                     <Col className="justify-content-center" md="12" lg="4">
@@ -136,7 +157,7 @@ const Landing = (props) => {
                   </Row>
               </Container>
               </Row>
-              <Row className={isMobile ? "pt-9": ""}>
+              <Row className={isMobile ? "pt-4": ""}>
                 <div className="separator separator-bottom separator-skew">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -156,13 +177,19 @@ const Landing = (props) => {
             </section>
             </div>
             <Row>
+            <div ref={SchichtplanSchritteRef}></div>
             <Container className={isMobile ? "pt-9 mt-9": ""}>
-              <Row className="mt-4 text-center">
-                <Col className="" xs="12">
-                  <h2 className="display-3">So funktioniert's - Nur vier Schritte nötig</h2>
+              <Row className=" text-center">
+                <Col  xs="12" >
+                  <h2 className="display-3 opacity-title">So funktioniert's - Nur vier Schritte nötig</h2>
                 </Col>
               </Row>
-              <Row className="pt-6 mx-4">
+              <Row className="mt-4">
+              <Col className="text-center" style={{ transform: "translateY(-50%)", zIndex: 1051}}>
+                <i className="fas fa-angle-down fa-3x slide-down-up-x3" onClick={(event) => setSchichtplanSchritteTop(event)}></i>
+                </Col>
+              </Row>
+              <Row className="pt-6 mx-4" >
                 <Col xs="12">
                 <Row className="text-center">
                     <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6" className="order-sm-2 order-md-1">

@@ -17001,31 +17001,6 @@ a.btn-icon-only {
   transform: translateY(-20px);
   transition: all 0.15s ease;
 }
-.laptop-img {
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in-out;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: ease-in-out;
-  -webkit-animation-name: Floatingy;
-  -moz-animation-name: Floatingy;
-  float: left;
-}
-.laptop-img {
-  -webkit-animation-duration: 14s;
-  -moz-animation-duration: 14s;
-  -webkit-animation-name: Floatingx;
-  -moz-animation-name: Floatingx;
-}
-
-.curved-circle {
-  width: 400px;
-  height: 400px;
-  border-radius: 200px;
-  border: 10px solid black;
-  border-right: 10px solid white;
-  border-bottom: 10px solid white;
-  -webkit-transform:rotate(-45deg)
-}
 @media (prefers-reduced-motion: reduce) {
   .card-lift--hover:hover {
     transition: none;

@@ -42,6 +42,7 @@ import SchichtplanEintragen from "../../../assets/img/app/app-eintragen-smartpho
 import NeewsFeed from "../../../assets/img/app/app-newsfeed-smartphone.png"
 import { isMobile } from "react-device-detect";
 import ThemenSlider from "../Themen/ThemenSlider";
+import TrialBanner from "../sub/TrialBanner";
 
 
 function VorteileTeam (props) {
@@ -66,6 +67,7 @@ function VorteileTeam (props) {
           <meta name="description" content={TEAM_VORTEILE_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/fuer-dein-team" />
         </Helmet>
+        <TrialBanner></TrialBanner>
        <LandingNavBar
               logo={{
                 innerLink: "/",

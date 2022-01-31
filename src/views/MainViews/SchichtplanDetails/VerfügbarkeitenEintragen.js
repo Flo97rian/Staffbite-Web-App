@@ -37,6 +37,7 @@ import TeamVerwalten from "../../../assets/img/themen/SchichtplanErstellen/Possi
 import Possibilities from "../../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
 import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
 import ThemenSlider from "../Themen/ThemenSlider";
+import TrialBanner from "../sub/TrialBanner";
 
 
 function VerfügbarkeitenEintragen (props) {
@@ -61,6 +62,7 @@ function VerfügbarkeitenEintragen (props) {
           <meta name="description" content={VERFÜGBARKEITENEINTRAGEN_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/verfuegbarkeiten-eintragen" />
         </Helmet>
+        <TrialBanner></TrialBanner>
        <LandingNavBar
               logo={{
                 innerLink: "/",

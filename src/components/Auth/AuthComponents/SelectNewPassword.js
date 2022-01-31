@@ -39,25 +39,102 @@ import {
 import LandingNavbar from "../../Navbars/LandingNavbar"
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { Switch, Redirect, Link } from "react-router-dom";
+import { useNavigate, Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
+import ReactGA from "react-ga";
 
 const SelectNewPassword = (props) => {
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [passwordAgain, setPasswordAgain] = useState("")
+    const [isValid, setIsValid] = useState(!1)
+    const [resetted, setResetted] = useState(!1);
+    const [err, setErr] = useState(null)
+    const [msg, setMsg] = useState(null)
+    const [authState, setAuthState] = useState(AuthState.ResetPassword);
+    const [user, setUser] = useState();
+    const [code, setCode] = useState("");
+    const [reset, setReset] = useState(!1);
+    const [tenant, setTenant] = useState(!1);
+    const navigate = useNavigate()
+
+
+    function pageViewsTracking () {
+        const pathname = "/forgotpassword";
+        let pageView;
+        if(pathname === "*") pageView = "/not_found";
+        else pageView = pathname;
+      
+        ReactGA.pageview(pageView);
+      } 
+
+      const handleInputChange = (event) => {
+        let key = event.target.name;
+        let val = event.target.value;
+        if(key === "username" ) {
+            setUsername(val)
+        } else if ( key === "password") {
+            setPassword(val)
+        } else if ( key === "passwordAgain") {
+            setPasswordAgain(val)
+        } else if ( key === "code") {
+            setCode(val)
+        }
+      }
+
+async function resetPassword() {
+    Auth.forgotPassword(username)
+    .then(data => {
+        setReset(!0);
+    })
+    .catch(err => console.log(err));
+
+}
     const handleKeyPress = (event) => {
         if(event.key === 'Enter'){
             props.confirmResetPassword()
         }
       }
+
+      async function confirmResetPassword() {
+        console.log(username, code, password)
+        Auth.forgotPasswordSubmit(username, code, password)
+        .then( user => {
+            setResetted(!0);
+            navigate("/auth")
+        })
+        .catch(err => console.log(err));
+    
+    }
+        useEffect((authState) => {
+           if(authState === undefined) {
+                      Auth.currentAuthenticatedUser().then(authData => {
+                        setAuthState(AuthState.SigningUp);
+                        setUser(authData);
+                      });
+                }
+            return onAuthUIStateChange((nextAuthState, authData) => {
+                setAuthState(nextAuthState);
+                setUser(authData)
+            });
+        }, []);
+    
+        useEffect(() => {
+         }, [user]);
+    
+         useEffect(() => {
+        }, [authState]);
+
     return (
       <>
-      {props.msg !== null && props.msg.changedPassword ? 
+      {msg !== null && msg.changedPassword ? 
             <Alert color="sucess">
             <Row>
               <Col xs="10">
                 <p className="mb-0">Du hast dein Passwort erfolgreich geändert!</p> 
               </Col>
               <Col xs="2">
-                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => props.setMsg("changedPassword", !1)}></i>
+                <i className="fas fa-times float-right mb-2 mr-2 mt-2 pt-0" onClick={() => setMsg("changedPassword", !1)}></i>
               </Col>
             </Row>
             </Alert>
@@ -93,7 +170,7 @@ const SelectNewPassword = (props) => {
                                 placeholder="Email" 
                                 type="email" 
                                 name="username" 
-                                onChange={(e) => props.handleInputChange(e)}
+                                onChange={(e) => handleInputChange(e)}
                                 />
                             </InputGroup>
                             </FormGroup>
@@ -109,7 +186,7 @@ const SelectNewPassword = (props) => {
                                 type="password"
                                 name="password"
                                 autoComplete="off"
-                                onChange={(e) => props.handleInputChange(e)}
+                                onChange={(e) => handleInputChange(e)}
                                 />
                             </InputGroup>
                             </FormGroup>
@@ -124,18 +201,20 @@ const SelectNewPassword = (props) => {
                                 placeholder="Bestätigungcode" 
                                 type="number" 
                                 name="code" 
-                                onChange={(e) => props.handleInputChange(e)}
+                                onChange={(e) => handleInputChange(e)}
                                 onKeyPress={(event) => handleKeyPress(event)}
                                 />
                             </InputGroup>
                             </FormGroup>
                             <PasswordChecklist
-                                rules={["minLength","number"]}
-                                minLength={6}
-                                value={props.code}
+                                rules={["minLength","specialChar","number","capital"]}
+                                minLength={8}
+                                value={password}
                                 messages={{
-                                    minLength: "Länge 6",
-                                    number: "Zahlen",
+                                    minLength: "Mindestlänge 8",
+                                    specialChar: "Sonderzeichen",
+                                    number: "Zahl",
+                                    capital: "Großbuchstabe",
                                 }}
                             />
                             <div className="text-center">
@@ -143,7 +222,7 @@ const SelectNewPassword = (props) => {
                                 className="my-4"
                                 color="primary"
                                 type="button"
-                                onClick={() => props.confirmResetPassword()}
+                                onClick={() => confirmResetPassword()}
                             >
                                 Passwort festlegen
                             </Button>
@@ -158,7 +237,7 @@ const SelectNewPassword = (props) => {
                                 size="sm"
                                 color=""
                                 type="button"
-                                onClick={() => props.resetPassword()}
+                                onClick={() => resetPassword()}
                             >
                                 Erneut senden
                             </Button>

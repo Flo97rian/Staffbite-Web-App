@@ -109,19 +109,8 @@ async function confirmResetPassword() {
         navigate("/auth")
         return null
     } else if(reset) {
-        return (
-            <SelectNewPassword
-            handleInputChange={handleInputChange}
-            resetPassword={resetPassword}
-            confirmResetPassword={confirmResetPassword}
-            setMsg={setMsg}
-            msg={msg}
-            username={username}
-            password={password}
-            passwordAgain={passwordAgain}
-            code={code}
-            ></SelectNewPassword>
-        )
+        navigate("/setnewpassword")
+        return null
     } else if(authState === AuthState.ResetPassword) {
         return (
             <ResetPassword

@@ -39,6 +39,7 @@ import SchichtplanVorlageVerwenden from "../../../assets/img/landing/Schichtplan
 import SchichtplanVorlageFertig from "../../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageFertig.png"
 import { isMobile } from "react-device-detect";
 import ThemenSlider from "../Themen/ThemenSlider";
+import TrialBanner from "../sub/TrialBanner";
 
 
 function SchichtplanErstellen (props) {
@@ -63,6 +64,7 @@ function SchichtplanErstellen (props) {
           <meta name="description" content={SCHICHTPLANERSTELLEN_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/schichtplan-erstellen" />
         </Helmet>
+        <TrialBanner></TrialBanner>
        <LandingNavBar
               logo={{
                 innerLink: "/",
