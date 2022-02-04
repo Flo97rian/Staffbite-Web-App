@@ -143,12 +143,13 @@ const Landing = (props) => {
                         <br/>
                         🤝 Probiere es direkt aus - im <Link to="/signup" className="text-light">kostenlosen Probemonat!</Link>
                         <br/>
-                        <Player 
+                        {/* <Player 
                           autoplay
                           loop
                           src="../../assets/json/animation/NavbarDashboard.json"
                           style={{ height: '300px', width: '300px' }}>
                           </Player>
+                        */}
                         </p>
                     </Col>
                     <Col className="justify-content-center" md="12" lg="4">

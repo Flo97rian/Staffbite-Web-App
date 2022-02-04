@@ -9,9 +9,9 @@ import {
   } from "reactstrap";
 
 const TrialBanner = () => {
-    if(isMobile) {
+    if(!isMobile) {
         return (
-            <UncontrolledAlert color="info" className="fixed-bottom mx-4" fade={false}>
+            <UncontrolledAlert color="info" className="fixed-bottom mx-4 mb-5" fade={false}>
             <Row className="">
               <Col xs="1" className="justify-content-center text-center">
             <span className="alert-inner--icon">
