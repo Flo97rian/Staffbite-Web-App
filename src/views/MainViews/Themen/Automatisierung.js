@@ -143,7 +143,7 @@ function Automatisierung (props) {
                 </Col>
                 </Row>
                     <p className="lead">
-                    Den fertigen Schichtplan kann jetzt dein gesamtes Team einsehen. Falls einer deiner Mitarbeiter*innen jetzt eine Schicht absagen muss, kann sie dies direkt über unsere Lösung tun. Wie genau deine Team untereinander Schichten tauschen kann, zeige ich dir in einem anderen Beitrag.
+                    Den fertigen Schichtplan kann jetzt dein gesamtes Team einsehen. Falls einer deiner Mitarbeiter*innen jetzt eine Schicht absagen muss, kann sie dies direkt über Staffbite tun. Wie genau deine Team untereinander Schichten tauschen kann, zeige ich dir in einem anderen Beitrag.
                     </p>
                     <h2>Probiere es jetzt aus</h2>
                     <p className="lead">

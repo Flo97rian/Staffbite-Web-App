@@ -78,7 +78,7 @@ function ErsteAnmeldung (props) {
                   <br/>
                   Um dir den Einstieg so leicht wie möglich zu machen, haben wir ein Video vorbereitet.
                   <br/>
-                  In diesem Video zeige ich dir die ersten Schritte mit unserer Lösung.
+                  In diesem Video zeige ich dir die ersten Schritte mit Staffbite.
                   <br/>
                   <br/>
                   Wenn zunächst mehr über die Erstellung von Schichtplänen lernen willst, schau dir unten auf dieser Seite doch mal unseren Blog an!

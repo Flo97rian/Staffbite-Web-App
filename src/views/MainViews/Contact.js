@@ -143,16 +143,16 @@ function Contact (props) {
                 <Col lg="12">
                   <Card className="bg-white shadow mb-4 mt-4">
                     <CardBody className="p-lg-5">
-                      <p className="ml-1 mb-3">Du möchtest Staffbite testen oder hast Fragen?</p>
+                      <p className="ml-1 mb-3">Du möchtest ein Erstgespräch vereinbaren, um zu erfahren ob Staffbite zu dir passt oder hast weitere Fragen?</p>
                       <Row className="ml-1">
                       <p className="mb-3 mr-1">Schreib uns an </p>
                       <p className="font-weight-bold mb-0 mr-1">info@staffbite.de </p> 
                       <p className="mb-3">oder füll das Formular unten aus.</p>
                       </Row>
                       <Row className="ml-1">
-                        <p className="mb-3 mr-1">Oder starte direkt in useren </p>
+                        <p className="mb-3 mr-1">Du kannst auch direkt in deinen</p>
                         <Link to="/auth" > kostenlosen Probemonat</Link>
-                        <p className="mb-0 ml-1"> und bilde dir eine eigene Meinung!</p>
+                        <p className="mb-0 ml-1"> starten und dir eine eigene Meinung bilden!</p>
                       </Row>
                       <Row className="ml-1">
                         <p className="mb-3 ml-1"> Wir freuen uns über dein Feedback! </p>

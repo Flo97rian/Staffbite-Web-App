@@ -122,7 +122,7 @@ function Shiftplan (props) {
               <Col className="order-md-1 pr-md-5" md="12" lg="6">
                     <h2 className="h3">Einfache und unkomplizierte Schichtpläne für dich und dein Team </h2>
                     <p>
-                    Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. Du kannst mit wenigen Klicks die wichtigsten Informationen zu deinen Schichten angeben. Den vorbereiteten Plan gibst du anschließend deinem Team frei. 
+                    Mit Staffbite kannst du in kürzester Zeit deine Schichtpläne digital erstellen. Du kannst mit wenigen Klicks die wichtigsten Informationen zu deinen Schichten angeben. Den vorbereiteten Plan gibst du anschließend deinem Team frei. 
                     </p>
                     <p>
                     Jetzt musst du nur noch abwarten, bis dein Team sich in den Plan eingetragen hat. Dein Team bekommt ebenfalls einen Zugang zu Staffbite und kann sich jederzeit per Smartphone, Tablet oder Laptop in den Plan eintragen. Über unser Reporting kannst du außerdem nachschauen wer sich noch nicht eingetragen hat. 

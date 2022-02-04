@@ -40,8 +40,6 @@ import {
 // core components
 import { pageview } from "react-ga";
 import ReactGA from "react-ga";
-import Paperwork from "../../assets/img/themen/AutomatisierteBefüllung/PaperworkImage.png"
-import Possibilities from "../../assets/img/themen/SchichtplanErstellen/Possibilities.png"
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { Helmet } from "react-helmet";
@@ -201,7 +199,7 @@ const Pricing = (props) => {
                     <h3 className="h1 text-white display-2">
                         + 2,50 €
                       </h3>
-                      <span class="text-white ls-1 p">pro Mitarbeiter pro Monat</span>
+                      <span class="text-white ls-1 p">pro Mitarbeiter*in pro Monat</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
                           <Button className="btn-icon btn-3" color="success" type="button"
