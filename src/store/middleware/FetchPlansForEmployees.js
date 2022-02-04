@@ -12,19 +12,20 @@ export async function FetchEmployeePlansFromDB(dispatch, getState) {
         return API.post(apiName, path, myInit)
         })
         .then(response => {
-            console.log(response);
-            let plans = response.map(item => {
-                return {
-                    id: item.SK["S"],
-                    name: item.name["S"],
-                    plan: JSON.parse(item.data["S"]),
-                    schichtentag: item.schichtentag["N"],
-                    zeitraum: item.zeitraum["S"],
-                    tauschanfrage: JSON.parse(item.tauschanfrage["S"])
-                };
-            });
-            // Add your code here
-            dispatch({type: "All/GetPlansForEmployee", payload: plans})
-            dispatch({ type: "resetShiftplanChanged"})
+            if(typeof response === "object") {
+                let plans = response.map(item => {
+                    return {
+                        id: item.SK["S"],
+                        name: item.name["S"],
+                        plan: JSON.parse(item.data["S"]),
+                        schichtentag: item.schichtentag["N"],
+                        zeitraum: item.zeitraum["S"],
+                        tauschanfrage: JSON.parse(item.tauschanfrage["S"])
+                    };
+                });
+                // Add your code here
+                dispatch({type: "All/GetPlansForEmployee", payload: plans})
+                dispatch({ type: "resetShiftplanChanged"})
+            }
             })
     }

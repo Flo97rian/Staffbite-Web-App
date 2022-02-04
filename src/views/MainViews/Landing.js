@@ -71,8 +71,6 @@ const Landing = (props) => {
 
   function setSchichtplanSchritteTop(event) {
     SchichtplanSchritteRef.current.focus()
-
-    console.log(SchichtplanSchritteRef);
     window.scrollTo({ behavior: 'smooth', top: SchichtplanSchritteRef.current.offsetTop})
   }
 
@@ -109,17 +107,8 @@ const Landing = (props) => {
         <TrialBanner></TrialBanner>
           <div className="position-relative">
             {/* shape Hero */}
-            <section className="section section-lg section-hero section-shaped pb-150 bg-gradient-info">
+            <section className="section section-lg section-hero section-shaped pb-250 bg-gradient-info">
               <div className="shape shape-style-1 shape-default">
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
               </div>
 
             <LandingNavBar
@@ -128,15 +117,16 @@ const Landing = (props) => {
                 imgSrc: require("../../assets/img/brand/Staffbite_Logo.png").default,
                 imgAlt: "Das Logo von Staffbite",
                 }}/>
-            <Row>
-              <Container className="py-lg-md-sm d-flex">
-                  <Row className="mt-6 ">
+              <Container className="">
+                  <Row className="mt-4 pt-6">
                     <Col md="12" lg="12" className="slide-from-left-30">
                       <h1 className="display-3 text-white pb-5">
                       Dein digitaler Schichtplan - online & als App
                       {" "}
                       </h1>
                       </Col>
+                  </Row>
+                  <Row>
                       <Col md="12" lg="6">
                         <p className="lead text-white">
                         💻 Mit wenigen Klicks zu deinem Schichtplan 
@@ -151,7 +141,8 @@ const Landing = (props) => {
                         <br/>
                         <br/>
                         
-                        <Row>
+                        <Row className="">
+                          <Col xs="12" lg="6" className="mt-2">
                         <Link to="/signup">
                         <Button className="btn-icon btn-3" color="success" type="button"
                         onClick={
@@ -162,9 +153,10 @@ const Landing = (props) => {
                             })}
                           ><p className="p-0 m-0">Kostenlos ausprobieren</p></Button>
                         </Link>
-
+                        </Col>
+                        <Col xs="12" lg="6" className="mt-2">
                         <Link to="/themen">
-                        <Button className="btn-icon btn-3 ml-4" color="white" type="button"
+                        <Button className="btn-icon btn-3" color="white" type="button"
                         onClick={
                           () => 
                           ReactGA.event({
@@ -173,6 +165,7 @@ const Landing = (props) => {
                           })}
                         ><p className="p-0 m-0">Mehr erfahren</p></Button>
                         </Link>
+                        </Col>
                         </Row>
                         {/* <Player 
                           autoplay
@@ -183,32 +176,29 @@ const Landing = (props) => {
                         */}
                         </p>
                     </Col>
-                    <Col className="justify-content-center" md="12" lg="4">
+                    <Col className="justify-content-center" md="12" lg="6">
                           <ErstellenShow></ErstellenShow>
                     </Col>                    
                   </Row>
               </Container>
-
-              </Row>
-              <Row className={isMobile ? "pt-4": ""}>
-                <div className="separator separator-bottom separator-skew">
+                <div className="separator separator-bottom">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   preserveAspectRatio="none"
                   version="1.1"
-                  viewBox="0 0 2560 100"
+                  viewBox="0 0 2560 100 "
                   x="0"
                   y="0"
                 >
                   <polygon
                     className="fill-secondary"
-                    points="2560 0 2560 100 0 100"
+                    points="2560 0 2560 250 0 100"
                   />
                 </svg>
               </div>
-              </Row>
             </section>
             </div>
+            
             <Row>
             <div ref={SchichtplanSchritteRef}></div>
             <Container className={isMobile ? "pt-9 mt-9": ""}>
