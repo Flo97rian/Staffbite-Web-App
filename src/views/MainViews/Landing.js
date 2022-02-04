@@ -174,13 +174,13 @@ const Landing = (props) => {
                         ><p className="p-0 m-0">Mehr erfahren</p></Button>
                         </Link>
                         </Row>
-
-                        <Player 
+                        {/* <Player 
                           autoplay
                           loop
                           src="../../assets/json/animation/NavbarDashboard.json"
                           style={{ height: '300px', width: '300px' }}>
                           </Player>
+                        */}
                         </p>
                     </Col>
                     <Col className="justify-content-center" md="12" lg="4">
