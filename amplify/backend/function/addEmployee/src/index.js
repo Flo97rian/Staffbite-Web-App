@@ -43,6 +43,10 @@ const createUserInCognito = async (event, body, user) => {
               Name: 'custom:TenantId', /* required */
               Value: user["sub"]
             },
+            {
+                Name: "email_verified",
+                Value: "true"
+            }
           ],
           ValidationData: [
             {

@@ -36,6 +36,7 @@ import {SCHICHTPLAN_VEROEFFENTLICHEN_TITLE, SCHICHTPLAN_VEROEFFENTLICHEN_DESCRIP
 import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png";
 import ThemenSlider from "../Themen/ThemenSlider";
+import TrialBanner from "../sub/TrialBanner";
 
 
 function SchichtplanVeroeffentlichen (props) {
@@ -60,6 +61,7 @@ function SchichtplanVeroeffentlichen (props) {
           <meta name="description" content={SCHICHTPLAN_VEROEFFENTLICHEN_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/schichtplan-veroeffentlichen" />
         </Helmet>
+        <TrialBanner></TrialBanner>
        <LandingNavBar
               logo={{
                 innerLink: "/",

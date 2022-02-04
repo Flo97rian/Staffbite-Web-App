@@ -15,9 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
+import classnames from "classnames";
 import {
   Container,
   Row,
@@ -27,6 +28,9 @@ import {
   CardImg,
   Card,
   CardTitle,
+  Nav,
+  NavItem,
+  NavLink,
   CardText,
   CardSubtitle,
   Col,
@@ -45,10 +49,14 @@ import ThemenSlider from "./Themen/ThemenSlider";
 
 
 const Pricing = (props) => {
+  const [navIndex, setNavIndex] = useState(1);
   let mainContent = useRef("mainContent")
   useEffect(() => {
     pageViewsTracking()
   },[])
+
+
+
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -64,6 +72,155 @@ const Pricing = (props) => {
   
     ReactGA.pageview(pageView);
   } 
+
+  function setNavPill() {
+    if (navIndex === 1) {
+        return(showFixPricing())
+      } else if (navIndex === 2){
+      return( showFlexiblePricing())
+    }
+  }
+
+
+  function showFixPricing() {
+    return(
+      <Row className="justify-content-center mb-4 mt-6">
+                <Col xs="12" md="4">
+                  <Card className="card-pricing bg-gradient-white zoom-in shadow-lg rounded border-0 text-center mb-4 card">
+                  <CardHeader className="bg-transparent card-header">
+                      <h2 className="h1 ls-1 text-info lead py-3 mb-0">Bis 25 Mitarbeiter*innen</h2>
+                    </CardHeader>
+                    <CardBody className="p-lg-4">
+                    <h3 className="h1 text-info display-2">
+                        50€
+                      </h3>
+                      <span class="text-info ls-1 p">pro Monat</span>
+                      <Row className="align-items-center justify-content-center mt-6">
+                        <Link to="/signup">
+                          <Button className="btn-icon btn-3" color="success" type="button"
+                          onClick={
+                            () => 
+                            ReactGA.event({
+                              category: 'Pricing',
+                              action: 'Auswahl Kategorie bis 25'
+                            })}
+                          ><p className="p-0 m-0">Auswählen</p></Button>
+                        </Link>
+                      </Row>
+                    </CardBody>
+                    <CardFooter className="bg-transparent card-footer p-lg-5 mt-0 pt-0">
+                    <span class="h1 text-info ls-1 p"><del>600€</del><br/></span>
+                    <h3 className="h1 text-info display-3">
+                      540€
+                    </h3>
+                    <span class="text-info ls-1 p">10% sparen <br/></span>
+                    <span class="text-info ls-1 p">bei jährlicher Zahlweise</span>
+                    </CardFooter>
+                  </Card>
+                </Col>
+                <Col xs="12" md="4">
+                  <Card className="card-pricing bg-gradient-info zoom-in shadow-lg rounded border-0 text-center mb-4 card">
+                  <CardHeader className="bg-transparent card-header">
+                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Bis 50 Mitarbeiter*innen</h2>
+                    </CardHeader>
+                    <CardBody className="p-lg-4">
+                    <h3 className="h1 text-white display-2">
+                        100€
+                      </h3>
+                      <span class="text-white ls-1 p">pro Monat</span>
+                      <Row className="align-items-center justify-content-center mt-6">
+                        <Link to="/signup">
+                          <Button className="btn-icon btn-3" color="success" type="button"
+                          onClick={
+                            () => 
+                            ReactGA.event({
+                              category: 'Pricing',
+                              action: 'Auswahl Kategorie bis 50'
+                            })}
+                          ><p className="p-0 m-0">Auswählen</p></Button>
+                        </Link>
+                      </Row>
+                    </CardBody>
+                    <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
+                    <span class="h1 text-white ls-1 p"><del>1.200€</del><br/></span>
+                    <h3 className="h1 text-white display-3">
+                      1.080€
+                    </h3>
+                    <span class="text-white ls-1 p">10% sparen<br/></span>
+                    <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
+                    </CardFooter>
+                  </Card>
+                </Col>
+                <Col xs="12" md="4">
+                  <Card className="card-pricing bg-gradient-success zoom-in shadow-lg rounded border-0 text-center mb-4 card">
+                  <CardHeader className="bg-transparent card-header">
+                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Ab 51 Mitarbeiter*innen</h2>
+                    </CardHeader>
+                    <CardBody className="p-lg-4">
+                    <h3 className="h1 text-white display-2">
+                        150€
+                      </h3>
+                      <span class="text-white ls-1 p">pro Monat</span>
+                      <Row className="align-items-center justify-content-center mt-6">
+                        <Link to="/signup">
+                          <Button className="btn-icon btn-3" color="primary" type="button"
+                          onClick={
+                            () => 
+                            ReactGA.event({
+                              category: 'Pricing',
+                              action: 'Auswahl Kategorie ab 50'
+                            })}
+                          ><p className="p-0 m-0">Auswählen</p></Button>
+                        </Link>
+                      </Row>
+                    </CardBody>
+                    <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
+                    <span class="h1 text-white ls-1 p"><del>1.800€</del><br/></span>
+                    <h3 className="h1 text-white display-3">
+                      1.620€
+                    </h3>
+                    <span class="text-white ls-1 p">10% sparen<br/></span>
+                    <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
+                    </CardFooter>
+                  </Card>
+                </Col>
+              </Row>
+    )
+  }
+
+  function showFlexiblePricing() {
+    return(
+      <Row className="justify-content-center mb-4 mt-6">
+        <Col lg="3"></Col>
+         <Col lg="6">
+                  <Card className="card-pricing bg-gradient-info zoom-in shadow-lg rounded border-0 text-center mb-4 card">
+                  <CardHeader className="bg-transparent card-header">
+                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Grundgebühr 10 €</h2>
+                    </CardHeader>
+                    <CardBody className="p-lg-4">
+                    <h3 className="h1 text-white display-2">
+                        + 2,50 €
+                      </h3>
+                      <span class="text-white ls-1 p">pro Mitarbeiter pro Monat</span>
+                      <Row className="align-items-center justify-content-center mt-6">
+                        <Link to="/signup">
+                          <Button className="btn-icon btn-3" color="success" type="button"
+                          onClick={
+                            () => 
+                            ReactGA.event({
+                              category: 'Pricing',
+                              action: 'Variabler Preis'
+                            })}
+                          ><p className="p-0 m-0">Auswählen</p></Button>
+                        </Link>
+                      </Row>
+                    </CardBody>
+                  </Card>
+                </Col>
+            <Col lg="3"></Col>
+      </Row>
+    )
+  }
 
     return (
     <div ref={mainContent}>
@@ -136,85 +293,50 @@ const Pricing = (props) => {
                     </Row>
                   </Card>
                 </Container>
-        <Container className="mb-4 pt-4">
-              <Row className="justify-content-center mb-4 mt-4">
-                <Col lg="4">
-                  <Card className="card-pricing bg-gradient-white zoom-in shadow-lg rounded border-0 text-center mb-4 card">
-                  <CardHeader className="bg-transparent card-header">
-                      <h2 className="h1 ls-1 text-info lead py-3 mb-0">Bis 25 Mitarbeiter*innen</h2>
-                    </CardHeader>
-                    <CardBody className="p-lg-4">
-                    <h3 className="h1 text-info display-2">
-                        50€
-                      </h3>
-                      <span class="text-info ls-1 p">pro Monat</span>
-                      <Row className="align-items-center justify-content-center mt-6">
-                        <Link to="/signup">
-                          <Button className="btn-icon btn-3" color="success" type="button"><p className="p-0 m-0">Auswählen</p></Button>
-                        </Link>
-                      </Row>
-                    </CardBody>
-                    <CardFooter className="bg-transparent card-footer p-lg-5 mt-0 pt-0">
-                    <span class="text-info ls-1 p">10% sparen</span>
-                    <h3 className="h1 text-info display-3">
-                      540€
-                    </h3>
-                    <span class="text-info ls-1 p">bei jährlicher Zahlweise</span>
-                    </CardFooter>
-                  </Card>
-                </Col>
-                <Col lg="4">
-                  <Card className="card-pricing bg-gradient-info zoom-in shadow-lg rounded border-0 text-center mb-4 card">
-                  <CardHeader className="bg-transparent card-header">
-                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Bis 50 Mitarbeiter*innen</h2>
-                    </CardHeader>
-                    <CardBody className="p-lg-4">
-                    <h3 className="h1 text-white display-2">
-                        100€
-                      </h3>
-                      <span class="text-white ls-1 p">pro Monat</span>
-                      <Row className="align-items-center justify-content-center mt-6">
-                        <Link to="/signup">
-                          <Button className="btn-icon btn-3" color="success" type="button"><p className="p-0 m-0">Auswählen</p></Button>
-                        </Link>
-                      </Row>
-                    </CardBody>
-                    <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
-                    <span class="text-white ls-1 p">10% sparen</span>
-                    <h3 className="h1 text-white display-3">
-                      1.080€
-                    </h3>
-                    <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
-                    </CardFooter>
-                  </Card>
-                </Col>
-                <Col lg="4">
-                  <Card className="card-pricing bg-gradient-success zoom-in shadow-lg rounded border-0 text-center mb-4 card">
-                  <CardHeader className="bg-transparent card-header">
-                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Ab 51 Mitarbeiter*innen</h2>
-                    </CardHeader>
-                    <CardBody className="p-lg-4">
-                    <h3 className="h1 text-white display-2">
-                        150€
-                      </h3>
-                      <span class="text-white ls-1 p">pro Monat</span>
-                      <Row className="align-items-center justify-content-center mt-6">
-                        <Link to="/signup">
-                          <Button className="btn-icon btn-3" color="primary" type="button"><p className="p-0 m-0">Auswählen</p></Button>
-                        </Link>
-                      </Row>
-                    </CardBody>
-                    <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
-                    <span class="text-white ls-1 p">10% sparen</span>
-                    <h3 className="h1 text-white display-3">
-                      1.620€
-                    </h3>
-                    <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
-                    </CardFooter>
-                  </Card>
-                </Col>
-              </Row>
-            </Container>
+                <Container className="mt-4 pb-4">
+        <Nav
+          className="nav-fill flex-column flex-sm-row"
+          id="tabs-text"
+          pills
+          role="tablist"
+        >
+          <NavItem>
+            <NavLink
+              aria-selected={navIndex === 1}
+              className={classnames("mb-sm-3 mb-md-0 text-muted nav_betrieb", {
+                active: navIndex === 1
+              })}
+              onClick={() => setNavIndex(1)}
+              href="#pablo"
+              role="tab"
+            >
+              {navIndex === 1 ? 
+              <p className="m-0 text-white">Festpreis</p>
+              :
+              <p className="m-0 text-muted">Festpreis</p>
+              }
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              aria-selected={navIndex === 2}
+              className={classnames("mb-sm-3 mb-md-0 nav_shiftplan", {
+                active: navIndex === 2
+              })}
+              onClick={() => setNavIndex(2)}
+              href="#pablo"
+              role="tab"
+            >
+              {navIndex === 2 ? 
+              <p className="m-0 text-white">Variable Preise</p>
+              :
+              <p className="m-0 text-muted">Variable Preise</p>
+              }
+            </NavLink>
+          </NavItem>
+        </Nav>
+        {setNavPill()}
+      </Container>
       </Container>
       <Container className="pt-5" fluid>
           <Container className="mt-6">

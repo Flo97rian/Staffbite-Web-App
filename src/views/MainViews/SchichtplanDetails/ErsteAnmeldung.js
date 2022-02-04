@@ -23,23 +23,14 @@ import ReactGA from "react-ga";
 import {
   Container,
   Row,
-  Col,
-  Card,
-  CardImg,
-  CardText,
-  CardSubtitle,
-  CardTitle
+  Col
 } from "reactstrap";
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
-import VorlageThumbnail from "../../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageThumbnail.png"
-import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShiftplan-min.png"
-import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
-import Calendar from "../../../assets/img/themen/Monatsplanung/CalendarImage.png"
-import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import ThemenSlider from "../Themen/ThemenSlider";
+import TrialBanner from "../sub/TrialBanner";
 
 
 function ErsteAnmeldung (props) {
@@ -64,6 +55,7 @@ function ErsteAnmeldung (props) {
           <meta name="description" content={ERSTEANMELDUNG_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/erste-anmeldung" />
         </Helmet>
+        <TrialBanner></TrialBanner>
        <LandingNavBar
               logo={{
                 innerLink: "/",
@@ -82,11 +74,14 @@ function ErsteAnmeldung (props) {
                 <Row className="text-center">
                 <Col>
                 <p className="lead">
-                  Wir freuen uns, dass du dich für Staffbite interessierst.
+                  Wir freuen uns, dass du mehr über Staffbite erfahren willst.
                   <br/>
                   Um dir den Einstieg so leicht wie möglich zu machen, haben wir ein Video vorbereitet.
                   <br/>
                   In diesem Video zeige ich dir die ersten Schritte mit unserer Lösung.
+                  <br/>
+                  <br/>
+                  Wenn zunächst mehr über die Erstellung von Schichtplänen lernen willst, schau dir unten auf dieser Seite doch mal unseren Blog an!
                 </p>
                 </Col>
                 </Row>
@@ -105,11 +100,10 @@ function ErsteAnmeldung (props) {
                   <p className="lead">
                     Um dich das erste Mal bei Staffbite anzumelden, musst du dich zunächst registrieren. 
                     <br/>
-                    Klicke dafür einfach oben rechts auf <Link to="/signup">"Kostenlos testen"</Link> und gib die benötigten Daten ein.
+                    Klicke dafür einfach oben rechts auf <Link to="/signup">Kostenlos testen</Link> und gib die benötigten Daten ein.
                   <br/>
                     Nachdem du deinen Account verifiziert hast, kannst du sofort loslegen! Herbei fallen keinerlei Kosten an.
-                    <br/>
-                    Wenn du mehr über unsere Lösung erfahren willst, klick einfach unten auf eines der Bilder.
+                    
                   </p>    
                 </Col>
 

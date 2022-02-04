@@ -8,6 +8,7 @@ import ReactGA from 'react-ga';
 import "./assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/argon-dashboard-react.scss";
+import "./assets/css/staffbite.css"
 import "./assets/vendor/font-awesome/css/font-awesome.css"
 import "react-notification-alert/dist/animate.css";
 // plugins styles from node_modules
@@ -58,7 +59,9 @@ import AutomatisierteBefüllungStarten from './views/MainViews/Themen/Automatisi
 import IndividuellerSchichtplan from './views/MainViews/Themen/IndividuellerSchichtplan';
 import AutomatisierteBefüllung from './views/MainViews/SchichtplanDetails/AutomatisierteBefüllung';
 import Anpassungen from './views/MainViews/Themen/Anpassungen';
+import Veröffentlichung from './views/MainViews/Themen/Veröffentlichung'
 import CookieConsent from "react-cookie-consent";
+import SelectNewPassword from './components/Auth/AuthComponents/SelectNewPassword';
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -71,6 +74,7 @@ ReactDOM.render(
         <Route path="/" element={<Landing/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
+        <Route path="/setnewpassword" element={<SelectNewPassword/>} />
         <Route path="/admin"/>
           <Route path="/admin/index" element={<AdminDashboard />} />
           <Route path="/admin/schichtplan" element={<Schichtplan />} />
@@ -96,6 +100,7 @@ ReactDOM.render(
         <Route path="/themen/individueller-schichtplan" element={<IndividuellerSchichtplan />} />
         <Route path="/themen/automatisierte-befuellung-starten" element={<AutomatisierteBefüllungStarten />} />
         <Route path="/themen/anpassungen-vornehmen" element={<Anpassungen />} />
+        <Route path="/themen/schichtplan-veroeffentlichen" element={<Veröffentlichung />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
         <Route path="/pricing" element={ <Pricing  />} />
@@ -122,8 +127,8 @@ ReactDOM.render(
   declineButtonStyle={{ color: "white", backgroundColor: "#adb5bd",fontSize: "13px", borderRadius: "5px" }}
   expires={426}
 >
-  Diese Seite benutzt Cookies, um das Nutzererlebnis zu verbessern. Beim benutzen dieser Seite stimmen Sie den Cookies zu.{" "}
-  <a href="https://www.staffbite.de/impressum">Erfahre mehr</a>
+  Diese Seite benutzt Cookies, um das Nutzererlebnis zu verbessern. Bitte stimmen Sie hier dem Einsatz der Cookies zu.{" "}
+  <a href="https://www.staffbite.de/impressum/#sectiondatasecurity">Erfahre mehr</a>
 </CookieConsent>
   </Provider>,
   document.getElementById('root')

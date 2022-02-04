@@ -33,14 +33,13 @@ import {
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {SCHICHTPLANERSTELLEN_TITLE, SCHICHTPLANERSTELLEN_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
-import VorlageErstellen from "../../../assets/img/theme/Vorlage-erstellen.png"
 import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShiftplan-min.png"
-import Schichthinzufuegen from "../../../assets/img/theme/Schicht-hinzufuegen.png"
-import SchichtplanVorlageVerwenden from "../../../assets/img/theme/Schichtplan-vorlage-verwenden.png"
-import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
-import Calendar from "../../../assets/img/themen/Monatsplanung/CalendarImage.png"
+import Schichthinzufuegen from "../../../assets/img/themen/SchichtplanVorlage/Schichtdetailseintragen.png"
+import SchichtplanVorlageVerwenden from "../../../assets/img/landing/SchichtplanErstellen/Schichtplan-vorlage-verwenden.png"
+import SchichtplanVorlageFertig from "../../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageFertig.png"
 import { isMobile } from "react-device-detect";
 import ThemenSlider from "../Themen/ThemenSlider";
+import TrialBanner from "../sub/TrialBanner";
 
 
 function SchichtplanErstellen (props) {
@@ -65,6 +64,7 @@ function SchichtplanErstellen (props) {
           <meta name="description" content={SCHICHTPLANERSTELLEN_DESCRIPTION}/>
           <link rel="canonical" href="https://www.staffbite.de/schichtplan-erstellen" />
         </Helmet>
+        <TrialBanner></TrialBanner>
        <LandingNavBar
               logo={{
                 innerLink: "/",
@@ -93,7 +93,8 @@ function SchichtplanErstellen (props) {
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
-                  Position & Rechte festlegen
+                Beginn & Ende der Schicht bestimmen
+                  
                 </Col>
               </Row>
               <Row>
@@ -101,7 +102,7 @@ function SchichtplanErstellen (props) {
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
-                  Beginn & Ende bestimmen
+                Notizen für dein Team
                 </Col>
               </Row>
               <Row>
@@ -109,24 +110,12 @@ function SchichtplanErstellen (props) {
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
-                  Notizen für dein Team
+                Position & Rechte festlegen
+                  
                 </Col>
               </Row>
               </p>
-              {/*<Row className="mt-6">
-              <p>
-              Du kannst mit wenigen Klicks die wichtigsten Informationen zu deinen Schichten angeben. 
-              <br/>
-              Den vorbereiteten Plan gibst du anschließend deinem Team frei.
-              <br/>
-              <br/>
-              Jetzt musst du nur noch abwarten, bis dein Team sich in den Plan eingetragen hat.
-              <br/> 
-              Dein Team bekommt ebenfalls einen Zugang zu Staffbite und kann sich jederzeit per Smartphone, Tablet oder Laptop in den Plan eintragen. 
-              <br/>
-              Über unser Reporting kannst du außerdem nachschauen wer sich noch nicht eingetragen hat.
-            </p>
-            </Row>*/}
+
             </Col>
           </Row>
                 </Col>
@@ -137,7 +126,7 @@ function SchichtplanErstellen (props) {
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
                     className="mt-2"
                     src={SchichtplanVorlage}
-                    title="Schichtplan Vorlage erstellen"
+                    title="Schichtplan Vorlage"
                     height="80%"
                     width="100%"
                   />
@@ -159,8 +148,8 @@ function SchichtplanErstellen (props) {
                       <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
-                    alt="Abbildung der Erstellung einer anpassbaren Schichtplan Vorlage von Staffbite"
-                    src={VorlageErstellen}
+                    alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                    src={SchichtplanVorlageVerwenden}
                     title="Erstellung Schichtplan Vorlage"
                     height="100%"
                     width="100%"
@@ -174,7 +163,7 @@ function SchichtplanErstellen (props) {
                     <p className="lead">
                     <Row className="mt-2">
                       <Col>
-                        In wenigen Klicks kannst du die wichtigsten Informationen zu deinem Schichtplan angeben.
+                        In wenigen Klicks kannst du die wichtigsten Informationen zu deiner wiederverwendbaren Vorlage angeben.
                     </Col>
                   </Row>
                   <Row className=" mt-4">
@@ -182,7 +171,7 @@ function SchichtplanErstellen (props) {
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
-                  Namen festlegen
+                  Name der Vorlage
                 </Col>
               </Row>
               <Row>
@@ -190,7 +179,7 @@ function SchichtplanErstellen (props) {
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
-                  Schichten bestimmen
+                  Anzahl der Schichten pro Tag
                 </Col>
               </Row>
               <Row>
@@ -203,7 +192,7 @@ function SchichtplanErstellen (props) {
               </Row>
               <Row>
                 <Col className="mt-6">
-                  Weitere Informationen findest du in unserem  Artikel <Link to="/themen/schichtplan-vorlage">Schichtplan Vorlage erstellen</Link>
+                  Weitere Informationen findest du in unserem  Artikel <Link to="/themen/schichtplan-vorlage">Schichtplan Vorlage erstellen.</Link>
                 </Col>
               </Row>
             </p>
@@ -223,15 +212,16 @@ function SchichtplanErstellen (props) {
                         <p className="lead">
                         <Row className="mt-2">
                           <Col>
-                            Als letzten Schritt gibst du die wichtigsten Informationen zu deinen Schichten an. 
+                            Im letzten Schritt gibst du die wichtigsten Informationen zu deinen Schichten an. 
                           </Col>
                       </Row>
-                      <Row className="justify-content-center mt-4">
-                    <Col xs="1" className="mt-2">
+                    
+                    <Row className="justify-content-center mt-4">
+                    <Col xs="1" className="mt-0">
                       <i className="fas fa-check-circle text-success"></i>
                     </Col>
                     <Col>
-                      Namen festlegen
+                      Name der Schicht
                     </Col>
                   </Row>
                   <Row>
@@ -239,7 +229,7 @@ function SchichtplanErstellen (props) {
                       <i className="fas fa-check-circle text-success"></i>
                     </Col>
                     <Col>
-                      Position auswählen
+                      Position
                     </Col>
                   </Row>
                   <Row>
@@ -247,7 +237,7 @@ function SchichtplanErstellen (props) {
                       <i className="fas fa-check-circle text-success"></i>
                     </Col>
                     <Col>
-                      Beginn & Ende bestimmen
+                      Beginn & Ende
                     </Col>
                   </Row>
                   <Row>
@@ -255,7 +245,7 @@ function SchichtplanErstellen (props) {
                       <i className="fas fa-check-circle text-success"></i>
                     </Col>
                     <Col>
-                      Anzahl benötigter Mitarbeiter eintragen
+                      Anzahl benötigter Mitarbeiter 
                     </Col>
                   </Row>
                   <Row>
@@ -270,7 +260,7 @@ function SchichtplanErstellen (props) {
                       <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
-                    alt="Abbildung einer anpassbaren Schichtplan Vorlage in der eine Schicht hinhugefügt wird."
+                    alt="Abbildung einer anpassbaren Schichtplan Vorlage in der eine Schicht hinzugefügt wird."
                     src={Schichthinzufuegen}
                     title="Schicht hinzufuegen"
                     height="100%"
@@ -283,12 +273,12 @@ function SchichtplanErstellen (props) {
                 <Container className="mt-8">
                   <Row className="mt-4 text-center">
                     <Col>
-                          <h2 className="m-0 p-0">Fertigen Schichtplan benutzen</h2>
+                          <h2 className="m-0 p-0">Fertige Schichtplan Vorlage verwenden</h2>
                           </Col>
                 </Row>
                       <Row className="mt-4 mb-4 text-center">
                         <Col>
-                          <p className="m-0">
+                          <p className="lead">
                             Deine neue Schichtplanvorlage kannst du nun verwenden. In unserem Artikel <Link to="/themen/individueller-schichtplan">individuellen Schichtplan erstellen</Link> erfährst du, wie du deinen Schichtplan genau auf deinen Betrieb anpassen kannst.
                           </p>
                         </Col>
@@ -299,7 +289,7 @@ function SchichtplanErstellen (props) {
                     className="shadow"
                     style={{borderRadius: "10px"}}
                     alt="Abbildung einer fertigen Schichtplan Vorlage von Staffbite"
-                    src={SchichtplanVorlageVerwenden}
+                    src={SchichtplanVorlageFertig}
                     title="Fertige Schichtplan Vorlage"
                     height="100%"
                     width="100%"

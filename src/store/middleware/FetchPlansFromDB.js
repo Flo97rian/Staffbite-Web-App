@@ -10,7 +10,6 @@ export async function FetchFromDB(dispatch, getState) {
         };
         return API.post(apiName, path, myInit);
         }).then(response => {
-            console.log(response)
             let plans = response.Items.map(item => {
                 return {
                     id: item.SK["S"],

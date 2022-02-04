@@ -41,6 +41,7 @@ import Calendar from "../../assets/img/themen/Monatsplanung/CalendarImage.png"
 import Individuell from "../../assets/img/themen/IndividuellerSchichtplan/Individuell.png"
 import BefüllungStarten from "../../assets/img/themen/BefüllungStarten/BefüllungStarten.png"
 import Overview from "../../assets/img/theme/AnpassungenOverview.png"
+import VeröffentlichungThumb from "../../assets/img/themen/SchichtplanVeröffentlichen/SchichtplanVeröffentlichenThumbnail.jpg"
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -101,6 +102,29 @@ function Themen (props) {
                 <Card>
                             <CardImg
                             className="p-2"
+                            src={VeröffentlichungThumb}
+                            alt="Schichtplan veröffentlichen"
+                            height="100%"
+                            width="100%"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                                <Link to="/themen/schichtplan-veroeffentlichen" class="stretched-link">Schritt für Schritt: Schichtplan veröffentlichen</Link>
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie kann ich meinen fertigen Schichtplan mit meinem Team teilen?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Artikel zeige ich dir, wie du deinen fertigen Schichtplan veröffentlichst.
+                                    Ich zeige dir, wie du nach deinen letzten Änderungen deinen fertigen Schichtplan mit deinem gesamten Team teilst.
+                            </CardText>
+                            <br/>
+                        </Card>
+            </Col>
+
+            <Col xs="12" md="6">
+                <Card>
+                            <CardImg
+                            className="p-2"
                             src={Overview}
                             alt="Schichtplan online erstellen"
                             height="100%"
@@ -116,11 +140,15 @@ function Themen (props) {
                                     In diesem Artikel zeige ich dir, wie du Anpassungen an deinem Schichtplan vornimmst.
                                     Ich zeige dir, wie du dich selbst in den Plan einträgst oder auf Änderungswünsche deines Team eingehen kannst.
                             </CardText>
-                            <br/>
                         </Card>
             </Col>
+                                
+                </Row>
+                
+                
+                <Row className="mt-2" >
 
-            <Col xs="12" md="6">
+                <Col xs="12" md="6">
                 <Card>
                             <CardImg
                             className="p-2"
@@ -140,14 +168,8 @@ function Themen (props) {
                                     Diese Schritt für Schritt Anleitung zeigt den einfachsten Weg, um die Zuordnung von Mitarbeiter*innen und Schichten innerhalb weniger Sekunden abzubilden.
                             </CardText>
                             <br/>
-                            <br/>
                         </Card>
             </Col>
-                                
-                </Row>
-                
-                
-                <Row className="mt-2" >
 
                 <Col xs="12" md="6">
                 <Card>
@@ -171,7 +193,12 @@ function Themen (props) {
                             <br/>
                         </Card>
             </Col>
-                
+
+                </Row>
+
+
+                <Row className="mt-2" >
+
                 <Col xs="12" md="6">
                         <Card>
                             <CardImg
@@ -189,15 +216,8 @@ function Themen (props) {
                                     In diesem Artikel zeige ich dir, wie du mit Staffbite deine individuelle Vorlage nutzen kannst, um die Schichtplanung für einen ganzen Monat zu erledigen. 
                             </CardText>
                             <br/>
-                            <br/>
                         </Card>
                 </Col>
-
-                </Row>
-
-
-                <Row className="mt-2" >
-
 
                 <Col xs="12" md="6">
                         <Card>
@@ -220,6 +240,10 @@ function Themen (props) {
                         </Card>
                 </Col>
 
+                </Row>
+
+                <Row className="mt-2" >
+
                 <Col xs="12" md="6">
                     <Card>
                             <CardImg
@@ -240,9 +264,6 @@ function Themen (props) {
                         </Card>
                 </Col>
 
-                </Row>
-
-                <Row className="mt-2" >
 
                 <Col xs="12" md="6">
                         <Card>
@@ -263,7 +284,9 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
+                </Row>
 
+                <Row className="mt-2" >
                 <Col xs="12" md="6">
                 <Card>
                             <CardImg
@@ -283,8 +306,9 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
-
+                
                 <Col xs="12" md="6">
+
                 <Card>
                             <CardImg
                             className="p-2"
@@ -308,8 +332,9 @@ function Themen (props) {
                         </Card>
                 </Col>
 
-                
+                </Row>
 
+                <Row className="mt-2" >
                 <Col xs="12" md="6">
                 <Card>
                             <CardImg

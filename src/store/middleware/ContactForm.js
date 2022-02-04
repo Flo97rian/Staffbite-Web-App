@@ -22,7 +22,6 @@ export function thunkSendContactForm(form) {
         } else {
             dispatch({type: "setEmailNotSend"})
         }
-        console.log(response);
       })
 
     }

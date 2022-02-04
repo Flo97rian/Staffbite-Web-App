@@ -49,6 +49,7 @@ function ThemenSlider (props) {
         <Carousel
         autoPlay
         autoFocus
+        showThumbs={false}
         infiniteLoop
         interval="6000"
         axis="horizontal"
