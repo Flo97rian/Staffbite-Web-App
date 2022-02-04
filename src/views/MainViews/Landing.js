@@ -19,6 +19,7 @@ import React, {useEffect, useRef, useState} from "react";
 // nodejs library that concatenates classes
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import ReactGA from "react-ga";
 import "../../assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../assets/scss/argon-dashboard-react.scss";
@@ -35,6 +36,8 @@ import {isMobile} from 'react-device-detect';
 import {
   Card,
   CardBody,
+  CardFooter,
+  CardHeader,
   Container,
   Row,
   Badge,
@@ -128,12 +131,15 @@ const Landing = (props) => {
             <Row>
               <Container className="py-lg-md-sm d-flex">
                   <Row className="mt-6 ">
-                    <Col md="12" lg="8" className="slide-from-left-30">
+                    <Col md="12" lg="12" className="slide-from-left-30">
                       <h1 className="display-3 text-white pb-5">
-                      Müde vom stundenlangen Schichtplan puzzeln?{" "}
+                      Dein digitaler Schichtplan - online & als App
+                      {" "}
                       </h1>
-                        <p className="lead text-white mt-2">
-                        💻 Mit wenigen Klicks zu deinem digitalen Schichtplan 
+                      </Col>
+                      <Col md="12" lg="6">
+                        <p className="lead text-white">
+                        💻 Mit wenigen Klicks zu deinem Schichtplan 
                         <br/>
                         ✅ Einfach und übersichtlich  
                         <br/>
@@ -141,8 +147,34 @@ const Landing = (props) => {
                         <br/>
                         🔐 Datenschutz nach DSGVO-Richtlinien
                         <br/>
-                        🤝 Probiere es direkt aus - im <Link to="/signup" className="text-light">kostenlosen Probemonat!</Link>
+                        🤝 30 Tage kostenloser Probemonat
                         <br/>
+                        <br/>
+                        
+                        <Row>
+                        <Link to="/signup">
+                        <Button className="btn-icon btn-3" color="success" type="button"
+                        onClick={
+                            () => 
+                            ReactGA.event({
+                              category: 'Registrierung',
+                              action: 'Landing CTA'
+                            })}
+                          ><p className="p-0 m-0">Kostenlos ausprobieren</p></Button>
+                        </Link>
+
+                        <Link to="/themen">
+                        <Button className="btn-icon btn-3 ml-4" color="white" type="button"
+                        onClick={
+                          () => 
+                          ReactGA.event({
+                            category: 'Registrierung',
+                            action: 'Landing mehr erfahren'
+                          })}
+                        ><p className="p-0 m-0">Mehr erfahren</p></Button>
+                        </Link>
+                        </Row>
+
                         <Player 
                           autoplay
                           loop
@@ -156,6 +188,7 @@ const Landing = (props) => {
                     </Col>                    
                   </Row>
               </Container>
+
               </Row>
               <Row className={isMobile ? "pt-4": ""}>
                 <div className="separator separator-bottom separator-skew">
@@ -181,7 +214,7 @@ const Landing = (props) => {
             <Container className={isMobile ? "pt-9 mt-9": ""}>
               <Row className=" text-center">
                 <Col  xs="12" >
-                  <h2 className="display-3 opacity-title">So funktioniert's - Nur vier Schritte nötig</h2>
+                  <h2 className="display-3 opacity-title">So funktioniert's - In nur vier Schritten</h2>
                 </Col>
               </Row>
               <Row className="mt-4">
@@ -474,6 +507,11 @@ const Landing = (props) => {
                         👏 Transparente Schichtplanung
               </Row>
               </p>
+              
+              <Link to="/fuer-dein-team">
+                <Button className="btn-icon btn-3 mt-5 ml-6" color="warning" type="button"><p className="p-0 m-0">Weitere Informationen</p></Button>
+              </Link>
+
             </Col>
             <Col md="12" lg="6">
             <img
