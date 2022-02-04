@@ -173,6 +173,7 @@ const Landing = (props) => {
                           })}
                         ><p className="p-0 m-0">Mehr erfahren</p></Button>
                         </Link>
+
                         </Row>
                         {/* <Player 
                           autoplay
