@@ -82,7 +82,7 @@ function TeamVerwalten (props) {
             <Col xs="12" md="4">
             <Card>
             <Row className="text-center">
-                <Col className="mt-3" xs="12" md="4">
+                <Col className="mt-3">
                 <i className="far fa-paper-plane"></i>
                 </Col>
             </Row>

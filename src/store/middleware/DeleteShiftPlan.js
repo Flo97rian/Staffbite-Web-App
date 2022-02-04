@@ -18,7 +18,6 @@ export function thunkDeleteShiftPlan({index, Plans}) {
       return API.post(apiName, path, myInit)
       })
       .then( response => {
-        console.log(response);
         dispatch(FetchFromDB)
       });
   }

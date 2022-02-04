@@ -167,7 +167,6 @@ function dateDiffInDays(a, b) {
 async function updateTrial() {
   let meta = Meta;
   meta.tenantCategorie.trial = !1
-  console.log("hier")
   await store.dispatch(thunkUpdateProfile(meta));
 }
 function tourStarten() {
