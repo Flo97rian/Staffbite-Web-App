@@ -15,6 +15,7 @@ var dynamodb = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
     let user = JSON.parse(event.body);
+    console.log(user);
      var params = {
       Key: {
        "PK": {
@@ -30,6 +31,7 @@ exports.handler = async (event) => {
      let data;
      let response;
      try {
+         console.log(params);
         data = await dynamodb.getItem(params).promise();
         response = {
         statusCode: 200,
@@ -37,16 +39,19 @@ exports.handler = async (event) => {
             "Access-Control-Allow-Headers" : "application/json",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            "Access-Control-Allow-Credentials": "true"
         },
         body: JSON.stringify(data),
         }
     } catch(error) {
+        console.log(error);
         response = {
         statusCode: 200,
         headers: {
             "Access-Control-Allow-Headers" : "application/json",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+            "Access-Control-Allow-Credentials": "true"
         },
         body: JSON.stringify(error),
         }

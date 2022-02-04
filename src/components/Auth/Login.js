@@ -187,8 +187,7 @@ const Login = () => {
                     user,               // the Cognito User Object
                     newpassword,       // the new password
                 ).then(user => {
-                    setAuthState(AuthState.VerifyingAttributes);
-                    signInAfterChangePassword(username, newpassword);
+                    setAuthState("");
                 }
                 ).catch(e => {
                     console.log(e);
