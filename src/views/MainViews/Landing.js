@@ -473,34 +473,51 @@ const Landing = (props) => {
                   </Row>
               </Container>
               </Row>
-          <section className="section section-lg pt-lg-0 mt-8">
+          <section className="section section-lg pt-lg-0 mt-6">
             <Container>
               <Row>
               <Col md="12" lg="6">
               <Row className="">
+                <Col>
                 <h2 className="display-3 text-default">Vorteile für dein Team</h2>
+                </Col>
               </Row>
               <p className="lead text-default">
-                    <Row className="mt-6">
+              
+              <Row className="mt-6">
+              <Col>
                         🕗 Jederzeit in den digitalen Schichtplan eintragen
+              </Col>
               </Row>
               <Row className="mt-2">
+                <Col>
                         🌍 Von überall den fertigen Schichtplan einsehen
+                </Col>
               </Row>
               <Row  className="mt-2">
+              <Col>
                         ⚡ Tauschanfragen innerhalb von Sekunden stellen
+              </Col>
               </Row>
               <Row className="mt-2">
+                    <Col>
                         😇 Faire Verteilung der Schichten
+                    </Col>
               </Row>
               <Row className="mt-2">
+                        <Col>
                         👏 Transparente Schichtplanung
+                        </Col>
               </Row>
               </p>
               
+              <Row>
+              <Col>
               <Link to="/fuer-dein-team">
-                <Button className="btn-icon btn-3 mt-5 ml-6" color="warning" type="button"><p className="p-0 m-0">Weitere Informationen</p></Button>
+                <Button className="btn-icon btn-3 mt-5" color="info" type="button"><p className="p-0 m-0">Weitere Informationen</p></Button>
               </Link>
+              </Col>
+              </Row>
 
             </Col>
             <Col md="12" lg="6">

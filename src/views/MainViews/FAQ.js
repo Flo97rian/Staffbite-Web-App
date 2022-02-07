@@ -255,7 +255,7 @@ function FAQ (props) {
               <Col className="order-md-1 pr-md-5" md="12" lg="12">
               <Card 
                 className="p-3"
-                onClick={(() => toggleOpen("AV"))}>
+                onClick={(() => toggleOpen("ProbeMonat"))}>
                     <h2 className="h3 mb-0">
                       Probiere es jetzt aus
                     </h2>

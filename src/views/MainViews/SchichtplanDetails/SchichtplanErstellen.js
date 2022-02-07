@@ -74,29 +74,38 @@ function SchichtplanErstellen (props) {
       {/* Page content */}
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-4 pt-6">
-                        <h1>Erstelle deinen Schichtplan online</h1>
+                      <Col>
+                        <h1>Dein digitaler Schichtplan - Schichtplan erstellen</h1>
+                        </Col>
                     </Row>
       </Container>
                 
       <Container className="mt-3">
         <Row >
         <Col className="mt-4" md="12" lg="5">
-          <Row className="mt-4">
             <h2 className="m-3 p-0">Digitale Schichtpläne für dich und dein Team</h2>
+            </Col>
           </Row>
-          <Row className="mt-2 text-left">
-            <Col xs="12">
+
           <p className="lead m-0">
+          <Row className="mt-2">
+            <Col>
               Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. 
+            </Col>
+          </Row>
+              
               <Row className="mt-2 justify-content-center">
                 <Col xs="1" className="mt-0">
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
+                </Row>
+
+                <Row>
                 <Col>
                 Beginn & Ende der Schicht bestimmen
-                  
                 </Col>
               </Row>
+
               <Row>
                 <Col xs="1" className="mt-0">
                   <i className="fas fa-check-circle text-success"></i>
@@ -105,20 +114,18 @@ function SchichtplanErstellen (props) {
                 Notizen für dein Team
                 </Col>
               </Row>
+
               <Row>
                 <Col xs="1" className="mt-0">
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
                 Position & Rechte festlegen
-                  
                 </Col>
               </Row>
+              
               </p>
-
-            </Col>
-          </Row>
-                </Col>
+                
                       
                 <Col md="12" lg="7">
                   <img
@@ -130,7 +137,7 @@ function SchichtplanErstellen (props) {
                     width="100%"
                   />
                 </Col>
-      </Row>
+      
       <Container>
         <Row className="text-center">
           <Col>
