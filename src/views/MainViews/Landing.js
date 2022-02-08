@@ -29,6 +29,7 @@ import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.pn
 import BefuellungStarten from "../../assets/img/landing/Befuellung-starten.png"
 import SchichtplanVeroeffentlichen from "../../assets/img/landing/Schichtplan-veroeffentlichen.png"
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import LandingAnimationLottieJson from '../../assets/json/animation/LandingAnimation.json';
 import {isMobile} from 'react-device-detect';
 
 
@@ -167,17 +168,16 @@ const Landing = (props) => {
                         </Link>
                         </Col>
                         </Row>
-                        {/* <Player 
-                          autoplay
-                          loop
-                          src="../../assets/json/animation/NavbarDashboard.json"
-                          style={{ height: '300px', width: '300px' }}>
-                          </Player>
-                        */}
                         </p>
                     </Col>
-                    <Col className="justify-content-center" md="12" lg="6">
-                          <ErstellenShow></ErstellenShow>
+                    <Col className="justify-content-center p-0 m-0" md="12" lg="6">
+
+                  <Player 
+                  className="shadow"
+                          autoplay
+                          keepLastFrame
+                          src={LandingAnimationLottieJson}>
+                          </Player>
                     </Col>                    
                   </Row>
               </Container>
@@ -200,6 +200,7 @@ const Landing = (props) => {
             </div>
             
             <Row>
+              
             <div ref={SchichtplanSchritteRef}></div>
             <Container className={isMobile ? "pt-9 mt-9": ""}>
               <Row className=" text-center">
