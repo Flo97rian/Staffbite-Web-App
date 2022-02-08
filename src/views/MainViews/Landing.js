@@ -534,12 +534,15 @@ const Landing = (props) => {
             </Row>        
           </Container>
           </section>
+
+
           <Container className="mt-6">
               <Row className="justify-content-center text-center">
                 <Col md="12">
                   <h2 className="display-3 text-default">Unser Leistungsversprechen</h2>
                 </Col>
               </Row>
+
               <Row className="justify-content-center text-center mb-4">
                 <Col md="10">
                   <p className="lead">
@@ -547,7 +550,16 @@ const Landing = (props) => {
                   </p>
                 </Col>
               </Row>
-              <Row className="mt-4">
+
+              <Row className="text-center">
+                <Col>
+                <Link to="/contact">
+                <Button className="btn-icon btn-3 mt-2" color="success" type="button"><p className="p-0 m-0">Persönliches Erstgespräch vereinbaren</p></Button>
+              </Link>
+                </Col>
+              </Row>
+
+              <Row className="mt-5">
                     <Col xs="12" sm="4">
                     <div>
                         <Row className="">
