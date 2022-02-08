@@ -23,7 +23,8 @@ import ReactGA from "react-ga";
 import {
   Container,
   Row,
-  Col
+  Col,
+  Button
 } from "reactstrap";
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {ERSTEANMELDUNG_TITLE, ERSTEANMELDUNG_DESCRIPTION} from "../../../constants/MetaTexts"
@@ -78,7 +79,7 @@ function ErsteAnmeldung (props) {
                   <br/>
                   Um dir den Einstieg so leicht wie möglich zu machen, haben wir ein Video vorbereitet.
                   <br/>
-                  In diesem Video zeige ich dir die ersten Schritte mit unserer Lösung.
+                  In diesem Video zeige ich dir die ersten Schritte mit Staffbite.
                   <br/>
                   <br/>
                   Wenn zunächst mehr über die Erstellung von Schichtplänen lernen willst, schau dir unten auf dieser Seite doch mal unseren Blog an!
@@ -93,6 +94,21 @@ function ErsteAnmeldung (props) {
                   <br/>
                 </Row>
 
+
+                <Row className="text-center mt-6">
+                  <Col>
+                  <Link to="/signup">
+                        <Button className="btn-icon btn-3" color="success" type="button"
+                        onClick={
+                            () => 
+                            ReactGA.event({
+                              category: 'Registrierung',
+                              action: 'Erste Anmeldung CTA'
+                            })}
+                          ><p className="p-0 m-0">Kostenlos ausprobieren</p></Button>
+                        </Link>
+                  </Col>
+                </Row>
                 
                 <Row className="text-center">
                 <Col md="12" lg="12">
@@ -100,14 +116,14 @@ function ErsteAnmeldung (props) {
                   <p className="lead">
                     Um dich das erste Mal bei Staffbite anzumelden, musst du dich zunächst registrieren. 
                     <br/>
-                    Klicke dafür einfach oben rechts auf <Link to="/signup">Kostenlos testen</Link> und gib die benötigten Daten ein.
+                    Klicke dafür einfach unten auf den Button und gib die benötigten Daten ein.
                   <br/>
                     Nachdem du deinen Account verifiziert hast, kannst du sofort loslegen! Herbei fallen keinerlei Kosten an.
-                    
                   </p>    
                 </Col>
-
                 </Row>
+
+
                 
             </Container>
             <ThemenSlider></ThemenSlider>

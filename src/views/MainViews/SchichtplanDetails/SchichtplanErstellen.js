@@ -73,53 +73,61 @@ function SchichtplanErstellen (props) {
                 }}/>
       {/* Page content */}
       <Container className="mt-6">
-                    <Row className="justify-content-center ml-0 mt-4 pt-6">
-                        <h1>Erstelle deinen Schichtplan online</h1>
+                    <Row className="text-center mt-4 pt-6">
+                      <Col>
+                        <h1>Dein digitaler Schichtplan - Schichtplan erstellen</h1>
+                        </Col>
                     </Row>
       </Container>
                 
       <Container className="mt-3">
         <Row >
         <Col className="mt-4" md="12" lg="5">
-          <Row className="mt-4">
-            <h2 className="m-3 p-0">Digitale Schichtpläne für dich und dein Team</h2>
+
+          <Row>
+            <Col>
+            <h2 className="">Digitale Schichtpläne für dich und dein Team</h2>
+            </Col>
           </Row>
-          <Row className="mt-2 text-left">
-            <Col xs="12">
+
+
           <p className="lead m-0">
+          <Row className="mt-2">
+            <Col>
               Mit unserer Lösung kannst du in kürzester Zeit deine Schichtpläne digital erstellen. 
+            </Col>
+          </Row>
+              
               <Row className="mt-2 justify-content-center">
-                <Col xs="1" className="mt-0">
+                <Col xs="1" className="mt-0 ml-2">
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
                 Beginn & Ende der Schicht bestimmen
-                  
                 </Col>
               </Row>
+
               <Row>
-                <Col xs="1" className="mt-0">
+                <Col xs="1" className="mt-0 ml-2">
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
                 Notizen für dein Team
                 </Col>
               </Row>
+
               <Row>
-                <Col xs="1" className="mt-0">
+                <Col xs="1" className="mt-0 ml-2">
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
                 Position & Rechte festlegen
-                  
                 </Col>
               </Row>
-              </p>
-
-            </Col>
-          </Row>
-                </Col>
+              
+              </p>  
                       
+                </Col>
                 <Col md="12" lg="7">
                   <img
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
@@ -130,18 +138,70 @@ function SchichtplanErstellen (props) {
                     width="100%"
                   />
                 </Col>
-      </Row>
+
+                </Row>
+                </Container>
+      
       <Container>
-        <Row className="text-center">
+        <Row className="text-center mt-4">
           <Col>
             <h2 className="display-4">In zwei Schritten zur Schichtplanvorlage</h2>
           </Col>
         </Row>
-      </Container>
-      </Container>
-                <Container className="mt-6">
-                  <Row>
-                    <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6">
+    
+        <Row className="mt-4 text-left">
+          <Col xs="12" lg="6">
+          
+        <Row>
+        <Col>
+          <h2 className="">1. Erstelle deine Vorlagen</h2>
+        </Col>
+        </Row>
+
+        <p className="lead">
+        <Row className="mt-2">
+          <Col>
+          In wenigen Klicks kannst du die wichtigsten Informationen zu deiner wiederverwendbaren Vorlage angeben.
+          </Col>
+          </Row>
+          
+          <Row className=" mt-4">
+            <Col xs="1" className="mt-0 ml-2">
+              <i className="fas fa-check-circle text-success"></i>
+            </Col>
+            <Col>
+              Name der Vorlage
+            </Col>
+          </Row>
+
+          <Row>
+            <Col xs="1" className="mt-0 ml-2">
+              <i className="fas fa-check-circle text-success"></i>
+            </Col>
+            <Col>
+              Anzahl der Schichten pro Tag
+            </Col>
+          </Row>
+
+          <Row>
+            <Col xs="1" className="mt-0 ml-2">
+              <i className="fas fa-check-circle text-success"></i>
+            </Col>
+            <Col>
+              Ruhetage auswählen
+            </Col>
+          </Row>                
+
+          <Row>
+            <Col className="mt-4">
+              Weitere Informationen findest du in unserem  Artikel <Link to="/themen/schichtplan-vorlage">Schichtplan Vorlage erstellen.</Link>
+            </Col>
+          </Row>
+            </p>
+            </Col>
+
+            
+            <Col xs="12" md="6">
                     <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
@@ -151,107 +211,14 @@ function SchichtplanErstellen (props) {
                     height="100%"
                     width="100%"
                   />
-                    </Col>
-                    <Col className="" xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6">
-                    <Row className="mt-4 text-left">
-                      <Col xs="12">
-                      <h2 className="">1. Erstelle deine Vorlagen</h2>
-                    <p className="lead">
-                    <Row className="mt-2">
-                      <Col>
-                        In wenigen Klicks kannst du die wichtigsten Informationen zu deiner wiederverwendbaren Vorlage angeben.
-                    </Col>
-                  </Row>
-                  <Row className=" mt-4">
-                <Col xs="1" className="mt-0">
-                  <i className="fas fa-check-circle text-success"></i>
-                </Col>
-                <Col>
-                  Name der Vorlage
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="1" className="mt-0">
-                  <i className="fas fa-check-circle text-success"></i>
-                </Col>
-                <Col>
-                  Anzahl der Schichten pro Tag
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="1" className="mt-0">
-                  <i className="fas fa-check-circle text-success"></i>
-                </Col>
-                <Col>
-                  Ruhetage auswählen
-                </Col>
-              </Row>
-              <Row>
-                <Col className="mt-6">
-                  Weitere Informationen findest du in unserem  Artikel <Link to="/themen/schichtplan-vorlage">Schichtplan Vorlage erstellen.</Link>
-                </Col>
-              </Row>
-            </p>
             </Col>
             </Row>
-                    </Col>
-                  </Row>
-                </Container>
-                <Container className="mt-8">
-                  <Row>
-                    <Col md="12" lg="6">
-                        <Row className="mt-4">
-                          <Col>
-                            <h2 className="">2. Erstelle weitere Schichten</h2>
-                          </Col>
-                        </Row>
-                        <p className="lead">
-                        <Row className="mt-2">
-                          <Col>
-                            Im letzten Schritt gibst du die wichtigsten Informationen zu deinen Schichten an. 
-                          </Col>
-                      </Row>
-                    
-                    <Row className="justify-content-center mt-4">
-                    <Col xs="1" className="mt-0">
-                      <i className="fas fa-check-circle text-success"></i>
-                    </Col>
-                    <Col>
-                      Name der Schicht
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs="1" className="mt-0">
-                      <i className="fas fa-check-circle text-success"></i>
-                    </Col>
-                    <Col>
-                      Position
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs="1" className="mt-0">
-                      <i className="fas fa-check-circle text-success"></i>
-                    </Col>
-                    <Col>
-                      Beginn & Ende
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xs="1" className="mt-0">
-                      <i className="fas fa-check-circle text-success"></i>
-                    </Col>
-                    <Col>
-                      Anzahl benötigter Mitarbeiter 
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="mt-6">
-                      Weitere Informationen findest du in unserem Artikel <Link to="/themen/individueller-schichtplan">individuellen Schichtplan erstellen</Link>
-                    </Col>
-                  </Row>
-                  </p>
-                    </Col>
-                    <Col className="">
+            
+          
+            <Row className="mt-6 text-left">
+            
+
+            <Col xs="12" md="6">
                     <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
@@ -261,23 +228,87 @@ function SchichtplanErstellen (props) {
                     height="100%"
                     width="100%"
                   />
-                    
+            </Col>
+
+            <Col  className="mt-4" xs="12" lg="6">
+
+              <Row>
+                <Col>
+                  <h2 className="">2. Erstelle weitere Schichten</h2>
+                </Col>
+              </Row>
+
+
+              <p className="lead">
+                <Row className="">
+                  <Col>
+                    Im letzten Schritt gibst du die wichtigsten Informationen zu deinen Schichten an. 
+                  </Col>
+              </Row>
+
+              <Row className="justify-content-center mt-4">
+                    <Col xs="1" className="mt-0 ml-2">
+                      <i className="fas fa-check-circle text-success"></i>
+                    </Col>
+                    <Col>
+                      Name der Schicht
                     </Col>
                   </Row>
-                </Container>
-                <Container className="mt-8">
-                  <Row className="mt-4 text-center">
+
+                  <Row>
+                    <Col xs="1" className="mt-0 ml-2">
+                      <i className="fas fa-check-circle text-success"></i>
+                    </Col>
                     <Col>
-                          <h2 className="m-0 p-0">Fertige Schichtplan Vorlage verwenden</h2>
-                          </Col>
+                      Position
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col xs="1" className="mt-0 ml-2">
+                      <i className="fas fa-check-circle text-success"></i>
+                    </Col>
+                    <Col>
+                      Beginn & Ende
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col xs="1" className="mt-0 ml-2">
+                      <i className="fas fa-check-circle text-success"></i>
+                    </Col>
+                    <Col>
+                      Anzahl benötigter Mitarbeiter 
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col className="mt-4">
+                      Weitere Informationen findest du in unserem Artikel <Link to="/themen/individueller-schichtplan">individuellen Schichtplan erstellen</Link>
+                    </Col>
+                  </Row>
+                  </p>
+
+              </Col>                
+              </Row>
+
+            </Container>
+
+            <Container className="mt-6">
+              <Row className="text-center">
+                <Col>
+                  <h2 className="m-0 p-0">Fertige Schichtplan Vorlage verwenden</h2>
+                </Col>
                 </Row>
-                      <Row className="mt-4 mb-4 text-center">
-                        <Col>
-                          <p className="lead">
-                            Deine neue Schichtplanvorlage kannst du nun verwenden. In unserem Artikel <Link to="/themen/individueller-schichtplan">individuellen Schichtplan erstellen</Link> erfährst du, wie du deinen Schichtplan genau auf deinen Betrieb anpassen kannst.
-                          </p>
-                        </Col>
-                      </Row>
+
+              <Row className="mt-2 mb-4 text-center">
+                <Col>
+                  <p className="lead">
+                    Deine neue Schichtplanvorlage kannst du nun verwenden. In unserem Artikel <Link to="/themen/individueller-schichtplan">individuellen Schichtplan erstellen</Link> erfährst du, wie du deinen Schichtplan genau auf deinen Betrieb anpassen kannst.
+                  </p>
+                </Col>
+              </Row>
+
                   <Row>
                     <Col md="12" lg="12">
                     <img

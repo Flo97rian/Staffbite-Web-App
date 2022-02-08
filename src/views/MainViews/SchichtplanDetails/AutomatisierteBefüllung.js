@@ -90,7 +90,7 @@ function AutomatisierteBefüllung (props) {
                 </Row>
                 <Row className="mt-4">
                     <Col>
-                      Bisher hast du wahrscheinlich stundenlang per Hand mit Papier und einer Excel-Tabelle deinen Schichtplan befüllt. Mit unserer Lösung ist das Vergangenheit! Wir wollen dir helfen sowohl Zeit als auch Nerven zu sparen. 
+                      Bisher hast du wahrscheinlich stundenlang per Hand mit Papier und einer Excel-Tabelle deinen Schichtplan befüllt. Mit Staffbite ist das Vergangenheit! Wir wollen dir helfen sowohl Zeit als auch Nerven zu sparen. 
                     </Col>
                 </Row>
                 <Row className="mt-4">

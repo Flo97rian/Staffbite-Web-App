@@ -20,12 +20,12 @@ const TrialBanner = () => {
             </Col>
             <Col className="align-items-center text-left" xs="8">
             <p className="alert-inner--text mb-0 mt-2 lead">
-              <strong>Kostenloser Probemonat!</strong> Probiere unseren kostenlosen Probemonat jetzt aus!
+              Starte jetzt deinen kostenlosen Probemonat und probiere Staffbite unverbindlich aus!
             </p>
             </Col>
             <Col className="text-center" xs="3">
               <Link to="/signup">
-                  <Button className="btn-icon btn-3 float-right opacity-9" color="success" type="button"><p className="p-0 m-0">Kostenlos testen</p></Button>
+                  <Button className="btn-icon btn-3 float-right opacity-9" color="success" type="button"><p className="text-sucess p-0 m-0">Kostenlos ausprobieren</p></Button>
                 </Link>
             </Col>
             </Row>

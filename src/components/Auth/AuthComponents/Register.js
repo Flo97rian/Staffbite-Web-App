@@ -114,10 +114,14 @@ const Register = (props) => {
                             <h3>Deine Anmeldung zum Probemonat!</h3>
                             <p className="p-0 m-0">
                             Registriere dich hier und es geht sofort los.
+                            <br/>                            
+                            <br/>
+                            Du erhälst einen vollständigen Account und kannst Staffbite einen Monat lang ausprobieren.
+                            <br/>
+                            <br/>
+                            Es fallen keine Kosten für dich an!
                             </p>
-                            <p className="p-0 m-0">
-                            Du erhälst einen vollständigen Account und kannst unsere Lösung in Ruhe ausprobieren.
-                            </p>
+                            
                         </div>
                         </CardHeader>
                         <CardBody className="px-lg-5 py-lg-5">

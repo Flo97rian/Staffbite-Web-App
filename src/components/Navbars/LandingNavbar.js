@@ -155,7 +155,7 @@ const LandingNavBar = (props) =>  {
             </Nav>
         </Collapse>
         <Link to="/auth">
-                <Button className="btn-icon btn-3 p-2 opacity-9" color="primary" type="button"><p className="p-0 m-0">Anmelden</p></Button>
+                <Button className="btn-icon btn-3 p-2 opacity-9" color="success" type="button"><p className="p-0 m-0">Anmelden</p></Button>
               </Link>
       </Navbar>
       </>
