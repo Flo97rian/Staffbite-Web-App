@@ -232,7 +232,7 @@ function VorteileTeam (props) {
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage in der eine Schicht hinhugefügt wird."
                     src={SchichtTauschen}
                     title="Schicht hinzufuegen"
-                    height="90%"
+                    height="100%"
                     width="60%"
                   />
                     

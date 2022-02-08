@@ -27,7 +27,8 @@ import {
   CardTitle,
   Card,
   CardSubtitle,
-  CardText
+  CardText,
+  Button
 } from "reactstrap";
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {TEAMVERWALTEN_TITLE, TEAMVERWALTEN_DESCRIPTION} from "../../../constants/MetaTexts"
@@ -175,19 +176,35 @@ function TeamVerwalten (props) {
           </Col>
         </Row>
             <p className="lead mt-2">
-            <Row>
+          <Row>
               <Col>
             Staffbite liefert dir einfach und unkompliziert die wichtigsten Informationen zu deinem Team.
             <br/>
             Sieh dir hier die einzelnen Schritte an, um dein Team zu verwalten.
             </Col>
             </Row>
+
+            <Row className="mt-2">
+              <Col>
+              <Link to="/signup">
+                <Button className="btn-icon btn-3" color="success" type="button"
+                onClick={
+                    () => 
+                    ReactGA.event({
+                      category: 'Registrierung',
+                      action: 'Team verwalten CTA'
+                    })}
+                  ><p className="p-0 m-0">Kostenlos ausprobieren</p></Button>
+                </Link>
+              </Col>
+            
+            </Row>
             </p> 
         </Container>
         
-        <Container className="mt-6">
+        <Container className="mt-5">
         <Row>
-                    <Col className={isMobile ? "" : "ml-6"}>
+                    <Col>
                     
                     <Row className="mt-4 text-left">
                       <Col>
@@ -258,15 +275,15 @@ function TeamVerwalten (props) {
                   />
                     </Col>
         </Row>
-            </Container>
+    </Container>
 
-            <Container className="mt-6">
+    <Container className="mt-6">
         <Row>
 
-                    <Col className={isMobile ? "" : "ml-6"}>
+                    <Col>
                     <Row className="mt-4 text-left">
                       <Col>
-                      <h2 className="m-0 p-0 display-4">2. Team verwalten</h2>
+                      <h2 className="display-4">2. Team verwalten</h2>
                       </Col>
                     </Row>
                     <Row className="mt-2">
