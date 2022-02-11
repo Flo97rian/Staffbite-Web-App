@@ -55,9 +55,12 @@ import LandingFooter from "../../components/Footers/LandingFooter.js";
 import { pageview } from "react-ga";
 import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
 import ErstellenShow from "./sub/ErstellenShow";
-import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png"
-import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png"
-import AppEintragen from "../../assets/img/app/App-eintragen-uebersicht-smartphone.png"
+import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png";
+import LogoWTSH from "../../assets/img/landing/Netzwerk/LogoWTSH.png";
+import LogoGS from "../../assets/img/landing/Netzwerk/LogoGS.png";
+import LogoVentureWaerft from "../../assets/img/landing/Netzwerk/LogoVentureWaerft.png";
+import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png";
+import AppEintragen from "../../assets/img/app/App-eintragen-uebersicht-smartphone.png";
 import ThemenSlider from "./Themen/ThemenSlider";
 import TrialBanner from "./sub/TrialBanner";
 
@@ -181,6 +184,7 @@ const Landing = (props) => {
                     </Col>                    
                   </Row>
               </Container>
+
                 <div className="separator separator-bottom">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +206,7 @@ const Landing = (props) => {
             <Row>
               
             <div ref={SchichtplanSchritteRef}></div>
-            <Container className={isMobile ? "pt-9 mt-9": ""}>
+            <Container className={isMobile ? "pt-9": ""}>
               <Row className=" text-center">
                 <Col  xs="12" >
                   <h2 className="display-3 opacity-title">So funktioniert's - In nur vier Schritten</h2>
@@ -474,7 +478,52 @@ const Landing = (props) => {
                   </Row>
               </Container>
               </Row>
-          <section className="section section-lg pt-lg-0 mt-6">
+
+            <section className="section section-lg pt-lg-0 mt-6">
+            <Container>
+            <Row>
+              <h2 className="display-3 text-default">Unser Netzwerk</h2>
+            </Row>
+            <Row className="">
+              <Col className="">
+                <img
+                  className=""
+                  alt="Logo der WTSH"
+                  src={LogoWTSH}
+                  title="WTSH Logo"
+                  height="90%"
+                  width="80%"
+                  ></img>
+              </Col>
+
+              <Col className="pt-sm-6">
+                <img
+                  className=""
+                  alt="Logo des Gründungsstipendiums Schleswig-Holsein"
+                  src={LogoGS}
+                  title="Gründungsstipendium Logo"
+                  height="50%"
+                  width="90%"
+                  ></img>
+              </Col>
+              
+              <Col className="pt-sm-7">
+                <img
+                    className=""
+                    alt="Logo der Venture Waerft Flensburg-Sonderborg"
+                    src={LogoVentureWaerft}
+                    title="Venture Waerft Logo"
+                    height="40%"
+                    width="80%"
+                    ></img>
+              </Col>
+
+            </Row>
+          </Container>
+          </section>
+
+
+          <section className="section section-lg pt-lg-0 mt-5 mt-sm-8">
             <Container>
               <Row>
               <Col md="12" lg="6">
@@ -485,7 +534,7 @@ const Landing = (props) => {
               </Row>
               <p className="lead text-default">
               
-              <Row className="mt-6">
+              <Row className="mt-sm-6">
               <Col>
                         🕗 Jederzeit in den digitalen Schichtplan eintragen
               </Col>
