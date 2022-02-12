@@ -55,9 +55,12 @@ import LandingFooter from "../../components/Footers/LandingFooter.js";
 import { pageview } from "react-ga";
 import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
 import ErstellenShow from "./sub/ErstellenShow";
-import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png"
-import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png"
-import AppEintragen from "../../assets/img/app/App-eintragen-uebersicht-smartphone.png"
+import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png";
+import LogoWTSH from "../../assets/img/landing/Netzwerk/LogoWTSH.png";
+import LogoGS from "../../assets/img/landing/Netzwerk/LogoGS.png";
+import LogoVentureWaerft from "../../assets/img/landing/Netzwerk/LogoVentureWaerft.png";
+import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png";
+import AppEintragen from "../../assets/img/app/App-eintragen-uebersicht-smartphone.png";
 import ThemenSlider from "./Themen/ThemenSlider";
 import TrialBanner from "./sub/TrialBanner";
 
@@ -181,6 +184,7 @@ const Landing = (props) => {
                     </Col>                    
                   </Row>
               </Container>
+
                 <div className="separator separator-bottom">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -470,7 +474,51 @@ const Landing = (props) => {
                   </Col>
                   </Row>
               </Container>
-          <section className="section section-lg pt-lg-0 mt-6">
+            <section className="section section-lg pt-lg-0 mt-6">
+            <Container>
+            <Row>
+              <h2 className="display-3 text-default">Unser Netzwerk</h2>
+            </Row>
+            <Row className="">
+              <Col className="">
+                <img
+                  className=""
+                  alt="Logo der WTSH"
+                  src={LogoWTSH}
+                  title="WTSH Logo"
+                  height="90%"
+                  width="80%"
+                  ></img>
+              </Col>
+
+              <Col className="pt-sm-6">
+                <img
+                  className=""
+                  alt="Logo des Gründungsstipendiums Schleswig-Holsein"
+                  src={LogoGS}
+                  title="Gründungsstipendium Logo"
+                  height="50%"
+                  width="90%"
+                  ></img>
+              </Col>
+              
+              <Col className="pt-sm-7">
+                <img
+                    className=""
+                    alt="Logo der Venture Waerft Flensburg-Sonderborg"
+                    src={LogoVentureWaerft}
+                    title="Venture Waerft Logo"
+                    height="40%"
+                    width="80%"
+                    ></img>
+              </Col>
+
+            </Row>
+          </Container>
+          </section>
+
+
+          <section className="section section-lg pt-lg-0 mt-5 mt-sm-8">
             <Container>
               <Row>
               <Col md="12" lg="6">
@@ -481,7 +529,7 @@ const Landing = (props) => {
               </Row>
               <p className="lead text-default">
               
-              <Row className="mt-6">
+              <Row className="mt-sm-6">
               <Col>
                         🕗 Jederzeit in den digitalen Schichtplan eintragen
               </Col>
@@ -530,12 +578,15 @@ const Landing = (props) => {
             </Row>        
           </Container>
           </section>
+
+
           <Container className="mt-6">
               <Row className="justify-content-center text-center">
                 <Col md="12">
                   <h2 className="display-3 text-default">Unser Leistungsversprechen</h2>
                 </Col>
               </Row>
+
               <Row className="justify-content-center text-center mb-4">
                 <Col md="10">
                   <p className="lead">
@@ -543,7 +594,16 @@ const Landing = (props) => {
                   </p>
                 </Col>
               </Row>
-              <Row className="mt-4">
+
+              <Row className="text-center">
+                <Col>
+                <Link to="/contact">
+                <Button className="btn-icon btn-3 mt-2" color="success" type="button"><p className="p-0 m-0">Persönliches Erstgespräch vereinbaren</p></Button>
+              </Link>
+                </Col>
+              </Row>
+
+              <Row className="mt-5">
                     <Col xs="12" sm="4">
                     <div>
                         <Row className="">

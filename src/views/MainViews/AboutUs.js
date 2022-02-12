@@ -24,6 +24,7 @@ import {
   Container,
   Row,
   Col,
+  Button,
   CardImg,
   Card,
   CardTitle,
@@ -94,7 +95,14 @@ function Pricing (props) {
                     />
                     <div className="pt-4 text-center">
                     <h2 className="title">
-                      <Row>
+              <Row className="text-center">
+                <Col>
+                  <Link to="/contact">
+                    <Button className="btn-icon btn-3 mt-2" color="success" type="button"><p className="p-0 m-0">Persönliches Erstgespräch vereinbaren</p></Button>
+                  </Link>
+                </Col>
+              </Row>
+                      <Row className="mt-4 mt-sm-5">
                         <Col xs="6">
                           <h3 className="d-block mb-1">Florian Zellmann</h3>
                         </Col>
@@ -104,19 +112,19 @@ function Pricing (props) {
                       </Row>
                       </h2>
                     </div>
-                    <Row className="mt-6">
-                      <h2>Florian Zellmann</h2>
+                    <Row className="mt-sm-6">
+                      <h2 className="mt-2">Florian Zellmann</h2>
                       <p>
                       Florian Zellmann ist Mitgründer von Staffbite und verantwortlich für die technische Umsetzung. Er interessiert sich seit einigen Jahren für verschiedenste Aspekte der Softwareentwicklung. Neben einem breiten Wissen bezüglich künstlicher Intelligenz, Algorithmen und Datenverarbeitung liegt sein Schwerpunkt vor allem auf responsiven Programmiersprachen, um das Nutzererlebnis unserer Kunden stetig zu verbessern. Im Studium arbeitete Florian in der Gastronomiebranche und lernte die Herausforderungen der Betriebe selbst kennen.
                       </p>
                     </Row>
-                    <Row className="mt-3">
+                    <Row className="mt-sm-3">
                       <h2>Daniel Zellmann</h2>
                       <p>
                       Daniel Zellmann (M.A. Business Management) ist Mitgründer von Staffbite. Er ist verantwortlich für die operativen Geschäfte. Vor der Gründung von Staffbite arbeitete er mehrere Jahre als IT-Berater. Während der verschiedenen Kundenprojekte in ganz Deutschland sammelte er viel Erfahrung im Aufbau von skalierbaren Cloud-Infrastrukturen, Datenanalyse und der Automatisierung von Arbeitsabläufen. Sein Schwerpunkt liegt derzeit auf der kundenzentrierten Produktentwicklung. 
                       </p>
                     </Row>
-                    <Row className="mt-4">
+                    <Row className="mt-sm-4">
                       <Link to="/impressum">Hier gehts zum Impressum</Link>
                     </Row>
                   </div>
@@ -124,9 +132,9 @@ function Pricing (props) {
               </Row>
         </Container>
       </Container>
-      <Container className="pt-5" fluid>
-          <Container className="mt-6">
-              <Row className="justify-content-left ml-1 mt-4">
+      <Container className="pt-sm-5" fluid>
+          <Container className="mt-sm-6">
+              <Row className="justify-content-left ml-1 sm-mt-4">
                   <h2>Finde spanndende Artikel rund um die Entstehung von Staffbite</h2>
               </Row>
           </Container>

@@ -95,7 +95,7 @@ function ErsteAnmeldung (props) {
                 </Row>
 
 
-                <Row className="text-center mt-6">
+                <Row className="text-right mt-6 mr-7">
                   <Col>
                   <Link to="/signup">
                         <Button className="btn-icon btn-3" color="success" type="button"
@@ -108,6 +108,12 @@ function ErsteAnmeldung (props) {
                           ><p className="p-0 m-0">Kostenlos ausprobieren</p></Button>
                         </Link>
                   </Col>
+                  <Col className="text-left">
+                    <Link to="/contact">
+                      <Button className="btn-icon btn-3" color="info" type="button"><p className="p-0 m-0">Persönliches Erstgespräch vereinbaren</p></Button>
+                    </Link>
+                  </Col>
+
                 </Row>
                 
                 <Row className="text-center">

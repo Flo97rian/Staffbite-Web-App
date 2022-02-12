@@ -25,6 +25,7 @@ import {
   Row,
   Col,
   Card,
+  Button
 } from "reactstrap";
 // core components
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
@@ -255,7 +256,7 @@ function FAQ (props) {
               <Col className="order-md-1 pr-md-5" md="12" lg="12">
               <Card 
                 className="p-3"
-                onClick={(() => toggleOpen("ProbeMonat"))}>
+                >
                     <h2 className="h3 mb-0">
                       Probiere es jetzt aus
                     </h2>
@@ -264,6 +265,30 @@ function FAQ (props) {
                       <Link className="ml-1" to="/av" target="_blank">kostenlosen Probemonat.</Link>
                       </p>
                 </Card>
+
+                <Card 
+                className="p-3"
+                >
+                    <h2 className="h3 mb-0">
+                      Du willst noch mehr wissen?
+                    </h2>
+                      <p className="mt-sm-2">Deine Frage war nicht dabei? Kein Problem. Schreib und einfach an
+                        info@staffbite.de
+                        oder klicke unten auf den Button.</p>
+                      <Row className="text-center">
+                      <Col>
+                      <Link to="/contact">
+                    <Button className="btn-icon btn-3 mt-2" color="success" type="button"><p className="p-0 m-0">Persönliches Gespräch vereinbaren</p></Button>
+                      </Link>
+                    </Col>
+                    <Col>
+                      <Link to="/themen">
+                    <Button className="btn-icon btn-3 mt-2" color="info" type="button"><p className="p-0 m-0">Schritt für Schritt-Anleitungen ansehen</p></Button>
+                      </Link>
+                    </Col>
+                  </Row>
+                </Card>
+
                 </Col>
               </Row>
             </Container>
