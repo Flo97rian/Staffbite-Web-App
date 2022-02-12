@@ -87,7 +87,7 @@ function VorteileTeam (props) {
                     <Col>
                         <h2 class="display-4">Vorteile für dein Team</h2>
                         <p className="lead">
-                        In vielen Betrieben sind Schichtpläne ein Streitthema. Unzufriedenheiten des Teams stehen an der Tagesordnung. Wir wollen diese Probleme lösen. Durch unsere Lösung ist der gesamte Prozess vom grundlegenden Plan bis zum fertigen Schichtplan transparent. Durch die automatisierte Verteilung der Schichten wird niemand bevorzugt und es geschehen weniger Fehler. 
+                        In vielen Betrieben sind Schichtpläne ein Streitthema. Unzufriedenheiten des Teams stehen an der Tagesordnung. Wir wollen diese Probleme lösen. Durch Staffbite ist der gesamte Prozess vom grundlegenden Plan bis zum fertigen Schichtplan transparent. Durch die automatisierte Verteilung der Schichten wird niemand bevorzugt und es geschehen weniger Fehler. 
                         </p>
                     </Col>
                 </Row>
@@ -205,7 +205,7 @@ function VorteileTeam (props) {
                         <p className="lead">
                         <Row className="mt-2">
                           <Col>
-                          Mit unserer Lösung kann dein Team jederzeit und überall Tauschanfragen senden. Ohne WhatsApp-Nachrichten, E-Mails, Excel-Tabellen oder Papier. Egal ob vom Smartphone, Tablet oder Laptop.  
+                          Mit Staffbite kann dein Team jederzeit und überall Tauschanfragen senden. Ohne WhatsApp-Nachrichten, E-Mails, Excel-Tabellen oder Papier. Egal ob vom Smartphone, Tablet oder Laptop.  
                           </Col>
                       </Row>
                       <Row className="justify-content-center mt-4">
@@ -239,7 +239,7 @@ function VorteileTeam (props) {
                     alt="Abbildung einer anpassbaren Schichtplan Vorlage in der eine Schicht hinhugefügt wird."
                     src={SchichtTauschen}
                     title="Schicht hinzufuegen"
-                    height="90%"
+                    height="100%"
                     width="60%"
                   />
                   </Card>

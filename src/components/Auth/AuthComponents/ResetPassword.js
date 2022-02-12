@@ -65,6 +65,11 @@ const ResetPassword = (props) => {
                         <CardHeader className="bg-white pb-2">
                         <div className="text-muted text-center pt-4">
                             <h3>Passwort vergessen</h3>
+                            <p>
+                                Gib hier deine Mail-Adresse ein - wir schicken dir einen Bestätigungscode zu.
+                                <br/>
+                                Schau am besten auch in deinem Spam-Ordner nach.
+                            </p>
                         </div>
                         </CardHeader>
                         <CardBody className="px-lg-5 py-lg-5">

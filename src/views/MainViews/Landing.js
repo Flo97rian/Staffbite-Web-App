@@ -29,6 +29,7 @@ import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.pn
 import BefuellungStarten from "../../assets/img/landing/Befuellung-starten.png"
 import SchichtplanVeroeffentlichen from "../../assets/img/landing/Schichtplan-veroeffentlichen.png"
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import LandingAnimationLottieJson from '../../assets/json/animation/LandingAnimation.json';
 import {isMobile} from 'react-device-detect';
 
 
@@ -54,9 +55,12 @@ import LandingFooter from "../../components/Footers/LandingFooter.js";
 import { pageview } from "react-ga";
 import { LANDING_DESCRIPTION, LANDING_TITLE } from "../../constants/MetaTexts";
 import ErstellenShow from "./sub/ErstellenShow";
-import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png"
-import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png"
-import AppEintragen from "../../assets/img/app/App-eintragen-uebersicht-smartphone.png"
+import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png";
+import LogoWTSH from "../../assets/img/landing/Netzwerk/LogoWTSH.png";
+import LogoGS from "../../assets/img/landing/Netzwerk/LogoGS.png";
+import LogoVentureWaerft from "../../assets/img/landing/Netzwerk/LogoVentureWaerft.png";
+import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png";
+import AppEintragen from "../../assets/img/app/App-eintragen-uebersicht-smartphone.png";
 import ThemenSlider from "./Themen/ThemenSlider";
 import TrialBanner from "./sub/TrialBanner";
 
@@ -167,20 +171,20 @@ const Landing = (props) => {
                         </Link>
                         </Col>
                         </Row>
-                        {/* <Player 
-                          autoplay
-                          loop
-                          src="../../assets/json/animation/NavbarDashboard.json"
-                          style={{ height: '300px', width: '300px' }}>
-                          </Player>
-                        */}
                         </p>
                     </Col>
-                    <Col className="justify-content-center" md="12" lg="6">
-                          <ErstellenShow></ErstellenShow>
+                    <Col className="justify-content-center p-0 m-0" md="12" lg="6">
+
+                  <Player 
+                  className="shadow"
+                          autoplay
+                          keepLastFrame
+                          src={LandingAnimationLottieJson}>
+                          </Player>
                     </Col>                    
                   </Row>
               </Container>
+
                 <div className="separator separator-bottom">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -198,10 +202,8 @@ const Landing = (props) => {
               </div>
             </section>
             </div>
-            
-            <Row>
             <div ref={SchichtplanSchritteRef}></div>
-            <Container className={isMobile ? "pt-9 mt-9": ""}>
+            <Container className="mt-5 mt-sm-0">
               <Row className=" text-center">
                 <Col  xs="12" >
                   <h2 className="display-3 opacity-title">So funktioniert's - In nur vier Schritten</h2>
@@ -478,35 +480,95 @@ const Landing = (props) => {
                   </Col>
                   </Row>
               </Container>
-              </Row>
-          <section className="section section-lg pt-lg-0 mt-8">
+            <section className="section section-lg pt-lg-0 mt-6">
+            <Container>
+            <Row>
+              <h2 className="display-3 text-default">Unser Netzwerk</h2>
+            </Row>
+            <Row className="">
+              <Col className="">
+                <img
+                  className=""
+                  alt="Logo der WTSH"
+                  src={LogoWTSH}
+                  title="WTSH Logo"
+                  height="90%"
+                  width="80%"
+                  ></img>
+              </Col>
+
+              <Col className="pt-sm-6">
+                <img
+                  className=""
+                  alt="Logo des Gründungsstipendiums Schleswig-Holsein"
+                  src={LogoGS}
+                  title="Gründungsstipendium Logo"
+                  height="50%"
+                  width="90%"
+                  ></img>
+              </Col>
+              
+              <Col className="pt-sm-7">
+                <img
+                    className=""
+                    alt="Logo der Venture Waerft Flensburg-Sonderborg"
+                    src={LogoVentureWaerft}
+                    title="Venture Waerft Logo"
+                    height="40%"
+                    width="80%"
+                    ></img>
+              </Col>
+
+            </Row>
+          </Container>
+          </section>
+
+
+          <section className="section section-lg pt-lg-0 mt-5 mt-sm-8">
             <Container>
               <Row>
               <Col md="12" lg="6">
               <Row className="">
+                <Col>
                 <h2 className="display-3 text-default">Vorteile für dein Team</h2>
+                </Col>
               </Row>
               <p className="lead text-default">
-                    <Row className="mt-6">
+              
+              <Row className="mt-sm-6">
+              <Col>
                         🕗 Jederzeit in den digitalen Schichtplan eintragen
+              </Col>
               </Row>
               <Row className="mt-2">
+                <Col>
                         🌍 Von überall den fertigen Schichtplan einsehen
+                </Col>
               </Row>
               <Row  className="mt-2">
+              <Col>
                         ⚡ Tauschanfragen innerhalb von Sekunden stellen
+              </Col>
               </Row>
               <Row className="mt-2">
+                    <Col>
                         😇 Faire Verteilung der Schichten
+                    </Col>
               </Row>
               <Row className="mt-2">
+                        <Col>
                         👏 Transparente Schichtplanung
+                        </Col>
               </Row>
               </p>
               
+              <Row>
+              <Col>
               <Link to="/fuer-dein-team">
-                <Button className="btn-icon btn-3 mt-5 ml-6" color="warning" type="button"><p className="p-0 m-0">Weitere Informationen</p></Button>
+                <Button className="btn-icon btn-3 mt-5" color="info" type="button"><p className="p-0 m-0">Weitere Informationen</p></Button>
               </Link>
+              </Col>
+              </Row>
 
             </Col>
             <Col md="12" lg="6">
@@ -522,12 +584,15 @@ const Landing = (props) => {
             </Row>        
           </Container>
           </section>
+
+
           <Container className="mt-6">
               <Row className="justify-content-center text-center">
                 <Col md="12">
                   <h2 className="display-3 text-default">Unser Leistungsversprechen</h2>
                 </Col>
               </Row>
+
               <Row className="justify-content-center text-center mb-4">
                 <Col md="10">
                   <p className="lead">
@@ -535,8 +600,16 @@ const Landing = (props) => {
                   </p>
                 </Col>
               </Row>
-              <Row className="mt-4">
-                    <Col xs="12" md="4">
+              <Row className="text-center">
+                <Col>
+                <Link to="/contact">
+                <Button className="btn-icon btn-3 mt-2" color="success" type="button"><p className="p-0 m-0">Persönliches Erstgespräch vereinbaren</p></Button>
+              </Link>
+                </Col>
+              </Row>
+
+              <Row className="mt-5">
+                    <Col xs="12" sm="4">
                     <div>
                         <Row className="">
                           <Col  xs="2">

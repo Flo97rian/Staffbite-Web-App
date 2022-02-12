@@ -42,6 +42,7 @@ import Individuell from "../../assets/img/themen/IndividuellerSchichtplan/Indivi
 import BefüllungStarten from "../../assets/img/themen/BefüllungStarten/BefüllungStarten.png"
 import Overview from "../../assets/img/theme/AnpassungenOverview.png"
 import VeröffentlichungThumb from "../../assets/img/themen/SchichtplanVeröffentlichen/SchichtplanVeröffentlichenThumbnail.jpg"
+import EintragenThumb from "../../assets/img/theme/EintragenThumb.jpg";
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -102,6 +103,29 @@ function Themen (props) {
                 <Card>
                             <CardImg
                             className="p-2"
+                            src={EintragenThumb}
+                            alt="In den Schichtplan Eintragen"
+                            height="100%"
+                            width="100%"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-sm-5 mb-2" tag="h2">
+                                <Link to="/themen/eintragen" class="stretched-link">Schritt für Schritt: In den Schichtplan eintragen</Link>
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie kann mein Team sich in den Schichtplan eintragen?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Artikel zeige ich dir, wie dein Team sich in den Schichtplan eintragen kann.
+                                    Ich zeige dir, welche Schritte du und dein Team machen müssen, um bestmögliche Schichtpläne zu erreichen.
+                            </CardText>
+                            <br/>
+                        </Card>
+            </Col>
+
+            <Col xs="12" md="6">
+                <Card>
+                            <CardImg
+                            className="p-2"
                             src={VeröffentlichungThumb}
                             alt="Schichtplan veröffentlichen"
                             height="100%"
@@ -120,8 +144,13 @@ function Themen (props) {
                             <br/>
                         </Card>
             </Col>
+                                
+                </Row>
+                
+                
+                <Row className="mt-2" >
 
-            <Col xs="12" md="6">
+                <Col xs="12" md="6">
                 <Card>
                             <CardImg
                             className="p-2"
@@ -140,13 +169,9 @@ function Themen (props) {
                                     In diesem Artikel zeige ich dir, wie du Anpassungen an deinem Schichtplan vornimmst.
                                     Ich zeige dir, wie du dich selbst in den Plan einträgst oder auf Änderungswünsche deines Team eingehen kannst.
                             </CardText>
+                            <br/>
                         </Card>
             </Col>
-                                
-                </Row>
-                
-                
-                <Row className="mt-2" >
 
                 <Col xs="12" md="6">
                 <Card>
@@ -171,6 +196,11 @@ function Themen (props) {
                         </Card>
             </Col>
 
+                </Row>
+
+
+                <Row className="mt-2" >
+
                 <Col xs="12" md="6">
                 <Card>
                             <CardImg
@@ -190,14 +220,8 @@ function Themen (props) {
                                     Wir bieten dir die Möglichkeit Mindestanforderungen und Notizen für einzelne Schichten einzustellen und Schichten flexibel zu deaktiveren.
                             </CardText>
                             <br/>
-                            <br/>
                         </Card>
             </Col>
-
-                </Row>
-
-
-                <Row className="mt-2" >
 
                 <Col xs="12" md="6">
                         <Card>
@@ -218,6 +242,10 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
+
+                </Row>
+
+                <Row className="mt-2" >
 
                 <Col xs="12" md="6">
                         <Card>
@@ -240,10 +268,6 @@ function Themen (props) {
                         </Card>
                 </Col>
 
-                </Row>
-
-                <Row className="mt-2" >
-
                 <Col xs="12" md="6">
                     <Card>
                             <CardImg
@@ -264,7 +288,12 @@ function Themen (props) {
                         </Card>
                 </Col>
 
+                </Row>
 
+                <Row className="mt-2" >
+
+
+                    
                 <Col xs="12" md="6">
                         <Card>
                             <CardImg
@@ -284,9 +313,7 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
-                </Row>
 
-                <Row className="mt-2" >
                 <Col xs="12" md="6">
                 <Card>
                             <CardImg

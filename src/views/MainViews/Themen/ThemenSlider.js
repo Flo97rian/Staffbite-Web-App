@@ -180,7 +180,7 @@ function ThemenSlider (props) {
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
                                     Normalerweise dauert die Schichtplanung jede Woche aufs Neue mehrere Stunden.
-                                    Durch unsere Lösung kannst du deine Schichtpläne innerhalb weniger Sekunden befüllen lassen.
+                                    Durch Staffbite kannst du deine Schichtpläne innerhalb weniger Sekunden befüllen lassen.
                             </CardText>
                             <br/>
                         </Card>
@@ -201,12 +201,12 @@ function ThemenSlider (props) {
                             <Link to="/themen/schichtplan-erstellen"class="stretched-link">Schichtplan mit Papier, Excel oder Software</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4 p">
-                                Wie viel kostet dich unsere Lösung nach dem Probemonat?
+                                Wie viel kostet dich Staffbite nach dem Probemonat?
                             </CardSubtitle>
                             <CardText className="pl-4 pt-4 pr-4" tag="p">
                                     Wenn du Staffbite testen möchtest, erhälst du einen kostenlosen Probemonat. 
                                     Nachdem dieser abgelaufen ist, prüfen wir gemeinsam, welches Paket für dich passt.
-                                    Bei uns gibt es keinen Preis pro Mitarbeiter*in, damit du nicht jeden Monat etwas anderes zahlen musst. 
+                                     
                             </CardText>
                         </Card>
                 </Col>
@@ -222,12 +222,12 @@ function ThemenSlider (props) {
                               <Link to="/pricing"class="stretched-link">Unsere Preise</Link>
                               </CardTitle>
                               <CardSubtitle className="pl-4 p">
-                                  Wie viel kostet dich unsere Lösung nach dem Probemonat?
+                                  Wie viel kostet dich Staffbite nach dem Probemonat?
                               </CardSubtitle>
                               <CardText className="pl-4 pt-4 pr-4" tag="p">
                                       Wenn du Staffbite testen möchtest, erhälst du einen kostenlosen Probemonat. 
                                       Nachdem dieser abgelaufen ist, prüfen wir gemeinsam, welches Paket für dich passt.
-                                      Bei uns gibt es keinen Preis pro Mitarbeiter*in, damit du nicht jeden Monat etwas anderes zahlen musst. 
+                                       
                               </CardText>
                           </Card>
                   </Col>

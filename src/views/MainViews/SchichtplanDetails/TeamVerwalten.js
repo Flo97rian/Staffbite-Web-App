@@ -27,7 +27,8 @@ import {
   CardTitle,
   Card,
   CardSubtitle,
-  CardText
+  CardText,
+  Button
 } from "reactstrap";
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {TEAMVERWALTEN_TITLE, TEAMVERWALTEN_DESCRIPTION} from "../../../constants/MetaTexts"
@@ -102,6 +103,7 @@ function TeamVerwalten (props) {
             </Row>
             </Card>
             </Col>
+
             <Col xs="12" md="4">
             <Card>
             <Row className="text-center">
@@ -125,6 +127,7 @@ function TeamVerwalten (props) {
             </Row>
             </Card>
             </Col>
+
             <Col xs="12" md="4">
             <Card>
             <Row className="text-center">
@@ -167,22 +170,100 @@ function TeamVerwalten (props) {
         </Col>
           <br/>
         </Row>
-        <Row className=" ml-0 mt-8">
+        <Row className=" mt-6">
+          <Col>
           <h2 class="display-4">Behalte dein Team im Blick</h2>
+          </Col>
         </Row>
-            <p className="lead pl-2 mt-2">
-            <Row>
+            <p className="lead mt-2">
+          <Row>
+              <Col>
             Staffbite liefert dir einfach und unkompliziert die wichtigsten Informationen zu deinem Team.
             <br/>
             Sieh dir hier die einzelnen Schritte an, um dein Team zu verwalten.
+            </Col>
+            </Row>
+
+            <Row className="mt-2">
+              <Col>
+              <Link to="/signup">
+                <Button className="btn-icon btn-3" color="success" type="button"
+                onClick={
+                    () => 
+                    ReactGA.event({
+                      category: 'Registrierung',
+                      action: 'Team verwalten CTA'
+                    })}
+                  ><p className="p-0 m-0">Kostenlos ausprobieren</p></Button>
+                </Link>
+              </Col>
+            
             </Row>
             </p> 
         </Container>
         
-        <Container className="mt-8">
+        <Container className="mt-5">
         <Row>
-            <Col md="12" lg="8">
-                    <Card>
+                    <Col>
+                    
+                    <Row className="mt-4 text-left">
+                      <Col>
+                      <h2 className="m-0 p-0 display-4">1. Team einladen</h2>
+                      </Col>  
+                    </Row>
+
+                  <Row className="mt-2"> 
+                    <Col> 
+                      <CardSubtitle className="lead">Nur wenige Klicks & Informationen nötig, damit es losgehen kann 🎉</CardSubtitle>
+                    </Col>
+                  </Row>
+                  
+                  <p className="m-0 lead">
+                  <Row className="justify-content-center mt-4">
+                <Col xs="1" className="mt-1 ml-2">
+                  <i className="fas fa-check-circle text-success"></i>
+                </Col>
+                <Col className="mt-1">
+                  Name
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="1" className="mt-1 ml-2">
+                  <i className="fas fa-check-circle text-success"></i>
+                </Col>
+                <Col>
+                  E-Mail
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="1" className="mt-1 ml-2">
+                  <i className="fas fa-check-circle text-success"></i>
+                </Col>
+                <Col>
+                  Erfahrung
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="1" className="mt-1 ml-2">
+                  <i className="fas fa-check-circle text-success"></i>
+                </Col>
+                <Col>
+                  Schichten pro Woche
+                </Col>
+              </Row>
+              <Row>
+                <Col xs="1" className="mt-1 ml-2">
+                  <i className="fas fa-check-circle text-success"></i>
+                </Col>
+                <Col className="mt-1">
+                  Position
+                </Col>
+              </Row>  
+              </p>
+              </Col>
+
+
+              <Col md="12" lg="8">
                     <img
                     className="shadow"
                     style={{borderRadius: "10px"}}
@@ -192,75 +273,27 @@ function TeamVerwalten (props) {
                     height="100%"
                     width="100%"
                   />
-                  </Card>
                     </Col>
-
-                    <Col className={isMobile ? "" : "ml-6"}>
-                    <Row className="mt-4 text-left">
-                      <h2 className="m-0 p-0 display-4">1. Team einladen</h2>
-                    </Row>
-                    <Row className="mt-2">
-                    <CardSubtitle className="lead">Nur wenige Klicks & Informationen nötig, damit es losgehen kann 🎉</CardSubtitle>
-                  </Row>
-                  <p className="m-0 lead">
-                  <Row className="justify-content-center mt-4">
-                <Col xs="1" className="mt-1">
-                  <i className="fas fa-check-circle text-success"></i>
-                </Col>
-                <Col>
-                  Name
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="1" className="mt-1">
-                  <i className="fas fa-check-circle text-success"></i>
-                </Col>
-                <Col>
-                  E-Mail
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="1" className="mt-1">
-                  <i className="fas fa-check-circle text-success"></i>
-                </Col>
-                <Col>
-                  Erfahrung
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="1" className="mt-1">
-                  <i className="fas fa-check-circle text-success"></i>
-                </Col>
-                <Col>
-                  Schichten pro Woche
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="1" className="mt-1">
-                  <i className="fas fa-check-circle text-success"></i>
-                </Col>
-                <Col>
-                  Position
-                </Col>
-              </Row>  
-              </p>
-              </Col>
         </Row>
-            </Container>
+    </Container>
 
-            <Container className="mt-8">
+    <Container className="mt-6">
         <Row>
 
-                    <Col className={isMobile ? "" : "ml-6"}>
+                    <Col>
                     <Row className="mt-4 text-left">
-                      <h2 className="m-0 p-0 display-4">2. Team verwalten</h2>
+                      <Col>
+                      <h2 className="display-4">2. Team verwalten</h2>
+                      </Col>
                     </Row>
                     <Row className="mt-2">
+                      <Col>
                     <CardSubtitle className="lead">Nachdem du dein Team eingeladen hast, kannst du deine Mitarbeiter*innen übersichtlich verwalten.</CardSubtitle>
+                    </Col>
                   </Row>
                   <p className="m-0 lead">
                   <Row className="justify-content-center mt-4">
-                <Col xs="1" className="mt-1">
+                <Col xs="1" className="mt-1 ml-2">
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
@@ -268,7 +301,7 @@ function TeamVerwalten (props) {
                 </Col>
               </Row>
               <Row>
-                <Col xs="1" className="mt-1">
+                <Col xs="1" className="mt-1 ml-2">
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>
@@ -276,7 +309,7 @@ function TeamVerwalten (props) {
                 </Col>
               </Row>
               <Row>
-                <Col xs="1" className="mt-1">
+                <Col xs="1" className="mt-1 ml-2">
                   <i className="fas fa-check-circle text-success"></i>
                 </Col>
                 <Col>

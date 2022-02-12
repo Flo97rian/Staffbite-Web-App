@@ -8,6 +8,7 @@ import ReactGA from 'react-ga';
 import "./assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/argon-dashboard-react.scss";
+import "./assets/css/argon-dashboard-react.css";
 import "./assets/css/staffbite.css"
 import "./assets/vendor/font-awesome/css/font-awesome.css"
 import "react-notification-alert/dist/animate.css";
@@ -60,6 +61,7 @@ import IndividuellerSchichtplan from './views/MainViews/Themen/IndividuellerSchi
 import AutomatisierteBefüllung from './views/MainViews/SchichtplanDetails/AutomatisierteBefüllung';
 import Anpassungen from './views/MainViews/Themen/Anpassungen';
 import Veröffentlichung from './views/MainViews/Themen/Veröffentlichung'
+import Eintragen from './views/MainViews/Themen/Eintragen'
 import CookieConsent from "react-cookie-consent";
 import SelectNewPassword from './components/Auth/AuthComponents/SelectNewPassword';
 
@@ -101,6 +103,7 @@ ReactDOM.render(
         <Route path="/themen/automatisierte-befuellung-starten" element={<AutomatisierteBefüllungStarten />} />
         <Route path="/themen/anpassungen-vornehmen" element={<Anpassungen />} />
         <Route path="/themen/schichtplan-veroeffentlichen" element={<Veröffentlichung />} />
+        <Route path="/themen/eintragen" element={<Eintragen />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
         <Route path="/pricing" element={ <Pricing  />} />

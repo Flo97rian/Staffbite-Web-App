@@ -34,8 +34,7 @@ import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {AUTOMATISIERTE_SCHICHTPLANUNG_TITLE, AUTOMATISIERTE_SCHICHTPLANUNG_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
-import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png"
-import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
+import SchichtplanPublish from "../../../assets/img/themen/AutomatisierteBefüllung/BefüllterPlan.png"
 import { isMobile } from "react-device-detect";
 import ThemenSlider from "../Themen/ThemenSlider";
 
@@ -71,48 +70,55 @@ function AutomatisierteBefüllung (props) {
       {/* Page content */}
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-8">
-                        <h1 className="display-3">Dein automatisierter Schichtplan</h1>
+                    <h1 class="text-center">Dein digitaler Schichtplan - Automatisierte Befüllung</h1>
                     </Row>
       </Container>    
+
             <Container className="pb-2">
             <Row className="mt-4">
                 <Col className="mt-6">
-                <Row className="mt-4">
-                    <Col>
-                        <h2 class="display-4">Deine Zeit ist zu wertvoll, um sie mit der Schichtplanung zu verbringen</h2>
-                        </Col>
+                <h2 class="display-4">Deine Zeit ist zu wertvoll, um sie mit der Schichtplanung zu verbringen</h2>   
+                </Col>
                 </Row>
+
+                <Row>
+                  <Col>
+
+                
                 <p className="lead">
                 <Row className="mt-4">
                     <Col>
                       Nachdem dein Team sich in deinen Schichtplan eingetragen hat, kannst du die automatisierte Befüllung starten. Dafür reicht ein Klick aus. Wenige Sekunden später ist dein Schichtplan fertig. Dein Team wird ausschließlich in Schichten eingeteilt, in die sie sich eingetragen haben. Somit entsteht ein fairer Schichtplan für dein ganzes Team. 
                     </Col>
                 </Row>
+
                 <Row className="mt-4">
                     <Col>
-                      Bisher hast du wahrscheinlich stundenlang per Hand mit Papier und einer Excel-Tabelle deinen Schichtplan befüllt. Mit unserer Lösung ist das Vergangenheit! Wir wollen dir helfen sowohl Zeit als auch Nerven zu sparen. 
+                      Bisher hast du wahrscheinlich stundenlang per Hand mit Papier und einer Excel-Tabelle deinen Schichtplan befüllt. Mit Staffbite ist das Vergangenheit! Wir wollen dir helfen sowohl Zeit als auch Nerven zu sparen. 
                     </Col>
                 </Row>
+
                 <Row className="mt-4">
                     <Col>
                       Schau dir einfach an wie unsere <Link to="/themen/automatisierung">automatisierte Schichtplanung</Link> funktioniert.
                     </Col>
                 </Row>
-                </p>     
+                </p>
                 </Col>
-                <Col className={isMobile ? "" : "pt-8"}  md="12" lg="6">
-                <Card className="bg-transparent shadow-none">
-                      <img
+
+                <Col className={isMobile ? "" : "pt-4"}  md="12" lg="6">
+                <img
                     alt="Abbildung eines automatisiert erstellen Schichtplans von Staffbite"
                     title="Schichtplan automatisiert erstellen"
-                    src={SchichtplanBeispiel}
-                    height={isMobile ? "100%" : "60%"}
+                    src={SchichtplanPublish}
+                    height="80%"
                     width="100%"
                   />
-                  </Card>
                 </Col>
                 </Row>
-                </Container>
+            </Container>
+
+
               <Container className="mt-6">
               <Row className="text-center">
                 <Col md="12">
