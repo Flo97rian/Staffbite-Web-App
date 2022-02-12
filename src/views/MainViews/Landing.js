@@ -198,11 +198,8 @@ const Landing = (props) => {
               </div>
             </section>
             </div>
-            
-            <Row>
-              
             <div ref={SchichtplanSchritteRef}></div>
-            <Container className={isMobile ? "pt-9 mt-9": ""}>
+            <Container className="mt-5 mt-sm-0">
               <Row className=" text-center">
                 <Col  xs="12" >
                   <h2 className="display-3 opacity-title">So funktioniert's - In nur vier Schritten</h2>
@@ -473,7 +470,6 @@ const Landing = (props) => {
                   </Col>
                   </Row>
               </Container>
-              </Row>
           <section className="section section-lg pt-lg-0 mt-6">
             <Container>
               <Row>
