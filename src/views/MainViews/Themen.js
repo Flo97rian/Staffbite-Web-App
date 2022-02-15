@@ -43,6 +43,7 @@ import BefüllungStarten from "../../assets/img/themen/BefüllungStarten/Befüll
 import Overview from "../../assets/img/theme/AnpassungenOverview.png"
 import VeröffentlichungThumb from "../../assets/img/themen/SchichtplanVeröffentlichen/SchichtplanVeröffentlichenThumbnail.jpg"
 import EintragenThumb from "../../assets/img/theme/EintragenThumb.jpg";
+import TeamEinladenThumb from "../../assets/img/themen/TeamEinladen/TeamEinladenThumb.png";
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -103,6 +104,29 @@ function Themen (props) {
                 <Card>
                             <CardImg
                             className="p-2"
+                            src={TeamEinladenThumb}
+                            alt="Team zu Staffbite Einladen"
+                            height="100%"
+                            width="100%"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-sm-0 mb-2" tag="h2">
+                                <Link to="/themen/team-einladen" class="stretched-link">Schritt für Schritt: Team einladen</Link>
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                Wie kann ich mein Team zu Staffbite einladen?
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Artikel zeige ich dir, wie du dein Team zu Staffbite einlädst.
+                                    Ich zeige dir, welche Schritte du machen musst, um dein Team innerhalb weniger Minuten zu Staffbite einzuladen.
+                            </CardText>
+                            <br/>
+                        </Card>
+            </Col>
+
+            <Col xs="12" md="6">
+                <Card>
+                            <CardImg
+                            className="p-2"
                             src={EintragenThumb}
                             alt="In den Schichtplan Eintragen"
                             height="100%"
@@ -121,7 +145,13 @@ function Themen (props) {
                             <br/>
                         </Card>
             </Col>
+                                
+                </Row>
+                
+                
+                <Row className="mt-2" >
 
+                    
             <Col xs="12" md="6">
                 <Card>
                             <CardImg
@@ -144,11 +174,6 @@ function Themen (props) {
                             <br/>
                         </Card>
             </Col>
-                                
-                </Row>
-                
-                
-                <Row className="mt-2" >
 
                 <Col xs="12" md="6">
                 <Card>
@@ -159,7 +184,7 @@ function Themen (props) {
                             height="100%"
                             width="100%"
                             ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                            <CardTitle className="pl-4 pt-sm-1 mb-2" tag="h2">
                                 <Link to="/themen/anpassungen-vornehmen" class="stretched-link">Schritt für Schritt: Anpassungen am Schichtplan</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
@@ -173,6 +198,11 @@ function Themen (props) {
                         </Card>
             </Col>
 
+                </Row>
+
+
+                <Row className="mt-2" >
+
                 <Col xs="12" md="6">
                 <Card>
                             <CardImg
@@ -182,7 +212,7 @@ function Themen (props) {
                             height="80%"
                             width="80%"
                             ></CardImg>
-                            <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
+                            <CardTitle className="pl-4 pt-sm-1 mb-2" tag="h2">
                                 <Link to="/themen/automatisierte-befuellung-starten" class="stretched-link">Schritt für Schritt: Automatisierte Befüllung starten</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
@@ -195,11 +225,6 @@ function Themen (props) {
                             <br/>
                         </Card>
             </Col>
-
-                </Row>
-
-
-                <Row className="mt-2" >
 
                 <Col xs="12" md="6">
                 <Card>
@@ -223,6 +248,10 @@ function Themen (props) {
                         </Card>
             </Col>
 
+                </Row>
+
+                <Row className="mt-2" >
+
                 <Col xs="12" md="6">
                         <Card>
                             <CardImg
@@ -242,10 +271,6 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
-
-                </Row>
-
-                <Row className="mt-2" >
 
                 <Col xs="12" md="6">
                         <Card>
@@ -268,6 +293,10 @@ function Themen (props) {
                         </Card>
                 </Col>
 
+                </Row>
+
+                <Row className="mt-2" >
+
                 <Col xs="12" md="6">
                     <Card>
                             <CardImg
@@ -288,11 +317,7 @@ function Themen (props) {
                         </Card>
                 </Col>
 
-                </Row>
-
-                <Row className="mt-2" >
-
-
+                
                     
                 <Col xs="12" md="6">
                         <Card>
@@ -313,6 +338,9 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
+                </Row>
+
+                <Row className="mt-2" >
 
                 <Col xs="12" md="6">
                 <Card>
