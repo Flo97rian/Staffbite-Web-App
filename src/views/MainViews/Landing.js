@@ -805,7 +805,7 @@ const Landing = (props) => {
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary bold">
-                      <Link to="/automatisierter-schichtplan">Automatisisert</Link>
+                      <Link to="/automatisierter-schichtplan">Automatisiert</Link>
                       </CardTitle>
                       <CardText>
                         Automatisiere deinen Schichtplan
