@@ -481,6 +481,7 @@ const Landing = (props) => {
             </Row>
             <Row className="">
               <Col className="">
+              <a href="https://wtsh.de">               
                 <img
                   className=""
                   alt="Logo der WTSH"
@@ -489,9 +490,11 @@ const Landing = (props) => {
                   height="90%"
                   width="80%"
                   ></img>
+                  </a>
               </Col>
 
               <Col className="pt-sm-6">
+              <a href="https://gruendungsstipendium-sh.de/"> 
                 <img
                   className=""
                   alt="Logo des Gründungsstipendiums Schleswig-Holsein"
@@ -500,9 +503,11 @@ const Landing = (props) => {
                   height="50%"
                   width="90%"
                   ></img>
+                  </a>
               </Col>
               
               <Col className="pt-sm-7">
+              <a href="https://venturewaerft.com/de/"> 
                 <img
                     className=""
                     alt="Logo der Venture Waerft Flensburg-Sonderborg"
@@ -511,6 +516,7 @@ const Landing = (props) => {
                     height="40%"
                     width="80%"
                     ></img>
+                    </a>
               </Col>
 
             </Row>
@@ -794,7 +800,7 @@ const Landing = (props) => {
                   <Card>
                     <CardBody>
                       <CardTitle className="lead mt-0 mb-0 text-primary bold">
-                      <Link to="/automatisierter-schichtplan">Automatisisert</Link>
+                      <Link to="/automatisierter-schichtplan">Automatisiert</Link>
                       </CardTitle>
                       <CardText>
                         Automatisiere deinen Schichtplan
