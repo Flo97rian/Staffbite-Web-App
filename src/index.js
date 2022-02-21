@@ -62,6 +62,7 @@ import Anpassungen from './views/MainViews/Themen/Anpassungen';
 import Veröffentlichung from './views/MainViews/Themen/Veröffentlichung';
 import Eintragen from './views/MainViews/Themen/Eintragen';
 import TeamEinladen from './views/MainViews/Themen/TeamEinladen';
+import Tauschanfragen from './views/MainViews/Themen/Tauschanfragen';
 import CookieConsent from "react-cookie-consent";
 import SelectNewPassword from './components/Auth/AuthComponents/SelectNewPassword';
 
@@ -105,6 +106,7 @@ ReactDOM.render(
         <Route path="/themen/schichtplan-veroeffentlichen" element={<Veröffentlichung />} />
         <Route path="/themen/eintragen" element={<Eintragen />} />
         <Route path="/themen/team-einladen" element={<TeamEinladen />} />
+        <Route path="/themen/tauschanfragen" element={<Tauschanfragen />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
         <Route path="/pricing" element={ <Pricing  />} />
