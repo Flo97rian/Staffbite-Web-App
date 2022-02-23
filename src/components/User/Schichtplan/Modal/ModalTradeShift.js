@@ -18,7 +18,7 @@ const ModalSchichtTauschen = (props) => {
                     show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
             >
                 <Modal.Header className="pb-0" closeButton>
-                    <Label className="h2 m-3 align-items-center">In Schicht eintragen</Label>
+                    <Label className="h2 m-3 align-items-center">Schichtdetails</Label>
                 </Modal.Header>
                 <Modal.Body className="pt-1">
                     <ShiftDetails {...props} />
