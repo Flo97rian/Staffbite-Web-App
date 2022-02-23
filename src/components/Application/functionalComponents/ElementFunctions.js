@@ -102,7 +102,7 @@ export function getHasShiftName (currentItem) {
 export function getSecondApplicant (currentItem, applicantsType) {
     let SecondApplicant = !1;
     if (getHasApplicants(currentItem, applicantsType)) {
-        if(getApplicantsLength(currentItem, applicantsType) === 2) {
+        if(getApplicantsLength(currentItem, applicantsType) > 1) {
             SecondApplicant = currentItem[applicantsType][Object.keys(currentItem[applicantsType])[1]]
             let dividers = [" ", ", ", ","]
             let divider = dividers.find(substring => SecondApplicant.includes(substring));
