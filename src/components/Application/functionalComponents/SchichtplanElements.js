@@ -6,7 +6,8 @@ import {
     Badge,
     ListGroupItemHeading,
     ListGroupItemText,
-    Button
+    Button,
+    Progress
 } from "reactstrap"
 
 export const DateOrWeekDayRow = (obj) => {
@@ -296,6 +297,7 @@ export const ZeroApplicants = (index, col, Click) => {
     </ListGroup>
 )}
 
+
 export const ZeroApplicantsWithNotice = (index, col, Click) => {
     return (<ListGroup>
        <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}><i className="fas fa-bookmark text-success float-right" aria-hidden="true"/><p className="m-0"><br/><br/></p></ListGroupItem>
@@ -571,3 +573,319 @@ export const TwoSetApplicantsWithPrio = (index, col, FirstApplicant, SecondAppli
     </ListGroup>
 )}
 
+
+//VERSIONS TESTING
+
+export const ZeroApplicantsRed = (index, col, Click) => {
+    return (<ListGroup>
+       <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="danger" onClick={(e, j) => Click(index, col)}><p className="m-0"><br/><br/></p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const ZeroApplicantsWithPrioRed = (index, col, Click) => {
+    return (<ListGroup>
+        <ListGroupItem style={{"cursor": "pointer"}} className="m-0 p-0" color="danger" onClick={(e, j) => Click(index, col)}><i className="fas fa-bookmark text-success float-right m-2" aria-hidden="true"/><p className="mb-0 p-3"><br/><br/></p></ListGroupItem>
+    </ListGroup>
+)}
+
+export const TwoSetApplicantsWithoutPrioNotFilled = (index, col, FirstApplicant, SecondApplicant, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="warning" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            </ListGroupItemHeading>
+            <ListGroupItemText className="m-0 p-3">
+                {FirstApplicant}
+                <br/>
+                {SecondApplicant}
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const TwoSetApplicantsWithoutPrioFilled = (index, col, FirstApplicant, SecondApplicant, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="warning" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            </ListGroupItemHeading>
+            <ListGroupItemText className="m-0 p-3">
+                {FirstApplicant}
+                <br/>
+                {SecondApplicant}
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const SingleSetApplicantWithoutPrioNotFilled = (index, col, FirstApplicant, Click) => {
+    return (<ListGroup>
+                <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="warning" onClick={(e, j) => Click(index, col)}>
+                    <ListGroupItemHeading className="m-0 p-0" color="">
+                    </ListGroupItemHeading>
+                    <ListGroupItemText className="m-0 p-3">
+                        {FirstApplicant}
+                        <br/>
+                        <br/>
+                    </ListGroupItemText>
+                </ListGroupItem>
+            </ListGroup>
+)}
+
+export const SingleSetApplicantWithoutPrioFilled = (index, col, FirstApplicant, Click) => {
+    return (<ListGroup>
+                <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
+                    <ListGroupItemHeading className="m-0 p-0" color="">
+                    </ListGroupItemHeading>
+                    <ListGroupItemText className="m-0 p-3">
+                        {FirstApplicant}
+                        <br/>
+                        <br/>
+                    </ListGroupItemText>
+                </ListGroupItem>
+            </ListGroup>
+)}
+
+export const MultiSetApplicantsWithoutPrioNotFilled = (index, col, FirstApplicant, ApplicantsLength, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="warning" onClick={(e, j) => Click(index, col)}>
+                    <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    <br/>
+                     + {ApplicantsLength} weitere
+                   </p>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const MultiSetApplicantsWithoutPrioFilled = (index, col, FirstApplicant, ApplicantsLength, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
+                    <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    <br/>
+                     + {ApplicantsLength} weitere
+                   </p>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const TwoSetApplicantsWithPrioNotFilled = (index, col, FirstApplicant, SecondApplicant, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="warning" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            </ListGroupItemHeading>
+            <ListGroupItemText className="m-0 p-3">
+                {FirstApplicant}
+                <br/>
+                {SecondApplicant}
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const SingleSetApplicantWithPrioNotFilled = (index, col, FirstApplicant, Click) => {
+    return (<ListGroup>
+                <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="warning" onClick={(e, j) => Click(index, col)}>
+                    <ListGroupItemHeading className="m-0 p-0" color="">
+                    </ListGroupItemHeading>
+                    <ListGroupItemText className="m-0 p-3">
+                        {FirstApplicant}
+                        <br/>
+                        <br/>
+                    </ListGroupItemText>
+                </ListGroupItem>
+            </ListGroup>
+)}
+
+export const MultiSetApplicantsWithPrioNotFilled = (index, col, FirstApplicant, ApplicantsLength, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="warning" onClick={(e, j) => Click(index, col)}>
+                    <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    <br/>
+                     + {ApplicantsLength} weitere
+                   </p>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const MultiSetApplicantsWithPrioFilled = (index, col, FirstApplicant, ApplicantsLength, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
+                    <p className="mb-0 mt-2 pt-3 pr-2 pl-2 pb-2 text-center">
+                    {FirstApplicant}
+                    <br/>
+                     + {ApplicantsLength} weitere
+                   </p>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const SingleSetApplicantWithPrioFilled = (index, col, FirstApplicant, Click) => {
+    return (<ListGroup>
+                <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
+                    <ListGroupItemHeading className="m-0 p-0" color="">
+                    </ListGroupItemHeading>
+                    <ListGroupItemText className="m-0 p-3">
+                        {FirstApplicant}
+                        <br/>
+                        <br/>
+                    </ListGroupItemText>
+                </ListGroupItem>
+            </ListGroup>
+)}
+
+export const TwoSetApplicantsWithPrioFilled = (index, col, FirstApplicant, SecondApplicant, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="success" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            </ListGroupItemHeading>
+            <ListGroupItemText className="m-0 p-3">
+                {FirstApplicant}
+                <br/>
+                {SecondApplicant}
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgessSetApplicantsWithPrioFilled = (index, col, FirstApplicant, SecondApplicant, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress max="100" value="100" color="success" />
+            <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className="m-0 p-0 pt-2">
+            {FirstApplicant}
+                <br/>
+                {SecondApplicant}
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgessSetApplicantsWithPrioNotFilled = (index, col, FirstApplicant, SecondApplicant, Click, progress) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress max="100" value="50" color="yellow" />
+            <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className="m-0 p-3 pt-2">
+            {FirstApplicant}
+                <br/>
+                {SecondApplicant}
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+export const ProgessSetApplicantsWithPrioEmpty = (index, col, FirstApplicant, SecondApplicant, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress max="100" value="100" color="warning" />
+            <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className="m-0 p-4">
+            {FirstApplicant}
+                <br/>
+                {SecondApplicant}
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgessSetApplicantsWithoutPrioFilled = (index, col, FirstApplicant, SecondApplicant, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress max="100" value="100" color="success" />
+            </ListGroupItemHeading>
+            <ListGroupItemText className="m-0 pt-2">
+            {FirstApplicant}
+                <br/>
+                {typeof SecondApplicant === "string" ? SecondApplicant : <br/>}
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgessSetApplicantsWithoutPrioNotFilled = (index, col, FirstApplicant, SecondApplicant, Click, progress) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress max="100" value="50" color="yellow" />
+            </ListGroupItemHeading>
+            <ListGroupItemText className="m-0 p-3">
+            {FirstApplicant}
+                <br/>
+                {SecondApplicant}
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+export const ProgessSetApplicantsWithoutPrioEmpty = (index, col, FirstApplicant, SecondApplicant, Click) => {
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress max="100" value="100" color="warning" />
+            </ListGroupItemHeading>
+            <ListGroupItemText className="m-0 pt-2">
+            <br/>
+            <br/>
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+const renderCircle = (FirstApplicant = !1, SecondApplicant = !1, ApplicantsLength = !1) => {
+    if(FirstApplicant !== !1 && SecondApplicant === !1 && ApplicantsLength === !1) {
+        let splitFirstApplicant = FirstApplicant.split(" ")
+        return (
+            <a
+            className="avatar rounded-circle bg-info"
+            >
+            {splitFirstApplicant[0][0]}{splitFirstApplicant[1][0]}
+          </a>
+        )
+    } else if (FirstApplicant !== !1 && SecondApplicant !== !1 && typeof SecondApplicant !==  "number" && ApplicantsLength === !1) {
+        let splitFirstApplicant = FirstApplicant.split(" ");
+        let splitSecondApplicant = SecondApplicant.split(" ");
+        return (
+            <>
+            <a
+            className="avatar rounded-circle bg-info"
+            >
+            {splitFirstApplicant[0][0]}{splitFirstApplicant[1][0]}
+            </a>
+            <a
+            className="avatar rounded-circle ml--2 bg-info"
+            >
+            {splitSecondApplicant[0][0]}{splitSecondApplicant[1][0]}
+            </a>
+            
+          </>
+        )
+    }
+    else if(FirstApplicant !== !1 && SecondApplicant !== !1 && typeof SecondApplicant !==  "number" && ApplicantsLength !== !1) {
+        let splitFirstApplicant = FirstApplicant.split(" ")
+        let splitSecondApplicant = SecondApplicant.split(" ")
+        return (
+            <>
+            <a
+            className="avatar rounded-circle"
+            >
+            {splitFirstApplicant[0][0]}{splitFirstApplicant[1][0]}
+            </a>
+            <a
+            className="avatar rounded-circle ml--2"
+            >
+            {splitSecondApplicant[0][0]}{splitSecondApplicant[1][0]}
+            </a>
+            
+          </>
+        )
+    } else {
+        return null;
+    }
+}

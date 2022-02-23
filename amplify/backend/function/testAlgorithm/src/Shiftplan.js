@@ -46,7 +46,8 @@ class Shiftplan {
     iterateShiftRowsDays() {
        this.days.forEach(day => {
             this.currentDay = day;
-            this.getShiftScope();
+            this.getShiftScope();   
+            
         }) 
     }
     
@@ -144,7 +145,7 @@ class Shiftplan {
         
     getShiftScope() {
         if(this.isValidShift()) {
-            this.setApplicant()
+                this.setApplicant()
             //this.setHeatMapSetApplicants()
         }
     }
@@ -351,7 +352,6 @@ class Shiftplan {
                     let currentApplicant = new Employee(this.employees.getEmployee(this.currentApplicant));
                     let isSetInTargetDay = this.getApplicantIsSetInTargetShift(applicant, selectedReference[currentIndex].day);
                     let isSetInCurrentDay = this.getApplicantIsSetThisDay(currentApplicant);
-                    console.log(this.currentApplicant)
                     if(!isAtMaximumShifts && !isSetInCurrentDay && !isSetInTargetDay) {
                         this.alternativeApplicantsId = applicantId;
                         this.alternativeShift = selectedReference[currentIndex];
@@ -626,9 +626,9 @@ class Shiftplan {
          // get nessesary days to iterate over
     createActiveDays(index) {
         this.getDays(index);
-        this.removeWochentag()
-        this.filterActiveDays(index);
-        this.sortDaysTypeSplit();
+            this.removeWochentag()
+            this.filterActiveDays(index);
+            this.sortDaysTypeSplit();
         };
         
         
@@ -654,15 +654,20 @@ class Shiftplan {
     sortDaysTypeSplit() {
         let days = [...this.days];
         let daysArray = [];
+        let daysLength = days.length;
+        if( daysLength > 1) {
         daysArray = this.pushFirstAndSecondDay(daysArray, days);
         days = this.spliceFirstAndSecondDay(days);
         daysArray = this.pushReverseDays(daysArray, days);
+        } else if (daysLength === 1) {
+            daysArray.push(days[0])
+        }
         this.days = daysArray;
     }
                 
     pushFirstAndSecondDay(daysArray, days) {
         daysArray.push(days[0]);
-        daysArray.push(days[1]);
+        daysArray.push(days[1]);       
         return daysArray;
     }
                 
@@ -676,7 +681,7 @@ class Shiftplan {
                 
     spliceFirstAndSecondDay(days) {
         days.shift();
-        days.shift();
+        days.shift();     
         return days;
     }
         
@@ -694,6 +699,10 @@ class Shiftplan {
             
     validDay() {
         return this.days.includes(this.currentDay)
+    }
+    
+    dayIsActive(day) {
+        return this.currentShiftRow[day].frei
     }
 
         
