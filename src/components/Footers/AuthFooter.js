@@ -62,7 +62,7 @@ const AuthFooter = () => {
               </Link>
               </Nav>
           <Nav className="ml-2 mt-0 pt-0" navbar vertical>
-          <h4 className="ml-4 pt-0 mt-0">Folgen Sie uns</h4>
+          <h4 className="ml-4 pt-0 mt-0">Folg uns auf Social Media</h4>
               <NavItem className="ml-2 float-right">
               <NavLink
                     className="text-muted"
@@ -87,7 +87,7 @@ const AuthFooter = () => {
 
           <Nav className="ml-2 position-right" navbar vertical>
                 <NavItem className="ml-2 text-muted">
-                      <h2 className="h4 ">Kontaktieren Sie uns</h2>
+                      <h2 className="h4 ">Nimm direkt Kontakt auf</h2>
                       <p>
                       Zellmann GbR.
                       <br/>
