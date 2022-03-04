@@ -55,7 +55,7 @@ const Login = () => {
     const [password, setPassword] = useState(null);
     const [passwordAgain, setPasswordAgain] = useState("");
     const [code, setCode] = useState("");
-    const [ErrMsng, setErrMsng] = useState({WrongLogInData: !1});
+    const [ErrMsng, setErrMsng] = useState({WrongLogInData: !1, PasswordRequirementsLength: !1, PasswordRequirementsLower: !1, PasswordRequirementsCapital: !1, PasswordRequirementsSpecial:!1, PasswordRequirementsNumber: !1});
     const [isValid, setIsValid] = useState(!1);
     const [msg, setMsg] = useState(null);
     const [err, setErr] = useState(null)
@@ -104,7 +104,6 @@ const Login = () => {
     async function signIn() {
         try {
             const user = await Auth.signIn(username, password);
-            let userAttributes = user.attributes;
             console.log(user)
             // neuer MA hat challengeName "NEW_PASSWORD_REQUIRED"
             if ("challengeName" in user) {
@@ -113,10 +112,7 @@ const Login = () => {
                     setUser(user);
                 } else if (newpassword !== null) {
                     changePassword(password, newpassword);
-                    setAuthState();
                 }
-            } else if (userAttributes !== undefined && !("email_verified" in userAttributes)) {
-                sendVerifyCurrentUserAttribute()
             } else {
                 setAuthState(AuthState.SignedIn);
                 setUser(user);
@@ -180,20 +176,47 @@ const Login = () => {
         Auth.signIn(username, password)
         .then(user => {
             if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-                if (isValid) {
-
-                }
+                let capitals = /[A-Z]/
+                let numbers =  /[0-9]/
+                let lower = /[a-z]/
+                let specialChars = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+                let hasMinEightLetters = newpassword.length >= 8;
+                let hasCapitalLetter = capitals.test(newpassword)
+                let hasNumber = numbers.test(newpassword);
+                let hasLowerChar = lower.test(newpassword);
+                let hasSpecialChar = specialChars.test(newpassword)
+                if (hasCapitalLetter && hasMinEightLetters && hasNumber && hasSpecialChar && hasLowerChar) {
+                    console.log("hier")
                 Auth.completeNewPassword(
                     user,               // the Cognito User Object
                     newpassword,       // the new password
                 ).then(user => {
-                    setAuthState("");
+                    setAuthState();
                 }
                 ).catch(e => {
                     console.log(e);
+                    
                 });
             }
+            if(hasMinEightLetters === false) {
+                setErrMsng({...ErrMsng, PasswordRequirementsLength: !0})
+            }
+            if(hasCapitalLetter === false) {
+                setErrMsng({...ErrMsng, PasswordRequirementsCapital: !0}) 
+            }
+            if(hasLowerChar === false) {
+                setErrMsng({...ErrMsng, PasswordRequirementsLower: !0}) 
+            }
+            if(hasNumber === false) {
+                setErrMsng({...ErrMsng, PasswordRequirementsNumber: !0}) 
+            }
+            if(hasSpecialChar === false) {
+                setErrMsng({...ErrMsng, PasswordRequirementsSpecial: !0}) 
+            }
+            setAuthState(AuthState.ResetPassword);
+        }
         })
+        
         .catch(e => {
             console.log(e);
         });
@@ -215,6 +238,9 @@ const Login = () => {
                 <ChangeInitalPassword
                 handleInputChange={handleInputChange}
                 signIn={signIn}
+                ErrMsng={ErrMsng}
+                setErrMsng={setErrMsng}
+                password={password}
                 newpassword={newpassword}
                 passwordAgain={passwordAgain}
                 setIsValid={setIsValid}

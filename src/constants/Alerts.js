@@ -12,3 +12,9 @@ export const WARNING_MISSING_MAIL = "Bitte trage eine gültige Mail Adresse ein.
 export const WARNING_MISSING_PASSWORD = "Bitte trage ein gültiges Passwort ein.";
 export const WARNING_MAIL_ALREADY_USED = "Bitte trage eine andere E-Mail Adresse ein. Deine eingetragene Mail Adresse wird bereits benutzt.";
 export const WARNING_WRONG_MAIL_OR_PASSWORD = "Bitte überprüfe deine Anmeldedaten. Diese Kombination gehört zu keinem gültigen Account.";
+export const WARNING_PASSWORD_TOO_SHORT = "Bitte überprüfe die Länge deines neuen Passworts. Die Mindestlänge beträgt 8 Zeichen";
+export const WARNING_PASSWORD_NO_SPECIAL_CHAR = "Bitte überprüfe, ob dein Passwort über Sonderzeichen verfügt. Mindestanforderung 1 Sonderzeichen.";
+export const WARNING_PASSWORD_NO_CAPITAL_CHAR = "Bitte überprüfe, ob dein Passwort einen Großbuchstaben enthält. Mindestanforderung 1 Großbuchstaben.";
+export const WARNING_PASSWORD_NO_LOWER_CHAR = "Bitte überprüfe, ob dein Passwort über einen Kleinbuchstaben verfügt. Mindestanforderung 1 Kleinbuchstaben.";
+export const WARNING_PASSWORD_NO_NUMBER = "Bitte überprüfe, ob dein Passwort über eine Zahl verfügt. Mindestanforderung 1 Zahl";
+

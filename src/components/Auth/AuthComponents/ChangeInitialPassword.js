@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // reactstrap components
 import {
   Button,
@@ -41,6 +41,8 @@ import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { Switch, Redirect } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
+import NotificationAlert from "react-notification-alert";
+import { WARNING_WRONG_MAIL_OR_PASSWORD, WARNING_PASSWORD_NO_CAPITAL_CHAR, WARNING_PASSWORD_NO_LOWER_CHAR, WARNING_PASSWORD_NO_NUMBER, WARNING_PASSWORD_NO_SPECIAL_CHAR, WARNING_PASSWORD_TOO_SHORT } from "../../../constants/Alerts";
 
 const ChangeInitalPassword = (props) => {
     const handleKeyPress = (event) => {
@@ -48,6 +50,27 @@ const ChangeInitalPassword = (props) => {
             props.signIn()
         }
       }
+      let notificationAlert = useRef(null)
+      function Notify (type, title, err) {
+          let options = {
+            place: "tc",
+            message: (
+              <div className="alert-text">
+                <span className="alert-title" data-notify="title">
+                  {" "}
+                </span>
+                <span data-notify="message">
+                  {title}
+                </span>
+              </div>
+            ),
+            type: type,
+            icon: "ni ni-bell-55",
+            autoDismiss: 7
+          };
+          notificationAlert.current.notificationAlert(options);
+          props.setErrMsng({...props.ErrMsng, [err]: !1})
+        };
     return (
         <>
         <LandingNavbar 
@@ -56,6 +79,15 @@ const ChangeInitalPassword = (props) => {
         imgSrc: require("../../../assets/img/brand/Staffbite_Logo.png").default,
         imgAlt: "...",
         }}/>
+        { props.ErrMsng.PasswordRequirementsLength ? Notify("warning", WARNING_WRONG_MAIL_OR_PASSWORD, "PasswordRequirementsLength") : null}
+        { props.ErrMsng.PasswordRequirementsCapital ? Notify("warning", WARNING_PASSWORD_NO_CAPITAL_CHAR, "PasswordRequirementsCapital") : null}
+        { props.ErrMsng.PasswordRequirementsLower ? Notify("warning", WARNING_PASSWORD_NO_LOWER_CHAR, "PasswordRequirementsLower") : null}
+        { props.ErrMsng.PasswordRequirementsSpecial ? Notify("warning", WARNING_PASSWORD_NO_SPECIAL_CHAR, "PasswordRequirementsSpecial") : null}
+        { props.ErrMsng.PasswordRequirementsNumber ? Notify("warning", WARNING_PASSWORD_NO_NUMBER, "PasswordRequirementsNumber") : null}
+        { props.ErrMsng.WrongLogInData ? Notify("warning", WARNING_WRONG_MAIL_OR_PASSWORD, "WrongLogInData") : null}
+        <div className="rna-wrapper">
+            <NotificationAlert ref={notificationAlert} />
+        </div>
         <main className="bg-secondary">
         <section className="section section-shaped section-lg">
             <Container className="pt-lg-7">
@@ -69,21 +101,6 @@ const ChangeInitalPassword = (props) => {
                     </CardHeader>
                     <CardBody className="px-lg-5 py-lg-5">
                     <Form role="form">
-                        <FormGroup className="mb-3">
-                        <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                                <i className="ni ni-lock-circle-open" />
-                            </InputGroupText>
-                            </InputGroupAddon>
-                            <Input 
-                            placeholder="Altes Passwort" 
-                            type="password" 
-                            name="password" 
-                            onChange={(e) => props.handleInputChange(e)}
-                            />
-                        </InputGroup>
-                        </FormGroup>
                         <FormGroup>
                         <InputGroup className="input-group-alternative">
                             <InputGroupAddon addonType="prepend">
@@ -117,6 +134,9 @@ const ChangeInitalPassword = (props) => {
                         />
                     </InputGroup>
                     </FormGroup>
+                    <p>
+                        Mindestanforderungen für dein Passwort:
+                    </p>
                     <PasswordChecklist
                         rules={["minLength","specialChar","number","capital","match"]}
                         minLength={8}

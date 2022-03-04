@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // reactstrap components
 import {
@@ -42,12 +42,15 @@ import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { useNavigate, Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 import ReactGA from "react-ga";
+import NotificationAlert from "react-notification-alert";
+import { WARNING_WRONG_MAIL_OR_PASSWORD, WARNING_PASSWORD_NO_CAPITAL_CHAR, WARNING_PASSWORD_NO_LOWER_CHAR, WARNING_PASSWORD_NO_NUMBER, WARNING_PASSWORD_NO_SPECIAL_CHAR, WARNING_PASSWORD_TOO_SHORT } from "../../../constants/Alerts";
 
 const SelectNewPassword = (props) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
     const [isValid, setIsValid] = useState(!1)
+    const [ErrMsng, setErrMsng] = useState({WrongLogInData: !1, PasswordRequirementsLength: !1, PasswordRequirementsLower: !1, PasswordRequirementsCapital: !1, PasswordRequirementsSpecial:!1, PasswordRequirementsNumber: !1});
     const [resetted, setResetted] = useState(!1);
     const [err, setErr] = useState(null)
     const [msg, setMsg] = useState(null)
@@ -92,19 +95,68 @@ async function resetPassword() {
 }
     const handleKeyPress = (event) => {
         if(event.key === 'Enter'){
-            props.confirmResetPassword()
+            confirmResetPassword()
         }
       }
 
+      let notificationAlert = useRef(null)
+      function Notify (type, title, err) {
+          let options = {
+            place: "tc",
+            message: (
+              <div className="alert-text">
+                <span className="alert-title" data-notify="title">
+                  {" "}
+                </span>
+                <span data-notify="message">
+                  {title}
+                </span>
+              </div>
+            ),
+            type: type,
+            icon: "ni ni-bell-55",
+            autoDismiss: 7
+          };
+          notificationAlert.current.notificationAlert(options);
+          setErrMsng({...ErrMsng, [err]: !1})
+        };
+
       async function confirmResetPassword() {
         console.log(username, code, password)
+        let capitals = /[A-Z]/
+        let numbers =  /[0-9]/
+        let lower = /[a-z]/
+        let specialChars = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+        let hasMinEightLetters = password.length >= 8;
+        let hasCapitalLetter = capitals.test(password)
+        let hasNumber = numbers.test(password);
+        let hasLowerChar = lower.test(password);
+        let hasSpecialChar = specialChars.test(password)
+        if (hasCapitalLetter && hasMinEightLetters && hasNumber && hasSpecialChar && hasLowerChar) {
         Auth.forgotPasswordSubmit(username, code, password)
         .then( user => {
             setResetted(!0);
             navigate("/auth")
         })
         .catch(err => console.log(err));
-    
+        }
+        if(hasMinEightLetters === false) {
+            setErrMsng({...ErrMsng, PasswordRequirementsLength: !0})
+        }
+        if(hasCapitalLetter === false) {
+            setErrMsng({...ErrMsng, PasswordRequirementsCapital: !0}) 
+        }
+        if(hasLowerChar === false) {
+            setErrMsng({...ErrMsng, PasswordRequirementsLower: !0}) 
+        }
+        if(hasNumber === false) {
+            setErrMsng({...ErrMsng, PasswordRequirementsNumber: !0}) 
+        }
+        if(hasSpecialChar === false) {
+            setErrMsng({...ErrMsng, PasswordRequirementsSpecial: !0}) 
+        }
+        setAuthState(AuthState.ResetPassword);
+
     }
         useEffect((authState) => {
            if(authState === undefined) {
@@ -146,6 +198,15 @@ async function resetPassword() {
                 imgSrc: require("../../../assets/img/brand/Staffbite_Logo.png").default,
                 imgAlt: "...",
                 }}/>
+        { ErrMsng.PasswordRequirementsLength ? Notify("warning", WARNING_PASSWORD_TOO_SHORT, "PasswordRequirementsLength") : null}
+        { ErrMsng.PasswordRequirementsCapital ? Notify("warning", WARNING_PASSWORD_NO_CAPITAL_CHAR, "PasswordRequirementsCapital") : null}
+        { ErrMsng.PasswordRequirementsLower ? Notify("warning", WARNING_PASSWORD_NO_LOWER_CHAR, "PasswordRequirementsLower") : null}
+        { ErrMsng.PasswordRequirementsSpecial ? Notify("warning", WARNING_PASSWORD_NO_SPECIAL_CHAR, "PasswordRequirementsSpecial") : null}
+        { ErrMsng.PasswordRequirementsNumber ? Notify("warning", WARNING_PASSWORD_NO_NUMBER, "PasswordRequirementsNumber") : null}
+        { ErrMsng.WrongLogInData ? Notify("warning", WARNING_WRONG_MAIL_OR_PASSWORD, "WrongLogInData") : null}
+        <div className="rna-wrapper">
+            <NotificationAlert ref={notificationAlert} />
+        </div>
             <main className="bg-secondary">
             <section className="section section-shaped section-lg">
                 <Container className="pt-lg-7">
@@ -206,6 +267,9 @@ async function resetPassword() {
                                 />
                             </InputGroup>
                             </FormGroup>
+                            <p>
+                                Mindestanforderungen für dein Passwort:
+                            </p>
                             <PasswordChecklist
                                 rules={["minLength","specialChar","number","capital"]}
                                 minLength={8}
