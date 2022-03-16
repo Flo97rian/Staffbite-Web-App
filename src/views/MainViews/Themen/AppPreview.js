@@ -35,7 +35,7 @@ import Uebersicht from "../../../assets/img/app/V2/ÜbersichtV2-Smartphone.png";
 import Eintragen from "../../../assets/img/app/V2/Eintragen-Plan.png";
 import Plan from "../../../assets/img/app/V2/Schichtplan-Smartphone.png";
 import Tauschmöglichkeit from "../../../assets/img/app/V2/App-tauschanfrage-smartphone.png";
-import TeamEinladenThumb from "../../../assets/img/themen/TeamEinladen/TeamEinladenThumb.png";
+import PreviewThumb from "../../../assets/img/app/V2/AppPreview.jpg";
 import ThemenSlider from "./ThemenSlider";
 
 
@@ -67,13 +67,13 @@ function AppPreview (props) {
           <meta property="og:description" content="In diesem Beitrag zeige ich dir unsere neuesten Entwicklungen bezüglich der Staffbite Apps."/>
           <meta property="og:url" content="https://www.staffbite.de/themen/app-preview"></meta>
           <meta property="og:type" content="blog"></meta>
-          <meta property="og:image" content={TeamEinladenThumb}></meta>
+          <meta property="og:image" content={PreviewThumb}></meta>
           <meta property="og:site_name" content="Staffbite"></meta>
           <meta property="twitter:title" content="Staffbite - App Preview"/>
           <meta property="twitter:card" content="summary_large_image"/>
           <meta property="twitter:description" content="In diesem Beitrag zeige ich dir unsere neuesten Entwicklungen bezüglich der Staffbite Apps."></meta>
           <meta property="twitter:url" content="https://www.staffbite.de/themen/app-preview"></meta>
-          <meta property="twitter:image" content={TeamEinladenThumb}></meta>
+          <meta property="twitter:image" content={PreviewThumb}></meta>
           <meta property="twitter:type" content="blog"></meta>
 
         </Helmet>
