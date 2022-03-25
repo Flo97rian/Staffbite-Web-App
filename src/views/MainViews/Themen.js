@@ -46,6 +46,7 @@ import EintragenThumb from "../../assets/img/theme/EintragenThumb.jpg";
 import TeamEinladenThumb from "../../assets/img/themen/TeamEinladen/TeamEinladenThumb.png";
 import SchichtenTauschenThumb from "../../assets/img/themen/Tauschanfragen/SchichtenTauschenThumb.png";
 import AppPreviewThumb from "../../assets/img/app/V2/AppPreview.jpg";
+import UmfrageThumb from "../../assets/img/theme/UmfrageThumb.jpg";
 import LandingFooter from "../../components/Footers/LandingFooter";
 import { THEMEN_DESCRIPTION, THEMEN_TITLE } from "../../constants/MetaTexts";
 
@@ -106,6 +107,33 @@ function Themen (props) {
                 <Card>
                             <CardImg
                             className="p-2"
+                            src={UmfrageThumb}
+                            alt="Eine Umfrage von Staffbite"
+                            height="100%"
+                            width="100%"
+                            ></CardImg>
+                            <CardTitle className="pl-4 pt-sm-0 mb-2" tag="h2">
+                                <br/>
+                                <br/>
+                                <Link to="/themen/umfrage" class="stretched-link">Deine Meinung ist gefragt!</Link>
+                            </CardTitle>
+                            <CardSubtitle className="pl-4">
+                                
+                                Kundenfeedback ist für uns das wichtigste überhaupt.
+                            </CardSubtitle>
+                            <CardText className="pl-4 pt-4 pr-4" tag="p">
+                                    In diesem Beitrag geht es deshalb nur um deine Meinung.
+                                    Wir planen derzeit die Entiwcklungen weiterer Funktionalitäten. Welche wünscht du dir bei Staffbite?
+                            </CardText>
+                            <br/>
+                        </Card>
+            </Col>
+
+
+            <Col xs="12" md="6">
+                <Card>
+                            <CardImg
+                            className="p-2"
                             src={AppPreviewThumb}
                             alt="Schichtplan App von Staffbite"
                             height="100%"
@@ -127,9 +155,13 @@ function Themen (props) {
                             <br/>
                         </Card>
             </Col>
+                                
+                </Row>
+                
+                
+                <Row className="mt-2" >
 
-
-            <Col xs="12" md="6">
+                <Col xs="12" md="6">
                 <Card>
                             <CardImg
                             className="p-2"
@@ -155,14 +187,6 @@ function Themen (props) {
                         </Card>
             </Col>
 
-
-                                
-                </Row>
-                
-                
-                <Row className="mt-2" >
-
-
                 <Col xs="12" md="6">
                 <Card>
                             <CardImg
@@ -185,6 +209,12 @@ function Themen (props) {
                             <br/>
                         </Card>
             </Col>
+
+
+                </Row>
+
+
+                <Row className="mt-2" >
 
 
 
@@ -212,11 +242,6 @@ function Themen (props) {
             </Col>
 
 
-                </Row>
-
-
-                <Row className="mt-2" >
-
                 <Col xs="12" md="6">
                 <Card>
                             <CardImg
@@ -239,6 +264,15 @@ function Themen (props) {
                             <br/>
                         </Card>
             </Col>
+
+
+                </Row>
+
+                <Row className="mt-2" >
+
+
+
+
 
 
                 <Col xs="12" md="6">
@@ -265,10 +299,6 @@ function Themen (props) {
             </Col>
 
 
-                </Row>
-
-                <Row className="mt-2" >
-
                 <Col xs="12" md="6">
                 <Card>
                             <CardImg
@@ -292,6 +322,13 @@ function Themen (props) {
                         </Card>
             </Col>
 
+
+                </Row>
+
+                <Row className="mt-2" >
+
+
+
                 <Col xs="12" md="6">
                 <Card>
                             <CardImg
@@ -313,11 +350,6 @@ function Themen (props) {
                             <br/>
                         </Card>
             </Col>
-
-                </Row>
-
-                <Row className="mt-2" >
-
 
 
                 <Col xs="12" md="6">
@@ -341,6 +373,13 @@ function Themen (props) {
                 </Col>
 
 
+
+
+                </Row>
+
+                <Row className="mt-2" >
+
+
                 <Col xs="12" md="6">
                         <Card>
                             <CardImg
@@ -362,9 +401,7 @@ function Themen (props) {
                         </Card>
                 </Col>
 
-                </Row>
 
-                <Row className="mt-2" >
 
                 <Col xs="12" md="6">
                     <Card>
@@ -385,6 +422,11 @@ function Themen (props) {
                             <br/>
                         </Card>
                 </Col>
+           
+
+                </Row>
+
+                <Row className="mt-2" >
 
 
                 <Col xs="12" md="6">
@@ -405,12 +447,9 @@ function Themen (props) {
                             </CardText>
                             <br/>
                         </Card>
-                </Col>            
+                </Col> 
 
-                </Row>
-
-                <Row className="mt-2" >
-
+                
 
                 <Col xs="12" md="6">
                 <Card>
