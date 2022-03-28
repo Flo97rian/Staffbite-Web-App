@@ -70,7 +70,7 @@ const LandingFooter = () => {
                 </Link>
                 </Nav>
             <Nav className="position-center align-items-top mt-0 pt-0" navbar vertical>
-                <h2 className="h4 pt-0 mt-0">Folgen Sie uns</h2>
+                <h2 className="h4 pt-0 mt-0">Folge uns auf Social Media</h2>
                       <NavLink
                         className="text-muted ml-0 pl-0 float-left"
                           href="https://www.instagram.com/staffbite_de"
@@ -92,7 +92,7 @@ const LandingFooter = () => {
             </Nav>
             <Nav className="ml-2 position-right" navbar vertical>
                 <NavItem className="ml-2 text-muted">
-                      <h2 className="h4 ">Kontaktieren Sie uns</h2>
+                      <h2 className="h4 ">Nimm direkt Kontakt auf</h2>
                       <p>
                       Zellmann GbR.
                       <br/>

@@ -22,7 +22,7 @@ const SchichtplanEinstellungen = (props) => {
                     <Row>
                         <Col>
                         <p className="lead mt-2">
-                        Mit diesen Einstellungen können Sie die Funktionsweise des Algorithmus beeinflussen. Dies kann zu besseren - aber auch zu schlechteren Ergebnissen führen. Wir empfehlen die Standard-Einstellungen zu verwenden
+                        Mit diesen Einstellungen kannst du die Funktionsweise des Algorithmus beeinflussen. Dies kann zu besseren - aber auch zu schlechteren Ergebnissen führen. Wir empfehlen die Standard-Einstellungen zu verwenden.
                         </p>
                         </Col>
                     </Row>
