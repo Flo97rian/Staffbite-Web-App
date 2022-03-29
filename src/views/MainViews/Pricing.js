@@ -83,16 +83,25 @@ const Pricing = (props) => {
   function showFixPricing() {
     return(
       <Row className="justify-content-center mb-4 mt-6">
-                <Col xs="12" md="4">
-                  <Card className="card-pricing bg-gradient-white zoom-in shadow-lg rounded border-0 text-center mb-4 card">
+                <Col xs="12" md="6" className="px-4">
+                  <Card className="card-pricing bg-gradient-white zoom-in shadow-lg rounded border-0 text-center mx-6 mb-4 card">
                   <CardHeader className="bg-transparent card-header">
-                      <h2 className="h1 ls-1 text-info lead py-3 mb-0">Bis 25 Mitarbeiter*innen</h2>
+                      <h2 className="h1 ls-1 text-info lead py-3 mb-0">Bis 25 Mitarbeitende</h2>
                     </CardHeader>
                     <CardBody className="p-lg-4">
                     <h3 className="h1 text-info display-2">
-                        50€
+                        2,50€
                       </h3>
-                      <span class="text-info ls-1 p">pro Monat</span>
+                      <br/>
+                      <span class="text-info ls-1 p">pro Person</span>
+                      
+                      <br/>
+                      <br/>
+                      <span class="text-info ls-1 p">+ 9,90€ Grundgebühr</span>
+                      
+                      <br/>
+                      <br/>
+                      <span class="text-info ls-1 p">monatlich</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
                           <Button className="btn-icon btn-3" color="success" type="button"
@@ -100,32 +109,33 @@ const Pricing = (props) => {
                             () => 
                             ReactGA.event({
                               category: 'Pricing',
-                              action: 'Auswahl Kategorie bis 25'
+                              action: 'Auswahl Variabel bis 25 MA'
                             })}
                           ><p className="p-0 m-0">Auswählen</p></Button>
                         </Link>
                       </Row>
                     </CardBody>
-                    <CardFooter className="bg-transparent card-footer p-lg-5 mt-0 pt-0">
-                    <span class="h1 text-info ls-1 p"><del>600€</del><br/></span>
-                    <h3 className="h1 text-info display-3">
-                      540€
-                    </h3>
-                    <span class="text-info ls-1 p">10% sparen <br/></span>
-                    <span class="text-info ls-1 p">bei jährlicher Zahlweise</span>
-                    </CardFooter>
+
                   </Card>
                 </Col>
-                <Col xs="12" md="4">
-                  <Card className="card-pricing bg-gradient-info zoom-in shadow-lg rounded border-0 text-center mb-4 card">
+                <Col xs="12" md="6"  className="px-4">
+                  <Card className="card-pricing bg-gradient-info zoom-in shadow-lg rounded border-0 text-center mx-6 mb-4 card">
                   <CardHeader className="bg-transparent card-header">
-                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Bis 50 Mitarbeiter*innen</h2>
+                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Ab 26 Mitarbeitende</h2>
                     </CardHeader>
                     <CardBody className="p-lg-4">
                     <h3 className="h1 text-white display-2">
-                        100€
+                        74,90€
                       </h3>
-                      <span class="text-white ls-1 p">pro Monat</span>
+                      <br/>
+                      <br/>
+                      <br/>
+                      <span class="text-white ls-1 p">Festpreis</span>
+                      
+                      <br/>
+                      <br/>
+                      
+                      <span class="text-white ls-1 p">monatlich</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
                           <Button className="btn-icon btn-3" color="success" type="button"
@@ -133,55 +143,15 @@ const Pricing = (props) => {
                             () => 
                             ReactGA.event({
                               category: 'Pricing',
-                              action: 'Auswahl Kategorie bis 50'
+                              action: 'Auswahl Festpreis ab 26 MA'
                             })}
                           ><p className="p-0 m-0">Auswählen</p></Button>
                         </Link>
                       </Row>
                     </CardBody>
-                    <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
-                    <span class="h1 text-white ls-1 p"><del>1.200€</del><br/></span>
-                    <h3 className="h1 text-white display-3">
-                      1.080€
-                    </h3>
-                    <span class="text-white ls-1 p">10% sparen<br/></span>
-                    <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
-                    </CardFooter>
                   </Card>
                 </Col>
-                <Col xs="12" md="4">
-                  <Card className="card-pricing bg-gradient-success zoom-in shadow-lg rounded border-0 text-center mb-4 card">
-                  <CardHeader className="bg-transparent card-header">
-                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Ab 51 Mitarbeiter*innen</h2>
-                    </CardHeader>
-                    <CardBody className="p-lg-4">
-                    <h3 className="h1 text-white display-2">
-                        150€
-                      </h3>
-                      <span class="text-white ls-1 p">pro Monat</span>
-                      <Row className="align-items-center justify-content-center mt-6">
-                        <Link to="/signup">
-                          <Button className="btn-icon btn-3" color="primary" type="button"
-                          onClick={
-                            () => 
-                            ReactGA.event({
-                              category: 'Pricing',
-                              action: 'Auswahl Kategorie ab 50'
-                            })}
-                          ><p className="p-0 m-0">Auswählen</p></Button>
-                        </Link>
-                      </Row>
-                    </CardBody>
-                    <CardFooter className="bg-transparent card-footer p-lg-5 pt-0">
-                    <span class="h1 text-white ls-1 p"><del>1.800€</del><br/></span>
-                    <h3 className="h1 text-white display-3">
-                      1.620€
-                    </h3>
-                    <span class="text-white ls-1 p">10% sparen<br/></span>
-                    <span class="text-white ls-1 p">bei jährlicher Zahlweise</span>
-                    </CardFooter>
-                  </Card>
-                </Col>
+                
               </Row>
     )
   }
@@ -193,11 +163,11 @@ const Pricing = (props) => {
          <Col lg="6">
                   <Card className="card-pricing bg-gradient-info zoom-in shadow-lg rounded border-0 text-center mb-4 card">
                   <CardHeader className="bg-transparent card-header">
-                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Grundgebühr 10 €</h2>
+                      <h2 className="h1 ls-1 text-white lead py-3 mb-0">Grundgebühr 9,90€</h2>
                     </CardHeader>
                     <CardBody className="p-lg-4">
                     <h3 className="h1 text-white display-2">
-                        + 2,50 €
+                        + 2,50€
                       </h3>
                       <span class="text-white ls-1 p">pro Mitarbeiter*in pro Monat</span>
                       <Row className="align-items-center justify-content-center mt-6">
@@ -281,7 +251,7 @@ const Pricing = (props) => {
                       <Col xs="12" lg="6">
                       <Row className="align-items-center">
                       <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
-                      <p class="text-muted lead m-0 p-0">Dein ganzes Team auf einen Blick</p>
+                      <p class="text-muted lead m-0 p-0">Kostenlose Mitarbeitenden-App für dein Team</p>
                       </Row>
                       </Col>
                       <Col xs="12" lg="6">
@@ -292,48 +262,8 @@ const Pricing = (props) => {
                   </Card>
                 </Container>
                 <Container className="mt-4 pb-4">
-        <Nav
-          className="nav-fill flex-column flex-sm-row"
-          id="tabs-text"
-          pills
-          role="tablist"
-        >
-          <NavItem>
-            <NavLink
-              aria-selected={navIndex === 1}
-              className={classnames("mb-sm-3 mb-md-0 text-muted nav_betrieb", {
-                active: navIndex === 1
-              })}
-              onClick={() => setNavIndex(1)}
-              href="#pablo"
-              role="tab"
-            >
-              {navIndex === 1 ? 
-              <p className="m-0 text-white">Festpreis</p>
-              :
-              <p className="m-0 text-muted">Festpreis</p>
-              }
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              aria-selected={navIndex === 2}
-              className={classnames("mb-sm-3 mb-md-0 nav_shiftplan", {
-                active: navIndex === 2
-              })}
-              onClick={() => setNavIndex(2)}
-              href="#pablo"
-              role="tab"
-            >
-              {navIndex === 2 ? 
-              <p className="m-0 text-white">Variable Preise</p>
-              :
-              <p className="m-0 text-muted">Variable Preise</p>
-              }
-            </NavLink>
-          </NavItem>
-        </Nav>
-        {setNavPill()}
+        
+        {showFixPricing()}
       </Container>
       </Container>
       <Container className="pt-5" fluid>
