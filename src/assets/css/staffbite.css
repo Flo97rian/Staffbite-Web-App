@@ -283,3 +283,33 @@
     }
   }
 
+  .border-staffbite-primary {
+    border-color: #3e6ae1 !important; }
+  
+  .background-staffbite-secondary {
+    background-color: #f4f4f4;
+  }
+
+  .background-staffbite-primary {
+    background-color: #3e6ae1 !important; }
+
+  .background-staffbite-success {
+    background-color: #2dce89 !important; }
+
+  .background-staffbite-danger {
+      background-color: #f5365c !important; }
+  
+  .check-to-trash {
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-iteration-count: 1;
+    -webkit-animation-duration: 1.5s;
+    -moz-animation-duration: 1.5s;
+    -webkit-animation-name: OpacityTitle;
+    -moz-animation-name: OpacityTitle; 
+  }
+  .feature-staffbite {
+
+  }
+  .feature-staffbite:hover{
+
+  }

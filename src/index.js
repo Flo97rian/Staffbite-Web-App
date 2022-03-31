@@ -68,6 +68,7 @@ import AppPreview from './views/MainViews/Themen/AppPreview';
 import Umfrage from './views/MainViews/Themen/Umfrage';
 import CookieConsent from "react-cookie-consent";
 import SelectNewPassword from './components/Auth/AuthComponents/SelectNewPassword';
+import Demo from './views/MainViews/Demo/Demo';
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -117,6 +118,7 @@ ReactDOM.render(
         <Route path="/pricing" element={ <Pricing  />} />
         <Route path="/contact" element={ <Contact />} />
         <Route path="/auth" element={ <AuthLayout />} />
+        <Route path="/demo" element={ <Demo />} />
         <Route path="/user"/>
         <Route path="/user/index" element={<UserDashboard/>}/>
         <Route path="/user/bewerben" element={<SchichtplanBewerben/>}/>
