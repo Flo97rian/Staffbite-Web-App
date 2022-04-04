@@ -55,6 +55,7 @@ function Demo (props) {
     const [alreadyShown, setAlreadyShown] = useState(["basicLayout"]);
     const [modal, setModal] = useState(!1);
     const [teamSize, setTeamSize] = useState(15);
+    const [shiftSlot, setShiftSlot] = useState(!1);
     const [branche, setBranche] = useState("Gastronomie");
     const [modalKey, setModalKey] = useState("");
     const [applicationState, setApplicationState] = useState();
@@ -116,7 +117,7 @@ function Demo (props) {
     pageViewsTracking()
     let application = new DemoInterface();
     setSchichtplan(application.getShiftplanPlan())
-    handleShowModal("tour")
+    //handleShowModal("tour")
   },[])
 
   useEffect(() => {
@@ -124,6 +125,9 @@ function Demo (props) {
 
     useEffect(() => {
     },[show])
+
+    useEffect(() => {
+    },[shiftSlot])
 
     useEffect(() => {
     },[state])
@@ -141,9 +145,14 @@ function Demo (props) {
     setShow({...initalShow, [active]: !0})
     setAlreadyShown([...alreadyShown, active]);
   }
-  function handleShowModal(key) {
+  function handleShowModal(key, row = !1, day = !1) {
+      if(key === "showSchichtBearbeiten") {
+          console.log("here")
+        handleShiftSlot(row, day);
+      }
       setModalKey(key);
       setModal(!0);
+
   }
 
   function handleCloseModal () {
@@ -151,6 +160,9 @@ function Demo (props) {
       setModal(!1);
   }
 
+  function handleShiftSlot(index, row) {
+    setShiftSlot({row: index, col: row});
+  }
   function showLogo() {
     if(show.logo) {
         return (
@@ -272,6 +284,7 @@ function Demo (props) {
                                 schichtplan={schichtplan}
                                 handleShowModal={handleShowModal}
                                 handleCloseModal={handleCloseModal}
+                                handleShiftSlot={handleShiftSlot}
                                 modal={modal}
                                 modalKey={modalKey}
                                 ></SchichtplanView>
@@ -517,7 +530,7 @@ function renderConfigSelected(title, active) {
       <Container className="mr-0 container_top" fluid>
         <section className="section">
               <Row className="mb-4 mt-4 ml-2">
-                  <Col lg="12" xl="9">
+                  <Col md="12" lg="9">
                       {showZusammenfassung()}
                       {showLogo()}
                       {showGastro()}
@@ -527,7 +540,7 @@ function renderConfigSelected(title, active) {
                       {showApp()}
                       {showAutomate()}
                   </Col>
-                  <Col lg="12" xl="3" className="mr-0">
+                  <Col md="12" lg="3" className="mr-0">
                         <Row className="ml-4 mt-2 text-center">
                             <Col className="mr-0">
                                 <Row className="mt-4 text-center">
@@ -614,6 +627,8 @@ function renderConfigSelected(title, active) {
       handleCloseModal={handleCloseModal}
       handleStartTour={handleStartTour}
       branche={branche}
+      shiftSlot={shiftSlot}
+      Schichtplan={schichtplan}
       teamSize={teamSize}
       ></OpenModal>
     </>

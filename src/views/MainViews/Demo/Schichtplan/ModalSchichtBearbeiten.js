@@ -5,6 +5,7 @@ import {
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import store from "../../../../store"
+import { Schicht } from "./Form/Schicht";
 
 const ModalSchichtBearbeiten = (props) => {
         return (
@@ -20,7 +21,7 @@ const ModalSchichtBearbeiten = (props) => {
                     <Label className="h2 m-3 align-items-center">Schicht bearbeiten</Label>
                 </Modal.Header>
                 <Modal.Body className="pt-1">
-                    {/*<SchichtBearbeiten {...props} modalkey={props.modalkey}></SchichtBearbeiten>*/}
+                    <Schicht {...props}></Schicht>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button color="success"> Übernehmen</Button>

@@ -71,28 +71,28 @@ const SchichtplanView = (props) => {
                         className="card_schichtenname"
                         draggable
                         >
-                        {showShichtTag(schichtplan[index].Wochentag)}
+                        {showShichtTag(schichtplan[index].Wochentag, index, "Wochentag")}
                         </td>
                         <td>
-                           {showDefault(schichtplan[index].Montag)}
+                           {showDefault(schichtplan[index].Montag, index, "Montag")}
                         </td>
                         <td>
-                            {showDefault(schichtplan[index].Dienstag)}
+                            {showDefault(schichtplan[index].Dienstag, index, "Dienstag")}
                         </td>
                         <td>
-                            {showDefault(schichtplan[index].Mittwoch)}
+                            {showDefault(schichtplan[index].Mittwoch, index, "Mittwoch")}
                         </td>
                         <td>
-                            {showDefault(schichtplan[index].Donnerstag)}
+                            {showDefault(schichtplan[index].Donnerstag, index, "Donnerstag")}
                         </td>
                         <td>
-                            {showDefault(schichtplan[index].Freitag)}
+                            {showDefault(schichtplan[index].Freitag, index, "Freitag")}
                         </td>
                         <td>
-                            {showDefault(schichtplan[index].Samstag)}
+                            {showDefault(schichtplan[index].Samstag, index, "Samstag")}
                         </td>
                         <td>
-                            {showDefault(schichtplan[index].Sonntag)}
+                            {showDefault(schichtplan[index].Sonntag, index, "Sonntag")}
                         </td>
                     </tr>
                    ) 
@@ -129,10 +129,10 @@ const SchichtplanView = (props) => {
         )
     }
 
-    function showDefault(slot) {
+    function showDefault(slot, index, day) {
         return (
             <ListGroup>
-                <ListGroupItem style={{"cursor": "pointer"}} className="mb-0" color="" onClick={() => props.handleShowModal("showSchichtBearbeiten")}><p className="m-0"><br/><br/></p></ListGroupItem>
+                <ListGroupItem style={{"cursor": "pointer"}} className="mb-0" color="" onClick={() => props.handleShowModal("showSchichtBearbeiten", index, day)}><p className="m-0"><br/><br/></p></ListGroupItem>
             </ListGroup>
         )
     }
