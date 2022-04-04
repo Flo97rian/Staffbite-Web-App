@@ -145,9 +145,9 @@ function Contact (props) {
                     <CardBody className="p-lg-5">
                       <p className="ml-1 mb-3">Du möchtest ein Erstgespräch vereinbaren, um zu erfahren ob Staffbite zu dir passt oder hast weitere Fragen?</p>
                       <Row className="ml-1">
-                      <p className="mb-3 mr-1">Schreib uns an </p>
-                      <p className="font-weight-bold mb-0 mr-1">info@staffbite.de </p> 
-                      <p className="mb-3">oder füll das Formular unten aus.</p>
+                      <p className="mb-3 mr-1">Schreib uns einfach bei WhatsApp unter: </p>
+                      <p className="font-weight-bold mb-0 mr-1">0157 30 64 46 50 </p> 
+                      <p className="mb-3">📲 oder füll das Formular unten aus.</p>
                       </Row>
                       <Row className="ml-1">
                         <p className="mb-3 mr-1">Du kannst auch direkt in deinen</p>
