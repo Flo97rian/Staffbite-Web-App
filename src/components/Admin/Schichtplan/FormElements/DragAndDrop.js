@@ -9,6 +9,11 @@ const getItems = (employees = {}, index) => {
     return noEmployeesSet(index);
   }};
 
+const validateHasAfterPublish = (isPublished, applyed, applicantsAfterPublish) => {
+  if(isPublished) return applicantsAfterPublish
+  return applyed
+}
+
   const noEmployeesSet = (index) => {
     const array = [{
       id: String(index),
@@ -139,7 +144,7 @@ const getItemContent = (item, employees) => {
 }
 
 const DragAndDrop = React.forwardRef((props, ref) => {
-  const [state, setState] = useState([getEmployees(props.employees, 0, props.position), getItems(props.applyed, 1), getItems(props.set, 2)]);
+  const [state, setState] = useState([getEmployees(props.employees, 0, props.position), getItems(validateHasAfterPublish(props.isPublished, props.applyed, props.applicantsAfterPublish), 1), getItems(props.set, 2)]);
   const [Employees, setEmployees] = useState(props.employees)
   useImperativeHandle(ref, () => (state[2]), [state]);
 
@@ -177,6 +182,26 @@ const DragAndDrop = React.forwardRef((props, ref) => {
     return result;
   }
 
+  function renderTitle(index) {
+    if(index === 0) {
+      return (
+        <p>{title[index]}</p>
+      )
+    } else if(index === 2) {
+      return (
+        <p>{title[index]}</p>
+      )
+    } else if (index === 1 && props.isPublished) {
+      return (
+        <p>Bewerber seit Veröffentlichung</p>
+      )
+    } else {
+      return (
+        <p>Bewerber</p>
+      )
+    }
+  }
+
   function handleDelete(ind, index, item) {
     const newState = [...state];
     const newEmployees = Employees;
@@ -206,7 +231,7 @@ const DragAndDrop = React.forwardRef((props, ref) => {
                   style={getListStyle(snapshot.isDraggingOver)}
                   {...provided.droppableProps}
                 >
-                <p>{title[ind]}</p>
+                <p>{renderTitle(ind)}</p>
                   {el.map((item, index) => (
                     <Draggable
                       className="list-group-item"
