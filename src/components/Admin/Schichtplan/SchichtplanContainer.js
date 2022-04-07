@@ -568,6 +568,7 @@ const SchichtplanContainer = () => {
     copyPlan.setAcceptTradeShift(userInput, index);
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
+    store.dispatch({ type: "setShiftplan", payload: shiftplan });
   };
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleCancelShiftTradeToDB = (index) => {
@@ -575,6 +576,7 @@ const SchichtplanContainer = () => {
     copyPlan.setDeclineShiftTrade(index);
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
+    store.dispatch({ type: "setShiftplan", payload: shiftplan });
   };
   //Diese Funktion löscht eine ausgewählte Schicht innerhalb eines ausgewählten Schichtplans
   const handleDeleteShift = (index) => {

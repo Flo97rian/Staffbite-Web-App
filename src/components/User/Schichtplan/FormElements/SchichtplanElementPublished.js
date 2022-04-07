@@ -8,7 +8,8 @@ import {
     TradeShiftSingleSetApplicantWithPrio,
     TradeShiftMultiSetApplicant,
     TradeShiftMultiSetApplicantWithPrio,
-    UserDefault
+    UserDefault,
+    ZeroApplicants,
 } from "../../../Application/functionalComponents/SchichtplanElements";
 import store from "../../../../store";
 import { 
@@ -30,6 +31,11 @@ const tradeShift = (index, col) => {
      store.dispatch({type: "OPEN", payload: "tradeShift"});
      store.dispatch({type: "setShiftSlot", payload: { row: index, col: col}});
  };
+
+ const setApplicant = (index, col) => {
+    store.dispatch({type: "OPEN", payload: "applyIsActive"})
+    store.dispatch({type: "setShiftSlot", payload: { row: index, col: col}})
+}
 
 const SchichtplanElementPublished = (props) => {
     let ItemLength = props.ItemLength;
@@ -83,9 +89,9 @@ const SchichtplanElementPublished = (props) => {
             return TradeShiftSingleSetApplicant(index, col, ApplicantName, tradeShift);
         }  else if (isFree && hasApplicants && ApplicantsLength === 1) {
             return ShowSingleApplicantWithOutUser(FirstApplicant);
-        } else if (isFree && !isDiscribeWeekDay) {
-            return UserDefault(index, col);
-        } else {
+        } else if (isFree && !isDiscribeWeekDay && !ShiftIncludesApplicant) {
+            return ZeroApplicants(index, col, setApplicant);
+        }else {
             return UserDefault(index, col);
         }
 

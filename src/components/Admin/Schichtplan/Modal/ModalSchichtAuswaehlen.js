@@ -15,6 +15,9 @@ const ModalSchichtAuswaehlen = (props) => {
     let shift = shiftplan[row][day];
     const applicants = shift.setApplicants
     const applyedApplicants = shift.applicants
+    let hasApplicantsAfterPublish = Object.keys(shift).includes("applicantsAfterPublish")
+    let applicantsAfterPublish = hasApplicantsAfterPublish ? shift.applicantsAfterPublish : []
+    let isPublished = props.shiftplan.id.split('#')[1] === "Veröffentlicht";
     const validApplicants = shift.setValidApplicants
     const position = shiftplan[row]["Wochentag"].ShiftPosition;
     const shiftanzahl = shift.anzahl
@@ -38,6 +41,9 @@ const ModalSchichtAuswaehlen = (props) => {
                     ref={DragAndDropRef}
                     applyed={applyedApplicants}
                     valid={validApplicants}
+                    isPublished={isPublished}
+                    applicantsAfterPublish={applicantsAfterPublish}
+                    hasApplicantsAfterPublish={applicantsAfterPublish}
                     set={applicants}
                     position={position}
                     anzahl={shiftanzahl}

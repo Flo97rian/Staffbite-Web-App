@@ -218,10 +218,15 @@ export default class ShiftPlan {
       }
 
       function deleteShiftTrade (copyTauschanfrage, index) {
+        console.log(index, copyTauschanfrage)
         if (copyTauschanfrage.length === 1 ) {
+          console.log("only last",copyTauschanfrage)
           copyTauschanfrage = []
+          console.log("after last", copyTauschanfrage)
         } else {
+          console.log("before last", copyTauschanfrage)
           copyTauschanfrage.splice(index, 1);
+          console.log("after last2", copyTauschanfrage)
         }
         return copyTauschanfrage;
       }
@@ -230,6 +235,7 @@ export default class ShiftPlan {
     setEmployeeInShift(copyPlan, tauschanfrageDetails, userInput);
     this.tauschanfrage = deleteShiftTrade(copyTauschanfrage, index);
     this.plan = copyPlan;
+    console.log(this.tauschanfrage)
     }
 
     setDeclineShiftTrade (index) {
