@@ -35,6 +35,8 @@ import PositionEinstellungen from "../../../assets/img/themen/Positionen/Positio
 import PositionTeam from "../../../assets/img/themen/Positionen/PositionTeam.png";
 import PositionSchicht from "../../../assets/img/themen/Positionen/PositionSchicht.png";
 import PositionThumb from "../../../assets/img/themen/Positionen/PositionenThumb.png";
+
+import Author from "../../../assets/img/theme/Daniel Zellmann Profilbild.png";
 import ThemenSlider from "./ThemenSlider";
 
 
@@ -86,10 +88,13 @@ function Positionen (props) {
       <Container className="pt-5" fluid>
         <Container className="mt-6">
                     <Row className="justify-content-left ml-0 mt-4">
-                        <h1>Positionen erstellen und festlegen</h1>
+                        
                     </Row>
         </Container>
-        <Container className="mb-4 pt-4">
+        <Row>
+            <Col xs={10}>
+                <Container className="mb-4 pt-4">
+                <h1>Positionen erstellen und festlegen</h1>
               <Row>
                 <Col>
                     <p className="lead">
@@ -252,6 +257,41 @@ function Positionen (props) {
                   </Col>
               </Row>
         </Container>
+        </Col>
+        <Col>
+                <Container>
+
+                Author: Daniel Zellmann
+                    
+                    <Row className="pt-4">
+                        <Col>
+                        
+                            <img
+                            alt="Bild vom Author des Beitrags"
+                            src={Author}
+                            title="Bild von Daniel Zellmann"
+                            height="100%"
+                            width="100%"
+                            />
+                        </Col>
+                    </Row>
+                <br/>
+                <br/>
+                <p>
+                    Daniel ist Mitgründer von Staffbite.
+                    Vor seinem Studium hat Daniel in verschiedenen Gastronomiebetrieben gejobbt und die Probleme der Schichtplanung selbst kennengelernt.
+                    <br/>
+                    <br/>
+                    Zusammen mit seinem Bruder Florian wollte er eine Lösung schaffen, die den Verantwortlichen deutliche Zeitersparnise ermöglicht und den Angestellten eine smarte Lösung liefern.
+                    <br/>
+                    <br/>
+                    Wenn du Fragen zu Staffbite hast, melde dich gerne direkt bei WhatsApp unter 0157 30644650 oder schreibe eine Mail an daniel@staffbite.de ✅
+
+                </p>
+
+                </Container>
+            </Col>
+        </Row>
         <ThemenSlider></ThemenSlider>
       </Container>
       <LandingFooter></LandingFooter>
