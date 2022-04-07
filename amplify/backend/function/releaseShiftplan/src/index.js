@@ -200,6 +200,10 @@ const addNews = async (body, meta, planName) => {
     let currentDate = new Date();
     let message = planName + " wurde zum Eintragen freigeben."
     let feedObject = {timestamp:currentDate,title: "Schichtplan zum Eintragen bereit",message:message,type:"Eintragen"}
+    if (newsfeed.length > 10) {
+      let copyNewsfeed = newsfeed.slice(0, 11);
+      newsfeed = copyNewsfeed;
+    }
     newsfeed.unshift(feedObject)
      var params = {
     Key: {

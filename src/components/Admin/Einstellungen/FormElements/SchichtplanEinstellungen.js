@@ -26,6 +26,24 @@ const SchichtplanEinstellungen = (props) => {
                         </p>
                         </Col>
                     </Row>
+                    {/*<Row>
+                        <Col>
+                        <p className="lead mt-2">
+                        App Einstellungen
+                        </p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                        <Switch info={true} type="switch" description={INFO_SETTINGS_ALGORITHM_REVERSE}label="Dürfen die Mitarbeiter eigenständig ihre Schichten tauschen?" name="reverse" value={props.org?.reverse ? props.org?.reverse["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                        <Switch info={true} type="switch" description={INFO_SETTINGS_ALGORITHM_REVERSE}label="Dürfen sich die Mitarbeiter in eingen veröffentlichen Schichtplan eigenständig eintragen?" name="reverse" value={props.org?.reverse ? props.org?.reverse["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                        </Col>
+                    </Row>
+                    */}
                     <Row>
                         <Col>
                         <Switch info={true} type="switch" description={INFO_SETTINGS_ALGORITHM_REVERSE}label="Befüllung am Wochenende starten" name="reverse" value={props.org?.reverse ? props.org?.reverse["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>

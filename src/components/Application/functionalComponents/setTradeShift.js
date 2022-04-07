@@ -28,7 +28,7 @@ function SetTradeShift (props) {
                     <ListGroupItem className="mt-2">
                         <Row>
                             <Col xs={6}>
-                                <p className="pt-2">Tauschanfrage von <b>{item.traderName}</b> für die Schicht <b>Frühschicht</b> am <b>Mittwoch</b></p>
+                                <p className="pt-2">Tauschanfrage von <b>{item.traderName}</b> für die Schicht <b>{props.shiftplan.plan[item.row].Wochentag.ShiftName}</b> am <b>{props.shiftplan.plan[1][item.col]}</b></p>
                             </Col>
                             <Col xs={3}>
                                 { Object.keys(item.applicants).length > 0 ?
