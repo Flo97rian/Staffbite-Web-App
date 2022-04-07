@@ -111,7 +111,7 @@ function Themen (props) {
                             <CardImg
                             className="p-2"
                             src={PositionThumb}
-                            alt="Eine Umfrage von Staffbite"
+                            alt="Bild von verschiedenen Qualifikationen"
                             height="100%"
                             width="100%"
                             ></CardImg>
@@ -120,7 +120,7 @@ function Themen (props) {
                                 <br/>
                                 <br/>
                                 <br/>
-                                <Link to="/themen/umfrage" class="stretched-link">Posititionen erstellen und festlegen</Link>
+                                <Link to="/themen/positionen" class="stretched-link">Posititionen erstellen und festlegen</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 
