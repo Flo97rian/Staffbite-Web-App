@@ -57,7 +57,7 @@ const LandingFooter = () => {
                     to="/impressum/#sectionagb"
                     target="_blank">
                     <p className="mb-0">
-                    AGB's
+                    AGB
                     </p>
                 </Link>
                 <Link
