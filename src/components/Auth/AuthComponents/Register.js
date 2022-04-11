@@ -193,7 +193,7 @@ const Register = (props) => {
                                 <Label check>
                                     <a>Ich bin einverstanden mit den </a>
                                     <HashLink className="p text-muted p-0" to="/impressum/#sectionagb">
-                                        AGB's.
+                                        AGB
                                     </HashLink>
                                 </Label>
                             </FormGroup>

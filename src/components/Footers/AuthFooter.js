@@ -52,7 +52,7 @@ const AuthFooter = () => {
                 className="text-muted"
                   to="/impressum/#sectionagb"
                   target="_blank">
-                  AGB's
+                  AGB
               </Link>
               <Link
                 className="text-muted"
