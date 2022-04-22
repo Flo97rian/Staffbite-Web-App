@@ -355,6 +355,13 @@ export default class DemoInterface {
 
     }
 
+    resetNotice(ShiftSlot) {
+        let copyPlan = [...this.schichtplan.plan]
+        let row = ShiftSlot.row;
+        let day = ShiftSlot.col;
+        copyPlan[row][day].notice = "";
+        this.schichtplan.plan = copyPlan;
+      }
 
     setShiftplanPlan (schichtplan) {
         this.schichtplan.plan = schichtplan;

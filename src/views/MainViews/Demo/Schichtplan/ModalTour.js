@@ -7,13 +7,29 @@ import {
     Input
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
-import store from "../../../../store"
+import ReactGA from "react-ga";
 
 const ModalTour = (props) => {
     const [teamSize, setTeamSize] = useState(15);
     const [branche, setBranche] = useState("Gastronomie");
     function changeBranche(event) {
       setBranche(event.target.value)
+    }
+
+    function startTour() {
+        props.handleStartTour(teamSize, branche)
+        ReactGA.event({
+            category: 'Demo',
+            action: 'Start Tour'
+            })
+    }
+
+    function startWithoutTour() {
+        props.handleCloseModal();
+        ReactGA.event({
+            category: 'Demo',
+            action: 'Start Without Tour'
+            })
     }
   
     function changeTeamSize(event) {
@@ -71,16 +87,16 @@ const ModalTour = (props) => {
                         </Col>
                         <Col xs="5">
                             <Input type="select" onChange={(e) => changeBranche(e)}>
-                                <option value="Gastronomie" hidden>Gastronomie</option>
-                                <option value="weitere" hidden>weitere</option>
+                                <option value="Gastronomie">Gastronomie</option>
+                                <option value="weitere">weitere</option>
                             </Input>
                         </Col>
                         <Col xs="1"></Col>
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button color="link" onClick={() => props.handleCloseModal()}> Tour schließen</Button>
-                    <Button color="success" onClick={() => props.handleStartTour(teamSize, branche)}> Tour starten</Button>
+                    <Button color="link" onClick={() => startWithoutTour()}> Tour schließen</Button>
+                    <Button color="success" onClick={() => startTour()}> Tour starten</Button>
                 </Modal.Footer>
             </Modal>
         );

@@ -143,7 +143,7 @@ export const Schicht = (props) => {
                                 { 
                                 hasShiftNotice()
                                 ?
-                                <Button classname="mt-0"color="warning" size="sm" disabled={getShiftActive()}>Zurücksetzen</Button>
+                                <Button classname="mt-0"color="warning" size="sm" onClick={() => props.handleResetShiftNotice()}>Zurücksetzen</Button>
                                 :
                                 <></>
                                 }

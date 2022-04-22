@@ -100,13 +100,15 @@ const getListStyle = isDraggingOver => ({
   width: 250
 });
 
-const getEmployeeStyle = (empSchichtenWocheBisher, empSchichtenWoche) => {
+const getEmployeeStyle = (empSchichtenWocheBisher, empSchichtenWoche, alreadySetToday) => {
   if (empSchichtenWocheBisher > empSchichtenWoche) {
     return "text-warning font-weight-bold";
+  } else if (alreadySetToday.length > 0 ) {
+    return "text-yellow font-weight-bold";
   } else if (empSchichtenWocheBisher < empSchichtenWoche ) {
     return "text-success font-weight-bold";
   } else {
-    return "";
+    return ""
   }
 };
 
@@ -131,18 +133,19 @@ const DragAndDropMitarbeiter = React.forwardRef((props, ref) => {
           if(Object.keys(item).includes("dummyShifts")) {
             dummyShifts = item.dummyShifts;
           }
+          let alreadySetToday = employees[indexOfEmployee].schichten.filter(schicht => schicht.split('#')[1] === props.day);
           const empSchichtenWocheBisher = employees[indexOfEmployee].schichten.length + dummyShifts;
           return <div className="m-0 p-3 pr-0">
                   <Row className="">
                     <Col className="pr-0">
-                      <p className={"m-0 p-0 " + getEmployeeStyle(empSchichtenWocheBisher, empSchichtenWoche)}>
+                      <p className={"m-0 p-0 " + getEmployeeStyle(empSchichtenWocheBisher, empSchichtenWoche, alreadySetToday)}>
                         {empName}
                       </p>
                     </Col>
                   </Row>
                   <Row>
                     <Col xs="8" className="pr-0">
-                      <small className={getEmployeeStyle(empSchichtenWocheBisher, empSchichtenWoche)}>
+                      <small className={getEmployeeStyle(empSchichtenWocheBisher, empSchichtenWoche, alreadySetToday)}>
                         { "Fortgeschritten" }
                         {" "}
                         { empSchichtenWocheBisher + "/" + empSchichtenWoche }
@@ -152,6 +155,7 @@ const DragAndDropMitarbeiter = React.forwardRef((props, ref) => {
                       <Row className="m-0 p-0 text-sm-right">
                         <Col className="p-0">
                           {empSchichtenWocheBisher > empSchichtenWoche ? <i className="fas fa-exclamation text-warning m-0 p-0 pr-2"></i> : <></> }
+                          {alreadySetToday.length > 0 ? <i className="fas fa-exclamation text-yellow m-0 p-0 pr-2"></i> : <></> }
                           {Number(ind) === 2 && item.content !== "Leer" ? 
                         <span
                           className="fas fa-user-times m-0 p-0"

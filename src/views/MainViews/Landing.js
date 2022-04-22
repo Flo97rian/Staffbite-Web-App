@@ -175,8 +175,8 @@ const Landing = (props) => {
                         onClick={
                           () => 
                           ReactGA.event({
-                            category: 'Registrierung',
-                            action: 'Landing mehr erfahren'
+                            category: 'Demo',
+                            action: 'Landing CTA'
                           })}
                         ><p className="p-0 m-0">Demo anschauen</p></Button>
                         </Link>

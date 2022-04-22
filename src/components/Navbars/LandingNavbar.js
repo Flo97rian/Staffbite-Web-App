@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { HashLink } from 'react-router-hash-link';
 import { Link } from "react-router-dom";
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import ReactGA from "react-ga";
 // reactstrap components
 import {
   NavbarBrand,
@@ -127,7 +128,12 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-                <Link  to='/demo' >
+                <Link  to='/demo' onClick={
+                            () => 
+                            ReactGA.event({
+                              category: 'Demo',
+                              action: 'Navbar'
+                            })}>
                     <p className="nav-link-inner--text text-muted p-0  pt-2 mr-5 m-0">
                       Demo
                     </p>

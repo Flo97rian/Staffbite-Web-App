@@ -5,13 +5,22 @@ import {
     Row,
     Col
 } from "reactstrap"
+import { Link } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import store from "../../../../store";
 import { set } from "lodash";
+import ReactGA from "react-ga";
 
 const ModalZusammenfassung = (props) => {
         const [mouseOn, setMouseOn] = useState("")
 
+
+        function showTesting () {
+            ReactGA.event({
+                category: 'Demo',
+                action: 'Simulate Applicants'
+                })
+        }
         function handleCss(title, id) {
             if(mouseOn === "") {
                 setMouseOn(title);
@@ -120,8 +129,12 @@ const ModalZusammenfassung = (props) => {
                         </Row>*/}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button color="link" size="lg" onClick={() => props.handleCloseModal()}> Gespräch vereinbaren </Button>{' '}
-                    <Button color="success font-weight-light border-lg rounded-pill" onClick={() => props.handleCloseModal()}>30 Tage kostenlos ausprobieren</Button>{' '}
+                    <Link to="/contact">
+                    <Button color="link" size="lg"> Gespräch vereinbaren </Button>{' '}
+                    </Link>
+                    <Link to="/signup">
+                    <Button color="success font-weight-light border-lg rounded-pill">30 Tage kostenlos ausprobieren</Button>{' '}
+                    </Link>
                 </Modal.Footer>
             </Modal>
         );

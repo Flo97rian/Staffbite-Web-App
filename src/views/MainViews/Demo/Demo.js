@@ -196,7 +196,12 @@ function Demo (props) {
   } 
 
   function handleShow (active) {
+    ReactGA.event({
+        category: 'Demo',
+        action: 'Go to ' + active,
+        })
     setShow({...initalShow, [active]: !0})
+    setAlreadyShown([...alreadyShown, active]);
     if(showBewerber) {
         setShowBewerber(false);
     }
@@ -206,10 +211,20 @@ function Demo (props) {
   }
 
   function handleWasShown (active) {
+    ReactGA.event({
+        category: 'Demo',
+        action: 'Navbar show ' + active,
+        })
     setShow({...initalShow, [active]: !0})
     setAlreadyShown([...alreadyShown, active]);
   }
   function handleShowModal(key, row = !1, day = !1) {
+    if(key === "zusammenfassung") {
+        ReactGA.event({
+            category: 'Demo',
+            action: 'show' + key,
+        })
+    }
       handleShiftSlot(row, day);
       setModalKey(key);
       setModal(!0);
@@ -235,6 +250,14 @@ function Demo (props) {
         setUserInput({...initalSchicht});
         setModal(!1);
       };
+
+    const handleResetShiftNotice = () => {
+        let copyPlan = new DemoInterface();
+        copyPlan.setShiftplanPlan(schichtplan);
+        copyPlan.resetNotice(shiftSlot);
+        let shiftplan = copyPlan.getShiftplanPlan()
+        setSchichtplan(shiftplan);
+    };
 
     const handleSetApplicant = () => {
         let copyPlan = new DemoInterface()
@@ -266,6 +289,10 @@ function Demo (props) {
     }
 
     const handleSimulateApplicants = () => {
+        ReactGA.event({
+            category: 'Demo',
+            action: 'Simulate Applicants'
+            })
         let copyPlan = new DemoInterface();
         copyPlan.setShiftplanPlan(schichtplan);
         copyPlan.simulateApplicants();
@@ -276,6 +303,10 @@ function Demo (props) {
     }
 
     async function handleBefuellung() {
+        ReactGA.event({
+            category: 'Demo',
+            action: 'Start Algorithmus'
+            })
         let copyPlan = new DemoInterface();
         copyPlan.setShiftplanPlan(schichtplan);
         let shiftplan = copyPlan.getShiftplanPlan()
@@ -572,7 +603,7 @@ function Demo (props) {
         <Row className="fixed-bottom align-content-center mb-0">
             <Col xs="1" lg="3"></Col>
             <Col xs="10" lg="5">
-                <Card className="mb-0" style={{"cursor": "pointer"}}onClick={() => handleShowModal("zusammenfassung")}>
+                <Card className="mb-0" style={{"cursor": "pointer"}} onClick={() => handleShowModal("zusammenfassung")}>
                     <Row className="p-1 pt-2 px-3">
                         <Col>
                             <Row>
@@ -821,15 +852,11 @@ function renderConfigSelected(title, active) {
                 <Col>
                 <Row>
                         <p className="mt-1 font-weight-bold lead mb-0" style={{"cursor": "pointer"}} onClick={() => handleWasShown(active)}>
-                            {alreadyShown.includes(active) ? 
                             <a
                             className="avatar avatar-xs background-staffbite-success rounded-circle mr-3"
                             >
                             <i className="fas fa-check"></i>
                             </a>
-                            : 
-                            <></>
-                            }
                             {title}
                         </p>
                     </Row>
@@ -1050,6 +1077,7 @@ function renderForthAndBack () {
       handleEditShift={handleEditShift}
       handleSelectPrio={handleSelectPrio}
       handleEditSetApplicants={handleEditSetApplicants}
+      handleResetShiftNotice={handleResetShiftNotice}
       employees={employees}
       branche={branche}
       shiftSlot={shiftSlot}

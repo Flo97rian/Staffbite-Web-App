@@ -55,6 +55,9 @@ const ModalMitarbeiterBearbeiten = (props) => {
                     applicants={applicants}
                     setApplicants={setApplicants}
                     anzahl={anzahl}
+                    Schichtplan={props.Schichtplan}
+                    index={index}
+                    day={day}
                     />
                 </Modal.Body>
                 <Modal.Footer>
