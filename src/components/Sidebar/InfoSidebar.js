@@ -56,10 +56,10 @@ const InfoSidebar = (props) => {
   if(isOpen) {
   return (
     <Navbar
-      className="navbar-vertical fixed-right bg-white"
-      expand="sm"
-      style={{"zIndex": "1073"}}
-      id="sidenav-info"
+        style={{"zIndex": "1075"}}
+        className="navbar-vertical fixed-right bg-white navbar-expand-lg"
+        expand="lg"
+        id="sidenav-info"
     >
         <Row className="float-right p-2">
             <i className="fas fa-times text-default" onClick={() => closeCollapse()}/>

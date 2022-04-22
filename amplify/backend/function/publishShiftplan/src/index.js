@@ -241,7 +241,7 @@ const updateEmployees = async (event, body, employee, employeeData) => {
     
     if(Object.keys(employeeData).includes("pushToken")) {
         params.ExpressionAttributeValues[":pushToken"] = {
-                 "S": employeeData.pushToken
+                 "S": JSON.stringify(employeeData.pushToken)
                 };
         params.ExpressionAttributeNames["#pushToken"] = "pushToken";
         params.UpdateExpression = params.UpdateExpression + ", #pushToken = :pushToken";
@@ -249,7 +249,7 @@ const updateEmployees = async (event, body, employee, employeeData) => {
         }
     if(Object.keys(employeeData).includes("notificationPermissions")) {
         params.ExpressionAttributeValues[":notificationPermissions"] = {
-                 "S": employeeData.notificationPermissions
+                 "S": JSON.stringify(employeeData.notificationPermissions)
                 };
         params.ExpressionAttributeNames["#notificationPermissions"] = "notificationPermissions";
         params.UpdateExpression = params.UpdateExpression + ", #notificationPermissions = :notificationPermissions";
@@ -455,7 +455,7 @@ function CreateMessageRequestIOS(recipient) {
     var messageRequest = {
       'Addresses': {
         [String(token[0])]: {
-          'ChannelType' : 'APNS_SANDBOX'
+          'ChannelType' : 'APNS'
         }
       },
       'MessageConfiguration': {

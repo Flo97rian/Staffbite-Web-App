@@ -97,7 +97,7 @@ function Impressum (props) {
                     </p>
                     <h2 className="h3">Bei Fragen</h2>
                     <p className="mb-4">
-                    Wenden Sie sich bei Fragen gerne an: info@stafftbite.de  
+                    Wenden Sie sich bei Fragen gerne an: info@staffbite.de  
                     </p>
                     <Link to="/av">Hier gehts zur Auftragsdatenverarbeitung</Link>
                   </div>
@@ -268,7 +268,7 @@ function Impressum (props) {
                     <p>
                     Daniel Zellmann 
                     <br/>
-                    info@stafftbite.de 
+                    info@staffbite.de 
                     </p>
                     <h2>2. Hosting</h2>
 

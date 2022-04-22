@@ -246,6 +246,14 @@
                 ]
             },
             "policyResourceName": "/testAlgorithm"
+        },
+        {
+            "name": "/demoAlgo",
+            "lambdaFunction": "demoAlgo",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/demoAlgo"
         }
     ],
     "resourceName": "Staffbite",
@@ -310,13 +318,16 @@
         },
         {
             "lambdaFunction": "testAlgorithm"
+        },
+        {
+            "lambdaFunction": "demoAlgo"
         }
     ],
     "privacy": {
         "auth": 19,
         "unauth": 0,
-        "authRoleName": "amplify-staffbite-dev-180625-authRole",
-        "unAuthRoleName": "amplify-staffbite-dev-180625-unauthRole"
+        "authRoleName": "amplify-staffbite-main-151241-authRole",
+        "unAuthRoleName": "amplify-staffbite-main-151241-unauthRole"
     },
     "dependsOn": [
         {
@@ -478,7 +489,15 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "demoAlgo",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
     ],
-    "uuid": "35d5b2d1"
+    "uuid": "3896c12d"
 }

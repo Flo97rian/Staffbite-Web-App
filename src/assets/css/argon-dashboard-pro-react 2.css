@@ -8219,7 +8219,7 @@ a.close.disabled {
   opacity: 0;
 }
 .tooltip.show {
-  opacity: 0.9;
+  opacity: 1 !important;
 }
 .tooltip .arrow {
   position: absolute;
@@ -8298,12 +8298,12 @@ a.close.disabled {
   border-left-color: #000;
 }
 
-.tooltip-inner {
-  max-width: 200px;
+.tooltip .tooltip-inner {
+  max-width: 100%;
   padding: 0.25rem 0.5rem;
-  color: #fff;
-  text-align: center;
-  background-color: #000;
+  text-align: left;
+  opacity: 1;
+  background-color: #fff;
   border-radius: 0.375rem;
 }
 

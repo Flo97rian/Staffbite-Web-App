@@ -111,7 +111,7 @@ const Landing = (props) => {
         <TrialBanner></TrialBanner>
           <div className="position-relative">
             {/* shape Hero */}
-            <section className="section section-lg section-hero section-shaped pb-250 bg-gradient-info">
+            <section className="section section-lg section-hero section-shaped pb-250 staffbite-bg-facebook-messenger">
               <div className="shape shape-style-1 shape-default">
               </div>
 
@@ -122,31 +122,42 @@ const Landing = (props) => {
                 imgAlt: "Das Logo von Staffbite",
                 }}/>
               <Container className="">
-                  <Row className="mt-4 pt-6">
+                  <Row className="staffbite-mt-4 staffbite-pt-6 text-center">
                     <Col md="12" lg="12" className="slide-from-left-30">
-                      <h1 className="display-3 text-white pb-5">
-                      Dein digitaler Schichtplan - online & als App
+                      <h1 className="staffbite-display-3 text-white pb-0 mb-0">
+                      Dein digitaler Schichtplan
                       {" "}
                       </h1>
+                      <p className="m-0 p-0 pb-5 text-white">
+                      Online & per App
+                      </p>
                       </Col>
                   </Row>
+                  {isMobile ? 
+                  <Row className="pb-5">
+                    <Col className="mx-4">
+                      <Player 
+                          className="shadow"
+                          autoplay
+                          keepLastFrame
+
+                          src={LandingAnimationLottieJson}>
+                          </Player>
+                    </Col>
+                  </Row> : <></>}
                   <Row>
                       <Col md="12" lg="6">
-                        <p className="lead text-white">
-                        💻 Mit wenigen Klicks zu deinem Schichtplan 
+                        <p className="text-white">Passen wir für dich? - Schau dich gerne etwas um</p>
+                        <p className="text-white">
+                        🤝 Teste  30 Tage ohne Risiko
                         <br/>
-                        ✅ Einfach und übersichtlich  
+                        ✅ Entdecke unsere kostenlose Mitarbeiter App
                         <br/>
                         🥇 Hohe Flexibilität
                         <br/>
-                        🔐 Datenschutz nach DSGVO-Richtlinien
-                        <br/>
-                        🤝 30 Tage kostenloser Probemonat
-                        <br/>
-                        <br/>
-                        
+                        💻 Automatisierte Schichtplanung
                         <Row className="">
-                          <Col xs="12" lg="6" className="mt-2">
+                          <Col xs="12" lg="6" className="staffbite-mt-3">
                         <Link to="/signup">
                         <Button className="btn-icon btn-3" color="success" type="button"
                         onClick={
@@ -158,16 +169,16 @@ const Landing = (props) => {
                           ><p className="p-0 m-0">Kostenlos ausprobieren</p></Button>
                         </Link>
                         </Col>
-                        <Col xs="12" lg="6" className="mt-2">
-                        <Link to="/themen">
-                        <Button className="btn-icon btn-3" color="white" type="button"
+                        <Col xs="12" lg="6" className="staffbite-mt-3">
+                        <Link to="/demo">
+                        <Button className="btn-icon btn-3" color="primary" type="button"
                         onClick={
                           () => 
                           ReactGA.event({
                             category: 'Registrierung',
                             action: 'Landing mehr erfahren'
                           })}
-                        ><p className="p-0 m-0">Mehr erfahren</p></Button>
+                        ><p className="p-0 m-0">Demo anschauen</p></Button>
                         </Link>
                         </Col>
                         </Row>
@@ -175,12 +186,15 @@ const Landing = (props) => {
                     </Col>
                     <Col className="justify-content-center p-0 m-0" md="12" lg="6">
 
-                  <Player 
+                  {!isMobile ? <Player 
                   className="shadow"
                           autoplay
                           keepLastFrame
                           src={LandingAnimationLottieJson}>
                           </Player>
+                    :
+                    <></> 
+                  }
                     </Col>                    
                   </Row>
               </Container>
@@ -210,7 +224,7 @@ const Landing = (props) => {
                 </Col>
               </Row>
               <Row className="mt-4">
-              <Col className="text-center" style={{ transform: "translateY(-50%)", zIndex: 1051}}>
+              <Col className="text-center" style={{ transform: "translateY(-50%)"}}>
                 <i className="fas fa-angle-down fa-3x slide-down-up-x3" onClick={(event) => setSchichtplanSchritteTop(event)}></i>
                 </Col>
               </Row>
@@ -234,7 +248,7 @@ const Landing = (props) => {
                         <Col>
                         <Row className="text-right">
                           <Col xs="2" className="">
-                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ">1</Badge>
+                            <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">1</Badge>
                           </Col>
                           <Col xs="10" >
                             <h2 className="display-4 text-left">Erstelle deinen Schichtplan</h2>
@@ -244,7 +258,7 @@ const Landing = (props) => {
                       </Row>
                       <Row className={ isMobile ? "text-center mt-4" : ""} style={!isMobile ? { transform: "translateY(10%)"}: {}}>
                         <Col>
-                          <p className="lead mt-2">
+                          <p className="lead-text mt-2">
                             <Row className="text-left">
                             <Col xs="0" md="2"></Col>
                               <Col xs="10">
@@ -302,15 +316,15 @@ const Landing = (props) => {
                         <Col>
                         <Row className="text-left">
                           <Col xs="2" className="text-center">
-                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ">2</Badge>
+                            <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">2</Badge>
                           </Col>
                           <Col xs="10">
-                            <h2 className="display-4">Dein Team tägt sich ein</h2>
+                            <h2 className="display-4">Dein Team trägt sich ein</h2>
                           </Col>
                           </Row>
                         </Col>
                       </Row>
-                      <p className="lead mt-4" style={!isMobile ? { transform: "translateY(10%)"} : {}}>
+                      <p className="lead-text mt-4" style={!isMobile ? { transform: "translateY(10%)"} : {}}>
                       <Row className="text-left">
                         <Col>Deine Mitarbeiter*innen tragen sich <Link to="/fuer-dein-team" class="stretched-link">online in deinen Schichtplan</Link> ein. Das geht jederzeit per Smartphone, Tablet oder Laptop.
                           </Col>
@@ -377,7 +391,7 @@ const Landing = (props) => {
                         <Col>
                         <Row className="text-right">
                           <Col xs="2" className="">
-                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ">3</Badge>
+                            <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">3</Badge>
                           </Col>
                           <Col xs="10">
                             <h2 className="display-4 text-left">Automatisierte Befüllung</h2>
@@ -385,7 +399,7 @@ const Landing = (props) => {
                           </Row>
                         </Col>
                       </Row>
-                      <p className="lead mt-4 ">
+                      <p className="lead-text mt-4 ">
                       <Row className={ isMobile ? "text-left mt-5" : "text-left"} style={!isMobile ? { transform: "translateY(10%)"}: {}}>
                       {!isMobile ? <Col xs="2"></Col> : <></>}
                         <Col>
@@ -432,7 +446,7 @@ const Landing = (props) => {
                         <Col>
                         <Row className="text-center">
                           <Col xs="2" className="">
-                            <Badge color="primary" className="badge-lg lead badge-circle badge-outline badge-floating border-white mt-0 ">4</Badge>
+                            <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">4</Badge>
                           </Col>
                           <Col xs="10">
                             <h2 className="display-4 text-left">Schichtplan veröffentlichen</h2>
@@ -440,7 +454,7 @@ const Landing = (props) => {
                           </Row>
                         </Col>
                       </Row>
-                      <p className="lead mt-4 pt-0">
+                      <p className="lead-text mt-4 pt-0">
                       <Row className="text-left mt-0 pt-0" style={isMobile ? { transform: "translateY(10%)"}: {}}>
                         <Col className="">
                           Nach der Befüllung kannst du entweder letzte Anpassungen vornehmen oder du veröffentlichst den <Link to="/schichtplan-veroeffentlichen">fertigen Schichtplan</Link> mit einem Klick.
@@ -539,7 +553,7 @@ const Landing = (props) => {
                 <h2 className="display-3 text-default">Vorteile für dein Team</h2>
                 </Col>
               </Row>
-              <p className="lead text-default">
+              <p className="lead-text text-default">
               
               <Row className="mt-sm-6">
               <Col>
@@ -601,7 +615,7 @@ const Landing = (props) => {
 
               <Row className="justify-content-center text-center mb-4">
                 <Col md="10">
-                  <p className="lead">
+                  <p className="lead-text">
                   Wir helfen dir Zeit & Geld zu sparen. Wir entwickeln unsere Lösung stetig weiter und gehen dabei auf die Wünsche unserer Kunden ein. Somit erhälst du mit Staffbite die Lösung, die dir wirklich weiterhilft.
                   </p>
                 </Col>
@@ -630,7 +644,7 @@ const Landing = (props) => {
                               <Col>
                               <Row>
                                 <Col>
-                                <h3 className="lead mb-0 mt-0">
+                                <h3 className="lead-text mb-0 mt-0">
                                 <a href="https://youtu.be/R0SpszGT0k8" class="stretched-link">Einfache Bedienbarkeit</a> <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
                                 </h3>
                                 </Col>
@@ -662,7 +676,7 @@ const Landing = (props) => {
                               <Col>
                               <Row>
                                 <Col>
-                                <h3 className="lead mb-0 mt-0">
+                                <h3 className="lead-text mb-0 mt-0">
                                 <Link to="/schichtplan-erstellen" class="stretched-link">Flexible Schichtpläne</Link> <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
                                 </h3>
                                 </Col>
@@ -694,7 +708,7 @@ const Landing = (props) => {
                               <Col>
                               <Row>
                                 <Col>
-                                <h3 className="lead mb-0 mt-0">
+                                <h3 className="lead-text mb-0 mt-0">
                                   <Link to="/automatisierter-schichtplan" class="stretched-link">Automatisierte Zuordnung </Link><i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
                                 </h3>
                                 </Col>
@@ -726,7 +740,7 @@ const Landing = (props) => {
                               <Col>
                               <Row>
                                 <Col>
-                                <h3 className="lead mb-0 mt-0">
+                                <h3 className="lead-text mb-0 mt-0">
                                 <Link to="/pricing" class="stretched-link">Faire Preise</Link>  <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
                                 </h3>
                                 </Col>
@@ -766,7 +780,7 @@ const Landing = (props) => {
                 <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
-                      <CardTitle className="lead mt-0 mb-0 text-primary">
+                      <CardTitle className="lead-text mt-0 mb-0 text-primary">
                         <Link to="/schichtplan-erstellen">Vorlagen erstellen</Link>
                       </CardTitle>
                       <CardText>
@@ -778,7 +792,7 @@ const Landing = (props) => {
                 <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
-                      <CardTitle className="lead mt-0 mb-0 text-primary">
+                      <CardTitle className="lead-text mt-0 mb-0 text-primary">
                       <Link to="/themen/schichtplan-erstellen">Jederzeit Einsehbar</Link>
                       </CardTitle>
                       <CardText>
@@ -790,7 +804,7 @@ const Landing = (props) => {
                 <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
-                      <CardTitle className="lead mt-0 mb-0 text-primary">
+                      <CardTitle className="lead-text mt-0 mb-0 text-primary">
                       <Link to="/verfuegbarkeiten-eintragen">Schichten tauschen</Link>
                       </CardTitle>
                       <CardText>
@@ -804,7 +818,7 @@ const Landing = (props) => {
                 <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
-                      <CardTitle className="lead mt-0 mb-0 text-primary bold">
+                      <CardTitle className="lead-text mt-0 mb-0 text-primary bold">
                       <Link to="/automatisierter-schichtplan">Automatisiert</Link>
                       </CardTitle>
                       <CardText>
@@ -816,7 +830,7 @@ const Landing = (props) => {
                 <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
-                      <CardTitle className="lead mt-0 mb-0 text-primary">
+                      <CardTitle className="lead-text mt-0 mb-0 text-primary">
                       <Link to="/team-verwalten">Rollen & Positionen</Link>
                       </CardTitle>
                       <CardText>
@@ -828,7 +842,7 @@ const Landing = (props) => {
                 <Col xs="12" md="6" lg="4">
                   <Card>
                     <CardBody>
-                      <CardTitle className="lead mt-0 mb-0 text-primary">
+                      <CardTitle className="lead-text mt-0 mb-0 text-primary">
                       <Link to="/schichtplan-veroeffentlichen">Selbst eintragen</Link>
                       </CardTitle>  
                       <CardText>

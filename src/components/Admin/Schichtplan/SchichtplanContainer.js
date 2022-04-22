@@ -51,7 +51,9 @@ import ModalFreigebenButton from "./FormElements/ModalFreigebenButton";
 import ModalAlgButton from "./FormElements/ModalAlgButton";
 import { ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN, ONBOARDING_SHIFTPLAN_VORLAGE, ONBOARDING_SHIFTPLAN_EINTRAGEN, ONBOARDING_SHIFTPLAN_UEBERPRUEFUNG, ONBOARDING_SHIFTPLAN_VEROEFFENTLICHUNG } from "../../../constants/OnBoardingTexts"
 import { validMeta } from "../../Application/functionalComponents/ValidFunctions";
+import ReloadView from "../../Application/functions/ReloadView";
 const SchichtplanContainer = () => {
+  const [isReloading, setIsReloading] = useState(false);
   const [userInput, setUserInput] = useState();
   const [navIndex, setNavIndex] = useState(1);
   const [ShiftEmployees, setShiftEmployees] = useState(null);
@@ -186,6 +188,9 @@ const SchichtplanContainer = () => {
 
   useEffect(() => {
   }, [Plans]);
+
+  useEffect(() => {
+  }, [isReloading]);
 
   useEffect(() => {
     if (validMeta(Meta)) {
@@ -501,7 +506,7 @@ const SchichtplanContainer = () => {
         copyShiftplan.changeShiftsOrder(ShiftSwitch);
         let shiftplan = copyShiftplan.getAllPlanDetails();
         store.dispatch({type: "isFetchPlansFromDB"});
-        store.dispatch(thunkUpdateShiftPlan(shiftplan, !0));
+        store.dispatch(thunkUpdateShiftPlan(shiftplan));
       } else {
         let shiftplan = copyShiftplan.getAllPlanDetails();
         store.dispatch({type: "isFetchPlansFromDB"});
@@ -633,182 +638,196 @@ const SchichtplanContainer = () => {
     mainContent.current.scrollTop = 0;
   }, [location]);
 
-        return(
-        <div className="main-content mt-9 px-4" ref={mainContent}>
-        {validMeta(Meta) ?
-        <Joyride
-          continuous={true}
-          run={run}
-          scrollOffset={200}
-          top
-          showProgress={true}
-          showSkipButton={true}
-          steps={steps}
-          styles={{
-            options: {
-              zIndex: 10000,
-            },
-          }}
-        />
-        :
-        <></>
-        }
-        { !Meta && !Employees && !Plans ?
-        <Row className="text-center">
-          <br/>
-          <Col xs={12}>
-            <Spinner animation="grow" variant="light"/>
-          </Col>
-        </Row>
-        :
+  function showMain() {
+    return (
       <>
-      { ErrMsng.MissingShiftDetails ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "MissingShiftDetails") : null}
-      { ErrMsng.ShiftDetailsNotUpToDate ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "ShiftDetailsNotUpToDate") : null}
-      { ErrMsng.MissingShiftPosition ? Notify("warning", WARNING_MISSING_SHIFT_POSITION, "MissingShiftPosition") : null}
-        <Nav
-          bearbeiten={ShiftPlanIsActive}
-          onNavChange={handleNavChange}
-          navIndex={navIndex}
-          ></Nav>
-      <Row>
-        <div className="rna-wrapper">
-          <NotificationAlert ref={notificationAlert} />
-        </div>
-      <Col xs={2} className="mt-4">
-      <h3 className="float-left pt-4 font-weight-bold text-lg">Schichtplan</h3>
-      { LoadingAlg ? <Spinner color="success" /> : <></>}
-      { LoadingPublish ? <Spinner color="success" /> : <></>}
-      { LoadingFetchingPlans ? <Spinner color="success" /> : <></>}
-      { LoadingFetchingSafe ? <Spinner color="success" /> : <></>}
-      { LoadingFetchingRelease ? <Spinner color="success" /> : <></>}
-      </Col>
-      <Col xs={10} className="mt-2 mr-0">
-      <ButtonSaveUpdate
-          ShiftplanChanged={ShiftplanChanged}
-          handleUpdate={handleUpdatedShiftPlanToDB}
-          handleUpload={handleUploadShiftPlanToDB}
-          trigger={ShiftPlanIsActive}
-          import={ShiftPlanIsImported}/>
-          <ModalFreigebenButton
-            shiftplan={Shiftplan}
-            title="Schichtplan freigeben"
-            trigger={"Entwurf"}
-            onClick={onClickFreigeben}
-            modal="showSchichtplanFreigeben"/>
-          <ModalOpenButton
-            shiftplan={Shiftplan}
-            title="Schicht hinzufügen"
-            trigger={"Entwurf"}
-            modal="showSchichthinzufuegen"/>
-          <ModalAlgButton
-            shiftplan={Shiftplan}
-            title="Befüllung starten"
-            trigger={"Freigeben"}
-            onClick={onClickStartAlg}
-            modal="showBefuellungStarten"/>
-          <ButtonUpdateShiftPlan
-            shiftplan={Shiftplan}
-            title="Schichtplan veröffentlichen"
-            trigger={"Review"}
-            onClick={handlePublishShiftPlan}
-            />
-      <NeuerSchichtplanButton
-          title="Vorlage erstellen"
-          modal="showSchichtplanErstellen"
-          navIndex={navIndex}
-          trigger={!ShiftPlanIsActive}>
-          </NeuerSchichtplanButton>
-      <ButtonZurueck
-        titel="Zurück zur Auswahl"
-        onClickVal={onClickBack}
-        true={ShiftPlanIsActive}
-        ></ButtonZurueck>
-      </Col>
+      {validMeta(Meta) ?
+      <Joyride
+        continuous={true}
+        run={run}
+        scrollOffset={200}
+        top
+        showProgress={true}
+        showSkipButton={true}
+        steps={steps}
+        styles={{
+          options: {
+            zIndex: 10000,
+          },
+        }}
+      />
+      :
+      <></>
+      }
+      { !Meta && !Employees && !Plans ?
+      <Row className="text-center">
+        <br/>
+        <Col xs={12}>
+          <Spinner animation="grow" variant="light"/>
+        </Col>
       </Row>
-      <Row>
-          <div className="col">
-               <ImportSchichtplanTabelle 
-               bearbeiten={ShiftPlanIsActive}
-               shiftplan={Shiftplan}
-               plans={Plans}
-               employees={Employees}
-               onSwitch={shiftChange}
-               handleActive={handleActiveShift}
-               Loading={LoadingFetchingPlans}
-               import={ShiftPlanIsImported}
-               Schichtplan={NewShiftplan}
-               ></ImportSchichtplanTabelle>
-               <NeuerSchichtplanTabelle 
-               bearbeiten={ShiftPlanIsActive}
-               shiftplan={Shiftplan}
-               plans={Plans}
-               employees={Employees}
-               onSwitch={shiftChange}
-               Loading={LoadingFetchingPlans}
-               import={ShiftPlanIsImported}
-               handleActive={handleActiveShift}
-               Schichtplan={NewShiftplan}
-               ></NeuerSchichtplanTabelle> 
-              <SchichtplanImport 
-                status={navIndex}
-                bearbeiten={ShiftPlanIsActive}
-                plaene={Plans}
-                onSwitch={shiftChange}
-                plan={currentShiftPlan}
-                import={ShiftPlanIsImported}
-                Schichtplan={NewShiftplan}
-                onDelete={handleDeleteShiftPlan}
-                onChange={handleInputChange}
-                onClick={handleUpdateProfile}
-                org={Meta}></SchichtplanImport>
-          </div>
-        </Row>
-        <SetTradeShift
-        onTradeSubmit={handleShiftTradeToDB}
-        onCancelSumbit={handleCancelShiftTradeToDB}
-        onChange={handleInputChange}
+      :
+    <>
+    { ErrMsng.MissingShiftDetails ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "MissingShiftDetails") : null}
+    { ErrMsng.ShiftDetailsNotUpToDate ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "ShiftDetailsNotUpToDate") : null}
+    { ErrMsng.MissingShiftPosition ? Notify("warning", WARNING_MISSING_SHIFT_POSITION, "MissingShiftPosition") : null}
+      <Nav
         bearbeiten={ShiftPlanIsActive}
-        employees={Employees}
-        shiftplan={Shiftplan}
-        />
-        <OpenModal
-            show={Modal}
-            bewerber={ShiftSlot}
-            shiftSlot={ShiftSlot}
-            Schichtplan={NewShiftplan}
-            shiftplan={Shiftplan}
-            Meta={Meta}
-            employees={ShiftEmployees}
-            changeNotice={changeNotice}
-            import={ShiftPlanIsImported}
-            userInput={userInput} 
-            checkTrue={getModalTrue}
-            checkModalKey={getModalKey}
-            handleSelectPrio={handleSelectPrio}
-            startAlg = {handleStartAlg}
-            onCompanyClosed={handleCompanyIsClosed}
-            onChange={handleInputChange}
-            onSave={handleNewShiftPlanSave}
-            onHandleActiveInactiveShift={handleActiveInactiveShift}
-            handlePrio={handlePrioShiftToDB}
-            handleChangeNotice={handleChangeNotice}
-            onDelete={handleDeleteShiftPlan}
-            handleSetTenantInShift={handleSetTenantInShift}
-            handleRemoveTenantFromShift={handleRemoveTenantFromShift}
-            handleLoeschen={handleDeleteShift}
-            onSaveHinzufuegen={handleAddShift}
-            selectBewerber={handleSetApplicant}
-            onUpdate={handleReleaseForApplication}
-            onSaveBearbeiten={handleEditShiftDetails}
-            handleUpdate={handleUpdatedShiftPlanToDB}
-            handleSchichtBearbeiten={handleEditShiftDetails}
-            handleResetShiftNotice={handleResetShiftNotice}
-            ></OpenModal>
+        onNavChange={handleNavChange}
+        navIndex={navIndex}
+        ></Nav>
+    <Row>
+      <div className="rna-wrapper">
+        <NotificationAlert ref={notificationAlert} />
+      </div>
+    <Col xs={2} className="mt-4">
+    <h3 className="float-left pt-4 font-weight-bold text-lg">Schichtplan</h3>
+    { LoadingAlg ? <Spinner color="success" /> : <></>}
+    { LoadingPublish ? <Spinner color="success" /> : <></>}
+    { LoadingFetchingPlans ? <Spinner color="success" /> : <></>}
+    { LoadingFetchingSafe ? <Spinner color="success" /> : <></>}
+    { LoadingFetchingRelease ? <Spinner color="success" /> : <></>}
+    </Col>
+    <Col xs={10} className="mt-2 mr-0">
+    <ButtonSaveUpdate
+        ShiftplanChanged={ShiftplanChanged}
+        handleUpdate={handleUpdatedShiftPlanToDB}
+        handleUpload={handleUploadShiftPlanToDB}
+        trigger={ShiftPlanIsActive}
+        import={ShiftPlanIsImported}/>
+        <ModalFreigebenButton
+          shiftplan={Shiftplan}
+          title="Schichtplan freigeben"
+          trigger={"Entwurf"}
+          onClick={onClickFreigeben}
+          modal="showSchichtplanFreigeben"/>
+        <ModalOpenButton
+          shiftplan={Shiftplan}
+          title="Schicht hinzufügen"
+          trigger={"Entwurf"}
+          modal="showSchichthinzufuegen"/>
+        <ModalAlgButton
+          shiftplan={Shiftplan}
+          title="Befüllung starten"
+          trigger={"Freigeben"}
+          onClick={onClickStartAlg}
+          modal="showBefuellungStarten"/>
+        <ButtonUpdateShiftPlan
+          shiftplan={Shiftplan}
+          title="Schichtplan veröffentlichen"
+          trigger={"Review"}
+          onClick={handlePublishShiftPlan}
+          />
+    <NeuerSchichtplanButton
+        title="Vorlage erstellen"
+        modal="showSchichtplanErstellen"
+        navIndex={navIndex}
+        trigger={!ShiftPlanIsActive}>
+        </NeuerSchichtplanButton>
+    <ButtonZurueck
+      titel="Zurück zur Auswahl"
+      onClickVal={onClickBack}
+      true={ShiftPlanIsActive}
+      ></ButtonZurueck>
+    </Col>
+    </Row>
+    <Row>
+        <div className="col">
+             <ImportSchichtplanTabelle 
+             bearbeiten={ShiftPlanIsActive}
+             shiftplan={Shiftplan}
+             plans={Plans}
+             employees={Employees}
+             onSwitch={shiftChange}
+             handleActive={handleActiveShift}
+             Loading={LoadingFetchingPlans}
+             import={ShiftPlanIsImported}
+             Schichtplan={NewShiftplan}
+             ></ImportSchichtplanTabelle>
+             <NeuerSchichtplanTabelle 
+             bearbeiten={ShiftPlanIsActive}
+             shiftplan={Shiftplan}
+             plans={Plans}
+             employees={Employees}
+             onSwitch={shiftChange}
+             Loading={LoadingFetchingPlans}
+             import={ShiftPlanIsImported}
+             handleActive={handleActiveShift}
+             Schichtplan={NewShiftplan}
+             ></NeuerSchichtplanTabelle> 
+            <SchichtplanImport 
+              status={navIndex}
+              bearbeiten={ShiftPlanIsActive}
+              plaene={Plans}
+              onSwitch={shiftChange}
+              plan={currentShiftPlan}
+              import={ShiftPlanIsImported}
+              Schichtplan={NewShiftplan}
+              onDelete={handleDeleteShiftPlan}
+              onChange={handleInputChange}
+              onClick={handleUpdateProfile}
+              org={Meta}></SchichtplanImport>
+        </div>
+      </Row>
+      <SetTradeShift
+      onTradeSubmit={handleShiftTradeToDB}
+      onCancelSumbit={handleCancelShiftTradeToDB}
+      onChange={handleInputChange}
+      bearbeiten={ShiftPlanIsActive}
+      employees={Employees}
+      shiftplan={Shiftplan}
+      />
+      <OpenModal
+          show={Modal}
+          bewerber={ShiftSlot}
+          shiftSlot={ShiftSlot}
+          Schichtplan={NewShiftplan}
+          shiftplan={Shiftplan}
+          Meta={Meta}
+          employees={ShiftEmployees}
+          changeNotice={changeNotice}
+          import={ShiftPlanIsImported}
+          userInput={userInput} 
+          checkTrue={getModalTrue}
+          checkModalKey={getModalKey}
+          handleSelectPrio={handleSelectPrio}
+          startAlg = {handleStartAlg}
+          onCompanyClosed={handleCompanyIsClosed}
+          onChange={handleInputChange}
+          onSave={handleNewShiftPlanSave}
+          onHandleActiveInactiveShift={handleActiveInactiveShift}
+          handlePrio={handlePrioShiftToDB}
+          handleChangeNotice={handleChangeNotice}
+          onDelete={handleDeleteShiftPlan}
+          handleSetTenantInShift={handleSetTenantInShift}
+          handleRemoveTenantFromShift={handleRemoveTenantFromShift}
+          handleLoeschen={handleDeleteShift}
+          onSaveHinzufuegen={handleAddShift}
+          selectBewerber={handleSetApplicant}
+          onUpdate={handleReleaseForApplication}
+          onSaveBearbeiten={handleEditShiftDetails}
+          handleUpdate={handleUpdatedShiftPlanToDB}
+          handleSchichtBearbeiten={handleEditShiftDetails}
+          handleResetShiftNotice={handleResetShiftNotice}
+          ></OpenModal>
+  </>
+  }
     </>
-    }
-      <InfoSidebar
-      sidebarInfo={SidebarInfo}/>
-    </div>
+    )
+  };
+
+  function show() {
+    if(isReloading) return (<ReloadView/>)
+    else return (showMain())
+  }
+        return(
+          <>
+            <div className="main-content mt-9 px-4" ref={mainContent}>
+                  {show()}
+            </div>
+            <InfoSidebar
+              sidebarInfo={SidebarInfo}/>
+            </>
             );
         }
 export default SchichtplanContainer;

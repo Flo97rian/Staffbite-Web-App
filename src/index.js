@@ -128,7 +128,7 @@ ReactDOM.render(
         <Route path="/user/profil" element={<UserProfil/>}/>
       </Routes>
   </BrowserRouter>
-  <CookieConsent
+<CookieConsent
   location="bottom"
   className="shadow"
   enableDeclineButton

@@ -41,7 +41,7 @@ import { ABOUTUS_DESCRIPTION, ABOUTUS_TITLE } from "../../constants/MetaTexts";
 import ThemenSlider from "./Themen/ThemenSlider";
 
 
-function Pricing (props) {
+function AboutUs (props) {
   let mainContent = useRef("mainContent")
 
   useEffect(() => {
@@ -77,11 +77,6 @@ function Pricing (props) {
                 }}/>
       {/* Page content */}
       <Container className="pt-5" fluid>
-        <Container className="mt-6">
-                    <Row className="justify-content-left ml-1 mt-4">
-                        <h1> Über uns</h1>
-                    </Row>
-        </Container>
         <Container className=" mb-4 pt-4">
               <Row>
                 <Col className="mb-5 mb-lg-0" lg="12" md="12">
@@ -144,4 +139,4 @@ function Pricing (props) {
     </div>
   );
 };
-export default Pricing;
+export default AboutUs;

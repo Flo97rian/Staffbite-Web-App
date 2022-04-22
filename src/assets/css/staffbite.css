@@ -313,3 +313,99 @@
   .feature-staffbite:hover{
 
   }
+
+  .lead-text {
+    font-size: 1.10rem;
+    font-weight: 300;
+  }
+
+  .lead-text-bold {
+    font-size: 1.20rem;
+    font-weight: 500;
+  }
+
+  @media only screen and (min-width: 600px) {
+    .lead-text {
+      font-size: 1.25rem;
+      font-weight: 300;
+    }
+  }
+
+  .display-5 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.5; }
+
+.staffbite-display-3 {
+  font-size: 1.500rem;
+  font-weight: 600;
+  line-height: 1.8; }
+
+  @media only screen and (min-width: 600px) {  
+  .staffbite-display-3 {
+    font-size: 2.1875rem;
+    font-weight: 600;
+    line-height: 1.5; }
+  }
+
+.staffbite-pt-3 {
+  padding-top: 0.5rem !important;
+}
+
+  @media only screen and (min-width: 600px) {  
+  .staffbite-pt-3 {
+    padding-top: 1rem !important;
+   }
+  }
+
+.staffbite-pt-3 {
+  padding-top: 0.5rem !important;
+}
+
+  @media only screen and (min-width: 600px) {  
+  .staffbite-pt-3 {
+    padding-top: 1rem !important;
+    }
+  }
+.staffbite-pt-6 {
+  padding-top: 3.5rem !important;
+}
+
+  @media only screen and (min-width: 600px) {  
+  .staffbite-pt-6 {
+    padding-top: 4.5rem !important;
+    }
+  }
+
+.staffbite-mt-3 {
+  margin-top: 0.5rem !important;
+}
+
+  @media only screen and (min-width: 600px) {  
+  .staffbite-mt-3 {
+    margin-top: 1.5rem !important
+    }
+  }
+
+.staffbite-button-primary {
+  background-color: #0171e2;
+}
+
+.staffbite-bg-facebook-messenger {
+  background: #00c6ff;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0072ff, #00c6ff);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #0072ff, #00c6ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.staffbite-bg-color-of-sky {
+  background: #E0EAFC;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.staffbite-trial-borders {
+  border-radius: 20px 20px 0 0;
+  border-color: none;
+}

@@ -14,16 +14,17 @@ import { INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION } from "../../../../../cons
 import InfoOverlay from "../../../../../components/Application/functionalComponents/InfoOverlay";
 
 export const Schicht = (props) => {
-    console.log(props.shiftSlot);
-    let hasuserInput = props.userInput !== null
+    let hasuserInput = props.userInput
+    console.log("reload");
     function getShiftActive () {
         let active = !1;
         let slot = props.shiftSlot;
+        console.log(props.Schichtplan[slot.row][slot.col])
         if(slot) {
             let isNewShiftplan = typeof props.Schichtplan === "object"
             let isActive;
             if(isNewShiftplan) {
-                isActive = props.Schichtplan.plan[slot.row][slot.col].frei;    
+                isActive = props.Schichtplan[slot.row][slot.col].frei;    
             }
             if(!isActive) {
                 active = !0;
@@ -37,10 +38,10 @@ export const Schicht = (props) => {
         let slot = props.shiftSlot;
         let isNewShiftplan = typeof props.Schichtplan === "object"
         if(isNewShiftplan) {
-            let keys = Object.keys(props.Schichtplan.plan[slot.row][slot.col])
+            let keys = Object.keys(props.Schichtplan[slot.row][slot.col])
             if(keys.includes("notice")) {
-                if(props.Schichtplan.plan[slot.row][slot.col].notice !== "") {
-                    value = props.Schichtplan.plan[slot.row][slot.col].notice
+                if(props.Schichtplan[slot.row][slot.col].notice !== "") {
+                    value = props.Schichtplan[slot.row][slot.col].notice
                 }
             }
         }
@@ -49,10 +50,12 @@ export const Schicht = (props) => {
 
     function noticeIsValid() {
         let isValid = !1;
+        if(props.userInput !== undefined) {
         let notice = props.userInput.notice;
         let noticeLength = notice.length;
         if(noticeLength > 80) {
             isValid = !0;
+        }
         }
         return isValid;
     }
@@ -62,18 +65,18 @@ export const Schicht = (props) => {
         let slot = props.shiftSlot;
         let isNewShiftplan = typeof props.Schichtplan === "object"
         if(isNewShiftplan) {
-            let keys = Object.keys(props.Schichtplan.plan[slot.row][slot.col])
+            let keys = Object.keys(props.Schichtplan[slot.row][slot.col])
             if(keys.includes("notice")) {
-                let notice = props.Schichtplan.plan[slot.row][slot.col].notice
+                let notice = props.Schichtplan[slot.row][slot.col].notice
                 if(notice !== "") {
                     value = !0;
                 }
                 
             }
         } else {
-            let keys = Object.keys(props.shiftplan.plan[slot.row][slot.col])
+            let keys = Object.keys(props.shiftplan[slot.row][slot.col])
             if(keys.includes("notice")) {
-                let notice = props.shiftplan.plan[slot.row][slot.col].notice
+                let notice = props.shiftplan[slot.row][slot.col].notice
                 if(notice !== "") {
                     value = !0;
                 }
@@ -84,25 +87,11 @@ export const Schicht = (props) => {
     function getColor(qualifikation) {
         let color = "light";
         let slot = props.shiftSlot;
-        if (hasuserInput) {
-            let isNewShiftplan = typeof props.Schichtplan === "object"
-            if(isNewShiftplan) {
-                let keys = Object.keys(props.Schichtplan.plan[slot.row][slot.col])
-                if(keys.includes("prio")) {
-                    if(props.Schichtplan.plan[slot.row][slot.col].prio !== !1) {
-                        if(qualifikation === props.Schichtplan.plan[slot.row][slot.col].prio) {
-                            color = "primary"
-                        }
-                    }
-                }
-            } else {
-                let keys = Object.keys(props.shiftplan.plan[slot.row][slot.col])
-                if(keys.includes("prio")) {
-                    if(props.shiftplan.plan[slot.row][slot.col].prio !== !1) {
-                        if(qualifikation === props.shiftplan.plan[slot.row][slot.col].prio) {
-                            color = "primary"
-                        }
-                    }
+        let keys = Object.keys(props.Schichtplan[slot.row][slot.col])
+        if(keys.includes("prio")) {
+            if(props.Schichtplan[slot.row][slot.col].prio !== !1) {
+                if(qualifikation === props.Schichtplan[slot.row][slot.col].prio) {
+                    color = "primary"
                 }
             }
         }
@@ -114,9 +103,9 @@ export const Schicht = (props) => {
                     <Col xs={1} ></Col>
                     <Col xs={10} >
                             <InfoOverlay infotitle="Mindestanforderung aktivieren" description={INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION}/>
-                            <Badge className="mr-2" color={getColor("Anfänger")} > Anfänger</Badge>
-                            <Badge className="mr-2" color={getColor("Fortgeschritten")}> Fortgeschritten</Badge>
-                            <Badge className="mr-2" color={getColor("Experte")}> Experte</Badge>
+                            <Badge className="mr-2" color={getColor("Anfänger")} onClick={() => props.handleSelectPrio("Anfänger")}> Anfänger</Badge>
+                            <Badge className="mr-2" color={getColor("Fortgeschritten")} onClick={() => props.handleSelectPrio("Fortgeschritten")}> Fortgeschritten</Badge>
+                            <Badge className="mr-2" color={getColor("Experte")} onClick={() => props.handleSelectPrio("Experte")}> Experte</Badge>
                         </Col>
                     <Col xs={1} ></Col>
                 </Row>
@@ -166,8 +155,8 @@ export const Schicht = (props) => {
                     <Col xs={10} >
                             <InfoOverlay infotitle="Schicht deaktivieren" description={INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION}/>
                             <Row className="ml-0">
-                                <Button color="warning" disabled={getShiftActive()} >Deaktivieren</Button>
-                                <Button color="success" disabled={!getShiftActive()} >Aktivieren</Button>
+                                <Button color="warning" disabled={getShiftActive()} onClick={() => props.handleActiveInactiveShift()}>Deaktivieren</Button>
+                                <Button color="success" disabled={!getShiftActive()} onClick={() => props.handleActiveInactiveShift()}>Aktivieren</Button>
                             </Row>
                         </Col>
                     <Col xs={1} ></Col>

@@ -54,18 +54,25 @@ const ForgotPassword = (props) => {
       } 
 
 async function resetPassword() {
-    Auth.forgotPassword(username)
+    let whiteSpace = /\s/;
+    let hasUsernameWhiteSpaces = whiteSpace.test(username);
+    let currentUsername = username;
+    currentUsername = hasUsernameWhiteSpaces ? currentUsername.replace(/\s/g, "") : currentUsername;
+    await Auth.forgotPassword(currentUsername)
     .then(data => {
+        console.log(data);
         setReset(!0);
     })
-    .catch(err => console.log(err));
-
+    .catch(err => {
+        console.log(err)});
+    
 }
 
 async function confirmResetPassword() {
     console.log(username, code, password)
     Auth.forgotPasswordSubmit(username, code, password)
     .then( user => {
+
         setResetted(!0);
     })
     .catch(err => console.log(err));
@@ -103,7 +110,20 @@ async function confirmResetPassword() {
             setCode(val)
         }
       }
-    console.log(AuthState)
+
+
+    async function checkUserExsists(username) {
+        let response;
+        try {
+            await Auth.signIn(username, "Haus-123").then(
+                data => response = data
+            )
+            .catch(err => response = err);
+        } catch (err) {
+            response = err;
+        }
+        return response;
+    }
     
     if (resetted) {
         navigate("/auth")

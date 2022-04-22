@@ -17,6 +17,7 @@ import {
   DropdownMenu,
   Button,
 } from "reactstrap";
+import { isMobile } from "react-device-detect";
 
 const LandingNavBar = (props) =>  {
   const [isOpen, setIsOpen] = useState(false);
@@ -126,20 +127,19 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-                <Link  to='/contact' >
+                <Link  to='/demo' >
                     <p className="nav-link-inner--text text-muted p-0  pt-2 mr-5 m-0">
-                      Kontakt
+                      Demo
                     </p>
                 </Link>
-                <Link to='/aboutus' >
-                    <p className="nav-link-inner--text text-muted p-0 pt-2 mr-5 m-0">
-                      Über uns
-                    </p>
-                </Link>
-
               <Link to='/pricing' >
                     <p className="nav-link-inner--text text-muted p-0 pt-2 mr-5 m-0">
                       Preise
+                    </p>
+                </Link>
+                <Link  to='/contact' >
+                    <p className="nav-link-inner--text text-muted p-0  pt-2 mr-5 m-0">
+                      Kontakt
                     </p>
                 </Link>
                 <Link to='/themen' >
@@ -154,9 +154,12 @@ const LandingNavBar = (props) =>  {
               </Link>
             </Nav>
         </Collapse>
+        {!isMobile ?
         <Link to="/auth">
-                <Button className="btn-icon btn-3 p-2 opacity-9" color="success" type="button"><p className="p-0 m-0">Anmelden</p></Button>
+                <Button className="btn-icon btn-3 p-2 px-3 opacity-9" color="success" type="button"><p className="p-0 m-0">Anmelden</p></Button>
               </Link>
+          : 
+          <></>}
       </Navbar>
       </>
     );

@@ -5890,7 +5890,7 @@ a.close.disabled {
   word-wrap: break-word;
   opacity: 0; }
   .tooltip.show {
-    opacity: 0.9; }
+    opacity: 1 !important;}
   .tooltip .arrow {
     position: absolute;
     display: block;
@@ -5942,12 +5942,12 @@ a.close.disabled {
       border-width: 0.4rem 0 0.4rem 0.4rem;
       border-left-color: #000; }
 
-.tooltip-inner {
-  max-width: 200px;
+.tooltip .tooltip-inner {
+  max-width: 100%;
   padding: 0.25rem 0.5rem;
-  color: #fff;
-  text-align: center;
-  background-color: #000;
+  text-align: left;
+  opacity: 1;
+  background-color: #ffff;
   border-radius: 0.375rem; }
 
 .popover {

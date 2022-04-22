@@ -43,14 +43,14 @@ import { useNavigate, Switch, Redirect, Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 import ReactGA from "react-ga";
 import NotificationAlert from "react-notification-alert";
-import { WARNING_WRONG_MAIL_OR_PASSWORD, WARNING_PASSWORD_NO_CAPITAL_CHAR, WARNING_PASSWORD_NO_LOWER_CHAR, WARNING_PASSWORD_NO_NUMBER, WARNING_PASSWORD_NO_SPECIAL_CHAR, WARNING_PASSWORD_TOO_SHORT } from "../../../constants/Alerts";
+import { WARNING_WRONG_MAIL_OR_PASSWORD, WARNING_PASSWORD_NO_CAPITAL_CHAR, WARNING_PASSWORD_NO_LOWER_CHAR, WARNING_PASSWORD_NO_NUMBER, WARNING_PASSWORD_NO_SPECIAL_CHAR, WARNING_PASSWORD_TOO_SHORT, WARNING_EMAIL_NOT_CORRECT, WARNING_CODE_MISSMATCH } from "../../../constants/Alerts";
 
 const SelectNewPassword = (props) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
     const [isValid, setIsValid] = useState(!1)
-    const [ErrMsng, setErrMsng] = useState({WrongLogInData: !1, PasswordRequirementsLength: !1, PasswordRequirementsLower: !1, PasswordRequirementsCapital: !1, PasswordRequirementsSpecial:!1, PasswordRequirementsNumber: !1});
+    const [ErrMsng, setErrMsng] = useState({WrongLogInData: !1, PasswordRequirementsLength: !1, PasswordRequirementsLower: !1, PasswordRequirementsCapital: !1, PasswordRequirementsSpecial:!1, PasswordRequirementsNumber: !1, EMailNotCorrect: !1, CodeMismatchException: !1});
     const [resetted, setResetted] = useState(!1);
     const [err, setErr] = useState(null)
     const [msg, setMsg] = useState(null)
@@ -121,25 +121,44 @@ async function resetPassword() {
           setErrMsng({...ErrMsng, [err]: !1})
         };
 
+        function showErrorExceeded () {
+            if(err === null) return null;
+            return (
+                <p className="text-danger">Die maximale Anzahl deiner Zurücksetzungsversuche ist erreicht. <br/> Für die nächsten 15 Minuten kannst du keinen weiteren Anmeldeversuch durchführen. <br/> Melde dich gerne per Mail an info@staffbite.de oder kontaktiere uns unter: 0157 30 64 46 50</p>
+            )
+        }
       async function confirmResetPassword() {
         console.log(username, code, password)
         let capitals = /[A-Z]/
         let numbers =  /[0-9]/
         let lower = /[a-z]/
         let specialChars = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+        let whiteSpace = /\s/;
+        let hasUsernameWhiteSpaces = whiteSpace.test(username);
+        let currentUsername = username;
+        currentUsername = hasUsernameWhiteSpaces ? currentUsername.replace(/\s/g, "") : currentUsername;
         let hasMinEightLetters = password.length >= 8;
         let hasCapitalLetter = capitals.test(password)
         let hasNumber = numbers.test(password);
         let hasLowerChar = lower.test(password);
         let hasSpecialChar = specialChars.test(password)
         if (hasCapitalLetter && hasMinEightLetters && hasNumber && hasSpecialChar && hasLowerChar) {
-        Auth.forgotPasswordSubmit(username, code, password)
-        .then( user => {
-            setResetted(!0);
-            navigate("/auth")
-        })
-        .catch(err => console.log(err));
-        }
+            Auth.forgotPasswordSubmit(currentUsername, code, password)
+            .then( user => {
+                setResetted(!0);
+                navigate("/auth")
+            })
+            .catch(err => {
+                if(err.code === "LimitExceededException") {
+                    setErr("LimitExceededException")}
+                else if(err.code === "ExpiredCodeException") {
+                    setErrMsng({...ErrMsng, EMailNotCorrect: !0}) 
+                } else if ( err.code === "CodeMismatchException") {
+                    setErrMsng({...ErrMsng, CodeMismatchException: !0}) 
+                }
+                console.log(err)
+            });
+            }
         if(hasMinEightLetters === false) {
             setErrMsng({...ErrMsng, PasswordRequirementsLength: !0})
         }
@@ -204,6 +223,8 @@ async function resetPassword() {
         { ErrMsng.PasswordRequirementsSpecial ? Notify("warning", WARNING_PASSWORD_NO_SPECIAL_CHAR, "PasswordRequirementsSpecial") : null}
         { ErrMsng.PasswordRequirementsNumber ? Notify("warning", WARNING_PASSWORD_NO_NUMBER, "PasswordRequirementsNumber") : null}
         { ErrMsng.WrongLogInData ? Notify("warning", WARNING_WRONG_MAIL_OR_PASSWORD, "WrongLogInData") : null}
+        { ErrMsng.EMailNotCorrect ? Notify("warning", WARNING_EMAIL_NOT_CORRECT, "EMailNotCorrect") : null}
+        { ErrMsng.CodeMismatchException ? Notify("warning", WARNING_CODE_MISSMATCH, "CodeMismatchException") : null}
         <div className="rna-wrapper">
             <NotificationAlert ref={notificationAlert} />
         </div>
@@ -216,6 +237,7 @@ async function resetPassword() {
                         <CardHeader className="bg-white pb-2">
                         <div className="text-muted text-center pt-4">
                             <h3>Neues Passwort festlegen</h3>
+                            {showErrorExceeded()}
                         </div>
                         </CardHeader>
                         <CardBody className="px-lg-5 py-lg-5">
@@ -297,14 +319,7 @@ async function resetPassword() {
                         <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
                         </Col>
                         <Col className="text-right" xs="6">
-                        <Button
-                                size="sm"
-                                color=""
-                                type="button"
-                                onClick={() => resetPassword()}
-                            >
-                                Erneut senden
-                            </Button>
+                        <small className="text-primary" style={{"cursor": "pointer"}} onClick={() => resetPassword()}>Code erneut senden</small>
                         </Col>
                     </Row>
                         </CardBody>

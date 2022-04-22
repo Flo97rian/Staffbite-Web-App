@@ -30,46 +30,58 @@ const ModalZusammenfassung = (props) => {
                     show={props.modal}
                     onHide={() => props.handleCloseModal()}
             >
-                <Modal.Header className="pb-0" closeButton>
-                    <Label className="h2 m-3 align-items-center">
-                        <i className="fas fa-arrow-down mr-4"></i>
-                        Deine Zusammenfassung
-                        </Label>
-                </Modal.Header>
                 <Modal.Body className="pt-1">
-                    <Row className="text-center">
+                    <Row className="mt-4 text-center">
                         <Col>
-                            <p className="font-weight-bold mb-0 pb-0">
-                                25
+                            <Label className="h2 m-3">
+                                Unsere interaktive Demo
+                            </Label>
+                        </Col>
+                    </Row>
+                    <Row className="mt-2 text-center">
+                        <Col>
+                            <p>
+                                Wir hoffen dir hat es gefallen! Falls du noch Fragen hast, 
+                                <br/>
+                                freuen wir uns über eine Nachricht von dir!
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row className="text-center mt-4">
+                        <Col>
+                            <p className="font-weight-bold mb-0 pb-0 lead">
+                                {props.teamSize}
                             </p>
                         </Col>
                         <Col>
-                            <p className="font-weight-bold">
-                                Gastronomie
+                            <p className="font-weight-bold lead mb-0 ">
+                                {props.branche}
                             </p>
                             
                         </Col>
                     </Row>
-                    <Row className="text-center">
+                    <Row className="text-center mt-0">
                         <Col>
                             <p className="mt-0 pt-0">
-                                Teamgröße
+                                Deine Teamgröße
                             </p>
                         </Col>
                         <Col>
                             <p>
-                                Branche
+                               Deine Branche
                             </p>
                         </Col>
                     </Row>
-                    <Row className="">
+                    <Row className="text-center mt-4">
                         <Col>
-                            <p className="lead">
-                                Deine Auswahl:
+                            <p className="">
+                                Probiere den kostenlosen Probemonat aus!
+                                <br/>
+                                Bis gleich!
                             </p>
                         </Col>
                     </Row>
-                    <Row className="">
+                    {/*<Row className="text-center">
                         <Col>
                             <p>
                             <a
@@ -81,7 +93,7 @@ const ModalZusammenfassung = (props) => {
                             </p>
                         </Col>
                     </Row>
-                    <Row className="">
+                    <Row className="text-center">
                         <Col>
                         <p>
                             <a
@@ -93,11 +105,9 @@ const ModalZusammenfassung = (props) => {
                             </p>
                         </Col>
                     </Row>
-                    <Row className="">
+                    <Row className="text-center">
                         <Col>
-                        <p onMouseOver={() => handleCss("app", "app-success")} onMouseOut={() => handleCss("", "app-danger")}>
-                            {mouseOn !== "app" ? 
-                            <>
+                        <p>
                                 <a
                                 id="app-success"
                                 className={"avatar avatar-xs background-staffbite-success rounded-circle mr-3"}
@@ -105,24 +115,13 @@ const ModalZusammenfassung = (props) => {
                                     <i className="fas fa-check"></i>
                                 </a>
                                 Mitarbeiter App
-                            </>
-                            : 
-                            <>
-                                <a
-                                className={"avatar avatar-xs background-staffbite-danger rounded-circle ml-3 mr-3"}
-                                >
-                                <i className="fas fa-trash"></i>
-                                </a>
-                                Mitarbeiter App
-                            </>
-                            }
                         </p>
                         </Col>
-                    </Row>
+                        </Row>*/}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button color="link" size="lg" onClick={() => props.handleCloseModal()}> Schließen </Button>{' '}
-                    <Button color="success font-weight-light border-lg rounded-pill" onClick={() => props.handleCloseModal()}>Im Probemonat ausprobieren</Button>{' '}
+                    <Button color="link" size="lg" onClick={() => props.handleCloseModal()}> Gespräch vereinbaren </Button>{' '}
+                    <Button color="success font-weight-light border-lg rounded-pill" onClick={() => props.handleCloseModal()}>30 Tage kostenlos ausprobieren</Button>{' '}
                 </Modal.Footer>
             </Modal>
         );

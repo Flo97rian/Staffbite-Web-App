@@ -17,4 +17,6 @@ export const WARNING_PASSWORD_NO_SPECIAL_CHAR = "Bitte überprüfe, ob dein Pass
 export const WARNING_PASSWORD_NO_CAPITAL_CHAR = "Bitte überprüfe, ob dein Passwort einen Großbuchstaben enthält. Mindestanforderung 1 Großbuchstaben.";
 export const WARNING_PASSWORD_NO_LOWER_CHAR = "Bitte überprüfe, ob dein Passwort über einen Kleinbuchstaben verfügt. Mindestanforderung 1 Kleinbuchstaben.";
 export const WARNING_PASSWORD_NO_NUMBER = "Bitte überprüfe, ob dein Passwort über eine Zahl verfügt. Mindestanforderung 1 Zahl";
+export const WARNING_EMAIL_NOT_CORRECT = "Bitte trage eine gültige Mail Adresse ein."
+export const WARNING_CODE_MISSMATCH = "Der eingegebene Code ist nicht gültig. Er ist entweder falsch oder bereits abgelaufen. Die passiert normalerweise nach etwa einer Stunde."
 

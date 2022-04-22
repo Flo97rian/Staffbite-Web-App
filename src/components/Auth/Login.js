@@ -94,7 +94,11 @@ const Login = () => {
 
     async function confirmSignUp() {
         try {
-          await Auth.confirmSignUp(username, code);
+            let whiteSpace = /\s/;
+            let hasUsernameWhiteSpaces = whiteSpace.test(username);
+            let currentUsername = username;
+            currentUsername = hasUsernameWhiteSpaces ? currentUsername.replace(/\s/g, "") : currentUsername;
+          await Auth.confirmSignUp(currentUsername, code);
           setAuthState(AuthState.SignUp)
         } catch (error) {
             console.log(error);
@@ -103,7 +107,11 @@ const Login = () => {
 
     async function signIn() {
         try {
-            const user = await Auth.signIn(username, password);
+            let whiteSpace = /\s/;
+            let hasUsernameWhiteSpaces = whiteSpace.test(username);
+            let currentUsername = username;
+            currentUsername = hasUsernameWhiteSpaces ? currentUsername.replace(/\s/g, "") : currentUsername;
+            const user = await Auth.signIn(currentUsername, password);
             console.log(user)
             // neuer MA hat challengeName "NEW_PASSWORD_REQUIRED"
             if ("challengeName" in user) {

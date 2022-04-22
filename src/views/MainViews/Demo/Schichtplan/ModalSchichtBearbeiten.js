@@ -24,7 +24,8 @@ const ModalSchichtBearbeiten = (props) => {
                     <Schicht {...props}></Schicht>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button color="success"> Übernehmen</Button>
+                    <Button color="link" onClick={() => props.handleCloseModal()}> Schließen</Button>
+                    <Button color="success" onClick={() => props.handleEditShift(props.shiftSlot.row, props.shiftSlot.col)}> Übernehmen</Button>
                 </Modal.Footer>
             </Modal>
         );

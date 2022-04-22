@@ -106,6 +106,7 @@ const ResetPassword = (props) => {
                         <Link to="/auth" className=""><small>Zurück zur Anmeldung</small></Link>
                         </Col>
                         <Col className="text-right" xs="6">
+                            <Link to="/setnewpassword" className="" style={{"cursor": "pointer"}} ><small>Zum Code eingeben</small></Link>
                         </Col>
                     </Row>
                         </CardBody>

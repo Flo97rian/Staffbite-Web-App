@@ -219,7 +219,7 @@
         },
         "publishShiftplan": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/publishShiftplan-4b4a4e393374614e6e45-build.zip"
+          "s3Key": "amplify-builds/publishShiftplan-5a48314b78774e673563-build.zip"
         },
         "addEmployee": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
@@ -264,6 +264,10 @@
         "testAlgorithm": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
           "s3Key": "amplify-builds/testAlgorithm-5a717257533069347763-build.zip"
+        },
+        "demoAlgo": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/demoAlgo-48555369464933397a5a-build.zip"
         }
       },
       "auth": {
