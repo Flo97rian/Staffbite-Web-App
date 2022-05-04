@@ -59,10 +59,11 @@ function Payment({EmployeesLength}) {
       <div className="payment-product">
         <div className="payment-description">
           <h3 className='lead'>Monatliches Abo</h3>
+          <p></p>
         </div>
       </div>
         {/* Add a hidden field with the lookup_key of your Price */}
-        <button className="payment-button" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1Ktv9nAQ7Ygg2HBEg5QwOsSy")}>
+        <button className="payment-button" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1Kvk47AQ7Ygg2HBE4FrxOYXY")}>
           <p>
             Zur Übersicht
           </p>
@@ -76,7 +77,7 @@ function Payment({EmployeesLength}) {
           <h3 className='lead'>Järhliches Abo</h3>
         </div>
       </div>
-        <button className="payment-button" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1KtvIXAQ7Ygg2HBEg7ays127")}>
+        <button className="payment-button" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1KvkQKAQ7Ygg2HBEsBKs5Uuf")}>
           <p>
             Zur Übersicht
           </p>

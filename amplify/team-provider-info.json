@@ -121,11 +121,15 @@
         },
         "addStripeCustomerID": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/addStripeCustomerID-33566478497354414772-build.zip"
+          "s3Key": "amplify-builds/addStripeCustomerID-47626d6e47616d6c4675-build.zip"
         },
         "stripeCheckout": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/stripeCheckout-646243564c3667776d4b-build.zip"
+          "s3Key": "amplify-builds/stripeCheckout-7072787a70426d35712f-build.zip"
+        },
+        "validateStripeNumberOfEmployees": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/validateStripeNumberOfEmployees-7364677673364a4b5352-build.zip"
         }
       },
       "storage": {

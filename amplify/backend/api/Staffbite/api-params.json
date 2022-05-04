@@ -278,6 +278,14 @@
                 "open": true
             },
             "policyResourceName": "/stripeCheckout"
+        },
+        {
+            "name": "/validateStripeNumberOfEmployees",
+            "lambdaFunction": "validateStripeNumberOfEmployees",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/validateStripeNumberOfEmployees"
         }
     ],
     "resourceName": "Staffbite",
@@ -354,6 +362,9 @@
         },
         {
             "lambdaFunction": "stripeCheckout"
+        },
+        {
+            "lambdaFunction": "validateStripeNumberOfEmployees"
         }
     ],
     "privacy": {
@@ -554,7 +565,15 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "validateStripeNumberOfEmployees",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
     ],
-    "uuid": "3e232616"
+    "uuid": "f7d11924"
 }

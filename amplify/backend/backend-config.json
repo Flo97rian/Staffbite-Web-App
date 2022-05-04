@@ -195,6 +195,14 @@
             "Name",
             "Arn"
           ]
+        },
+        {
+          "category": "function",
+          "resourceName": "validateStripeNumberOfEmployees",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
         }
       ]
     }
@@ -581,6 +589,11 @@
       "service": "Lambda"
     },
     "stripeCheckout": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "validateStripeNumberOfEmployees": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
