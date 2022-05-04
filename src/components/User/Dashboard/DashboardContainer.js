@@ -17,7 +17,7 @@ import store from "../../../store";
 import { thunkUpdateEmployee } from "../../../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_OVERVIEW_APPLICATIONS, ONBOARDING_EMPLOYEE_OVERVIEW_TRADE_SHIFT, ONBOARDING_EMPLOYEE_OVERVIEW_SHIFTPLAN } from "../../../constants/OnBoardingTexts"
 import { FetchOrg } from "../../../store/middleware/FetchOrg";
-import Timeline from "../../Admin/Dashboard/Timeline";
+import ShiftplanActivitys from "../../Newsfeed/NewsfeedContainer/NewsfeedContainer";
 
 
 const DashboardContainer = (props) => {
@@ -71,6 +71,7 @@ const DashboardContainer = (props) => {
   const Plans = useSelector(selectPlans);
   const User = useSelector(selectUser);
   const Shiftplan = useSelector(selectShiftplan);
+  const newsFeed = useSelector(state => state?.Meta?.newsfeed)
 
 
   // Initiales laden der aktuellen Users
@@ -225,10 +226,7 @@ const DashboardContainer = (props) => {
               <Col>
                 <Card className="shadow card_aktuellerSchichtplan">
                   <CardBody>
-                    <Timeline
-                    meta={Meta}
-                    >
-                    </Timeline>
+                    <ShiftplanActivitys newsfeed={newsFeed}/>
                   </CardBody>
                 </Card>
               </Col>

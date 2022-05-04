@@ -254,6 +254,30 @@
                 "open": true
             },
             "policyResourceName": "/demoAlgo"
+        },
+        {
+            "name": "/customerPortal",
+            "lambdaFunction": "customerPortal",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/customerPortal"
+        },
+        {
+            "name": "/addStripeCustomerID",
+            "lambdaFunction": "addStripeCustomerID",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/addStripeCustomerID"
+        },
+        {
+            "name": "/stripeCheckout",
+            "lambdaFunction": "stripeCheckout",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/stripeCheckout"
         }
     ],
     "resourceName": "Staffbite",
@@ -321,13 +345,22 @@
         },
         {
             "lambdaFunction": "demoAlgo"
+        },
+        {
+            "lambdaFunction": "customerPortal"
+        },
+        {
+            "lambdaFunction": "addStripeCustomerID"
+        },
+        {
+            "lambdaFunction": "stripeCheckout"
         }
     ],
     "privacy": {
         "auth": 19,
         "unauth": 0,
-        "authRoleName": "amplify-staffbite-main-151241-authRole",
-        "unAuthRoleName": "amplify-staffbite-main-151241-unauthRole"
+        "authRoleName": "amplify-staffbite-dev-180625-authRole",
+        "unAuthRoleName": "amplify-staffbite-dev-180625-unauthRole"
     },
     "dependsOn": [
         {
@@ -497,7 +530,31 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "customerPortal",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "addStripeCustomerID",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "stripeCheckout",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
     ],
-    "uuid": "3896c12d"
+    "uuid": "3e232616"
 }

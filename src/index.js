@@ -70,6 +70,9 @@ import Positionen from './views/MainViews/Themen/Positionen';
 import CookieConsent from "react-cookie-consent";
 import SelectNewPassword from './components/Auth/AuthComponents/SelectNewPassword';
 import Demo from './views/MainViews/Demo/Demo';
+import Payment from './api/stripe/Payment';
+import PaymentSuccess from './api/stripe/PaymentSuccess';
+import PaymentDecline from './api/stripe/PaymentDecline';
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -121,6 +124,9 @@ ReactDOM.render(
         <Route path="/contact" element={ <Contact />} />
         <Route path="/auth" element={ <AuthLayout />} />
         <Route path="/demo" element={ <Demo />} />
+        <Route path="/payment" element={ <Payment />} />
+        <Route path="/payment-success" element={ <PaymentSuccess />} />
+        <Route path="/payment-decline" element={ <PaymentDecline />} />
         <Route path="/user"/>
         <Route path="/user/index" element={<UserDashboard/>}/>
         <Route path="/user/bewerben" element={<SchichtplanBewerben/>}/>

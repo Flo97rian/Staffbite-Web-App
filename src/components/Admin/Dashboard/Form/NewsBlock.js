@@ -4,11 +4,24 @@ import {
     Container,
     Col
   } from "reactstrap";
+  import PropTypes from "prop-types";
 
-  function NewsBlock(props) {
+  function NewsBlock({title, message, type, since}) {
 
+NewsBlock.propTypes = {
+    title: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    since: PropTypes.string.isRequired
+}
+
+NewsBlock.defaultProps = {
+    title: "Name",
+    message: "Message",
+    type: "",
+    since: ""
+}
     function renderIcon() {
-        let type = props.type;
         if(type === "Schichtplan") {
             return (
                 <div className="icon icon-shape bg-blue text-white rounded-circle shadow mt-3 ml-3">
@@ -32,17 +45,17 @@ import {
                 <Col>
                 <Row>
                     <p className="h5 text-muted">
-                        Vor {props.since}
+                        Vor {since}
                     </p>
                 </Row>
                 <Row>
                         <p className="h4">
-                            {props.title}
+                            {title}
                         </p>
                 </Row>
                 <Row>
                         <p>
-                            {props.message}
+                            {message}
                         </p>
                 </Row>
                 </Col>

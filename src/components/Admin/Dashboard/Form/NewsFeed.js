@@ -8,18 +8,26 @@ import {
     Container
   } from "reactstrap";
 import NewsBlock from "./NewsBlock";
+import PropTypes from "prop-types";
+import * as _ from "lodash"
 
-  function NewsFeed(props) {
+  function NewsFeed({newsfeed}) {
+
+    NewsFeed.propTypes = {
+        newsfeed: PropTypes.array.isRequired
+    }
+
+    NewsFeed.defaultProps = {
+        newsfeed: []
+    }
+
     function showNews() {
-        let hasNews = Object.keys(props.meta).includes("newsfeed")
-        if (hasNews) {
-            let hasNewsCount = props.meta.newsfeed.length > 0;
-            if(hasNewsCount) {
-                let newsfeed = props.meta.newsfeed.slice(0,4);
+            if(newsfeed.length > 0) {
+                let newsfeedFirstFour = _.slice(newsfeed, 0, 4);
                 return (
-                newsfeed.map((news, index) => {
+                    newsfeedFirstFour.map((news, index) => {
                     let now = new Date();
-                    let timestamp = new Date(props.meta.newsfeed[index].timestamp)
+                    let timestamp = new Date(news.timestamp)
                     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
                     function dateDiffInDays(a, b) {
                         // Discard the time and time-zone information.
@@ -59,14 +67,13 @@ import NewsBlock from "./NewsBlock";
                     return (  
                         <NewsBlock
                         since={since}
-                        title={props.meta.newsfeed[index].title}
-                        message={props.meta.newsfeed[index].message}
-                        type={props.meta.newsfeed[index].type}
+                        title={news.title}
+                        message={news.message}
+                        type={news.type}
                         ></NewsBlock>
                     )
                 })
                 );
-            }
         } else {
             return (
                 <Container>
@@ -94,6 +101,5 @@ import NewsBlock from "./NewsBlock";
        {showNews()}
     </CardBody>
     );
-    return null;
 }
 export default NewsFeed;

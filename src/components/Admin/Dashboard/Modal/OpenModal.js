@@ -1,8 +1,8 @@
 // Dieses Component ist der zentrale Handler zum öffnen von Modals
 
 import React from "react";
-import ModalFilterReport from "./ModalFilterReport";
-import ModalPaymentDetails from "./ModalPaymentDetails";
+import ModalFilterReport from "../../../Reporting/ReportingModal/ModalFilterReport";
+import ModalPaymentDetails from "../../../Payment/PaymentModal/ModalPaymentDetails";
 import { useSelector } from "react-redux";
 
 
