@@ -25,6 +25,8 @@ import { useLocation } from "react-router-dom";
 import { ONBOARDING_TEAM_INVITE, ONBOARDING_TEAM_OVERVIEW } from "../../constants/OnBoardingTexts.js";
 import { validMeta } from "../Application/functionalComponents/ValidFunctions.js";
 import UserDashboard from "../../views/MainViews/User/Dashboard.js";
+import ButtonEmployeesRoles from "../ButtonEmployeesRoles.js";
+import * as _ from "lodash";
 
 const EmployeesContainerAdmin = (props) => {
   const [userInput, setUserInput] = useState(employeeStates);
@@ -70,6 +72,7 @@ const EmployeesContainerAdmin = (props) => {
   const Modal = useSelector(selectModal);
   const Meta = useSelector(selectMeta);
   const SidebarInfo = useSelector(selectInfoSidebar);
+  const Positions = useSelector(state => state?.Meta?.schichten);
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
@@ -236,6 +239,25 @@ const handlePositionErstellen = () => {
   setShowPositionHinzufuegen(!showPositionHinzufuegen);
 };
 
+function addNewPosition (position) {
+  const isNewPosition = !_.includes(Positions, position, 0);
+  if(!isNewPosition) return; 
+  store.dispatch(thunkUpdateProfile({...Meta, schichten: [...Positions, position]}));
+}
+
+function deletePosition (position) {
+  const hasPosition = _.includes(Positions, position, 0);
+  if(!hasPosition) return; 
+  store.dispatch(thunkUpdateProfile({...Meta, schichten: Positions.filter(pos => pos !== position)}));
+}
+
+function updatePositionAccess (position, accessValues) {
+  let hasAccessValues = !_.isEmpty(accessValues);
+  if(!hasAccessValues) return;
+  let currentAccessValues = _.get(Meta, "accessPosition" + [position], []);
+  store.dispatch(thunkUpdateProfile({...Meta, accessPosition: {...Meta.accessPosition, [position]: [...currentAccessValues, ...accessValues]}}))
+}
+
 const setSelectEmployee = (ma) => {
   setUserInput(Employees[ma]);
   store.dispatch({type: "OPEN", payload: ma});
@@ -310,6 +332,7 @@ const setSelectEmployee = (ma) => {
         </Col>
         <Col xs={9}>
           <ButtonMitarbeiterErstellen className="button_mitartbeitereinladen"></ButtonMitarbeiterErstellen>{' '}
+          <ButtonEmployeesRoles/>
         </Col>
         </Row>
                 <Row className="text-center mt-0">
@@ -353,6 +376,9 @@ const setSelectEmployee = (ma) => {
             handlePositionHinzufuegen={handlePositionHinzufuegen}
             handlePositionHinzufuegenClose={handlePositionHinzufuegenClose}
             checkModalKey={getModalKey}
+            addNewPosition={addNewPosition}
+            deletePosition={deletePosition}
+            updatePositionAccess={updatePositionAccess}
             checkTrue={getModalTrue}
             handleFilter={handleFilter}
             handleDelete={handleDelete}

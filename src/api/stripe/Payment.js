@@ -5,6 +5,8 @@ import { API_HOSTNAME } from "../../constants/ApiConstants";
 import { API, Auth } from "aws-amplify";
 import PropTypes from 'prop-types';
 import * as _ from "lodash"
+import { Col, Row } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 function Payment({EmployeesLength}) {
@@ -52,39 +54,129 @@ function Payment({EmployeesLength}) {
   }
   
   const ProductDisplay = () => (
-    <>
-      <h3 className='staffbite-display-4'>Wähle einen Plan aus</h3>
-    <div className='payment-body'>
-    <section className='payment-section'>
-      <div className="payment-product">
-        <div className="payment-description">
-          <h3 className='lead'>Monatliches Abo</h3>
-          <p></p>
-        </div>
-      </div>
-        {/* Add a hidden field with the lookup_key of your Price */}
-        <button className="payment-button" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1Kvk47AQ7Ygg2HBE4FrxOYXY")}>
-          <p>
-            Zur Übersicht
-          </p>
-        </button>
-    </section>
-    <section className='px-4'>
-    </section>
-    <section className='payment-section'>
-      <div className="payment-product">
-        <div className="payment-description">
-          <h3 className='lead'>Järhliches Abo</h3>
-        </div>
-      </div>
-        <button className="payment-button" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1KvkQKAQ7Ygg2HBEsBKs5Uuf")}>
-          <p>
-            Zur Übersicht
-          </p>
-        </button>
-    </section>
-    </div>
-    </>
+    <Col>
+      <Row className='text-center'>
+        <Col>
+          <Row className='text-center'>
+            <Col>
+              <h3 className='staffbite-display-4'>Dein Probemonat ist ausgelaufen</h3>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <p>
+                Wähle eine Zahlungsmethode aus.
+              </p>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <Row className='mt-4'>
+        <Col>
+          <h3 className=''>Monatliche Zahlung</h3>
+        </Col>
+        <Col>
+          <h3 className=''>Jährliche Zahlung</h3>
+        </Col>
+      </Row>
+      <Row className='text-center'>
+        <Col className='card p-0 m-2'>
+              <div className="payment-description">
+                <Row>
+                  <Col>
+                    <p className='mt-2'>
+                      Voraussichtlicher Preis
+                    </p>
+                  </Col>
+                </Row>
+                <Row className='mt-2'>
+                  <Col>
+                    <h3 className='m-0'>
+                      {EmployeesLength > 25 ? 74.90 : (9.90 + 2.50 * EmployeesLength).toLocaleString("de", {style: "currency", currency: "EUR"})}
+                    </h3>
+                  </Col>
+                </Row>
+                <Row className='mt-2'>
+                  <Col>
+                    <p>
+                      pro Monat*
+                    </p>
+                  </Col>
+                </Row>
+                <Row className='mb-2 mt-2'>
+                  <Col>
+                    <small>Abhängig von der Teamgröße***</small>
+                  </Col>
+                </Row>
+            </div>
+              {/* Add a hidden field with the lookup_key of your Price */}
+              <button className="payment-button pt-1" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1KwM8EAQ7Ygg2HBE2pzPSSnR")}>
+                <p>
+                  Zahlungsmittel auswählen
+                </p>
+              </button>
+      </Col>
+      <Col className='card p-0 m-2'>
+            <div className="payment-description">
+              <Row className='mt-2'>
+                <Col>
+                  <p>
+                    Ab 26 Mitarbeiter
+                  </p>
+                </Col>
+              </Row>
+              <Row className='mt-2'>
+                <Col>
+                  <h3>
+                    898,80 €
+                  </h3>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p>
+                    pro Jahr**
+                  </p>
+                </Col>
+              </Row>
+              <Row className='mb-2 mt-2'>
+                  <Col>
+                  <small>
+                    10% sparen
+                    Code: Staffbite10
+                  </small>
+                  </Col>
+              </Row>
+            </div>
+            <button className="payment-button pt-1" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1KwLzOAQ7Ygg2HBEBaASvLcn")}>
+              <p>
+                Zahlungsmittel auswählen
+              </p>
+            </button>
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <small className='text-default'>
+          * Bei monatlicher Zahlung wird die Rechnung zu Beginn des Folgemonats gestellt.
+        </small>
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <small className='text-default'>
+          ** Bei jährlicher Zahlung wird der Rechnungbetrag sofort fällig.
+        </small>
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <small className='text-default'>
+         *** Dieser Preis gilt für eine Teamgröße von {EmployeesLength} Mitarbeitern. <Link to="/pricing" className='text-primary'>Weitere Informationen</Link>
+        </small>
+      </Col>
+    </Row>
+    </Col>
   );
   
   const SuccessDisplay = ({ sessionId }) => {

@@ -16,7 +16,7 @@ const OpenModal = (props) => {
         )}
         else if(modalkey === "requiredPaymentDetails") {
             return ( <ModalPaymentDetails modalkey={modalkey} keytrue={keytrue} {...props}></ModalPaymentDetails>
-        )} 
+        )}
     }
         return (
         <>

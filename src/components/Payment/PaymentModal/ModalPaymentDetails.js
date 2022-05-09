@@ -17,14 +17,16 @@ const ModalPaymentDetails = ({keytrue, modalkey, EmployeesLength}) => {
         return (
             <>
             <Modal 
-                    className=""
-                    style={{"background": "none"}}
-                    show={keytrue}
-                    onHide={() => {store.dispatch({type: "CLOSE", payload: modalkey})}}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                scrollable
+                className="modal-secondary"
+                show={keytrue}
             >
-                    <ModalBody className="modal-content modal-body staffbite-bg-transparent" style={{"background": "transparent"}}>
+                    <Modal.Body>
                         <Payment EmployeesLength={EmployeesLength}/>
-                    </ModalBody>
+                    </Modal.Body>
             </Modal>
             </>
         );

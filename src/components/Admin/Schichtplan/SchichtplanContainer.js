@@ -52,6 +52,7 @@ import ModalAlgButton from "./FormElements/ModalAlgButton";
 import { ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN, ONBOARDING_SHIFTPLAN_VORLAGE, ONBOARDING_SHIFTPLAN_EINTRAGEN, ONBOARDING_SHIFTPLAN_UEBERPRUEFUNG, ONBOARDING_SHIFTPLAN_VEROEFFENTLICHUNG } from "../../../constants/OnBoardingTexts"
 import { validMeta } from "../../Application/functionalComponents/ValidFunctions";
 import ReloadView from "../../Application/functions/ReloadView";
+import CalendarView from "../../CalenderView";
 const SchichtplanContainer = () => {
   const [isReloading, setIsReloading] = useState(false);
   const [userInput, setUserInput] = useState();
@@ -769,6 +770,7 @@ const SchichtplanContainer = () => {
               org={Meta}></SchichtplanImport>
         </div>
       </Row>
+      <CalendarView shiftplan={Shiftplan} plan={currentShiftPlan} plaene={Plans} ></CalendarView>
       <SetTradeShift
       onTradeSubmit={handleShiftTradeToDB}
       onCancelSumbit={handleCancelShiftTradeToDB}
