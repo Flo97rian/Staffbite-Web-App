@@ -23,7 +23,7 @@ import { useLocation } from "react-router-dom";
 import { Container } from "reactstrap";
 // core components
 import UserNavbar from "../../../components/Navbars/UserNavbar";
-import ProfilContainer from "../../../components/User/Profil/ProfilContainer"
+import ProfilContainer from "../../../components/UserProfileContainer"
 import UserFooter from "../../../components/Footers/AdminFooter"
 import { userroutes } from "../../../routes";
 

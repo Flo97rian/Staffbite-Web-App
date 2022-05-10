@@ -40,21 +40,33 @@ exports.handler = async (event) => {
             body: JSON.stringify('PriceID not set!'),
         };
     }
+    const taxRate = await stripe.taxRates.retrieve(
+      'txr_1Kw43nAQ7Ygg2HBEi4UCXOF4'
+    );
     
-  try {
-    const session = await stripe.checkout.sessions.create({
-    line_items: [
-        {price: priceID,
-          quantity: NumberOfEmployees,
+    let params = {line_items: [
+        {
+          price: priceID,
         },
       ],
       mode: 'subscription',
       success_url: "http://localhost:3000/payment-success",
       cancel_url: "http://localhost:3000/payment-decline",
-      customer_email: Email
-      
-
-    });
+      customer_email: Email,
+      locale: "de",
+      automatic_tax: {
+        enabled: true
+      },
+      allow_promotion_codes: true
+    };
+    
+    if (priceID === "price_1KwLzOAQ7Ygg2HBEBaASvLcn") {
+      params.line_items[0].quantity = 1;
+      params.allow_promotion_codes = true;
+    }
+    console.log(params);
+  try {
+    const session = await stripe.checkout.sessions.create(params);
     console.log(session)
     return {
         statusCode: 200,

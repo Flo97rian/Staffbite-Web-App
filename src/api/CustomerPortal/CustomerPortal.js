@@ -4,15 +4,17 @@ import PropTypes from "prop-types";
 import * as _ from "lodash"
 import { API } from "aws-amplify";
 import { API_HOSTNAME } from "../../constants/ApiConstants";
-const stripe = require('stripe')("sk_test_51KskmIAQ7Ygg2HBETJXq8xsJSMQDK7FrmhHfDiGPURifLt6UvCEsdRFqoFoG8jXcB7H3jVW072zuQFw7qY5ClTtw00xeycp1wf");
 
-const CumstomerPortal = ({CustomerID}) => {
-    CumstomerPortal.propTypes = {
+const CustomerPortal = ({CustomerID}) => {
+    CustomerPortal.propTypes = {
         CustomerID: PropTypes.string.isRequired
     }
 
+    CustomerPortal.defaultProps = {
+        CustomerID: ""
+    }
+
     async function handleCreateCustomerPortal() {
-        console.log("create")
         try {
             let response = await API.post(API_HOSTNAME, "/customerPortal", {body: {CustomerID: CustomerID}})
             //console.log(response);
@@ -26,7 +28,7 @@ const CumstomerPortal = ({CustomerID}) => {
     }
 
     return (
-        <Button color="primary" onClick={() =>handleCreateCustomerPortal()}>Zum Kundenportal</Button>
+        <Button color="primary" hidden={_.isEmpty(CustomerID)} onClick={() =>handleCreateCustomerPortal()}>Zum Kundenportal</Button>
     )
 }
-export default CumstomerPortal;
+export default CustomerPortal;

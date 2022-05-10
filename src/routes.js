@@ -93,30 +93,6 @@ var adminroutes = [
     style: "text-primary",
     component: AdminDashboard,
     layout: "/admin",
-  },
-  {
-    path: "/schichtplan",
-    name: LANGUAGES.DE.NAV_SHIFTPLAN,
-    icon: "fas fa-calendar",
-    style: "text-primary",
-    component: Schichtplan,
-    layout: "/admin",
-  },
-  {
-    path: "/mitarbeiter",
-    name: LANGUAGES.DE.NAV_EMPLOYEES,
-    icon: "fas fa-users",
-    style: "text-primary",
-    component: MitarbeiterVerwalten,
-    layout: "/admin",
-  },
-  {
-    path: "/einstellungen",
-    name: "Einstellungen",
-    icon: "fas fa-cog",
-    style: "text-primary",
-    component: Einstellungen,
-    layout: "/admin",
   }
 ];
 

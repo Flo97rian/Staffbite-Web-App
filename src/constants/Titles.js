@@ -4,6 +4,7 @@ export const LANGUAGES = {
         NAV_SHIFTPLAN: "Schichtplan",
         NAV_PROFILE: "Profil",
         NAV_DASHBOARD: "Übersicht",
-        NAV_EMPLOYEES: "Team"
+        NAV_EMPLOYEES: "Team",
+        NAV_SETTINGS: "Einstellungen"
     }
 }

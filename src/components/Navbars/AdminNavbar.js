@@ -40,9 +40,12 @@ import { Auth } from 'aws-amplify';
 import { FetchOrg } from "../../store/middleware/FetchOrg";
 import {adminroutes} from "../../routes"
 import { replace } from "lodash";
+import getCompanyAccess from "../../libs/getCompanyAccess";
+import createCompanyRoutes from "../../libs/createCompanyRoutes";
 
 const AdminNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [routes, setRoutes] = useState([]);
   let location = useLocation()
   let navigate = useNavigate()
   const selectMeta = state => state.Meta;
@@ -55,6 +58,7 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
+  getCompanyAccessAsAdmin(Meta);
   if(Meta) {
     if("tenantCategorie" in Meta ) {
       if(Meta.tenantCategorie.trial) {
@@ -81,6 +85,11 @@ useEffect(() => {
     setIsOpen(false);
   };
 
+  const getCompanyAccessAsAdmin = async () => {
+    const access = await getCompanyAccess(Meta);
+    const routes = await createCompanyRoutes(access);
+    setRoutes(routes)
+  }
   const handleNavigate = (route) => {
     navigate(route, {replace: false})
   }
@@ -200,7 +209,7 @@ function tourStarten() {
           </NavbarBrand>
         <NavbarToggler onClick={toggle} className="align-items-center"></NavbarToggler>
         <Collapse className="ml-2 mr-2" isOpen={isOpen} navbar>
-          <Nav navbar> {createLinks(adminroutes)}</Nav>
+          <Nav navbar> {createLinks(routes)}</Nav>
           {Meta?.tenantCategorie?.trial ? getDays(): <></>}
         </Collapse>
         <NavbarText className="mr-2">

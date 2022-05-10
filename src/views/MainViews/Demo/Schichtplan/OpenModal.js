@@ -1,8 +1,8 @@
 // Dieses Component ist der zentrale Handler zum öffnen von Modals
 
 import React from "react";
+import ModalSchichtBearbeiten from "./ModalSchichtBearbeiten"
 import ModalMitarbeiterBearbeiten from "./ModalMitarbeiterBearbeiten";
-import ModalSchichtBearbeiten from "./ModalSchichtBearbeiten";
 import ModalSchichtDetailsBearbeiten from "./ModalSchichtDetailsBearbeiten";
 import ModalTour from "./ModalTour";
 import ModalZusammenfassung from "./ModalZusammenfassung";

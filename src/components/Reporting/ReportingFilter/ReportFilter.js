@@ -3,9 +3,9 @@ import {
     Col,
     Row
 } from "reactstrap"
-import InputBadges from "../../Application/functionalComponents/InputBadges";
-import Datepicker from "../../Application/functionalComponents/DateRangePickerExample";
-import InfoLabel from "../../Application/functionalComponents/InfoLabel";
+import InputBadges from "../../InputBadges";
+import Datepicker from "../../DatePicker";
+import InfoLabel from "../../InfoLabel";
 import PropTypes from "prop-types"
 
 function ReportFilter ({filter, onClickFilter}) {

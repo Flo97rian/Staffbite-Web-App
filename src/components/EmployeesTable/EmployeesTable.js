@@ -9,8 +9,8 @@ import {
   from "reactstrap";
 
 // core components
-import MitarbeiterListeItem from "../Admin/MitarbeiterVerwalten/MitarbeiterListe/MitarbeiterListeItem";
-import MitarbeiterListeStandard from "../Admin/MitarbeiterVerwalten/MitarbeiterListe/MitarbeiterListeStandard"
+import EmployeeItem from "./EmployeeItem";
+import EmployeeItemStandard from "./EmployeeItemStandard";
 
 const EmployeesTable = (props) => {
     const employees = props.mitarbeiter
@@ -50,7 +50,7 @@ const EmployeesTable = (props) => {
                     </Card>
                         { employees !== !1 ? Object.keys(employees).map((ma, index) => (
                                 <div key={index}  onClick={() => {props.setSelectEmployee(ma)}}>
-                                   <MitarbeiterListeItem 
+                                   <EmployeeItem 
                                    {...props}
                                    key= {ma}
                                    id={ma}
@@ -66,7 +66,7 @@ const EmployeesTable = (props) => {
                                    frei={employees[ma].frei}
                                    erfahrung={employees[ma].erfahrung}
                                    schichtenwoche={employees[ma].schichtenwoche}
-                                   ></MitarbeiterListeItem>
+                                   ></EmployeeItem>
                                </div>
                                ))
                         : 
@@ -101,7 +101,7 @@ const EmployeesTable = (props) => {
                     </Card>
                             { employees !== !1 ? Object.keys(employees).map((ma, index) => (
                                   <div key={index}  onClick={() => {props.setSelectEmployee(ma)}}>
-                                     <MitarbeiterListeStandard 
+                                     <EmployeeItemStandard 
                                      {...props}
                                      key= {ma}
                                      id={ma}
@@ -113,7 +113,7 @@ const EmployeesTable = (props) => {
                                      frei={employees[ma].frei}
                                      erfahrung={employees[ma].erfahrung}
                                      schichtenwoche={employees[ma].schichtenwoche}
-                                     ></MitarbeiterListeStandard>
+                                     ></EmployeeItemStandard>
                                 </div>
                                  ))
                             :

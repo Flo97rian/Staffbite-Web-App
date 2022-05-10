@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { FetchFromDB } from "./FetchPlansFromDB";
 import moment from "moment";
 import { API_HOSTNAME, RELEASE_SHIFTPLAN_FOR_APPLICATION } from "../../constants/ApiConstants";
-import shiftplanStates from "../../components/Application/defaults/ShiftplanDefault";
 
 export function thunkReleaseForApplication(shiftplan, NewDate, userInput) {
     return async function releaseForApplication(dispatch, getState) {

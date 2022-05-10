@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import { useState } from "react"
 import PropTypes from "prop-types"
-import { Row, Col, Card, Badge, Button, UncontrolledCollapse, Input, Label, InputGroupAddon, InputGroupText, InputGroup, InputGroupButtonDropdown } from "reactstrap"
+import { Row, Col, Card, Badge, Button, UncontrolledCollapse, Input, Label, InputGroupAddon, InputGroupText, InputGroup, InputGroupButtonDropdown, FormFeedback } from "reactstrap"
 import * as _ from "lodash";
 import store from "../store";
 
@@ -14,9 +14,6 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
     const [positionInput, setPositionInput] = useState("");
     
     useEffect(() => {
-        console.log(accessValues)
-        console.log(_.get(accessPosition, [currentSelectedPosition], []));
-        console.log(_.difference(_.get(accessPosition, [currentSelectedPosition], []), accessValues))
     }, [accessValues])
     
     useEffect(() => {
@@ -59,11 +56,12 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
                                 <Col xs="8">
                             <InputGroup>
                             <Input
+                            invalid={positionInput.length >= 30 || _.includes(positions, positionInput)}
                             onChange={(event) => setPositionInput(event.target.value)}
                             placeholder="Positionnamen wählen"
                             />
                                 <InputGroupAddon addonType="append">
-                                    <Button color="success" hidden={positionInput === ""} id="collapsTogglerAddPosition"  
+                                    <Button color="success" hidden={positionInput === ""} disabled={positionInput.length >= 30 || _.includes(positions, positionInput)} id="collapsTogglerAddPosition"  
                                     onClick={
                                         () => {
                                         addNewPosition(positionInput)
@@ -81,6 +79,10 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
                                         }
                                     }>X</Button>
                                 </InputGroupAddon>
+                                <FormFeedback invalid={positionInput.length >= 30}>
+                                    {positionInput.length >= 30 ? "Dieser Name ist zu lang!" : ""}
+                                    {_.includes(positions, positionInput) ? "Diese Position ist bereits vorhanden": ""}
+                                </FormFeedback>
                             </InputGroup>
                             </Col>
                             <Col xs="2"></Col>
@@ -244,7 +246,8 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
             </Col>
             <Col xs="6">
                     <Button color="link" onClick={() => store.dispatch({type: "CLOSE"})}>Schließen</Button>
-                    {_.isEmpty(_.difference(_.get(accessPosition, [currentSelectedPosition], []), accessValues))
+                    {(_.isEmpty(_.difference(_.get(accessPosition, [currentSelectedPosition], []), accessValues))) && 
+                    (_.isEmpty(_.difference(accessValues, _.get(accessPosition, [currentSelectedPosition], []))))
                     ?
                     <Button color="light" onClick={() => updatePositionAccess(currentSelectedPosition, accessValues)}>Änderungen speichern</Button>
                     :

@@ -11,7 +11,7 @@ import {
 } from "reactstrap"
 import { FEEDBACK_INVALID_NOTICE } from "../../../../../constants/FeedbackText";
 import { INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION } from "../../../../../constants/InfoTexts";
-import InfoOverlay from "../../../../../components/Application/functionalComponents/InfoOverlay";
+import InfoOverlay from "../../../../../components/InfoOverlay";
 
 export const Schicht = (props) => {
     let hasuserInput = props.userInput

@@ -47,7 +47,7 @@ import VerifyEmployeeMail from "./AuthComponents/VerifyEmployeeMail";
 import LogIn from "./AuthComponents/LogIn";
 import { off } from "process";
 import ConfirmTenant from "./AuthComponents/ConfirmTenant";
-import { ShowTwoApplicantsWithOutUser } from "../Application/functionalComponents/SchichtplanElements";
+import { ShowTwoApplicantsWithOutUser } from "../ShiftplanElements";
 import { Helmet } from "react-helmet";
 
 const Login = () => {

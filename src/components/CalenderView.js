@@ -371,7 +371,6 @@ function CalendarView(props) {
                     eventMinWidth="120px"
                     selectable={true}
                     editable={true}
-                    slotEventOverlap={true}
                     locale="de"
                     events={events}
                     eventContent={renderEventContent}

@@ -55,6 +55,16 @@ exports.handler = async function (event, context, callback) {
    const meta = await getMeta(TenantID);
    console.log(meta);
    const updatedPaymentDetails = updatePaymentDetails(meta, customerID);
+   if (_.isBoolean(updatedPaymentDetails)) {
+       return {
+            statusCode: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Headers": "*"
+            }, 
+            body: JSON.stringify('Failed on updateing PaymentDetails not found!'),
+        };
+   }
    await updateMeta(meta, TenantID, updatedPaymentDetails)
    
    
@@ -118,17 +128,10 @@ const updatePaymentDetails = (meta, customerID) => {
     
     
     let tenantCategorie = _.get(meta, "tenantCategorie.S", "")
-    
+    console.log(tenantCategorie);
     
     if (_.isEmpty(tenantCategorie)) {
-       return {
-            statusCode: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Headers": "*"
-            }, 
-            body: JSON.stringify('tenantCategorie not found!'),
-        };  
+       return false 
     }
     
     
@@ -136,14 +139,7 @@ const updatePaymentDetails = (meta, customerID) => {
     
     
     if(!_.isBoolean(tenantCategorie.paymentDetails)) {
-              return {
-            statusCode: 200,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Headers": "*"
-            }, 
-            body: JSON.stringify('PaymentDetails already set!'),
-        };  
+        return false 
     }
     tenantCategorie.paymentDetails = {customerID: customerID};
     

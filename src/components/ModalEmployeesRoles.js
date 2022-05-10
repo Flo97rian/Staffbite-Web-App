@@ -7,8 +7,6 @@ import {
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
-import { ModalDialog } from "react-bootstrap";
-import store from "../store";
 import FormEmployeesRoles from "./FormEmployeesRoles";
 
 const accesses = [{
@@ -20,6 +18,11 @@ const accesses = [{
     id: "accessTradeWithoutAdmin",
     name: "Eigenständig tauschen",
     description: "Darf dieser Mitarbeiter eigenständig eine Schicht von einem Kollegen übernehmen?"
+},
+{
+    id: "accessSetInShiftWithoutAdmin",
+    name: "Eigenständig eintragen nach Veröffentlichung",
+    description: "Dürfen Mitarbeiter mit dieser Position sich eigenständig eine Schicht eintragen? Dies ist nur bei bereits veröffentlichten Schichtplänen möglich."
 }]
 
 const ModalEmployeesRoles = (props) => {

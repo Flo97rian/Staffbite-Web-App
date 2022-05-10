@@ -51,7 +51,6 @@ import DemoInterface from "./DemoClass";
 import SchichtplanView from "./Schichtplan/Schichtplan";
 import BefuellungsView from "./AutomatisierteBefuellung/Schichtplan";
 import OpenModal from "./Schichtplan/OpenModal";
-import shiftplanStates from "../../../components/Application/defaults/ShiftplanDefault";
 import { thunkStartDemoAlg } from "../../../store/middleware/StartDemoAlg";
 import Schichtplan_Demo from "../../../assets/img/demo/Schichtplan_Demo.png"
 import Schichtplan_Eintragen_Demo from "../../../assets/img/demo/Schichtplan_Eintragen_Demo.png"
