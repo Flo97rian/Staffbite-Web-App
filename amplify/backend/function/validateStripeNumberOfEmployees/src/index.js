@@ -1,5 +1,5 @@
 
-const stripe = require('stripe')("sk_test_51KskmIAQ7Ygg2HBETJXq8xsJSMQDK7FrmhHfDiGPURifLt6UvCEsdRFqoFoG8jXcB7H3jVW072zuQFw7qY5ClTtw00xeycp1wf");
+const stripe = require('stripe')("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");
 const _ = require('lodash');
 var AWS = require('aws-sdk');
 AWS.config.apiVersions = {

@@ -110,7 +110,7 @@ function Payment({EmployeesLength}) {
                 </Row>
             </div>
               {/* Add a hidden field with the lookup_key of your Price */}
-              <button className="payment-button pt-1" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1KwM8EAQ7Ygg2HBE2pzPSSnR")}>
+              <button className="payment-button pt-1" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1Kz0IIAQ7Ygg2HBEOnTJLow2")}>
                 <p>
                   Zahlungsmittel auswählen
                 </p>
@@ -148,7 +148,7 @@ function Payment({EmployeesLength}) {
                   </Col>
               </Row>
             </div>
-            <button className="payment-button pt-1" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1KwLzOAQ7Ygg2HBEBaASvLcn")}>
+            <button className="payment-button pt-1" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1Kz0JnAQ7Ygg2HBEvDlPKKAu")}>
               <p>
                 Zahlungsmittel auswählen
               </p>

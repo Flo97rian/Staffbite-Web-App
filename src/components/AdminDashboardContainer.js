@@ -146,7 +146,7 @@ const AdminDashboardContainer = (props) => {
     if(!isUndefined(FreeTrial) && !isUndefined(PaymentDetails)) {
         if(FreeTrial === false && PaymentDetails === false) {
           if(_.isBoolean(PaymentDetails)) {
-            store.dispatch({type: "OPEN", payload: "requiredPaymentDetails"})
+            //store.dispatch({type: "OPEN", payload: "requiredPaymentDetails"})
           }
         }
     }

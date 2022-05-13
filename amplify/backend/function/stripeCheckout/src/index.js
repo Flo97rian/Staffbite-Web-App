@@ -1,5 +1,5 @@
 
-const stripe = require('stripe')("sk_test_51KskmIAQ7Ygg2HBETJXq8xsJSMQDK7FrmhHfDiGPURifLt6UvCEsdRFqoFoG8jXcB7H3jVW072zuQFw7qY5ClTtw00xeycp1wf");
+const stripe = require('stripe')("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");
 const _ = require('lodash');
 
 exports.handler = async (event) => {
@@ -50,8 +50,8 @@ exports.handler = async (event) => {
         },
       ],
       mode: 'subscription',
-      success_url: "http://localhost:3000/payment-success",
-      cancel_url: "http://localhost:3000/payment-decline",
+      success_url: "https://www.staffbite.de/payment-success",
+      cancel_url: "https://www.staffbite.de/payment-decline",
       customer_email: Email,
       locale: "de",
       automatic_tax: {
@@ -60,7 +60,7 @@ exports.handler = async (event) => {
       allow_promotion_codes: true
     };
     
-    if (priceID === "price_1KwLzOAQ7Ygg2HBEBaASvLcn") {
+    if (priceID === "price_1Kz0JnAQ7Ygg2HBEvDlPKKAu") {
       params.line_items[0].quantity = 1;
       params.allow_promotion_codes = true;
     }
