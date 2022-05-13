@@ -20,7 +20,7 @@ export default class AddShift extends React.PureComponent {
             <Col xs={10} >
                     <InputStringShiftName info={true} description={INFO_SHIFTPLAN_SHIFT_NAME} label="Name der Schicht" name="rolle" placeholder="" currentValue={this.props.userInput.rolle} isValid={validShiftName(this.props.userInput.rolle)}onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputStringShiftName>
                     <SelectPosition {...this.props} ></SelectPosition>
-                    <InputTime info={true} description={INFO_SHIFTPLAN_SHIFT_START} label="Beginn" name="beginn"  placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputTime>
+                    <InputTime info={true} description={INFO_SHIFTPLAN_SHIFT_START} label="Beginn" name="beginn" value={this.props.userInput.beginn} placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputTime>
                     <InputTimeWithSwitch info={true} description={INFO_SHIFTPLAN_SHIFT_END} label="Ende" name="ende"  placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputTimeWithSwitch>
                     <InputNumber info={true} description={INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES} label="Anzahl benötigter Mitarbeiter" name="anzahl"  placeholder="" onChange={(e) => this.props.onChange(e, "changeSchichtplan")}></InputNumber>
                 </Col>

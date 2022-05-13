@@ -19,10 +19,6 @@ export const ShiftplanElementNew = (props) => {
         store.dispatch({type: "setShiftSlot", payload: { row: index, col: col, prio: bool}});
     };
 
-    function setActive(index, col) {
-        props.handleActive(index, col);
-    }
-
 
     const editShift = (index) => {
         store.dispatch({type: "OPEN", payload: "editShiftDescription"});

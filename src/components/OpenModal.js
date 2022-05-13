@@ -17,6 +17,8 @@ import ModalCreateShiftplan from "./ModalCreateShiftplan";
 import ModalReleaseShiftplan from "./ModalReleaseShiftplan";
 import ModalUserApply from "./ModalUserApply";
 import ModalTradeShift from "./ModalTradeShift";
+import ModalEditCalendarShift from "./ModalEditCalendarShift";
+import ModalAddCalendarShift from "./ModalAddCalendarShift";
 
 
 const OpenModal = (props) => {
@@ -55,6 +57,10 @@ const OpenModal = (props) => {
                 return <ModalUserApply modalkey={modalkey} keytrue={keytrue} {...props}/>
             case "tradeShift":
                 return <ModalTradeShift modalkey={modalkey} keytrue={keytrue} {...props}/>
+            case "editCalendarShift":
+                return <ModalEditCalendarShift modalkey={modalkey} keytrue={keytrue} {...props}/>
+            case "addCalendarShift":
+                return <ModalAddCalendarShift modalkey={modalkey} keytrue={keytrue} {...props}/>
             default:
                 return <ModalEditEmployee modalkey={modalkey} keytrue={keytrue} {...props}/>
         }

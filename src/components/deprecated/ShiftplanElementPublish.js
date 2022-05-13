@@ -13,10 +13,10 @@ import {
     setShiftDetails,
     editShiftDetails,
     Default
- } from "./ShiftplanElements";
-import store from "../store";
+ } from "../ShiftplanElements";
+import store from "../../store";
 import * as _ from "lodash"
-import { getIsObject, getSecondApplicant, getHasNotice, getCompanyIsOpen, getAnzahl, getHasApplicants, getApplicantsLength, getHasPrio, getFirstApplicant, getHasShiftName, setPrioValue } from "./ElementFunctions";
+import { getIsObject, getSecondApplicant, getHasNotice, getCompanyIsOpen, getAnzahl, getHasApplicants, getApplicantsLength, getHasPrio, getFirstApplicant, getHasShiftName, setPrioValue } from "../ElementFunctions";
 
 const setApplicant = (index, col) => {
     store.dispatch({type: "OPEN", payload: "applyIsActive"});

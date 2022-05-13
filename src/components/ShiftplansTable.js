@@ -10,11 +10,8 @@ import {
 import { Badge } from "reactstrap";
 // core components
 import PlanId from "./PlanStatus"
-import SchichtplanDnDEntwurf from "./ShiftplanDnDTemplate"
-import SchichtplanDnDFreigegeben from "./ShiftplanDnDRelease"
-import SchichtplanDnDReview from "./ShiftplanDnDReview"
-import SchichtplanDnDVeröffentlicht from "./ShiftplanDnDPublish"
 import _ from "lodash";
+import ShiftplanDnD from "./ShiftplanDnD";
 
 const  ShiftplansTable = (props) => {
 
@@ -68,19 +65,19 @@ const  ShiftplansTable = (props) => {
         const idFreigegeben = id.split("#").includes("Freigeben")
         if (idEntwurf) {
             return (
-                <SchichtplanDnDEntwurf {...props}/>
+                <ShiftplanDnD id={props.shiftplan.id} {...props}/>
             )
         } else if (idFreigegeben) {
             return (
-                <SchichtplanDnDFreigegeben {...props}/>
+                <ShiftplanDnD id={props.shiftplan.id} {...props}/>
             )
         } else if (idReview) {
             return (
-                <SchichtplanDnDReview {...props}/>
+                <ShiftplanDnD id={props.shiftplan.id} {...props}/>
             )
         } else if (idVeröffentlicht) {
             return (
-                <SchichtplanDnDVeröffentlicht {...props}/>
+                <ShiftplanDnD id={props.shiftplan.id} {...props}/>
             )
         }
 

@@ -2,6 +2,7 @@ import React, {useRef, useReducer} from "react"
 import styled from "styled-components";
 import Overlay from "react-overlays/esm/Overlay";
 import Form from 'react-bootstrap/Form';
+import { Row, Col } from "reactstrap";
 
 const Tooltip = styled("div")`
   position: absolute;
@@ -81,19 +82,31 @@ const  InfoOverlayWithSwitch = (props) => {
       className="flex flex-col items-center"
       ref={containerRef}
     >
-      <p className="mb-1 form-control-label lead mt-0">
+      <Row>
+        <Col xs="4">
+      <p className="mb-1 form-control-label mt-0">
       {infotitle}{' '}{' '}
       <i className="fa fa-info-circle text-light"
       ref={triggerRef}
       onClick={handleClick} 
       ></i>
-        <Form className="float-right">
-            <Form.Check custom type="switch" defaultChecked={props.checked} name={props.name} id={props.name} onChange={props.onChange}></Form.Check>
-        </Form>
-        <p className="float-right mb-0 mr-2">
+      </p>
+      </Col>
+      <Col>
+      <Row>
+        <Col>
+        <p className="float-right mx-2 mb-0">
             Open End?
         </p>
-      </p>
+        </Col>
+        <Col xs="2">
+        <Form className="">
+            <Form.Check custom type="switch" defaultChecked={props.checked} name={props.name} id={props.name} onChange={props.onChange}></Form.Check>
+        </Form>
+        </Col>
+        </Row>
+      </Col>
+      </Row>
       <Overlay
         show={show}
         rootClose

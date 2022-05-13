@@ -12,30 +12,9 @@ import Datepicker from "./DatePicker.js";
 import InfoOverlay from "./InfoOverlay";
 import { INFO_SHIFTPLAN_DAYS_IS_CLOSED, INFO_SHIFTPLAN_NAME, INFO_SHIFTPLAN_NUMBER_OF_SHIFTS, INFO_SHIFTPLAN_PERIOD } from "../constants/InfoTexts";
 import { validShiftplanName } from "./ValidInputs";
+import _ from "lodash";
 
 const FormCreateShiftplan = (props) => {
-    let hasuserInput = props.userInput !== null
-    
-    function getColor(day) {
-        let color = "light";
-        if (hasuserInput) {
-            if (day in props.userInput) {
-                color = "primary";
-            }
-        }
-        return color;
-    }
-
-    function dayInuserInput(day) {
-        let hasDay = !1;
-        if (hasuserInput) {
-            if (day in props.userInput) {
-                hasDay = !0;
-            }   
-        }
-        return hasDay;
-    }
-
         return(
             <>
             <Row>
@@ -47,15 +26,6 @@ const FormCreateShiftplan = (props) => {
                     <FormGroup className="mt-2">
                         <InputNumber info={true} description={INFO_SHIFTPLAN_NUMBER_OF_SHIFTS} label="Schichten pro Tag" name="schichtentag"  placeholder="" onChange={(e) => props.onChange(e, "userInput")}></InputNumber>
                     </FormGroup>
-                    {!1 === !0 ? 
-                    <>
-                    <br/>
-                        <InfoOverlay infotitle="Kalenderwoche" description={INFO_SHIFTPLAN_PERIOD}/>
-                        <Datepicker {...props} size="lg" getDates={props.getDates} start="WochenStart" ende="WochenEnde" placeholderAnfang="Anfang der KW" placeholderEnde="Ende der KW" />  
-                    </>
-                    :
-                    <></>
-                    }
                     <br/>
                     <Row className="text-center mt-0">
                         <Col xs={12}>
@@ -66,11 +36,11 @@ const FormCreateShiftplan = (props) => {
                     <Badge 
                     key={"Montag"} 
                     className="mr-2 mt-2" 
-                    color={getColor("Montag")} 
+                    color={(_.hasIn(props.userInput, "Montag") ? "primary" : "light")} 
                     onClick={() => props.onCompanyClosed("Montag")}>
                         Montag 
                         {" "}
-                        {dayInuserInput("Montag") ? 
+                        {_.hasIn(props.userInput, "Montag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -80,11 +50,11 @@ const FormCreateShiftplan = (props) => {
                     <Badge 
                     key={"Dienstag"} 
                     className="mr-2 mt-2" 
-                    color={getColor("Dienstag")} 
+                    color={(_.hasIn(props.userInput, "Dienstag") ? "primary" : "light")} 
                     onClick={() => props.onCompanyClosed("Dienstag")}>
                         Dienstag 
                         {" "}
-                        {dayInuserInput("Dienstag") ? 
+                        {_.hasIn(props.userInput, "Dienstag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -94,11 +64,11 @@ const FormCreateShiftplan = (props) => {
                     <Badge 
                     key={"Mittwoch"} 
                     className="mr-2 mt-2" 
-                    color={getColor("Mittwoch")} 
+                    color={(_.hasIn(props.userInput, "Mittwoch") ? "primary" : "light")} 
                     onClick={() => props.onCompanyClosed("Mittwoch")}>
                         Mittwoch
                         {" "}
-                        {dayInuserInput("Mittwoch") ? 
+                        {_.hasIn(props.userInput, "Mittwoch") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -108,11 +78,11 @@ const FormCreateShiftplan = (props) => {
                     <Badge 
                     key={"Donnerstag"} 
                     className="mr-2 mt-2" 
-                    color={getColor("Donnerstag")} 
+                    color={(_.hasIn(props.userInput, "Donnerstag") ? "primary" : "light")} 
                     onClick={() => props.onCompanyClosed("Donnerstag")}>
                         Donnerstag 
                         {" "}
-                        {dayInuserInput("Donnerstag") ? 
+                        {_.hasIn(props.userInput, "Donnerstag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -122,11 +92,11 @@ const FormCreateShiftplan = (props) => {
                     <Badge 
                     key={"Freitag"} 
                     className="mr-2 mt-2" 
-                    color={getColor("Freitag")} 
+                    color={(_.hasIn(props.userInput, "Freitag") ? "primary" : "light")} 
                     onClick={() => props.onCompanyClosed("Freitag")}>
                         Freitag 
                         {" "}
-                        {dayInuserInput("Freitag") ? 
+                        {_.hasIn(props.userInput, "Freitag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -136,11 +106,11 @@ const FormCreateShiftplan = (props) => {
                     <Badge 
                     key={"Samstag"} 
                     className="mr-2 mt-2" 
-                    color={getColor("Samstag")} 
+                    color={(_.hasIn(props.userInput, "Samstag") ? "primary" : "light")} 
                     onClick={() => props.onCompanyClosed("Samstag")}>
                         Samstag 
                         {" "}
-                        {dayInuserInput("Samstag") ? 
+                        {_.hasIn(props.userInput, "Samstag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>
@@ -150,11 +120,11 @@ const FormCreateShiftplan = (props) => {
                     <Badge 
                     key={"Sonntag"} 
                     className="mr-2 mt-2" 
-                    color={getColor("Sonntag")} 
+                    color={(_.hasIn(props.userInput, "Sonntag") ? "primary" : "light")} 
                     onClick={() => props.onCompanyClosed("Sonntag")}>
                         Sonntag
                         {" "}
-                        {dayInuserInput("Sonntag") ? 
+                        {_.hasIn(props.userInput, "Sonntag") ? 
                         <i 
                         className="fas fa-times"
                         ></i>

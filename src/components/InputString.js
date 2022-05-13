@@ -70,7 +70,6 @@ function InputString (props) {
                 invalid={(props.value === props.placeholder && props.placeholder === "Max Mustermann"  || _.isEmpty(props.value) || props.value.length >= 30)}
                 label={props.label}
                 name={props.name}
-                value={props.value}
                 disabled={props.disabled}
                 defaultValue={props.placeholder}
                 placeholder={props.placeholder}

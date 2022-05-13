@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import {
     Col,
@@ -14,105 +15,49 @@ import { INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION } from "../constants/InfoTe
 import InfoOverlay from "./InfoOverlay";
 
 export const FormEditShift = (props) => {
-    let hasuserInput = props.userInput !== null
+    const isNewShiftplan = _.isObject(props.Schichtplan); 
+
     function getShiftActive () {
         let active = !1;
-        let slot = props.shiftSlot;
-        if(slot) {
-            let isNewShiftplan = typeof props.Schichtplan === "object"
-            let isActive;
-            if(isNewShiftplan) {
-                isActive = props.Schichtplan.plan[slot.row][slot.col].frei;    
-            } else {
-                isActive = props.shiftplan.plan[slot.row][slot.col].frei;
-            }
-            if(!isActive) {
-                active = !0;
-            }
+        let isActive; 
+            
+        if(isNewShiftplan) {
+            isActive = _.get(props.Schichtplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].frei", false)
         }
+
+        if (!isNewShiftplan) {
+            isActive = _.get(props.shiftplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].frei", false)
+        }
+
+        if(!isActive) {
+            active = !0;
+        }
+
         return active;
     }
 
     function getShiftNotice() {
         let value = "Trage hier deine Notiz ein.";
-        let slot = props.shiftSlot;
-        let isNewShiftplan = typeof props.Schichtplan === "object"
+
         if(isNewShiftplan) {
-            let keys = Object.keys(props.Schichtplan.plan[slot.row][slot.col])
-            if(keys.includes("notice")) {
-                if(props.Schichtplan.plan[slot.row][slot.col].notice !== "") {
-                    value = props.Schichtplan.plan[slot.row][slot.col].notice
-                }
-            }
-        } else {
-            let keys = Object.keys(props.shiftplan.plan[slot.row][slot.col])
-            if(keys.includes("notice")) {
-                if(props.shiftplan.plan[slot.row][slot.col].notice !== "") {
-                    value = props.shiftplan.plan[slot.row][slot.col].notice
-                }
-            }
+            value = _.get(props.Schichtplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].notice", "")
+        } 
+
+        if(!isNewShiftplan) {
+            value = _.get(props.shiftplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].notice", "")
         }
         return value;
     }
 
-    function noticeIsValid() {
-        let isValid = !1;
-        let notice = props.userInput.notice;
-        let noticeLength = notice.length;
-        if(noticeLength > 80) {
-            isValid = !0;
-        }
-        return isValid;
-    }
-
-    function hasShiftNotice() {
-        let value = !1;
-        let slot = props.shiftSlot;
-        let isNewShiftplan = typeof props.Schichtplan === "object"
-        if(isNewShiftplan) {
-            let keys = Object.keys(props.Schichtplan.plan[slot.row][slot.col])
-            if(keys.includes("notice")) {
-                let notice = props.Schichtplan.plan[slot.row][slot.col].notice
-                if(notice !== "") {
-                    value = !0;
-                }
-                
-            }
-        } else {
-            let keys = Object.keys(props.shiftplan.plan[slot.row][slot.col])
-            if(keys.includes("notice")) {
-                let notice = props.shiftplan.plan[slot.row][slot.col].notice
-                if(notice !== "") {
-                    value = !0;
-                }
-            }
-        }
-        return value;
-    }
     function getColor(qualifikation) {
         let color = "light";
-        let slot = props.shiftSlot;
-        if (hasuserInput) {
-            let isNewShiftplan = typeof props.Schichtplan === "object"
-            if(isNewShiftplan) {
-                let keys = Object.keys(props.Schichtplan.plan[slot.row][slot.col])
-                if(keys.includes("prio")) {
-                    if(props.Schichtplan.plan[slot.row][slot.col].prio !== !1) {
-                        if(qualifikation === props.Schichtplan.plan[slot.row][slot.col].prio) {
-                            color = "primary"
-                        }
-                    }
-                }
-            } else {
-                let keys = Object.keys(props.shiftplan.plan[slot.row][slot.col])
-                if(keys.includes("prio")) {
-                    if(props.shiftplan.plan[slot.row][slot.col].prio !== !1) {
-                        if(qualifikation === props.shiftplan.plan[slot.row][slot.col].prio) {
-                            color = "primary"
-                        }
-                    }
-                }
-            }
+
+        if(isNewShiftplan) {
+            color = _.get(props.Schichtplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].prio", false) === qualifikation ? "primary" : "light"
+        } 
+
+        if(!isNewShiftplan) {
+            color = _.get(props.shiftplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].prio", false) === qualifikation ? "primary" : "light"
         }
         return color;
     }
@@ -132,40 +77,21 @@ export const FormEditShift = (props) => {
                     <Col xs={1} ></Col>
                     <Col xs={10} >
                             <InfoOverlay infotitle="Notiz" description={INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION}/>
-                            {
-                            !noticeIsValid() 
-                            ?
                                     <FormGroup className="mb-1">
                                     <Input
                                     name="notice"
                                     type="textarea"
+                                    invalid={(props.userInput.notice.length > 80)}
                                     size="lg"
-                                    className="form-control-alternative edit-event--description input-autosize form-control"
+                                    className=" edit-event--description input-autosize form-control"
                                     placeholder={getShiftNotice()}
                                     onChange={(e) => props.onChange(e)}
                                     />
+                                    <FormFeedback invalid>
+                                        Diese Notiz ist zu lang.
+                                    </FormFeedback>
                                 </FormGroup>
-                                :
-                                <FormGroup className="mb-1">
-                                    <Input
-                                    size="lg"
-                                    name="notice"
-                                    type="textarea"
-                                    className="form-control-alternative edit-event--description input-autosize form-control"
-                                    invalid={noticeIsValid()}
-                                    placeholder={getShiftNotice()}
-                                    onChange={(e) => props.onChange(e)}
-                                    />
-                                    <FormFeedback invalid>{FEEDBACK_INVALID_NOTICE}</FormFeedback>
-                                </FormGroup>
-                                }   
-                                { 
-                                hasShiftNotice()
-                                ?
-                                <Button classname="mt-0"color="warning" size="sm" disabled={getShiftActive()} onClick={() => props.handleResetShiftNotice(props.modalkey)}>Zurücksetzen</Button>
-                                :
-                                <></>
-                                }
+                                <Button hidden={_.isEmpty(getShiftNotice())}classname="mt-0"color="warning" size="sm" disabled={getShiftActive()} onClick={() => props.handleResetShiftNotice(props.modalkey)}>Zurücksetzen</Button>
                         </Col>
                     <Col xs={1} ></Col>
                 </Row>

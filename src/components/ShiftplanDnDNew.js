@@ -6,6 +6,7 @@ import {
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import SchichtplanElementNeu from "./ShiftplanElementNew";
 import Spinner from 'react-bootstrap/Spinner';
+import ShiftplanElement from "./ShiftplanElement";
 // fake data generator
 const getItems = (shiftplan) => {
     const plan = shiftplan.map((shift, index) => ({
@@ -101,7 +102,7 @@ const ShiftplanDnDNew = (props) => {
                           snapshot.isDragging,
                           provided.draggableProps.style
                         )}>
-                            <SchichtplanElementNeu wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[index].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
+                            <SchichtplanElementNeu wochentag={item.Wochentag} index={Number(item.id)} col="Wochentag" anzahl={Items[index].Montag.anzahl} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>
                         </td>
                         <td style={{"padding": "0"}}>
                             <SchichtplanElementNeu wochentag={item.Montag} index={Number(item.id)} col="Montag" anzahl={Items[1].Montag} ItemLength={Items.length} currentItem={item} {...props}></SchichtplanElementNeu>

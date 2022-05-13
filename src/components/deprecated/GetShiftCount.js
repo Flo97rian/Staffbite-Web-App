@@ -14,7 +14,6 @@ export const getShiftCount = (employees, shiftplan) => {
 }
 
 export function refractorEmployees(employeesDB, shiftplan) {
-    console.log(employeesDB);
     let employees = {}
     for (let [key, value] of Object.entries(employeesDB)) {
         employees[key] = value

@@ -107,6 +107,7 @@ const ShiftplanContainer = () => {
   let notificationAlert = useRef(null)
   const location = useLocation();
   const mainContent = useRef()
+  const DragAndDropRef = useRef()
   const { run, steps } = state;
 
   const selectMeta = state => state.Meta;
@@ -298,12 +299,10 @@ const ShiftplanContainer = () => {
     }
 
   const handleSetApplicant = (modal, updateApplicant) => {
-    console.log(Shiftplan)
     let copyPlan = new ShiftPlan({...Shiftplan});
     copyPlan.changeNotice(userInput, ShiftSlot)
     copyPlan.adminSetApplicant(updateApplicant.current, ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails();
-    console.log(shiftplan);
     store.dispatch({type: "setShiftplan", payload: shiftplan});
     store.dispatch({type: "CLOSE", payload: modal});
     setChangeNotice(!1);
@@ -358,14 +357,14 @@ const ShiftplanContainer = () => {
           store.dispatch({type: "CLOSE", payload: index});
           setErrMsng({...ErrMsng, MissingShiftPosition: !0});
         } else {
-        copyPlan.updateShiftDescription(index, {...userInput, position: Meta.schichten[0]});
+        copyPlan.updateShiftDescription(ShiftSlot.row, {...userInput, position: Meta.schichten[0]});
         }
       } else {
         if(Meta.schichten.length === 0) {
           store.dispatch({type: "CLOSE", payload: index});
           setErrMsng({...ErrMsng, MissingShiftPosition: !0});
         } 
-        copyPlan.updateShiftDescription(index, userInput);
+        copyPlan.updateShiftDescription(ShiftSlot.row, userInput);
       }
       let shiftplan = copyPlan.getAllPlanDetails()
       store.dispatch({type: "setShiftplan", payload: shiftplan});
@@ -377,12 +376,12 @@ const ShiftplanContainer = () => {
           store.dispatch({type: "CLOSE", payload: index});
           setErrMsng({...ErrMsng, MissingShiftPosition: !0});
         } else {
-          copyPlan.updateShiftDescription(index, {...userInput, position: Meta.schichten[0]});
+          copyPlan.updateShiftDescription(ShiftSlot.row, {...userInput, position: Meta.schichten[0]});
         }
       } else {
-        copyPlan.updateShiftDescription(index, userInput);
+        copyPlan.updateShiftDescription(ShiftSlot.row, userInput);
       }
-      copyPlan.updateShiftDescription(index, userInput);
+      copyPlan.updateShiftDescription(ShiftSlot.row, userInput);
       let shiftplan = copyPlan.getAllPlanDetails();
       store.dispatch({type: "setNewShiftplan", payload: shiftplan});
     }
@@ -617,6 +616,37 @@ const ShiftplanContainer = () => {
     setUserInput(shiftplanStates);
   };
 
+  const handleCalendarShiftChanges = () => {
+    const copyShiftplan = new ShiftPlan({...Shiftplan});
+    copyShiftplan.updateCalendarShift(userInput, ShiftSlot, DragAndDropRef);
+    const shiftplan = copyShiftplan.getAllPlanDetails()
+    store.dispatch({ type: "setShiftplan", payload: shiftplan });
+    store.dispatch({type: "CLOSE"});
+  }
+
+  const updateCalendarShiftTime = (info) => {
+    const copyShiftplan = new ShiftPlan({...Shiftplan});
+    copyShiftplan.updateCalendarShiftTime(info);
+    const shiftplan = copyShiftplan.getAllPlanDetails()
+    store.dispatch({ type: "setShiftplan", payload: shiftplan });
+  }
+
+  const handleCalendarAddShift = () => {
+    const copyShiftplan = new ShiftPlan({...Shiftplan});
+    copyShiftplan.addCalendarShift(userInput, ShiftSlot);
+    const shiftplan = copyShiftplan.getAllPlanDetails();
+    store.dispatch({ type: "setShiftplan", payload: shiftplan });
+    store.dispatch({type: "CLOSE"});
+  }
+
+  const handleCalendarDeleteShift = () => {
+    const copyShiftplan = new ShiftPlan({...Shiftplan});
+    copyShiftplan.deleteCalendarShift(ShiftSlot);
+    const shiftplan = copyShiftplan.getAllPlanDetails();
+    store.dispatch({ type: "setShiftplan", payload: shiftplan });
+    store.dispatch({type: "CLOSE"});
+  }
+
   const handleStartAlg = (modal) => {
       store.dispatch({type: "startFetchingAlg"});
       const id = Plans[currentShiftPlan].id;
@@ -624,6 +654,10 @@ const ShiftplanContainer = () => {
       setNavIndex(3)
       store.dispatch({type: "CLOSE", payload: modal});
   };
+
+  const handleAddEventSetStart = (startTime) => {
+    setUserInput({...userInput, beginn: startTime})
+  }
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -807,7 +841,13 @@ const ShiftplanContainer = () => {
               org={Meta}></SchichtplanImport>
         </div>
       </Row>
-      {/*<CalendarView shiftplan={Shiftplan} plan={currentShiftPlan} plaene={Plans} ></CalendarView>*/}
+      {/*<CalendarView 
+        shiftplan={Shiftplan}
+        plan={currentShiftPlan}
+        plaene={Plans}
+        handleAddEventSetStart={handleAddEventSetStart}
+        updateCalendarShiftTime={updateCalendarShiftTime}
+      ></CalendarView>*/}
       <SetTradeShift
       onTradeSubmit={handleShiftTradeToDB}
       onCancelSumbit={handleCancelShiftTradeToDB}
@@ -818,6 +858,7 @@ const ShiftplanContainer = () => {
       />
       <OpenModal
           show={Modal}
+          DragAndDropRef={DragAndDropRef}
           bewerber={ShiftSlot}
           shiftSlot={ShiftSlot}
           Schichtplan={NewShiftplan}
@@ -831,6 +872,7 @@ const ShiftplanContainer = () => {
           checkModalKey={getModalKey}
           handleSelectPrio={handleSelectPrio}
           startAlg = {handleStartAlg}
+          handleCalendarAddShift={handleCalendarAddShift}
           onCompanyClosed={handleCompanyIsClosed}
           onChange={handleInputChange}
           onSave={handleNewShiftPlanSave}
@@ -841,6 +883,8 @@ const ShiftplanContainer = () => {
           handleSetTenantInShift={handleSetTenantInShift}
           handleRemoveTenantFromShift={handleRemoveTenantFromShift}
           handleLoeschen={handleDeleteShift}
+          handleCalendarDeleteShift={handleCalendarDeleteShift}
+          handleCalendarShiftChanges={handleCalendarShiftChanges}
           onSaveHinzufuegen={handleAddShift}
           selectBewerber={handleSetApplicant}
           onUpdate={handleReleaseForApplication}

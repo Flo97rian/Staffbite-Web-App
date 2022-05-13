@@ -141,11 +141,10 @@ const AdminDashboardContainer = (props) => {
 
   useEffect(() => {
     getCompanyAccessAsAdmin(Meta);
-    console.log("meta", showOverview);
     const showOnboarding = _.isBoolean(showOverview) ? showOverview : false;
     setState({...state, run: showOnboarding})
     if(!isUndefined(FreeTrial) && !isUndefined(PaymentDetails)) {
-        if(FreeTrial === false || PaymentDetails === false) {
+        if(FreeTrial === false && PaymentDetails === false) {
           if(_.isBoolean(PaymentDetails)) {
             store.dispatch({type: "OPEN", payload: "requiredPaymentDetails"})
           }

@@ -17,10 +17,8 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
     }, [accessValues])
     
     useEffect(() => {
-        console.log(positionInput)
     }, [positionInput])
     useEffect(() => {
-        console.log(toggleAddPosition)
     }, [toggleAddPosition])
 
     FormEmployeesRoles.propTypes= {

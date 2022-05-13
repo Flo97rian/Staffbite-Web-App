@@ -14,10 +14,11 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, {useState, useRef, useEffect} from "react";
 // nodejs library that concatenates classes
 import classnames from "classnames";
 import { ReactDOM } from "react";
+import isBefore from "date-fns/isBefore";
 // JavaScript library that creates a callendar with events
 import FullCalendar from "@fullcalendar/react"
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -45,71 +46,67 @@ import {
 // core components
 
 import {events as eventsVariables} from "./CalenderVariables"
-import _ from "lodash";
+import _, { set } from "lodash";
+import store from "../store";
+import { weekdays } from "../constants/Weekdays";
 const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
 const borderColor = ["border-success", "border-info", "border-light"]
 
 let calendar;
 
 function CalendarView(props) {
-  const [events, setEvents] = React.useState([]);
-  const [positions, setPositions] = React.useState([]);
-  const [alert, setAlert] = React.useState(null);
-  const [modalAdd, setModalAdd] = React.useState(false);
-  const [modalChange, setModalChange] = React.useState(false);
-  const [startDate, setStartDate] = React.useState(null);
-  const [endDate, setEndDate] = React.useState(null);
-  const [radios, setRadios] = React.useState(null);
-  const [eventId, setEventId] = React.useState(null);
-  const [eventTitle, setEventTitle] = React.useState(null);
-  const [eventDescription, setEventDescription] = React.useState(null);
+  const [events, setEvents] = useState([]);
+  const [positions, setPositions] = useState([]);
+  const [alert, setAlert] = useState(null);
+  const [modalAdd, setModalAdd] = useState(false);
+  const [modalChange, setModalChange] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [radios, setRadios] = useState(null);
+  const [eventId, setEventId] = useState(null);
+  const [eventTitle, setEventTitle] = useState(null);
+  const [bussinessHoursStart, setBussinessHoursStart] = useState("00:00")
+  const [eventDescription, setEventDescription] = useState(null);
   // eslint-disable-next-line
-  const [event, setEvent] = React.useState(null);
-  const [currentDate, setCurrentDate] = React.useState(null);
-  const calendarRef = React.useRef(null);
-  React.useEffect(() => {
-      console.log(events)
+  const [event, setEvent] = useState(null);
+  const [currentDate, setCurrentDate] = useState(null);
+  const calendarRef = useRef(null);
+  
+  useEffect(() => {
     setEventsData();
     getPositions();
+    //getEarlyestShiftStart()
     // eslint-disable-next-line
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setEventsData();
     getPositions();
+    //getEarlyestShiftStart()
     // eslint-disable-next-line
-  }, [props.plaene])
+  }, [props.shiftplan])
 
-  React.useEffect(() => {
-    setEventsData();
-    getPositions();
-    // eslint-disable-next-line
-  }, [props.plan])
+    const getEarlyestShiftStart = () => {
+      const plan = _.get(props.shiftplan, "plan", [])
+      let currentEarlyestStartSplit = bussinessHoursStart.split(':')
+      let currentEarlyestStart = bussinessHoursStart
+      _.forEach(plan, function (row, rowIndex) {
+          let shiftStart = _.get(row, "Wochentag.ShiftStart", "")
+          if(!_.isEmpty(shiftStart)) {
+              let targetsShiftStart = shiftStart.split(':')
+              if (isBefore(new Date(2020, 1, 1, targetsShiftStart[0], targetsShiftStart[1]), new Date(2020, 1, 1, currentEarlyestStartSplit[0], currentEarlyestStartSplit[1]))) {
+                  let updatedStartHour = String(Number(targetsShiftStart[0]) - 2 < 0 ? 0 : Number(targetsShiftStart[0]) - 2)
+                  currentEarlyestStart = updatedStartHour + ":" + targetsShiftStart[1];
+                  currentEarlyestStartSplit = currentEarlyestStart.split(':')
+              }
+          }
+      })
+      setBussinessHoursStart(currentEarlyestStart);
+    }
 
-  
-
-      {/*
-            // Add new event
-            select={(info) => {
-                setModalAdd(true);
-                setStartDate(info.startStr);
-                setEndDate(info.endStr);
-                setRadios("bg-info");
-            }}
-            // Edit calendar event action
-            eventClick={({ event }) => {
-                setEventId(event.id);
-                setEventTitle(event.title);
-                setEventDescription(event.extendedProps.description);
-                setRadios("bg-info");
-                setEvent(event);
-                setModalChange(true);
-            }}
-            */}
-    //setCurrentDate(calendar.view.title);
     const getPositions = () => {
         let positions = [];
-        const plan = _.get(props.plaene, [props.plan]+".plan", [])
+        const plan = _.get(props.shiftplan, "plan", [])
         _.forEach(plan, function (row, rowIndex) {
             const position = _.get(row, "Wochentag.ShiftPosition", "")
             if(!_.isEmpty(position)) {
@@ -123,42 +120,69 @@ function CalendarView(props) {
 
     const setEventsData = (filter = !1) => {
         let eventsData = [];
-        const plan = _.get(props.plaene, [props.plan]+".plan", [])
+        const plan = _.get(props.shiftplan, "plan", [])
         let index = 0
         _.forEach(plan, function (row, rowIndex) {
             if (filter === false || row.Wochentag.ShiftPosition === filter) {
                 _.forIn(row, function (value, key, row) {
-                    if(_.isObject(value) && key !== "Wochentag") {
+                    if(_.isObject(value) && key !== "Wochentag" && value.frei !== false) {
                         const splittedDate = plan[0][key].split(".");
                         const splittedStartTime = row.Wochentag.ShiftStart.split(":");
                         const splttedEndTime = _.isBoolean(row.Wochentag.ShiftEnd) ? ("24:00").split(":") : row.Wochentag.ShiftEnd.split(":")
                         const startTime = new Date(splittedDate[2], Number(splittedDate[1]) - 1, splittedDate[0], splittedStartTime[0], splittedStartTime[1])
                         const endTime = new Date(splittedDate[2], Number(splittedDate[1] - 1), splittedDate[0], splttedEndTime[0], splttedEndTime[1])
+                        let background = "";
+                        const setApplicantsLenght = _.size(_.get(value, "setApplicants", {}))
+                        if(setApplicantsLenght === value.anzahl)
+                          background = "#2dce89";
+                        if(setApplicantsLenght > value.anzahl)
+                          background = "#f5365c";
+                        if(setApplicantsLenght < value.anzahl)
+                          background = "#fb6340"
                         eventsData.push({
                             id: index,
                             title: row.Wochentag.ShiftName,
                             start: startTime,
                             end: endTime,
-                            filling: String(0) + "/" + value.anzahl + " Mitarbeiter",
-                            classNames: [slotGB[positions.indexOf(row.Wochentag.ShiftPosition)], borderColor[positions.indexOf(row.Wochentag.ShiftPosition)], "shadow text-dark" ],
+                            filling: _.size(_.get(value, "setApplicants", {})) + "/" + value.anzahl + " Mitarbeiter",
                             description: "gello",
                             display: "block",
-                            textColor: "dark"
+                            backgroundColor: background,
+                            borderColor: background,
+                            textColor: "dark",
+                            notice: _.get(value, "notice", ""),
+                            applicants: _.get(value, "applicants", {}),
+                            setApplicants: _.get(value, "setApplicants", {}),
+                            row: rowIndex,
+                            day: key
                     })
                     index +=1
                     }
                 })
             }
         });
-        console.log(eventsData)
         setEvents(eventsData);
     }
   const changeView = (newView) => {
-    calendar.changeView(newView);
-    setCurrentDate(calendar.view.title);
+    let calendarApi = calendarRef.current.getApi();
+    calendarApi.changeView(newView);
+  };
+
+  const changeToToday = () => {
+    let calendarApi = calendarRef.current.getApi();
+    calendarApi.changeView("timeGridWeek", new Date().toISOString());
+  };
+
+  const changeToNext = () => {
+    let calendarApi = calendarRef.current.getApi();
+    calendarApi.next();
+  };
+
+  const changeToPrev = () => {
+    let calendarApi = calendarRef.current.getApi();
+    calendarApi.prev();
   };
   const addNewEvent = () => {
-      console.log(eventTitle, startDate, endDate, radios, event)
     var newEvents = events;
     newEvents.push({
       title: eventTitle,
@@ -262,9 +286,22 @@ function CalendarView(props) {
     setEvent(undefined);
   };
   const renderEventContent = (eventInfo) => {
-      console.log("eventInfo", eventInfo);
+    if(_.isObject(props.shiftplan)) {
+      const Shift = _.get(props.shiftplan, "plan[" + eventInfo.event.extendedProps.row + "][" + eventInfo.event.extendedProps.day + "]")
+      return (
+        <Row className="p-1">
+            <Col>
+             <b>{eventInfo.timeText}{" "}<i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-paperclip ml-2"></i></b>
+             <br/>
+             <b>{eventInfo.event.title}</b>
+             <br/>
+             <b>{eventInfo.event.extendedProps.filling}</b>
+           </Col>
+        </Row>
+    )
+    }
     return (
-        <Row>
+        <Row className="m-2">
             <Col>
              <b>{eventInfo.timeText}</b>
              <br/>
@@ -275,124 +312,146 @@ function CalendarView(props) {
         </Row>
     )
 };
-
+  if(!_.isObject(props.shiftplan)) return null
   return (
     <>
       {alert}
-      <div className="header header-dark pb-6 content__title content__title--calendar">
-        <Container fluid>
-          <div className="header-body">
-            <Row className="align-items-center py-4">
-              <Col lg="6">
-              </Col>
-              <Col className="mt-3 mt-md-0 text-md-right" lg="6">
-                <Button
-                  className="btn-neutral"
-                  color="default"
-                  data-calendar-view="basicWeek"
-                  onClick={() => changeView("dayGridWeek")}
-                  size="sm"
-                >
-                  Woche
-                </Button>
-                <Button
-                  className="btn-neutral"
-                  color="default"
-                  data-calendar-view="basicDay"
-                  onClick={() => changeView("dayGridDay")}
-                  size="sm"
-                >
-                  Tag
-                </Button>
-              </Col>
-            </Row>
-          </div>
-        </Container>
-      </div>
-      <Container className="mt--6" fluid>
+      <Container className="mt-6" fluid>
         <Row>
           <div className="col">
             <Card className="card-calendar">
               <CardHeader>
-                  <Row>
-                        <Col>
-                            <h5 className="h3 mb-0">Frühling 8. Mai - 15.Mai</h5>
-                        </Col>
-                        <Col>
-                            <Row className="text-right">
-                                <Col>
-                                {positions.map(value => {
-                                    return (
-                                    <Button
-                                        className="btn-neutral"
-                                        color="default"
-                                        data-calendar-view="basicDay"
-                                        onClick={() => setEventsData(value)}
-                                        size="sm"
-                                    >
-                                    {value}
-                                    </Button>
-                                    )
-                                })}
-                                <Button
-                                    className="btn-neutral"
-                                    color="default"
-                                    data-calendar-view="basicDay"
-                                    onClick={() => setEventsData(!1)}
-                                    size="sm"
-                                >
-                                Alle
-                                </Button>
-                                    <Button className="text-right" size="sm" color="primary">Standardschicht hinzufügen</Button>
-                                </Col>
-                            </Row>
-                        </Col>
+                <Row>
+                  <Col>
+                    <h5 className="h3 mb-0">Frühling 8. Mai - 15.Mai</h5>
+                  </Col>
+                  <Col>
+                    <Row className="text-center">
+                      <Col>
+                        {positions.map(value => {
+                          return (
+                            <Button
+                                className="btn-neutral"
+                                color="link"
+                                data-calendar-view="basicDay"
+                                onClick={() => setEventsData(value)}
+                                size="sm"
+                            >
+                            {value}
+                            </Button>
+                          )
+                        })}
+                        <Button
+                          className="btn-neutral"
+                          color="link"
+                          data-calendar-view="basicDay"
+                          onClick={() => setEventsData(!1)}
+                          size="sm"
+                        >
+                          Alle
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col>
+                    <Row className="text-right">
+                      <Col>
+                          <Button
+                          className="btn-neutral"
+                          color="link"
+                          data-calendar-view="month"
+                          onClick={() => changeView("dayGridMonth")}
+                          size="sm"
+                        >
+                          Monat
+                        </Button>
+                        <Button
+                          className="btn-neutral"
+                          color="link"
+                          data-calendar-view="basicWeek"
+                          onClick={() => changeView("timeGridWeek")}
+                          size="sm"
+                        >
+                          Woche
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>      
+                  <Row className="text-right">
+                    <Col>
+                        <Button color="link" size="sm" onClick={() => changeToToday()}>Heute</Button>
+                        <Button color="link" size="sm" onClick={() => changeToPrev()}><i className="fas fa-arrow-left"/></Button>
+                        <Button color="link" size="sm" onClick={() => changeToNext()}><i className="fas fa-arrow-right"/></Button>
+                    </Col>
+                  </Row>
+                  </Col>
                 </Row>
               </CardHeader>
               <CardBody className="p-0">
-              <FullCalendar
-                    className="calendar"
-                    data-toggle="calendar"
-                    id="calendar"
-                    ref={calendarRef}
-                    plugins={[interaction, dayGridPlugin, timeGridPlugin]}
-                    initialView="timeGridWeek"
-                    slotDuration="00:15:00"
-                    allDaySlot={false}
-                    eventConstraint={{startTime: "08:00", endTime: "22:00"}}
-                    dayHeaderFormat= {{weekday: "long", month: 'numeric', day: 'numeric'}}
-                    slotLabelFormat= {{
-                        hour: 'numeric',
-                        minute: '2-digit',
-                        omitZeroMinute: true,
-                        meridiem: 'long'
-                    }}
-                    slotLabelClassNames={["px-3"]}
-                    eventMinWidth="120px"
-                    selectable={true}
-                    editable={true}
-                    locale="de"
-                    events={events}
-                    eventContent={renderEventContent}
-                    eventDisplay="block"
-                    headerToolbar={""}
-                    // Add new event
-                    select={(info) => {
-                        setModalAdd(true);
-                        setStartDate(info.startStr);
-                        setEndDate(info.endStr);
-                        setRadios("bg-info");
-                    }}
-                    // Edit calendar event action
-                    eventClick={({ event }) => {
-                        setEventId(event.id);
-                        setEventTitle(event.title);
-                        setEventDescription(event.extendedProps.description);
-                        setRadios("bg-info");
-                        setEvent(event);
-                        setModalChange(true);
-                    }}
-                />
+                <Row>
+                  <Col>
+                  <FullCalendar
+                        className="calendar"
+                        data-toggle="calendar"
+                        id="calendar"
+                        ref={calendarRef}
+                        plugins={[interaction, dayGridPlugin, timeGridPlugin]}
+                        slotDuration="01:00:00"
+                        allDaySlot={false}
+                        initialView="timeGridWeek"
+                        firstDay={1}
+                        height="auto"
+                        headerToolbar={""}
+                        slotMinTime={bussinessHoursStart}
+                        eventMaxStack={1}
+                        views={{
+                          dayGridMonth: { // name of view
+                            titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' },
+                            // other view-specific options here
+                            dayMaxEventRows: 2,
+                            moreLinkText: "weitere"
+                          },
+                          timeGridWeek: {
+                            dayHeaderFormat: {weekday: "long", month: 'long', day: 'numeric'}
+                          }
+                        }}
+                        slotLabelFormat= {{
+                            hour: 'numeric',
+                            minute: '2-digit',
+                            omitZeroMinute: true,
+                            meridiem: 'long'
+                        }}
+                        slotLabelClassNames={["px-3"]}
+                        eventResize={(info) => props.updateCalendarShiftTime(info)}
+                        eventDrop={(info) => props.updateCalendarShiftTime(info)}
+                        selectable={true}
+                        editable={true}
+                        locale="de"
+                        events={events}
+                        eventContent={renderEventContent}
+                        eventDisplay="block"
+                        // Add new event
+                        select={(info) => {
+                            console.log(info);
+                            let getStartTime = String(info.start.getHours()); 
+                            const startTime = getStartTime.length === 1 ? "0" + getStartTime + ":00" : getStartTime + ":00";
+                            props.handleAddEventSetStart(startTime)
+                            let getDay = info.start.getDay();
+                            const day = weekdays[getDay];
+                            store.dispatch({type: "setShiftSlot", payload: { col: day}});
+                            store.dispatch({type: "OPEN", payload: "addCalendarShift"});
+                        }}
+                        // Edit calendar event action
+                        eventClick={({ event }) => {
+                            store.dispatch({type: "setShiftSlot", payload: { row: event.extendedProps.row, col: event.extendedProps.day}});
+                            store.dispatch({type: "OPEN", payload: "editCalendarShift"});
+                        }}
+                    />
+                  </Col>
+                </Row>
               </CardBody>
             </Card>
             <Modal

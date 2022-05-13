@@ -5,13 +5,13 @@ import {
     DefaultWithPrio,
     setShiftDetails,
     editShiftDetails,
- } from "./ShiftplanElements";
-import store from "../store";
-import { getIsObject, getCompanyIsOpen, getHasNotice, getAnzahl, getHasPrio, getHasShiftName, setPrioValue} from "./ElementFunctions";
+ } from "../ShiftplanElements";
+import store from "../../store";
+import { getIsObject, getCompanyIsOpen, getHasNotice, getAnzahl, getHasPrio, getHasShiftName, setPrioValue} from "../ElementFunctions";
 import _ from "lodash";
 
 const ShiftplanElementTemplate = (props) => {
-
+    console.log(props.id)
     function setPrio(index, col, prio) {
         store.dispatch({ type: "OPEN", payload: "prioIsActive" });
         store.dispatch({ type: "setShiftSlot", payload: { row: index, col: col, prio: prio } });

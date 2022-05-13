@@ -40,7 +40,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                                 <Col>
                                     <UncontrolledCollapse toggler={"#collapsToggleEmployeeDetails"}>
                                         <Card className="p-4 bg-secondary shadow-none border" >
-                                            <InputString label="E-Mail Adresse" name="email"  value={employee["email"]} disabled={true}></InputString>
+                                            <InputString label="E-Mail Adresse" name="email"  placeholder={employee["email"]} value={employee["email"]} disabled={true}></InputString>
                                             <Row>
                                                 <Col>
                                                     <Switch info={true} description={INFO_EMPLOYEE_IS_ACTIVE} type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
