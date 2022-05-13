@@ -1,11 +1,10 @@
 import React from "react";
-import InfoOverlayWithSwitch from '../../../../../components/Admin/Schichtplan/FormElements/InfoOverlayWithSwitch'
+import InfoOverlayWithSwitch from '../../../../../components/InfoOverlayWithSwitch'
 import {
     Input,
     FormGroup,
     Form
 } from "reactstrap"
-import { isValidShiftplan } from "../../../../../components/Application/functionalComponents/ValidFunctions";
 
 function InputTimeWithSwitch (props) {
     let shiftDetails;

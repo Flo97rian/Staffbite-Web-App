@@ -45,7 +45,7 @@ import PasswordChecklist from "react-password-checklist";
 import ConfirmTenant from "./AuthComponents/ConfirmTenant";
 import VerifyTenant from "./AuthComponents/VerifyTenant";
 import Register from "./AuthComponents/Register";
-import { ShowTwoApplicantsWithOutUser } from "../Application/functionalComponents/SchichtplanElements";
+import { ShowTwoApplicantsWithOutUser } from "../ShiftplanElements";
 import { Helmet } from "react-helmet";
 
 const SignUp = (props) => {

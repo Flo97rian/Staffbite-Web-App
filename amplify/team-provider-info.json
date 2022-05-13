@@ -114,6 +114,22 @@
         "demoAlgo": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
           "s3Key": "amplify-builds/demoAlgo-45435430385a38585743-build.zip"
+        },
+        "customerPortal": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/customerPortal-57304431696c72392b38-build.zip"
+        },
+        "addStripeCustomerID": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/addStripeCustomerID-656e4f3272496b5a6a79-build.zip"
+        },
+        "stripeCheckout": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/stripeCheckout-646e6f32757a374a3064-build.zip"
+        },
+        "validateStripeNumberOfEmployees": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/validateStripeNumberOfEmployees-423658637056736a4550-build.zip"
         }
       },
       "storage": {
@@ -179,11 +195,11 @@
       "function": {
         "Invoke": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/Invoke-4c4f454e4f4e4a747776-build.zip"
+          "s3Key": "amplify-builds/Invoke-337a6d4972344f6f7047-build.zip"
         },
         "deleteEmployee": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/deleteEmployee-6f4b63684b4e4658502b-build.zip"
+          "s3Key": "amplify-builds/deleteEmployee-734446776776616f4c76-build.zip"
         },
         "getEmployee": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
@@ -199,7 +215,7 @@
         },
         "deleteShiftplan": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/deleteShiftplan-45655252664f482b335a-build.zip"
+          "s3Key": "amplify-builds/deleteShiftplan-48435133426441657474-build.zip"
         },
         "postProfile": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
@@ -207,11 +223,11 @@
         },
         "getReport": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/getReport-61394638316872507273-build.zip"
+          "s3Key": "amplify-builds/getReport-7743484b6b4146644673-build.zip"
         },
         "getAllEmployees": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/getAllEmployees-784f702f424869454d7a-build.zip"
+          "s3Key": "amplify-builds/getAllEmployees-2b796e496c6f324e552b-build.zip"
         },
         "postRegister": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
@@ -219,7 +235,7 @@
         },
         "getAllShiftplans": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/getAllShiftplans-50553872624f514e3459-build.zip"
+          "s3Key": "amplify-builds/getAllShiftplans-64487a31753953365466-build.zip"
         },
         "publishShiftplan": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
@@ -259,11 +275,11 @@
         },
         "postApplication": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/postApplication-636b312b527551737a76-build.zip"
+          "s3Key": "amplify-builds/postApplication-415a35493134527a6b4c-build.zip"
         },
         "contactForm": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/contactForm-2b646c70655a58362f77-build.zip"
+          "s3Key": "amplify-builds/contactForm-6d676b6d594d56353173-build.zip"
         },
         "testAlgorithm": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
@@ -271,7 +287,7 @@
         },
         "demoAlgo": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/demoAlgo-48555369464933397a5a-build.zip"
+          "s3Key": "amplify-builds/demoAlgo-45435430385a38585743-build.zip"
         }
       },
       "auth": {

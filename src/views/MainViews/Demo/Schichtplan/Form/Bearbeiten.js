@@ -4,11 +4,11 @@ import {
     Row,
 } from "reactstrap"
 import {INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_START} from "../../../../../constants/InfoTexts"
-import InputNumber from '../../../../../components/Application/functionalComponents/InputNumber'
+import InputNumber from '../../../../../components/InputNumber'
 import InputTimeWithSwitch from "./InputTimeWithSwitch";
-import InputTime from "../../../../../components/Application/functionalComponents/InputTime"
-import SelectPosition from '../../../../../components/Admin/Schichtplan/FormElements/SelectPosition'
-import InputStringShiftName from '../../../../../components/Application/functionalComponents/InputStringShiftName'
+import InputTime from "../../../../../components/InputTime"
+import SelectPosition from '../../../../../components/SelectPosition'
+import InputStringShiftName from '../../../../../components/InputStringShiftName'
 
 
 

@@ -39,10 +39,16 @@ import store from "../../store";
 import { Auth } from 'aws-amplify';
 import { FetchOrg } from "../../store/middleware/FetchOrg";
 import {adminroutes} from "../../routes"
-import { replace } from "lodash";
+import _, { replace } from "lodash";
+import getCompanyAccess from "../../libs/getCompanyAccess";
+import createCompanyRoutes from "../../libs/createCompanyRoutes";
+import { differenceInDays, differenceInMonths, isBefore } from "date-fns";
 
 const AdminNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [routes, setRoutes] = useState([]);
+  const [trialMessage, setTrialMessage] = useState("");
+  const [trialClassName, setTrailClassName] = useState("");
   let location = useLocation()
   let navigate = useNavigate()
   const selectMeta = state => state.Meta;
@@ -55,15 +61,15 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  if(Meta) {
-    if("tenantCategorie" in Meta ) {
-      if(Meta.tenantCategorie.trial) {
-        let now = new Date();
-        let timestamp = new Date(Meta.tenantCategorie.registeredAt)
-        let diff = dateDiffInDays(timestamp, now)
-        if(diff + 31  > 30) {
-          updateTrial()
-        }
+  getCompanyAccessAsAdmin(Meta);
+  if(_.isObject(Meta)) {
+    const trial = _.get(Meta, "tenantCategorie.trial", false);
+    if(trial) {
+      let difference = differenceInMonths(new Date(), new Date(Meta.tenantCategorie.registeredAt))
+      if(difference > 0) {
+        updateTrial()
+      } else {
+        getDays()
       }
     }
   }
@@ -81,6 +87,11 @@ useEffect(() => {
     setIsOpen(false);
   };
 
+  const getCompanyAccessAsAdmin = async () => {
+    const access = await getCompanyAccess(Meta);
+    const routes = await createCompanyRoutes(access);
+    setRoutes(routes)
+  }
   const handleNavigate = (route) => {
     navigate(route, {replace: false})
   }
@@ -141,29 +152,24 @@ async function signOut() {
 }
 
 function getDays() {
-  let response = "Dein Probemonat läuft aus in "
-  let classname = "text-success lead font-weight-bold mb-0 mt-2";
-  let now = new Date();
-  let timestamp = new Date(Meta.tenantCategorie.registeredAt)
-  let differenceInDays = dateDiffInDays(timestamp, now) + 31;
-  response = response + String(differenceInDays) + " Tagen";
-  if(differenceInDays > 30 && Meta.tenantCategorie.trial) {
-    response="Dein Probemonat ist abgelaufen!"
-    classname = "float-right lead text-warning font-weight-bold mb-0 mt-2"
-  } else if(differenceInDays >= 10) {
-    classname = "float-right lead text-warning font-weight-bold mb-0 mt-2"
+  if(_.get(Meta, "tenantCategorie.trial", false)) {
+    let response = "Dein Probemonat läuft aus in "
+    let classname = "text-success lead font-weight-bold mb-0 mt-2";
+    let timestamp = new Date(_.get(Meta, "tenantCategorie.registeredAt"))
+    let difference = differenceInDays(new Date(), timestamp)
+    response = response + String(30 - difference) + " Tagen";
+    if(difference > 20) {
+      setTrialMessage("Dein Probemonat läuft bald aus! " + String(30 - difference) + " Tage verbleibend")
+      setTrailClassName("float-right lead text-yellow font-weight-bold mb-0 mt-2")
+    } else {
+      setTrialMessage(response);
+      setTrailClassName(classname);
+    }
+    
   }
-  return <p className={classname}>{response}</p>;
+  return null;
 }
 
-function dateDiffInDays(a, b) {
-  // Discard the time and time-zone information.
-  const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate(), a.getHours(), a.getMinutes(), a.getSeconds());
-  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate(), b.getHours(), b.getMinutes(), b.getSeconds());
-  var diff = Math.abs(utc2 - utc1);
-  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
-}
 async function updateTrial() {
   let meta = Meta;
   meta.tenantCategorie.trial = !1
@@ -200,8 +206,8 @@ function tourStarten() {
           </NavbarBrand>
         <NavbarToggler onClick={toggle} className="align-items-center"></NavbarToggler>
         <Collapse className="ml-2 mr-2" isOpen={isOpen} navbar>
-          <Nav navbar> {createLinks(adminroutes)}</Nav>
-          {Meta?.tenantCategorie?.trial ? getDays(): <></>}
+          <Nav navbar> {createLinks(routes)}</Nav>
+          {_.isEmpty(trialMessage) ? <></> : <p className={trialClassName}>{trialMessage}</p>}
         </Collapse>
         <NavbarText className="mr-2">
           <UncontrolledDropdown className="mr-4">

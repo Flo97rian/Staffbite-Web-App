@@ -1,5 +1,4 @@
 import { API, Auth } from "aws-amplify";
-import { checkerfahrung } from "../../components/Admin/MitarbeiterVerwalten/processing/CheckErfahrung";
 import { FetchEmployees } from "./FetchEmployees";
 import { API_HOSTNAME, REGISTER_EMPLOYEE } from "../../constants/ApiConstants";
 

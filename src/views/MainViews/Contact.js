@@ -34,7 +34,7 @@ import LandingFooter from "../../components/Footers/LandingFooter.js";
 import LandingNavBar from "../../components/Navbars/LandingNavbar.js";
 import { thunkSendContactForm } from "../../store/middleware/ContactForm.js";
 import store from "../../store.js";
-import contactDefaults from "../../components/Application/defaults/ContactDefault.js";
+import contactDefaults from "../../constants/ContactDefault"
 import NotificationAlert from "react-notification-alert";
 import { SUCCESS_EMAIL_IS_SEND, WARNING_EMAIL_NOT_SEND } from "../../constants/Alerts.js";
 import ReactGA from "react-ga";

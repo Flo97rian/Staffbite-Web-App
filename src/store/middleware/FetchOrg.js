@@ -31,6 +31,9 @@ import { API_HOSTNAME, FETCH_ORGANISATION } from "../../constants/ApiConstants";
           if(Object.keys(response.Item).includes("tenantCategorie")) {
             org.tenantCategorie = JSON.parse(response.Item.tenantCategorie["S"])
           }
+          if(Object.keys(response.Item).includes("accessPosition")) {
+            org.accessPosition = JSON.parse(response.Item.accessPosition["S"])
+          }
           dispatch({type: "setMeta", payload: org})
           dispatch({type: "stopFetchingMeta"})
             })

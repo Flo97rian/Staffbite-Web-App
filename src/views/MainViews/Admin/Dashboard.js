@@ -24,7 +24,7 @@ import ReactGA from "react-ga"
 // core components
 import { adminroutes } from "../../../routes.js";
 import { Router, useNavigate, useLocation } from "react-router-dom";
-import DashboardContainer from "../../../components/Admin/Dashboard/DashboardContainer.js";
+import DashboardContainer from "../../../components/AdminDashboardContainer.js";
 import AdminNavbar from "../../../components/Navbars/AdminNavbar.js";
 import AdminFooter from "../../../components/Footers/AdminFooter"
 
