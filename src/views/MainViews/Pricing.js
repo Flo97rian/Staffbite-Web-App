@@ -151,7 +151,7 @@ const Pricing = (props) => {
                     </CardBody>
                   </Card>
                 </Col>
-                
+                <Row className="mt-6"><p classname="lead">Unsere Preise verstehen sich als Nettopreise zzgl. Mehrwertsteuer.</p></Row>
               </Row>
     )
   }
