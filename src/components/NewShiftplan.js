@@ -11,11 +11,10 @@ import {
 from "reactstrap";
 // core components
 import TableDnD from "./ShiftplanDnDNew";
-
+import { useSelector, useDispatch } from "react-redux";
 const NewShiftplan = (props) => {
-        let isActivePlan = props.bearbeiten;
-        let isImportedPlan = props.import;
-        if (isActivePlan && !isImportedPlan) {
+        const DisplayNewShiftplan = useSelector(state => state.display.DisplayNewShiftplan);
+        if (DisplayNewShiftplan) {
             return (
                 <>
                 <Card>

@@ -1,7 +1,11 @@
 import store from "../../../../store";
+import { useSelector, useDispatch } from "react-redux";
+import { settingShiftplans } from "../reducers/DB";
 
 const setApplicantsToShiftPlan = ({Applicants, Plans, currentShiftPlan, ShiftSlot}) => {
-    const ShiftSlotTarget = Plans[currentShiftPlan].plan[ShiftSlot.row][ShiftSlot.col]
+    const index = store.get(state => state.shiftSlot.index);
+    const day = store.get(state => state.shiftSlot.day);
+    const ShiftSlotTarget = Plans[currentShiftPlan].plan[index][day]
     Applicants.forEach((element, index) => {
       element.forEach(employee => {
         if (index === 0) {ShiftSlotTarget.applicants[employee.id.substring(1)] = employee.content}
@@ -15,6 +19,8 @@ const setApplicantsToShiftPlan = ({Applicants, Plans, currentShiftPlan, ShiftSlo
   export const setApplicant = ({Applicants, Plans, currentShiftPlan, ShiftSlot}) => {
     const updatedShiftSlot = setApplicantsToShiftPlan({Applicants, Plans, currentShiftPlan, ShiftSlot})
     const plan = [...Plans]
-    plan[currentShiftPlan].plan[ShiftSlot.row][ShiftSlot.col] = updatedShiftSlot
-    store.dispatch({type: "All/updateShiftPlanInDB", payload: plan})
+    const index = store.get(state => state.shiftSlot.index);
+    const day = store.get(state => state.shiftSlot.day);
+    plan[currentShiftPlan].plan[index][day] = updatedShiftSlot
+    store.dispatch(settingShiftplans(plan));
   }

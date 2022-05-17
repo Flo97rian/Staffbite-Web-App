@@ -9,11 +9,14 @@ import InfoLabel from "./InfoLabel";
 import CompanyNameForm from "./CompanyNameForm";
 import PropTypes from "prop-types";
 import CustomerPortal from "../api/CustomerPortal/CustomerPortal";
+import { useSelector, useDispatch } from "react-redux";
+import { settingCompanyName, settingCompanySurname } from "../reducers/userInput";
+
 
 const AdminSettingsCompanyProfile = (props) => {
+    const CustomerID = useSelector(state => state.Meta?.tenantCategorie?.paymentDetails?.CustomerID)
+
     const {
-        org,
-        onChange,
         onClick, 
     } = props;
 
@@ -30,11 +33,9 @@ const AdminSettingsCompanyProfile = (props) => {
             <Card className="shadow">
                 <CardBody>
                 <InfoLabel title="Name des Betriebs" description={INFO_ORGANISATION_NAME}></InfoLabel>
-                <CompanyNameForm name={"name"} placeholder={org?.name} onChange={onChange}/>
-                <InfoLabel title="Dein Vor- & Nachname" description={INFO_ORGANISATION_NAME}></InfoLabel>
-                <InputForm name="vorname" placeholder={org.vorname}/>
+                <InputForm name="companyName"/>
                 </CardBody>
-                <CustomerPortal CustomerID={org?.tenantCategorie?.paymentDetails?.customerID}/>
+                <CustomerPortal CustomerID={CustomerID}/>
             </Card>
             </>
         );

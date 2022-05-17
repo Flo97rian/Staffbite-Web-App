@@ -1,6 +1,10 @@
 import { API, Auth } from "aws-amplify";
 import { FetchFromDB } from "./FetchPlansFromDB";
 import { API_HOSTNAME, START_ALGORITHM, TEST_ALGORITHM } from "../../constants/ApiConstants";
+import { resettingShiftplan } from "../../reducers/Shiftplan";
+import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
+import { settingAlgResponseStatus } from "../../reducers/DB";
+import { resettingDisplayShiftplan } from "../../reducers/display";
 
 export function thunkStartAlg(id) {
     return async function startAlg(dispatch, getState) {
@@ -18,12 +22,11 @@ export function thunkStartAlg(id) {
         })
         .then(response => {
             dispatch(FetchFromDB);
-            dispatch({type: "AlgResponse", payload: !0});
+            dispatch(settingAlgResponseStatus(!0))
             dispatch({type: "stopFetchingAlg"});
-            dispatch({type: "stopShiftPlanIsActive"});
-            dispatch({type: "stopShiftPlanIsImported"});
-            dispatch({type: "ResetCurrentShiftPlan"});
-            dispatch({type: "resetShiftplan"});
+            dispatch(resettingDisplayShiftplan())
+            dispatch(resettingCurrentShiftplanIndex())
+            dispatch(resettingShiftplan());
         })
     }
 }

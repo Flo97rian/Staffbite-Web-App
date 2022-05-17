@@ -2,11 +2,20 @@
 // Button um einen erstellten Schichtplan zu auszuwählen
 import Switch from "./Switch";
 import Button from "react-bootstrap/Button";
-import { Row, Col, Card, CardBody } from "reactstrap";
+import { Row, Col, Card, CardBody, FormGroup } from "reactstrap";
+import Form from 'react-bootstrap/Form';
+import InfoLabel from "./InfoLabel"
 import { INFO_SETTINGS_ALGORITHM_FAIR, INFO_SETTINGS_ALGORITHM_REVERSE } from "../constants/InfoTexts";
+import { useSelector, useDispatch } from "react-redux";
+import userInput, { settingShiftplanFillingFair, settingShiftplanFillingReverse } from "../reducers/userInput";
 
 
 const AdminSettingsShiftplan = (props) => {
+        const dispatch = useDispatch();
+        const ShiftplanReverse = useSelector(state => state.Meta.reverse);
+        const ShiftplanFair = useSelector(state => state.Meta.fair);
+        console.log(ShiftplanFair, ShiftplanReverse);
+        const userInput = useSelector(state => state.userInput)
         return (
             <>     
              <Row className="mt-6">
@@ -26,16 +35,30 @@ const AdminSettingsShiftplan = (props) => {
                         </p>
                         </Col>
                     </Row>
-                    <Row>
+                    {/*<Row>
                         <Col>
-                        <Switch info={true} type="switch" description={INFO_SETTINGS_ALGORITHM_REVERSE}label="Befüllung am Wochenende starten" name="reverse" value={props.org?.reverse ? props.org?.reverse["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                            <FormGroup>
+                                <InfoLabel title={"Befüllung am Wochenende starten"} description={INFO_SETTINGS_ALGORITHM_REVERSE}></InfoLabel>
+                                    <Form>
+                                        <Form.Check className="ml-5" custom type="switch" size="lg" defaultChecked={ShiftplanReverse} onChange={(event) => dispatch(settingShiftplanFillingReverse(event.target.checked))}></Form.Check>
+                                    </Form>
+                            </FormGroup>           
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <Switch info={true} type="switch" description={INFO_SETTINGS_ALGORITHM_FAIR} label="Tag/Abend-Schichten gleichmäßig verteilen" name="fair" value={props.org?.fair ? props.org?.fair["BOOL"] : false} onChange={(e) => props.onChange(e, "meta")}></Switch>
+                            <Row>
+                                    <FormGroup>
+                                    <input defaultChecked type="checkbox" />
+                                    <span className="custom-toggle-slider rounded-circle" />
+                                    </FormGroup>
+                                </Col>
+                                <Col></Col>
+                                <Col></Col>
+                            </Row>
                         </Col>
                     </Row>
+                    */}
                 </CardBody>
             </Card>
             </>

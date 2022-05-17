@@ -12,8 +12,12 @@ import {
 import ReportingHeader from "../ReportingHeader/ReportingHeader";
 import PropTypes from "prop-types";
 import * as _ from "lodash";
+import { useSelector, useDispatch } from "react-redux";
+import { settingModal } from "../../../reducers/modal";
 
 const Reporting = (props) => {
+    const dispatch = useDispatch();
+    const FetchedReport = useSelector(state => state.DB.reportStatus === "fulfilled") 
     const {LoadingReport, Employees, Report, filter, filterIsActive} = props;
     Reporting.propTypes = {
         LoadingReport: PropTypes.bool.isRequired,
@@ -33,11 +37,11 @@ const Reporting = (props) => {
     var zeitraum = _.get(filter, "start", "Anfang") + " - " + _.get(filter, "ende", "Ende");
     var hasFilterBewerbungen = _.hasIn(filter, "bewerbungen", !1)
     var hasFilterSchichten = _.hasIn(filter, "bewerbungen", !1)
-    if(_.isEmpty(Report)) 
+    if(!FetchedReport)
         return (
         <Row className="text-center">
             <Col xs={4} className="mt-4">
-                <Button color="primary" className="fas fa-filter" onClick={() =>  store.dispatch({type: "OPEN", payload: "showReportFilter"})}> Filter</Button>
+                <Button color="primary" className="fas fa-filter" onClick={() =>  dispatch(settingModal("showReportFilter"))}> Filter</Button>
             </Col>
             <Col xs={4} className="mt-2 p-3">
                 <p className="mt-3 font-weight-bold">Zeitraum</p>
@@ -51,7 +55,7 @@ const Reporting = (props) => {
         <>
             <Row className="text-center">
                 <Col xs={4} className="mt-4">
-                <Button color="primary" className="fas fa-filter" onClick={() =>  store.dispatch({type: "OPEN", payload: "showReportFilter"})}> Filter</Button>
+                <Button color="primary" className="fas fa-filter" onClick={() =>  dispatch(settingModal("showReportFilter"))}> Filter</Button>
                 </Col>
                 <Col xs={4} className="mt-2 p-3">
                     <p className="font-weight-bold">Zeitraum</p>

@@ -15,8 +15,11 @@ import 'react-nice-dates/build/style.css'
 // react plugin used to create datetimepicker
 import ReactDatetime from "react-datetime";
 import moment from 'moment';
+import { useSelector, useDispatch } from "react-redux";
+import { settingEnd, settingStart } from '../reducers/DatePicker';
 
 const Datepicker = (props) => {
+  const dispatch = useDispatch()
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
@@ -36,7 +39,8 @@ const Datepicker = (props) => {
     setEndDate(sunday)
   }
   useEffect(() => {
-    store.dispatch({type: "DatePicker", payload: {startDate: {startDate: startDate}, endDate: {endDate: endDate}}})
+    dispatch(settingStart(startDate))
+    dispatch(settingEnd(endDate))
 }, [endDate, startDate])
 
     return (

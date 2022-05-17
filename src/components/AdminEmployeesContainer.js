@@ -13,7 +13,7 @@ import { thunkRegisterEmployee } from "../store/middleware/RegisterEmployee";
 import { FetchEmployees } from "../store/middleware/FetchEmployees.js";
 import { FetchOrg } from "../store/middleware/FetchOrg";
 import store from "../store.js";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { thunkDeleteEmployee } from "../store/middleware/DeleteEmployee.js";
 import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee.js";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile.js";
@@ -26,8 +26,15 @@ import { ONBOARDING_TEAM_INVITE, ONBOARDING_TEAM_OVERVIEW } from "../constants/O
 import UserDashboard from "../views/MainViews/User/Dashboard.js";
 import ButtonEmployeesRoles from "./deprecated/ButtonEmployeesRoles.js";
 import * as _ from "lodash";
+import { resettingShiftplan } from "../reducers/Shiftplan.js";
+import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan.js";
+import { resettingModal, settingModal } from "../reducers/modal.js";
+import { resettingDisplayShiftplan } from "../reducers/display.js";
+import { resettingShiftSlot } from "../reducers/ShiftSlot.js";
+import { settingTemporaryEmployeeID } from "../reducers/temporary.js";
 
 const AdminEmployeesContainer = (props) => {
+  const dispatch = useDispatch();
   const [userInput, setUserInput] = useState(employeeStates);
   const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1);
   const [position, setPosition] = useState();
@@ -77,11 +84,10 @@ const AdminEmployeesContainer = (props) => {
   useEffect(() => {
     store.dispatch(FetchEmployees);
     store.dispatch(FetchOrg);
-    store.dispatch({ type: "ResetCurrentShiftPlan"})
-    store.dispatch({ type: "resetShiftplan"})
-    store.dispatch({ type: "ResetShiftSlot"})
-    store.dispatch({ type: "stopShiftPlanIsActive"})
-    store.dispatch({ type: "stopShiftPlanIsImported"})
+    dispatch(resettingCurrentShiftplanIndex())
+    dispatch(resettingShiftplan());
+    dispatch(resettingShiftSlot())
+    dispatch(resettingDisplayShiftplan())
   }, []);
 
     // Initiales laden der aktuellen Users
@@ -187,7 +193,7 @@ const AdminEmployeesContainer = (props) => {
   // Handling des Löschens von Mitarbeitern
   const handleDelete = (employeeId) => {
     store.dispatch(thunkDeleteEmployee(employeeId));
-    store.dispatch({type: "CLOSE", payload: employeeId});
+    dispatch(resettingModal())
   };
 
   const handleEmployeeUpdate = (employee) => {
@@ -203,7 +209,7 @@ const AdminEmployeesContainer = (props) => {
       });
       store.dispatch(thunkUpdateProfile(copyMeta));
     }
-    store.dispatch({type: "CLOSE", payload: employee["id"]});
+    dispatch(resettingModal())
   };
 
   const mergeEmployeeDetails = (employee, newDetails) => {
@@ -257,11 +263,11 @@ function updatePositionAccess (position, accessValues) {
 }
 
 const setSelectEmployee = (ma) => {
-  setUserInput(Employees[ma]);
-  store.dispatch({type: "OPEN", payload: ma});
+  dispatch(settingTemporaryEmployeeID(ma))
+  dispatch(settingModal(ma))
 };
 
-  const handleRegister = (modal) => {
+  const handleRegister = () => {
     let copyEmployee = new Employee(userInput);
     copyEmployee.createEmployee(userInput);
     let isValidEmployee = copyEmployee.getEmployeeDetails();
@@ -280,7 +286,7 @@ const setSelectEmployee = (ma) => {
         store.dispatch(thunkUpdateProfile(copyMeta));
       }
       setUserInput({...employeeStates});
-      store.dispatch({type: "CLOSE", payload: modal});
+      dispatch(resettingModal())
     }
   };
   useEffect(() => {
@@ -334,7 +340,7 @@ const setSelectEmployee = (ma) => {
             name="showErstellen"
             className="float-right mt-4 ml-2 mr-0 button_mitartbeitereinladen"
             color="primary"
-            onClick={() => {store.dispatch({type: "OPEN", payload: "showErstellen"})}}
+            onClick={() => dispatch(settingModal("showErstellen"))}
             >
               <p className="m-0 text-white">
                 Mitarbeiter einladen
@@ -344,7 +350,7 @@ const setSelectEmployee = (ma) => {
               name="showErstellen"
               className="float-right mt-4 ml-2 mr-0 button_mitartbeitereinladen"
               color="primary"
-              onClick={() => {store.dispatch({type: "OPEN", payload: "showEmployeesRoles"})}}
+              onClick={() => dispatch(settingModal("showEmployeesRoles"))}
               >
                 <p className="m-0 text-white">
                   Rollen festlegen

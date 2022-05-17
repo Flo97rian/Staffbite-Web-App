@@ -20,7 +20,11 @@ import ShiftPlan from "../libs/Shiftplan";
 import ButtonSave from "./deprecated/ButtonSave";
 import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_EINTRAGEN } from "../constants/OnBoardingTexts";
-import { settingShiftplan } from "../reducers/Shiftplan";
+import { resettingShiftplan, settingShiftplan } from "../reducers/Shiftplan";
+import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
+import { resettingModal, settingModal } from "../reducers/modal";
+import { settingDisplayShiftplan } from "../reducers/display";
+import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 
 
 const UserApplicationsContainer = () => {
@@ -47,17 +51,16 @@ const UserApplicationsContainer = () => {
   const selectCurrentShiftPlan = state => state.currentShiftPlan
   const selectUser = state => state.user
   const selectShiftSlot = state => state.shiftSlot;
-  const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive;
   const selectLoadingFetchingPlans = state => state.loadings.isFetchingEmployeePlans;
   const selectInfoSidebar = state => state.InfoSidebar;
-  const selectShiftplanChanged = state => state.ShiftplanChanged;
+  const selectShiftplanChanged = state => state.ShiftplanChanged.shiftplanChanged;
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
   const Modal = useSelector(selectModal);
   const User = useSelector(selectUser);
   const ShiftSlot = useSelector(selectShiftSlot);
-  const ShiftPlanIsActive = useSelector(selectShiftPlanIsActive);
+  const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
   const currentShiftPlan = useSelector(selectCurrentShiftPlan);
   const Shiftplan = useSelector(selectShiftplan);
   const LoadingFetchingEmployeePlans = useSelector(selectLoadingFetchingPlans);
@@ -67,10 +70,9 @@ const UserApplicationsContainer = () => {
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
-    store.dispatch({ type: "ResetCurrentShiftPlan"})
-    store.dispatch({ type: "stopShiftPlanIsImported"})
-    store.dispatch({ type: "stopShiftPlanIsActive"})
-    store.dispatch({ type: "resetShiftplan"})
+    dispatch(resettingCurrentShiftplanIndex())
+    dispatch(settingDisplayShiftplan())
+    dispatch(resettingShiftplan())
     store.dispatch(FetchEmployeePlansFromDB)
     store.dispatch(getUser)
   }, []);
@@ -126,17 +128,16 @@ const UserApplicationsContainer = () => {
   const handleUploadApplication = () => {
     store.dispatch({type: "startFetchingEmployeePlans"});
     store.dispatch(thunkUploadApplication(Shiftplan));
-    store.dispatch({type: "CLOSE"});
+    dispatch(resettingModal())
   }
 
   function onClickBack () {
     if (ShiftplanChanged) {
-      store.dispatch({type: "OPEN", payload: "saveChanges"});
+      dispatch(settingModal("saveChanges"))
     } else {
-        store.dispatch({ type: "ResetCurrentShiftPlan"})
-        store.dispatch({ type: "resetShiftplan"})
-        store.dispatch({ type: "stopShiftPlanIsActive"})
-        store.dispatch({ type: "stopShiftPlanIsImported"})
+        dispatch(resettingCurrentShiftplanIndex())
+        dispatch(resettingShiftplan())
+        dispatch(settingDisplayShiftplan())
     }
   }
 
@@ -145,8 +146,8 @@ const UserApplicationsContainer = () => {
     copyPlan.removeApplicant(User, ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails();
     dispatch(settingShiftplan(shiftplan));
-    store.dispatch({type: "CLOSE", payload: modal});
-    store.dispatch({type: "setShiftplanChanged"})
+    dispatch(resettingModal())
+    dispatch(settingShiftplanChanged())
   }
 
   function handleSetApplication (modal) {
@@ -154,8 +155,8 @@ const UserApplicationsContainer = () => {
     copyPlan.setApplicant(User, ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails();
     dispatch(settingShiftplan(shiftplan));
-    store.dispatch({type: "CLOSE", payload: modal});
-    store.dispatch({type: "setShiftplanChanged"})
+    dispatch(resettingModal())
+    dispatch(settingShiftplanChanged())
   }
 
   return(
@@ -189,7 +190,7 @@ const UserApplicationsContainer = () => {
         </Col>
         <Col xs={10} className="mt-2">
         <Button 
-        hidden={!ShiftPlanIsActive}
+        hidden={!DisplayShiftplan}
           color={ShiftplanChanged ? "success" : "white"}
           size="lg"
           className="float-right mt-2 ml-2 mr-0"
@@ -200,7 +201,7 @@ const UserApplicationsContainer = () => {
           </Button> 
         <Button 
           color="white"
-          hidden={!ShiftPlanIsActive}
+          hidden={!DisplayShiftplan}
           size="lg"
           className="float-right mt-2 ml-2 mr-0"
           onClick={() => onClickBack()}>
@@ -214,9 +215,8 @@ const UserApplicationsContainer = () => {
         { Plans && User ?
             <div className="col">
               <>
-                { !ShiftPlanIsActive ? 
+                { !DisplayShiftplan ? 
                 <ApplicationsImport 
-                  bearbeiten={ShiftPlanIsActive}
                   plaene={Plans}
                   plan={currentShiftPlan}
                   ></ApplicationsImport>
@@ -225,9 +225,8 @@ const UserApplicationsContainer = () => {
                 }
                 </>
                 <>
-              {ShiftPlanIsActive ?
+              {DisplayShiftplan ?
                   <ApplicationsTable
-                  bearbeiten={ShiftPlanIsActive}
                   shiftplan={Shiftplan}
                   currentUser={User}
                 ></ApplicationsTable>
@@ -249,7 +248,6 @@ const UserApplicationsContainer = () => {
             shiftslot={ShiftSlot}
             plan={currentShiftPlan}
             shiftplan={Shiftplan}
-            bearbeiten={ShiftPlanIsActive}
             handleUpdate={handleUploadApplication}
             checkTrue={getModalTrue}
             checkModalKey={getModalKey}

@@ -18,10 +18,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { settingShiftEnd, settingShiftIsDayly, settingShiftName, settingShiftNumberOfEmployees, settingShiftStart } from "../reducers/userInput";
 
 const CalendarEditShift = (props) => {
-    const shift = useSelector(state => state.Shiftplan.plan[state.shiftSlot.row][state.shiftSlot.col]);
-    const shiftRow = useSelector(state => state.Shiftplan.plan[state.shiftSlot.row]);
-    const shiftDetails = useSelector(state => state.Shiftplan.plan[state.shiftSlot.row].Wochentag);
-    const anzahl = useSelector(state => state.Shiftplan.plan[state.shiftSlot.row][state.shiftSlot.col].anzahl);
+    const shift = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day]);
+    const shiftRow = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index]);
+    const shiftDetails = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag);
+    const anzahl = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].anzahl);
     const userInputName = useSelector(state => state.userInput.shiftName);
     const dispatch = useDispatch()
 

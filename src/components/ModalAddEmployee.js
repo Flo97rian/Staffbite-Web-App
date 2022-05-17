@@ -7,8 +7,12 @@ import {
 import Modal from 'react-bootstrap/Modal';
 import FormMitarbeiterErstellen from "./FormMitarbeiterErstellen";
 import store  from "../store"
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
 
 const ModalAddEmployee = (props) => {
+    const dispatch = useDispatch();
+    const showErstellen = useSelector(state => state.modal.showErstellen);
         return (
             <Modal 
                     size="lg"
@@ -16,7 +20,7 @@ const ModalAddEmployee = (props) => {
                     centered
                     className="modal modal-secondary"
                     scrollable
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: "showErstellen"})}}
+                    show={showErstellen} onHide={() => dispatch(resettingModal())}
             >
                 <Modal.Header className="pb-0"closeButton>
                     <Label className="h2 m-3 align-items-center">Mitarbeiter einladen</Label>
@@ -26,10 +30,10 @@ const ModalAddEmployee = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Col xs={2}>
-                        <Button color="link"onClick={() => {store.dispatch({type: "CLOSE", payload: "showErstellen"})}}> Schließen </Button>
+                        <Button color="link"onClick={() => dispatch(resettingModal())}> Schließen </Button>
                     </Col>
                     <Col xs={2}>
-                        <Button color="success" onClick={() => props.handleRegister(props.modalkey)}> Einladen</Button>
+                        <Button color="success" onClick={() => props.handleRegister()}> Einladen</Button>
                   </Col>
                 </Modal.Footer>
             </Modal>

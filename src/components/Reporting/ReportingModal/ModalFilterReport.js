@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import ReportFilter from "../ReportingFilter/ReportFilter";
 import store from "../../../store";
 import PropTypes from "prop-types";
+import { resettingModal } from "../../../reducers/modal";
 
 const ModalFilterReport = ({filter, onClickFilter, keytrue, modalkey, getEmployeesReport}) => {
     ModalFilterReport.propTypes = {
@@ -28,7 +29,7 @@ const ModalFilterReport = ({filter, onClickFilter, keytrue, modalkey, getEmploye
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     className="modal-secondary"
-                    show={keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: modalkey})}}
+                    show={keytrue} onHide={() => store.dispatch(resettingModal())}
             >
                 <Modal.Header className="pb-0" closeButton>
                     <Label className="h2 m-3 align-items-center">Report starten</Label>
@@ -37,7 +38,7 @@ const ModalFilterReport = ({filter, onClickFilter, keytrue, modalkey, getEmploye
                     <ReportFilter filter={filter} onClickFilter={onClickFilter}></ReportFilter>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button color="link" size="lg" onClick={() => {store.dispatch({type: "CLOSE", payload: modalkey})}}> Schließen </Button>{' '}
+                  <Button color="link" size="lg" onClick={() => store.dispatch(resettingModal())}> Schließen </Button>{' '}
                   <Button color="success" size="lg" onClick={() => getEmployeesReport(modalkey)}> Auswahl übernehmen</Button>{' '}
                 </Modal.Footer>
             </Modal>

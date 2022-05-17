@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import 'moment/locale/de';
 import { Link } from "react-router-dom";
@@ -18,9 +18,11 @@ import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_OVERVIEW_APPLICATIONS, ONBOARDING_EMPLOYEE_OVERVIEW_TRADE_SHIFT, ONBOARDING_EMPLOYEE_OVERVIEW_SHIFTPLAN } from "../constants/OnBoardingTexts"
 import { FetchOrg } from "../store/middleware/FetchOrg";
 import ShiftplanActivitys from "./Newsfeed/NewsfeedContainer/NewsfeedContainer";
+import { settingShiftplan } from "../reducers/Shiftplan";
 
 
 const UserDashboardContainer = (props) => {
+  const dispatch = useDispatch();
   const [ActivePlan, setActivePlan] = useState(!1);
   const [userShiftCount, setUserShiftCount] = useState(0);
   const [state, setState] = useState({
@@ -130,10 +132,10 @@ const UserDashboardContainer = (props) => {
         var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
         if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Veröffentlicht")) {
           setActivePlan(!0);
-          store.dispatch({type: "setShiftplan", payload: Plans[index]});
+          dispatch(settingShiftplan(Plans[index]))
         } else if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Freigeben")) {
           setActivePlan(!0);
-          store.dispatch({type: "setShiftplan", payload: Plans[index]});
+          dispatch(settingShiftplan(Plans[index]))
         }
       
     })}

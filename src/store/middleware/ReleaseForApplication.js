@@ -3,6 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { FetchFromDB } from "./FetchPlansFromDB";
 import moment from "moment";
 import { API_HOSTNAME, RELEASE_SHIFTPLAN_FOR_APPLICATION } from "../../constants/ApiConstants";
+import { resettingShiftplan } from "../../reducers/Shiftplan";
+import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
+import { resettingDisplayShiftplan } from "../../reducers/display";
 
 export function thunkReleaseForApplication(shiftplan, NewDate, userInput) {
     return async function releaseForApplication(dispatch, getState) {
@@ -26,10 +29,9 @@ export function thunkReleaseForApplication(shiftplan, NewDate, userInput) {
             .then(response => {
                 dispatch(FetchFromDB);
                 dispatch({type: "stopFetchingRelaese"});
-                dispatch({type: "stopShiftPlanIsActive"});
-                dispatch({type: "stopShiftPlanIsImported"});
-                dispatch({type: "ResetCurrentShiftPlan"});
-                dispatch({type: "resetShiftplan"});
+                dispatch(resettingDisplayShiftplan())
+                dispatch(resettingCurrentShiftplanIndex())
+                dispatch(resettingShiftplan());
             })
     }
 }

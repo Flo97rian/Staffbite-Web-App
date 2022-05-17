@@ -1,5 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { API_HOSTNAME, FETCH_ORGANISATION } from "../../constants/ApiConstants";
+import { settingMeta } from "../../reducers/Meta";
 
     // Läd alle Mitarbeiter aus der Datenbank
     export async function FetchOrg(dispatch, getState) {
@@ -15,9 +16,7 @@ import { API_HOSTNAME, FETCH_ORGANISATION } from "../../constants/ApiConstants";
           let org = {
             name: response.Item.name["S"],
             stundenerfassung: response.Item.stundenerfassung["BOOL"],
-            abrechnungstart: response.Item.AbrechnungStart["S"],
             fair: response.Item.fair["BOOL"],
-            abrechnungende: response.Item.AbrechnungEnde["S"],
             reverse: response.Item.reverse["BOOL"],
             schichten: JSON.parse(response.Item.schichten["S"]),
             onboarding: JSON.parse(response.Item.onboarding["S"]),
@@ -34,7 +33,7 @@ import { API_HOSTNAME, FETCH_ORGANISATION } from "../../constants/ApiConstants";
           if(Object.keys(response.Item).includes("accessPosition")) {
             org.accessPosition = JSON.parse(response.Item.accessPosition["S"])
           }
-          dispatch({type: "setMeta", payload: org})
+          dispatch(settingMeta(org))
           dispatch({type: "stopFetchingMeta"})
             })
       };

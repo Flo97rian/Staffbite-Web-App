@@ -1,5 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { API_HOSTNAME, FETCH_USER } from "../../constants/ApiConstants";
+import { settingEmployee, settingEmployeeFetching, settingEmployeeFulfilled, settingEmployeeRejected } from "../../reducers/DB";
 
 export async function getUser(dispatch, getState) {
     Auth.currentAuthenticatedUser().then( user => {
@@ -8,6 +9,7 @@ export async function getUser(dispatch, getState) {
         const myInit = { // OPTIONAL
             body: user.attributes
         };
+        dispatch(settingEmployeeFetching())
         return API.post(apiName, path, myInit)
         })
         .then(response => {
@@ -28,6 +30,10 @@ export async function getUser(dispatch, getState) {
                 bewerbungen: JSON.parse(response.Item.bewerbungen.S),
                 onboarding: JSON.parse(response.Item.onboarding.S)
             };
-            dispatch({type: "setUser", payload: user});
+            dispatch(settingEmployeeFulfilled())
+            dispatch(settingEmployee(user));
             })
+        .catch(error => {
+            dispatch(settingEmployeeRejected())
+        })
         }

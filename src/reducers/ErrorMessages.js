@@ -1,53 +1,52 @@
-const errorMessagesReducer = (initialState = {
-    InvalidReportInput: !1,
-    MissingShiftDetails: !1,
-    EmailNotSend: !1,
-    EmailIsSend: !1
-}, action) => {
-    switch (action.type) {
-      case "setInvalidReportInput": 
-        return {
-          ...initialState,
-          "InvalidReportInput": !0
-        }
-        case "resetInvalidReportInput": 
-        return {
-          ...initialState,
-          "InvalidReportInput": !1
-        }
-        case "setMissingShiftDetails": 
-        return {
-          ...initialState,
-          "MissingShiftDetails": !0
-        }
-        case "ResetMissingShiftDetails": 
-        return {
-          ...initialState,
-          "MissingShiftDetails": !1
-        }
-        case "setEmailNotSend": 
-        return {
-          ...initialState,
-          "EmailNotSend": !0
-        }
-        case "ResetEmailNotSend": 
-        return {
-          ...initialState,
-          "EmailNotSend": !1
-        }
-        case "setEmailIsSend": 
-        return {
-          ...initialState,
-          "EmailIsSend": !0
-        }
-        case "ResetEmailIsSend": 
-        return {
-          ...initialState,
-          "EmailIsSend": !1
-        }
-      default:
-        return initialState
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  InvalidReportInput: !1,
+  MissingShiftDetails: !1,
+  EmailNotSend: !1,
+  EmailIsSend: !1
+}
+
+const errorMessageSlice = createSlice({
+  name: "errorMessage",
+  initialState,
+  reducers: {
+    settingInvalidReportInput(state, action) {
+      state.InvalidReportInput = true;
+    },
+    resettingInvalidReportInput(state, action) {
+      state.InvalidReportInput = false;
+    },
+    settingMissingShiftDetails(state, action) {
+      state.MissingShiftDetails = true;
+    },
+    resettingMissingShiftDetails(state, action) {
+      state.MissingShiftDetails = false;
+    },
+    settingEmailNotSend(state, action) {
+      state.EmailNotSend = true;
+    },
+    resettingEmailNotSend(state, action) {
+      state.EmailNotSend = false;
+    },
+    settingEmailIsSend(state, action) {
+      state.EmailIsSend = true;
+    },
+    resettingEmailIsSend(state, action) {
+      state.EmailIsSend = false;
     }
-  };
-  
-  export default errorMessagesReducer;
+  }
+})
+
+export const {
+  settingMissingShiftDetails,
+  resettingMissingShiftDetails,
+  settingInvalidReportInput,
+  resettingInvalidReportInput,
+  settingEmailNotSend,
+  resettingEmailNotSend,
+  settingEmailIsSend,
+  resettingEmailIsSend
+} = errorMessageSlice.actions;
+
+export default errorMessageSlice.reducer;

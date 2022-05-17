@@ -11,13 +11,14 @@ from "reactstrap";
 // core components
 import SchichtplanElementPublished from "./UserShiftplanElementPublish";
 import { Badge } from "reactstrap";
+import { useSelector, useDispatch } from "react-redux";
 
 
 const UserShiftplanTable = (props) => {
     const id = props.shiftplan.id
     const idVeröffentlicht = id.split("#").includes("Veröffentlicht")
     const shiftplan = props.shiftplan.plan
-    const ShiftPlanIsActive = props.bearbeiten
+    const DisplayShiftplan = useSelector(state => state.display.displayShiftplan)
     const Montag = props.shiftplan.zeitraum.split(" - ")[0]
     const Sonntag = props.shiftplan.zeitraum.split(" - ")[1]
 
@@ -47,7 +48,7 @@ const UserShiftplanTable = (props) => {
                         <thead>
                         </thead>
                         <tbody>
-                        {ShiftPlanIsActive ? shiftplan.map((item, index) => (
+                        {DisplayShiftplan ? shiftplan.map((item, index) => (
                         <>
                         {idVeröffentlicht ? 
                         <tr key={index}>

@@ -43,11 +43,15 @@ import {
  } from "./ShiftplanElements";
 import store from "../store";
 import _ from "lodash";
+import { useSelector, useDispatch } from "react-redux";
+import { settingModal } from "../reducers/modal";
+import { settingShiftSlot } from "../reducers/ShiftSlot";
 
 export const ShiftplanElement = (props) => {
-    const setPrio = (index, col, bool) => {
-        store.dispatch({type: "OPEN", payload: "prioIsActive"});
-        store.dispatch({type: "setShiftSlot", payload: { row: index, col: col, prio: bool}});
+    const dispatch = useDispatch();
+    const setPrio = (index, day, bool) => {
+        dispatch(settingModal("prioIsActive"))
+        dispatch(settingShiftSlot({index: index, day: day}))
     };
 
     function setActive(index, col) {
@@ -55,14 +59,13 @@ export const ShiftplanElement = (props) => {
     }
 
     const editShift = (index) => {
-        store.dispatch({type: "OPEN", payload: "editShiftDescription"});
-        store.dispatch({type: "setShiftSlot", payload: { row: index}});
+        dispatch(settingModal("editShiftDescription"))
+        dispatch(settingShiftSlot({index: index}))
     };
 
-    const setApplicant = (index, col) => {
-        store.dispatch({type: "OPEN", payload: "applyIsActive"});
-        store.dispatch({type: "setApplicantSlot", payload: { row: index, col: col}});
-        store.dispatch({type: "setShiftSlot", payload: { row: index, col: col}});
+    const setApplicant = (index, day) => {
+        dispatch(settingModal("applyIsActive"))
+        dispatch(settingShiftSlot({index: index, day: day}))
     };
 
     const type = _.isString(props.id) ? props.id.split('#')[1] : "";

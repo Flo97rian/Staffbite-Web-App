@@ -11,8 +11,10 @@ import {
 // core components
 import EmployeeItem from "./EmployeeItem";
 import EmployeeItemStandard from "./EmployeeItemStandard";
+import { useSelector, useDispatch } from "react-redux";
 
 const EmployeesTable = (props) => {
+    const dispatch = useDispatch()
     const employees = props.mitarbeiter
         return(
             <>

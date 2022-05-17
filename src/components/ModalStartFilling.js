@@ -8,16 +8,19 @@ import {
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import BefuellungStarten from "./FormStartFilling";
-import store from "../store";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
 
 const ModalStartFilling = (props) => {
+    const dispatch = useDispatch();
+    const showBefuellungStarten = useSelector(state => state.modal.showBefuellungStarten);
         return (
             <Modal 
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     className="modal-secondary"
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
+                    show={showBefuellungStarten} onHide={() => dispatch(resettingModal())}
             >
                 <Modal.Header className="pb-0" closeButton>
                     <Label className="h2 m-3 align-items-center">Befüllung starten</Label>
@@ -35,7 +38,7 @@ const ModalStartFilling = (props) => {
                     <br/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button color="link" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
+                    <Button color="link" onClick={() => dispatch(resettingModal())}> Schließen </Button>
                     <Button color="success" onClick={() => props.startAlg(props.modalkey)}> Ausführen </Button>
                 </Modal.Footer>
             </Modal>

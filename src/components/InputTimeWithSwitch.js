@@ -6,21 +6,20 @@ import {
     Form
 } from "reactstrap"
 import _ from "lodash";
+import { useSelector, useDispatch } from "react-redux";
 
 function InputTimeWithSwitch (props) {
+    const index = useSelector(state => state.shiftSlot.index);
     let shiftDetails;
-    let row;
     let ShiftEnd;
     let openEnd;
     if (_.isObject(props.shiftplan) && props.shiftSlot) {
-        row = Number(props.shiftSlot.row);
-        shiftDetails = props.shiftplan.plan[row].Wochentag;
+        shiftDetails = props.shiftplan.plan[index].Wochentag;
         ShiftEnd = shiftDetails.ShiftEnd;
         let userInputEnde = props.userInput.ende;
         openEnd = isOpenEnd(userInputEnde, ShiftEnd)
     } else if (_.isObject(props.Schichtplan) && props.shiftSlot) {
-        row = Number(props.shiftSlot.row);
-        shiftDetails = props.Schichtplan.plan[row].Wochentag;
+        shiftDetails = props.Schichtplan.plan[index].Wochentag;
         ShiftEnd = shiftDetails.ShiftEnd;
         let userInputEnde = props.userInput.ende;
         openEnd = isOpenEnd(userInputEnde, ShiftEnd)

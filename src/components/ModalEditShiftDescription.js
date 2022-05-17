@@ -5,16 +5,19 @@ import {
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import SchichtBearbeiten from "./EditShiftDescription";
-import store from "../store"
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
 
 const ModalEditShiftDescription = (props) => {
+    const dispatch = useDispatch();
+    const editShiftDescription = useSelector(state => state.modal.editShiftDescription);
         return (
             <Modal 
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     className="modal-secondary"
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
+                    show={editShiftDescription} onHide={() => dispatch(resettingModal())}
             >
                 <Modal.Header className="pb-0"closeButton>
                     <Label className="h2 m-3 align-items-center">Schicht bearbeiten</Label>

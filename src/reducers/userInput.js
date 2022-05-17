@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     positions: [],
+    companyName: "",
+    companySurname: "",
     shiftName: "Name",
     shiftPosition: "Name",
     shiftStart: "00:00",
@@ -10,7 +12,9 @@ const initialState = {
     minQualification: !1,
     shiftsPerDay: 1,
     shiftNotice: "",
-    shiftIsDayly: !1
+    shiftIsDayly: !1,
+    shiftplanFillingReverse: !1,
+    shiftplanFillingFair: !1,
 }
 
 const userInputSlice = createSlice({
@@ -47,6 +51,19 @@ const userInputSlice = createSlice({
         settingCompanyPositions(state, action) {
             state.positions = action.payload
         },
+        settingCompanyName(state, action) {
+            state.companyName = action.payload
+        },
+        settingCompanySurname(state, action) {
+            state.companySurname = action.payload
+        },
+        settingShiftplanFillingReverse(state, action) {
+            console.log(action);
+            state.shiftplanFillingReverse = action.payload;
+        },
+        settingShiftplanFillingFair(state, action) {
+            state.shiftplanFillingFair = action.payload;
+        },
         resettingUserInput(state) {
             state = initialState;
         }
@@ -64,7 +81,11 @@ export const {
     settingShiftNotice,
     settingShiftIsDayly,
     settingCompanyPositions,
-    resettingUserInput
+    settingCompanyName,
+    settingCompanySurname,
+    settingShiftplanFillingReverse,
+    settingShiftplanFillingFair,
+    resettingUserInput,
 } = userInputSlice.actions;
   
 export default userInputSlice.reducer

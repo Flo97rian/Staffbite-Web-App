@@ -13,14 +13,15 @@ import {INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIF
 import _ from "lodash";
 import getShiftDescriptionDetails from "../libs/getShiftDetails";
 import getShiftsNumberOfEmployees from "../libs/getShiftsNumberOfEmployees";
-
+import { useSelector, useDispatch } from "react-redux";
 
 
 const EditShiftDescription = (props) => {
-    const row = Number(props.shiftSlot.row)
+    const index = useSelector(state => state.shiftSlot.index);
+    const day = useSelector(state => state.shiftSlot.day);
     const isNewShiftplan = _.isObject(props.Schichtplan);
-    const shiftDetails = isNewShiftplan ? getShiftDescriptionDetails(props.Schichtplan.plan, row) : getShiftDescriptionDetails(props.shiftplan.plan, row);
-    const anzahl = isNewShiftplan ? getShiftsNumberOfEmployees(props.Schichtplan.plan, row) : getShiftsNumberOfEmployees(props.shiftplan.plan, row);
+    const shiftDetails = isNewShiftplan ? getShiftDescriptionDetails(props.Schichtplan.plan, day) : getShiftDescriptionDetails(props.shiftplan.plan, day);
+    const anzahl = isNewShiftplan ? getShiftsNumberOfEmployees(props.Schichtplan.plan, day) : getShiftsNumberOfEmployees(props.shiftplan.plan, day);
 
         return(
             <>

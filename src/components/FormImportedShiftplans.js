@@ -11,8 +11,11 @@ import store from "../store";
 import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { settingShiftplan } from "../reducers/Shiftplan";
+import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
+import { settingDisplayShiftplan } from "../reducers/display";
 
 const FormImportedShiftplans = (props) => {
+  const displayTable = useSelector(state => state.display.displayShiftplan === false);
   const dispatch = useDispatch();
     const ID = (status, item) => {
       let hasStatus = !1
@@ -47,14 +50,12 @@ const FormImportedShiftplans = (props) => {
     }
 
     const setCurrentShiftPlan = (id) => {
-        store.dispatch({type: "setCurrentShiftPlan", payload: id});
+      dispatch(settingCurrentShiftplanIndex(id));
         dispatch(settingShiftplan(props.plaene[id]))
-        store.dispatch({type: "setShiftPlanIsActive"})
-        store.dispatch({type: "setShiftPlanIsImported"})
+        dispatch(settingDisplayShiftplan());
     }
 
-    let isActivePlan = props.bearbeiten;
-    if (!isActivePlan && _.isObject(props.plaene) && _.isObject(props.org)) {
+    if (displayTable && _.isObject(props.plaene) && _.isObject(props.org)) {
       let Plans = props.plaene;
       if(getHeaders(props.status)) {
         return(

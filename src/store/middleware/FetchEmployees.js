@@ -1,5 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { API_HOSTNAME, FETCH_ALL_EMPLOYEES } from "../../constants/ApiConstants";
+import { settingEmployees } from "../../reducers/DB";
 
     // Läd alle Mitarbeiter aus der Datenbank
     export async function FetchEmployees(dispatch, getState) {
@@ -31,7 +32,7 @@ import { API_HOSTNAME, FETCH_ALL_EMPLOYEES } from "../../constants/ApiConstants"
                             bewerbungen: JSON.parse(item.bewerbungen.S)
                         };
                     });
-                dispatch({type: "All/Employees", payload: employees});
+                dispatch(settingEmployees(employees))
                 })
     
       }

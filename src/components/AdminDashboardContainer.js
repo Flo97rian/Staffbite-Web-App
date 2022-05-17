@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment, { isMoment } from "moment";
 import { Cache, DataStore } from "aws-amplify";
 import Joyride from 'react-joyride';
@@ -36,9 +36,15 @@ import getNumberOfShifttrades from "../libs/getNumberOfShifttrades.js";
 import ShiftplanActivitys from "./Newsfeed/NewsfeedContainer/NewsfeedContainer.js";
 import EmployeesReport from "./EmployeesReport.js";
 import getCompanyAccess from "../libs/getCompanyAccess";
+import { resettingShiftplan, settingShiftplan } from "../reducers/Shiftplan";
+import { resettingCurrentShiftplanIndex, settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
+import { resettingModal, settingModal } from "../reducers/modal";
+import { resettingDisplayShiftplan } from "../reducers/display";
+import { resettingShiftSlot } from "../reducers/ShiftSlot";
 
 
 const AdminDashboardContainer = (props) => {
+  const dispatch = useDispatch();
   const [currentShiftPlan, setCurrentShiftPlan] = useState(null);
   const [filter, setFilter] = useState({}); 
   const [filterIsActive, setFilterIsActive] = useState(!1);
@@ -90,7 +96,6 @@ const AdminDashboardContainer = (props) => {
   const selectModal = state => state.modal;
   const selectDate = state => state.date;
   const selectReport = state => state.DB.report;
-  const selectLoadingReport = state => state.loadings.isFetchingReport;
   const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
@@ -103,7 +108,6 @@ const AdminDashboardContainer = (props) => {
   const startDate = useSelector(state => state?.date?.start?.startDate);
   const endDate = useSelector(state => state?.date?.ende?.endDate);
   const Report = useSelector(selectReport);
-  const LoadingReport = useSelector(selectLoadingReport);
   const SidebarInfo = useSelector(selectInfoSidebar);
   const FreeTrial = useSelector(state => state?.Meta?.tenantCategorie?.trial)
   const PaymentDetails = useSelector(state => state?.Meta?.tenantCategorie?.paymentDetails)
@@ -119,11 +123,10 @@ const AdminDashboardContainer = (props) => {
     document.scrollingElement.scrollTop = 0;
     store.dispatch(FetchFromDB);
     store.dispatch(FetchEmployees);
-    store.dispatch({ type: "ResetCurrentShiftPlan"})
-    store.dispatch({ type: "resetShiftplan"})
-    store.dispatch({ type: "ResetShiftSlot"})
-    store.dispatch({ type: "stopShiftPlanIsActive"})
-    store.dispatch({ type: "stopShiftPlanIsImported"})
+    dispatch(resettingCurrentShiftplanIndex())
+    dispatch(resettingShiftplan())
+    dispatch(resettingShiftSlot())
+    dispatch(resettingDisplayShiftplan())
   }, []);
 
   useEffect(() => {},[showOverview])
@@ -148,7 +151,7 @@ const AdminDashboardContainer = (props) => {
     if(!isUndefined(FreeTrial) && !isUndefined(PaymentDetails)) {
         if(FreeTrial === false && PaymentDetails === false) {
           if(_.isBoolean(PaymentDetails)) {
-            store.dispatch({type: "OPEN", payload: "requiredPaymentDetails"})
+            dispatch(settingModal("requiredPaymentDetails"))
           }
         }
     }
@@ -170,7 +173,7 @@ const AdminDashboardContainer = (props) => {
     }
     store.dispatch({type: "isFetchingReport"});
     store.dispatch(thunkStartReport(reportConfig));
-    store.dispatch({type: "CLOSE", payload: modal});
+    dispatch(resettingModal())
   };
 
   function handleOnboarding() {
@@ -210,7 +213,7 @@ const AdminDashboardContainer = (props) => {
 
   const setCurrentPlan = (currentShiftPlan) => {
     if (!isNumber(currentShiftPlan)) return null
-    store.dispatch({type: "setCurrentShiftPlan", payload: currentShiftPlan});
+    dispatch(settingCurrentShiftplanIndex(currentShiftPlan));
   }
 
   // Untersucht, ob der Wert eines Modals auf true steht und gibt den Wert true zurück
@@ -227,11 +230,11 @@ const AdminDashboardContainer = (props) => {
         var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
         if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Veröffentlicht")) {
           setCurrentShiftPlan(index);
-          store.dispatch({type: "setShiftplan", payload: Plans[index]});
+          dispatch(settingShiftplan(Plans[index]))
         }
         if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Freigeben")) {
           setCurrentShiftPlan(index);
-          store.dispatch({type: "setShiftplan", payload: Plans[index]});
+          dispatch(settingShiftplan(Plans[index]))
         }
     });
 
@@ -294,7 +297,6 @@ const AdminDashboardContainer = (props) => {
                 <ShiftplanActivitys newsfeed={newsFeed}/>
                   <EmployeesReport 
                   Employees={Employees}
-                  LoadingReport={LoadingReport}
                   Report={Report}
                   filter={filter}
                   filterIsActive={filterIsActive}

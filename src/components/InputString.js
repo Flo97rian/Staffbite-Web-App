@@ -67,7 +67,7 @@ function InputString (props) {
             <InputGroup>
             <Input 
                 type="text"
-                invalid={(props.value === props.placeholder && props.placeholder === "Max Mustermann"  || _.isEmpty(props.value) || props.value.length >= 30)}
+                invalid={((props.value === props.placeholder && props.placeholder === "Max Mustermann") || _.isEmpty(props.value) || props.value.length >= 30)}
                 label={props.label}
                 name={props.name}
                 disabled={props.disabled}

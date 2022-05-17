@@ -23,7 +23,11 @@ import ApplyTradeShift from "./FormApplyForShiftTrade";
 import ShiftPlan from "../libs/Shiftplan";
 import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_SCHICHTPLAN } from "../constants/OnBoardingTexts";
-import { settingShiftplan } from "../reducers/Shiftplan";
+import { resettingShiftplan, settingShiftplan } from "../reducers/Shiftplan";
+import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
+import { resettingModal, settingModal } from "../reducers/modal";
+import { resettingDisplayShiftplan } from "../reducers/display";
+import { resettingShiftplanChanged, settingShiftplanChanged } from "../reducers/shiftplanChanged";
 
 const UserShiftplanContainer = () => {
   const dispatch = useDispatch();
@@ -50,17 +54,16 @@ const UserShiftplanContainer = () => {
   const selectCurrentShiftPlan = state => state.currentShiftPlan
   const selectUser = state => state.user
   const selectShiftSlot = state => state.shiftSlot;
-  const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive;
   const selectLoadingFetchingSafe = state => state.loadings.isFetchingPlansFromDB;
   const selectInfoSidebar = state => state.InfoSidebar;
-  const selectShiftplanChanged = state => state.ShiftplanChanged;
+  const selectShiftplanChanged = state => state.ShiftplanChanged.shiftplanChanged;
 
   //REDUX-Listener für UI-Data
   const Plans = useSelector(selectPlans);
   const Modal = useSelector(selectModal);
   const User = useSelector(selectUser);
   const ShiftSlot = useSelector(selectShiftSlot);
-  const ShiftPlanIsActive = useSelector(selectShiftPlanIsActive);
+  const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
   const currentShiftPlan = useSelector(selectCurrentShiftPlan);
   const Shiftplan = useSelector(selectShiftplan);
   const LoadingFetchingSafe = useSelector(selectLoadingFetchingSafe);
@@ -70,10 +73,9 @@ const UserShiftplanContainer = () => {
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
-    store.dispatch({ type: "ResetCurrentShiftPlan"})
-    store.dispatch({ type: "stopShiftPlanIsImported"})
-    store.dispatch({ type: "stopShiftPlanIsActive"})
-    store.dispatch({ type: "resetShiftplan"})
+    dispatch(resettingCurrentShiftplanIndex())
+    dispatch(resettingDisplayShiftplan())
+    dispatch(resettingShiftplan());
     store.dispatch(FetchEmployeePlansFromDB)
     store.dispatch(getUser)
   }, []);
@@ -126,23 +128,21 @@ const UserShiftplanContainer = () => {
   const handleUploadApplication = () => {
     store.dispatch({type: "isFetchPlansFromDB"});
     store.dispatch(thunkUploadApplication(Shiftplan));
-    store.dispatch({ type: "ResetCurrentShiftPlan"})
-    store.dispatch({ type: "stopShiftPlanIsImported"})
-    store.dispatch({ type: "stopShiftPlanIsActive"})
-    store.dispatch({ type: "resetShiftplan"})
-    store.dispatch({ type: "resetShiftplanChanged"})
-    store.dispatch({type: "CLOSE"});
+    dispatch(resettingCurrentShiftplanIndex())
+    dispatch(resettingDisplayShiftplan())
+    dispatch(resettingShiftplan());
+    dispatch(resettingShiftplanChanged())
+    dispatch(resettingModal())
   }
 
   function onClickBack () {
     if (ShiftplanChanged) {
-      store.dispatch({type: "OPEN", payload: "saveChanges"});
+      dispatch(settingModal("saveChanges"))
     } else {
-        store.dispatch({ type: "ResetCurrentShiftPlan"})
-        store.dispatch({ type: "resetShiftplan"})
-        store.dispatch({ type: "resetShiftplanChanged"})
-        store.dispatch({ type: "stopShiftPlanIsActive"})
-        store.dispatch({ type: "stopShiftPlanIsImported"})
+        dispatch(resettingCurrentShiftplanIndex())
+        dispatch(resettingShiftplan());
+        dispatch(resettingShiftplanChanged())
+        dispatch(resettingDisplayShiftplan())
     }
   }
 
@@ -152,8 +152,8 @@ const UserShiftplanContainer = () => {
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateTradeShift(shiftplan));
     dispatch(settingShiftplan(shiftplan));
-    store.dispatch({type: "CLOSE", payload: modal});
-    store.dispatch({type: "setShiftplanChanged"})
+    dispatch(resettingModal())
+    dispatch(settingShiftplanChanged())
   }
 
   const handleApplyTradeShift = (index) => {
@@ -162,7 +162,7 @@ const UserShiftplanContainer = () => {
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateTradeShift(shiftplan));
     dispatch(settingShiftplan(shiftplan));
-    store.dispatch({type: "setShiftplanChanged"})
+    dispatch(settingShiftplanChanged())
   }
   const handleCancelApplyTradeShift = (index) => {
     let copyPlan = new ShiftPlan({...Shiftplan});
@@ -170,7 +170,7 @@ const UserShiftplanContainer = () => {
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateTradeShift(shiftplan));
     dispatch(settingShiftplan(shiftplan));
-    store.dispatch({type: "setShiftplanChanged"})
+    dispatch(settingShiftplanChanged())
   }
 
   const handleDeleteSetTradeShift = (index) => {
@@ -179,7 +179,7 @@ const UserShiftplanContainer = () => {
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateTradeShift(shiftplan));
     dispatch(settingShiftplan(shiftplan));
-    store.dispatch({type: "setShiftplanChanged"})
+    dispatch(settingShiftplanChanged())
   }
 
   return(
@@ -218,9 +218,8 @@ const UserShiftplanContainer = () => {
         { Plans && User ?
             <div className="col">
               <>
-                { !ShiftPlanIsActive ? 
+                { !DisplayShiftplan ? 
                 <SchichtplanImport 
-                  bearbeiten={ShiftPlanIsActive}
                   plaene={Plans}
                   plan={currentShiftPlan}
                   ></SchichtplanImport>
@@ -229,9 +228,8 @@ const UserShiftplanContainer = () => {
                 }
                 </>
                 <>
-              {ShiftPlanIsActive ?
+              {DisplayShiftplan ?
                   <ShiftplanTable 
-                  bearbeiten={ShiftPlanIsActive}
                   shiftplan={Shiftplan}
                   currentUser={User}
                 ></ShiftplanTable>
@@ -244,7 +242,7 @@ const UserShiftplanContainer = () => {
             <></>
             }
           </Row>
-            {ShiftPlanIsActive && Plans !== undefined &&  User !== undefined && Shiftplan !== !1 && Shiftplan.tauschanfrage.length > 0 ?
+            {DisplayShiftplan && Plans !== undefined &&  User !== undefined && Shiftplan !== !1 && Shiftplan.tauschanfrage.length > 0 ?
               <Row className="mt-4">
                 <div className="col">
                   <Card className="shadow">
@@ -273,7 +271,6 @@ const UserShiftplanContainer = () => {
             shiftslot={ShiftSlot}
             plan={currentShiftPlan}
             shiftplan={Shiftplan}
-            bearbeiten={ShiftPlanIsActive}
             handleUpdate={handleUploadApplication}
             checkTrue={getModalTrue}
             checkModalKey={getModalKey}

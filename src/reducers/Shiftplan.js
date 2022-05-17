@@ -6,7 +6,6 @@ const initialState = {
   plan: [],
   schichtentag: 0,
   tauschanfrage: []
-
 }
 
 const shiftplanSlice = createSlice({

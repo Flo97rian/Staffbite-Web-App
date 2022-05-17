@@ -1,6 +1,11 @@
 import { API, Auth } from "aws-amplify";
 import { FetchFromDB } from "./FetchPlansFromDB";
 import { API_HOSTNAME, UPDATE_SHIFTPLAN } from "../../constants/ApiConstants";
+import { resettingShiftplan } from "../../reducers/Shiftplan";
+import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
+import { resettingDisplayShiftplan } from "../../reducers/display";
+import { resettingShiftplanChanged } from "../../reducers/shiftplanChanged";
+import { resettingShiftSlot } from "../../reducers/ShiftSlot";
 
 export function thunkUpdateShiftPlan(shiftplan, reload = !1) {
   return async function updateShiftPlan(dispatch, getState) {
@@ -18,12 +23,11 @@ export function thunkUpdateShiftPlan(shiftplan, reload = !1) {
     .then(response => {
       dispatch(FetchFromDB);
       if(reload) {
-        dispatch({type: "stopShiftPlanIsActive"});
-        dispatch({type: "stopShiftPlanIsImported"});
-        dispatch({type: "resetShiftplan"});
-        dispatch({ type: "ResetShiftSlot"});
-        dispatch({type: "ResetCurrentShiftPlan"});
-        dispatch({type: "resetShiftplanChanged"});
+        dispatch(resettingDisplayShiftplan())
+        dispatch(resettingShiftplan());
+        dispatch(resettingShiftSlot())
+        dispatch(resettingCurrentShiftplanIndex())
+        dispatch(resettingShiftplanChanged())
       }
     })
   }

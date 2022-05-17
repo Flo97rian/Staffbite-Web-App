@@ -10,17 +10,20 @@ import {
 } from "reactstrap";
 import store from '../store';
 // Now react-datetime will be in french
-
+import { useSelector, useDispatch } from "react-redux";
 import 'react-nice-dates/build/style.css'
 // react plugin used to create datetimepicker
 import ReactDatetime from "react-datetime";
+import { settingEnd, settingStart } from '../reducers/DatePicker';
 
 const Datepicker = (props) => {
+  const dispatch = useDispatch()
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
   useEffect(() => {
-    store.dispatch({type: "DatePicker", payload: {startDate: startDate, endDate: endDate}})
+    dispatch(settingStart(startDate));
+    dispatch(settingEnd(endDate))
 }, [endDate, startDate])
 
     return (

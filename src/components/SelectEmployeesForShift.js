@@ -145,12 +145,12 @@ const getItemContent = (item, employees) => {
 }
 
 const SelectEmployeesForShift = React.forwardRef((props, ref) => {
-    const applicants = useSelector(state => state.shiftDetails.shift.applicants);
-    const applicantsAfterPublish = useSelector(state => state.shiftDetails.shift.applicantsAfterPublish)
-    const setApplicants = useSelector(state => state.shiftDetails.shift.setApplicants);
+    const applicants = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].applicants)
+    const applicantsAfterPublish = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].applicantsAfterPublish)
+    const setApplicants = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].setApplicants)
     const employees = useSelector(state => state.DB.employees);
-    const position = useSelector(state => state.shiftDetails.weekday.ShiftPosition);
-    const anzahl = useSelector(state => state.shiftDetails.shift.anzahl);
+    const position = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftPosition);
+    const anzahl = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].anzahl)
     const isPublished = useSelector(state => state.Shiftplan.id.split("#")[1] === "Veröffentlicht");
     const [state, setState] = useState(
                                 [

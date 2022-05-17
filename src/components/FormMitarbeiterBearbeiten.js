@@ -15,16 +15,17 @@ import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_
 import FormPositions from "./FormPositons";
 import { FEEDBACK_INVALID_EMPLOYEE_NAME, FEEDBACK_VALID_EMPLOYEE_NAME } from "../constants/FeedbackText";
 import { validName } from "./ValidInputs";
+import { useSelector, useDispatch } from "react-redux";
 
 const FormMitarbeiterBearbeiten = (props) => {
-        const employee = props.mitarbeiterdaten
+        const Employee = useSelector(state => state.DB.employees[state.temporary.employeeID]);
         return(
                 <>
                     <Row className="m-2">
                         <Col>
                             <Row>
                                 <Col>
-                                <InputString info={true} label="Vorname, Nachname" name="name" valid={FEEDBACK_VALID_EMPLOYEE_NAME} invalid={FEEDBACK_INVALID_EMPLOYEE_NAME} value={props.userInput.name} placeholder={employee["name"]} onChange={(e) => props.onChange(e)}></InputString>
+                                <InputString info={true} label="Vorname, Nachname" name="name" valid={FEEDBACK_VALID_EMPLOYEE_NAME} invalid={FEEDBACK_INVALID_EMPLOYEE_NAME} value={props.userInput.name} placeholder={Employee["name"]} onChange={(e) => props.onChange(e)}></InputString>
                                 </Col>
                             </Row>
                             <Row>
@@ -40,13 +41,13 @@ const FormMitarbeiterBearbeiten = (props) => {
                                 <Col>
                                     <UncontrolledCollapse toggler={"#collapsToggleEmployeeDetails"}>
                                         <Card className="p-4 bg-secondary shadow-none border" >
-                                            <InputString label="E-Mail Adresse" name="email"  placeholder={employee["email"]} value={employee["email"]} disabled={true}></InputString>
+                                            <InputString label="E-Mail Adresse" name="email"  placeholder={Employee["email"]} value={Employee["email"]} disabled={true}></InputString>
                                             <Row>
                                                 <Col>
-                                                    <Switch info={true} description={INFO_EMPLOYEE_IS_ACTIVE} type="switch" label="Aktiv" name="aktiv" value={employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
+                                                    <Switch info={true} description={INFO_EMPLOYEE_IS_ACTIVE} type="switch" label="Aktiv" name="aktiv" value={Employee["aktiv"]} onChange={(e) => props.onChange(e)}></Switch>
                                                 </Col>
                                                 <Col>
-                                                    <Switch info={true} description={INFO_EMPLOYEE_VACATION} type="switch" label="Urlaub" name="frei" value={employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
+                                                    <Switch info={true} description={INFO_EMPLOYEE_VACATION} type="switch" label="Urlaub" name="frei" value={Employee["frei"]} onChange={(e) => props.onChange(e)}></Switch>
                                                 </Col>
                                             </Row>
                                             <Button outline className="my-3" color="danger" size="sm" type="Button" onClick={() => props.handleDelete(props.mitarbeiterdaten.id)}>Mitarbeiter löschen</Button>{' '}
@@ -68,14 +69,14 @@ const FormMitarbeiterBearbeiten = (props) => {
                                     <UncontrolledCollapse toggler={"#collapsToggleCompanyEmployee"}>
 
                                     <Card className="p-4 bg-secondary shadow-none border">
-                                        <ControlQualification label="Erfahrung" name="erfahrung"  {...props} defaultVal={employee["erfahrung"]}/>
+                                        <ControlQualification label="Erfahrung" name="erfahrung"  {...props} defaultVal={Employee["erfahrung"]}/>
                                         <FormPositions {...props}></FormPositions>
-                                        <InputNumber label="Schichten/Woche" name="schichtenwoche"  placeholder={employee["schichtenwoche"]} onChange={(e) => props.onChange(e)}></InputNumber>
+                                        <InputNumber label="Schichten/Woche" name="schichtenwoche"  placeholder={Employee["schichtenwoche"]} onChange={(e) => props.onChange(e)}></InputNumber>
                                     </Card>
                                     </UncontrolledCollapse>
                                 </Col>
                             </Row>
-                            <Row hidden={true}>
+                            {/*<Row hidden={true}>
                                 <Col>
                                     <h3 id="collapsToggleCompanyEmployee" style={{"cursor": "pointer"}}>
                                         Stundenkonto
@@ -96,6 +97,7 @@ const FormMitarbeiterBearbeiten = (props) => {
                                     </UncontrolledCollapse>
                                 </Col>
                             </Row>
+                            */}
                         </Col>
                     </Row>
                 </>

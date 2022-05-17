@@ -1,63 +1,91 @@
-const DBReducer = (state = !1, action) => {
-    switch (action.type) {
-      case "All/GetPlansFromDB": 
-        return {
-          ...state,
-          plans: action.payload
-        }
-      case "All/deleteShiftPlanFromDB": 
-        return {
-          ...state,
-          plans: action.payload
-        }
-      case "All/GetPlansForEmployee": 
-        return {
-          ...state,
-          plans: action.payload
-      }
-      case "All/updateShiftPlanInDB": 
-        return {
-          ...state,
-          plans: action.payload
-        }
-        case "All/uploadShiftPlanToDB": 
-        return {
-          ...state,
-          plans: action.payload
-        }
-        case "All/setPlans": 
-        return {
-          ...state,
-          plans: action.payload
-        }
-        case "All/GetUser": 
-        return {
-          ...state,
-          user: action.payload
-        }
-        case "All/Employees": 
-        return {
-          ...state,
-          employees: action.payload
-        }
-        case "All/Report": 
-        return {
-          ...state,
-          report: action.payload
-        }
-        case "All/GetOrgDetails": 
-        return {
-          ...state,
-          meta: action.payload
-        }
-        case "AlgResponse": 
-        return {
-          ...state,
-          status: action.payload
-        }
-      default:
-        return state
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  plans: [],
+  plansStatus: "idle",
+  employees: {},
+  employeesStatus: "idle",
+  employee: {},
+  employeeStatus: "idle",
+  report: {},
+  resportStatus: "idle",
+  status: false,
+}
+
+const DBSlice = createSlice({
+  name: "DB",
+  initialState,
+  reducers: {
+    settingShiftplans(state, action) {
+      state.plans = action.payload;
+    },
+    settingEmployees(state, action) {
+      state.employees = action.payload;
+    },
+    settingEmployee(state, action) {
+      state.employee = action.payload;
+    },
+    settingReport(state, action) {
+      state.report = action.payload;
+    },
+    settingAlgResponseStatus(state, action) {
+      state.status = action.payload;
+    },
+    settingPlansFetching(state) {
+      state.plansStatus = "loading";
+    },
+    settingPlansFulfilled(state) {
+      state.plansStatus = "fulfilled";
+    },
+    settingPlansRejected(state) {
+      state.plansStatus = "rejected";
+    },
+    settingEmployeesFetching(state) {
+      state.employeesStatus = "loading";
+    },
+    settingEmployeesFulfilled(state) {
+      state.employeesStatus = "fulfilled";
+    },
+    settingEmployeesRejected(state) {
+      state.employeesStatus = "rejected";
+    },
+    settingEmployeeFetching(state) {
+      state.employeeStatus = "loading";
+    },
+    settingEmployeeFulfilled(state) {
+      state.employeeStatus = "fulfilled";
+    },
+    settingEmployeeRejected(state) {
+      state.employeeStatus = "rejected";
+    },
+    settingReportFetching(state) {
+      state.resportStatus = "loading";
+    },
+    settingReportFulfilled(state) {
+      state.resportStatus = "fulfilled";
+    },
+    settingReportRejected(state) {
+      state.resportStatus = "rejected";
     }
-  };
-  
-  export default DBReducer;
+  }
+})
+
+export const {
+  settingShiftplans,
+  settingEmployees,
+  settingEmployee,
+  settingReport,
+  settingAlgResponseStatus,
+  settingPlansFetching,
+  settingPlansFulfilled,
+  settingPlansRejected,
+  settingEmployeesFetching,
+  settingEmployeesFulfilled,
+  settingEmployeesRejected,
+  settingEmployeeFetching,
+  settingEmployeeFulfilled,
+  settingEmployeeRejected
+
+} = DBSlice.actions;
+
+export default DBSlice.reducer;

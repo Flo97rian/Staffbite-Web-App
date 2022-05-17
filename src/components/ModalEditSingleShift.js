@@ -5,16 +5,19 @@ import {
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import { FormEditShift } from "./FormEditShift";
-import store from "../store";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
 
 
 export const ModalEditSingleShift = (props) => {
+    const dispatch = useDispatch();
+    const prioIsActive = useSelector(state => state.modal.prioIsActive);
         return (
             <>
             <Modal 
                     size="lg"
                     centered
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
+                    show={prioIsActive} onHide={() => dispatch(resettingModal())}
                     className="modal modal-secondary"
             >
                 <Modal.Header className="pb-0" closeButton>
@@ -24,7 +27,7 @@ export const ModalEditSingleShift = (props) => {
                     <FormEditShift {...props}/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button color="link" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}>Schließen</Button>
+                    <Button color="link" onClick={() => dispatch(resettingModal())}>Schließen</Button>
                     <Button color="success" onClick={() => props.handlePrio(props.modalkey)}> Übernehmen</Button>
                 </Modal.Footer>
             </Modal>

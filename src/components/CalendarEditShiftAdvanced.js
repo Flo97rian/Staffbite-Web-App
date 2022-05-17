@@ -19,9 +19,9 @@ import { settingShiftNotice } from "../reducers/userInput";
 import InfoOverlay from "./InfoOverlay";
 
 export const CalendarEditShiftAdvanced = (props) => {
-    const isNewShiftplan = _.isObject(props.Schichtplan);
-    const index = useSelector(state => state.shiftSlot.row);
-    const day = useSelector(state => state.shiftSlot.col);
+    const isNewShiftplan = useSelector(state => state.Shiftplan.id.length > 0);
+    const index = useSelector(state => state.shiftSlot.index);
+    const day = useSelector(state => state.shiftSlot.day);
     const isActive = useSelector(state => state.Shiftplan.plan[index][day].frei);
     const shiftNotice = useSelector(state => state.Shiftplan.plan[index][day].notice);
     const minQualification = useSelector(state => state.Shiftplan.plan[index][day].prio);
@@ -59,7 +59,7 @@ export const CalendarEditShiftAdvanced = (props) => {
                                     Diese Notiz ist zu lang.
                                 </FormFeedback>
                             </FormGroup>
-                            <Button hidden={_.isEmpty(shiftNotice)}classname="mt-0"color="warning" size="sm" disabled={isActive} onClick={() => props.handleResetShiftNotice(props.modalkey)}>Zurücksetzen</Button>
+                            <Button hidden={_.isEmpty(shiftNotice)} className="mt-0" color="warning" size="sm" disabled={isActive} onClick={() => props.handleResetShiftNotice()}>Zurücksetzen</Button>
                     </Col>
                 </Row>
                 <Row className="mt-3">

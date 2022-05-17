@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import 'moment/locale/de';
 import {
@@ -18,11 +18,13 @@ import Joyride from 'react-joyride';
 import {INFO_CREATED_POSITION, SUCCESS_LOADING_META} from "../constants/Alerts";
 import { ONBOARDING_EINSTELLUNGEN_BETRIEB_NAME, ONBOARDING_EINSTELLUNGEN_POSITIONEN, ONBOARDING_EINSTELLUNGEN_NAV_BETRIEB, ONBOARDING_EINSTELLUNGEN_SHIFTPLAN_REVERSE, ONBOARDING_EINSTELLUNGEN_SHIFTPLAN_ORDER, ONBOARDING_EINSTELLUNGEN_NAV_SHIFTPLAN, ONBOARDING_EINSTELLUNGEN_SPEICHERN } from "../constants/OnBoardingTexts"
 import _ from "lodash";
+import { resettingShiftplan } from "../reducers/Shiftplan";
+import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
+import { resettingDisplayShiftplan } from "../reducers/display";
+import { resettingShiftSlot } from "../reducers/ShiftSlot";
 
 const AdminSettingsContainer = () => {
-  const [metaData, setMetaData] = useState(null)
-  const [position, setPosition] = useState(null);
-  const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1);
+  const dispatch = useDispatch();
   const [msng, setMsng] = useState({LoadingMeta: !1, createdPosition: !1});
   const [state, setState] = useState({
     run: !1,
@@ -82,32 +84,22 @@ const AdminSettingsContainer = () => {
   const { run, steps } = state;
 
   const selectMeta = state => state.Meta;
-  const selectLoadingMeta = state => state.loadings.isFetchingMeta;
-  const selectDate = state => state.date;
   const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
-  const LoadingMeta = useSelector(selectLoadingMeta);
-  const Date = useSelector(selectDate);
   const SidebarInfo = useSelector(selectInfoSidebar);
+  const userInput = useSelector(state => state.userInput);
 
   useEffect(() => {
       document.documentElement.scrollTop = 0;
       document.scrollingElement.scrollTop = 0;
       store.dispatch(FetchOrg)
-      store.dispatch({ type: "ResetCurrentShiftPlan"})
-      store.dispatch({ type: "resetShiftplan"})
-      store.dispatch({ type: "ResetShiftSlot"})
-      store.dispatch({ type: "stopShiftPlanIsActive"})
-      store.dispatch({ type: "stopShiftPlanIsImported"})
+      dispatch(resettingCurrentShiftplanIndex())
+      dispatch(resettingShiftplan())
+      dispatch(resettingShiftSlot())
+      dispatch(resettingDisplayShiftplan())
     }, []); 
-
-     useEffect(() => {
-       if(_.isObject(Meta)) {
-        setMetaData({...metaData, schichten: Meta.schichten})
-       }
-    }, [Meta]);
 
 
   useEffect(() => {
@@ -116,15 +108,6 @@ const AdminSettingsContainer = () => {
       setState({...state, run: showSettings})
     }
   }, [Meta]);
-
-
-  useEffect(() => {
-    if(Date.start !== undefined) {
-    let abrechnungStart = moment(Date.start.startDate).format("l")
-    let abrechnungEnde = moment(Date.ende.endDate).format("l")
-    setMetaData({...metaData, AbrechnungStart: abrechnungStart, AbrechnungEnde: abrechnungEnde })
-    }
-  }, [Date]);
   
   function Notify (type, title, err) {
     let options = {
@@ -154,61 +137,19 @@ const AdminSettingsContainer = () => {
       store.dispatch(thunkUpdateProfile(meta));
     }
   }
-  // Handling von Userinputs
-  const handleInputChange = (event) => {
-    let key = event.target.name;
-    let val = stateSwitch(event.target.value, event);
-    setMetaData({...metaData, [key]: val })
-  }
 
-  // Überprüfung von Userinputs, ob der Input vom Typ Switch ist
-  const stateSwitch = (value, event) => {
-    if (value !== "on") return value
-      let state = handleInputSwitch(event);
-      return state
-  }
 
-    // Diese Funktion ändert den Wert eines Switches, je nach userinput
-    const handleInputSwitch = (event) => {
-      if (event.target.checked !== !0) return !1
-        return !0
-    }
     const handleUpdateProfile = () => {
-      store.dispatch({type: "isFetchingMeta"});
-      store.dispatch(thunkUpdateProfile(metaData));
-      setMsng({...msng, LoadingMeta: !0});
+      dispatch(
+        thunkUpdateProfile({
+          ...Meta,
+          name: userInput.companyName !== "" ? userInput.companyName : Meta.name,
+          fair: userInput.companyName !== "" ? userInput.companyName : Meta.name,
+          name: userInput.companyName !== "" ? userInput.companyName : Meta.name,
+        })
+      );
     }
-    const handlePositionHinzufuegen = () => {
-      setShowPositionHinzufuegen(!showPositionHinzufuegen);
-    };
-    
-    const handlePositionHinzufuegenClose = () => {
-      setShowPositionHinzufuegen(!showPositionHinzufuegen);
-    };
 
-    const handlePositionErstellen = () => {
-      let copymeta = {...metaData};
-      if (copymeta.schichten === undefined) {
-        copymeta.schichten = [];
-        copymeta.schichten.push(position);
-      } else if (!(position in metaData.schichten)) {
-        copymeta.schichten.push(position);
-      }
-      setMetaData(copymeta);
-      setPosition(null);
-      setShowPositionHinzufuegen(!showPositionHinzufuegen);
-      setMsng({...msng, CreatedPosition: !0});
-    };
-   // Handling von Userinputs
-   const handlePositionChange = (event) => {
-    const val = event.target.value;
-    setPosition(val);
-  };
-    const handleRemovePositions = (item) => {
-      let copymeta = {...metaData};
-      copymeta.schichten = copymeta.schichten.filter(element => element !== item);
-      setMetaData(copymeta);
-    };
         return(
       <div className="main-content px-4 mt-9" ref={mainContent}>
        <Joyride
@@ -238,22 +179,9 @@ const AdminSettingsContainer = () => {
         <div className="rna-wrapper">
           <NotificationAlert ref={notificationAlert} />
         </div>     
-      {Meta ?
         <AdminSettingsNavPills
-        showPositionHinzufuegen={showPositionHinzufuegen}
-        handleRemovePositions={handleRemovePositions}
-        handlePositionErstellen={handlePositionErstellen}
-        handlePositionChange={handlePositionChange}
-        handlePositionHinzufuegen={handlePositionHinzufuegen}
-        handlePositionHinzufuegenClose={handlePositionHinzufuegenClose}
-        onChange={handleInputChange}
         onClick={handleUpdateProfile}
-        org={Meta}
-        metaData={metaData}
         ></AdminSettingsNavPills>
-        :
-        null
-      }
       </>
       }
       <InfoSidebar

@@ -7,6 +7,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import SchichtplanElementNeu from "./ShiftplanElementNew";
 import Spinner from 'react-bootstrap/Spinner';
 import ShiftplanElement from "./ShiftplanElement";
+import { useSelector, useDispatch } from "react-redux";
 // fake data generator
 const getItems = (shiftplan) => {
     const plan = shiftplan.map((shift, index) => ({
@@ -47,7 +48,8 @@ const getListStyle = isDraggingOver => ({
 });
 
 const ShiftplanDnDNew = (props) => {
-  const [Items, setItems] = useState(getItems(props.Schichtplan.plan));
+  const newShiftplan = useSelector(state => state.Schichtplan.plan);
+  const [Items, setItems] = useState(getItems(newShiftplan));
 
   useEffect(() => {
       setItems(getItems(props.Schichtplan.plan));

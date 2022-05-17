@@ -6,8 +6,12 @@ import {
 import Modal from 'react-bootstrap/Modal';
 import SchichtplanErstellen from "./FormCreateShiftplan"
 import store from "../store";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
 
 const ModalCreateShiftplan = (props) => {
+    const dispatch = useDispatch();
+    const showSchichtplanErstellen = useSelector(state => state.modal.showSchichtplanErstellen);
         return (
             <Modal 
                     size="lg"
@@ -15,7 +19,7 @@ const ModalCreateShiftplan = (props) => {
                     centered
                     scrollable={true}
                     className="modal-secondary"
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
+                    show={showSchichtplanErstellen} onHide={() => dispatch(resettingModal())}
             >
                 <Modal.Header className="pb-0">
                             <Label className="h2 m-3 align-items-center">Vorlage erstellen</Label>
@@ -24,8 +28,8 @@ const ModalCreateShiftplan = (props) => {
                     <SchichtplanErstellen {...props}></SchichtplanErstellen>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button color="link" size="lg" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>{' '}
-                  <Button color="success" size="lg" onClick={() => props.onSave(props.modalkey)}>Erstellen</Button>{' '}
+                  <Button color="link" size="lg" onClick={() => dispatch(resettingModal())}> Schließen </Button>{' '}
+                  <Button color="success" size="lg" onClick={() => props.onSave()}>Erstellen</Button>{' '}
                 </Modal.Footer>
             </Modal>
         );

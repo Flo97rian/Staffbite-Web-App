@@ -1,5 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { FETCH_ALL_PLANS, API_HOSTNAME } from "../../constants/ApiConstants";
+import { settingPlansFetching, settingPlansFulfilled, settingPlansRejected, settingShiftplans } from "../../reducers/DB";
 
 export async function FetchFromDB(dispatch, getState) {
     Auth.currentAuthenticatedUser().then( user => {
@@ -8,6 +9,7 @@ export async function FetchFromDB(dispatch, getState) {
         const myInit = { // OPTIONAL
             body: user.attributes
         };
+        dispatch(settingPlansFetching())
         return API.post(apiName, path, myInit);
         }).then(response => {
             let plans = response.Items.map(item => {
@@ -21,7 +23,10 @@ export async function FetchFromDB(dispatch, getState) {
                 }
             });
             // Add your code here
-            dispatch({type: "All/GetPlansFromDB", payload: plans});
+            dispatch(settingShiftplans(plans));
+            dispatch(settingPlansFulfilled())
             dispatch({type: "stopFetchPlansFromDB"});
+        }).catch(error => {
+            dispatch(settingPlansRejected())
         })        
 }

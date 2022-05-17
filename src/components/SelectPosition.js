@@ -9,8 +9,9 @@ import { useSelector, useDispatch } from "react-redux";
 import InfoLabel from "./InfoLabel"
 import { settingShiftPosition } from "../reducers/userInput";
 function SelectPosition () {
+    const index = useSelector(state => state.shiftSlot.index);
     const positions = useSelector(state => state.Meta.schichten);
-    const currentPosition = useSelector(state => state.Shiftplan.plan[state.shiftSlot.row].Wochentag.ShiftPosition)
+    const currentPosition = useSelector(state => state.Shiftplan.plan[index].Wochentag.ShiftPosition)
     const dispatch = useDispatch()
         return(
             <FormGroup className="">

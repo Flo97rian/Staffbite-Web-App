@@ -8,6 +8,7 @@ import {
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import FormEmployeesRoles from "./FormEmployeesRoles";
+import { useSelector, useDispatch } from "react-redux";
 
 const accesses = [{
     id: "accessAdminView",
@@ -26,6 +27,8 @@ const accesses = [{
 }]
 
 const ModalEmployeesRoles = (props) => {
+    const dispatch = useDispatch();
+    const showEmployeesRoles = useSelector(state => state.modal.showEmployeesRoles);
     const {keytrue, modalkey, meta, addNewPosition, deletePosition, updatePositionAccess} = props;
         return (
             <>
@@ -35,7 +38,7 @@ const ModalEmployeesRoles = (props) => {
                 centered
                 scrollable
                 className="modal-secondary"
-                show={keytrue}
+                show={showEmployeesRoles}
             >
                     <Modal.Body>
                         <FormEmployeesRoles 

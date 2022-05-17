@@ -1,3 +1,4 @@
+import { settingNewShiftplan } from "../reducers/NewShiftPlan";
 import store from "../store";
 
             // Einfügen einer neuen Spalte, wenn der Schichtplan neu erstellt wurde
@@ -8,7 +9,7 @@ import store from "../store";
     let input = createNewShiftRowForNewPlan({ shiftplan, userInput });
     shiftplan.splice(indextoinsert, 0, input);
     //let schichtentag = this.addDayToShiftCounter(1)
-    store.dispatch({ type: "SetNewShiftPlan", payload: shiftplan });
+    store.dispatch(settingNewShiftplan(shiftplan))
   }
 }
 

@@ -7,8 +7,12 @@ import Modal from 'react-bootstrap/Modal';
 import store from "../store"
 import DragAndDrop from "./EmployeesDnDForSingleShift";
 import FormSetApplicantsDetails from "./FormSetApplicantsDetails";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
 
 const ModalEditEmployeesInShift = (props) => {
+    const dispatch = useDispatch();
+    const applyIsActive = useSelector(state => state.modal.applyIsActive);
     const day = props.bewerber.col;
     const row = props.bewerber.row;
     const shiftplan = props.shiftplan.plan
@@ -30,7 +34,7 @@ const ModalEditEmployeesInShift = (props) => {
                     centered
                     scrollable={true}
                     className="modal-secondary"
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
+                    show={applyIsActive} onHide={() => dispatch(resettingModal())}
             >
                 <Modal.Header className="pb-0" closeButton>
                     <Label className="h2 m-3 align-items-center">Schicht zuteilen</Label>
@@ -51,7 +55,7 @@ const ModalEditEmployeesInShift = (props) => {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button  color="link" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
+                    <Button  color="link" onClick={() => dispatch(resettingModal())}> Schließen </Button>
                     <Button color="success" onClick={() => props.selectBewerber(props.modalkey, DragAndDropRef)}>Änderungen übernehmen</Button>
                 </Modal.Footer>
             </Modal>

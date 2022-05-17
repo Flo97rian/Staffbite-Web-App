@@ -1,6 +1,8 @@
 import _ from "lodash";
 import { Auth, API } from "aws-amplify";
 import { API_HOSTNAME, FETCH_SHIFTPLAN_FOR_EMPLOYEE } from "../../constants/ApiConstants";
+import { settingEmployees } from "../../reducers/DB";
+import { resettingShiftplanChanged } from "../../reducers/shiftplanChanged";
 
 export async function FetchEmployeePlansFromDB(dispatch, getState) {
     Auth.currentAuthenticatedUser().then( user => {
@@ -24,8 +26,8 @@ export async function FetchEmployeePlansFromDB(dispatch, getState) {
                     };
                 });
                 // Add your code here
-                dispatch({type: "All/GetPlansForEmployee", payload: plans})
-                dispatch({ type: "resetShiftplanChanged"})
+                dispatch(settingEmployees(plans));
+                dispatch(resettingShiftplanChanged())
             }
             })
     }

@@ -4,9 +4,12 @@ import PropTypes from "prop-types"
 import { Row, Col, Card, Badge, Button, UncontrolledCollapse, Input, Label, InputGroupAddon, InputGroupText, InputGroup, InputGroupButtonDropdown, FormFeedback } from "reactstrap"
 import * as _ from "lodash";
 import store from "../store";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
 
 
 const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition, deletePosition, updatePositionAccess}) => {
+    const dispatch = useDispatch();
     const [currentSelectedPosition, setCurrentSelectedPosition] = useState(positions[0])
     const [accessValues, setAccessValues] = useState(_.get(accessPosition, [currentSelectedPosition], []));
     const [warning, setWarning] = useState(!1);
@@ -243,7 +246,7 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
 
             </Col>
             <Col xs="6">
-                    <Button color="link" onClick={() => store.dispatch({type: "CLOSE"})}>Schließen</Button>
+                    <Button color="link" onClick={() => dispatch(resettingModal())}>Schließen</Button>
                     {(_.isEmpty(_.difference(_.get(accessPosition, [currentSelectedPosition], []), accessValues))) && 
                     (_.isEmpty(_.difference(accessValues, _.get(accessPosition, [currentSelectedPosition], []))))
                     ?

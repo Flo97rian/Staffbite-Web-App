@@ -12,9 +12,10 @@ import { Badge } from "reactstrap";
 import PlanId from "./PlanStatus"
 import _ from "lodash";
 import ShiftplanDnD from "./ShiftplanDnD";
+import { useSelector, useDispatch } from "react-redux";
 
 const  ShiftplansTable = (props) => {
-
+    const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
     function getLegend() {
         if(props.shiftplan.id) {
             let id = props.shiftplan.id;
@@ -82,11 +83,8 @@ const  ShiftplansTable = (props) => {
         }
 
 }
-
-    let isActivePlan = props.bearbeiten;
-    let isImportedPlan = props.import;
     let currentPlan = props.shiftplan.id;
-    if(isActivePlan && isImportedPlan && _.isObject(props.plans) && _.isObject(props.employees)) {
+    if(DisplayShiftplan && _.isObject(props.plans) && _.isObject(props.employees)) {
         if(currentPlan.split("#").includes("Entwurf")) {
             return (
                 <>

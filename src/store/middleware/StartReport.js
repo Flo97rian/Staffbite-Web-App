@@ -1,5 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { API_HOSTNAME, START_REPORTING } from "../../constants/ApiConstants";
+import { settingReport } from "../../reducers/DB";
 
 export function thunkStartReport(filter) {
     const auswahl = filter
@@ -37,7 +38,7 @@ export function thunkStartReport(filter) {
                     bewerbungscount: item.bewerbungscount,
                     schichtencount: item.schichtencount
                     }});
-            dispatch({type: "All/Report", payload: employees});
+            dispatch(settingReport(employees))
             dispatch({type: "stopFetchingReport"});
             }
         )

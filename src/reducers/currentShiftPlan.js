@@ -1,27 +1,23 @@
-const currentShiftPlanReducer = (state = !1, action) => {
-    switch (action.type) {
-      case "setCurrentShiftPlan": 
-        state = action.payload
-        return (
-          state
-        )
-        case "ResetCurrentShiftPlan": 
-        return (
-          state = !1
-        )
-        case "SwitchLeftcurrentShiftPlan": 
-        return {
-          ...state,
-          "currentShiftPlan": state.currentShiftPlan > 0 ? state.currentShiftPlan - 1 : state.currentShiftPlan
-        }
-        case "SwitchRightcurrentShiftPlan": 
-        return {
-          ...state,
-          "currentShiftPlan": state.currentShiftPlan < action.payload - 1 ? state.currentShiftPlan + 1 : state.currentShiftPlan
-        }
-      default:
-        return state
+import { createSlice } from "@reduxjs/toolkit";
+  const initialState = {
+    currentShiftplanIndex: !1
+  }
+  const currentShiftplanSlice = createSlice({
+    name: "currentShiftplanIndex",
+    initialState,
+    reducers: {
+      settingCurrentShiftplanIndex(state, action) {
+        state.currentShiftplanIndex = action.payload;
+      },
+      resettingCurrentShiftplanIndex(state, action) {
+        state.currentShiftplanIndex = !1;
+      }
     }
-  };
-  
-  export default currentShiftPlanReducer;
+  })
+
+  export const {
+    settingCurrentShiftplanIndex,
+    resettingCurrentShiftplanIndex,
+  } = currentShiftplanSlice.actions;
+
+  export default currentShiftplanSlice.reducer;

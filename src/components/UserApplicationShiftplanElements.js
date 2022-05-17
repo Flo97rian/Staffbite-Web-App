@@ -33,12 +33,17 @@ import {
     getShiftIncludesApplicant,
     getHasNotice
  } from "./ElementFunctions";
-const setApplicant = (index, col) => {
-    store.dispatch({type: "OPEN", payload: "userApply"})
-    store.dispatch({type: "setShiftSlot", payload: { row: index, col: col}})
-}
+import { settingModal } from "../reducers/modal";
+import { useSelector, useDispatch } from "react-redux";
+import { settingShiftSlot } from "../reducers/ShiftSlot";
 
 const UserApplicationShiftplanElements = (props) => {
+    const dispatch = useDispatch()
+    const setApplicant = (index, day) => {
+        dispatch(settingModal("userApply"))
+        dispatch(settingShiftSlot({index: index, day: day}))
+    }
+
     let ItemLength = props.ItemLength;
     let index = props.index;
     let col = props.col;

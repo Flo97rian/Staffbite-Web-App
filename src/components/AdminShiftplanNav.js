@@ -6,11 +6,12 @@ import {
   NavLink,
   Nav
 } from "reactstrap";
+import { useSelector, useDispatch } from "react-redux";
 
 
 function AdminShiftplanNav (props) {
-  let isActivePlan = props.bearbeiten;
-  if (!isActivePlan) {
+  const displayNav = useSelector(state => state.display.displayShiftplan === false);
+  if (displayNav) {
     return (
       <>
         <Nav

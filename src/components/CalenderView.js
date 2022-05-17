@@ -51,7 +51,8 @@ import _, { set } from "lodash";
 import store from "../store";
 import { useSelector, useDispatch } from "react-redux";
 import { weekdays } from "../constants/Weekdays";
-import { settingShift, settingShiftRow, settingWeekday } from "../reducers/ShiftDetails";
+import { settingModal } from "../reducers/modal";
+import { settingShiftSlot } from "../reducers/ShiftSlot";
 const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
 const borderColor = ["border-success", "border-info", "border-light"]
 
@@ -76,6 +77,7 @@ function CalendarView(props) {
   const calendarRef = useRef(null);
   const dispatch = useDispatch()
   const shiftplan = useSelector(state => state.Shiftplan)
+  const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
 
   
   useEffect(() => {
@@ -319,6 +321,7 @@ function CalendarView(props) {
     )
 };
   if(_.isEmpty(shiftplan.id)) return null
+  if(DisplayShiftplan === false) return null;
   return (
     <>
       {alert}
@@ -334,9 +337,10 @@ function CalendarView(props) {
                   <Col>
                     <Row className="text-center">
                       <Col>
-                        {positions.map(value => {
+                        {positions.map((value, index) => {
                           return (
                             <Button
+                                key={index}
                                 className="btn-neutral"
                                 color="link"
                                 data-calendar-view="basicDay"
@@ -457,8 +461,8 @@ function CalendarView(props) {
                             props.handleAddEventSetStart(startTime)
                             let getDay = info.start.getDay();
                             const day = weekdays[getDay];
-                            store.dispatch({type: "setShiftSlot", payload: { col: day}});
-                            store.dispatch({type: "OPEN", payload: "addCalendarShift"});
+                            dispatch(settingShiftSlot({day: day}))
+                            dispatch(settingModal("addCalendarShift"))
                             }
                         }}
                         // Edit calendar event action
@@ -467,11 +471,9 @@ function CalendarView(props) {
                             if(calendarApi.currentDataManager.state.currentViewType === "dayGridMonth") {
                               calendarApi.changeView("timeGridWeek")
                             } else {
-                            dispatch(settingShift(shiftplan.plan[event.extendedProps.row][event.extendedProps.day]))
-                            dispatch(settingShiftRow(shiftplan.plan[event.extendedProps.row]))
-                            dispatch(settingWeekday(shiftplan.plan[event.extendedProps.row].Wochentag))
-                            store.dispatch({type: "setShiftSlot", payload: { row: event.extendedProps.row, col: event.extendedProps.day}});
-                            store.dispatch({type: "OPEN", payload: "editCalendarShift"});
+                            dispatch(settingShiftSlot({index: event.extendedProps.row, day: event.extendedProps.day}))
+                            dispatch(settingModal("editCalendarShift"))
+                            
                             }
                         }}
                     />

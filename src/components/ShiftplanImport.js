@@ -7,14 +7,17 @@ import {
     CardBody
   } from "reactstrap";
 import store from "../store";
+import { useSelector, useDispatch } from "react-redux";
+import { settingShiftplan } from "../reducers/Shiftplan";
+import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 
 
 const ShiftplanImport = (props) => {
+  const Plans = useSelector(state => state.DB.plans)
+  const dispatch = useDispatch();
     const setCurrentShiftPlan = (id) => {
-        store.dispatch({type: "setCurrentShiftPlan", payload: id})
-        store.dispatch({type: "setShiftplan", payload: props.plaene[id]});
-        store.dispatch({type: "setShiftPlanIsActive"})
-        store.dispatch({type: "setShiftPlanIsImported"})
+        dispatch(settingCurrentShiftplanIndex(id))
+        dispatch(settingShiftplan(Plans[id]))
     }
 
         return(

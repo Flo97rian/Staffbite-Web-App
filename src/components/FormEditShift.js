@@ -13,8 +13,11 @@ import {
 import { FEEDBACK_INVALID_NOTICE } from "../constants/FeedbackText";
 import { INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION } from "../constants/InfoTexts";
 import InfoOverlay from "./InfoOverlay";
+import { useSelector, useDispatch } from "react-redux";
 
 export const FormEditShift = (props) => {
+    const index = useSelector(state => state.shiftSlot.index);
+    const day = useSelector(state => state.shiftSlot.day);
     const isNewShiftplan = _.isObject(props.Schichtplan); 
 
     function getShiftActive () {
@@ -22,11 +25,11 @@ export const FormEditShift = (props) => {
         let isActive; 
             
         if(isNewShiftplan) {
-            isActive = _.get(props.Schichtplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].frei", false)
+            isActive = _.get(props.Schichtplan, "plan[" + index + "][" + day + "].frei", false)
         }
 
         if (!isNewShiftplan) {
-            isActive = _.get(props.shiftplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].frei", false)
+            isActive = _.get(props.shiftplan, "plan[" + index + "][" + day + "].frei", false)
         }
 
         if(!isActive) {
@@ -40,11 +43,11 @@ export const FormEditShift = (props) => {
         let value = "Trage hier deine Notiz ein.";
 
         if(isNewShiftplan) {
-            value = _.get(props.Schichtplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].notice", "")
+            value = _.get(props.Schichtplan, "plan[" + index + "][" + day + "].notice", "")
         } 
 
         if(!isNewShiftplan) {
-            value = _.get(props.shiftplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].notice", "")
+            value = _.get(props.shiftplan, "plan[" + index + "][" + day + "].notice", "")
         }
         return value;
     }
@@ -53,11 +56,11 @@ export const FormEditShift = (props) => {
         let color = "light";
 
         if(isNewShiftplan) {
-            color = _.get(props.Schichtplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].prio", false) === qualifikation ? "primary" : "light"
+            color = _.get(props.Schichtplan, "plan[" + index + "][" + day + "].prio", false) === qualifikation ? "primary" : "light"
         } 
 
         if(!isNewShiftplan) {
-            color = _.get(props.shiftplan, "plan[" + props.shiftSlot.row + "][" + props.shiftSlot.col + "].prio", false) === qualifikation ? "primary" : "light"
+            color = _.get(props.shiftplan, "plan[" + index + "][" + day + "].prio", false) === qualifikation ? "primary" : "light"
         }
         return color;
     }
