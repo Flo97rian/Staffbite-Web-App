@@ -4,7 +4,7 @@ import { getUser } from "../store/middleware/FetchUser";
 import { thunkUploadApplication } from "../store/middleware/UploadApplication";
 import Spinner from 'react-bootstrap/Spinner'
 import InfoSidebar from "./Sidebar/InfoSidebar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Joyride from 'react-joyride';
 import 'moment/locale/de';
 import {
@@ -20,9 +20,11 @@ import ShiftPlan from "../libs/Shiftplan";
 import ButtonSave from "./deprecated/ButtonSave";
 import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_EINTRAGEN } from "../constants/OnBoardingTexts";
+import { settingShiftplan } from "../reducers/Shiftplan";
 
 
 const UserApplicationsContainer = () => {
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     run: !1,
     steps: [
@@ -78,7 +80,7 @@ const UserApplicationsContainer = () => {
     if (!LoadingFetchingEmployeePlans) {
       let copyPlan = new ShiftPlan({...Plans[currentShiftPlan]});
       let shiftplan = copyPlan.getAllPlanDetails();
-      store.dispatch({type: "setShiftplan", payload: shiftplan});
+      dispatch(settingShiftplan(shiftplan));
     }
   }
   }, [Plans]);
@@ -142,7 +144,7 @@ const UserApplicationsContainer = () => {
     let copyPlan = new ShiftPlan({...Shiftplan});
     copyPlan.removeApplicant(User, ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails();
-    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    dispatch(settingShiftplan(shiftplan));
     store.dispatch({type: "CLOSE", payload: modal});
     store.dispatch({type: "setShiftplanChanged"})
   }
@@ -151,7 +153,7 @@ const UserApplicationsContainer = () => {
     let copyPlan = new ShiftPlan({...Shiftplan});
     copyPlan.setApplicant(User, ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails();
-    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    dispatch(settingShiftplan(shiftplan));
     store.dispatch({type: "CLOSE", payload: modal});
     store.dispatch({type: "setShiftplanChanged"})
   }

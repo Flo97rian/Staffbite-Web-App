@@ -288,6 +288,22 @@
         "demoAlgo": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
           "s3Key": "amplify-builds/demoAlgo-45435430385a38585743-build.zip"
+        },
+        "customerPortal": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/customerPortal-57304431696c72392b38-build.zip"
+        },
+        "addStripeCustomerID": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/addStripeCustomerID-656e4f3272496b5a6a79-build.zip"
+        },
+        "stripeCheckout": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/stripeCheckout-667a4f53646669773056-build.zip"
+        },
+        "validateStripeNumberOfEmployees": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/validateStripeNumberOfEmployees-5a49715a787246492f76-build.zip"
         }
       },
       "auth": {

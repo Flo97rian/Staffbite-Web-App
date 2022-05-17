@@ -42,13 +42,16 @@ import {
   Col,
   Breadcrumb,
   BreadcrumbItem,
+  Badge,
 } from "reactstrap";
 // core components
 
 import {events as eventsVariables} from "./CalenderVariables"
 import _, { set } from "lodash";
 import store from "../store";
+import { useSelector, useDispatch } from "react-redux";
 import { weekdays } from "../constants/Weekdays";
+import { settingShift, settingShiftRow, settingWeekday } from "../reducers/ShiftDetails";
 const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
 const borderColor = ["border-success", "border-info", "border-light"]
 
@@ -71,6 +74,9 @@ function CalendarView(props) {
   const [event, setEvent] = useState(null);
   const [currentDate, setCurrentDate] = useState(null);
   const calendarRef = useRef(null);
+  const dispatch = useDispatch()
+  const shiftplan = useSelector(state => state.Shiftplan)
+
   
   useEffect(() => {
     setEventsData();
@@ -84,10 +90,10 @@ function CalendarView(props) {
     getPositions();
     //getEarlyestShiftStart()
     // eslint-disable-next-line
-  }, [props.shiftplan])
+  }, [shiftplan])
 
     const getEarlyestShiftStart = () => {
-      const plan = _.get(props.shiftplan, "plan", [])
+      const plan = _.get(shiftplan, "plan", [])
       let currentEarlyestStartSplit = bussinessHoursStart.split(':')
       let currentEarlyestStart = bussinessHoursStart
       _.forEach(plan, function (row, rowIndex) {
@@ -106,7 +112,7 @@ function CalendarView(props) {
 
     const getPositions = () => {
         let positions = [];
-        const plan = _.get(props.shiftplan, "plan", [])
+        const plan = _.get(shiftplan, "plan", [])
         _.forEach(plan, function (row, rowIndex) {
             const position = _.get(row, "Wochentag.ShiftPosition", "")
             if(!_.isEmpty(position)) {
@@ -120,7 +126,7 @@ function CalendarView(props) {
 
     const setEventsData = (filter = !1) => {
         let eventsData = [];
-        const plan = _.get(props.shiftplan, "plan", [])
+        const plan = _.get(shiftplan, "plan", [])
         let index = 0
         _.forEach(plan, function (row, rowIndex) {
             if (filter === false || row.Wochentag.ShiftPosition === filter) {
@@ -286,8 +292,8 @@ function CalendarView(props) {
     setEvent(undefined);
   };
   const renderEventContent = (eventInfo) => {
-    if(_.isObject(props.shiftplan)) {
-      const Shift = _.get(props.shiftplan, "plan[" + eventInfo.event.extendedProps.row + "][" + eventInfo.event.extendedProps.day + "]")
+    if(_.isObject(shiftplan)) {
+      const Shift = _.get(shiftplan, "plan[" + eventInfo.event.extendedProps.row + "][" + eventInfo.event.extendedProps.day + "]")
       return (
         <Row className="p-1">
             <Col>
@@ -312,7 +318,7 @@ function CalendarView(props) {
         </Row>
     )
 };
-  if(!_.isObject(props.shiftplan)) return null
+  if(_.isEmpty(shiftplan.id)) return null
   return (
     <>
       {alert}
@@ -379,6 +385,13 @@ function CalendarView(props) {
                   </Col>
                 </Row>
                 <Row>
+                  <Col>
+                        <Row>
+                          <Col>
+                            <Badge color="success">Live</Badge>
+                          </Col>
+                        </Row>
+                  </Col>
                   <Col>      
                   <Row className="text-right">
                     <Col>
@@ -435,7 +448,10 @@ function CalendarView(props) {
                         eventDisplay="block"
                         // Add new event
                         select={(info) => {
-                            console.log(info);
+                            let calendarApi = calendarRef.current.getApi();
+                            if(calendarApi.currentDataManager.state.currentViewType === "dayGridMonth") {
+                              calendarApi.changeView("timeGridWeek")
+                            } else {
                             let getStartTime = String(info.start.getHours()); 
                             const startTime = getStartTime.length === 1 ? "0" + getStartTime + ":00" : getStartTime + ":00";
                             props.handleAddEventSetStart(startTime)
@@ -443,11 +459,20 @@ function CalendarView(props) {
                             const day = weekdays[getDay];
                             store.dispatch({type: "setShiftSlot", payload: { col: day}});
                             store.dispatch({type: "OPEN", payload: "addCalendarShift"});
+                            }
                         }}
                         // Edit calendar event action
                         eventClick={({ event }) => {
+                            let calendarApi = calendarRef.current.getApi();
+                            if(calendarApi.currentDataManager.state.currentViewType === "dayGridMonth") {
+                              calendarApi.changeView("timeGridWeek")
+                            } else {
+                            dispatch(settingShift(shiftplan.plan[event.extendedProps.row][event.extendedProps.day]))
+                            dispatch(settingShiftRow(shiftplan.plan[event.extendedProps.row]))
+                            dispatch(settingWeekday(shiftplan.plan[event.extendedProps.row].Wochentag))
                             store.dispatch({type: "setShiftSlot", payload: { row: event.extendedProps.row, col: event.extendedProps.day}});
                             store.dispatch({type: "OPEN", payload: "editCalendarShift"});
+                            }
                         }}
                     />
                   </Col>

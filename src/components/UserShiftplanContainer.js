@@ -3,7 +3,7 @@ import { FetchEmployeePlansFromDB } from "../store/middleware/FetchPlansForEmplo
 import { getUser } from "../store/middleware/FetchUser";
 import { thunkUploadApplication } from "../store/middleware/UploadApplication";
 import Spinner from 'react-bootstrap/Spinner'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import InfoSidebar from "./Sidebar/InfoSidebar";
 import Joyride from 'react-joyride';
 import 'moment/locale/de';
@@ -23,8 +23,10 @@ import ApplyTradeShift from "./FormApplyForShiftTrade";
 import ShiftPlan from "../libs/Shiftplan";
 import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_SCHICHTPLAN } from "../constants/OnBoardingTexts";
+import { settingShiftplan } from "../reducers/Shiftplan";
 
 const UserShiftplanContainer = () => {
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     run: !1,
     steps: [
@@ -81,7 +83,7 @@ const UserShiftplanContainer = () => {
     if (!LoadingFetchingSafe) {
       let copyPlan = new ShiftPlan({...Plans[currentShiftPlan]});
       let shiftplan = copyPlan.getAllPlanDetails();
-      store.dispatch({type: "setShiftplan", payload: shiftplan});
+      dispatch(settingShiftplan(shiftplan));
     }
   }
   }, [Plans]);
@@ -149,7 +151,7 @@ const UserShiftplanContainer = () => {
     copyPlan.setTradeShift(User, ShiftSlot);
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateTradeShift(shiftplan));
-    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    dispatch(settingShiftplan(shiftplan));
     store.dispatch({type: "CLOSE", payload: modal});
     store.dispatch({type: "setShiftplanChanged"})
   }
@@ -159,7 +161,7 @@ const UserShiftplanContainer = () => {
     copyPlan.setApplyForTradeShift(User, index);
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateTradeShift(shiftplan));
-    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    dispatch(settingShiftplan(shiftplan));
     store.dispatch({type: "setShiftplanChanged"})
   }
   const handleCancelApplyTradeShift = (index) => {
@@ -167,7 +169,7 @@ const UserShiftplanContainer = () => {
     copyPlan.removeApplyForShift(User, index);
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateTradeShift(shiftplan));
-    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    dispatch(settingShiftplan(shiftplan));
     store.dispatch({type: "setShiftplanChanged"})
   }
 
@@ -176,7 +178,7 @@ const UserShiftplanContainer = () => {
     copyPlan.removeTradeShift(index);
     let shiftplan = copyPlan.getAllPlanDetails();
     store.dispatch(thunkUpdateTradeShift(shiftplan));
-    store.dispatch({type: "setShiftplan", payload: shiftplan});
+    dispatch(settingShiftplan(shiftplan));
     store.dispatch({type: "setShiftplanChanged"})
   }
 

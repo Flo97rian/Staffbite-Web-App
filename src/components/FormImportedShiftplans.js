@@ -9,8 +9,11 @@ import {
 import { planIdColor } from "./PlanIdColor";
 import store from "../store";
 import _ from "lodash";
+import { useSelector, useDispatch } from "react-redux";
+import { settingShiftplan } from "../reducers/Shiftplan";
 
 const FormImportedShiftplans = (props) => {
+  const dispatch = useDispatch();
     const ID = (status, item) => {
       let hasStatus = !1
       let itemStatus =  item.id.split("#")[1]
@@ -45,7 +48,7 @@ const FormImportedShiftplans = (props) => {
 
     const setCurrentShiftPlan = (id) => {
         store.dispatch({type: "setCurrentShiftPlan", payload: id});
-        store.dispatch({type: "setShiftplan", payload: props.plaene[id]});
+        dispatch(settingShiftplan(props.plaene[id]))
         store.dispatch({type: "setShiftPlanIsActive"})
         store.dispatch({type: "setShiftPlanIsImported"})
     }

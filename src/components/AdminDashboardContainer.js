@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment, { isMoment } from "moment";
+import { Cache, DataStore } from "aws-amplify";
 import Joyride from 'react-joyride';
 import * as _ from 'lodash';
 import {
@@ -26,7 +27,7 @@ import { thunkStartReport } from "../store/middleware/StartReport";
 import { WARNING_INVALID_REPORT_INPUT } from "../constants/Alerts"; 
 import InfoSidebar from "./Sidebar/InfoSidebar.js";
 import { ONBOARDING_OVERVIEW_SHIFTPLAN, ONBOARDING_OVERVIEW_SHIFTRADE, ONBOARDING_OVERVIEW_TEAM } from "../constants/OnBoardingTexts.js";
-import { Auth } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
 import { isBoolean, isEmpty, isNumber, isObject, isString, isUndefined } from "lodash";
 import getNumberOfEmployees from "../libs/getNumberOfEmployees.js";
 import NumberOfEmployeesCard from "./NumberOfEmployeesCard";
@@ -110,6 +111,7 @@ const AdminDashboardContainer = (props) => {
   const NumberOfTrades = getNumberOfShifttrades(Shiftplan?.tauschanfrage)
   const newsFeed = useSelector(state => state?.Meta?.newsfeed)
   const showOverview = useSelector(state => state?.Meta?.onboarding?.overview)
+  
 
   // Initiales laden der aktuellen Users
   useEffect(() => {

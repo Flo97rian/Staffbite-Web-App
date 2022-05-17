@@ -10,10 +10,12 @@ import {
 } from "reactstrap"
 import Form from 'react-bootstrap/Form';
 import _ from "lodash";
+import { useSelector } from "react-redux";
 
 function CardTradeShift (props) {
-    if (_.isObject(props.shiftplan)) {
-        if (_.isArray(_.get(props.shiftplan, "tauschanfrage", []))) {
+    const shiftplan = useSelector(state => state.Shiftplan);
+    if (!_.isEmpty(shiftplan.id)) {
+        if (_.isArray(_.get(shiftplan, "tauschanfrage", []))) {
             return (
                 <Row className="mt-4">
             <div className="col">
@@ -22,12 +24,12 @@ function CardTradeShift (props) {
                     <h3 className="mb-0">Tauschanfragen</h3>
                 </CardHeader>
                 <CardBody>
-                {props.shiftplan.tauschanfrage.map((item, index) => (
+                {shiftplan.tauschanfrage.map((item, index) => (
                 <ListGroup flush>
                     <ListGroupItem className="mt-2">
                         <Row>
                             <Col xs={6}>
-                                <p className="pt-2">Tauschanfrage von <b>{item.traderName}</b> für die Schicht <b>{props.shiftplan.plan[item.row].Wochentag.ShiftName}</b> am <b>{props.shiftplan.plan[1][item.col]}</b></p>
+                                <p className="pt-2">Tauschanfrage von <b>{item.traderName}</b> für die Schicht <b>{shiftplan.plan[item.row].Wochentag.ShiftName}</b> am <b>{shiftplan.plan[1][item.col]}</b></p>
                             </Col>
                             <Col xs={3}>
                                 { Object.keys(item.applicants).length > 0 ?

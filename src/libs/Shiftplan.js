@@ -111,6 +111,8 @@ export default class ShiftPlan {
 
       if(_.isBoolean(index) || _.isBoolean(day)) 
         return null
+
+      console.log(userInput)
       //getCurrent
       //ShiftName
       //ShiftPosition
@@ -137,13 +139,13 @@ export default class ShiftPlan {
       //Notice
       //MinQualifications
       //newSetApplicants
-      const InputShiftName = _.get(userInput, "rolle", "");
-      const InputShiftPosition = _.get(userInput, "position", "");
-      const InputShiftStart = _.get(userInput, "beginn", "");
-      const InputShiftEnd = _.get(userInput, "ende", "")
-      const InputShiftsRequiredNumberOfEmployees = _.get(userInput, "anzahl", 0);
-      const InputShiftsNotice = _.get(userInput, "notice", "");
-      const InputShiftDayly = _.get(userInput, "dayly", false);
+      const InputShiftName = _.get(userInput, "shiftName", "");
+      const InputShiftPosition = _.get(userInput, "shiftPosition", "");
+      const InputShiftStart = _.get(userInput, "shiftStart", "");
+      const InputShiftEnd = _.get(userInput, "shiftEnd", "")
+      const InputShiftsRequiredNumberOfEmployees = _.get(userInput, "numberOfEmployees", 0);
+      const InputShiftsNotice = _.get(userInput, "shiftNotice", "");
+      const InputShiftDayly = _.get(userInput, "shiftIsDayly", false);
       let InputSetApplicants = _.get(DnDRef, "current", []);
 
       const changeShiftWeekDayDetail = (target, changeValue) => {
@@ -167,13 +169,13 @@ export default class ShiftPlan {
       //check
       //check ShiftName
       if( !_.isEqual(InputShiftName, ShiftName) && 
-          !_.isEqual(InputShiftName, shiftplanStates.rolle)) {
+          !_.isEqual(InputShiftName, shiftplanStates.name)) {
             console.log("changeShiftName")
             changeShiftWeekDayDetail("ShiftName", InputShiftName);
       }
       //checkShiftPosition
       if( !_.isEqual(InputShiftPosition, ShiftPosition) && 
-          !_.isEqual(InputShiftPosition, shiftplanStates.position)) {
+          !_.isEqual(InputShiftPosition, shiftplanStates.rolle)) {
             console.log("ChangePosition")
             changeShiftWeekDayDetail("ShiftPosition", InputShiftPosition);
       }
