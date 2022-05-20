@@ -1,6 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { API_HOSTNAME, FETCH_ALL_EMPLOYEES } from "../../constants/ApiConstants";
-import { settingEmployees } from "../../reducers/DB";
+import { settingEmployees, settingEmployeesFetching, settingEmployeesFulfilled, settingEmployeesRejected } from "../../reducers/DB";
 
     // Läd alle Mitarbeiter aus der Datenbank
     export async function FetchEmployees(dispatch, getState) {
@@ -10,6 +10,7 @@ import { settingEmployees } from "../../reducers/DB";
             const myInit = { // OPTIONAL
                 body: user.attributes
             };
+            dispatch(settingEmployeesFetching())
             return API.post(apiName, path, myInit)
             })
             .then(response => {
@@ -31,8 +32,15 @@ import { settingEmployees } from "../../reducers/DB";
                             position: JSON.parse(item.position.S),
                             bewerbungen: JSON.parse(item.bewerbungen.S)
                         };
+                        if(Object.keys(item).includes("onboarding")) {
+                            employees[item.SK.S].onboarding = JSON.parse(item.onboarding.S)
+                        }
                     });
+                dispatch(settingEmployeesFulfilled())
                 dispatch(settingEmployees(employees))
                 })
+            .catch(error => {
+                dispatch(settingEmployeesRejected())
+            })
     
       }

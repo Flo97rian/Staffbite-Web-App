@@ -10,12 +10,37 @@ import {
 } from "reactstrap"
 import Form from 'react-bootstrap/Form';
 import _ from "lodash";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { thunkUpdateShiftPlan } from "../store/middleware/UpdateShiftPlan";
+import { declineShiftTrade, settingShiftTrade } from "../reducers/Shiftplan";
+import { settingEmployeeTargetShiftTrade } from "../reducers/userInput";
 
 function CardTradeShift (props) {
+    const dispatch = useDispatch();
+    const userInputEmployeeTrade = useSelector(state => state.userInput.employeeTargetShiftTrade)
     const shiftplan = useSelector(state => state.Shiftplan);
-    if (!_.isEmpty(shiftplan.id)) {
-        if (_.isArray(_.get(shiftplan, "tauschanfrage", []))) {
+    const shiftTrades = useSelector(state => state.Shiftplan.tauschanfrage);
+    const displayShiftplan = useSelector(state => state.display.displayShiftplan)
+    //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
+    const acceptShiftTrade = (index) => {
+        let targetEmployee = {};
+        if(userInputEmployeeTrade === "") {
+            const targetId = Object.keys(shiftTrades[index].applicants)[0];
+            targetEmployee[targetId] = shiftTrades[index].applicants[targetId];
+            dispatch(settingEmployeeTargetShiftTrade(targetEmployee))
+        } else {
+            targetEmployee = {...userInputEmployeeTrade};
+        }
+        dispatch(settingShiftTrade({tradeIndex: index, newEmployee: {...targetEmployee}}))
+        dispatch(thunkUpdateShiftPlan(shiftplan, !1));
+    };
+
+    //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
+    const deleteShiftTrade = (index) => {
+        dispatch(declineShiftTrade(index))
+        dispatch(thunkUpdateShiftPlan(shiftplan, !1));
+      };
+        if (displayShiftplan) {
             return (
                 <Row className="mt-4">
             <div className="col">
@@ -24,7 +49,7 @@ function CardTradeShift (props) {
                     <h3 className="mb-0">Tauschanfragen</h3>
                 </CardHeader>
                 <CardBody>
-                {shiftplan.tauschanfrage.map((item, index) => (
+                {shiftTrades.map((item, index) => (
                 <ListGroup flush>
                     <ListGroupItem className="mt-2">
                         <Row>
@@ -33,7 +58,7 @@ function CardTradeShift (props) {
                             </Col>
                             <Col xs={3}>
                                 { Object.keys(item.applicants).length > 0 ?
-                                <Form.Control as="select" type="text" defaultValue={Object.keys(item.applicants)[0]} name="setTrade" onChange={(e) => props.onChange(e)}>
+                                <Form.Control as="select" type="text" defaultValue={Object.keys(item.applicants)[0]} name="setTrade" onChange={(event) => dispatch(settingEmployeeTargetShiftTrade({[event.target.value]: item.applicants[event.target.value]}))}>
                                 {Object.keys(item.applicants).map((applicant, index) =>
                                 <option value={applicant}>{item.applicants[applicant]}</option>
                                 )}
@@ -44,11 +69,11 @@ function CardTradeShift (props) {
                             </Col>
                             <Col xs={3}>
                                 { Object.keys(item.applicants).length > 0 ?
-                                <Button className="float-right" color="success" onClick={(e) => props.onTradeSubmit(index)}>Annehmen</Button>
+                                <Button className="float-right" color="success" onClick={(e) => acceptShiftTrade(index)}>Annehmen</Button>
                                 :
                                 <Button className="float-right" color="success" disabled>Annehmen</Button>
                                 }
-                                <Button className="float-left" color="warning"onClick={(e) => props.onCancelSumbit(index)}>Ablehnen</Button>
+                                <Button className="float-left" color="warning"onClick={(e) => deleteShiftTrade(index)}>Ablehnen</Button>
                             </Col>
                         </Row>
                     </ListGroupItem>  
@@ -58,12 +83,8 @@ function CardTradeShift (props) {
                 </Card>
             </div>
             </Row>
-        )} else {
-            return null;
-        }
-    } else {
-        return null;
-    }
+        )}
+        return null
 }
 
 export default CardTradeShift;

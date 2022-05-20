@@ -39,7 +39,6 @@ const OpenModal = (props) => {
     const tradeShift = useSelector(state => state.modal.tradeShift);
     const editCalendarShift = useSelector(state => state.modal.editCalendarShift);
     const addCalendarShift = useSelector(state => state.modal.addCalendarShift);
-    const keytrue = props.checkTrue(modal);
     const dataModal = () => {
         if(showErstellen) {
             return <ModalAddEmployee {...props}/>
@@ -81,7 +80,7 @@ const OpenModal = (props) => {
     }
         return (
         <>
-            {keytrue ? dataModal() : <></>}
+            {Object.values(modal).includes(true) ? dataModal() : <></>}
         </>
         );
     }

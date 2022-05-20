@@ -14,11 +14,12 @@ import {
 } from "reactstrap"
 import { FEEDBACK_INVALID_NOTICE } from "../constants/FeedbackText";
 import { INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION } from "../constants/InfoTexts";
-import { settingMinQufalification } from "../reducers/Shiftplan";
+import { resettingShiftNotice, settingMinQufalification } from "../reducers/Shiftplan";
 import { settingShiftNotice } from "../reducers/userInput";
 import InfoOverlay from "./InfoOverlay";
 
 export const CalendarEditShiftAdvanced = (props) => {
+    const dispatch = useDispatch();
     const isNewShiftplan = useSelector(state => state.Shiftplan.id.length > 0);
     const index = useSelector(state => state.shiftSlot.index);
     const day = useSelector(state => state.shiftSlot.day);
@@ -28,6 +29,10 @@ export const CalendarEditShiftAdvanced = (props) => {
     const userInputShiftNotice = useSelector(state => state.userInput.shiftNotice);
     const disptach = useDispatch();
 
+
+    const resetShiftNotice = () => {
+        dispatch(resettingShiftNotice({index: index, day: day}));
+    }
     function getColor(qualifikation) {
         let color = "light";
 
@@ -59,7 +64,7 @@ export const CalendarEditShiftAdvanced = (props) => {
                                     Diese Notiz ist zu lang.
                                 </FormFeedback>
                             </FormGroup>
-                            <Button hidden={_.isEmpty(shiftNotice)} className="mt-0" color="warning" size="sm" disabled={isActive} onClick={() => props.handleResetShiftNotice()}>Zurücksetzen</Button>
+                            <Button hidden={_.isEmpty(shiftNotice)} className="mt-0" color="warning" size="sm" disabled={isActive} onClick={() => resetShiftNotice()}>Zurücksetzen</Button>
                     </Col>
                 </Row>
                 <Row className="mt-3">

@@ -41,7 +41,7 @@ import ReactGA from "react-ga"
 // core components
 import { adminroutes } from "../../../routes.js";
 import {useNavigate, useLocation } from "react-router-dom";
-import SchichtplanContainer from "../../../components/ShiftplanContainer.js";
+import SchichtplanContainer from "../../../components/AdminShiftplanContainer.js";
 import AdminNavbar from "../../../components/Navbars/AdminNavbar.js";
 import AdminFooter from "../../../components/Footers/AdminFooter"
 

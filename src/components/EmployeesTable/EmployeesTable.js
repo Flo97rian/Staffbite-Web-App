@@ -12,13 +12,16 @@ import {
 import EmployeeItem from "./EmployeeItem";
 import EmployeeItemStandard from "./EmployeeItemStandard";
 import { useSelector, useDispatch } from "react-redux";
+import { settingTemporaryEmployeeID } from "../../reducers/temporary";
+import { settingModal } from "../../reducers/modal";
 
 const EmployeesTable = (props) => {
     const dispatch = useDispatch()
-    const employees = props.mitarbeiter
+    const Employees = useSelector(state => state.DB.employees);
+    const Meta = useSelector(state => state.Meta);
         return(
             <>
-                { props.meta?.stundenerfassung ? 
+                { Meta.stundenerfassung ? 
                 <>
                     <Card className="mb-1 mt-0 card_mitarbeiterliste">
                         <CardBody className="p-1">
@@ -50,29 +53,33 @@ const EmployeesTable = (props) => {
                             </Row>
                         </CardBody>
                     </Card>
-                        { employees !== !1 ? Object.keys(employees).map((ma, index) => (
-                                <div key={index}  onClick={() => {props.setSelectEmployee(ma)}}>
+                        {Object.keys(Employees).map((ma, index) => (
+                                <div 
+                                    key={index}
+                                    onClick={() => {
+                                        dispatch(settingTemporaryEmployeeID(ma));
+                                        dispatch(settingModal(ma));
+                                    }}    
+                                >
                                    <EmployeeItem 
                                    {...props}
                                    key= {ma}
                                    id={ma}
-                                   aktiv={employees[ma].aktiv}
-                                   email={employees[ma].email}
-                                   name={employees[ma].name}
-                                   akutellerverdienst={employees[ma].akutellerverdienst}
-                                   position={employees[ma].position}
-                                   stundenlohn={employees[ma].stundenlohn}
-                                   zielmtleuro={employees[ma].zielmtleuro}
-                                   zielmtlh={employees[ma].zielmtlh}
-                                   ueberstunden={employees[ma].ueberstunden}
-                                   frei={employees[ma].frei}
-                                   erfahrung={employees[ma].erfahrung}
-                                   schichtenwoche={employees[ma].schichtenwoche}
+                                   aktiv={Employees[ma].aktiv}
+                                   email={Employees[ma].email}
+                                   name={Employees[ma].name}
+                                   akutellerverdienst={Employees[ma].akutellerverdienst}
+                                   position={Employees[ma].position}
+                                   stundenlohn={Employees[ma].stundenlohn}
+                                   zielmtleuro={Employees[ma].zielmtleuro}
+                                   zielmtlh={Employees[ma].zielmtlh}
+                                   ueberstunden={Employees[ma].ueberstunden}
+                                   frei={Employees[ma].frei}
+                                   erfahrung={Employees[ma].erfahrung}
+                                   schichtenwoche={Employees[ma].schichtenwoche}
                                    ></EmployeeItem>
                                </div>
                                ))
-                        : 
-                        <></>
                         }
                     </>
                   :
@@ -101,25 +108,29 @@ const EmployeesTable = (props) => {
                             </Row>
                         </CardBody>
                     </Card>
-                            { employees !== !1 ? Object.keys(employees).map((ma, index) => (
-                                  <div key={index}  onClick={() => {props.setSelectEmployee(ma)}}>
+                            {Object.keys(Employees).map((ma, index) => (
+                                  <div 
+                                    key={index}
+                                    onClick={() => {
+                                        dispatch(settingTemporaryEmployeeID(ma));
+                                        dispatch(settingModal(ma));
+                                    }}
+                                    >
                                      <EmployeeItemStandard 
                                      {...props}
                                      key= {ma}
                                      id={ma}
-                                     aktiv={employees[ma].aktiv}
-                                     email={employees[ma].email}
-                                     name={employees[ma].name}
-                                     position={employees[ma].position}
-                                     ueberstunden={employees[ma].ueberstunden}
-                                     frei={employees[ma].frei}
-                                     erfahrung={employees[ma].erfahrung}
-                                     schichtenwoche={employees[ma].schichtenwoche}
+                                     aktiv={Employees[ma].aktiv}
+                                     email={Employees[ma].email}
+                                     name={Employees[ma].name}
+                                     position={Employees[ma].position}
+                                     ueberstunden={Employees[ma].ueberstunden}
+                                     frei={Employees[ma].frei}
+                                     erfahrung={Employees[ma].erfahrung}
+                                     schichtenwoche={Employees[ma].schichtenwoche}
                                      ></EmployeeItemStandard>
                                 </div>
                                  ))
-                            :
-                            <></>
                             }
                         </>
             }

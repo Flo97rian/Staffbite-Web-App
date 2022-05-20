@@ -17,28 +17,17 @@
 */
 import React, {useEffect, useRef, useState} from "react";
 import { Link } from "react-router-dom";
-// reactstrap components
-import classnames from "classnames";
 import {
   Container,
   Row,
-  CardFooter,
   CardHeader,
   CardBody,
-  CardImg,
   Card,
-  CardTitle,
-  Nav,
-  NavItem,
-  NavLink,
-  CardText,
-  CardSubtitle,
   Col,
   Button
 
 } from "reactstrap";
 // core components
-import { pageview } from "react-ga";
 import ReactGA from "react-ga";
 import LandingNavBar from "../../components/Navbars/LandingNavbar"
 import LandingFooter from "../../components/Footers/LandingFooter";

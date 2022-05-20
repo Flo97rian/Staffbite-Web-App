@@ -14,12 +14,17 @@ import { FEEDBACK_INVALID_NOTICE } from "../constants/FeedbackText";
 import { INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION } from "../constants/InfoTexts";
 import InfoOverlay from "./InfoOverlay";
 import { useSelector, useDispatch } from "react-redux";
+import { resettingShiftNotice } from "../reducers/Shiftplan";
 
 export const FormEditShift = (props) => {
+    const dispatch = useDispatch()
     const index = useSelector(state => state.shiftSlot.index);
     const day = useSelector(state => state.shiftSlot.day);
     const isNewShiftplan = _.isObject(props.Schichtplan); 
 
+    const resetShiftNotice = () => {
+        dispatch(resettingShiftNotice({index: index, day: day}));
+    }
     function getShiftActive () {
         let active = !1;
         let isActive; 
@@ -94,7 +99,7 @@ export const FormEditShift = (props) => {
                                         Diese Notiz ist zu lang.
                                     </FormFeedback>
                                 </FormGroup>
-                                <Button hidden={_.isEmpty(getShiftNotice())}classname="mt-0"color="warning" size="sm" disabled={getShiftActive()} onClick={() => props.handleResetShiftNotice(props.modalkey)}>Zurücksetzen</Button>
+                                <Button hidden={_.isEmpty(getShiftNotice())}classname="mt-0"color="warning" size="sm" disabled={getShiftActive()} onClick={() => resetShiftNotice()}>Zurücksetzen</Button>
                         </Col>
                     <Col xs={1} ></Col>
                 </Row>

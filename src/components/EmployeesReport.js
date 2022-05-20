@@ -6,22 +6,6 @@ import Reporting from "./Reporting/ReportingBody/Reporting";
 
 
 function EmployeesReport (props) {
-    const {Employees, Report, filter, filterIsActive} = props;
-    EmployeesReport.propTypes = {
-        LoadingReport: PropTypes.bool.isRequired,
-        Employees: PropTypes.object.isRequired,
-        Report: PropTypes.object.isRequired,
-        filter: PropTypes.object.isRequired,
-        filterIsActive: PropTypes.bool.isRequired
-    }
-
-    EmployeesReport.defaultProps = {
-        LoadingReport: false,
-        Employees: {},
-        Report: {},
-        filter: {},
-        filterIsActive: false
-    }
     return (
         <Col>
             <Row>
@@ -33,11 +17,7 @@ function EmployeesReport (props) {
                 <Col>
                     <Card className="shadow card_aktuellerSchichtplan">
                         <CardBody>
-                            <Reporting
-                            Report={Report}
-                            filterIsActive={filterIsActive}
-                            filter={filter}
-                            Employees={Employees}/>
+                            <Reporting/>
                         </CardBody>
                     </Card>
                 </Col>

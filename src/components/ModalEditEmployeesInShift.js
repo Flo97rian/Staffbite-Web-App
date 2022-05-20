@@ -9,6 +9,7 @@ import DragAndDrop from "./EmployeesDnDForSingleShift";
 import FormSetApplicantsDetails from "./FormSetApplicantsDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
+import { resettingUserInput } from "../reducers/userInput";
 
 const ModalEditEmployeesInShift = (props) => {
     const dispatch = useDispatch();
@@ -55,7 +56,12 @@ const ModalEditEmployeesInShift = (props) => {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button  color="link" onClick={() => dispatch(resettingModal())}> Schließen </Button>
+                    <Button  color="link" 
+                        onClick={() => {
+                            dispatch(resettingModal());
+                            dispatch(resettingUserInput());
+                        }}
+                    > Schließen </Button>
                     <Button color="success" onClick={() => props.selectBewerber(props.modalkey, DragAndDropRef)}>Änderungen übernehmen</Button>
                 </Modal.Footer>
             </Modal>

@@ -16,8 +16,12 @@ import { INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_START, INFO_SHIFTPLAN_S
 import Switch from "./Switch";
 import { useSelector, useDispatch } from "react-redux";
 import { settingShiftEnd, settingShiftIsDayly, settingShiftName, settingShiftNumberOfEmployees, settingShiftStart } from "../reducers/userInput";
+import { deletingCalendarShift } from "../reducers/Shiftplan";
+import { resettingModal } from "../reducers/modal";
 
 const CalendarEditShift = (props) => {
+    const index = useSelector(state => state.shiftSlot.index);
+    const day = useSelector(state => state.shiftSlot.day);
     const shift = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day]);
     const shiftRow = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index]);
     const shiftDetails = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag);
@@ -25,6 +29,10 @@ const CalendarEditShift = (props) => {
     const userInputName = useSelector(state => state.userInput.shiftName);
     const dispatch = useDispatch()
 
+    const deleteShift = () => {
+        dispatch(deletingCalendarShift({day: day, index: index}))
+        dispatch(resettingModal())
+    }
     if(_.isEmpty(shift)) 
         return null
     let isDayly = true;
@@ -63,7 +71,7 @@ const CalendarEditShift = (props) => {
                     <Row className="mt-2">
                         <Col>
                             <Card className="mb-2">
-                            <Button size="sm" outline color="danger" onClick={() => props.handleCalendarDeleteShift()}>Schicht löschen</Button>
+                            <Button size="sm" outline color="danger" onClick={() => deleteShift()}>Schicht löschen</Button>
                             </Card>
                         </Col>
                     </Row>

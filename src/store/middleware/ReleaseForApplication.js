@@ -7,11 +7,13 @@ import { resettingShiftplan } from "../../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
 import { resettingDisplayShiftplan } from "../../reducers/display";
 
-export function thunkReleaseForApplication(shiftplan, NewDate, userInput) {
+export function thunkReleaseForApplication(shiftplan) {
     return async function releaseForApplication(dispatch, getState) {
-        let id = shiftplan.id;
-        let name = userInput.name !== shiftplan.name ? userInput.name : shiftplan.name;
-        let newDate = NewDate ? NewDate : !1;
+        const state = getState();
+        const Shiftplan = state.Shiftplan;
+        let id = state.Shiftplan.id;
+        let name = state.userInput.shiftplanName !== Shiftplan.name ? state.userInput.shiftplanName : Shiftplan.name;
+        let newDate = state.date.start ? state.date.start : !1;
         Auth.currentAuthenticatedUser().then( user => {
             const apiName = API_HOSTNAME; // replace this with your api name.
             const path = RELEASE_SHIFTPLAN_FOR_APPLICATION; //replace this with the path you have configured on your API

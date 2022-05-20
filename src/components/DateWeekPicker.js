@@ -17,30 +17,32 @@ import ReactDatetime from "react-datetime";
 import moment from 'moment';
 import { useSelector, useDispatch } from "react-redux";
 import { settingEnd, settingStart } from '../reducers/DatePicker';
+import { endOfWeek, startOfWeek } from 'date-fns';
 
 const Datepicker = (props) => {
   const dispatch = useDispatch()
   const [startDate, setStartDate] = useState();
+  const [formattedStart, setFormattedStart] = useState();
   const [endDate, setEndDate] = useState();
+  const [formattedEnd, setFormattedEnd] = useState();
 
   function handleSetDates(e) {
-    let current = moment(e)
-    let monday = moment(e)
-    let sunday = moment(e)
-    let sub = String(current._d);
-    sub = sub.substring(0, 3)
-    if(sub === "Sun") {
-        monday.subtract(1,'w')
-        sunday.subtract(1,'w')
-    }
-    monday.day(1)
-    sunday.day(7)
-    setStartDate(monday)
-    setEndDate(sunday)
+    const monday = startOfWeek(e, { weekStartsOn: 1 });
+    const sunday = endOfWeek(e, { weekStartsOn: 1 });
+    setFormattedStart(monday);
+    setFormattedEnd(sunday)
+    setStartDate(moment(monday));
+    setEndDate(moment(sunday));
   }
   useEffect(() => {
-    dispatch(settingStart(startDate))
-    dispatch(settingEnd(endDate))
+    if(startDate && endDate) {
+      console.log(formattedStart, formattedEnd);
+      const start = formattedStart.getDate() + "." + (formattedStart.getMonth() + 1) + "." + formattedStart.getFullYear()
+      const end = formattedEnd.getDate() + "." + (formattedEnd.getMonth() + 1) + "." + formattedEnd.getFullYear()
+      console.log(start, end);
+      dispatch(settingStart(start))
+      dispatch(settingEnd(end))
+  }
 }, [endDate, startDate])
 
     return (
@@ -91,7 +93,7 @@ const Datepicker = (props) => {
                     );
                   }
                   }}
-                  onChange={e => handleSetDates(e)}
+                  onChange={e => handleSetDates(e.toDate())}
                 />
               </InputGroup>
             </FormGroup>

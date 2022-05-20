@@ -1,22 +1,20 @@
 import React from "react";
 import {
     Col,
-    Row
+    Row,
+    Badge
 } from "reactstrap"
 import InputBadges from "../../InputBadges";
 import Datepicker from "../../DatePicker";
 import InfoLabel from "../../InfoLabel";
 import PropTypes from "prop-types"
+import { useSelector, useDispatch } from "react-redux";
+import { resettingReportFilter, settingReportFilter } from "../../../reducers/userInput";
 
-function ReportFilter ({filter, onClickFilter}) {
-    ReportFilter.propTypes = {
-        filter: PropTypes.object.isRequired,
-        onClickFilter: PropTypes.func.isRequired,
-    }
-    ReportFilter.defaultProps = {
-        filter: {},
-        onClickFilter: () => console.log("No Filter Funktion")
-    }
+function ReportFilter () {
+    const dispatch = useDispatch();
+    const defaultFilter = ["bewerbungen", "schichten"];
+    const userInputFilter = useSelector(state => state.userInput.reportFilter);
         return(
             <>                
             <Row>
@@ -26,8 +24,12 @@ function ReportFilter ({filter, onClickFilter}) {
                 <Datepicker size="lg" start="WochenStart" ende="WochenEnde" placeholderAnfang="Anfang" placeholderEnde="Ende" />  
                 <br/>
                 <InfoLabel title="Filter" description="Markieren Sie die auszuwählenden Filter"></InfoLabel>
-                <InputBadges title="bewerbungen" filter={filter} onClickFilter={onClickFilter}></InputBadges>
-                <InputBadges title="schichten"  filter={filter} onClickFilter={onClickFilter}></InputBadges>
+                {defaultFilter.map(filter => {
+                    if(Object.keys(userInputFilter).includes(filter)) {
+                        return <Badge color="primary" pill onClick={() => dispatch(resettingReportFilter(filter))}>{filter}</Badge>
+                    }
+                    return <Badge color="light" pill onClick={() => dispatch(settingReportFilter(filter))}>{filter}</Badge>    
+                })}
                 <br/>
                 </Col>
                 <Col xs={1} ></Col>

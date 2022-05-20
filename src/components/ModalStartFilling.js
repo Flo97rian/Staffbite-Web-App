@@ -10,10 +10,18 @@ import Form from 'react-bootstrap/Form';
 import BefuellungStarten from "./FormStartFilling";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
+import { thunkStartAlg } from "../store/middleware/StartAlg";
 
 const ModalStartFilling = (props) => {
     const dispatch = useDispatch();
     const showBefuellungStarten = useSelector(state => state.modal.showBefuellungStarten);
+    const Shiftplan = useSelector(state => state.Shiftplan);
+
+    const startFilling = () => {
+        const id = Shiftplan.id;
+        dispatch(thunkStartAlg(id));
+        dispatch(resettingModal())
+        }
         return (
             <Modal 
                     size="lg"
@@ -34,12 +42,12 @@ const ModalStartFilling = (props) => {
                             <Form.Label>Befüllungart</Form.Label>
                         </Col>
                     </Row>
-                    <BefuellungStarten {...props}></BefuellungStarten>
+                    <BefuellungStarten zeitraum={Shiftplan.zeitraum}></BefuellungStarten>
                     <br/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button color="link" onClick={() => dispatch(resettingModal())}> Schließen </Button>
-                    <Button color="success" onClick={() => props.startAlg(props.modalkey)}> Ausführen </Button>
+                    <Button color="success" onClick={() => startFilling()}> Ausführen </Button>
                 </Modal.Footer>
             </Modal>
         );

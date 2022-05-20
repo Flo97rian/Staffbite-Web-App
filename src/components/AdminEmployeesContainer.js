@@ -4,7 +4,6 @@ import {
     Row,
     Button
   } from "reactstrap";
-import Spinner from 'react-bootstrap/Spinner';
 import Joyride from 'react-joyride';
 import NotificationAlert from "react-notification-alert";
 import MitarbeiterTabelle from "./EmployeesTable/EmployeesTable.js";
@@ -14,30 +13,24 @@ import { FetchEmployees } from "../store/middleware/FetchEmployees.js";
 import { FetchOrg } from "../store/middleware/FetchOrg";
 import store from "../store.js";
 import { useSelector, useDispatch } from "react-redux";
-import { thunkDeleteEmployee } from "../store/middleware/DeleteEmployee.js";
-import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee.js";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile.js";
 import employeeStates from "../constants/EmployeeDefault"
-import { Employee } from "../libs/Employee.js";
+import { Employee } from "./deprecated/Employee.js";
 import { WARNING_MISSING_EMPLOYEE_DETAILS } from "../constants/Alerts.js";
 import InfoSidebar from "./Sidebar/InfoSidebar.js";
 import { useLocation } from "react-router-dom";
 import { ONBOARDING_TEAM_INVITE, ONBOARDING_TEAM_OVERVIEW } from "../constants/OnBoardingTexts.js";
-import UserDashboard from "../views/MainViews/User/Dashboard.js";
-import ButtonEmployeesRoles from "./deprecated/ButtonEmployeesRoles.js";
 import * as _ from "lodash";
 import { resettingShiftplan } from "../reducers/Shiftplan.js";
 import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan.js";
 import { resettingModal, settingModal } from "../reducers/modal.js";
 import { resettingDisplayShiftplan } from "../reducers/display.js";
 import { resettingShiftSlot } from "../reducers/ShiftSlot.js";
-import { settingTemporaryEmployeeID } from "../reducers/temporary.js";
 
 const AdminEmployeesContainer = (props) => {
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState(employeeStates);
   const [showPositionHinzufuegen, setShowPositionHinzufuegen] = useState(!1);
-  const [position, setPosition] = useState();
   const [errMsg, setErrMsg] = useState({InvalidInputForCreation: !1})
   const [state, setState] = useState({
     run: !1,
@@ -82,8 +75,8 @@ const AdminEmployeesContainer = (props) => {
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
-    store.dispatch(FetchEmployees);
-    store.dispatch(FetchOrg);
+    dispatch(FetchEmployees);
+    dispatch(FetchOrg);
     dispatch(resettingCurrentShiftplanIndex())
     dispatch(resettingShiftplan());
     dispatch(resettingShiftSlot())
@@ -100,37 +93,16 @@ const AdminEmployeesContainer = (props) => {
         setState({...state, run: showTeam})
       }
     }, [Meta]);
+
     useEffect(() => {
     }, [Employees]);
-    // Filtert auf Basis der Id, die zugehörigen Mitarbeiterdaten
-    const handleFilter = (idToSearch) => {
-      const data = Employees[idToSearch];
-      return data;
-  };
   const handleOnboarding = () => {
     let team = Meta.onboarding.team;
     let meta = Meta;
     meta.onboarding.team = !team;
     store.dispatch(thunkUpdateProfile(meta));
   }
- // Handling von Userinputs
- const handleInputChange = (event) => {
-    const key = event.target.name;
-    const val = stateSwitch(event.target.value, event);
-    setUserInput({...userInput, [key]: val }) ;
-  };
-   // Handling von Userinputs
- const handlePositionChange = (event) => {
-  const val = event.target.value;
-  setPosition(val);
-};
 
- // Überprüfung von Userinputs, ob der Input vom Typ Switch ist
- const stateSwitch = (value, event) => {
-  if (value !== "on") return value;
-    const state = handleInputSwitch(event);
-    return state;
-  };
   function Notify (type, title, err) {
     let options = {
       place: "tc",
@@ -152,26 +124,6 @@ const AdminEmployeesContainer = (props) => {
     setErrMsg({...errMsg, [err]: !1})
 
   };
-  // Diese Funktion ändert den Wert eines Switches, je nach userinput
-  const handleInputSwitch = (event) => {
-    if (event.target.checked === !1) return !1;
-      return !0;
-  };
-
-  // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
-  const getModalKey = (allmodals) => {
-    const modals = Object.entries(allmodals).map(([key, value]) =>  value ? key : null);
-    const modalfilter = modals.filter((modal) => typeof modal === "string");
-    const modal = modalfilter[0];
-    return modal;
-  };
-
-  // Untersucht, ob der Wert eines Modals auf true steht und gibt den Wert true zurück
-  const getModalTrue = (e) => {
-    const modals = Object.entries(e).map(([key, value]) => {return value;});
-    const truemodal = modals.includes(true);
-    return truemodal;
-  };
 
   const handleSetPositions = (item) => {
     let copyUserInput = {...userInput};
@@ -190,34 +142,6 @@ const AdminEmployeesContainer = (props) => {
     copyUserInput.position = copyUserInput.position.filter(element => element !== item);
     setUserInput({...copyUserInput});
   };
-  // Handling des Löschens von Mitarbeitern
-  const handleDelete = (employeeId) => {
-    store.dispatch(thunkDeleteEmployee(employeeId));
-    dispatch(resettingModal())
-  };
-
-  const handleEmployeeUpdate = (employee) => {
-    let updatedEmployee = mergeEmployeeDetails(employee, userInput);
-    updatedEmployee = {...updatedEmployee, onboarding: Meta.onboarding};
-    store.dispatch(thunkUpdateEmployee(updatedEmployee));
-    let copyMeta = Meta;
-    if (userInput.position !== Meta.schichten) {
-      userInput.position.forEach( pos => {
-        if (!Meta.schichten.includes(pos)) {
-          copyMeta.schichten.push(pos);
-        }
-      });
-      store.dispatch(thunkUpdateProfile(copyMeta));
-    }
-    dispatch(resettingModal())
-  };
-
-  const mergeEmployeeDetails = (employee, newDetails) => {
-    const NewEmployeeDetails = employee;
-    const keys = Object.keys(newDetails);
-    keys.forEach(element => { NewEmployeeDetails[element] = newDetails[element];});
-    return NewEmployeeDetails;
-  };
 
 const handlePositionHinzufuegen = () => {
   setShowPositionHinzufuegen(!showPositionHinzufuegen);
@@ -227,68 +151,6 @@ const handlePositionHinzufuegenClose = () => {
   setShowPositionHinzufuegen(!showPositionHinzufuegen);
 };
 
-const handlePositionErstellen = () => {
-  let copyUserInput = {...userInput};
-  if ("position" in copyUserInput) {
-    if(!copyUserInput.position.includes(position)) {
-      copyUserInput.position = [...copyUserInput.position, position];
-    }
-  } else if (!("position" in copyUserInput)) {
-    copyUserInput["position"] = [position];
-  }
-  else {
-    copyUserInput.position.push(position);
-  }
-  setUserInput({...copyUserInput});
-  setPosition(null);
-  setShowPositionHinzufuegen(!showPositionHinzufuegen);
-};
-
-function addNewPosition (position) {
-  const isNewPosition = !_.includes(Positions, position, 0);
-  if(!isNewPosition) return; 
-  store.dispatch(thunkUpdateProfile({...Meta, schichten: [...Positions, position]}));
-}
-
-function deletePosition (position) {
-  const hasPosition = _.includes(Positions, position, 0);
-  if(!hasPosition) return; 
-  store.dispatch(thunkUpdateProfile({...Meta, schichten: Positions.filter(pos => pos !== position)}));
-}
-
-function updatePositionAccess (position, accessValues) {
-  let currentAccessValues = _.get(Meta, "accessPosition" + [position], []);
-  console.log({...Meta, accessPosition: {...Meta.accessPosition, [position]: [...currentAccessValues, ...accessValues]}})
-  store.dispatch(thunkUpdateProfile({...Meta, accessPosition: {...Meta.accessPosition, [position]: [...currentAccessValues, ...accessValues]}}))
-}
-
-const setSelectEmployee = (ma) => {
-  dispatch(settingTemporaryEmployeeID(ma))
-  dispatch(settingModal(ma))
-};
-
-  const handleRegister = () => {
-    let copyEmployee = new Employee(userInput);
-    copyEmployee.createEmployee(userInput);
-    let isValidEmployee = copyEmployee.getEmployeeDetails();
-    if (isValidEmployee === "InvalidInputForCreation") {
-      setErrMsg({...errMsg, InvalidInputForCreation: !0})
-    } else {
-      let isValidEmployee = copyEmployee.getEmployeeDetails();
-      store.dispatch(thunkRegisterEmployee(isValidEmployee));
-      let copyMeta = Meta;
-      if (userInput.position !== Meta.schichten) {
-        userInput.position.forEach( pos => {
-          if (!Meta.schichten.includes(pos)) {
-            copyMeta.schichten.push(pos);
-          }
-        });
-        store.dispatch(thunkUpdateProfile(copyMeta));
-      }
-      setUserInput({...employeeStates});
-      dispatch(resettingModal())
-    }
-  };
   useEffect(() => {
     if(Meta && !Meta.onboarding.team) {
       document.documentElement.scrollTop = 0;
@@ -299,8 +161,6 @@ const setSelectEmployee = (ma) => {
 
         return(
           <div className="main-content px-4 mt-9" ref={mainContent}>
-         {_.isObject(Meta)
-          ?
         <Joyride
           continuous={true}
           run={run}
@@ -315,18 +175,6 @@ const setSelectEmployee = (ma) => {
             },
           }}
         />
-        :
-        <></>
-        }
-        { !Meta && !Employees ?
-        <Row className="text-center">
-          <br/>
-          <Col xs={12}>
-            <Spinner animation="grow" variant="light"/>
-          </Col>
-        </Row>
-        :
-        <>
         { errMsg.InvalidInputForCreation ? Notify("warning", WARNING_MISSING_EMPLOYEE_DETAILS, "InvalidInputForCreation") : null}
         <div className="rna-wrapper">
           <NotificationAlert ref={notificationAlert} />
@@ -358,56 +206,8 @@ const setSelectEmployee = (ma) => {
               </Button>
         </Col>
         </Row>
-                <Row className="text-center mt-0">
-                  <Col xs={4}>
-                  </Col>
-                  <Col xs={4}>
-                  </Col>
-                  <Col xs={4}>
-                  </Col>
-                </Row>
-                  {Employees && Meta ?
-                    <MitarbeiterTabelle 
-                    setSelectEmployee={setSelectEmployee}
-                    mitarbeiter={Employees}
-                    meta={Meta}
-                    >
-                    </MitarbeiterTabelle>
-                    :
-                    <>
-                    <br/>   
-                    <Row className="text-center">
-                      <br/>
-                      <Col xs={12}>
-                        <Spinner animation="grow" variant="light"/>
-                      </Col>
-                    </Row>
-                    </>
-                 }
-            <OpenModal
-            onChange={handleInputChange}
-            handleUpdate={handleEmployeeUpdate}
-            show={Modal}
-            meta={Meta}
-            userInput={userInput}
-            handleRegister={handleRegister}
-            handlePositionChange={handlePositionChange}
-            handleSetPositions={handleSetPositions}
-            handleRemovePositions={handleRemovePositions}
-            showPositionHinzufuegen={showPositionHinzufuegen}
-            handlePositionErstellen={handlePositionErstellen}
-            handlePositionHinzufuegen={handlePositionHinzufuegen}
-            handlePositionHinzufuegenClose={handlePositionHinzufuegenClose}
-            checkModalKey={getModalKey}
-            addNewPosition={addNewPosition}
-            deletePosition={deletePosition}
-            updatePositionAccess={updatePositionAccess}
-            checkTrue={getModalTrue}
-            handleFilter={handleFilter}
-            handleDelete={handleDelete}
-            ></OpenModal>
-            </>
-          }
+            <MitarbeiterTabelle/>
+            <OpenModal/>
       <InfoSidebar
         sidebarInfo={SidebarInfo}/>
         </div>

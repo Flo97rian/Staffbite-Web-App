@@ -49,6 +49,7 @@ import { settingShiftSlot } from "../reducers/ShiftSlot";
 
 export const ShiftplanElement = (props) => {
     const dispatch = useDispatch();
+    const Shiftplan = useSelector(state => state.Shiftplan);
     const setPrio = (index, day, bool) => {
         dispatch(settingModal("prioIsActive"))
         dispatch(settingShiftSlot({index: index, day: day}))
@@ -68,10 +69,10 @@ export const ShiftplanElement = (props) => {
         dispatch(settingShiftSlot({index: index, day: day}))
     };
 
-    const type = _.isString(props.id) ? props.id.split('#')[1] : "";
+    const type = _.isString(Shiftplan.id) ? Shiftplan.id.split('#')[1] : "";
     const ItemLength = props.ItemLength;
     const index = props.index;
-    const  day = props.col;
+    const day = props.col;
     const currentItem = props.currentItem[day];
     const prio = _.get(currentItem, "prio", false)
     const notice = _.get(currentItem, "notice", "");

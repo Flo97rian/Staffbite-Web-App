@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import employeeStates from "../constants/EmployeeDefault";
 const initialState = {
   plans: [],
   plansStatus: "idle",
@@ -8,7 +8,7 @@ const initialState = {
   employee: {},
   employeeStatus: "idle",
   report: {},
-  resportStatus: "idle",
+  reportStatus: "idle",
   status: false,
 }
 
@@ -59,13 +59,43 @@ const DBSlice = createSlice({
       state.employeeStatus = "rejected";
     },
     settingReportFetching(state) {
-      state.resportStatus = "loading";
+      state.reportStatus = "loading";
     },
     settingReportFulfilled(state) {
-      state.resportStatus = "fulfilled";
+      state.reportStatus = "fulfilled";
     },
     settingReportRejected(state) {
-      state.resportStatus = "rejected";
+      state.reportStatus = "rejected";
+    },
+    settingEmployeeFormDetails(state, action) {
+      const employeeID = action.payload.employeeID;
+      const userInput = action.payload.userInput;
+      if( userInput.employeeName !== state.employees[employeeID].name && 
+          userInput.employeeName !== employeeStates.employeeName
+        ) {
+          state.employees[employeeID].name = userInput.employeeName
+        }
+
+      if( userInput.employeePositions !== state.employees[employeeID].position &&
+          userInput.employeePositions !== employeeStates.employeePositions
+        ) {
+          state.employees[employeeID].position = userInput.employeePositions
+        }
+
+      if( userInput.employeeShiftsPerWeek !== state.employees[employeeID].schichtenwoche &&
+        userInput.employeeShiftsPerWeek !== employeeStates.employeeShiftsPerWeek
+      ) {
+        state.employees[employeeID].schichtenwoche = Number(userInput.employeeShiftsPerWeek);
+      }
+
+      if( userInput.employeeQualification !== state.employees[employeeID].erfahrung &&
+        userInput.employeeQualification !== employeeStates.employeeQualification
+      ) {
+        state.employees[employeeID].erfahrung = userInput.employeeQualification
+      }
+
+      state.employees[employeeID].aktiv = userInput.employeeActive
+      state.employees[employeeID].frei = userInput.employeeFree
     }
   }
 })
@@ -84,8 +114,11 @@ export const {
   settingEmployeesRejected,
   settingEmployeeFetching,
   settingEmployeeFulfilled,
-  settingEmployeeRejected
-
+  settingEmployeeRejected,
+  settingEmployeeFormDetails,
+  settingReportFetching,
+  settingReportFulfilled,
+  settingReportRejected
 } = DBSlice.actions;
 
 export default DBSlice.reducer;

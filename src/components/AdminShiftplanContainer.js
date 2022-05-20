@@ -47,7 +47,7 @@ import { resettingUserInput, settingCompanyPositions, settingShiftStart } from "
 import { deletingCalendarShift, resettingShiftplan, settingShiftplan} from "../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 import { resettingModal, settingModal } from "../reducers/modal";
-import { resettingDisplayShiftplan } from "../reducers/display";
+import { resettingDisplayNewShiftplan, resettingDisplayShiftplan } from "../reducers/display";
 import { settingNewShiftplan } from "../reducers/NewShiftPlan";
 import { resettingShiftplanChanged, settingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { resettingShiftSlot } from "../reducers/ShiftSlot";
@@ -121,7 +121,6 @@ const ShiftplanContainer = () => {
 
   const selectMeta = state => state.Meta;
   const selectEmployees = state => state.DB.employees;
-  const selectDate = state => state.date;
   const selectShiftplan = state => state.Shiftplan;
   const selectNewDate = state => state.date.start;
   const selectCurrentShiftPlan = state => state.currentShiftPlan;
@@ -135,7 +134,6 @@ const ShiftplanContainer = () => {
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
   const Employees = useSelector(selectEmployees);
-  const Date = useSelector(selectDate);
   const NewDate = useSelector(selectNewDate);
   const Shiftplan = useSelector(selectShiftplan);
   const currentShiftPlan = useSelector(selectCurrentShiftPlan);
@@ -214,26 +212,6 @@ const ShiftplanContainer = () => {
     }
   }
 
-  const shiftChange = (plan) => {
-    setShiftSwitch([...plan]);
-  };
-
-  // Überprüfung von Userinputs, ob der Input vom Typ Switch ist
-  const stateSwitch = (value, event) => {
-    if (value !== "on") return value;
-      let state = handleInputSwitch(event);
-      return state;
-  };
-
-  // Diese Funktion ändert den Wert eines Switches, je nach userinput
-  const handleInputSwitch = (event) => {
-    if (event.target.checked !== !0) return !1;
-      return !0;
-  };
-
-  const handleChangeNotice = () => {
-    setChangeNotice(!changeNotice)
-  }
 
   // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
   const getModalKey = (allmodals) => {
@@ -249,9 +227,6 @@ const ShiftplanContainer = () => {
     return truemodal;
   };
 
-  const handleUpdateProfile = () => {
-    store.dispatch(thunkUpdateProfile(Meta));
-  };
   // Diese Funktion sorgt für die Speicherung eines neuen Schichtplans und schließt im Anschluss das zugehörige Modal
   const handleNewShiftPlanSave = (modal) => {
     let newShiftplan = new NewShiftPlan();
@@ -326,55 +301,6 @@ const ShiftplanContainer = () => {
     dispatch(resettingUserInput())
     dispatch(resettingModal())
   }
-  // Diese Funktion sorgt für die Bearbeitung von einzelnen Schichten innerhalb eines Schichtplanes (Name, Start, Ende, benötigte Mitarbeiter)
-  const handleEditShiftDetails = () => {
-    if (DisplayShiftplan) {
-      let copyPlan = new ShiftPlan({...Shiftplan})
-      if(!("position" in userInput)) {
-        if(Meta.schichten.length === 0) {
-          dispatch(resettingModal())
-          setErrMsng({...ErrMsng, MissingShiftPosition: !0});
-        } else {
-        copyPlan.updateShiftDescription(index, {...userInput, position: Meta.schichten[0]});
-        }
-      } else {
-        if(Meta.schichten.length === 0) {
-          dispatch(resettingModal())
-          setErrMsng({...ErrMsng, MissingShiftPosition: !0});
-        } 
-        copyPlan.updateShiftDescription(index, userInput);
-      }
-      let shiftplan = copyPlan.getAllPlanDetails()
-      dispatch(settingShiftplan(shiftplan))
-      dispatch(resettingUserInput())
-    } else {
-      let copyPlan = new ShiftPlan({...NewShiftplan})
-      if(!("position" in userInput)) {
-        if(Meta.schichten.length === 0) {
-          dispatch(resettingModal())
-          setErrMsng({...ErrMsng, MissingShiftPosition: !0});
-        } else {
-          copyPlan.updateShiftDescription(index, {...userInput, position: Meta.schichten[0]});
-        }
-      } else {
-        copyPlan.updateShiftDescription(index, userInput);
-      }
-      copyPlan.updateShiftDescription(index, userInput);
-      let shiftplan = copyPlan.getAllPlanDetails();
-      dispatch(settingNewShiftplan(shiftplan))
-    }
-    dispatch(resettingUserInput())
-    dispatch(settingShiftplanChanged())
-    dispatch(resettingModal())
-  };
-
-  const handleActiveShift = () => {
-    let copyPlan = new ShiftPlan({...NewShiftplan});
-    copyPlan.shiftIsActive(ShiftSlot);
-    let shiftplan = copyPlan.getAllPlanDetails();
-    dispatch(settingShiftplan(shiftplan))
-    dispatch(settingShiftplanChanged())
-    }
 
   const handleActiveInactiveShift = (index) => {
     let isNewShiftplan = typeof NewShiftplan === "object";
@@ -449,25 +375,6 @@ const ShiftplanContainer = () => {
     dispatch(resettingModal())
   };
 
-  function handleResetShiftNotice(modal) {
-    let isNewShiftplan = typeof NewShiftplan === "object";
-    if (isNewShiftplan) {
-      let copyPlan = new ShiftPlan({...NewShiftplan});
-      copyPlan.resetNotice(ShiftSlot);
-      copyPlan.getAllPlanDetails()
-      let shiftplan = copyPlan.getAllPlanDetails()
-      dispatch(settingNewShiftplan(shiftplan))
-    } else {
-      let copyPlan = new ShiftPlan({...Shiftplan});
-      copyPlan.resetNotice(ShiftSlot);
-      copyPlan.getAllPlanDetails()
-      let shiftplan = copyPlan.getAllPlanDetails()
-      dispatch(settingShiftplan(shiftplan))
-      dispatch(settingShiftplanChanged())
-    }
-    dispatch(resettingUserInput())
-  }
-
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleUpdatedShiftPlanToDB = () => {
       let copyShiftplan = new ShiftPlan({...Shiftplan});
@@ -487,12 +394,15 @@ const ShiftplanContainer = () => {
     if (ShiftplanChanged) {
       dispatch(settingModal("saveChanges"))
       dispatch(resettingDisplayShiftplan());
+      dispatch(resettingDisplayNewShiftplan());
     } else {
         dispatch(resettingCurrentShiftplanIndex())
+        console.log("resetting");
         dispatch(resettingShiftplan())
         dispatch(resettingShiftSlot())
         dispatch(resettingShiftplanChanged())
         dispatch(resettingDisplayShiftplan());
+        dispatch(resettingDisplayNewShiftplan());
     }
   }
 
@@ -531,40 +441,6 @@ const ShiftplanContainer = () => {
   };
 
   //Diese Funktion löscht einen ausgewählten Schichtplan in der Datenbank
-  function handleDeleteShiftPlan(index) {
-    store.dispatch(thunkDeleteShiftPlan({ index, Plans }));
-  }
-
-  //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
-  const handleShiftTradeToDB = (index) => {
-    let copyPlan = new ShiftPlan({...Shiftplan});
-    copyPlan.setAcceptTradeShift(userInput, index);
-    let shiftplan = copyPlan.getAllPlanDetails();
-    store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
-    dispatch(settingShiftplan(shiftplan))
-  };
-  //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
-  const handleCancelShiftTradeToDB = (index) => {
-    let copyPlan = new ShiftPlan({...Shiftplan});
-    copyPlan.setDeclineShiftTrade(index);
-    let shiftplan = copyPlan.getAllPlanDetails();
-    store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
-    dispatch(settingShiftplan(shiftplan))
-  };
-  //Diese Funktion löscht eine ausgewählte Schicht innerhalb eines ausgewählten Schichtplans
-  const handleDeleteShift = (index) => {
-    if (DisplayShiftplan) {
-      let copyPlan = new ShiftPlan({...Shiftplan});
-      copyPlan.deleteShift(index)
-      let shiftplan = copyPlan.getAllPlanDetails();
-      dispatch(settingShiftplan(shiftplan))
-      dispatch(settingShiftplanChanged())
-    } else {
-      deleteShiftFromNewShiftPlan({index, NewShiftplan});
-    }
-    dispatch(resettingModal())
-  };
-  //Diese Funktion löscht einen ausgewählten Schichtplan in der Datenbank
   const handlePublishShiftPlan = () => {
     if (ShiftplanChanged) {
       dispatch(settingModal("saveChanges"))
@@ -600,12 +476,6 @@ const ShiftplanContainer = () => {
     dispatch(resettingModal())
   }
 
-  const updateCalendarShiftTime = (info) => {
-    const copyShiftplan = new ShiftPlan({...Shiftplan});
-    copyShiftplan.updateCalendarShiftTime(info);
-    const shiftplan = copyShiftplan.getAllPlanDetails()
-    dispatch(settingShiftplan(shiftplan))
-  }
 
   const handleCalendarAddShift = () => {
     const copyShiftplan = new ShiftPlan({...Shiftplan});
@@ -615,22 +485,6 @@ const ShiftplanContainer = () => {
     dispatch(resettingModal())
   }
 
-  const handleCalendarDeleteShift = () => {
-    dispatch(deletingCalendarShift({day: day, index: index}))
-    dispatch(resettingModal())
-  }
-
-  const handleStartAlg = (modal) => {
-      store.dispatch({type: "startFetchingAlg"});
-      const id = Plans[currentShiftPlan].id;
-      store.dispatch(thunkStartAlg(id));
-      setNavIndex(3)
-      dispatch(resettingModal())
-  };
-
-  const handleAddEventSetStart = (startTime) => {
-    dispatch(settingShiftStart(startTime))
-  }
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -641,7 +495,6 @@ const ShiftplanContainer = () => {
   function showMain() {
     return (
       <>
-      {_.isObject(Meta) ?
       <Joyride
         continuous={true}
         run={run}
@@ -656,18 +509,6 @@ const ShiftplanContainer = () => {
           },
         }}
       />
-      :
-      <></>
-      }
-      { !Meta && !Employees && !Plans ?
-      <Row className="text-center">
-        <br/>
-        <Col xs={12}>
-          <Spinner animation="grow" variant="light"/>
-        </Col>
-      </Row>
-      :
-    <>
     { ErrMsng.MissingShiftDetails ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "MissingShiftDetails") : null}
     { ErrMsng.ShiftDetailsNotUpToDate ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "ShiftDetailsNotUpToDate") : null}
     { ErrMsng.MissingShiftPosition ? Notify("warning", WARNING_MISSING_SHIFT_POSITION, "MissingShiftPosition") : null}
@@ -687,7 +528,7 @@ const ShiftplanContainer = () => {
     <Button 
       color="white"
       size="lg"
-      hidden={(DisplayShiftplan && DisplayShiftplan) || !DisplayShiftplan} 
+      hidden={!DisplayNewShiftplan}
       className="float-right mt-2 ml-2 mr-0" 
       onClick={() => handleUploadShiftPlanToDB()}>
         <p className="m-0 text-muted">
@@ -706,7 +547,7 @@ const ShiftplanContainer = () => {
       </Button>
     <Button 
       className="float-right mt-2 ml-2 mr-0"
-      hidden={!_.includes(_.get(Shiftplan, "id", "").split("#"), "Entwurf")}
+      hidden={!Shiftplan.id.split('#').includes("Entwurf")}
       size="lg"
       color="primary"
       onClick={() => onClickFreigeben("showSchichtplanFreigeben")}
@@ -716,7 +557,7 @@ const ShiftplanContainer = () => {
         </p>
       </Button>
       <Button
-      hidden={!_.includes(_.get(Shiftplan, "id", "").split("#"), "Entwurf")}
+      hidden={!Shiftplan.id.split('#').includes("Entwurf")}
         className="float-right mt-2 ml-2 mr-0"
         size="lg"
         color="white"
@@ -727,7 +568,7 @@ const ShiftplanContainer = () => {
           </p>
         </Button> 
           <Button
-            hidden={!_.includes(_.get(Shiftplan, "id", "").split("#"), "Freigeben")}
+            hidden={!Shiftplan.id.split('#').includes("Freigeben")}
             className="float-right mt-2 ml-2 mr-0"
             size="lg"
             color="primary"
@@ -741,7 +582,7 @@ const ShiftplanContainer = () => {
           <Button
             size="lg"
             color="primary" className="float-right mt-2 ml-2 mr-0"
-            hidden={!_.includes(_.get(Shiftplan, "id", "").split("#"), "Review")}
+            hidden={!Shiftplan.id.split('#').includes("Review")}
             onClick={() => handlePublishShiftPlan()}
             >
               <p className="m-0 text-white">
@@ -749,7 +590,7 @@ const ShiftplanContainer = () => {
               </p>
           </Button>
           <Button
-            hidden={(DisplayShiftplan || navIndex !== 1)}
+            hidden={(DisplayShiftplan || navIndex !== 1 || DisplayNewShiftplan)}
             size="lg"
             color="primary"
             className="float-right mt-2 button_vorlage_erstellen"
@@ -773,48 +614,20 @@ const ShiftplanContainer = () => {
     </Row>
     <Row>
         <div className="col">
-             {/*<ImportSchichtplanTabelle 
-             shiftplan={Shiftplan}
-             plans={Plans}
-             employees={Employees}
-             onSwitch={shiftChange}
-             handleActive={handleActiveShift}
-             Loading={LoadingFetchingPlans}
-             Schichtplan={NewShiftplan}
-             ></ImportSchichtplanTabelle>
-            */}
-             <NeuerSchichtplanTabelle 
-             shiftplan={Shiftplan}
-             plans={Plans}
-             employees={Employees}
-             onSwitch={shiftChange}
-             Loading={FetchingPlans}
-             handleActive={handleActiveShift}
-             Schichtplan={NewShiftplan}
-             ></NeuerSchichtplanTabelle> 
+             <ImportSchichtplanTabelle/>
+             <NeuerSchichtplanTabelle/> 
             <SchichtplanImport 
               status={navIndex}
-              plaene={Plans}
-              onSwitch={shiftChange}
-              plan={currentShiftPlan}
-              Schichtplan={NewShiftplan}
-              onDelete={handleDeleteShiftPlan}
-              onClick={handleUpdateProfile}
-              org={Meta}></SchichtplanImport>
+            />
         </div>
       </Row>
-      <CalendarView
+      {/*<CalendarView
         handleAddEventSetStart={handleAddEventSetStart}
         updateCalendarShiftTime={updateCalendarShiftTime}
       ></CalendarView>
-      <SetTradeShift
-      onTradeSubmit={handleShiftTradeToDB}
-      onCancelSumbit={handleCancelShiftTradeToDB}
-      employees={Employees}
-      shiftplan={Shiftplan}
-      />
+          */}
+      <SetTradeShift/>
       <OpenModal
-          show={Modal}
           DragAndDropRef={DragAndDropRef}
           bewerber={ShiftSlot}
           shiftSlot={ShiftSlot}
@@ -827,28 +640,18 @@ const ShiftplanContainer = () => {
           checkTrue={getModalTrue}
           checkModalKey={getModalKey}
           handleSelectPrio={handleSelectPrio}
-          startAlg = {handleStartAlg}
           handleCalendarAddShift={handleCalendarAddShift}
           onSave={handleNewShiftPlanSave}
           onHandleActiveInactiveShift={handleActiveInactiveShift}
           handlePrio={handlePrioShiftToDB}
-          handleChangeNotice={handleChangeNotice}
-          onDelete={handleDeleteShiftPlan}
           handleSetTenantInShift={handleSetTenantInShift}
           handleRemoveTenantFromShift={handleRemoveTenantFromShift}
-          handleLoeschen={handleDeleteShift}
-          handleCalendarDeleteShift={handleCalendarDeleteShift}
           handleCalendarShiftChanges={handleCalendarShiftChanges}
           onSaveHinzufuegen={handleAddShift}
           selectBewerber={handleSetApplicant}
           onUpdate={handleReleaseForApplication}
-          onSaveBearbeiten={handleEditShiftDetails}
           handleUpdate={handleUpdatedShiftPlanToDB}
-          handleSchichtBearbeiten={handleEditShiftDetails}
-          handleResetShiftNotice={handleResetShiftNotice}
           ></OpenModal>
-  </>
-  }
     </>
     )
   };

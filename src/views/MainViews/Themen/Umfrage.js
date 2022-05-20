@@ -20,7 +20,6 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
 // reactstrap components
-import { HashLink } from 'react-router-hash-link';
 import {
   Container,
   Row,

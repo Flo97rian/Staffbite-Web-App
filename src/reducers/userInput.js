@@ -4,10 +4,11 @@ const initialState = {
     positions: [],
     companyName: "",
     companySurname: "",
-    shiftName: "Name",
+    shiftplanName: "",
+    shiftName: "",
     shiftPosition: "Name",
-    shiftStart: "00:00",
-    shiftEnd: "24:00",
+    shiftStart: "",
+    shiftEnd: "",
     numberOfEmployees: 0,
     minQualification: !1,
     shiftsPerDay: 1,
@@ -15,6 +16,16 @@ const initialState = {
     shiftIsDayly: !1,
     shiftplanFillingReverse: !1,
     shiftplanFillingFair: !1,
+    employeeName: "",
+    employeeShiftsPerWeek: 0,
+    employeeQualification: "Anfänger",
+    employeePositions: [],
+    employeeActive: false,
+    employeeFree: false,
+    employeeEmail: "",
+    newPosition: "",
+    reportFilter: {},
+    employeeTargetShiftTrade: ""
 }
 
 const userInputSlice = createSlice({
@@ -64,6 +75,53 @@ const userInputSlice = createSlice({
         settingShiftplanFillingFair(state, action) {
             state.shiftplanFillingFair = action.payload;
         },
+        settingEmployeeName(state, action) {
+            state.employeeName = action.payload;
+        },
+        resettingEmployeeName(state) {
+            state.employeeName = initialState.employeeName;
+        },
+        settingEmployeeShiftsPerWeek(state, action) {
+            state.employeeShiftsPerWeek = action.payload;
+        },
+        settingEmployeeQualification(state, action) {
+            state.employeeQualification = action.payload;
+        },
+        settingEmployeePositions(state, action) {
+            const newPositions = action.payload.filter(position => !state.employeePositions.includes(position))
+            state.employeePositions = [...state.employeePositions, ...newPositions];
+        },
+        settingEmployeePosition(state, action) {
+            state.employeePositions = [...state.employeePositions, action.payload];
+        },
+        resettingEmployeePositions(state, action) {
+            state.employeePositions = state.employeePositions.filter(position => position !== action.payload);
+        },
+        settingEmployeeIsActive(state, action) {
+            state.employeeActive = action.payload;
+        },
+        settingEmployeeIsFree(state, action) {
+            state.employeeFree = action.payload;
+        },
+        settingEmployeeEmail(state, action) {
+            state.employeeEmail = action.payload;
+        },
+        settingNewPosition(state, action) {
+            state.newPosition = action.payload;
+        },
+        settingReportFilter(state, action) {
+            state.reportFilter = {...state.reportFilter, [action.payload]: true}
+        },
+        resettingReportFilter(state, action) {
+            delete state.reportFilter[action.payload]
+        },
+        settingEmployeeTargetShiftTrade(state, action) {
+            console.log(action);
+            state.employeeTargetShiftTrade = action.payload;
+        },
+        settingShiftplanName(state, action) {
+            state.shiftplanName = action.payload;
+        },
         resettingUserInput(state) {
             state = initialState;
         }
@@ -86,6 +144,21 @@ export const {
     settingShiftplanFillingReverse,
     settingShiftplanFillingFair,
     resettingUserInput,
+    settingEmployeeName,
+    resettingEmployeeName,
+    settingEmployeeShiftsPerWeek,
+    settingEmployeeQualification,
+    settingEmployeePositions,
+    settingEmployeePosition,
+    settingEmployeeIsFree,
+    settingEmployeeIsActive,
+    settingEmployeeEmail,
+    settingNewPosition,
+    settingReportFilter,
+    resettingReportFilter,
+    settingEmployeeTargetShiftTrade,
+    settingShiftplanName,
+    resettingEmployeePositions,
 } = userInputSlice.actions;
   
 export default userInputSlice.reducer

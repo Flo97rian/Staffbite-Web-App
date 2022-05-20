@@ -24,22 +24,15 @@ import {
   Container,
   Row,
   Col,
-  CardImg,
-  CardText,
-  CardSubtitle,
   Card,
-  CardTitle
 } from "reactstrap";
 import SchichtplanPublish from "../../../assets/img/theme/PlanVeröffentlichen-min.png"
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {TEAM_VORTEILE_TITLE, TEAM_VORTEILE_DESCRIPTION} from "../../../constants/MetaTexts"
 import LandingFooter from "../../../components/Footers/LandingFooter";
-import CloudPicture from "../../../assets/img/themen/CloudService/CloudComputingImage.png"
-import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShiftplan-min.png";
 import SchichtplanÜbersicht from "../../../assets/img/app/App-eintragen-uebersicht-smartphone.png"
 import SchichtTauschen from "../../../assets/img/app/App-tauschanfrage-smartphone.png"
 import SchichtplanEintragen from "../../../assets/img/app/app-eintragen-smartphone.png"
-import NeewsFeed from "../../../assets/img/app/app-newsfeed-smartphone.png"
 import { isMobile } from "react-device-detect";
 import ThemenSlider from "../Themen/ThemenSlider";
 import TrialBanner from "../sub/TrialBanner";

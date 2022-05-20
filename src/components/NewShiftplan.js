@@ -33,16 +33,13 @@ const NewShiftplan = (props) => {
                         </Row>
                         <br/>
                             <Row className="text-center" noGutters={true}>
-                                <TableDnD
-                                {...props}
-                                ></TableDnD>
+                                <TableDnD/>
                             </Row>
                             </CardBody>
                             </Card>
                     </>
             );
-        } else {
-            return null;
         }
+        return null;
     }
 export default NewShiftplan;

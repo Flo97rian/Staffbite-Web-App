@@ -6,7 +6,12 @@ const initialState = {
   fair: true,
   reverse: false,
   schichten: [],
-  onboarding: {},
+  onboarding: {
+    overview: false,
+    shiftplan: false,
+    team: false,
+    settings: false,
+  },
   newsfeed: [],
   vorname: "",
   tenantCategorie: {},
@@ -28,14 +33,26 @@ const MetaSlice = createSlice({
       state.tenantCategorie = action.payload.tenantCategorie ? action.payload.tenantCategorie :  initialState.tenantCategorie;
       state.accessPosition = action.payload.accessPosition ? action.payload.accessPosition :  initialState.accessPosition;
     },
+    addingNewPosition(state, action) {
+      state.schichten = [...state.schichten, action.payload]
+    },
+    deletingPosition(state, action) {
+      state.schichten = state.schichten.filter(position => position !== action.payload);
+    },
     resettingMeta(state, action) {
       state = initialState;  
+    },
+    settingOnboardingOverview(state, action) {
+      state.onboarding.overview = action.payload;
     }
   }
 })
 
 export const {
   settingMeta,
+  addingNewPosition,
+  deletingPosition,
+  settingOnboardingOverview,
   resettingMeta
   } = MetaSlice.actions;
 

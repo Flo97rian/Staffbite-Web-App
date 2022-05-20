@@ -13,10 +13,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { settingShiftplan } from "../reducers/Shiftplan";
 import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 import { settingDisplayShiftplan } from "../reducers/display";
+import { thunkDeleteShiftPlan } from "../store/middleware/DeleteShiftPlan";
 
 const FormImportedShiftplans = (props) => {
   const displayTable = useSelector(state => state.display.displayShiftplan === false);
+  const Plans = useSelector(state => state.DB.plans);
+  const Onboarding = useSelector(state => state.Meta.onboarding);
   const dispatch = useDispatch();
+
+
+  const deleteShiftplan = (index) => {
+    dispatch(thunkDeleteShiftPlan({ index, Plans }));
+  }
     const ID = (status, item) => {
       let hasStatus = !1
       let itemStatus =  item.id.split("#")[1]
@@ -51,12 +59,11 @@ const FormImportedShiftplans = (props) => {
 
     const setCurrentShiftPlan = (id) => {
       dispatch(settingCurrentShiftplanIndex(id));
-        dispatch(settingShiftplan(props.plaene[id]))
-        dispatch(settingDisplayShiftplan());
+      dispatch(settingShiftplan(Plans[id]))
+      dispatch(settingDisplayShiftplan());
     }
 
-    if (displayTable && _.isObject(props.plaene) && _.isObject(props.org)) {
-      let Plans = props.plaene;
+    if (displayTable && Plans && Onboarding) {
       if(getHeaders(props.status)) {
         return(
           <Row>
@@ -94,10 +101,10 @@ const FormImportedShiftplans = (props) => {
                             {planIdColor(item.id)}
                         </Col>
                         <Col xs={12} md={2} lg={2}>
-                          <Button className="mt-2" name={item.label} outline disabled={props.org.onboarding.shiftplan} color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
+                          <Button className="mt-2" name={item.label} outline disabled={Onboarding.shiftplan} color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
                         </Col>
                         <Col xs={12} md={2} lg={2}>
-                        <i className="fa fa-trash fa-2x text-danger mt-3 ml-4" aria-hidden="true" onClick={() => props.onDelete(index)}></i>
+                        <i className="fa fa-trash fa-2x text-danger mt-3 ml-4" aria-hidden="true" onClick={() => deleteShiftplan(index)}></i>
                         </Col>
                         </Row>
                   </CardBody>
@@ -153,10 +160,10 @@ const FormImportedShiftplans = (props) => {
                         {planIdColor(item.id)}
                     </Col>
                     <Col xs={12} md={2} lg={2}>
-                      <Button className="mt-2" name={item.label} outline disabled={props.org.onboarding.shiftplan} color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
+                      <Button className="mt-2" name={item.label} outline disabled={Onboarding.shiftplan} color="success" onClick={() => setCurrentShiftPlan(index)}> Auswählen</Button>{' '}
                     </Col>
                     <Col xs={12} md={2} lg={2}>
-                    <i className="fa fa-trash fa-2x text-danger mt-3 ml-4" aria-hidden="true" onClick={() => props.onDelete(index)}></i>
+                    <i className="fa fa-trash fa-2x text-danger mt-3 ml-4" aria-hidden="true" onClick={() => deleteShiftplan(index)}></i>
                     </Col>
                     </Row>
               </CardBody>

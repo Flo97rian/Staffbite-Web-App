@@ -1,5 +1,5 @@
 import _ from "lodash";
-import React from "react";
+import React, {useState} from "react";
 import {
     Col,
     Row,
@@ -9,33 +9,40 @@ import {
     FormFeedback
 } from "reactstrap"
 import { FEEDBACK_INVALID_NOTICE } from "../constants/FeedbackText";
-import getShiftsNotice from "../libs/getShiftsNotice";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingShiftNotice } from "../reducers/Shiftplan";
+import { settingShiftNotice } from "../reducers/userInput";
 const ChangeShiftsNotice = (props) => {
-    const day = props.bewerber.col;
-    const row = props.bewerber.row;
-    const shiftplan = props.shiftplan.plan
-    const shiftNotice = getShiftsNotice(shiftplan, row, day);
-    let currentNotice = props.userInput.notice;
-        if(props.changeNotice) {
+    const [edit, setEdit] = useState(false);
+    const dispatch = useDispatch()
+    const index = useSelector(state => state.shiftSlot.index);
+    const day = useSelector(state => state.shiftSlot.day);
+    const ShiftNotice = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].notice)
+    const userInputShiftNotice = useSelector(state => state.userInput.shiftNotice);
+
+    const resetShiftNotice = () => {
+        dispatch(resettingShiftNotice({index: index, day: day}));
+    }
+        if(edit) {
                 return(
                     <FormGroup className="mb-3">
                         <Input
                         className="mb-2"
                         name="notice"
                         type="textarea"
-                        invalid={currentNotice.length > 80}
-                        placeholder={shiftNotice}
-                        onChange={(e) => props.onChange(e)}
+                        invalid={userInputShiftNotice.length > 80}
+                        placeholder={ShiftNotice}
+                        onChange={(event) => dispatch(settingShiftNotice(event.target.value))}
                         />
                         <FormFeedback invalid>{FEEDBACK_INVALID_NOTICE}</FormFeedback>
-                        <Button hidden={_.isEmpty(shiftNotice)} classname="mt-0"color="warning" size="sm" onClick={() => props.handleResetShiftNotice(props.modalkey)}>Zurücksetzen</Button>
+                        <Button hidden={_.isEmpty(userInputShiftNotice)} classname="mt-0"color="warning" size="sm" onClick={() => resetShiftNotice()}>Zurücksetzen</Button>
                     </FormGroup>
                 )
         }
         return (
             <p>
-                {shiftNotice}
-                <i aria-hidden="true" className="fas fa-edit text-muted m-2" onClick={() => props.handleChangeNotice()}></i>
+                {ShiftNotice}
+                <i aria-hidden="true" className="fas fa-edit text-muted m-2" onClick={() => setEdit(!edit)}></i>
             </p>
         );
 }

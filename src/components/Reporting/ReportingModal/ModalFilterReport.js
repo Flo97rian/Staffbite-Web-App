@@ -5,41 +5,63 @@ import {
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import ReportFilter from "../ReportingFilter/ReportFilter";
-import store from "../../../store";
-import PropTypes from "prop-types";
+import moment from "moment";
 import { resettingModal } from "../../../reducers/modal";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingUserInput } from "../../../reducers/userInput";
+import { thunkStartReport } from "../../../store/middleware/StartReport";
 
 const ModalFilterReport = ({filter, onClickFilter, keytrue, modalkey, getEmployeesReport}) => {
-    ModalFilterReport.propTypes = {
-        filter: PropTypes.object.isRequired,
-        keytrue: PropTypes.bool.isRequired,
-        modalkey: PropTypes.string.isRequired,
-        getEmployeesReport: PropTypes.func.isRequired,
-        onClickFilter: PropTypes.func.isRequired,
+    const dispatch = useDispatch()
+    const showReportFilter = useSelector(state => state.modal.showReportFilter);
+    const reportStartDate = useSelector(state => state.date.start);
+    const reportEndDate = useSelector(state => state.date.end);
+    const useInputReportFilter = useSelector(state => state.userInput.reportFilter);
+    const getReport = () => {
+        if( reportStartDate === undefined || 
+            reportEndDate === undefined || 
+            Object.keys(useInputReportFilter).length === 0
+        ) 
+            return
+            //setErrMsg({...errMsg, InvalidReportInput: !0})
+        let reportConfig = {
+        ...useInputReportFilter,
+        start:  reportStartDate, 
+        ende: reportEndDate
+        }
+        dispatch(thunkStartReport(reportConfig));
+        dispatch(resettingModal())
     }
-
-    ModalFilterReport.defaulfProps = {
-        keytrue: false,
-        modalkey: "",
-    };
-
         return (
             <Modal 
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     className="modal-secondary"
-                    show={keytrue} onHide={() => store.dispatch(resettingModal())}
+                    show={showReportFilter} 
+                    onHide={() => {
+                        dispatch(resettingModal())
+                        dispatch(resettingUserInput())
+                    }}
             >
                 <Modal.Header className="pb-0" closeButton>
                     <Label className="h2 m-3 align-items-center">Report starten</Label>
                 </Modal.Header>
                 <Modal.Body className="pt-1">
-                    <ReportFilter filter={filter} onClickFilter={onClickFilter}></ReportFilter>
+                    <ReportFilter/>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button color="link" size="lg" onClick={() => store.dispatch(resettingModal())}> Schließen </Button>{' '}
-                  <Button color="success" size="lg" onClick={() => getEmployeesReport(modalkey)}> Auswahl übernehmen</Button>{' '}
+                    <Button 
+                        color="link"
+                        size="lg"
+                        onClick={() => {
+                            dispatch(resettingModal())
+                            dispatch(resettingUserInput())
+                        }}
+                    > 
+                        Schließen
+                    </Button>{' '}
+                  <Button color="success" size="lg" onClick={() => getReport()}> Auswahl übernehmen</Button>{' '}
                 </Modal.Footer>
             </Modal>
         );
