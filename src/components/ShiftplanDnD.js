@@ -51,6 +51,7 @@ const ShiftplanDnD = () => {
   const Shiftplan = useSelector(state => state.Shiftplan)
   const [Items, setItems] = useState(getItems(Shiftplan.plan));
 
+
   useEffect(() => {
       setItems(getItems(Shiftplan.plan));
       }, [Shiftplan]);

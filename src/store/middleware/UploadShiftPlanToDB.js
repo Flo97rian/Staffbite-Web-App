@@ -1,5 +1,5 @@
 import { API, Auth } from "aws-amplify";
-import { FetchFromDB } from "./FetchPlansFromDB";
+import { thunkFetchShiftplans } from "./FetchPlansFromDB";
 import { API_HOSTNAME } from "../../constants/ApiConstants";
 import { UPLOAD_SHIFTPLAN } from "../../constants/ApiConstants";
 import { resettingDisplayShiftplan } from "../../reducers/display";
@@ -24,7 +24,7 @@ export function thunkUploadShiftPlanToDB(shiftplan) {
       return API.post(apiName, path, myInit)
       })
     .then(response => {
-      dispatch(FetchFromDB);
+      dispatch(thunkFetchShiftplans());
       dispatch({type: "stopFetchingSafe"});
       dispatch(resettingDisplayShiftplan());
       dispatch({type: "resetNewShiftplan"});

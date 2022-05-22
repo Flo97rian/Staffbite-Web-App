@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // reactstrap components
 import {
@@ -13,10 +13,13 @@ import PlanId from "./PlanStatus"
 import _ from "lodash";
 import ShiftplanDnD from "./ShiftplanDnD";
 import { useSelector, useDispatch } from "react-redux";
+import { createDummyshifts } from "../reducers/DB";
 
 const  ShiftplansTable = (props) => {
+    const dispatch = useDispatch();
     const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
     const Plans = useSelector(state => state.DB.plans);
+    const currentPlanIndex = useSelector(state => state.currentShiftPlan.currentShiftplanIndex)
     const Shiftplan = useSelector(state => state.Shiftplan);
     function getLegend() {
         if(Shiftplan.id !== "") {

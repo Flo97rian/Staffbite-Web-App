@@ -10,24 +10,27 @@ import FormSetApplicantsDetails from "./FormSetApplicantsDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
 import { resettingUserInput } from "../reducers/userInput";
+import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
+import { settingApplicants, settingShiftNotice } from "../reducers/Shiftplan";
+import { resettingEmployeesDummyshifts } from "../reducers/DB";
 
 const ModalEditEmployeesInShift = (props) => {
     const dispatch = useDispatch();
     const applyIsActive = useSelector(state => state.modal.applyIsActive);
-    const day = props.bewerber.col;
-    const row = props.bewerber.row;
-    const shiftplan = props.shiftplan.plan
-    let shift = shiftplan[row][day];
-    const applicants = shift.setApplicants
-    const applyedApplicants = shift.applicants
-    let hasApplicantsAfterPublish = Object.keys(shift).includes("applicantsAfterPublish")
-    let applicantsAfterPublish = hasApplicantsAfterPublish ? shift.applicantsAfterPublish : []
-    let isPublished = props.shiftplan.id.split('#')[1] === "Veröffentlicht";
-    const validApplicants = shift.setValidApplicants
-    const position = shiftplan[row]["Wochentag"].ShiftPosition;
-    const shiftanzahl = shift.anzahl
+    const index = useSelector(state => state.shiftSlot.index);
+    const day = useSelector(state => state.shiftSlot.day);
+    const shiftNotice = useSelector(state => state.userInput.shiftNotice);
 
     const DragAndDropRef = useRef()
+
+    const handleSetApplicant = () => {
+        const updateApplicant = DragAndDropRef.current;
+        dispatch(settingShiftNotice({index: index, day: day, shiftNotice: shiftNotice}));
+        dispatch(settingApplicants({index: index, day: day, updateApplicants: updateApplicant}))
+        dispatch(resettingUserInput())
+        dispatch(resettingModal())
+        dispatch(settingShiftplanChanged())
+      };
         return (
             <Modal 
                     size="lg"
@@ -35,24 +38,19 @@ const ModalEditEmployeesInShift = (props) => {
                     centered
                     scrollable={true}
                     className="modal-secondary"
-                    show={applyIsActive} onHide={() => dispatch(resettingModal())}
+                    show={applyIsActive}
+                    onHide={() => {
+                        dispatch(resettingModal());
+                        dispatch(resettingUserInput());
+                    }}
             >
                 <Modal.Header className="pb-0" closeButton>
                     <Label className="h2 m-3 align-items-center">Schicht zuteilen</Label>
                 </Modal.Header>
                 <Modal.Body className="pt-1">
-                    <FormSetApplicantsDetails {...props}/>
+                    <FormSetApplicantsDetails/>
                     <DragAndDrop
-                    ref={DragAndDropRef}
-                    applyed={applyedApplicants}
-                    valid={validApplicants}
-                    isPublished={isPublished}
-                    applicantsAfterPublish={applicantsAfterPublish}
-                    hasApplicantsAfterPublish={applicantsAfterPublish}
-                    set={applicants}
-                    position={position}
-                    anzahl={shiftanzahl}
-                    {...props}
+                        ref={DragAndDropRef}
                     />
                 </Modal.Body>
                 <Modal.Footer>
@@ -62,7 +60,7 @@ const ModalEditEmployeesInShift = (props) => {
                             dispatch(resettingUserInput());
                         }}
                     > Schließen </Button>
-                    <Button color="success" onClick={() => props.selectBewerber(props.modalkey, DragAndDropRef)}>Änderungen übernehmen</Button>
+                    <Button color="success" onClick={() => handleSetApplicant()}>Änderungen übernehmen</Button>
                 </Modal.Footer>
             </Modal>
         );

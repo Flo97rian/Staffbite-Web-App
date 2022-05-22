@@ -34,30 +34,30 @@ import {
   NavbarBrand,
 } from "reactstrap";
 import { thunkUpdateProfile } from "../../store/middleware/UpdateProfile";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import store from "../../store";
 import { Auth } from 'aws-amplify';
-import { FetchOrg } from "../../store/middleware/FetchOrg";
+import { thunkFetchOrg } from "../../store/middleware/FetchOrg";
 import {adminroutes} from "../../routes"
 import _, { replace } from "lodash";
 import getCompanyAccess from "../../libs/getCompanyAccess";
 import createCompanyRoutes from "../../libs/createCompanyRoutes";
 import { differenceInDays, differenceInMonths, isBefore } from "date-fns";
+import { resettingOnboarding } from "../../reducers/Meta";
 
 const AdminNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [routes, setRoutes] = useState([]);
   const [trialMessage, setTrialMessage] = useState("");
   const [trialClassName, setTrailClassName] = useState("");
-  let location = useLocation()
-  let navigate = useNavigate()
-  const selectMeta = state => state.Meta;
-
-  const Meta = useSelector(selectMeta);
+  const Meta = useSelector(state => state.Meta);
+  let location = useLocation();
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
     // Initiales laden der aktuellen Users
     
 useEffect(() => {
-  store.dispatch(FetchOrg);
+  dispatch(thunkFetchOrg);
 }, []);
 
 useEffect(() => {
@@ -105,7 +105,6 @@ useEffect(() => {
             to={prop.layout + prop.path}
             tag={NavLinkRRD}
             onClick={() => handleNavigate(route)}
-            activeClassName={"active"}
           >
             {activeRoute(prop.layout + prop.path) === "active" ?
             <p className="text-primary mt-2 mb-0">
@@ -176,15 +175,19 @@ async function updateTrial() {
   await store.dispatch(thunkUpdateProfile(meta));
 }
 function tourStarten() {
-  let onboarding = {
-    overview: true,
-    shiftplan: true,
-    team: true,
-    settings: true
-  }
-  let meta = Meta;
-  meta.onboarding = onboarding;
-  store.dispatch(thunkUpdateProfile(meta));
+  dispatch(
+    thunkUpdateProfile(
+      {
+        ...Meta,
+        onboarding: {
+          overview: true,
+          shiftplan: true,
+          team: true,
+          settings: true
+        }
+      }
+    )
+  );
 }
 
       return (

@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect } from "react";
 // reactstrap components
 import {
   Container
@@ -27,15 +27,44 @@ import { Router, useNavigate, useLocation } from "react-router-dom";
 import DashboardContainer from "../../../components/AdminDashboardContainer.js";
 import AdminNavbar from "../../../components/Navbars/AdminNavbar.js";
 import AdminFooter from "../../../components/Footers/AdminFooter"
-
+import { useSelector, useDispatch } from "react-redux";
+import { Auth } from "aws-amplify";
+import { settingIsAdmin, settingIsEmployee } from "../../../reducers/currentUser.js";
+import { thunkFetchOrg } from "../../../store/middleware/FetchOrg.js";
+import { thunkFetchEmployees } from "../../../store/middleware/FetchEmployees.js";
+import { thunkFetchShiftplans } from "../../../store/middleware/FetchPlansFromDB.js";
+import Loading from "../Default/Loading.js";
 
 const AdminDashboard = () => {
+  const dispatch = useDispatch();
+  const isAdmin = useSelector(state => state.currentUser.userType === "isAdmin");
+  const metaStatus = useSelector(state => state.DB.metaStatus);
+  const employeesStatus = useSelector(state => state.DB.employeesStatus);
+  const plansStatus = useSelector(state => state.DB.plansStatus);
   const navigate = useNavigate()
   let location = useLocation()
 
-  React.useEffect(() => {
+  useEffect(() => {
     pageViewsTracking()
+    dispatch(thunkFetchOrg());
+    dispatch(thunkFetchEmployees());
+    dispatch(thunkFetchShiftplans());
+    if(!isAdmin) {
+      isLoggedIn()
+    }
   },[])
+
+  async function isLoggedIn () {
+    let user = await Auth.currentAuthenticatedUser();
+    if(user.username === user.attributes["custom:TenantId"]) {
+      dispatch(settingIsAdmin())
+    }
+
+    if(user.username !== user.attributes["custom:TenantId"]) {
+      dispatch(settingIsEmployee())
+      navigate("/no-admin") ;
+    }
+  }
 
   function pageViewsTracking () {
     const pathname = "/admin";
@@ -58,6 +87,17 @@ const AdminDashboard = () => {
     }
     return "Brand";
   };
+
+  function DashboardContent() {
+    if( metaStatus !== "fulfilled" ||
+    employeesStatus !== "fulfilled" ||
+    plansStatus !== "fulfilled"
+    ) {
+      return <Loading/>;
+    }
+    return <DashboardContainer/>
+  }
+  
     return (
       <div>
         <Container fluid>
@@ -70,7 +110,7 @@ const AdminDashboard = () => {
             }}
             brandText={getBrandText(location)}
           />
-          <DashboardContainer></DashboardContainer>
+          <DashboardContent />
           <AdminFooter />
         </Container>
       </div>

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Payment.css';
-import { useSelector } from "react-redux";
 import { API_HOSTNAME } from "../../constants/ApiConstants";
 import { API, Auth } from "aws-amplify";
-import PropTypes from 'prop-types';
 import * as _ from "lodash"
 import { Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -14,8 +12,6 @@ function Payment({EmployeesLength}) {
   let [success, setSuccess] = useState(false);
   let [sessionId, setSessionId] = useState('');
   let [sessionURL, setSessionURL] = useState("");
-  let [stripe, setStripe] = useState(false);
-  let [options, setOptions] = useState(false);
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
@@ -44,12 +40,10 @@ function Payment({EmployeesLength}) {
     console.log("create");
     let response;
     let user = await Auth.currentAuthenticatedUser()
-    console.log(user);
     if(_.hasIn(user, "attributes.email")) {
       const email = user.attributes.email;
       response = await API.post(API_HOSTNAME, "/stripeCheckout", {body: {priceID: priceID, MitarbeiterAnzahl: EmployeesLength, email: email}})
     }
-    console.log(response);
     setSessionURL(response?.session?.url);
   }
   
@@ -238,12 +232,5 @@ const Logo = () => (
     </g>
   </svg>
 );
-// Specifies the default values for props:
-Payment.defaultProps = {
-  EmployeesLength: 0
-};
-Payment.propTypes = {
-  Employees: PropTypes.number.isRequired
-}
 
 export default Payment;

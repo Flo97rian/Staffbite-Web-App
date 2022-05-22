@@ -1,6 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { v4 as uuidv4 } from 'uuid';
-import { FetchFromDB } from "./FetchPlansFromDB";
+import { thunkFetchShiftplans } from "./FetchPlansFromDB";
 import moment from "moment";
 import { API_HOSTNAME, RELEASE_SHIFTPLAN_FOR_APPLICATION } from "../../constants/ApiConstants";
 import { resettingShiftplan } from "../../reducers/Shiftplan";
@@ -29,7 +29,7 @@ export function thunkReleaseForApplication(shiftplan) {
             return API.post(apiName, path, myInit)
             })
             .then(response => {
-                dispatch(FetchFromDB);
+                dispatch(thunkFetchShiftplans());
                 dispatch({type: "stopFetchingRelaese"});
                 dispatch(resettingDisplayShiftplan())
                 dispatch(resettingCurrentShiftplanIndex())

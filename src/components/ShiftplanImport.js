@@ -10,6 +10,7 @@ import store from "../store";
 import { useSelector, useDispatch } from "react-redux";
 import { settingShiftplan } from "../reducers/Shiftplan";
 import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
+import { createDummyshifts } from "../reducers/DB";
 
 
 const ShiftplanImport = (props) => {

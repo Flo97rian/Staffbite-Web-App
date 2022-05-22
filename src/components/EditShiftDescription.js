@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Col,
     Row,
@@ -22,14 +22,20 @@ import { settingShiftEnd, settingShiftName, settingShiftNumberOfEmployees, setti
 
 const EditShiftDescription = (props) => {
     const dispatch = useDispatch();
-    const isNewShiftplan = useSelector(state => state.Shiftplan.id === "");
-    const newShiftplanDescription = useSelector(state => state.newShiftplan?.plan[state.shiftSlot.index]?.Wochentag);
-    const ShiftplanDescription = useSelector(state => state.Shiftplan?.plan[state.shiftSlot.index]?.Wochentag);
-    const newShiftplanNumberOfEmployees = useSelector(state => state.newShiftplan?.plan[state.shiftSlot.index][state.shiftSlot.day]?.anzahl);
-    const ShiftplanNumberOfEmployees = useSelector(state => state.Shiftplan?.plan[state.shiftSlot.index][state.shiftSlot.day]?.anzahl);
-    const shiftDetails = isNewShiftplan ? newShiftplanDescription : ShiftplanDescription;
-    const anzahl = isNewShiftplan ? newShiftplanNumberOfEmployees : ShiftplanNumberOfEmployees;
+    const DisplayNewShiftplan = useSelector(state => state.display.displayNewShiftplan);
+    const newShiftplanDescription = useSelector(state => state.display.displayNewShiftplan ? state.newShiftPlan?.plan[state.shiftSlot.index]?.Wochentag : undefined);
+    const ShiftplanDescription = useSelector(state => state.display.displayShiftplan ? state.Shiftplan?.plan[state.shiftSlot.index]?.Wochentag : undefined);
+    const newShiftplanNumberOfEmployees = useSelector(state => state.display.displayNewShiftplan ? state.newShiftPlan?.plan[state.shiftSlot.index][state.shiftSlot.day]?.anzahl : undefined);
+    const ShiftplanNumberOfEmployees = useSelector(state => state.display.displayShiftplan ? state.Shiftplan?.plan[state.shiftSlot.index][state.shiftSlot.day]?.anzahl : undefined);
+    const shiftDetails = DisplayNewShiftplan ? newShiftplanDescription : ShiftplanDescription;
+    const anzahl = DisplayNewShiftplan ? newShiftplanNumberOfEmployees : ShiftplanNumberOfEmployees;
     const CompanyPositions = useSelector(state => state.Meta.schichten);
+
+    useEffect(() => {
+        if(shiftDetails.ShiftPosition === "") {
+            dispatch(settingShiftPosition(CompanyPositions[0]));
+        }
+    }, [])
 
         return(
             <>

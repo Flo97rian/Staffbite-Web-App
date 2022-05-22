@@ -8,12 +8,16 @@ import SchichtBearbeiten from "./EditShiftDescription";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
 import { deleteShift, settingShiftDescription } from "../reducers/Shiftplan";
+import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
+import { deleteNewShift, settingNewShiftDescription } from "../reducers/NewShiftPlan";
+import { settingShiftPosition } from "../reducers/userInput";
 
 const ModalEditShiftDescription = (props) => {
     const dispatch = useDispatch();
     const editShiftDescription = useSelector(state => state.modal.editShiftDescription);
     const userInput = useSelector(state => state.userInput);
-    const displayingShiftplan = useSelector(state => state.display.displayShiftplan.id !== "");
+    const displayingShiftplan = useSelector(state => state.display.displayShiftplan);
+    const displayingNewShiftplan = useSelector(state => state.display.displayNewShiftplan);
     const currentShiftIndex = useSelector(state => state.shiftSlot.index);
 
     const removeShift = () => {
@@ -21,18 +25,21 @@ const ModalEditShiftDescription = (props) => {
             dispatch(deleteShift(currentShiftIndex));
             dispatch(resettingModal());
         }
-        if(!displayingShiftplan) {
-
+        if(displayingNewShiftplan) {
+            dispatch(deleteNewShift(currentShiftIndex));
+            dispatch(resettingModal());
         }
     }
 
     const settingShiftDetail = () => {
         if(displayingShiftplan) {
             dispatch(settingShiftDescription({index: currentShiftIndex, userInput: userInput}));
+            dispatch(settingShiftplanChanged());
             dispatch(resettingModal());
         }
-        if(!displayingShiftplan) {
-
+        if(displayingNewShiftplan) {
+            dispatch(settingNewShiftDescription({index: currentShiftIndex, userInput: userInput}));
+            dispatch(resettingModal());
         }
     }
         return (

@@ -8,6 +8,7 @@ const initialState = {
   employee: {},
   employeeStatus: "idle",
   report: {},
+  metaStatus: "idle",
   reportStatus: "idle",
   status: false,
 }
@@ -67,6 +68,65 @@ const DBSlice = createSlice({
     settingReportRejected(state) {
       state.reportStatus = "rejected";
     },
+    settingEmployeeDummyShift(state, action) {
+      const employeeId = action.payload;
+      if(Object.keys(state.employees[employeeId]).includes("dummyshifts")) {
+        state.employees[employeeId].dummyshifts += 1;
+      }
+
+      if(!Object.keys(state.employees[employeeId]).includes("dummyshifts")) {
+        state.employees[employeeId].dummyshifts = 1;
+      }
+
+    },
+    resettingEmployeeDummyShift(state, action) {
+      const employeeId = action.payload;
+      if( Object.keys(state.employees[employeeId]).includes("dummyshifts") &&
+          state.employees[employeeId].dummyshifts > 0
+        ) {
+          state.employees[employeeId].dummyshifts -= 1;
+      }
+
+      if( Object.keys(state.employees[employeeId]).includes("dummyshifts") &&
+          state.employees[employeeId].dummyshifts === 0
+        ) {
+          delete state.employees[employeeId].dummyshifts;
+        }
+    },
+    resettingEmployeesDummyshifts(state) {
+      for (const [key, value] of Object.entries(state.employees)) {
+        delete value.dummyshifts;
+      }
+    },
+    createDummyshifts(state, action) {
+      const shiftplan = state.plans[action.payload];
+      const shiftplanLength = shiftplan.plan.length;
+      const shiftplanIdSplit = shiftplan.id.split('#');
+      if(shiftplanIdSplit.includes("Review") || shiftplanIdSplit.includes("Veröffentlicht")) {
+        shiftplan.plan.forEach((shiftRow, index) => {
+          if (index !== 0 && index !== 1 && index !== shiftplanLength) {
+            for ( const [key, value] of Object.entries(shiftRow)) {
+              if( key !== "Wochentag" && value.setApplicants) {
+                const employeeIds = Object.keys(value.setApplicants);
+                employeeIds.forEach(employeeId => {
+                  if( state.employees[employeeId] && 
+                      Object.keys(state.employees[employeeId]).includes("dummyshifts")
+                    ) {
+                      state.employees[employeeId].dummyshifts += 1;
+                    }
+            
+                  if( state.employees[employeeId] &&
+                      !Object.keys(state.employees[employeeId]).includes("dummyshifts")
+                    ) {
+                      state.employees[employeeId].dummyshifts = 1;
+                    }
+                })
+              }
+            }
+          }
+        })
+      }
+    },
     settingEmployeeFormDetails(state, action) {
       const employeeID = action.payload.employeeID;
       const userInput = action.payload.userInput;
@@ -96,6 +156,15 @@ const DBSlice = createSlice({
 
       state.employees[employeeID].aktiv = userInput.employeeActive
       state.employees[employeeID].frei = userInput.employeeFree
+    },
+    settingMetaFetching(state) {
+      state.metaStatus = "loading";
+    },
+    settingMetaFulfilled(state) {
+      state.metaStatus = "fulfilled"
+    },
+    settingMetaRejected(state) {
+      state.metaStatus = "rejected";
     }
   }
 })
@@ -118,7 +187,14 @@ export const {
   settingEmployeeFormDetails,
   settingReportFetching,
   settingReportFulfilled,
-  settingReportRejected
+  settingReportRejected,
+  settingEmployeeDummyShift,
+  resettingEmployeeDummyShift,
+  resettingEmployeesDummyshifts,
+  createDummyshifts,
+  settingMetaFetching,
+  settingMetaFulfilled,
+  settingMetaRejected
 } = DBSlice.actions;
 
 export default DBSlice.reducer;

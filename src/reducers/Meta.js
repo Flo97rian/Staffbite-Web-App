@@ -32,6 +32,7 @@ const MetaSlice = createSlice({
       state.newsfeed = action.payload.newsfeed ? action.payload.newsfeed :  initialState.newsfeed;
       state.tenantCategorie = action.payload.tenantCategorie ? action.payload.tenantCategorie :  initialState.tenantCategorie;
       state.accessPosition = action.payload.accessPosition ? action.payload.accessPosition :  initialState.accessPosition;
+      state.vorname = action.payload.vorname || initialState.vorname;
     },
     addingNewPosition(state, action) {
       state.schichten = [...state.schichten, action.payload]
@@ -44,6 +45,15 @@ const MetaSlice = createSlice({
     },
     settingOnboardingOverview(state, action) {
       state.onboarding.overview = action.payload;
+    },
+    settingOnboardingShiftplan(state, action) {
+      state.onboarding.shiftplan = action.payload;
+    },
+    resettingOnboarding(state) {
+      state.onboarding.overview = true;
+      state.onboarding.shiftplan = true;
+      state.onboarding.settings = true;
+      state.onboarding.team = true;
     }
   }
 })
@@ -53,7 +63,9 @@ export const {
   addingNewPosition,
   deletingPosition,
   settingOnboardingOverview,
-  resettingMeta
+  settingOnboardingShiftplan,
+  resettingMeta,
+  resettingOnboarding
   } = MetaSlice.actions;
 
 export default MetaSlice.reducer;

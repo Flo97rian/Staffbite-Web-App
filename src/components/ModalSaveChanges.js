@@ -13,16 +13,27 @@ import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 import { resettingModal } from "../reducers/modal";
 import { resettingDisplayShiftplan } from "../reducers/display";
 import { resettingShiftplanChanged } from "../reducers/shiftplanChanged";
+import { thunkUpdateShiftPlan } from "../store/middleware/UpdateShiftPlan";
+import { resettingEmployeesDummyshifts } from "../reducers/DB";
 
 const ModalSaveChanges = (props) => {
     const dispatch = useDispatch();
     const saveChanges = useSelector(state => state.modal.saveChanges);
-    function ResetShiftplan (modalkey) {
+    const Shiftplan = useSelector(state => state.Shiftplan);
+
+    function ResetShiftplan () {
         dispatch(resettingCurrentShiftplanIndex())
         dispatch(resettingShiftplan())
         dispatch(resettingDisplayShiftplan());
         dispatch(resettingShiftplanChanged())
+        dispatch(resettingEmployeesDummyshifts())
         dispatch(resettingModal())
+    }
+
+    const updateShiftplan = () => {
+        dispatch(thunkUpdateShiftPlan(Shiftplan));
+        dispatch(resettingShiftplanChanged());
+        dispatch(resettingModal());
     }
         return (
             <Modal 
@@ -42,8 +53,8 @@ const ModalSaveChanges = (props) => {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button  color="warning" onClick={() => ResetShiftplan(props.modalkey)}> Änderungen ablehnen </Button>
-                    <Button color="success" onClick={() => props.handleUpdate()}>Änderungen speichern</Button>
+                    <Button  color="warning" onClick={() => ResetShiftplan()}> Änderungen ablehnen </Button>
+                    <Button color="success" onClick={() => updateShiftplan()}>Änderungen speichern</Button>
                 </Modal.Footer>
             </Modal>
         );

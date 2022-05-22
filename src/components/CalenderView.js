@@ -93,7 +93,22 @@ function CalendarView(props) {
     //getEarlyestShiftStart()
     // eslint-disable-next-line
   }, [shiftplan])
+  const handleCalendarShiftChanges = () => {
+    //const copyShiftplan = new ShiftPlan({...Shiftplan});
+    //copyShiftplan.updateCalendarShift(userInput, ShiftSlot, DragAndDropRef);
+    //const shiftplan = copyShiftplan.getAllPlanDetails()
+    //dispatch(settingShiftplan(shiftplan))
+    //dispatch(resettingModal())
+  }
 
+
+  const handleCalendarAddShift = () => {
+    //const copyShiftplan = new ShiftPlan({...Shiftplan});
+    //copyShiftplan.addCalendarShift(userInput, ShiftSlot);
+    //const shiftplan = copyShiftplan.getAllPlanDetails();
+    //dispatch(settingShiftplan(shiftplan))
+    //dispatch(resettingModal())
+  }
     const getEarlyestShiftStart = () => {
       const plan = _.get(shiftplan, "plan", [])
       let currentEarlyestStartSplit = bussinessHoursStart.split(':')

@@ -1,15 +1,18 @@
 import { API, Auth } from "aws-amplify";
 import { API_HOSTNAME, FETCH_ORGANISATION } from "../../constants/ApiConstants";
+import { settingMetaFetching, settingMetaFulfilled, settingMetaRejected } from "../../reducers/DB";
 import { settingMeta } from "../../reducers/Meta";
 
+export function thunkFetchOrg() { 
     // Läd alle Mitarbeiter aus der Datenbank
-    export async function FetchOrg(dispatch, getState) {
+    return async function FetchOrg(dispatch, getState) {
       Auth.currentAuthenticatedUser().then( user => {
         const apiName = API_HOSTNAME; // replace this with your api name.
         const path = FETCH_ORGANISATION; //replace this wi
         const myInit = { // OPTIONAL
             body: user.attributes
         };
+        dispatch(settingMetaFetching());
         return API.post(apiName, path, myInit)
         })
         .then(response => {
@@ -34,6 +37,10 @@ import { settingMeta } from "../../reducers/Meta";
             org.accessPosition = JSON.parse(response.Item.accessPosition["S"])
           }
           dispatch(settingMeta(org))
-          dispatch({type: "stopFetchingMeta"})
-            })
+          dispatch(settingMetaFulfilled())
+          })
+        .catch(error => {
+          dispatch(settingMetaRejected());
+        })
       };
+};

@@ -3,62 +3,47 @@ import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import 'moment/locale/de';
 import {
-    Card,
-    CardHeader,
     Row,
     Col,
-    CardBody,
     Button,
   } from "reactstrap";
 
 import NotificationAlert from "react-notification-alert";
 import Joyride from 'react-joyride';
-import shiftplanStates from "../constants/ShiftplanDefault"
 import Nav from "./AdminShiftplanNav";
 import { Spinner } from "reactstrap";
 import OpenModal from "./OpenModal";
-import { FetchOrg } from "../store/middleware/FetchOrg";
+import { thunkFetchOrg } from "../store/middleware/FetchOrg";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
-import NewShiftPlan from "../libs/NewShiftplan";
-import ShiftPlan from "../libs/Shiftplan";
-import { deleteShiftFromNewShiftPlan } from "../libs/handleDeleteShift"
-import { FetchFromDB } from "../store/middleware/FetchPlansFromDB";
+import { thunkFetchShiftplans } from "../store/middleware/FetchPlansFromDB";
 import { thunkUpdateShiftPlan } from "../store/middleware/UpdateShiftPlan";
 import { user } from "../store/middleware/user";
 import { thunkUploadShiftPlanToDB } from "../store/middleware/UploadShiftPlanToDB";
-import { thunkDeleteShiftPlan } from "../store/middleware/DeleteShiftPlan";
-import { thunkStartAlg } from "../store/middleware/StartAlg";
-import { thunkReleaseForApplication } from "../store/middleware/ReleaseForApplication";
 import SetTradeShift from "./CardTradeShift";
 import SchichtplanImport from "./FormImportedShiftplans";
 import store from "../store";
 import { thunkPublishShiftPlan } from "../store/middleware/PublishShiftPlan";
-import { FetchEmployees } from "../store/middleware/FetchEmployees";
+import { thunkFetchEmployees } from "../store/middleware/FetchEmployees";
 import { WARNING_MISSING_SHIFT_DETAILS, WARNING_MISSING_SHIFT_POSITION } from "../constants/Alerts";
 import ImportSchichtplanTabelle from "./ShiftplansTable";
-import ShiftplansTable from "./ShiftplansTable";
 import NeuerSchichtplanTabelle from "./NewShiftplan";
 import InfoSidebar from "./Sidebar/InfoSidebar";
 import { ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN, ONBOARDING_SHIFTPLAN_VORLAGE, ONBOARDING_SHIFTPLAN_EINTRAGEN, ONBOARDING_SHIFTPLAN_UEBERPRUEFUNG, ONBOARDING_SHIFTPLAN_VEROEFFENTLICHUNG } from "../constants/OnBoardingTexts"
-import ReloadView from "./ReloadView";
 import CalendarView from "./CalenderView";
 import _ from "lodash";
-import { resettingUserInput, settingCompanyPositions, settingShiftStart } from "../reducers/userInput";
-import { deletingCalendarShift, resettingShiftplan, settingShiftplan} from "../reducers/Shiftplan";
+import { resettingUserInput, settingCompanyPositions } from "../reducers/userInput";
+import { resettingShiftplan} from "../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 import { resettingModal, settingModal } from "../reducers/modal";
 import { resettingDisplayNewShiftplan, resettingDisplayShiftplan } from "../reducers/display";
-import { settingNewShiftplan } from "../reducers/NewShiftPlan";
-import { resettingShiftplanChanged, settingShiftplanChanged } from "../reducers/shiftplanChanged";
+import { resettingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { resettingShiftSlot } from "../reducers/ShiftSlot";
+import { resettingEmployeesDummyshifts } from "../reducers/DB";
+import { settingOnboardingShiftplan } from "../reducers/Meta";
 
 const ShiftplanContainer = () => {
   const dispatch = useDispatch();
-  const [isReloading, setIsReloading] = useState(false);
   const [navIndex, setNavIndex] = useState(1);
-  const [ShiftEmployees, setShiftEmployees] = useState(null);
-  const [ShiftSwitch, setShiftSwitch] = useState(!1);
-  const [changeNotice, setChangeNotice] = useState(!1);
   const [ErrMsng, setErrMsng] = useState({MissingShiftDetails: !1, MissingShiftPosition: !1, ShiftDetailsNotUpToDate: !1});
   const [state, setState] = useState({
     run: !1,
@@ -116,40 +101,24 @@ const ShiftplanContainer = () => {
   let notificationAlert = useRef(null)
   const location = useLocation();
   const mainContent = useRef()
-  const DragAndDropRef = useRef()
   const { run, steps } = state;
 
   const selectMeta = state => state.Meta;
-  const selectEmployees = state => state.DB.employees;
   const selectShiftplan = state => state.Shiftplan;
-  const selectNewDate = state => state.date.start;
-  const selectCurrentShiftPlan = state => state.currentShiftPlan;
-  const selectPlans = state => state.DB.plans;
-  const selectShiftSlot = state => state.shiftSlot;
   const selectNewShiftplan = state => state.newShiftPlan;
-  const selectModal = state => state.modal;
   const selectInfoSidebar = state => state.InfoSidebar;
   const selectShiftplanChanged = state => state.ShiftplanChanged.shiftplanChanged;
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
-  const Employees = useSelector(selectEmployees);
-  const NewDate = useSelector(selectNewDate);
   const Shiftplan = useSelector(selectShiftplan);
-  const currentShiftPlan = useSelector(selectCurrentShiftPlan);
-  const Plans = useSelector(selectPlans);
-  const ShiftSlot = useSelector(selectShiftSlot);
   const NewShiftplan = useSelector(selectNewShiftplan);
-  const Modal = useSelector(selectModal);
   const FetchingPlans = useSelector(state => state.DB.plansStatus === "loading");
   const SidebarInfo = useSelector(selectInfoSidebar);
   const ShiftplanChanged = useSelector(selectShiftplanChanged);
+  const OnboardingShiftplan = useSelector(state => state.Meta.onboarding.shiftplan);
   const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
-  const DisplayNewShiftplan = useSelector(state => state.display.DisplayNewShiftplan);
-  const index = useSelector(state => state.shiftSlot.index);
-  const day = useSelector(state => state.shiftSlot.day);
-  const getCurrentShift = useSelector(state => state?.shiftDtails?.shift);
-  const userInput = useSelector(state => state.userInput);
+  const DisplayNewShiftplan = useSelector(state => state.display.displayNewShiftplan);
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -158,37 +127,13 @@ const ShiftplanContainer = () => {
     dispatch(resettingShiftplan());
     dispatch(resettingDisplayShiftplan());
     dispatch(resettingShiftplanChanged())
-    store.dispatch(FetchFromDB);
-    store.dispatch(FetchOrg);
-    store.dispatch(user);
-    store.dispatch(FetchEmployees);
     }, []);
 
-  useEffect(() => {
-    if(Employees) {
-      //const employees = refractorEmployees(Employees, Plans[currentShiftPlan].plan);
-      setShiftEmployees({...Employees});
-    }
-  }, [Employees]);
-
-  useEffect(() => {
-  }, [currentShiftPlan]);
-
-  useEffect(() => {
-    console.log(Shiftplan);
-  }, [Shiftplan]);
-
-  useEffect(() => {
-  }, [Plans]);
-
-  useEffect(() => {
-  }, [isReloading]);
 
   useEffect(() => {
     if (_.isObject(Meta)) {
       dispatch(settingCompanyPositions([...Meta.schichten]))
-      let showShfitplan = Meta.onboarding.shiftplan
-      setState({...state, run: showShfitplan})
+      setState({...state, run: OnboardingShiftplan})
     }
   }, [Meta]);
 
@@ -205,62 +150,18 @@ const ShiftplanContainer = () => {
   };
 
   const handleOnboarding = () => {
-    let meta = store.getState().Meta;
-    if(_.isObject(meta)) {
-      meta.onboarding.shiftplan = !1;
-      store.dispatch(thunkUpdateProfile(meta));
-    }
+    dispatch(
+      thunkUpdateProfile(
+        {
+          ...Meta,
+          onboarding: {
+            ...Meta.onboarding,
+            shiftplan: false
+          }
+        }
+      )
+    );
   }
-
-
-  // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
-  const getModalKey = (allmodals) => {
-    const modals = Object.entries(allmodals).map(([key, value]) =>  value ? key : null);
-    const modalfilter = modals.filter((modal) => typeof modal === "string");
-    const modal = modalfilter[0];
-    return modal;
-  };
-  // Untersucht, ob der Wert eines Modals auf true steht und gibt den Wert true zurück
-  const getModalTrue = (allmodals) => {
-    let modals = Object.entries(allmodals).map(([key, value]) => {return value;});
-    let truemodal = modals.includes(true);
-    return truemodal;
-  };
-
-  // Diese Funktion sorgt für die Speicherung eines neuen Schichtplans und schließt im Anschluss das zugehörige Modal
-  const handleNewShiftPlanSave = (modal) => {
-    let newShiftplan = new NewShiftPlan();
-    newShiftplan.configure(userInput, NewDate);
-    let shiftplan = newShiftplan.getAllPlanDetails();
-    dispatch(settingNewShiftplan(shiftplan))
-    dispatch(resettingModal())
-  };
-
-  const handleSelectPrio = (qualifikation) => {
-    let isNewShiftplan = typeof NewShiftplan === "object";
-    if(isNewShiftplan) {
-      let copyPlan = new ShiftPlan({...NewShiftplan})
-      copyPlan.setPrio(ShiftSlot, qualifikation);
-      let shiftplan = copyPlan.getAllPlanDetails()
-      dispatch(settingNewShiftplan(shiftplan))
-    } else {
-    let copyPlan = new ShiftPlan({...Shiftplan})
-    copyPlan.setPrio(ShiftSlot, qualifikation);
-    let shiftplan = copyPlan.getAllPlanDetails();
-    dispatch(settingShiftplan(shiftplan))
-    }
-    }
-
-  const handleSetApplicant = (modal, updateApplicant) => {
-    let copyPlan = new ShiftPlan({...Shiftplan});
-    copyPlan.changeNotice(userInput, ShiftSlot)
-    copyPlan.adminSetApplicant(updateApplicant.current, ShiftSlot);
-    let shiftplan = copyPlan.getAllPlanDetails();
-    dispatch(settingShiftplan(shiftplan))
-    dispatch(resettingModal())
-    setChangeNotice(!1);
-    dispatch(settingShiftplanChanged())
-  };
 
   function Notify (type, title, err) {
     let options = {
@@ -284,109 +185,10 @@ const ShiftplanContainer = () => {
 
   };
 
-  const handleSetTenantInShift = () => {
-    let copyPlan = new ShiftPlan({...Shiftplan});
-    copyPlan.setTenantInShift(ShiftSlot, Meta);
-    let shiftplan = copyPlan.getAllPlanDetails();
-    dispatch(settingShiftplan(shiftplan))
-    dispatch(resettingUserInput())
-    dispatch(resettingModal())
-  }
-
-  const handleRemoveTenantFromShift = () => {
-    let copyPlan = new ShiftPlan({...Shiftplan});
-    copyPlan.removeTenantFromShift(ShiftSlot);
-    let shiftplan = copyPlan.getAllPlanDetails();
-    dispatch(settingShiftplan(shiftplan))
-    dispatch(resettingUserInput())
-    dispatch(resettingModal())
-  }
-
-  const handleActiveInactiveShift = (index) => {
-    let isNewShiftplan = typeof NewShiftplan === "object";
-    if(isNewShiftplan) {
-      let copyPlan = new ShiftPlan({...NewShiftplan})
-      copyPlan.shiftIsActive(ShiftSlot);
-      let shiftplan = copyPlan.getAllPlanDetails()
-      dispatch(settingNewShiftplan(shiftplan))
-      dispatch(resettingModal())
-    } else {
-    let copyPlan = new ShiftPlan({...Shiftplan})
-    copyPlan.shiftIsActive(ShiftSlot);
-    let shiftplan = copyPlan.getAllPlanDetails()
-    dispatch(settingShiftplan(shiftplan))
-    dispatch(resettingModal())
-    dispatch(settingShiftplanChanged())
-    }
-    }
-
-
-
-  //Dise Funktion sorgt für das Hinzufügen einer neuen Schicht zum jeweiligen Schichtplan
-  const handleAddShift = (index) => {
-    if (DisplayShiftplan) {
-      let copyPlan = new ShiftPlan({...Shiftplan});
-      if(!("position" in userInput)) {
-        if(Meta.schichten.length === 0) {
-          dispatch(resettingModal())
-          setErrMsng({...ErrMsng, MissingShiftPosition: !0});
-        } else {
-          copyPlan.addNewShiftToPlan({...userInput, position: Meta.schichten[0]});
-        }
-      } else {
-        copyPlan.addNewShiftToPlan(userInput);
-      }
-      copyPlan.getAllPlanDetails()
-      let shiftplan = copyPlan.getAllPlanDetails()
-      dispatch(settingShiftplan(shiftplan))
-      dispatch(resettingUserInput())
-    } else {
-      let copyPlan = new ShiftPlan({...NewShiftplan});
-      copyPlan.addNewShiftToPlan(userInput);
-      copyPlan.getAllPlanDetails()
-      let shiftplan = copyPlan.getAllPlanDetails()
-      dispatch(settingNewShiftplan(shiftplan))
-      dispatch(resettingUserInput())
-    }
-    dispatch(resettingUserInput())
-    dispatch(resettingModal())
-    dispatch(settingShiftplanChanged())
-  };
-
-  //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
-  const handlePrioShiftToDB = (modal) => {
-    let isNewShiftplan = typeof NewShiftplan === "object";
-    if (isNewShiftplan) {
-      let copyPlan = new ShiftPlan({...NewShiftplan});
-      copyPlan.changeNotice(userInput, ShiftSlot);
-      copyPlan.getAllPlanDetails();
-      let shiftplan = copyPlan.getAllPlanDetails();
-      dispatch(settingNewShiftplan(shiftplan))
-    } else {
-      let copyPlan = new ShiftPlan({...Shiftplan});
-      copyPlan.changeNotice(userInput, ShiftSlot);
-      copyPlan.getAllPlanDetails();
-      let shiftplan = copyPlan.getAllPlanDetails();
-      dispatch(settingShiftplan(shiftplan))
-      dispatch(settingShiftplanChanged())
-    }
-    dispatch(resettingShiftSlot())
-    dispatch(resettingUserInput())
-    dispatch(resettingModal())
-  };
-
   //Diese Funktion sorgt für das Syncronisieren eines bearbeiteten Schichtplans mit der Datenbank
   const handleUpdatedShiftPlanToDB = () => {
-      let copyShiftplan = new ShiftPlan({...Shiftplan});
-      let isVorlage = Shiftplan.id.split("#").includes("Entwurf")
-      if (isVorlage) {
-        copyShiftplan.changeShiftsOrder(ShiftSwitch);
-        let shiftplan = copyShiftplan.getAllPlanDetails();
-        store.dispatch(thunkUpdateShiftPlan(shiftplan));
-      } else {
-        let shiftplan = copyShiftplan.getAllPlanDetails();
-        store.dispatch(thunkUpdateShiftPlan(shiftplan, !0));
-      }
+      dispatch(resettingEmployeesDummyshifts())
+      dispatch(thunkUpdateShiftPlan(Shiftplan));
       dispatch(resettingModal())
   };
 
@@ -395,48 +197,46 @@ const ShiftplanContainer = () => {
       dispatch(settingModal("saveChanges"))
       dispatch(resettingDisplayShiftplan());
       dispatch(resettingDisplayNewShiftplan());
-    } else {
-        dispatch(resettingCurrentShiftplanIndex())
-        console.log("resetting");
-        dispatch(resettingShiftplan())
-        dispatch(resettingShiftSlot())
-        dispatch(resettingShiftplanChanged())
-        dispatch(resettingDisplayShiftplan());
-        dispatch(resettingDisplayNewShiftplan());
+    } 
+    if(!ShiftplanChanged) {
+      dispatch(resettingCurrentShiftplanIndex())
+      dispatch(resettingShiftplan())
+      dispatch(resettingShiftSlot())
+      dispatch(resettingEmployeesDummyshifts())
+      dispatch(resettingShiftplanChanged())
+      dispatch(resettingDisplayShiftplan());
+      dispatch(resettingDisplayNewShiftplan());
     }
   }
 
-  function onClickFreigeben (modal) {
+  function onClickFreigeben () {
     if (ShiftplanChanged) {
-      let copyShiftplan = new ShiftPlan({...Shiftplan});
-      let shiftplan = copyShiftplan.getAllPlanDetails();
-      store.dispatch({type: "isFetchPlansFromDB"});
-      store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
-      dispatch(settingModal(modal))
+      dispatch(settingModal("saveChanges"))
       dispatch(resettingShiftplanChanged())
-    } else {
-      dispatch(settingModal(modal))
+    } 
+
+    if(!ShiftplanChanged) {
+      dispatch(thunkUpdateShiftPlan(Shiftplan, !1));
+      dispatch(settingModal())
+      dispatch(resettingShiftplanChanged())
     }
   }
 
-  function onClickStartAlg (modal) {
+  function onClickStartAlg () {
     if (ShiftplanChanged) {
-      let copyShiftplan = new ShiftPlan({...Shiftplan});
-      let shiftplan = copyShiftplan.getAllPlanDetails();
-      store.dispatch({type: "isFetchPlansFromDB"});
-      store.dispatch(thunkUpdateShiftPlan(shiftplan, !1));
-      dispatch(settingModal(modal))
+      dispatch(settingModal("saveChanges"))
       dispatch(resettingShiftplanChanged())
-    } else {
-      dispatch(settingModal(modal))
+    } 
+
+    if(!ShiftplanChanged) {
+      dispatch(thunkUpdateShiftPlan(Shiftplan, !1));
+      dispatch(settingModal())
+      dispatch(resettingShiftplanChanged())
     }
   }
   //Diese Funktion fürgt einen neu erstelten Schichtplan der Datenbank hinzu
   const handleUploadShiftPlanToDB = () => {
-    let copyNewPlan = new ShiftPlan(NewShiftplan);
-    let shiftplan = copyNewPlan.getAllPlanDetails()
-    store.dispatch({type: "startFetchingSafe"});
-    store.dispatch(thunkUploadShiftPlanToDB(shiftplan));
+    dispatch(thunkUploadShiftPlanToDB(NewShiftplan));
     dispatch(resettingUserInput())
   };
 
@@ -445,45 +245,13 @@ const ShiftplanContainer = () => {
     if (ShiftplanChanged) {
       dispatch(settingModal("saveChanges"))
       dispatch(resettingShiftplanChanged())
-    } else {
-      store.dispatch({type: "startFetchingPublish"});
-      store.dispatch(thunkPublishShiftPlan(Plans[currentShiftPlan]));
+    }
+
+    if(!ShiftplanChanged) {
+      dispatch(thunkPublishShiftPlan(Shiftplan));
       setNavIndex(4);
     }
   };
-
-  const handleReleaseForApplication = (modal) => {
-    let copyPlan = new ShiftPlan({...Shiftplan});
-    let shiftplan = copyPlan.getAllPlanDetails();
-    let detailsFilled = copyPlan.checkShiftHasDetails()
-    let hasDate = NewDate.startDate !== undefined;
-    if (detailsFilled && hasDate) {
-      store.dispatch({type: "startFetchingRelease"})
-      store.dispatch(thunkReleaseForApplication(shiftplan, NewDate, userInput))
-      setNavIndex(2);
-    } else {
-      setErrMsng({...ErrMsng, MissingShiftDetails: !0});
-    }
-    dispatch(resettingModal())
-    dispatch(resettingUserInput())
-  };
-
-  const handleCalendarShiftChanges = () => {
-    const copyShiftplan = new ShiftPlan({...Shiftplan});
-    copyShiftplan.updateCalendarShift(userInput, ShiftSlot, DragAndDropRef);
-    const shiftplan = copyShiftplan.getAllPlanDetails()
-    dispatch(settingShiftplan(shiftplan))
-    dispatch(resettingModal())
-  }
-
-
-  const handleCalendarAddShift = () => {
-    const copyShiftplan = new ShiftPlan({...Shiftplan});
-    copyShiftplan.addCalendarShift(userInput, ShiftSlot);
-    const shiftplan = copyShiftplan.getAllPlanDetails();
-    dispatch(settingShiftplan(shiftplan))
-    dispatch(resettingModal())
-  }
 
 
   useEffect(() => {
@@ -628,42 +396,15 @@ const ShiftplanContainer = () => {
           */}
       <SetTradeShift/>
       <OpenModal
-          DragAndDropRef={DragAndDropRef}
-          bewerber={ShiftSlot}
-          shiftSlot={ShiftSlot}
-          Schichtplan={NewShiftplan}
-          shiftplan={Shiftplan}
-          Meta={Meta}
-          employees={ShiftEmployees}
-          changeNotice={changeNotice}
-          userInput={userInput} 
-          checkTrue={getModalTrue}
-          checkModalKey={getModalKey}
-          handleSelectPrio={handleSelectPrio}
-          handleCalendarAddShift={handleCalendarAddShift}
-          onSave={handleNewShiftPlanSave}
-          onHandleActiveInactiveShift={handleActiveInactiveShift}
-          handlePrio={handlePrioShiftToDB}
-          handleSetTenantInShift={handleSetTenantInShift}
-          handleRemoveTenantFromShift={handleRemoveTenantFromShift}
-          handleCalendarShiftChanges={handleCalendarShiftChanges}
-          onSaveHinzufuegen={handleAddShift}
-          selectBewerber={handleSetApplicant}
-          onUpdate={handleReleaseForApplication}
-          handleUpdate={handleUpdatedShiftPlanToDB}
-          ></OpenModal>
+        setNavIndex={setNavIndex}
+      />
     </>
     )
   };
-
-  function show() {
-    if(isReloading) return (<ReloadView/>)
-    else return (showMain())
-  }
         return(
           <>
             <div className="main-content mt-9 px-4" ref={mainContent}>
-                  {show()}
+                  {showMain()}
             </div>
             <InfoSidebar
               sidebarInfo={SidebarInfo}/>

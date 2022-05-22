@@ -1,5 +1,5 @@
 import { API, Auth } from "aws-amplify";
-import { FetchFromDB } from "./FetchPlansFromDB";
+import { thunkFetchShiftplans } from "./FetchPlansFromDB";
 import { API_HOSTNAME, PUBLISH_SHIFTPLAN } from "../../constants/ApiConstants";
 import { resettingShiftplan } from "../../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
@@ -22,7 +22,7 @@ export function thunkPublishShiftPlan(plan) {
             })
             .then(response => {
                 dispatch({type: "stopFetchingPublish"});
-                dispatch(FetchFromDB);
+                dispatch(thunkFetchShiftplans());
                 dispatch(resettingDisplayShiftplan())
                 dispatch(resettingCurrentShiftplanIndex())
                 dispatch(resettingShiftplan());

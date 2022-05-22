@@ -1,32 +1,37 @@
-import React, { useRef } from "react";
+import React from "react";
 import {
     Col,
     Row,
     Button,
-    Input,
-    FormGroup
 } from "reactstrap"
 import InfoLabel from "./InfoLabel";
 import { INFO_USER_NOTICE } from "../constants/InfoTexts";
 import ChangeNotice from "./ChangeShiftsNotice";
-import getShiftsName from "../libs/getShiftsName";
-import getShiftsStartTime from "../libs/getShiftsStartTime";
-import getShiftsEndTime from "../libs/getShiftsEndTime";
-import getShiftsNotice from "../libs/getShiftsNotice";
 import _ from "lodash";
-import getShiftsRequiredQualification from "../libs/getShiftsRequiredQualification";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteTenantFromShift, settingTenantInShift } from "../reducers/Shiftplan";
 
 const FormSetApplicantsDetails = (props) => {
-    const day = props.bewerber.col;
-    const row = props.bewerber.row;
-    const shiftplan = props.shiftplan.plan
-    let shift = shiftplan[row][day];
-    const shiftName = getShiftsName(shiftplan, row);
-    const shiftStart = getShiftsStartTime(shiftplan, row)
-    const shiftEnd = getShiftsEndTime(shiftplan, row);
-    const shiftNotice = getShiftsNotice(shiftplan, row, day);
-    const shiftQualification = getShiftsRequiredQualification(shiftplan, row, day)
+    const dispatch = useDispatch();
+    const index = useSelector(state => state.shiftSlot.index);
+    const day = useSelector(state => state.shiftSlot.day);
+    const Meta = useSelector(state => state.Meta);
+    const Shift = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day]);
+    const ShiftName = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftName);
+    const ShiftStart = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftStart);
+    const ShiftEnd = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftEnd);
+    const ShiftNotice = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].notice);
+    const shiftMinQualification = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].prio);
 
+    const handleRemoveTenantFromShift = () => {
+        dispatch(deleteTenantFromShift({index: index, day: day}));
+    }
+
+    const handleSetTenantInShift = () => {
+        if(Meta?.vorname) {
+            dispatch(settingTenantInShift({index: index, day: day, name: Meta.vorname}))
+        }
+      }
 
     function selfShift(shift) {
         let keys = Object.keys(shift.setApplicants)
@@ -34,16 +39,16 @@ const FormSetApplicantsDetails = (props) => {
         if(includesTenant) {
             return (
                 <>
-                <p className="text-success font-weight-bold">Selbst eingetragen<Button className="float-right" size="sm" color="danger" onClick={() => props.handleRemoveTenantFromShift()}>Zurücksetzen</Button></p>
+                <p className="text-success font-weight-bold">Selbst eingetragen<Button className="float-right" size="sm" color="danger" onClick={() => handleRemoveTenantFromShift()}>Zurücksetzen</Button></p>
                 </>
             )
         } else {
             return (
-                <Button size="sm" color="success" onClick={() => props.handleSetTenantInShift()}>Eintragen</Button>
+                <Button size="sm" color="success" onClick={() => handleSetTenantInShift()}>Eintragen</Button>
             )
         }
     }
-    if (!_.isEmpty(shiftNotice) && !_.isBoolean(shiftQualification)) {
+    if (!_.isEmpty(ShiftNotice) && !_.isBoolean(shiftMinQualification)) {
         return (
             <>
                 <Row className="mx-4">
@@ -51,7 +56,7 @@ const FormSetApplicantsDetails = (props) => {
                         <InfoLabel title="Notiz" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs="6">
-                        <ChangeNotice {...props}/>
+                        <ChangeNotice/>
                     </Col>
                 </Row>
                 <Row className="mx-4">
@@ -59,7 +64,7 @@ const FormSetApplicantsDetails = (props) => {
                         <InfoLabel title="Qualifikationsanforderung" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs="6">
-                        <p className="font-weight-bold">{shiftQualification}</p>
+                        <p className="font-weight-bold">{shiftMinQualification}</p>
                     </Col>
                 </Row>
                 <Row className="mx-4">
@@ -67,7 +72,7 @@ const FormSetApplicantsDetails = (props) => {
                         <InfoLabel title="Schicht" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs="6">
-                        <p>{shiftName} {day} {shiftStart} - {shiftEnd}</p>
+                        <p>{ShiftName} {day} {ShiftStart} - {ShiftEnd}</p>
                     </Col>
                 </Row>
                 <Row className="mx-4  mb-2">
@@ -75,12 +80,12 @@ const FormSetApplicantsDetails = (props) => {
                     <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
                 </Col>
                 <Col xs="6">
-                    {selfShift(shift)}
+                    {selfShift(Shift)}
                 </Col>
             </Row>
             </>
         )
-    } else if (_.isEmpty(shiftNotice) && !_.isBoolean(shiftQualification)) {
+    } else if (_.isEmpty(ShiftNotice) && !_.isBoolean(shiftMinQualification)) {
         return (
             <>
                 <Row className="mx-4">
@@ -88,7 +93,7 @@ const FormSetApplicantsDetails = (props) => {
                         <InfoLabel title="Notiz" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs={6}>
-                        <ChangeNotice {...props}/>
+                        <ChangeNotice/>
                     </Col>
                 </Row>
                 <Row className="mx-4">
@@ -96,7 +101,7 @@ const FormSetApplicantsDetails = (props) => {
                         <InfoLabel title="Qualifikationsanforderung" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs={6}>
-                        <p className="font-weight-bold">{shiftQualification}</p>
+                        <p className="font-weight-bold">{shiftMinQualification}</p>
                     </Col>
                 </Row>
                 <Row className="mx-4">
@@ -104,7 +109,7 @@ const FormSetApplicantsDetails = (props) => {
                         <InfoLabel title="Schicht" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs="6">
-                        <p>{shiftName} {day} {shiftStart} - {shiftEnd}</p>
+                        <p>{ShiftName} {day} {ShiftStart} - {ShiftEnd}</p>
                     </Col>
                 </Row>
                 <Row className="mx-4 mb-2">
@@ -112,12 +117,12 @@ const FormSetApplicantsDetails = (props) => {
                     <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
                 </Col>
                 <Col xs="6">
-                    {selfShift(shift)}
+                    {selfShift(Shift)}
                 </Col>
             </Row>
             </>
         )
-    }  else if(!_.isEmpty(shiftNotice) && _.isBoolean(shiftQualification)) {
+    }  else if(!_.isEmpty(ShiftNotice) && _.isBoolean(shiftMinQualification)) {
         return (
             <>
                 <Row className="mx-4">
@@ -125,7 +130,7 @@ const FormSetApplicantsDetails = (props) => {
                         <InfoLabel title="Notiz" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs={6}>
-                        <ChangeNotice {...props}/>
+                        <ChangeNotice/>
                     </Col>
                 </Row>
                 <Row className="mx-4">
@@ -133,7 +138,7 @@ const FormSetApplicantsDetails = (props) => {
                         <InfoLabel title="Schicht" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs="6">
-                        <p>{shiftName} {day} {shiftStart} - {shiftEnd}</p>
+                        <p>{ShiftName} {day} {ShiftStart} - {ShiftEnd}</p>
                     </Col>
                 </Row>
                 <Row className="mx-4 mb-2">
@@ -141,7 +146,7 @@ const FormSetApplicantsDetails = (props) => {
                     <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
                 </Col>
                 <Col xs="6">
-                    {selfShift(shift)}
+                    {selfShift(Shift)}
                 </Col>
             </Row>
             </>
@@ -154,7 +159,7 @@ const FormSetApplicantsDetails = (props) => {
                         <InfoLabel title="Notiz" description={INFO_USER_NOTICE}></InfoLabel>
                     </Col>
                     <Col xs={6}>
-                        <ChangeNotice {...props}/> 
+                        <ChangeNotice/> 
                     </Col>
                 </Row>
             <Row className="mx-4">
@@ -162,7 +167,7 @@ const FormSetApplicantsDetails = (props) => {
                     <InfoLabel title="Schicht" description={INFO_USER_NOTICE}></InfoLabel>
                 </Col>
                 <Col xs="6">
-                    <p>{shiftName} {day} {shiftStart} - {shiftEnd}</p>
+                    <p>{ShiftName} {day} {ShiftStart} - {ShiftEnd}</p>
                 </Col>
             </Row>
             <Row className="mx-4 mb-2">
@@ -170,7 +175,7 @@ const FormSetApplicantsDetails = (props) => {
                     <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
                 </Col>
                 <Col xs="6">
-                    {selfShift(shift)}
+                    {selfShift(Shift)}
                 </Col>
             </Row>
             </>

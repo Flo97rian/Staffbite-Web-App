@@ -2,7 +2,8 @@ import { API, Auth } from "aws-amplify";
 import { FETCH_ALL_PLANS, API_HOSTNAME } from "../../constants/ApiConstants";
 import { settingPlansFetching, settingPlansFulfilled, settingPlansRejected, settingShiftplans } from "../../reducers/DB";
 
-export async function FetchFromDB(dispatch, getState) {
+export function thunkFetchShiftplans () {
+    return async function FetchFromDB(dispatch, getState) {
     Auth.currentAuthenticatedUser().then( user => {
         const apiName = API_HOSTNAME; // replace this with your api name.
         const path = FETCH_ALL_PLANS; //replace this with the path you have configured on your API
@@ -29,4 +30,5 @@ export async function FetchFromDB(dispatch, getState) {
         }).catch(error => {
             dispatch(settingPlansRejected())
         })        
+}
 }

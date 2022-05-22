@@ -12,6 +12,14 @@ import { resettingModal } from "../reducers/modal";
 const ModalAddCalendarShift = (props) => {
     const dispatch = useDispatch();
     const showCalendarAddShift = useSelector(state => state.modal.addCalendarShift)
+
+    const handleCalendarAddShift = () => {
+        //const copyShiftplan = new ShiftPlan({...Shiftplan});
+        //copyShiftplan.addCalendarShift(userInput, ShiftSlot);
+        //const shiftplan = copyShiftplan.getAllPlanDetails();
+        //dispatch(settingShiftplan(shiftplan))
+        //dispatch(resettingModal())
+      }
         return (
             <Modal 
                     size="lg"
@@ -28,7 +36,7 @@ const ModalAddCalendarShift = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button color="link" onClick={() => dispatch(resettingModal())}> Schließen </Button>
-                    <Button color="primary" onClick={() => props.handleCalendarAddShift(props.modalkey)}> Übernehmen</Button>
+                    <Button color="primary" onClick={() => handleCalendarAddShift(props.modalkey)}> Übernehmen</Button>
                 </Modal.Footer>
             </Modal>
         );

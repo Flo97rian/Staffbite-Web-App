@@ -48,8 +48,9 @@ const getListStyle = isDraggingOver => ({
 });
 
 const ShiftplanDnDNew = (props) => {
-  const newShiftplan = useSelector(state => state.Schichtplan);
-  const [Items, setItems] = useState(getItems(newShiftplan));
+  const newShiftplan = useSelector(state => state.newShiftPlan);
+  console.log(newShiftplan);
+  const [Items, setItems] = useState(getItems(newShiftplan.plan));
 
   useEffect(() => {
       setItems(getItems(newShiftplan.plan));
@@ -81,6 +82,7 @@ const ShiftplanDnDNew = (props) => {
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
+  console.log("items", Items);
     return (
       <>
    { Items !== undefined && "id" in Items[0] ?

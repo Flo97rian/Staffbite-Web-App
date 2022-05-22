@@ -13,6 +13,7 @@ import shiftplanChangedReducer from "./reducers/shiftplanChanged";
 import userInputReducer from './reducers/userInput';
 import displayReducer from "./reducers/display"
 import temporaryReducer from './reducers/temporary'
+import currentUserReducer from './reducers/currentUser'
 
 const store = configureStore({
     reducer: {
@@ -29,7 +30,8 @@ const store = configureStore({
     ShiftplanChanged: shiftplanChangedReducer,
     userInput: userInputReducer,
     display: displayReducer,
-    temporary: temporaryReducer
+    temporary: temporaryReducer,
+    currentUser: currentUserReducer,
     }
 });
 

@@ -1,16 +1,14 @@
 import React, {useState, useEffect, useRef} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import moment from "moment";
 import 'moment/locale/de';
 import {
     Row,
     Col,
-    Alert,
   } from "reactstrap";
 import NotificationAlert from "react-notification-alert";
 import AdminSettingsNavPills from "./AdminSettingsNavPills";
 import Spinner from 'react-bootstrap/Spinner'
-import { FetchOrg } from "../store/middleware/FetchOrg";
+import { thunkFetchOrg } from "../store/middleware/FetchOrg";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
 import store from "../store";
 import InfoSidebar from "./Sidebar/InfoSidebar";
@@ -94,7 +92,6 @@ const AdminSettingsContainer = () => {
   useEffect(() => {
       document.documentElement.scrollTop = 0;
       document.scrollingElement.scrollTop = 0;
-      store.dispatch(FetchOrg)
       dispatch(resettingCurrentShiftplanIndex())
       dispatch(resettingShiftplan())
       dispatch(resettingShiftSlot())
@@ -145,7 +142,6 @@ const AdminSettingsContainer = () => {
           ...Meta,
           name: userInput.companyName !== "" ? userInput.companyName : Meta.name,
           fair: userInput.companyName !== "" ? userInput.companyName : Meta.name,
-          name: userInput.companyName !== "" ? userInput.companyName : Meta.name,
         })
       );
     }

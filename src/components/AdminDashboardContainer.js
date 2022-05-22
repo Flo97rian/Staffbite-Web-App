@@ -10,14 +10,14 @@ import {
 
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
 import NotificationAlert from "react-notification-alert";
-import { FetchFromDB } from "../store/middleware/FetchPlansFromDB";
-import { FetchEmployees } from "../store/middleware/FetchEmployees";
+import { thunkFetchShiftplans } from "../store/middleware/FetchPlansFromDB";
+import { thunkFetchEmployees } from "../store/middleware/FetchEmployees";
 import store from "../store";
 import OpenModal from "./OpenModal";
 import { WARNING_INVALID_REPORT_INPUT } from "../constants/Alerts"; 
 import InfoSidebar from "./Sidebar/InfoSidebar.js";
 import { ONBOARDING_OVERVIEW_SHIFTPLAN, ONBOARDING_OVERVIEW_SHIFTRADE, ONBOARDING_OVERVIEW_TEAM } from "../constants/OnBoardingTexts.js";
-import { isBoolean, isUndefined } from "lodash";
+import { isUndefined } from "lodash";
 import NumberOfEmployeesCard from "./NumberOfEmployeesCard";
 import NumberOfTradesCard from "./NumberOfTradesCard";
 import ShiftplanActivitys from "./Newsfeed/NewsfeedContainer/NewsfeedContainer.js";
@@ -31,8 +31,8 @@ import { isThisWeek } from "date-fns";
 
 
 const AdminDashboardContainer = (props) => {
+  
   const dispatch = useDispatch();
-  const [filter, setFilter] = useState({}); 
   const [errMsg, setErrMsg] = useState({ InvalidReportInput: !1});
   const [state, setState] = useState({
     run: !1,
@@ -75,15 +75,11 @@ const AdminDashboardContainer = (props) => {
   //REDUX-Filter für UI-Data
   const selectMeta = state => state.Meta;
   const selectPlans = state => state.DB.plans;
-  const selectEmployees = state => state.DB.employees;
-  const selectReport = state => state.DB.report;
   const selectInfoSidebar = state => state.InfoSidebar;
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
   const Plans = useSelector(selectPlans);
-  const Employees = useSelector(selectEmployees);
-  const Report = useSelector(selectReport);
   const SidebarInfo = useSelector(selectInfoSidebar);
   const PlansFetched = useSelector(state => state.DB.plansStatus === "fulfilled");
   const FreeTrial = useSelector(state => state?.Meta?.tenantCategorie?.trial)
@@ -92,14 +88,11 @@ const AdminDashboardContainer = (props) => {
   const NumberOfTrades = useSelector(state => state.Shiftplan.tauschanfrage.length);
   const newsFeed = useSelector(state => state?.Meta?.newsfeed)
   const showOverview = useSelector(state => state.Meta.onboarding.overview)
-  
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    store.dispatch(FetchFromDB);
-    store.dispatch(FetchEmployees);
     dispatch(resettingCurrentShiftplanIndex())
     dispatch(resettingShiftplan())
     dispatch(resettingShiftSlot())

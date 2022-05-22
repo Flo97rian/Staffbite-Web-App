@@ -13,8 +13,9 @@ from "reactstrap";
 import TableDnD from "./ShiftplanDnDNew";
 import { useSelector, useDispatch } from "react-redux";
 const NewShiftplan = (props) => {
-        const DisplayNewShiftplan = useSelector(state => state.display.DisplayNewShiftplan);
+        const DisplayNewShiftplan = useSelector(state => state.display.displayNewShiftplan);
         if (DisplayNewShiftplan) {
+            console.log("display");
             return (
                 <>
                 <Card>

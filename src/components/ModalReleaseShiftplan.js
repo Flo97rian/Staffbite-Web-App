@@ -34,7 +34,7 @@ const ModalReleaseShiftplan = (props) => {
         console.log(startDate, endDate, detailsFilled, Shiftplan);
         if (startDate && endDate && detailsFilled) {
             dispatch(thunkReleaseForApplication())
-            //props.setNavIndex(2);
+            props.setNavIndex(2);
             dispatch(resettingModal())
             dispatch(resettingUserInput())
         }

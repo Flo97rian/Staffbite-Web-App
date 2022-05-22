@@ -71,7 +71,9 @@ const shiftplanSlice = createSlice({
       state.tauschanfrage.splice(action.payload, 1);
     },
     deleteShift(state, action) {
-      state.plan.splice(action.payload, 1);
+      if(state.plan.length > 3) {
+        state.plan.splice(action.payload, 1);
+      }
     },
     settingShiftDescription(state, action) {
       const userInput = action.payload.userInput;
@@ -91,7 +93,7 @@ const shiftplanSlice = createSlice({
       if( state.plan[currentShiftIndex].Wochentag.ShiftEnd !== userInput.shiftEnd &&
         userInput.shiftEnd !== "" 
       ) {
-        state.plan[currentShiftIndex].Wochentag.ShiftEnd = userInput.shiftEnd;
+        state.plan[currentShiftIndex].Wochentag.ShiftEnd = userInput.shiftEnd === "on" ? "open End" : userInput.shiftEnd;
       }
 
       if( state.plan[currentShiftIndex].Wochentag.ShiftPosition !== userInput.shiftPosition &&
@@ -110,11 +112,75 @@ const shiftplanSlice = createSlice({
           }
         }
       })
+
+      if( state.plan[currentShiftIndex].Wochentag.ShiftName !== "" && 
+      state.plan[currentShiftIndex].Wochentag.ShiftStart !== "" &&
+      state.plan[currentShiftIndex].Wochentag.ShiftEnd !== "" &&
+      state.plan[currentShiftIndex].Wochentag.ShiftPosition !== ""
+    )
+    {
+      state.plan[currentShiftIndex].Wochentag.frei = false;
+    }
+    },
+    settingShiftNotice(state, action) {
+      const index = action.payload.index;
+      const day = action.payload.day;
+      const notice = action.payload.shiftNotice;
+      state.plan[index][day].notice = notice;
     },
     resettingShiftNotice(state, action) {
       const index = action.payload.index;
       const day = action.payload.day;
       state.plan[index][day].notice = "";
+    },
+    settingNewShift(state, action) {
+      const userInput = action.payload;
+      const newShiftRow = {
+        Wochentag: {
+          ShiftName: userInput.shiftName !==  "" ? userInput.shiftName : "Name",
+          ShiftStart: userInput.shiftStart !== "" ? userInput.shiftStart : "00:00",
+          ShiftEnd: userInput.shiftEnd !== "" ? userInput.shiftEnd : "24:00",
+          ShiftPosition: userInput.shiftPosition !== "" ? userInput.shiftPosition : "",
+        },
+        Montag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
+        Dienstag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
+        Mittwoch: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
+        Donnerstag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
+        Freitag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
+        Samstag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
+        Sonntag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
+      }
+      const shiftplanLenght = state.plan.length;
+      state.plan.splice(shiftplanLenght - 1, 0, newShiftRow)
+      //state.plan[index][day].notice = "";
+    },
+    settingTenantInShift(state, action) {
+      const index = action.payload.index;
+      const day = action.payload.day;
+      const tenantName = action.payload.name;
+      state.plan[index][day].setApplicants["TENANT"] = tenantName;
+    },
+    deleteTenantFromShift(state, action) {
+      const index = action.payload.index;
+      const day = action.payload.day;
+      delete state.plan[index][day].setApplicants["TENANT"];
+    },
+    settingShiftActive(state, action) {
+      const index = action.payload.index;
+      const day = action.payload.day;
+      state.plan[index][day].frei = !state.plan[index][day].frei
+    },
+    settingApplicants(state, action) {
+      const index = action.payload.index;
+      const day = action.payload.day;
+      const updateApplicants = action.payload.updateApplicants;
+      state.plan[index][day].setApplicants = {};
+      updateApplicants.forEach(applicantObject => {
+        const employeeId = applicantObject.id.substring(1);
+        const employeeName = applicantObject.content;
+        state.plan[index][day].setApplicants[employeeId] = employeeName;
+      });
+
     }
   }
 })
@@ -127,9 +193,15 @@ export const {
   settingMinQufalification,
   settingShiftTrade,
   declineShiftTrade,
+  settingShiftNotice,
   resettingShiftNotice,
   deleteShift,
-  settingShiftDescription
+  settingNewShift,
+  settingShiftDescription,
+  settingTenantInShift,
+  deleteTenantFromShift,
+  settingShiftActive,
+  settingApplicants,
 } = shiftplanSlice.actions;
 
 export default shiftplanSlice.reducer

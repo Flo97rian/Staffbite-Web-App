@@ -1,5 +1,5 @@
 import { API, Auth } from "aws-amplify";
-import { FetchEmployees } from "./FetchEmployees";
+import { thunkFetchEmployees } from "./FetchEmployees";
 import { API_HOSTNAME, UPDATE_EMPLOYEE } from "../../constants/ApiConstants";
 import store from "../../store";
 
@@ -20,7 +20,7 @@ export function thunkUpdateEmployee() {
       return API.post(apiName, path, myInit)
       })
     .then(response => {
-      dispatch(FetchEmployees);
+      dispatch(thunkFetchEmployees());
     })
   }
 }

@@ -14,9 +14,10 @@ import { settingShiftplan } from "../reducers/Shiftplan";
 import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 import { settingDisplayShiftplan } from "../reducers/display";
 import { thunkDeleteShiftPlan } from "../store/middleware/DeleteShiftPlan";
+import { createDummyshifts } from "../reducers/DB";
 
 const FormImportedShiftplans = (props) => {
-  const displayTable = useSelector(state => state.display.displayShiftplan === false);
+  const displayTable = useSelector(state => state.display.displayShiftplan === false && state.display.displayNewShiftplan === false);
   const Plans = useSelector(state => state.DB.plans);
   const Onboarding = useSelector(state => state.Meta.onboarding);
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ const FormImportedShiftplans = (props) => {
     const setCurrentShiftPlan = (id) => {
       dispatch(settingCurrentShiftplanIndex(id));
       dispatch(settingShiftplan(Plans[id]))
+      dispatch(createDummyshifts(id))
       dispatch(settingDisplayShiftplan());
     }
 

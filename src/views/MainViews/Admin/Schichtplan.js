@@ -44,16 +44,55 @@ import {useNavigate, useLocation } from "react-router-dom";
 import SchichtplanContainer from "../../../components/AdminShiftplanContainer.js";
 import AdminNavbar from "../../../components/Navbars/AdminNavbar.js";
 import AdminFooter from "../../../components/Footers/AdminFooter"
+import { useSelector, useDispatch } from "react-redux";
+import { Auth } from "aws-amplify";
+import { settingIsAdmin, settingIsEmployee } from "../../../reducers/currentUser.js";
+import Loading from "../Default/Loading.js";
+import { thunkFetchOrg } from "../../../store/middleware/FetchOrg.js";
+import { thunkFetchEmployees } from "../../../store/middleware/FetchEmployees.js";
+import { thunkFetchShiftplans } from "../../../store/middleware/FetchPlansFromDB.js";
 
 
 const SchichtplanErstellen = () => {
+  const dispatch = useDispatch();
+  const isAdmin = useSelector(state => state.currentUser.userType === "isAdmin");
+  const metaStatus = useSelector(state => state.DB.metaStatus);
+  const employeesStatus = useSelector(state => state.DB.employeesStatus);
+  const plansStatus = useSelector(state => state.DB.plansStatus);
   const navigate = useNavigate()
   let location = useLocation()
 
   React.useEffect(() => {
     pageViewsTracking()
+    dispatch(thunkFetchOrg());
+    dispatch(thunkFetchEmployees());
+    dispatch(thunkFetchShiftplans());
+    if(!isAdmin) {
+      isLoggedIn()
+    }
   },[])
 
+
+  async function isLoggedIn () {
+    let user = await Auth.currentAuthenticatedUser();
+    if(user.username === user.attributes["custom:TenantId"]) {
+      dispatch(settingIsAdmin())
+    }
+
+    if(user.username !== user.attributes["custom:TenantId"]) {
+      dispatch(settingIsEmployee())
+    }
+  }
+
+  function ShiftplanContent() {
+    if( metaStatus !== "fulfilled" ||
+    employeesStatus !== "fulfilled" ||
+    plansStatus !== "fulfilled"
+    ) {
+      return <Loading/>;
+    }
+    return <SchichtplanContainer/>
+  }
   function pageViewsTracking () {
     const pathname = "/admin";
   
@@ -76,6 +115,9 @@ const SchichtplanErstellen = () => {
     }
     return "Brand";
   };
+  if(!isAdmin) {
+    return null;
+  }
     return (
       <div>
         <Container fluid>
@@ -88,7 +130,7 @@ const SchichtplanErstellen = () => {
           }}
           brandText={getBrandText(location)}
         />
-          <SchichtplanContainer></SchichtplanContainer>
+          <ShiftplanContent/>
           <AdminFooter />
         </Container>
       </div>

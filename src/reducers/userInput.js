@@ -5,8 +5,10 @@ const initialState = {
     companyName: "",
     companySurname: "",
     shiftplanName: "",
+    shiftplanNumberOfShifts: 1,
+    shiftplanCompanyIsOpen: [],
     shiftName: "",
-    shiftPosition: "Name",
+    shiftPosition: "",
     shiftStart: "",
     shiftEnd: "",
     numberOfEmployees: 0,
@@ -122,8 +124,43 @@ const userInputSlice = createSlice({
         settingShiftplanName(state, action) {
             state.shiftplanName = action.payload;
         },
+        settingShiftplanNumberOfShifts(state, action) {
+            state.shiftplanNumberOfShifts = action.payload;
+        },
+        settingShiftplanCompanyIsOpen(state, action) {
+            state.shiftplanCompanyIsOpen = [...state.shiftplanCompanyIsOpen, action.payload];
+        },
+        resettingShiftplanCompanyIsOpen(state, action) {
+            state.shiftplanCompanyIsOpen = state.shiftplanCompanyIsOpen.filter(day => day !== action.payload);
+        },
         resettingUserInput(state) {
-            state = initialState;
+            state.positions = [];
+            state.companyName = "";
+            state.companySurname = "";
+            state.shiftplanName = "";
+            state.shiftName = "";
+            state.shiftPosition = "Name";
+            state.shiftStart = "";
+            state.shiftEnd = "";
+            state.numberOfEmployees = 0;
+            state.minQualification = !1;
+            state.shiftsPerDay = 1;
+            state.shiftNotice = "";
+            state.shiftIsDayly = !1;
+            state.shiftplanFillingReverse = !1;
+            state.shiftplanFillingFair = !1;
+            state.employeeName = "";
+            state.employeeShiftsPerWeek = 0;
+            state.employeeQualification = "Anfänger";
+            state.employeePositions = [];
+            state.employeeActive = false;
+            state.employeeFree = false;
+            state.employeeEmail = "";
+            state.newPosition = "";
+            state.reportFilter = {};
+            state.employeeTargetShiftTrade = "";
+            state.shiftplanNumberOfShifts = 1;
+            state.shiftplanCompanyIsOpen = [];
         }
     }
 });
@@ -158,6 +195,9 @@ export const {
     resettingReportFilter,
     settingEmployeeTargetShiftTrade,
     settingShiftplanName,
+    settingShiftplanNumberOfShifts,
+    settingShiftplanCompanyIsOpen,
+    resettingShiftplanCompanyIsOpen,
     resettingEmployeePositions,
 } = userInputSlice.actions;
   

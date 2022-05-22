@@ -1,5 +1,8 @@
-import React, { useState, useImperativeHandle} from "react";
+import React, { useState, useImperativeHandle, useEffect} from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingEmployeeDummyShift, settingEmployeeDummyShift } from "../reducers/DB";
+import store from "../store";
 
 // fake data generator
 const getItems = (employees = {}, index) => {
@@ -82,11 +85,7 @@ const move = (source, destination, droppableSource, droppableDestination, empId,
     const newid = droppableDestination.droppableId + empId;
     destClone.splice(droppableDestination.index ,0, {id: newid, content: employee.content});
   }
-    if (employees[empId]["dummyshifts"]){
-      employees[empId].dummyshifts = employees[empId].dummyshifts + 1;
-    } else {
-      employees[empId].dummyshifts = 1;
-    }
+  store.dispatch(settingEmployeeDummyShift(empId))
   }
   const result = {};
   result[droppableSource.droppableId] = sourceClone;
@@ -144,10 +143,21 @@ const getItemContent = (item, employees) => {
 }
 
 const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
-  const [state, setState] = useState([getEmployees(props.employees, 0, props.position), getItems(validateHasAfterPublish(props.isPublished, props.applyed, props.applicantsAfterPublish), 1), getItems(props.set, 2)]);
-  const [Employees, setEmployees] = useState(props.employees)
+  const employees = useSelector(state => state.DB.employees);
+  const ShiftPosition = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftPosition);
+  const applicants = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].applicants);
+  const applicantsAfterPublish = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].applicantsAfterPublish || {});
+  const setApplicants = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].setApplicants);
+  const isPublished = useSelector(state => state.Shiftplan.id.split('#')[1] === "Veröffentlicht");
+  const numberOfEmployees = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].anzahl);
+  const [state, setState] = useState([getEmployees(employees, 0, ShiftPosition), getItems(validateHasAfterPublish(isPublished, applicants, applicantsAfterPublish), 1), getItems(setApplicants, 2)]);
+  const [Employees, setEmployees] = useState(employees)
+
   useImperativeHandle(ref, () => (state[2]), [state]);
 
+  useEffect(() => {
+    setEmployees(employees);
+  }, [employees])
 
   function onDragEnd(result, employees) {
     const { source, destination } = result;
@@ -191,7 +201,7 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
       return (
         <p>{title[index]}</p>
       )
-    } else if (index === 1 && props.isPublished) {
+    } else if (index === 1 && isPublished) {
       return (
         <p>Bewerber seit Veröffentlichung</p>
       )
@@ -204,9 +214,7 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
 
   function handleDelete(ind, index, item) {
     const newState = [...state];
-    const newEmployees = Employees;
-    newEmployees[item.id.substring(1)].dummyshifts = newEmployees[item.id.substring(1)].dummyshifts - 1;
-    setEmployees(newEmployees);
+    store.dispatch(resettingEmployeeDummyShift(item.id.substring(1)))
     if (newState[ind].length === 1) {
       newState[ind][index].id = String(ind);
       newState[ind][index].content = "Leer";
@@ -216,7 +224,7 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
     setState(newState);
   }
   const Mitarbeitercount = state[2][0].id.length === 1 ? 0 : state[2].length
-  const title = ["Alle Mitarbeiter", "Alle Bewerber", "Eingesetzte Mitarbeiter " + Mitarbeitercount + "/" + props.anzahl]
+  const title = ["Alle Mitarbeiter", "Alle Bewerber", "Eingesetzte Mitarbeiter " + Mitarbeitercount + "/" + numberOfEmployees]
 
   return (
     <>

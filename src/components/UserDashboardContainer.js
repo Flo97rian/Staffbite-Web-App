@@ -16,7 +16,7 @@ import { getUser } from "../store/middleware/FetchUser";
 import store from "../store";
 import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_OVERVIEW_APPLICATIONS, ONBOARDING_EMPLOYEE_OVERVIEW_TRADE_SHIFT, ONBOARDING_EMPLOYEE_OVERVIEW_SHIFTPLAN } from "../constants/OnBoardingTexts"
-import { FetchOrg } from "../store/middleware/FetchOrg";
+import { thunkFetchOrg } from "../store/middleware/FetchOrg";
 import ShiftplanActivitys from "./Newsfeed/NewsfeedContainer/NewsfeedContainer";
 import { settingShiftplan } from "../reducers/Shiftplan";
 
@@ -80,7 +80,7 @@ const UserDashboardContainer = (props) => {
   useEffect(() => {
     store.dispatch(FetchEmployeePlansFromDB);
     store.dispatch(getUser);
-    store.dispatch(FetchOrg)
+    store.dispatch(thunkFetchOrg)
   }, []);
 
 

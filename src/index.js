@@ -73,6 +73,7 @@ import Demo from './views/MainViews/Demo/Demo';
 import Payment from './api/stripe/Payment';
 import PaymentSuccess from './api/stripe/PaymentSuccess';
 import PaymentDecline from './api/stripe/PaymentDecline';
+import NoAdminPermission from './views/MainViews/Default/NoAdminPermission';
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -127,6 +128,7 @@ ReactDOM.render(
         <Route path="/payment" element={ <Payment />} />
         <Route path="/payment-success" element={ <PaymentSuccess />} />
         <Route path="/payment-decline" element={ <PaymentDecline />} />
+        <Route path="/no-admin" element={<NoAdminPermission/>} />
         <Route path="/user"/>
         <Route path="/user/index" element={<UserDashboard/>}/>
         <Route path="/user/bewerben" element={<SchichtplanBewerben/>}/>
