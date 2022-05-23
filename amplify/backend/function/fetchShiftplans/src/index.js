@@ -34,6 +34,31 @@ exports.handler = async (event) => {
         
     }
     
+    function setToMonday( date ) {
+    var day = date.getDay() || 7;  
+    if( day !== 1 ) 
+        date.setHours(-24 * (day - 1)); 
+    return date;
+}
+
+    data = data.Items.filter(plan => {
+        const Id = plan.SK.S.split('#')
+        if(Id.includes("Entwurf")) {
+            return true;
+        }
+        let zeitraum = plan.zeitraum.S;
+        if(zeitraum) {
+            let planStart = zeitraum.split(" - ");
+            let planStartSplit = planStart[0].split('.');
+            let date = new Date(planStartSplit[2], planStartSplit[1] - 1, planStartSplit[0]);
+            let today = new Date();
+            let monday = setToMonday(date)
+            if(date > today || (monday < today && monday > today.setDate(today.getDate() - 7))) {
+                return true;
+        }}
+        return false;
+    }) 
+    
         let response = {
         statusCode: 200,
         headers: {
@@ -43,7 +68,6 @@ exports.handler = async (event) => {
         },
         body: JSON.stringify(data),
         }
-        console.log(data);
     return response;
 };
 

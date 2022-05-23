@@ -1,5 +1,5 @@
 import { API, Auth } from "aws-amplify";
-import { thunkFetchShiftplans } from "./FetchPlansFromDB";
+import { thunkFetchShiftplans } from "./FetchShiftplans";
 import { API_HOSTNAME } from "../../constants/ApiConstants";
 import { UPLOAD_SHIFTPLAN } from "../../constants/ApiConstants";
 import { resettingDisplayShiftplan } from "../../reducers/display";

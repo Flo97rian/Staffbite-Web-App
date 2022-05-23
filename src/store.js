@@ -14,6 +14,7 @@ import userInputReducer from './reducers/userInput';
 import displayReducer from "./reducers/display"
 import temporaryReducer from './reducers/temporary'
 import currentUserReducer from './reducers/currentUser'
+import successMessagesReducer from "./reducers/SuccessMessages"
 
 const store = configureStore({
     reducer: {
@@ -32,6 +33,7 @@ const store = configureStore({
     display: displayReducer,
     temporary: temporaryReducer,
     currentUser: currentUserReducer,
+    successMessage: successMessagesReducer,
     }
 });
 

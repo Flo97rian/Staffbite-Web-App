@@ -15,13 +15,13 @@ import { Badge } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 
 const UserApplicationsTable = (props) => {
-    const id = props.shiftplan.id
-    const idApplications = id.split("#").includes("Freigeben")
-    const shiftplan = props.shiftplan.plan
     const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
-    const Montag = props.shiftplan.zeitraum.split(" - ")[0]
-    const Sonntag = props.shiftplan.zeitraum.split(" - ")[1]
-
+    const Shiftplan = useSelector(state => state.Shiftplan);
+    const Montag = Shiftplan.zeitraum.split(" - ")[0]
+    const Sonntag = Shiftplan.zeitraum.split(" - ")[1]
+    const IsApplicationShiftplan = Shiftplan.id.split('#').includes("Freigeben");
+    const ShiftplanLength = Shiftplan.plan.length
+    if(DisplayShiftplan) {
     return (
         <>
         <Card>
@@ -48,41 +48,40 @@ const UserApplicationsTable = (props) => {
                         <thead>
                         </thead>
                         <tbody>
-                        {DisplayShiftplan ? shiftplan.map((item, index) => (
-                        <>
-                        { idApplications ? 
-                        <tr key={index}>
-                            <td style={{"padding": "0"}}>
-                                <SchichtplanElement wochentag={item.Wochentag} index={index} currentItem={item} anzahl={item.Montag} ItemLength={shiftplan.length} col="Wochentag" {...props}></SchichtplanElement>
-                            </td>
-                            <td style={{"padding": "0"}}>
-                                    <SchichtplanElement wochentag={item.Montag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Montag" {...props}></SchichtplanElement>
-                            </td>
-                            <td style={{"padding": "0"}}>
-                                    <SchichtplanElement wochentag={item.Dienstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Dienstag" {...props}></SchichtplanElement>
-                            </td>
-                            <td style={{"padding": "0"}}>
-                                    <SchichtplanElement wochentag={item.Mittwoch} index={index} currentItem={item} ItemLength={shiftplan.length} col="Mittwoch" {...props}></SchichtplanElement>
-                            </td>
-                            <td style={{"padding": "0"}}>
-                                    <SchichtplanElement wochentag={item.Donnerstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Donnerstag" {...props}></SchichtplanElement>
-                            </td>
-                            <td style={{"padding": "0"}}>
-                                    <SchichtplanElement wochentag={item.Freitag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Freitag" {...props}></SchichtplanElement>
-                            </td>
-                            <td style={{"padding": "0"}}>
-                                    <SchichtplanElement wochentag={item.Samstag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Samstag" {...props}></SchichtplanElement>
-                            </td>
-                                <td style={{"padding": "0"}}>
-                                <SchichtplanElement wochentag={item.Sonntag} index={index} currentItem={item} ItemLength={shiftplan.length} col="Sonntag" {...props}></SchichtplanElement>
-                            </td>
-                        </tr>
+                        {IsApplicationShiftplan ? Shiftplan.plan.map((item, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td style={{"padding": "0"}}>
+                                        <SchichtplanElement wochentag={item.Wochentag} index={index} currentItem={item} anzahl={item.Montag.anzahl} ItemLength={ShiftplanLength} col="Wochentag"></SchichtplanElement>
+                                    </td>
+                                    <td style={{"padding": "0"}}>
+                                            <SchichtplanElement wochentag={item.Montag} index={index} currentItem={item} anzahl={item.Montag.anzahl} ItemLength={ShiftplanLength} col="Montag"></SchichtplanElement>
+                                    </td>
+                                    <td style={{"padding": "0"}}>
+                                            <SchichtplanElement wochentag={item.Dienstag} index={index} currentItem={item} anzahl={item.Montag.anzahl} ItemLength={ShiftplanLength} col="Dienstag"></SchichtplanElement>
+                                    </td>
+                                    <td style={{"padding": "0"}}>
+                                            <SchichtplanElement wochentag={item.Mittwoch} index={index} currentItem={item} anzahl={item.Montag.anzahl} ItemLength={ShiftplanLength} col="Mittwoch"></SchichtplanElement>
+                                    </td>
+                                    <td style={{"padding": "0"}}>
+                                            <SchichtplanElement wochentag={item.Donnerstag} index={index} currentItem={item} anzahl={item.Montag.anzahl} ItemLength={ShiftplanLength} col="Donnerstag"></SchichtplanElement>
+                                    </td>
+                                    <td style={{"padding": "0"}}>
+                                            <SchichtplanElement wochentag={item.Freitag} index={index} currentItem={item} anzahl={item.Montag.anzahl} ItemLength={ShiftplanLength} col="Freitag"></SchichtplanElement>
+                                    </td>
+                                    <td style={{"padding": "0"}}>
+                                            <SchichtplanElement wochentag={item.Samstag} index={index} currentItem={item} anzahl={item.Montag.anzahl} ItemLength={ShiftplanLength} col="Samstag"></SchichtplanElement>
+                                    </td>
+                                        <td style={{"padding": "0"}}>
+                                        <SchichtplanElement wochentag={item.Sonntag} index={index} currentItem={item} anzahl={item.Montag.anzahl} ItemLength={ShiftplanLength} col="Sonntag"></SchichtplanElement>
+                                    </td>
+                                </tr>
+                            )}
+                            )
                         :
-                        <></>
-}
+                        <>
                         </>
-                        )):
-                        <></>}
+                        }
                         </tbody>
                     </Table>
                     </Row> 
@@ -90,5 +89,7 @@ const UserApplicationsTable = (props) => {
             </Card>
             </>
         );
+        }
+    return null;
     }
 export default UserApplicationsTable;

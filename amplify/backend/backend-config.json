@@ -203,6 +203,14 @@
             "Name",
             "Arn"
           ]
+        },
+        {
+          "category": "function",
+          "resourceName": "fetchShiftplans",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
         }
       ]
     }
@@ -594,6 +602,11 @@
       "service": "Lambda"
     },
     "validateStripeNumberOfEmployees": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "fetchShiftplans": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

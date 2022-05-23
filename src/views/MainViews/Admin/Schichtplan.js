@@ -50,7 +50,7 @@ import { settingIsAdmin, settingIsEmployee } from "../../../reducers/currentUser
 import Loading from "../Default/Loading.js";
 import { thunkFetchOrg } from "../../../store/middleware/FetchOrg.js";
 import { thunkFetchEmployees } from "../../../store/middleware/FetchEmployees.js";
-import { thunkFetchShiftplans } from "../../../store/middleware/FetchPlansFromDB.js";
+import { thunkFetchShiftplans } from "../../../store/middleware/FetchShiftplans.js";
 
 
 const SchichtplanErstellen = () => {

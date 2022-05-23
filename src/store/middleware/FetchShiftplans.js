@@ -1,20 +1,21 @@
 import { API, Auth } from "aws-amplify";
 import { isBefore, isFuture, isPast, isThisWeek, startOfWeek } from "date-fns";
-import { FETCH_ALL_PLANS, API_HOSTNAME } from "../../constants/ApiConstants";
+import { FETCH_ALL_PLANS, API_HOSTNAME, FETCH_SHIFTPLANS } from "../../constants/ApiConstants";
 import { settingPlansFetching, settingPlansFulfilled, settingPlansRejected, settingShiftplans } from "../../reducers/DB";
 
-export function thunkFetchAllShiftplans () {
-    return async function FetchFromDB(dispatch, getState) {
+export function thunkFetchShiftplans () {
+    return async function FetchShiftplans(dispatch, getState) {
     Auth.currentAuthenticatedUser().then( user => {
         const apiName = API_HOSTNAME; // replace this with your api name.
-        const path = FETCH_ALL_PLANS; //replace this with the path you have configured on your API
+        const path = FETCH_SHIFTPLANS; //replace this with the path you have configured on your API
         const myInit = { // OPTIONAL
             body: user.attributes
         };
         dispatch(settingPlansFetching())
         return API.post(apiName, path, myInit);
         }).then(response => {
-            let plans = response.Items.map(item => {
+            console.log(response);
+            let plans = response.map(item => {
                 return {
                     id: item.SK["S"],
                     name: item.name["S"],
@@ -27,6 +28,7 @@ export function thunkFetchAllShiftplans () {
             // Add your code here
             dispatch(settingShiftplans(plans));
             dispatch(settingPlansFulfilled())
+            dispatch({type: "stopFetchPlansFromDB"});
         }).catch(error => {
             dispatch(settingPlansRejected())
         })        

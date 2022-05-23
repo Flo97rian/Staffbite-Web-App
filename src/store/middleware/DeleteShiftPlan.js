@@ -1,7 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { API_HOSTNAME, DELETE_SHIFTPLAN } from "../../constants/ApiConstants";
-import { thunkFetchShiftplans } from "./FetchPlansFromDB";
-
+import { thunkFetchShiftplans } from "./FetchShiftplans";
 export function thunkDeleteShiftPlan({index, Plans}) {
   return async function deleteShiftPlan(dispatch, getState) {
     const plans = { Plans }

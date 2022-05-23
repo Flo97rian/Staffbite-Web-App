@@ -3,14 +3,6 @@ import PropTypes from "prop-types";
 import { Card, CardBody, Row, CardTitle, Col } from "reactstrap";
 import NewsFeedTimeline from "../NewsFeedTimeline/NewsFeedTimeline";
 function NewsfeedContainer ({newsfeed}) {
-    NewsfeedContainer.propTypes = {
-        newsfeed: PropTypes.array.isRequired
-    }
-
-    NewsfeedContainer.defaultProps = {
-        newsfeed: []
-    }
-
     return (
         <Col>
             <Row>
@@ -22,7 +14,7 @@ function NewsfeedContainer ({newsfeed}) {
                 <Col>
                 <Card className="shadow card_aktuellerSchichtplan">
                     <CardBody>
-                        <NewsFeedTimeline newsfeed={newsfeed}></NewsFeedTimeline>
+                        <NewsFeedTimeline/>
                     </CardBody>
                 </Card>
                 </Col>

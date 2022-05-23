@@ -5,6 +5,7 @@ export const DELETE_EMPLOYEE = '/deleteEmployee';
 export const DELETE_SHIFTPLAN = '/deleteShiftplan';
 export const FETCH_ALL_EMPLOYEES = '/getAllEmployees';
 export const FETCH_ALL_PLANS = '/getAllShiftplans';
+export const FETCH_SHIFTPLANS = "/fetchShiftplans";
 export const FETCH_ORGANISATION = '/getProfile';
 export const FETCH_SHIFTPLAN_FOR_EMPLOYEE = '/getEmployeesShiftplans';
 export const FETCH_USER = '/getEmployee';

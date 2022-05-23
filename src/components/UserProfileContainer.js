@@ -30,13 +30,9 @@ const UserProfileContainer = (props) => {
     ]
   })
   const { run, steps } = state;
-  const selectUser = state => state.user
 
-  const User = useSelector(selectUser);
+  const User = useSelector(state => state.DB.employee);
     // Initiales laden der aktuellen Users
-  useEffect(() => {
-    store.dispatch(getUser)
-  }, []);
   useEffect(() => {
     if(User) {
       let showProfile = User.onboarding.profile

@@ -9,7 +9,8 @@ import {
     Col,
     CardTitle,
     Row,
-    CardBody
+    CardBody,
+    Container
   } from "reactstrap";
 import { FetchEmployeePlansFromDB } from "../store/middleware/FetchPlansForEmployees";
 import { getUser } from "../store/middleware/FetchUser";
@@ -19,6 +20,10 @@ import { ONBOARDING_EMPLOYEE_OVERVIEW_APPLICATIONS, ONBOARDING_EMPLOYEE_OVERVIEW
 import { thunkFetchOrg } from "../store/middleware/FetchOrg";
 import ShiftplanActivitys from "./Newsfeed/NewsfeedContainer/NewsfeedContainer";
 import { settingShiftplan } from "../reducers/Shiftplan";
+import UserApplicationsCard from "./UserApplicationsCard";
+import UserTradeShiftCard from "./UserTradeShiftCard";
+import { isThisWeek } from "date-fns";
+import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 
 
 const UserDashboardContainer = (props) => {
@@ -64,24 +69,13 @@ const UserDashboardContainer = (props) => {
   //REDUX-Filter für UI-Data
   const selectMeta = state => state.Meta;
   const selectPlans = state => state.DB.plans;
-  const selectUser = state => state.user;
-  const selectShiftplan = state => state.Shiftplan;
 
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
   const Plans = useSelector(selectPlans);
-  const User = useSelector(selectUser);
-  const Shiftplan = useSelector(selectShiftplan);
-  const newsFeed = useSelector(state => state?.Meta?.newsfeed)
-
-
-  // Initiales laden der aktuellen Users
-  useEffect(() => {
-    store.dispatch(FetchEmployeePlansFromDB);
-    store.dispatch(getUser);
-    store.dispatch(thunkFetchOrg)
-  }, []);
+  const Employee = useSelector(state => state.DB.employee);
+  const OnboardingOverview = useSelector(state => state.DB.employee?.onboarding?.overview || false);
 
 
   useEffect(() => {
@@ -91,58 +85,27 @@ const UserDashboardContainer = (props) => {
   }, [Plans]);
 
   useEffect(() => {
-    if (User) {
-      let showOverview = User.onboarding.overview
-      setState({...state, run: showOverview})
+    if (Employee) {
+      setState({...state, run: OnboardingOverview})
     }
-  }, [User]);
-
-  useEffect(() => {
-  }, [User]);
-
-  useEffect(() => {
-    function getCountUsersCurrentShifts (count = 0) {
-      let bewerbungen = User.bewerbungen
-  
-      let ShiftCount = 0;
-      if ( Shiftplan && User) {
-        let Zeitraum = Shiftplan.zeitraum;
-        if(Zeitraum in bewerbungen)
-        ShiftCount = bewerbungen[Shiftplan.zeitraum].length
-      }
-      if(ShiftCount > 0 ) {count = ShiftCount}
-      setUserShiftCount(count);
-    }
-    if (Plans !== undefined && User !== undefined) {
-      getCountUsersCurrentShifts()
-    }
-  }, [Plans, Shiftplan, User])
+  }, [Employee]);
 
   const handleOnboarding = () => {
-    let user = store.getState().user;
-    if(User) {
-      user.onboarding.overview = !1;
-      store.dispatch(thunkUpdateEmployee(user));
+      dispatch(thunkUpdateEmployee({...Employee, onboarding: !OnboardingOverview}));
     }
-  }
     function getThisWeeksShiftPlan () {
-      var compareDate = moment(moment().format("l"), "DD.M.YYYY");
       Plans.forEach((plan, index) => {
-        var startDate   = moment(plan.zeitraum.split(" - ")[0], "DD.MM.YYYY");
-        var endDate     = moment(plan.zeitraum.split(" - ")[1], "DD.MM.YYYY");
-        if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Veröffentlicht")) {
-          setActivePlan(!0);
-          dispatch(settingShiftplan(Plans[index]))
-        } else if ((compareDate.isBetween(startDate, endDate) || compareDate.isSame(startDate) || compareDate.isSame(endDate)) && plan.id.split("#").includes("Freigeben")) {
-          setActivePlan(!0);
+        const startDateNumbers = plan.zeitraum.split(" - ")[0].split(".");
+        const startDate = new Date(startDateNumbers[2], startDateNumbers[1], startDateNumbers[0])
+        if (isThisWeek(startDate) && plan.id.split("#").includes("Veröffentlicht")) {
+          dispatch(settingCurrentShiftplanIndex(index))
           dispatch(settingShiftplan(Plans[index]))
         }
-      
-    })}
+    });
+  }
 
         return (
-          <div className="pt-8">
-          {User !== !1 ? 
+          <Container className="px-4">
           <Joyride
           continuous={true}
           run={run}
@@ -156,75 +119,22 @@ const UserDashboardContainer = (props) => {
             },
           }}
         />
-        : 
-        <></>
-        }
-              <Row>
+              <Row className="mt-6">
                 <Col md="12"  lg="6" xl="6">
-                <Link to="/user/bewerben" tag={Link}>
-                  <Card className="card-stats mb-4 mb-xl-0 card_bewerbungen">
-                    <CardBody>
-                      <Row>
-                        <div className="col">
-                          <CardTitle
-                            tag="h5"
-                            className="text-uppercase text-muted mb-4"
-                          >
-                            Du hast dich in den Plan eingetragen:
-                            <br/>
-                            <small>diese Woche</small>
-                          </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">
-                          {userShiftCount ? <>{userShiftCount}</> : <>0</>}
-                          </span>
-                        </div>
-                        <Col className="col-auto">
-                          <div className="icon icon-shape bg-info text-white rounded-circle shadow">
-                            <i className="fas fa-calendar" />
-                          </div>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                  </Link>
+                  <UserApplicationsCard/>
                 </Col>
                 <Col md="12" lg="6" xl="6">
-                <Link to="/user/schichtplan" tag={Link}>
-                  <Card className="card-stats mb-4 mb-xl-0 card_tauschanfragen">
-                    <CardBody>
-                      <Row>
-                        <div className="col">
-                          <CardTitle
-                            tag="h5"
-                            className="text-uppercase text-muted mb-4"
-                          >
-                            Deine Tauschanfragen
-                            <br/>
-                            <small>aktuelle Woche</small>
-                          </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">
-                          {User ? <>0</> : <>0</>}
-                          </span>
-                        </div>
-                        <Col className="col-auto">
-                          <div className="icon icon-shape bg-blue text-white rounded-circle shadow">
-                            <i className="fas fa-comments" />
-                          </div>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                  </Link>
+                <UserTradeShiftCard/>
                 </Col>
               </Row>
             <Row className="card_aktuellerSchichtplan">
               <Col>
-                <ShiftplanActivitys newsfeed={newsFeed}/>
+                <ShiftplanActivitys/>
               </Col>
               <Col>
               </Col>
             </Row>
-        </div>
+        </Container>
 );
 }
 

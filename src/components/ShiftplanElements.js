@@ -293,7 +293,7 @@ export const ShowSingleApplicantWithOutUser = (FirstApplicant) => {
 )}
 export const ZeroApplicants = (index, col, Click) => {
     return (<ListGroup>
-       <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}><p className="m-0"><br/><br/></p></ListGroupItem>
+       <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="white" onClick={(e, j) => Click(index, col)}><p className="m-0"><br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
 

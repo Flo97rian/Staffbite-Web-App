@@ -28,74 +28,57 @@ import {
  import { useSelector, useDispatch } from "react-redux";
 import { settingModal } from "../reducers/modal";
 import { settingShiftSlot } from "../reducers/ShiftSlot";
+import * as _ from "lodash";
 
 const UserShiftplanElementsPublish = (props) => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
+    const Employee = useSelector(state => state.DB.employee);
+    const Shiftplan = useSelector(state => state.Shiftplan);
+
     const tradeShift = (index, day) => {
         dispatch(settingModal("tradeShift"))
         dispatch(settingShiftSlot({index: index, day: day}))
     };
-   
-    const setApplicant = (index, day) => {
-        dispatch(settingModal("applyIsActive"))
-        dispatch(settingShiftSlot({index: index, day: day}))
-   }
 
-    let ItemLength = props.ItemLength;
-    let index = props.index;
-    let col = props.col;
-    let currentItem = props.currentItem[col];
-    let currentWeekday = props.currentItem["Wochentag"];
-    let currentUser = props.currentUser;
-    let ApplicantName = currentUser.name;
-    let isFree;
-    let anzahl;
-    let hasApplicants;
-    let hasNotice;
-    let ApplicantsLength;
-    let ShiftIncludesApplicant;
-    let ApplicantMatchesPosition;
-    let ApplicantMatchesPrio;
-    let FirstApplicant;
-    let SecondApplicant;
-    let isObj = getIsObject(currentItem);
-    let isDiscribeWeekDay = (col === "Wochentag");
-    if (isObj) {
-        isFree = getCompanyIsOpen(currentItem);
-        anzahl = getAnzahl(props.anzahl);
-        ApplicantMatchesPosition = getUserMatchesPosition(currentUser, currentWeekday);
-        ApplicantMatchesPrio = getUserMatchesPrio(currentItem, currentUser)
-        ShiftIncludesApplicant = getShiftIncludesApplicant(currentItem, currentUser, "setApplicants")
-        hasApplicants =  getHasApplicants(currentItem, "setApplicants");
-        hasNotice = getHasNotice(currentItem);
-        ApplicantsLength = getApplicantsLength(currentItem, "setApplicants");
-        FirstApplicant = getFirstApplicant(currentItem, "setApplicants");
-        SecondApplicant = getSecondApplicant(currentItem, "setApplicants");
-    }
+   const type = _.isString(Shiftplan.id) ? Shiftplan.id.split('#')[1] : "";
+   const ItemLength = props.ItemLength - 1;
+   const index = props.index;
+   const day = props.col;
+   const currentItem = props.currentItem[day];
+   const notice = _.get(currentItem, "notice", "");
+   const isFree = _.get(currentItem, "frei", false)
+   const hasNotice = !_.isEmpty(notice)
+   const anzahl = props.anzahl;
+   const isDiscribeWeekDay = day === "Wochentag";
+   const setApplicants = _.get(currentItem, "setApplicants", {})
+   const hasApplicants = !_.isEmpty(_.get(currentItem, "setApplicants", {}));
+   const ApplicantsLength = _.size(setApplicants);
+   const ApplicantsKeys = _.keys(setApplicants)
+   const FirstApplicant = _.get(setApplicants, [ApplicantsKeys[0]], "");
+   const ShiftIncludesEmployee = _.includes(Object.keys(setApplicants), Employee.SK);
+   const ApplicantName = Employee.name;
         if (index === 0 || index === 1) {
             return DateOrWeekDayRow(currentItem);
-        } else if (index === ItemLength - 1 ) {
+        } else if (index === ItemLength) {
             return null
         } else if (!isFree && !isDiscribeWeekDay) {
             return CompanyClosed();
         } else if (!isFree && isDiscribeWeekDay){
             return ShiftDescription(currentItem, anzahl);
-        } else if (isFree && hasApplicants && ApplicantsLength > 1 && ShiftIncludesApplicant && hasNotice) {
-            return TradeShiftMultiSetApplicantWithPrio(index, col, ApplicantName, ApplicantsLength, tradeShift);
-        } else if (isFree && hasApplicants && ApplicantsLength > 1 && ShiftIncludesApplicant) {
-            return TradeShiftMultiSetApplicant(index, col, ApplicantName, ApplicantsLength, tradeShift);
+        } else if (isFree && hasApplicants && ApplicantsLength > 1 && ShiftIncludesEmployee && hasNotice) {
+            return TradeShiftMultiSetApplicantWithPrio(index, day, ApplicantName, ApplicantsLength, tradeShift);
+        } else if (isFree && hasApplicants && ApplicantsLength > 1 && ShiftIncludesEmployee) {
+            return TradeShiftMultiSetApplicant(index, day, ApplicantName, ApplicantsLength, tradeShift);
         } else if (isFree && hasApplicants && ApplicantsLength > 1) {
             return ShowMultipleApplicantsWithOutUser(FirstApplicant, ApplicantsLength);
-        }  else if (isFree && hasApplicants && ApplicantsLength === 1 && ShiftIncludesApplicant && hasNotice) {
-            return TradeShiftSingleSetApplicantWithPrio(index, col, ApplicantName, tradeShift);
-        }  else if (isFree && hasApplicants && ApplicantsLength === 1 && ShiftIncludesApplicant) {
-            return TradeShiftSingleSetApplicant(index, col, ApplicantName, tradeShift);
+        }  else if (isFree && hasApplicants && ApplicantsLength === 1 && ShiftIncludesEmployee && hasNotice) {
+            return TradeShiftSingleSetApplicantWithPrio(index, day, ApplicantName, tradeShift);
+        }  else if (isFree && hasApplicants && ApplicantsLength === 1 && ShiftIncludesEmployee) {
+            return TradeShiftSingleSetApplicant(index, day, ApplicantName, tradeShift);
         }  else if (isFree && hasApplicants && ApplicantsLength === 1) {
             return ShowSingleApplicantWithOutUser(FirstApplicant);
-        } else if (isFree && !isDiscribeWeekDay && !ShiftIncludesApplicant) {
-            return ZeroApplicants(index, col, setApplicant);
-        }else {
-            return UserDefault(index, col);
+        } else {
+            return UserDefault(index, day);
         }
 
     };

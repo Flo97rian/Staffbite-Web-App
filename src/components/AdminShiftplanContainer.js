@@ -13,9 +13,7 @@ import Joyride from 'react-joyride';
 import Nav from "./AdminShiftplanNav";
 import { Spinner } from "reactstrap";
 import OpenModal from "./OpenModal";
-import { thunkFetchOrg } from "../store/middleware/FetchOrg";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
-import { thunkFetchShiftplans } from "../store/middleware/FetchPlansFromDB";
 import { thunkUpdateShiftPlan } from "../store/middleware/UpdateShiftPlan";
 import { user } from "../store/middleware/user";
 import { thunkUploadShiftPlanToDB } from "../store/middleware/UploadShiftPlanToDB";
@@ -40,6 +38,8 @@ import { resettingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { resettingShiftSlot } from "../reducers/ShiftSlot";
 import { resettingEmployeesDummyshifts } from "../reducers/DB";
 import { settingOnboardingShiftplan } from "../reducers/Meta";
+import { resettingSuccessMessages } from "../reducers/SuccessMessages";
+import { thunkFetchAllShiftplans } from "../store/middleware/FetchPlansFromDB";
 
 const ShiftplanContainer = () => {
   const dispatch = useDispatch();
@@ -119,14 +119,11 @@ const ShiftplanContainer = () => {
   const OnboardingShiftplan = useSelector(state => state.Meta.onboarding.shiftplan);
   const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
   const DisplayNewShiftplan = useSelector(state => state.display.displayNewShiftplan);
+  const SuccessMessages = useSelector(state => state.successMessage)
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    dispatch(resettingCurrentShiftplanIndex())
-    dispatch(resettingShiftplan());
-    dispatch(resettingDisplayShiftplan());
-    dispatch(resettingShiftplanChanged())
     }, []);
 
 
@@ -181,6 +178,7 @@ const ShiftplanContainer = () => {
       autoDismiss: 7
     };
     notificationAlert.current.notificationAlert(options);
+    dispatch(resettingSuccessMessages());
     setErrMsng({...ErrMsng, [err]: !1})
 
   };
@@ -216,8 +214,7 @@ const ShiftplanContainer = () => {
     } 
 
     if(!ShiftplanChanged) {
-      dispatch(thunkUpdateShiftPlan(Shiftplan, !1));
-      dispatch(settingModal())
+      dispatch(settingModal("showSchichtplanFreigeben"))
       dispatch(resettingShiftplanChanged())
     }
   }
@@ -229,8 +226,7 @@ const ShiftplanContainer = () => {
     } 
 
     if(!ShiftplanChanged) {
-      dispatch(thunkUpdateShiftPlan(Shiftplan, !1));
-      dispatch(settingModal())
+      dispatch(settingModal("showBefuellungStarten"))
       dispatch(resettingShiftplanChanged())
     }
   }
@@ -280,6 +276,7 @@ const ShiftplanContainer = () => {
     { ErrMsng.MissingShiftDetails ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "MissingShiftDetails") : null}
     { ErrMsng.ShiftDetailsNotUpToDate ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "ShiftDetailsNotUpToDate") : null}
     { ErrMsng.MissingShiftPosition ? Notify("warning", WARNING_MISSING_SHIFT_POSITION, "MissingShiftPosition") : null}
+     { SuccessMessages.shiftplanReleased ? Notify("warning", WARNING_MISSING_SHIFT_POSITION, "MissingShiftPosition") : null}
       <Nav
         onNavChange={handleNavChange}
         navIndex={navIndex}
@@ -395,6 +392,11 @@ const ShiftplanContainer = () => {
       ></CalendarView>
           */}
       <SetTradeShift/>
+      <Row className="text-center mt-4">
+        <Col>
+          <Button color="link" hidden={DisplayShiftplan} onClick={() => dispatch(thunkFetchAllShiftplans())}>Alle  Schichtpläne laden</Button>
+        </Col>
+      </Row>
       <OpenModal
         setNavIndex={setNavIndex}
       />

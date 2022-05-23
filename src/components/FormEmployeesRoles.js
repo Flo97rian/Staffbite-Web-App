@@ -7,7 +7,7 @@ import store from "../store";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
 import { settingNewPosition } from "../reducers/userInput";
-import { addingNewPosition, deletingPosition } from "../reducers/Meta";
+import { addingNewPosition, deletingPosition, resettingAccessPosition, settingAccessPosition } from "../reducers/Meta";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
 const accesses = [{
     id: "accessAdminView",
@@ -36,9 +36,9 @@ const FormEmployeesRoles = () => {
     const [warning, setWarning] = useState(!1);
     const [toggleAddPosition, setToggleAddPosition] = useState(false);
     
-    function updatePositionAccess (position, accessValues) {
-        let currentAccessValues = _.get(Meta, "accessPosition" + [position], []);
-        dispatch(thunkUpdateProfile({...Meta, accessPosition: {...Meta.accessPosition, [position]: [...currentAccessValues, ...accessValues]}}))
+    function updatePositionAccess () {
+        dispatch(thunkUpdateProfile({...Meta}))
+        dispatch(resettingModal());
     }
 
     function addNewPosition (position) {
@@ -140,13 +140,9 @@ const FormEmployeesRoles = () => {
                                                 <Badge color="primary" className="" 
                                                 style={{"cursor": "pointer"}}
                                                 onClick={
-                                                    () => {
-                                                        if(!_.isEmpty(_.difference(_.get(CompanyAccess, [currentSelectedPosition], []), accessValues))) {
-                                                            setWarning(true)    
-                                                        } else {
+                                                    () => {  
                                                             setCurrentSelectedPosition("")
-                                                            setAccessValues([]);    
-                                                        }
+                                                            setAccessValues(_.get(CompanyAccess, [position], []));
                                                     }} >{position}</Badge>
                                             </Col>
                                             <Col xs="6" className="text-right">
@@ -178,12 +174,8 @@ const FormEmployeesRoles = () => {
                                             style={{"cursor": "pointer"}}
                                             onClick={
                                                 () => {
-                                                    if(!_.isEmpty(_.difference(_.get(CompanyAccess, [currentSelectedPosition], []), accessValues))) {
-                                                        setWarning(true)    
-                                                    } else {
                                                         setCurrentSelectedPosition(position)
                                                         setAccessValues(_.get(CompanyAccess, [position], []));
-                                                    }
                                                 }} >{position}</Badge>
                                         </Col>
                                     </Row>
@@ -212,14 +204,15 @@ const FormEmployeesRoles = () => {
                                         </Col>
                                         <Col xs="3" className="">
                                             <label className="custom-toggle">
-                                                <input type="checkbox" checked={_.includes(accessValues, access.id, 0)}/>
+                                                <input type="checkbox" checked={_.includes(_.get(CompanyAccess, [currentSelectedPosition], []), access.id, 0)}/>
                                                 <span className="custom-toggle-slider rounded-circle" data-label-off="Nein" data-label-on="Ja" 
                                                 onClick={() => {
-                                                    _.includes(accessValues, access.id, 0)
+                                                    console.log(_.includes(_.get(CompanyAccess, [currentSelectedPosition], []), access.id, 0));
+                                                    _.includes(_.get(CompanyAccess, [currentSelectedPosition], []), access.id, 0)
                                                     ?
-                                                    setAccessValues((accessValues.filter(acc => acc !== access.id)))
+                                                    dispatch(resettingAccessPosition({position: currentSelectedPosition, accessValue: access.id}))
                                                     :
-                                                    setAccessValues([...accessValues, access.id])
+                                                    dispatch(settingAccessPosition({position: currentSelectedPosition, accessValue: access.id}))
                                                 }}/>
                                             </label>
                                         </Col>

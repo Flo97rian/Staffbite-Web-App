@@ -26,15 +26,42 @@ import UserNavbar from "../../../components/Navbars/UserNavbar";
 import ShiftplanContainer from "../../../components/UserShiftplanContainer"
 import UserFooter from "../../../components/Footers/AdminFooter"
 import { userroutes } from "../../../routes";
+import { thunkFetchEmployeesPlans } from "../../../store/middleware/FetchPlansForEmployees";
+import { thunkFetchOrg } from "../../../store/middleware/FetchOrg";
+import { thunkFetchEmployee } from "../../../store/middleware/FetchUser";
+import { settingIsAdmin, settingIsEmployee } from "../../../reducers/currentUser";
+import { Auth } from "aws-amplify";
+import Loading from "../Default/Loading";
+import { useSelector, useDispatch } from "react-redux";
 
 
 const ShfitplanApplications = (props) => {
-  const mainContent = React.useRef(null);
+  const dispatch = useDispatch();
+  const isEmployee = useSelector(state => state.currentUser.userType === "isEmployee");
+  const metaStatus = useSelector(state => state.DB.metaStatus);
+  const employeeStatus = useSelector(state => state.DB.employeeStatus);
+  const plansStatus = useSelector(state => state.DB.plansStatus);
   const location = useLocation();
   useEffect(() => {
-    pageViewsTracking()
+    pageViewsTracking();
+    dispatch(thunkFetchEmployeesPlans());
+    dispatch(thunkFetchOrg());
+    dispatch(thunkFetchEmployee());
+    if(!isEmployee) {
+      isLoggedIn()
+    }
   },[])
 
+  async function isLoggedIn () {
+    let user = await Auth.currentAuthenticatedUser();
+    if(user.username === user.attributes["custom:TenantId"]) {
+      dispatch(settingIsAdmin())
+    }
+
+    if(user.username !== user.attributes["custom:TenantId"]) {
+      dispatch(settingIsEmployee())
+    }
+  }
   function pageViewsTracking () {
     const pathname = "/user/index";
     let pageView;
@@ -47,7 +74,6 @@ const ShfitplanApplications = (props) => {
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    mainContent.current.scrollTop = 0;
   }, [location]);
 
   const getBrandText = (path) => {
@@ -62,9 +88,22 @@ const ShfitplanApplications = (props) => {
     return "Brand";
   };
 
+  function ShiftplanContent() {
+    if( 
+      metaStatus !== "fulfilled" ||
+      plansStatus !== "fulfilled" ||
+      employeeStatus !== "fulfilled"
+      )
+      {
+        return <Loading/>
+      }
+    return <ShiftplanContainer/>
+  }
+
   return (
     <>
-      <div className="main-content" ref={mainContent}>
+      <div>
+      <Container fluid className="p-0">
         <UserNavbar
           {...props}
           routes={userroutes}
@@ -75,8 +114,7 @@ const ShfitplanApplications = (props) => {
           }}
           brandText={getBrandText(location)}
         />
-        <Container fluid>
-          <ShiftplanContainer></ShiftplanContainer>
+          <ShiftplanContent/>
           <UserFooter />
         </Container>
       </div>

@@ -10,8 +10,6 @@ import {
 
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
 import NotificationAlert from "react-notification-alert";
-import { thunkFetchShiftplans } from "../store/middleware/FetchPlansFromDB";
-import { thunkFetchEmployees } from "../store/middleware/FetchEmployees";
 import store from "../store";
 import OpenModal from "./OpenModal";
 import { WARNING_INVALID_REPORT_INPUT } from "../constants/Alerts"; 

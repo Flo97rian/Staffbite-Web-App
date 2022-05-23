@@ -1,4 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import { stat } from "fs";
 const initialState = {
   id: "",
   name: "",
@@ -181,6 +182,65 @@ const shiftplanSlice = createSlice({
         state.plan[index][day].setApplicants[employeeId] = employeeName;
       });
 
+    },
+    settingApplicant(state, action) {
+      const index = action.payload.index;
+      const day = action.payload.day;
+      const Employee = action.payload.Employee;
+      let EmployeeId = Employee.SK;
+      let EmployeeName = Employee.name;
+      if(!Object.keys(state.plan[index][day].applicants).includes(EmployeeId)) {
+        state.plan[index][day].applicants[EmployeeId] = EmployeeName;
+      }
+    },
+    deleteApplicant(state, action) {
+      const index = action.payload.index;
+      const day = action.payload.day;
+      let EmployeeId = action.payload.employeeId;
+      delete state.plan[index][day].applicants[EmployeeId]
+    },
+    applyForShiftTrade(state, action) {
+      const tradeIndex = action.payload.tradeIndex;
+      const Employee = action.payload.Employee;
+      const employeeId = Employee.employeeId;
+      const employeeName = Employee.employeeName;
+      state.tauschanfrage[tradeIndex].applicants[employeeId] = employeeName;
+    },
+    removeApplyForShiftTrade(state, action) {
+      const tradeIndex = action.payload.tradeIndex;
+      const employeeId = action.payload.employeeId;
+      delete state.tauschanfrage[tradeIndex].applicants[employeeId];
+    },
+    deleteTradeShift(state, action) {
+      const tradeIndex = action.payload.tradeIndex;
+      const employeeId = action.payload.employeeId;
+      if(state.tauschanfrage[tradeIndex].traderId === employeeId) {
+        state.tauschanfrage.splice(tradeIndex, 1);
+      }
+    },
+    settingTradeShift(state, action) {
+      const employeeId = action.payload.employeeId;
+      const index = action.payload.index;
+      const day = action.payload.day;
+      const trade = {
+        traderId: employeeId,
+        applicants: {},
+        row: index,
+        col: day,
+      }
+      const filterTrade = state.tauschanfrage.filter(currentTrade => {
+        if( currentTrade.col === trade.col &&
+            currentTrade.row === trade.row &&
+            currentTrade.traderId === trade.traderId
+          )
+          {
+            return true;
+          }
+        return false;
+      })
+      if(!filterTrade.length) {
+        state.tauschanfrage.push(trade);
+      }
     }
   }
 })
@@ -202,6 +262,12 @@ export const {
   deleteTenantFromShift,
   settingShiftActive,
   settingApplicants,
+  settingApplicant,
+  deleteApplicant,
+  applyForShiftTrade,
+  removeApplyForShiftTrade,
+  deleteTradeShift,
+  settingTradeShift
 } = shiftplanSlice.actions;
 
 export default shiftplanSlice.reducer

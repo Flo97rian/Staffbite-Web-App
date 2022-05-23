@@ -27,26 +27,6 @@ const UserShiftDetails = (props) => {
     const shiftstart = shiftplan[index]["Wochentag"].ShiftStart
     const shiftend = shiftplan[index]["Wochentag"].ShiftEnd
 
-    function hasNotice(shift) {
-        let isValid = !1
-        let keys = Object.keys(shift)
-        if (keys.includes("notice")) {
-            if(shift.notice !== "") {
-                isValid = !0;
-            }
-        }
-        return isValid;
-    }
-
-    function includesUser(applyedApplicants) {
-        let valid = !1;
-        if(props.User.SK in applyedApplicants) {
-            valid = !0;
-        }
-        return valid;
-
-    }
-
     function hasShiftNotice() {
         let value = !1;
             let keys = Object.keys(shift)

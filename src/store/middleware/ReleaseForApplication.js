@@ -1,13 +1,14 @@
 import { API, Auth } from "aws-amplify";
 import { v4 as uuidv4 } from 'uuid';
-import { thunkFetchShiftplans } from "./FetchPlansFromDB";
+import { thunkFetchShiftplans } from "./FetchShiftplans";
 import moment from "moment";
 import { API_HOSTNAME, RELEASE_SHIFTPLAN_FOR_APPLICATION } from "../../constants/ApiConstants";
 import { resettingShiftplan } from "../../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
 import { resettingDisplayShiftplan } from "../../reducers/display";
+import { settingShiftplanReleased } from "../../reducers/SuccessMessages";
 
-export function thunkReleaseForApplication(shiftplan) {
+export function thunkReleaseForApplication() {
     return async function releaseForApplication(dispatch, getState) {
         const state = getState();
         const Shiftplan = state.Shiftplan;
@@ -30,7 +31,7 @@ export function thunkReleaseForApplication(shiftplan) {
             })
             .then(response => {
                 dispatch(thunkFetchShiftplans());
-                dispatch({type: "stopFetchingRelaese"});
+                dispatch(settingShiftplanReleased())
                 dispatch(resettingDisplayShiftplan())
                 dispatch(resettingCurrentShiftplanIndex())
                 dispatch(resettingShiftplan());

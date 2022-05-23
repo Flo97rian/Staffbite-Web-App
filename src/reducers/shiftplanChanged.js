@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  shiftplanChanged: !0,
+  shiftplanChanged: false,
 }
 
 const shiftplanChangedSlice = createSlice({
