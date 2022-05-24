@@ -29,7 +29,7 @@ import {
   import * as _ from "lodash";
   import { useSelector, useDispatch } from "react-redux";
   function NewsFeedTimeline() {
-    const Newsfeed = useSelector(state => state.Meta.newfeed);
+    const Newsfeed = useSelector(state => state.Meta.newsfeed);
 
     function renderIcon(index) {
       let type = Newsfeed[index].type;

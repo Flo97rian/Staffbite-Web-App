@@ -179,7 +179,9 @@ const shiftplanSlice = createSlice({
       updateApplicants.forEach(applicantObject => {
         const employeeId = applicantObject.id.substring(1);
         const employeeName = applicantObject.content;
-        state.plan[index][day].setApplicants[employeeId] = employeeName;
+        if(employeeName !== "Leer") {
+          state.plan[index][day].setApplicants[employeeId] = employeeName;
+        }
       });
 
     },

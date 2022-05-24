@@ -7,7 +7,7 @@ import {
     Col,
     Button,
   } from "reactstrap";
-
+import ReactBSAlert from "react-bootstrap-sweetalert";
 import NotificationAlert from "react-notification-alert";
 import Joyride from 'react-joyride';
 import Nav from "./AdminShiftplanNav";
@@ -22,7 +22,7 @@ import SchichtplanImport from "./FormImportedShiftplans";
 import store from "../store";
 import { thunkPublishShiftPlan } from "../store/middleware/PublishShiftPlan";
 import { thunkFetchEmployees } from "../store/middleware/FetchEmployees";
-import { WARNING_MISSING_SHIFT_DETAILS, WARNING_MISSING_SHIFT_POSITION } from "../constants/Alerts";
+import { SUCCESS_FILLING_DONE, SUCCESS_RELEASE_DONE, WARNING_MISSING_SHIFT_DETAILS, WARNING_MISSING_SHIFT_POSITION } from "../constants/Alerts";
 import ImportSchichtplanTabelle from "./ShiftplansTable";
 import NeuerSchichtplanTabelle from "./NewShiftplan";
 import InfoSidebar from "./Sidebar/InfoSidebar";
@@ -30,16 +30,18 @@ import { ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN, ONBOARDING_SHIFTPLAN_VORLAGE, O
 import CalendarView from "./CalenderView";
 import _ from "lodash";
 import { resettingUserInput, settingCompanyPositions } from "../reducers/userInput";
-import { resettingShiftplan} from "../reducers/Shiftplan";
+import { resettingShiftplan, settingShiftplan} from "../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 import { resettingModal, settingModal } from "../reducers/modal";
-import { resettingDisplayNewShiftplan, resettingDisplayShiftplan } from "../reducers/display";
+import { resettingBasicLayout, resettingCalendarLayout, resettingDisplayNewShiftplan, resettingDisplayShiftplan, settingBasicLayout, settingCalendarLayout, settingDisplayShiftplan } from "../reducers/display";
 import { resettingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { resettingShiftSlot } from "../reducers/ShiftSlot";
 import { resettingEmployeesDummyshifts } from "../reducers/DB";
 import { settingOnboardingShiftplan } from "../reducers/Meta";
 import { resettingSuccessMessages } from "../reducers/SuccessMessages";
 import { thunkFetchAllShiftplans } from "../store/middleware/FetchPlansFromDB";
+import { thunkDeleteShiftPlan } from "../store/middleware/DeleteShiftPlan";
+import { resettingDeleteShiftplanID, resettingRemindShiftplanID } from "../reducers/temporary";
 
 const ShiftplanContainer = () => {
   const dispatch = useDispatch();
@@ -115,12 +117,31 @@ const ShiftplanContainer = () => {
   const NewShiftplan = useSelector(selectNewShiftplan);
   const FetchingPlans = useSelector(state => state.DB.plansStatus === "loading");
   const SidebarInfo = useSelector(selectInfoSidebar);
+  const Plans = useSelector(state => state.DB.plans);
   const ShiftplanChanged = useSelector(selectShiftplanChanged);
   const OnboardingShiftplan = useSelector(state => state.Meta.onboarding.shiftplan);
   const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
   const DisplayNewShiftplan = useSelector(state => state.display.displayNewShiftplan);
-  const SuccessMessages = useSelector(state => state.successMessage)
+  const DisplayBasicLayout = useSelector(state => state.display.displayBasicLayout);
+  const DisplayCalendarLayout = useSelector(state => state.display.displayCalendarLayout);
+  const SuccessMessagesKey = useSelector(state => Object.keys(state.successMessage).find(key => state.successMessage[key] === true));
+  const SuccessMessageShow = useSelector(state => Object.values(state.successMessage).includes(true));
+  const ProcessingKeyRejected = useSelector(state => Object.keys(state.processing).find(key => state.processing[key] === "rejected"));
+  const ProcessingKeyLoading = useSelector(state => Object.keys(state.processing).find(key => state.processing[key] === "loading"));
+  const ProcessingShowRejected = useSelector(state => Object.values(state.processing).includes("rejected"));
+  const ProcessingShowLoading = useSelector(state => Object.values(state.processing).includes("loading"));
+  const TemporaryDeleteShiftplanId = useSelector(state => state.temporary.deleteShiftplanId);
+  const TemporaryRemindedShiftplanId = useSelector(state => state.temporary.shiftplanId);
 
+  const AltertSuccessMessages = {
+    reportInProgress: false,
+    employeeCreated: false,
+    emailSend: false,
+    shiftplanReleased: SUCCESS_RELEASE_DONE,
+    shiftplanPublished: false,
+    shiftplanFilled: SUCCESS_FILLING_DONE,
+    employeeChanged: false,
+  }
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -276,18 +297,112 @@ const ShiftplanContainer = () => {
     { ErrMsng.MissingShiftDetails ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "MissingShiftDetails") : null}
     { ErrMsng.ShiftDetailsNotUpToDate ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "ShiftDetailsNotUpToDate") : null}
     { ErrMsng.MissingShiftPosition ? Notify("warning", WARNING_MISSING_SHIFT_POSITION, "MissingShiftPosition") : null}
-     { SuccessMessages.shiftplanReleased ? Notify("warning", WARNING_MISSING_SHIFT_POSITION, "MissingShiftPosition") : null}
+     <ReactBSAlert
+      show={SuccessMessageShow}
+      type='success'
+      title="Abgeschlossen"
+      confirmBtnText="Zum Schichtplan"
+      confirmBtnCssClass="success"
+      onConfirm={() => {
+        dispatch(resettingSuccessMessages());
+        const shiftplanIndex = Plans.findIndex(plan => plan.id === TemporaryRemindedShiftplanId);
+        dispatch(settingShiftplan(Plans[shiftplanIndex]));
+        dispatch(settingDisplayShiftplan());
+      }}
+      showCancel
+      cancelBtnText="Zur Übersicht"
+      onCancel={() => {
+        dispatch(resettingSuccessMessages());
+        dispatch(resettingRemindShiftplanID());
+      }}
+     >
+      <Row>
+        <Col>
+          <p>{AltertSuccessMessages[SuccessMessagesKey]}</p>
+        </Col>
+      </Row>
+      </ReactBSAlert>
+      <ReactBSAlert
+      show={ProcessingShowRejected}
+      type='error'
+      title="Ein Fehler ist aufgetreten."
+      showConfirm={false}
+     >
+      <Row>
+        <Col>
+        </Col>
+      </Row>
+      </ReactBSAlert>
+      <ReactBSAlert
+      show={ProcessingShowLoading}
+      type='info'
+      title="In Bearbeitung"
+      showConfirm={false}
+     >
+      <Row>
+        <Col>
+          <p>Einen Moment noch</p>
+        </Col>
+      </Row>
+     </ReactBSAlert>
+     <ReactBSAlert
+      show={TemporaryDeleteShiftplanId !== ""}
+      type='warning'
+      title="Schichtplan löschen?"
+      confirmBtnText="Löschen"
+      confirmBtnCssClass="bg-danger border-danger sm"
+      onConfirm={() => {
+        dispatch(thunkDeleteShiftPlan(TemporaryDeleteShiftplanId));
+        dispatch(resettingDeleteShiftplanID())
+      }}
+      cancelBtnText="Schließen"
+      btnSize="sm"
+      showCancel
+      allowEscape
+      closeOnClickOutside
+      onCancel={() => dispatch(resettingDeleteShiftplanID())}
+     >
+      <Row>
+        <Col>
+          <p>Möchtest du diesen Schichtplan wirklich löschen?</p>
+        </Col>
+      </Row>
+     </ReactBSAlert>
       <Nav
         onNavChange={handleNavChange}
         navIndex={navIndex}
         ></Nav>
+    <Row className="text-right">
+      <Col>
+        <Button 
+          hidden={DisplayCalendarLayout}
+          color="link"
+          onClick={() => {
+            dispatch(settingCalendarLayout());
+            dispatch(resettingBasicLayout());
+          }}
+          >
+            Kalender
+          </Button>
+        <Button 
+          hidden={DisplayBasicLayout}
+          color="link"
+          onClick={() => {
+            dispatch(settingBasicLayout());
+            dispatch(resettingCalendarLayout());
+          }}
+          >
+            Basic
+          </Button>
+      </Col>
+    </Row>
     <Row>
       <div className="rna-wrapper">
         <NotificationAlert ref={notificationAlert} />
       </div>
+    
     <Col xs={2} className="mt-4">
     <h3 className="float-left pt-4 font-weight-bold text-lg">Schichtplan</h3>
-    { FetchingPlans ? <Spinner color="success" /> : <></>}
     </Col>
     <Col xs={10} className="mt-2 mr-0">
     <Button 
@@ -381,16 +496,11 @@ const ShiftplanContainer = () => {
         <div className="col">
              <ImportSchichtplanTabelle/>
              <NeuerSchichtplanTabelle/> 
-            <SchichtplanImport 
+            <SchichtplanImport
               status={navIndex}
             />
         </div>
       </Row>
-      {/*<CalendarView
-        handleAddEventSetStart={handleAddEventSetStart}
-        updateCalendarShiftTime={updateCalendarShiftTime}
-      ></CalendarView>
-          */}
       <SetTradeShift/>
       <Row className="text-center mt-4">
         <Col>
@@ -412,5 +522,5 @@ const ShiftplanContainer = () => {
               sidebarInfo={SidebarInfo}/>
             </>
             );
-        }
+}
 export default ShiftplanContainer;

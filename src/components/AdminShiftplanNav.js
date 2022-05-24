@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 function AdminShiftplanNav (props) {
   const displayNav = useSelector(state => state.display.displayShiftplan === false && state.display.displayNewShiftplan === false);
+  console.log(props.navIndex);
   if (displayNav) {
     return (
       <>

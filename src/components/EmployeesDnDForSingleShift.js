@@ -1,6 +1,7 @@
 import React, { useState, useImperativeHandle, useEffect} from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
+import { Button } from "reactstrap";
 import { resettingEmployeeDummyShift, settingEmployeeDummyShift } from "../reducers/DB";
 import store from "../store";
 
@@ -137,13 +138,21 @@ const getItemContent = (item, employees) => {
       }
     }
   }
-  else {
-    return <small>{empName}<br/><small>Schicht nicht belegt</small></small>
+
+  if(empId === "TENANT") {
+    return <small>{empName}<br/><small>Eigentümer</small></small>
   }
+
+  if(empId && !employees[empId]) {
+    return <small>{empName}<br/><small>Mitarbeiter existiert nicht.</small></small>
+  }
+
+  return <small>{empName}<br/><small>Schicht nicht belegt</small></small>
 }
 
 const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
   const employees = useSelector(state => state.DB.employees);
+  const Meta = useSelector(state => state.Meta);
   const ShiftPosition = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftPosition);
   const applicants = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].applicants);
   const applicantsAfterPublish = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].applicantsAfterPublish || {});
@@ -212,6 +221,17 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
     }
   }
 
+  function removeEmployee(ind, index, item) {
+    const newState = [...state];
+    if (newState[ind].length === 1) {
+      newState[ind][index].id = String(ind);
+      newState[ind][index].content = "Leer";
+    } else {
+      newState[ind].splice(index, 1);
+    }
+    setState(newState);
+  }
+
   function handleDelete(ind, index, item) {
     const newState = [...state];
     store.dispatch(resettingEmployeeDummyShift(item.id.substring(1)))
@@ -222,6 +242,34 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
       newState[ind].splice(index, 1);
     }
     setState(newState);
+  }
+
+  const ShiftSelf = (props) => {
+    const index = props.ind;
+    let applicantsSlots = props.state;
+    if(index === 2) {
+      const hasTenant = applicantsSlots[index].findIndex(employee => employee.id.substring(1) === "TENANT");
+      if (hasTenant === -1) {
+        return (
+          <Button
+            className="mx-4 mt-2"
+            color="success"
+            size="sm"
+            onClick={() => {
+              if (applicantsSlots[index].length === 1 && applicantsSlots[index][0].content === "Leer") {
+                applicantsSlots[index][0] = {id: "2TENANT", content: Meta?.vorname || "Eigentümer"}
+              } else {
+                applicantsSlots[index].push({id: "2TENANT", content: Meta?.vorname || "Eigentümer"})
+              }
+              setState([...applicantsSlots]);
+            }}
+          >
+            Selbst eintragen
+          </Button>
+      )
+      }
+    }
+    return null;
   }
   const Mitarbeitercount = state[2][0].id.length === 1 ? 0 : state[2].length
   const title = ["Alle Mitarbeiter", "Alle Bewerber", "Eingesetzte Mitarbeiter " + Mitarbeitercount + "/" + numberOfEmployees]
@@ -276,11 +324,18 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
                               }
                             >
                             </span> : <></>}
+                            {Number(ind) === 2 && item.id.substring(1) && !Employees[item.id.substring(1)] ? <span
+                              className="fas fa-user-times float-right"
+                              onClick={() => removeEmployee(ind, index, item)
+                              }
+                            >
+                            </span> : <></>}
                           </div>
                         </div>
                         )}}
                     </Draggable>
                   ))}
+                  <ShiftSelf ind={ind} state={state}/>
                   {provided.placeholder}
                 </div>
               )}

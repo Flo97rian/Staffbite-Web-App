@@ -33,6 +33,9 @@ const ModalSaveChanges = (props) => {
     const updateShiftplan = () => {
         dispatch(thunkUpdateShiftPlan(Shiftplan));
         dispatch(resettingShiftplanChanged());
+        dispatch(resettingShiftplan())
+        dispatch(resettingDisplayShiftplan());
+        dispatch(resettingEmployeesDummyshifts())
         dispatch(resettingModal());
     }
         return (

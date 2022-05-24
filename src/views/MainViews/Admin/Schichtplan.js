@@ -51,6 +51,8 @@ import Loading from "../Default/Loading.js";
 import { thunkFetchOrg } from "../../../store/middleware/FetchOrg.js";
 import { thunkFetchEmployees } from "../../../store/middleware/FetchEmployees.js";
 import { thunkFetchShiftplans } from "../../../store/middleware/FetchShiftplans.js";
+import { settingCalendarLayout } from "../../../reducers/display.js";
+import AdminCalendarContainer from "../../../components/AdminCalendarContainer.js";
 
 
 const SchichtplanErstellen = () => {
@@ -59,6 +61,8 @@ const SchichtplanErstellen = () => {
   const metaStatus = useSelector(state => state.DB.metaStatus);
   const employeesStatus = useSelector(state => state.DB.employeesStatus);
   const plansStatus = useSelector(state => state.DB.plansStatus);
+  const DisplayBasicLayout = useSelector(state => state.display.displayBasicLayout);
+  const DisplayCalendarLayout = useSelector(state => state.display.displayCalendarLayout);
   const navigate = useNavigate()
   let location = useLocation()
 
@@ -91,7 +95,22 @@ const SchichtplanErstellen = () => {
     ) {
       return <Loading/>;
     }
-    return <SchichtplanContainer/>
+    return <SelectLayout/>
+    
+  }
+
+  function SelectLayout() {
+    dispatch(settingCalendarLayout());
+
+    if(DisplayBasicLayout) {
+      return <SchichtplanContainer/>
+    }
+
+    if(DisplayCalendarLayout) {
+      return <AdminCalendarContainer/>
+    }
+
+    return null;
   }
   function pageViewsTracking () {
     const pathname = "/admin";

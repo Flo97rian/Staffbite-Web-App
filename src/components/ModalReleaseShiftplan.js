@@ -31,7 +31,6 @@ const ModalReleaseShiftplan = (props) => {
 
     const releaseForApplication = () => {
         let detailsFilled = validateShiftplan();
-        console.log(startDate, endDate, detailsFilled, Shiftplan);
         if (startDate && endDate && detailsFilled) {
             dispatch(thunkReleaseForApplication())
             props.setNavIndex(2);

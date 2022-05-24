@@ -53,6 +53,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { weekdays } from "../constants/Weekdays";
 import { settingModal } from "../reducers/modal";
 import { settingShiftSlot } from "../reducers/ShiftSlot";
+import { settingShiftplan } from "../reducers/Shiftplan";
 const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
 const borderColor = ["border-success", "border-info", "border-light"]
 
@@ -69,6 +70,8 @@ function CalendarView(props) {
   const [radios, setRadios] = useState(null);
   const [eventId, setEventId] = useState(null);
   const [eventTitle, setEventTitle] = useState(null);
+  const [headerTitle, setHeaderTitle] = useState(null);
+  const [headerBadge, setHeaderBadge] = useState(null);
   const [bussinessHoursStart, setBussinessHoursStart] = useState("00:00")
   const [eventDescription, setEventDescription] = useState(null);
   // eslint-disable-next-line
@@ -77,7 +80,10 @@ function CalendarView(props) {
   const calendarRef = useRef(null);
   const dispatch = useDispatch()
   const shiftplan = useSelector(state => state.Shiftplan)
+  const Plans = useSelector(state => state.DB.plans);
   const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
+  const DisplayBasicLayout = useSelector(state => state.display.displayBasicLayout);
+  const DisplayCalendarLayout = useSelector(state => state.display.displayCalendarLayout);
 
   
   useEffect(() => {
@@ -87,12 +93,21 @@ function CalendarView(props) {
     // eslint-disable-next-line
   }, [])
 
+  useEffect(() => {}, [headerTitle])
+
   useEffect(() => {
-    setEventsData();
+    if(calendarRef.current) {
+      const calendarApi = calendarRef.current.getApi();
+      setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
+    }
+  }, [calendarRef])
+  useEffect(() => {
+    setAllEventsData();
+    //setEventsData();
     getPositions();
     //getEarlyestShiftStart()
     // eslint-disable-next-line
-  }, [shiftplan])
+  }, [Plans])
   const handleCalendarShiftChanges = () => {
     //const copyShiftplan = new ShiftPlan({...Shiftplan});
     //copyShiftplan.updateCalendarShift(userInput, ShiftSlot, DragAndDropRef);
@@ -140,7 +155,90 @@ function CalendarView(props) {
         })
         setPositions(positions);
     };
+ 
 
+    const setAllEventsData = (filter = false) => {
+      let eventsData = [];
+      let memorizeIDs = [];
+      const plansPublished = Plans.filter(shiftplan => {
+        const id = shiftplan.id.split('#')[2];
+        if(shiftplan.id.split('#').includes("Veröffentlicht")) {
+          memorizeIDs.push(id);
+          return true;
+        }
+        return false;
+      });
+
+      const plansReview = Plans.filter(shiftplan => {
+        const id = shiftplan.id.split('#')[2];
+        if( shiftplan.id.split('#').includes("Review") &&
+            !memorizeIDs.includes(shiftplan.id.split('#')[2])
+          ) 
+          {
+          memorizeIDs.push(id);
+          return true;
+        }
+        return false;
+      });
+
+      const plansReleased = Plans.filter(shiftplan => {
+        const id = shiftplan.id.split('#')[2];
+        if( shiftplan.id.split('#').includes("Freigeben") &&
+            !memorizeIDs.includes(shiftplan.id.split('#')[2])
+          ) 
+          {
+          memorizeIDs.push(id);
+          return true;
+        }
+        return false;
+      });
+
+      let plans = [...plansPublished, ...plansReview, ...plansReleased];
+      let index = 0
+      plans.forEach((shiftplan, planIndex) => {
+        shiftplan.plan.forEach((row, rowIndex) => {
+          if (filter === false || row.Wochentag.ShiftPosition === filter) {
+            _.forIn(row, function (value, key, row) {
+                if(_.isObject(value) && key !== "Wochentag" && value.frei !== false && !shiftplan.id.split('#').includes("Entwurf")) {
+                    const splittedDate = shiftplan.plan[0][key].split(".");
+                    const splittedStartTime = row.Wochentag.ShiftStart.split(":");
+                    const splttedEndTime = _.isBoolean(row.Wochentag.ShiftEnd) ? ("24:00").split(":") : row.Wochentag.ShiftEnd.split(":")
+                    const startTime = new Date(splittedDate[2], Number(splittedDate[1]) - 1, splittedDate[0], splittedStartTime[0], splittedStartTime[1])
+                    const endTime = new Date(splittedDate[2], Number(splittedDate[1] - 1), splittedDate[0], splttedEndTime[0], splttedEndTime[1])
+                    let background = "";
+                    const setApplicantsLenght = _.size(_.get(value, "setApplicants", {}))
+                    if(setApplicantsLenght === value.anzahl)
+                      background = "#2dce89";
+                    if(setApplicantsLenght > value.anzahl)
+                      background = "#f5365c";
+                    if(setApplicantsLenght < value.anzahl)
+                      background = "#fb6340"
+                    eventsData.push({
+                        id: index,
+                        title: row.Wochentag.ShiftName,
+                        start: startTime,
+                        end: endTime,
+                        filling: _.size(_.get(value, "setApplicants", {})) + "/" + value.anzahl + " Mitarbeiter",
+                        description: "gello",
+                        display: "block",
+                        backgroundColor: background,
+                        borderColor: background,
+                        textColor: "dark",
+                        notice: _.get(value, "notice", ""),
+                        applicants: _.get(value, "applicants", {}),
+                        setApplicants: _.get(value, "setApplicants", {}),
+                        shiftplanId: shiftplan.id,
+                        row: rowIndex,
+                        day: key
+                })
+                index +=1
+                }
+            })
+          }
+        });
+      })
+      setEvents(eventsData);
+    }
     const setEventsData = (filter = !1) => {
         let eventsData = [];
         const plan = _.get(shiftplan, "plan", [])
@@ -189,21 +287,25 @@ function CalendarView(props) {
   const changeView = (newView) => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.changeView(newView);
+    setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
   };
 
   const changeToToday = () => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.changeView("timeGridWeek", new Date().toISOString());
+    setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
   };
 
   const changeToNext = () => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.next();
+    setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
   };
 
   const changeToPrev = () => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.prev();
+    setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
   };
   const addNewEvent = () => {
     var newEvents = events;
@@ -308,6 +410,19 @@ function CalendarView(props) {
     setEventId(undefined);
     setEvent(undefined);
   };
+
+  const CalendarTitle = () => {
+    return (
+      <h5 className="h3 mb-0">{headerTitle}</h5>
+    )
+  }
+
+  const StatusBadge = () => {
+    if(headerBadge === "live") {
+      return <Badge color="success">Live</Badge>
+    }
+    return null;
+  }
   const renderEventContent = (eventInfo) => {
     if(_.isObject(shiftplan)) {
       const Shift = _.get(shiftplan, "plan[" + eventInfo.event.extendedProps.row + "][" + eventInfo.event.extendedProps.day + "]")
@@ -335,8 +450,7 @@ function CalendarView(props) {
         </Row>
     )
 };
-  if(_.isEmpty(shiftplan.id)) return null
-  if(DisplayShiftplan === false) return null;
+  if(DisplayCalendarLayout === false) return null;
   return (
     <>
       {alert}
@@ -347,7 +461,7 @@ function CalendarView(props) {
               <CardHeader>
                 <Row>
                   <Col>
-                    <h5 className="h3 mb-0">Frühling 8. Mai - 15.Mai</h5>
+                    <CalendarTitle />
                   </Col>
                   <Col>
                     <Row className="text-center">
@@ -407,7 +521,7 @@ function CalendarView(props) {
                   <Col>
                         <Row>
                           <Col>
-                            <Badge color="success">Live</Badge>
+                            <StatusBadge/>
                           </Col>
                         </Row>
                   </Col>
@@ -485,10 +599,12 @@ function CalendarView(props) {
                             let calendarApi = calendarRef.current.getApi();
                             if(calendarApi.currentDataManager.state.currentViewType === "dayGridMonth") {
                               calendarApi.changeView("timeGridWeek")
-                            } else {
-                            dispatch(settingShiftSlot({index: event.extendedProps.row, day: event.extendedProps.day}))
-                            dispatch(settingModal("editCalendarShift"))
-                            
+                            }
+                            if(calendarApi.currentDataManager.state.currentViewType === "timeGridWeek") {
+                              const shiftplanIndex = Plans.findIndex(shiftplan => shiftplan.id === event.extendedProps.shiftplanId);
+                              dispatch(settingShiftplan(Plans[shiftplanIndex]))
+                              dispatch(settingShiftSlot({index: event.extendedProps.row, day: event.extendedProps.day}))
+                              dispatch(settingModal("editCalendarShift"))
                             }
                         }}
                     />
@@ -496,212 +612,6 @@ function CalendarView(props) {
                 </Row>
               </CardBody>
             </Card>
-            <Modal
-              isOpen={modalAdd}
-              toggle={() => setModalAdd(false)}
-              className="modal-dialog-centered modal-secondary"
-            >
-              <div className="modal-body">
-                <form className="new-event--form">
-                  <FormGroup>
-                    <label className="form-control-label">Schicht hinzufügen</label>
-                    <Input
-                      className="form-control-alternative new-event--title"
-                      placeholder="Event Title"
-                      type="text"
-                      onChange={(e) => setEventTitle(e.target.value)}
-                    />
-                  </FormGroup>
-                  <FormGroup className="mb-0">
-                    <label className="form-control-label d-block mb-3">
-                      Status color
-                    </label>
-                    <ButtonGroup
-                      className="btn-group-toggle btn-group-colors event-tag"
-                      data-toggle="buttons"
-                    >
-                      <Button
-                        className={classnames("bg-info", {
-                          active: radios === "bg-info",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-info")}
-                      />
-                      <Button
-                        className={classnames("bg-warning", {
-                          active: radios === "bg-warning",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-warning")}
-                      />
-                      <Button
-                        className={classnames("bg-danger", {
-                          active: radios === "bg-danger",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-danger")}
-                      />
-                      <Button
-                        className={classnames("bg-success", {
-                          active: radios === "bg-success",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-success")}
-                      />
-                      <Button
-                        className={classnames("bg-default", {
-                          active: radios === "bg-default",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-default")}
-                      />
-                      <Button
-                        className={classnames("bg-primary", {
-                          active: radios === "bg-primary",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-primary")}
-                      />
-                    </ButtonGroup>
-                  </FormGroup>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <Button
-                  className="new-event--add"
-                  color="primary"
-                  type="button"
-                  onClick={addNewEvent}
-                >
-                  Schicht hinzufügen
-                </Button>
-                <Button
-                  className="ml-auto"
-                  color="link"
-                  type="button"
-                  onClick={() => setModalAdd(false)}
-                >
-                  Close
-                </Button>
-              </div>
-            </Modal>
-            <Modal
-              isOpen={modalChange}
-              toggle={() => setModalChange(false)}
-              className="modal-dialog-centered modal-secondary"
-            >
-              <div className="modal-body">
-                <Form className="edit-event--form">
-                  <FormGroup>
-                    <label className="form-control-label">Event title</label>
-                    <Input
-                      className="form-control-alternative edit-event--title"
-                      placeholder="Event Title"
-                      type="text"
-                      defaultValue={eventTitle}
-                      onChange={(e) => setEventTitle(e.target.value)}
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <label className="form-control-label d-block mb-3">
-                      Status color
-                    </label>
-                    <ButtonGroup
-                      className="btn-group-toggle btn-group-colors event-tag mb-0"
-                      data-toggle="buttons"
-                    >
-                      <Button
-                        className={classnames("bg-info", {
-                          active: radios === "bg-info",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-info")}
-                      />
-                      <Button
-                        className={classnames("bg-warning", {
-                          active: radios === "bg-warning",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-warning")}
-                      />
-                      <Button
-                        className={classnames("bg-danger", {
-                          active: radios === "bg-danger",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-danger")}
-                      />
-                      <Button
-                        className={classnames("bg-success", {
-                          active: radios === "bg-success",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-success")}
-                      />
-                      <Button
-                        className={classnames("bg-default", {
-                          active: radios === "bg-default",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-default")}
-                      />
-                      <Button
-                        className={classnames("bg-primary", {
-                          active: radios === "bg-primary",
-                        })}
-                        color=""
-                        type="button"
-                        onClick={() => setRadios("bg-primary")}
-                      />
-                    </ButtonGroup>
-                  </FormGroup>
-                  <FormGroup>
-                    <label className="form-control-label">Description</label>
-                    <Input
-                      className="form-control-alternative edit-event--description textarea-autosize"
-                      placeholder="Event Desctiption"
-                      type="textarea"
-                      defaultValue={eventDescription}
-                      onChange={(e) => setEventDescription(e.target.value)}
-                    />
-                    <i className="form-group--bar" />
-                  </FormGroup>
-                  <input className="edit-event--id" type="hidden" />
-                </Form>
-              </div>
-              <div className="modal-footer">
-                <Button color="primary" onClick={changeEvent}>
-                  Aktualisieren
-                </Button>
-                <Button
-                  color="danger"
-                  onClick={() => {
-                    setModalChange(false);
-                    deleteEventSweetAlert();
-                  }}
-                >
-                  Löschen
-                </Button>
-                <Button
-                  className="ml-auto"
-                  color="link"
-                  onClick={() => setModalChange(false)}
-                >
-                  Schließen
-                </Button>
-              </div>
-            </Modal>
           </div>
         </Row>
       </Container>

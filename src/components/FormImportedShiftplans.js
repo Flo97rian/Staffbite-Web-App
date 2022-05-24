@@ -15,6 +15,7 @@ import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 import { settingDisplayShiftplan } from "../reducers/display";
 import { thunkDeleteShiftPlan } from "../store/middleware/DeleteShiftPlan";
 import { createDummyshifts } from "../reducers/DB";
+import { settingDeleteShiftplanID } from "../reducers/temporary";
 
 const FormImportedShiftplans = (props) => {
   const displayTable = useSelector(state => state.display.displayShiftplan === false && state.display.displayNewShiftplan === false);
@@ -24,7 +25,7 @@ const FormImportedShiftplans = (props) => {
 
 
   const deleteShiftplan = (index) => {
-    dispatch(thunkDeleteShiftPlan({ index, Plans }));
+    dispatch(settingDeleteShiftplanID(Plans[index].id))
   }
     const ID = (status, item) => {
       let hasStatus = !1

@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     displayShiftplan: false,
     displayNewShiftplan: false,
+    displayBasicLayout: true,
+    displayCalendarLayout: false,
 }
 
 const displaySlice = createSlice({
@@ -20,6 +22,18 @@ const displaySlice = createSlice({
         },
         resettingDisplayNewShiftplan(state) {
             state.displayNewShiftplan = false;
+        },
+        settingBasicLayout(state) {
+            state.displayBasicLayout = true;
+        },
+        resettingBasicLayout(state) {
+            state.displayBasicLayout = false;
+        },
+        settingCalendarLayout(state) {
+            state.displayCalendarLayout = true;
+        },
+        resettingCalendarLayout(state) {
+            state.displayCalendarLayout = false;
         }
     }
 })
@@ -28,7 +42,11 @@ export const {
     settingDisplayShiftplan,
     resettingDisplayShiftplan,
     settingDisplayNewShiftplan,
-    resettingDisplayNewShiftplan
+    resettingDisplayNewShiftplan,
+    settingBasicLayout,
+    settingCalendarLayout,
+    resettingBasicLayout,
+    resettingCalendarLayout
 } = displaySlice.actions;
 
 export default displaySlice.reducer;

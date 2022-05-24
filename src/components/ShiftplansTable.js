@@ -21,6 +21,7 @@ const  ShiftplansTable = (props) => {
     const Plans = useSelector(state => state.DB.plans);
     const currentPlanIndex = useSelector(state => state.currentShiftPlan.currentShiftplanIndex)
     const Shiftplan = useSelector(state => state.Shiftplan);
+    const DisplayBasicLayout = useSelector(state => state.display.displayBasicLayout);
     function getLegend() {
         if(Shiftplan.id !== "") {
             let id = Shiftplan.id;
@@ -63,6 +64,7 @@ const  ShiftplansTable = (props) => {
         }
     }
 
+    if( DisplayBasicLayout === false) return null;
     let currentPlan = Shiftplan.id;
     if(DisplayShiftplan && Plans) {
         if(currentPlan.split("#").includes("Entwurf")) {

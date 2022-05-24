@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Col,
     Row,
@@ -11,7 +11,7 @@ import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTenantFromShift, settingTenantInShift } from "../reducers/Shiftplan";
 
-const FormSetApplicantsDetails = (props) => {
+const FormSetApplicantsDetails = (props, ref) => {
     const dispatch = useDispatch();
     const index = useSelector(state => state.shiftSlot.index);
     const day = useSelector(state => state.shiftSlot.day);
@@ -22,7 +22,6 @@ const FormSetApplicantsDetails = (props) => {
     const ShiftEnd = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftEnd);
     const ShiftNotice = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].notice);
     const shiftMinQualification = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].prio);
-
     const handleRemoveTenantFromShift = () => {
         dispatch(deleteTenantFromShift({index: index, day: day}));
     }
@@ -32,22 +31,6 @@ const FormSetApplicantsDetails = (props) => {
             dispatch(settingTenantInShift({index: index, day: day, name: Meta.vorname}))
         }
       }
-
-    function selfShift(shift) {
-        let keys = Object.keys(shift.setApplicants)
-        let includesTenant = keys.includes("TENANT")
-        if(includesTenant) {
-            return (
-                <>
-                <p className="text-success font-weight-bold">Selbst eingetragen<Button className="float-right" size="sm" color="danger" onClick={() => handleRemoveTenantFromShift()}>Zurücksetzen</Button></p>
-                </>
-            )
-        } else {
-            return (
-                <Button size="sm" color="success" onClick={() => handleSetTenantInShift()}>Eintragen</Button>
-            )
-        }
-    }
     if (!_.isEmpty(ShiftNotice) && !_.isBoolean(shiftMinQualification)) {
         return (
             <>
@@ -75,14 +58,6 @@ const FormSetApplicantsDetails = (props) => {
                         <p>{ShiftName} {day} {ShiftStart} - {ShiftEnd}</p>
                     </Col>
                 </Row>
-                <Row className="mx-4  mb-2">
-                <Col xs="6">
-                    <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
-                </Col>
-                <Col xs="6">
-                    {selfShift(Shift)}
-                </Col>
-            </Row>
             </>
         )
     } else if (_.isEmpty(ShiftNotice) && !_.isBoolean(shiftMinQualification)) {
@@ -112,14 +87,6 @@ const FormSetApplicantsDetails = (props) => {
                         <p>{ShiftName} {day} {ShiftStart} - {ShiftEnd}</p>
                     </Col>
                 </Row>
-                <Row className="mx-4 mb-2">
-                <Col xs="6">
-                    <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
-                </Col>
-                <Col xs="6">
-                    {selfShift(Shift)}
-                </Col>
-            </Row>
             </>
         )
     }  else if(!_.isEmpty(ShiftNotice) && _.isBoolean(shiftMinQualification)) {
@@ -141,14 +108,6 @@ const FormSetApplicantsDetails = (props) => {
                         <p>{ShiftName} {day} {ShiftStart} - {ShiftEnd}</p>
                     </Col>
                 </Row>
-                <Row className="mx-4 mb-2">
-                <Col xs="6">
-                    <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
-                </Col>
-                <Col xs="6">
-                    {selfShift(Shift)}
-                </Col>
-            </Row>
             </>
         )
     } else {
@@ -168,14 +127,6 @@ const FormSetApplicantsDetails = (props) => {
                 </Col>
                 <Col xs="6">
                     <p>{ShiftName} {day} {ShiftStart} - {ShiftEnd}</p>
-                </Col>
-            </Row>
-            <Row className="mx-4 mb-2">
-                <Col xs="6">
-                    <InfoLabel title="Selbst eintragen?" description={INFO_USER_NOTICE}></InfoLabel>
-                </Col>
-                <Col xs="6">
-                    {selfShift(Shift)}
                 </Col>
             </Row>
             </>

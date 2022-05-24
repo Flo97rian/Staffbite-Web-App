@@ -68,7 +68,6 @@ export const ShiftplanElement = (props) => {
         dispatch(settingModal("applyIsActive"))
         dispatch(settingShiftSlot({index: index, day: day}))
     };
-
     const type = _.isString(Shiftplan.id) ? Shiftplan.id.split('#')[1] : "";
     const ItemLength = props.ItemLength;
     const index = props.index;
@@ -79,7 +78,7 @@ export const ShiftplanElement = (props) => {
     const isFree = _.get(currentItem, "frei", false)
     const hasPrio = !_.isBoolean(prio);
     const hasNotice = !_.isEmpty(notice)
-    const anzahl = props.anzahl;
+    const anzahl = _.get(Shiftplan, "plan.[" + index + "].Montag.anzahl", "0");
     const hasShiftName = _.get(currentItem, "Wochentag.ShiftName", "");
     const isDiscribeWeekDay = day === "Wochentag";
     const Applicants = _.get(currentItem, "applicants", {})
@@ -143,6 +142,33 @@ export const ShiftplanElement = (props) => {
                 return editShiftDetails(currentItem, index, anzahl, editShift);
             } else if (isFree && isDiscribeWeekDay && !hasShiftName){
                 return setShiftDetails(currentItem, index);
+            } else if (!isFree && !isDiscribeWeekDay) {
+                return CompanyClosed();
+            } else if (SetAppplicantsLength < Number(anzahl) && !(hasPrio || hasNotice)) {
+                if(isFree && hasSetApplicants && !isDiscribeWeekDay) {
+                    return ProgessSetApplicantsWithoutPrioNotFilled(index, day, FirstSetApplicant, SecondSetApplicant, setApplicant);
+                } else {
+                    return ProgessSetApplicantsWithoutPrioEmpty(index, day, setApplicant);
+                }
+            } else if (SetAppplicantsLength < Number(anzahl) && (hasPrio || hasNotice)) {
+                if(isFree && hasSetApplicants && SetApplicants > 0 && !isDiscribeWeekDay) {
+                    return ProgessSetApplicantsWithPrioNotFilled(index, day, FirstSetApplicant, SecondSetApplicant, setApplicant);
+                }  else {
+                    return ProgessSetApplicantsWithPrioEmpty(index, day, setApplicant);
+                }
+            } else if (SetAppplicantsLength === Number(anzahl) && !(hasPrio || hasNotice)) {
+                return ProgessSetApplicantsWithoutPrioFilled(index, day, FirstSetApplicant, SecondSetApplicant, SetApplicants, setApplicant)
+            } else if (SetAppplicantsLength === Number(anzahl) && (hasPrio || hasNotice)) {
+                return ProgessSetApplicantsWithPrioFilled(index, day, FirstSetApplicant, SecondSetApplicant, SetApplicants, setApplicant);
+            } else {
+                return Default(index, day, setApplicant);
+            }
+            {/*if (index === 0 || index === 1 || index === ItemLength - 1 ) {
+                return DateOrWeekDayRow(currentItem);
+            } else if (!isFree && isDiscribeWeekDay){
+                return editShiftDetails(currentItem, index, anzahl, editShift);
+            } else if (isFree && isDiscribeWeekDay && !hasShiftName){
+                return setShiftDetails(currentItem, index);
             } else if (isFree && hasSetApplicants && SetAppplicantsLength === 2 && !isDiscribeWeekDay &&  (hasPrio || hasNotice)) {
                 return TwoSetApplicantsWithPrio(index, day, FirstSetApplicant, SecondSetApplicant, setApplicant);
             }  else if (isFree && hasSetApplicants && SetAppplicantsLength === 2 && !isDiscribeWeekDay) {
@@ -163,7 +189,7 @@ export const ShiftplanElement = (props) => {
                 return ZeroApplicants(index, day, setApplicant);
             } else {
                 return Default(index, day, setPrio);
-            }
+            }*/}
         } else if (type === "Veröffentlicht") {
             if (index === 0 || index === 1 || index === ItemLength - 1 ) {
                 return DateOrWeekDayRow(currentItem);

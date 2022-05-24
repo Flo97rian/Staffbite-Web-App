@@ -15,6 +15,7 @@ import displayReducer from "./reducers/display"
 import temporaryReducer from './reducers/temporary'
 import currentUserReducer from './reducers/currentUser'
 import successMessagesReducer from "./reducers/SuccessMessages"
+import processingReducer from "./reducers/processing"
 
 const store = configureStore({
     reducer: {
@@ -34,6 +35,7 @@ const store = configureStore({
     temporary: temporaryReducer,
     currentUser: currentUserReducer,
     successMessage: successMessagesReducer,
+    processing: processingReducer,
     }
 });
 

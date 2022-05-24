@@ -165,7 +165,7 @@ const DBSlice = createSlice({
     },
     settingMetaRejected(state) {
       state.metaStatus = "rejected";
-    }
+    },
   }
 })
 

@@ -801,7 +801,7 @@ export const ProgessSetApplicantsWithoutPrioFilled = (index, col, FirstApplicant
             <ListGroupItemHeading className="m-0 p-0" color="">
             <Progress max="100" value="100" color="success" />
             </ListGroupItemHeading>
-            <ListGroupItemText className="m-0 pt-2">
+            <ListGroupItemText className="m-0 p-3">
             {FirstApplicant}
                 <br/>
                 {typeof SecondApplicant === "string" ? SecondApplicant : <br/>}
