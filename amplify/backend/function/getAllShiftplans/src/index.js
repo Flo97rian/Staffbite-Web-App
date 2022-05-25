@@ -28,10 +28,13 @@ exports.handler = async (event) => {
      };
      
     let data = null
-    let response = null
     try {
         data = await dynamodb.query(params).promise();
-        response = {
+    } catch(error) {
+        
+    }
+    
+        let response = {
         statusCode: 200,
         headers: {
             "Access-Control-Allow-Headers" : "application/json",
@@ -40,18 +43,7 @@ exports.handler = async (event) => {
         },
         body: JSON.stringify(data),
         }
-    } catch(error) {
-        response = {
-        statusCode: 200,
-        headers: {
-            "Access-Control-Allow-Headers" : "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
-        },
-        body: JSON.stringify(error),
-    }
-}
-     
+        console.log(data);
     return response;
 };
 

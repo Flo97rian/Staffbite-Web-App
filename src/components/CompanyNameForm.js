@@ -8,15 +8,12 @@ import {
     Input,
   } from "reactstrap";
   import PropTypes from "prop-types";
+  import { useSelector, useDispatch } from "react-redux";
+import { settingCompanyName } from "../reducers/userInput";
 
-  const CompanyNameForm  = ({name, placeholder, onChange}) => {
-
-    CompanyNameForm.propTypes = {
-      name: PropTypes.string.isRequired,
-      placeholder: PropTypes.string,
-      onChange: PropTypes.func.isRequired
-    }
-
+  const CompanyNameForm  = () => {
+    const dispatch = useDispatch()
+    const CompanyName = useSelector(state => state.Meta.name);
     CompanyNameForm.defaultProps = {
       placeholder: "Name",
     }
@@ -28,12 +25,11 @@ import {
             <FormGroup>
                 <Input
                 id="exampleFormControlInput1"
-                placeholder={placeholder}
+                placeholder={CompanyName}
                 type="text"
-                name={name}
                 size="lg" 
                 className="form-control-alternative edit-event--description input-autosize form-control input_betrieb"
-                onChange={(e) => onChange(e, "updateProfile")}
+                onChange={(event) => dispatch(settingCompanyName(event.target.value))}
                 />
             </FormGroup>
           </Form>

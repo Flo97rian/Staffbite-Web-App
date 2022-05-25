@@ -1,25 +1,27 @@
+import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  index: 0,
+  day: "",
+}
 
-const ShiftSlotReducer = (state = !1, action) => {
-    switch (action.type) {
-      case "setShiftSlot": 
-        return {
-          ...state,
-          row: action.payload.row,
-          col: action.payload.col,
-          prio: action.payload.prio
-        }
-        case "ResetShiftSlot": 
-        return (!1)
-        case "setApplicantSlot": 
-        return {
-          ...state,
-          row: action.payload.row,
-          col: action.payload.col,
-        }
-      default:
-        return state
+const ShiftSlotSlice = createSlice({
+  name: "shiftSlot",
+  initialState,
+  reducers: {
+    settingShiftSlot(state, action) {
+      state.index = action.payload.index;
+      state.day = action.payload.day;
+    },
+    resettingShiftSlot(state, action) {
+      state = initialState
     }
-  };
-  
-  export default ShiftSlotReducer;
+  }
+})
+
+export const {
+  settingShiftSlot,
+  resettingShiftSlot
+} = ShiftSlotSlice.actions
+
+export default ShiftSlotSlice.reducer;

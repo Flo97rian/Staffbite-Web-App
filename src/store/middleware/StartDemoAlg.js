@@ -1,5 +1,4 @@
 import { API, Auth } from "aws-amplify";
-import { FetchFromDB } from "./FetchPlansFromDB";
 import { API_HOSTNAME, DEMO_ALGORITHM } from "../../constants/ApiConstants";
 
 export function thunkStartDemoAlg(plan, employees) {

@@ -11,11 +11,10 @@ import {
 from "reactstrap";
 // core components
 import TableDnD from "./ShiftplanDnDNew";
-
+import { useSelector, useDispatch } from "react-redux";
 const NewShiftplan = (props) => {
-        let isActivePlan = props.bearbeiten;
-        let isImportedPlan = props.import;
-        if (isActivePlan && !isImportedPlan) {
+        const DisplayNewShiftplan = useSelector(state => state.display.displayNewShiftplan);
+        if (DisplayNewShiftplan) {
             return (
                 <>
                 <Card>
@@ -34,16 +33,13 @@ const NewShiftplan = (props) => {
                         </Row>
                         <br/>
                             <Row className="text-center" noGutters={true}>
-                                <TableDnD
-                                {...props}
-                                ></TableDnD>
+                                <TableDnD/>
                             </Row>
                             </CardBody>
                             </Card>
                     </>
             );
-        } else {
-            return null;
         }
+        return null;
     }
 export default NewShiftplan;

@@ -1,5 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { API_HOSTNAME, FETCH_ADMIN } from "../../constants/ApiConstants";
+import { settingUser } from "../../reducers/DB";
 import constants from "../constants";
 
 export async function getAdmin(dispatch, getState) {
@@ -11,5 +12,5 @@ export async function getAdmin(dispatch, getState) {
       } // OPTIONAL
     };
     const response = await API.get(apiName, path, myInit)
-    dispatch({type: "All/GetUser", payload: response})
+    dispatch(settingUser(response))
     };

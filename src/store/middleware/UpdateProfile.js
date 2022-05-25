@@ -1,6 +1,7 @@
 import { API, Auth } from "aws-amplify";
-import { FetchOrg } from "./FetchOrg";
+import { thunkFetchOrg } from "./FetchOrg";
 import { API_HOSTNAME, UPDATE_ORGANISATION } from "../../constants/ApiConstants";
+import { settingMetaFetching, settingMetaRejected } from "../../reducers/DB";
 
 export function thunkUpdateProfile(profile) {
   return async function updateProfile(dispatch, getState) {
@@ -16,10 +17,10 @@ export function thunkUpdateProfile(profile) {
       return API.post(apiName, path, myInit)
       })
     .then(response => {
-      if(response) {
-        dispatch(FetchOrg);
-      }
-    }
-    )
+        dispatch(thunkFetchOrg());
+    })
+    .catch(error => {
+      dispatch(settingMetaRejected())
+    })
   }
 }

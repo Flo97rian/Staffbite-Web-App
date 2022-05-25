@@ -286,6 +286,34 @@
                 "open": true
             },
             "policyResourceName": "/validateStripeNumberOfEmployees"
+        },
+        {
+            "name": "/fetchShiftplans",
+            "lambdaFunction": "fetchShiftplans",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            },
+            "policyResourceName": "/fetchShiftplans"
+        },
+        {
+            "name": "/fetchShiftplansForEmployee",
+            "lambdaFunction": "fetchShiftplansForEmployee",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            },
+            "policyResourceName": "/fetchShiftplansForEmployee"
         }
     ],
     "resourceName": "Staffbite",
@@ -365,10 +393,16 @@
         },
         {
             "lambdaFunction": "validateStripeNumberOfEmployees"
+        },
+        {
+            "lambdaFunction": "fetchShiftplans"
+        },
+        {
+            "lambdaFunction": "fetchShiftplansForEmployee"
         }
     ],
     "privacy": {
-        "auth": 19,
+        "auth": 21,
         "unauth": 0,
         "authRoleName": "amplify-staffbite-dev-180625-authRole",
         "unAuthRoleName": "amplify-staffbite-dev-180625-unauthRole"
@@ -573,7 +607,23 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "fetchShiftplans",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "fetchShiftplansForEmployee",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
     ],
-    "uuid": "f7d11924"
+    "uuid": "02adeebb"
 }

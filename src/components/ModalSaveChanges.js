@@ -7,16 +7,36 @@ import {
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import store from "../store"
+import { useSelector, useDispatch } from "react-redux";
+import { resettingShiftplan } from "../reducers/Shiftplan";
+import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
+import { resettingModal } from "../reducers/modal";
+import { resettingDisplayShiftplan } from "../reducers/display";
+import { resettingShiftplanChanged } from "../reducers/shiftplanChanged";
+import { thunkUpdateShiftPlan } from "../store/middleware/UpdateShiftPlan";
+import { resettingEmployeesDummyshifts } from "../reducers/DB";
 
 const ModalSaveChanges = (props) => {
+    const dispatch = useDispatch();
+    const saveChanges = useSelector(state => state.modal.saveChanges);
+    const Shiftplan = useSelector(state => state.Shiftplan);
 
-    function ResetShiftplan (modalkey) {
-        store.dispatch({ type: "ResetCurrentShiftPlan"})
-        store.dispatch({ type: "resetShiftplan"})
-        store.dispatch({ type: "stopShiftPlanIsActive"})
-        store.dispatch({ type: "stopShiftPlanIsImported"})
-        store.dispatch({ type: "resetShiftplanChanged"})
-        store.dispatch({type: "CLOSE", payload: modalkey})
+    function ResetShiftplan () {
+        dispatch(resettingCurrentShiftplanIndex())
+        dispatch(resettingShiftplan())
+        dispatch(resettingDisplayShiftplan());
+        dispatch(resettingShiftplanChanged())
+        dispatch(resettingEmployeesDummyshifts())
+        dispatch(resettingModal())
+    }
+
+    const updateShiftplan = () => {
+        dispatch(thunkUpdateShiftPlan(Shiftplan));
+        dispatch(resettingShiftplanChanged());
+        dispatch(resettingShiftplan())
+        dispatch(resettingDisplayShiftplan());
+        dispatch(resettingEmployeesDummyshifts())
+        dispatch(resettingModal());
     }
         return (
             <Modal 
@@ -25,7 +45,7 @@ const ModalSaveChanges = (props) => {
                     centered
                     scrollable={true}
                     className="modal-secondary"
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
+                    show={saveChanges} onHide={() => dispatch(resettingModal())}
             >
                <Modal.Header className="pb-0" closeButton>
                     <Label className="h2 m-3 align-items-center">Änderungen speichern</Label>
@@ -36,8 +56,8 @@ const ModalSaveChanges = (props) => {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button  color="warning" onClick={() => ResetShiftplan(props.modalkey)}> Änderungen ablehnen </Button>
-                    <Button color="success" onClick={() => props.handleUpdate()}>Änderungen speichern</Button>
+                    <Button  color="warning" onClick={() => ResetShiftplan()}> Änderungen ablehnen </Button>
+                    <Button color="success" onClick={() => updateShiftplan()}>Änderungen speichern</Button>
                 </Modal.Footer>
             </Modal>
         );

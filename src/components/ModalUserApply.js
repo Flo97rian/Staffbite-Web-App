@@ -1,51 +1,99 @@
 import React from "react";
 import {
     Label,
-    Button
+    Button,
+    Row,
+    Col
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import store from "../store";
 import ShiftDetails from "./UserShiftDetails";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
+import { deleteApplicant, settingApplicant } from "../reducers/Shiftplan";
+import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
+import InfoLabel from "./InfoLabel";
+import { INFO_USER_NOTICE } from "../constants/InfoTexts";
+import FormNames from "./FormNames";
 
 
 const ModalUserApply = (props) => {
-    const day = props.shiftslot.col;
-    const row = props.shiftslot.row;
-    const shiftplan = props.shiftplan.plan
-    let shift = shiftplan[row][day]
-    let includesApplicants = Object.keys(shift).includes("applicants")
-    function includesUser() {
-        let valid = !1;
-        if(includesApplicants) {
-            let applyedApplicants = shiftplan[row][day].applicants
-            if(props.User.SK in applyedApplicants) {
-                valid = !0;
-            }
-        }
-        return valid;
+    const dispatch = useDispatch();
+    const userApply = useSelector(state => state.modal.userApply);
+    const index = useSelector(state => state.shiftSlot.index);
+    const day = useSelector(state => state.shiftSlot.day);
+    const Employee = useSelector(state => state.DB.employee);
+    const Shiftplan = useSelector(state => state.Shiftplan);
+    const ShiftName = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftStart);
+    const ShiftStart = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftStart);
+    const ShiftEnd = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftEnd);
+    const ShiftNotice = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].notice || "");
+    const Applicants = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].applicants || {});
 
+    function setApplication () {
+        dispatch(settingApplicant({index: index, day: day, Employee: {SK: Employee.SK, name: Employee.name}}))
+        dispatch(resettingModal())
+        dispatch(settingShiftplanChanged())
     }
+
+    function includesUser() {
+        if(!Object.keys(Shiftplan.plan[index][day]).includes("applicants")) {
+            return false;
+        }
+        return Object.keys(Shiftplan.plan[index][day].applicants).includes(Employee.SK)
+    }
+
+    const deleteApplication = () => {
+        dispatch(deleteApplicant({index: index, day: day, employeeId: Employee.SK}))
+        dispatch(resettingModal())
+        dispatch(settingShiftplanChanged())
+      }
         return (
             <Modal 
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     className="modal-secondary"
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
+                    show={userApply} onHide={() => dispatch(resettingModal())}
             >
-                <Modal.Header className="pb-0" closeButton>
-                    <Label className="h2 m-3 align-items-center">In Schicht eintragen</Label>
-                </Modal.Header>
+                    <Label className="h2 m-3 text-center">In Schicht eintragen</Label>
                 <Modal.Body className="pt-1">
-                    <ShiftDetails {...props}/>
+                    <Row className="mx-4 mt-3">
+                        <Col xs={6}>
+                            <InfoLabel title="Schicht" description={INFO_USER_NOTICE}></InfoLabel>
+                        </Col>
+                        <Col xs={6}>
+                            <p className=" mt-0">{ShiftName} {day} {ShiftStart} - {ShiftEnd}</p>
+                        </Col>
+                    </Row>
+
+                    <Row hidden={!ShiftNotice} className="mx-4">
+                        <Col xs={6}>
+                        <InfoLabel title="Notiz" description={INFO_USER_NOTICE}></InfoLabel>
+                        </Col>
+                        <Col xs={6}>
+                            <p className="font-weight-bold">
+                                {ShiftNotice}
+                            </p>
+                        </Col>
+                    </Row>
+
+                    <Row hidden={!Object.keys(Applicants).includes(Employee.SK)} className="mx-4">
+                        <Col xs={6}>
+                            <InfoLabel title="Bewerber"/>
+                        </Col>
+                        <Col xs={6}>
+                            <p>Deine Verfübarkeit ist gespeichert.</p>
+                        </Col>
+                    </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button color="link" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
+                    <Button color="link" onClick={() => dispatch(resettingModal())}> Schließen </Button>
                     {includesUser()
                     ?
-                    <Button className="" color="danger" onClick={() => props.onDelete(props.modalkey)}>Bewerbung zurückziehen</Button>
+                    <Button className="" color="danger" onClick={() => deleteApplication()}>Bewerbung zurückziehen</Button>
                     :
-                    <Button color="success" onClick={() => props.onBewerben(props.modalkey)}> Eintragen </Button>  
+                    <Button color="success" onClick={() => setApplication()}> Eintragen </Button>  
                     }
                 </Modal.Footer>
             </Modal>

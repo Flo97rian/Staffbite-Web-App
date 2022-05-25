@@ -36,7 +36,7 @@ import {
 import { useSelector } from "react-redux";
 import store from "../../store";
 import { Auth } from 'aws-amplify';
-import { getUser } from "../../store/middleware/FetchUser";
+import { thunkFetchEmployee } from "../../store/middleware/FetchUser";
 import { userroutes } from "../../routes";
 import { useLocation, Route, Navigate } from "react-router-dom";
 import { thunkUpdateEmployee } from "../../store/middleware/UpdateEmployee";
@@ -45,12 +45,11 @@ const UserNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate()
-  const selectUser = state => state.user;
 
-  const User = useSelector(selectUser);
+  const User = useSelector(state => state.DB.employee);
     // Initiales laden der aktuellen Users
   useEffect(() => {
-    store.dispatch(getUser)
+    store.dispatch(thunkFetchEmployee())
   }, []);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -138,7 +137,6 @@ function tourStarten() {
 
   return (
     <>
-    <Container className="ml-2 mr-2 mt-0 pt-0">
       <Navbar 
       className="navbar-top bg-white shadow fixed-top sticky" 
       expand="lg" 
@@ -188,7 +186,6 @@ function tourStarten() {
             </UncontrolledDropdown>
         </NavbarText>
         </Navbar>
-      </Container>
     </>
   );
 }

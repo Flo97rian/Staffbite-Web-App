@@ -24,11 +24,7 @@ import {
   Container,
   Row,
   Col,
-  CardImg,
-  CardText,
-  CardSubtitle,
   Card,
-  CardTitle
 } from "reactstrap";
 import SchichtplanBeispiel from "../../../assets/img/theme/Schichtplan-befüllen.png"
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"

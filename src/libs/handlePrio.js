@@ -1,21 +1,24 @@
 import store from "../../../../store";
+import { settingShiftplans } from "../reducers/DB";
+import { settingNewShiftplan } from "../reducers/NewShiftPlan";
+import { resettingShiftSlot } from "../reducers/ShiftSlot";
 
 export const setPrioShift = (Plans, ShiftSlot, currentShiftPlan, userInput) => {
+    const index = store.get(state => state.shiftSlot.index);
+    const day = store.get(state => state.shiftSlot.day);
     let plans = [...Plans];
-    let row = ShiftSlot.row
-    let col = ShiftSlot.col
     let currentPlan = plans[currentShiftPlan]
     let hasuserInput = userInput !== null;
-    currentPlan.plan[row][col]["prio"] = hasuserInput && "qualifikation" in userInput ? userInput.qualifikation : !1;
-    store.dispatch({type: "All/setPlans", payload: plans})
-    store.dispatch({type: "ResetShiftSlot"})
+    currentPlan.plan[index][day]["prio"] = hasuserInput && "qualifikation" in userInput ? userInput.qualifikation : !1;
+    store.dispatch(settingShiftplans(plans));
+    store.dispatch(resettingShiftSlot())
   }
   
 export const setNewPrioShift = (NewShiftPlan, ShiftSlot, userInput) => {
     let shiftplan = NewShiftPlan;
-    let row = ShiftSlot.row
-    let col = ShiftSlot.col
+    const index = store.get(state => state.shiftSlot.index);
+    const day = store.get(state => state.shiftSlot.day);
     let hasuserInput = userInput !== null;
-    shiftplan.plan[row][col]["prio"] = hasuserInput && "qualifikation" in userInput ? userInput.qualifikation : !1;
-    store.dispatch({type: "setNewShiftplan", payload: shiftplan})
+    shiftplan.plan[index][day]["prio"] = hasuserInput && "qualifikation" in userInput ? userInput.qualifikation : !1;
+    store.dispatch(settingNewShiftplan(shiftplan));
   }

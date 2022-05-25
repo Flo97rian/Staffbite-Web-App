@@ -11,18 +11,21 @@ import {
  } from "./ShiftplanElements";
 import store from "../store";
 import _ from "lodash";
+import { useSelector, useDispatch } from "react-redux";
+import { settingModal } from "../reducers/modal";
+import { settingShiftSlot } from "../reducers/ShiftSlot";
 
 export const ShiftplanElementNew = (props) => {
-
-    const setPrio = (index, col, bool) => {
-        store.dispatch({type: "OPEN", payload: "prioIsActive"});
-        store.dispatch({type: "setShiftSlot", payload: { row: index, col: col, prio: bool}});
+    const dispatch = useDispatch();
+    const setPrio = (index, day, bool) => {
+        dispatch(settingModal("prioIsActive"))
+        dispatch(settingShiftSlot({index: index, day: day}))
     };
 
 
     const editShift = (index) => {
-        store.dispatch({type: "OPEN", payload: "editShiftDescription"});
-        store.dispatch({type: "setShiftSlot", payload: { row: index}});
+        dispatch(settingModal("editShiftDescription"))
+        dispatch(settingShiftSlot({index: index}))
     };
 
     const ItemLength = props.ItemLength;

@@ -8,43 +8,24 @@ import Form from 'react-bootstrap/Form';
 import FormNames from "./UserFormNames";
 import InfoLabel from "./InfoLabel";
 import { INFO_USER_NOTICE } from "../constants/InfoTexts";
+import { useSelector, useDispatch } from "react-redux";
 
 
 const UserShiftDetails = (props) => {
-    const day = props.shiftslot.col;
-    const row = props.shiftslot.row;
+    const index = useSelector(state => state.shiftSlot.index)
+    const day = useSelector(state => state.shiftSlot.day);
     const shiftplan = props.shiftplan.plan
-    let shift = shiftplan[row][day]
+    let shift = shiftplan[index][day]
     let includesApplicants = Object.keys(shift).includes("applicants")
-    let applyedApplicants = shiftplan[row][day].applicants
+    let applyedApplicants = shiftplan[index][day].applicants
 
     let hasApplicants = !1;
     if(includesApplicants) {
         hasApplicants = Object.keys(applyedApplicants).length > 0;
     }
-    const shiftname = shiftplan[row]["Wochentag"].ShiftName
-    const shiftstart = shiftplan[row]["Wochentag"].ShiftStart
-    const shiftend = shiftplan[row]["Wochentag"].ShiftEnd
-
-    function hasNotice(shift) {
-        let isValid = !1
-        let keys = Object.keys(shift)
-        if (keys.includes("notice")) {
-            if(shift.notice !== "") {
-                isValid = !0;
-            }
-        }
-        return isValid;
-    }
-
-    function includesUser(applyedApplicants) {
-        let valid = !1;
-        if(props.User.SK in applyedApplicants) {
-            valid = !0;
-        }
-        return valid;
-
-    }
+    const shiftname = shiftplan[index]["Wochentag"].ShiftName
+    const shiftstart = shiftplan[index]["Wochentag"].ShiftStart
+    const shiftend = shiftplan[index]["Wochentag"].ShiftEnd
 
     function hasShiftNotice() {
         let value = !1;

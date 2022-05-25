@@ -1,15 +1,28 @@
-const modalReducer = (state = !1, action) => {
-  switch (action.type) {
-    case "OPEN": 
-      return {
-        ...state,
-        [action.payload]: !0
-      }
-    case "CLOSE":
-      return !1
-    default:
-      return state
-  }
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  
 };
 
-export default modalReducer;
+const modalSlice = createSlice({
+  name: "modal",
+  initialState,
+  reducers: {
+    settingModal(state, action) {
+      state[action.payload] = true;
+    },
+    resettingModal(state) {  
+    for (const [key, value] of Object.entries(state)) {
+    state[key] = false;
+    }
+    state = initialState;
+    }
+  }
+})
+
+export const {
+  settingModal,
+  resettingModal
+} = modalSlice.actions;
+
+export default modalSlice.reducer;

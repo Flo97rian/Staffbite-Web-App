@@ -122,7 +122,6 @@ function setSchichten(employees, plan) {
                 let SplitEnd = null;
                 let diff = 0;
                 if (typeof schichtplan[index].Wochentag.ShiftEnd === "boolean") {
-                    console.log(schichtplan[index].Wochentag)
                     SplitEnd = [String(Number(SplitStart[0]) + 6 ), "00"];
                      diff = (new Date("1970", "1", "1", SplitEnd[0], SplitEnd[1]).getTime() - new Date("1970", "1", "1", SplitStart[0], SplitStart[1]).getTime())
                 } else if (SplitStart === [ "00", "00"] && schichtplan[index].Wochentag.ShiftEnd.split(":") === [ "24", "00" ]) {
@@ -137,7 +136,6 @@ function setSchichten(employees, plan) {
                     console.log(hasSetApplicantsKey);
                     let hasSetApplicants = hasSetApplicantsKey  && Object.keys(schichtplan[index][day]["setApplicants"]).length > 0
                     if ( day !== "Wochentag" && hasSetApplicantsKey && hasSetApplicants) {
-                        console.log(diffInHours);
                         schichtplan[lastRow][day] = Number(schichtplan[lastRow][day]) + Number(diffInHours)
                     }
                 })
@@ -154,17 +152,19 @@ function setSchichten(employees, plan) {
 function setEmployeesShifts(setApplicants, Employees, row, schichtname, tag, zeitraum) {
     let copyEmployees = Employees;
     if(setApplicants) {
-    Object.keys(setApplicants).forEach(applicant => {
-        if(applicant !== "TENANT") {
-        let schichtenObject = copyEmployees[applicant]["schichten"];
-        if( !Object.keys(schichtenObject).includes(zeitraum)) {
-            schichtenObject[zeitraum] = [];
-            schichtenObject[zeitraum].push(String(row) + "#" + String(schichtname) + "#" + String(tag));
-        } else {
-        schichtenObject[zeitraum].push(String(row) + "#" + String(schichtname) + "#" + String(tag));
-        }
-        copyEmployees[applicant]["schichten"] = schichtenObject;
-    }})}
+        Object.keys(setApplicants).forEach(applicant => {
+            if(applicant !== "TENANT" && copyEmployees[applicant]) {
+                let schichtenObject = copyEmployees[applicant]["schichten"];
+                if( !Object.keys(schichtenObject).includes(zeitraum)) {
+                    schichtenObject[zeitraum] = [];
+                    schichtenObject[zeitraum].push(String(row) + "#" + String(schichtname) + "#" + String(tag));
+                } else {
+                schichtenObject[zeitraum].push(String(row) + "#" + String(schichtname) + "#" + String(tag));
+                }
+                copyEmployees[applicant]["schichten"] = schichtenObject;
+            }
+        })
+    }
     return copyEmployees;
 }
 

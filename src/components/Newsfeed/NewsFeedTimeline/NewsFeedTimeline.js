@@ -27,18 +27,12 @@ import {
   // core components
   import PropsTypes from "prop-types";
   import * as _ from "lodash";
-  
-  function NewsFeedTimeline({newsfeed}) {
-  
-    NewsFeedTimeline.propTypes = {
-      newsfeed: PropsTypes.array.isRequired
-    }
-  
-    NewsFeedTimeline.defaultProps = {
-      newsfeed: []
-    }
+  import { useSelector, useDispatch } from "react-redux";
+  function NewsFeedTimeline() {
+    const Newsfeed = useSelector(state => state.Meta.newsfeed);
+
     function renderIcon(index) {
-      let type = newsfeed[index].type;
+      let type = Newsfeed[index].type;
       if(type === "Schichtplan") {
           return (
             <span className="timeline-step badge-success">
@@ -54,7 +48,7 @@ import {
       }
   }
   function showNewsfeed() {
-    let renderNewsFeed = newsfeed.slice(0,4);
+    let renderNewsFeed = [...Newsfeed].slice(0,4);
             return (
               renderNewsFeed.map((news, index) => {
                 let now = new Date();
@@ -112,7 +106,7 @@ import {
             })
             );
         }
-  if (_.isEmpty(newsfeed)) return (<p>Keine Neuigkeiten verfügbar</p>);
+  if (_.isEmpty(Newsfeed)) return (<p>Keine Neuigkeiten verfügbar</p>);
   return (
       <>
                   <div

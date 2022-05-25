@@ -1,12 +1,84 @@
-const MetaReducer = (state = !1, action) => {
-    switch (action.type) {
-      case "setMeta": 
-        return action.payload
-      case "resetMeta": 
-        return !1
-      default:
-        return state
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  name: "",
+  stundenerfassung: false,
+  fair: true,
+  reverse: false,
+  schichten: [],
+  onboarding: {
+    overview: false,
+    shiftplan: false,
+    team: false,
+    settings: false,
+  },
+  newsfeed: [],
+  vorname: "",
+  tenantCategorie: {},
+  accessPosition: {},
+}
+
+const MetaSlice = createSlice({
+  name: "meta",
+  initialState,
+  reducers: {
+    settingMeta(state, action) {
+      state.name = action.payload.name ? action.payload.name : initialState.name;
+      state.stundenerfassung = action.payload.stundenerfassung ? action.payload.stundenerfassung :  initialState.stundenerfassung;
+      state.fair = action.payload.fair ? action.payload.fair :  initialState.fair;
+      state.reverse = action.payload.reverse ? action.payload.reverse :  initialState.reverse;
+      state.schichten = action.payload.schichten ? action.payload.schichten :  initialState.schichten;
+      state.onboarding = action.payload.onboarding ? action.payload.onboarding :  initialState.onboarding;
+      state.newsfeed = action.payload.newsfeed ? action.payload.newsfeed :  initialState.newsfeed;
+      state.tenantCategorie = action.payload.tenantCategorie ? action.payload.tenantCategorie :  initialState.tenantCategorie;
+      state.accessPosition = action.payload.accessPosition ? action.payload.accessPosition :  initialState.accessPosition;
+      state.vorname = action.payload.vorname || initialState.vorname;
+    },
+    addingNewPosition(state, action) {
+      state.schichten = [...state.schichten, action.payload]
+    },
+    deletingPosition(state, action) {
+      state.schichten = state.schichten.filter(position => position !== action.payload);
+    },
+    resettingMeta(state, action) {
+      state = initialState;  
+    },
+    settingOnboardingOverview(state, action) {
+      state.onboarding.overview = action.payload;
+    },
+    settingOnboardingShiftplan(state, action) {
+      state.onboarding.shiftplan = action.payload;
+    },
+    resettingOnboarding(state) {
+      state.onboarding.overview = true;
+      state.onboarding.shiftplan = true;
+      state.onboarding.settings = true;
+      state.onboarding.team = true;
+    },
+    settingAccessPosition(state, action) {
+      const position = action.payload.position;
+      const newAccessValue = action.payload.accessValue;
+      const currentAccessValues = state.accessPosition[position] || [];
+      state.accessPosition = {...state.accessPosition, [position]: [...currentAccessValues, newAccessValue]}
+    },
+    resettingAccessPosition(state, action) {
+      const position = action.payload.position;
+      const deleteAccessValue = action.payload.accessValue;
+      state.accessPosition[position] = state.accessPosition[position].filter(acc => acc !== deleteAccessValue)
     }
-  };
-  
-  export default MetaReducer;
+  }
+})
+
+export const {
+  settingMeta,
+  addingNewPosition,
+  deletingPosition,
+  settingOnboardingOverview,
+  settingOnboardingShiftplan,
+  resettingMeta,
+  resettingOnboarding,
+  settingAccessPosition,
+  resettingAccessPosition
+  } = MetaSlice.actions;
+
+export default MetaSlice.reducer;

@@ -7,9 +7,11 @@ import {
 import Modal from 'react-bootstrap/Modal';
 import Payment from "../api/stripe/Payment";
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from "react-redux";
 
 
 const ModalPaymentDetails = ({keytrue, modalkey, EmployeesLength}) => {
+        const requiredPaymentDetails = useSelector(state => state.modal.requiredPaymentDetails);
         return (
             <>
             <Modal 
@@ -18,7 +20,7 @@ const ModalPaymentDetails = ({keytrue, modalkey, EmployeesLength}) => {
                 centered
                 scrollable
                 className="modal-secondary"
-                show={keytrue}
+                show={requiredPaymentDetails}
             >
                     <Modal.Body>
                         <Payment EmployeesLength={EmployeesLength}/>

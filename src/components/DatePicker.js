@@ -10,17 +10,27 @@ import {
 } from "reactstrap";
 import store from '../store';
 // Now react-datetime will be in french
-
+import { useSelector, useDispatch } from "react-redux";
 import 'react-nice-dates/build/style.css'
 // react plugin used to create datetimepicker
 import ReactDatetime from "react-datetime";
+import { settingEnd, settingStart } from '../reducers/DatePicker';
+import moment from "moment";
 
 const Datepicker = (props) => {
+  const dispatch = useDispatch()
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
   useEffect(() => {
-    store.dispatch({type: "DatePicker", payload: {startDate: startDate, endDate: endDate}})
+    if(startDate && endDate) {
+      const dateStart = new Date(startDate.startDate)
+      const dateEnd = new Date(endDate.endDate);
+      const start = dateStart.getDate() + "." + (dateStart.getMonth() + 1) + "." + dateStart.getFullYear()
+      const end = dateEnd.getDate() + "." + (dateEnd.getMonth() + 1) + "." + dateEnd.getFullYear()
+      dispatch(settingStart(start));
+      dispatch(settingEnd(end))
+    }
 }, [endDate, startDate])
 
     return (
@@ -68,7 +78,7 @@ const Datepicker = (props) => {
                       </td>
                     );
                   }}
-                  onChange={e => setStartDate({startDate: e})}
+                  onChange={e => setStartDate({startDate: e.toDate()})}
                 />
               </InputGroup>
             </FormGroup>
@@ -115,7 +125,7 @@ const Datepicker = (props) => {
                       </td>
                     );
                   }}
-                  onChange={e => setEndDate({ endDate: e })}
+                  onChange={e => setEndDate({ endDate: e.toDate() })}
                 />
               </InputGroup>
             </FormGroup>

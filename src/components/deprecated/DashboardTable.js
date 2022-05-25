@@ -15,10 +15,11 @@ import DashboardElementPublished from "./DashboardElementPublished"
 import { Badge } from "reactstrap";
 import PlanId from "../../Admin/Schichtplan/FormElements/PlanId";
 import _ from "lodash";
+import { useSelector, useDispatch } from "react-redux";
 
 const DashboardSchichtenTabelle = (props) => {
-    let ShiftPlanIsActive = props.bearbeiten;
-    if (ShiftPlanIsActive && _.isObject(props.currentUser) && _.isObject(props.shiftplan)) {
+    const DisplayShiftplan = useSelector(state => state.display.displayShiftplan)
+    if (DisplayShiftplan && _.isObject(props.currentUser) && _.isObject(props.shiftplan)) {
         let id = props.shiftplan.id
         let idVeröffentlicht = id.split("#").includes("Veröffentlicht")
         let linkTo = idVeröffentlicht ? "/user/schichtplan" : "/user/bewerben"
@@ -52,7 +53,7 @@ const DashboardSchichtenTabelle = (props) => {
                             <thead>
                             </thead>
                             <tbody>
-                            {ShiftPlanIsActive ? shiftplan.map((item, index) => (
+                            {DisplayShiftplan ? shiftplan.map((item, index) => (
                             <>
                             <tr>
                                 <td style={{"padding": "0"}}>

@@ -1,18 +1,20 @@
      import store from "../../../../store";
+import { settingShiftplans } from "../reducers/DB";
+import { settingNewShiftplan } from "../reducers/NewShiftPlan";
 
     // // Bearbeiten einer Reihe, wenn der Schichtplan importiert wurde
     export const editShiftDetailsImportedShiftPlan = ({index, Plans, currentShiftPlan, userInput}) => {
     let plan = [...Plans[currentShiftPlan].plan];
     let plans = [...Plans];
     plans[currentShiftPlan].plan = mergeEditedShiftDetails({plan, index, userInput});
-    store.dispatch({type: "All/setPlans", payload: plans});
+    store.dispatch(settingShiftplans(plans));
     };
 
     // // Bearbeiten einer Reihe, wenn der Schichtplan neu erstellt wurde
     export const editShiftDetailsNewShiftPlan = ({index, NewShiftPlan, userInput}) => {
     let plan = [...NewShiftPlan];
     plan = mergeEditedShiftDetails({plan, index, userInput});
-    store.dispatch({type: "SetNewShiftPlan", payload: plan});
+    store.dispatch(settingNewShiftplan(plan));
     };
 
     const mergeEditedShiftDetails = ({plan, index, userInput}) => {

@@ -6,8 +6,11 @@ import {
 } from "reactstrap"
 import store from "../../../../store";
 import UserPlanId from "./UserPlanId";
+import { useSelector, useDispatch } from "react-redux";
+import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 
 const InputButton = (props) => {
+    const dispatch = useDispatch();
     const selectButton = (label) => {
         if (label[1] === "Freigeben") {
             return <Button name={props.label} outline color="success" onClick={() => setCurrentShiftPlan(props.id)}> Zur Bewerbung</Button>
@@ -17,9 +20,7 @@ const InputButton = (props) => {
     }
 
     const setCurrentShiftPlan = (id) => {
-        store.dispatch({type: "setCurrentShiftPlan", payload: id})
-        store.dispatch({type: "setShiftPlanIsActive"})
-        store.dispatch({type: "setShiftPlanIsImported"})
+        dispatch(settingCurrentShiftplanIndex(id))
     }
         return(
             <>
