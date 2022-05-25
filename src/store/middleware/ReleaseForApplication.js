@@ -1,20 +1,33 @@
 import { API, Auth } from "aws-amplify";
 import { v4 as uuidv4 } from 'uuid';
-import { FetchFromDB } from "./FetchPlansFromDB";
+import { thunkFetchShiftplans } from "./FetchShiftplans";
 import moment from "moment";
 import { API_HOSTNAME, RELEASE_SHIFTPLAN_FOR_APPLICATION } from "../../constants/ApiConstants";
+import { resettingShiftplan } from "../../reducers/Shiftplan";
+import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
+import { resettingDisplayShiftplan } from "../../reducers/display";
+import { settingShiftplanReleased } from "../../reducers/SuccessMessages";
+import { resettingProcessing, settingProcessingFulfilledRelease, settingProcessingRejectedRelease, settingProcessingStartRelease } from "../../reducers/processing";
+import { settingRemindShiftplanID } from "../../reducers/temporary";
+import { resettingDatePicker } from "../../reducers/DatePicker";
 
-export function thunkReleaseForApplication(shiftplan, NewDate, userInput) {
+export function thunkReleaseForApplication() {
     return async function releaseForApplication(dispatch, getState) {
-        let id = shiftplan.id;
-        let name = userInput.name !== shiftplan.name ? userInput.name : shiftplan.name;
-        let newDate = NewDate ? NewDate : !1;
+        const state = getState();
+        const Shiftplan = state.Shiftplan;
+        let id = state.Shiftplan.id;
+        const uuid = uuidv4()
+        let name = state.userInput.shiftplanName !== Shiftplan.name ? state.userInput.shiftplanName : Shiftplan.name;
+        let newDate = state.date.start ? state.date.start : !1;
+        let newId = "PLAN#Freigeben#" + uuid
+        dispatch(settingProcessingStartRelease());
+        dispatch(settingRemindShiftplanID(newId));
         Auth.currentAuthenticatedUser().then( user => {
             const apiName = API_HOSTNAME; // replace this with your api name.
             const path = RELEASE_SHIFTPLAN_FOR_APPLICATION; //replace this with the path you have configured on your API
             const myInit = { // OPTIONAL
                 body: {
-                    uuid: uuidv4(),
+                    uuid: uuid,
                     id: id,
                     name: name,
                     newDate: newDate,
@@ -24,12 +37,16 @@ export function thunkReleaseForApplication(shiftplan, NewDate, userInput) {
             return API.post(apiName, path, myInit)
             })
             .then(response => {
-                dispatch(FetchFromDB);
-                dispatch({type: "stopFetchingRelaese"});
-                dispatch({type: "stopShiftPlanIsActive"});
-                dispatch({type: "stopShiftPlanIsImported"});
-                dispatch({type: "ResetCurrentShiftPlan"});
-                dispatch({type: "resetShiftplan"});
+                dispatch(thunkFetchShiftplans());
+                dispatch(settingShiftplanReleased())
+                dispatch(resettingDisplayShiftplan())
+                dispatch(resettingCurrentShiftplanIndex())
+                dispatch(resettingShiftplan());
+                dispatch(resettingDatePicker())
+                dispatch(resettingProcessing());
+            })
+            .catch(error => {
+                dispatch(settingProcessingRejectedRelease());
             })
     }
 }

@@ -1,5 +1,6 @@
 import { API } from "aws-amplify";
 import { API_HOSTNAME, CONTACT_FORM } from "../../constants/ApiConstants";
+import { settingEmailIsSend, settingEmailNotSend } from "../../reducers/ErrorMessages";
 export function thunkSendContactForm(form) {
     return async function sendContactForm(dispatch, getState) {
       const apiName = API_HOSTNAME; // replace this with your api name.
@@ -18,9 +19,9 @@ export function thunkSendContactForm(form) {
       API.post(apiName, path, myInit)
       .then(response => {
         if (response === "Message send!") {
-            dispatch({type: "setEmailIsSend"})
+            dispatch(settingEmailIsSend())
         } else {
-            dispatch({type: "setEmailNotSend"})
+            dispatch(settingEmailNotSend())
         }
       })
 

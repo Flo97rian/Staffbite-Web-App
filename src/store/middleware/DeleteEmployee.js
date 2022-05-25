@@ -1,6 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { API_HOSTNAME, DELETE_EMPLOYEE } from "../../constants/ApiConstants";
-import { FetchEmployees } from "./FetchEmployees";
+import { thunkFetchEmployees } from "./FetchEmployees";
   export function thunkDeleteEmployee(employeeId) {
     return async function deleteEmployee(dispatch, getState) {
     Auth.currentAuthenticatedUser().then( user => {
@@ -15,7 +15,7 @@ import { FetchEmployees } from "./FetchEmployees";
       return API.post(apiName, path, myInit)
       })
       .then(response => {
-        dispatch(FetchEmployees)
+        dispatch(thunkFetchEmployees())
       })
   };
 };

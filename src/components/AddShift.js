@@ -3,7 +3,6 @@ import {
     Col,
     Row
 } from "reactstrap"
-import InputString from "./InputString";
 import InputStringShiftName from "./InputStringShiftName"
 import InputTime from "./InputTime";
 import InputTimeWithSwitch from "./InputTimeWithSwitch";

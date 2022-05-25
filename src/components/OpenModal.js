@@ -19,55 +19,72 @@ import ModalUserApply from "./ModalUserApply";
 import ModalTradeShift from "./ModalTradeShift";
 import ModalEditCalendarShift from "./ModalEditCalendarShift";
 import ModalAddCalendarShift from "./ModalAddCalendarShift";
+import ModalApplyAfterPublish from "./ModalApplyAfterPublish";
 
 
 const OpenModal = (props) => {
     const modal = useSelector((state) => state.modal);
-    const modalkey = props.checkModalKey(modal);
-    const keytrue = props.checkTrue(modal);
+    const showReportFilter = useSelector(state => state.modal.showReportFilter);
+    const showErstellen = useSelector(state => state.modal.showErstellen);
+    const requiredPaymentDetails = useSelector(state => state.modal.requiredPaymentDetails);
+    const showEmployeesRoles = useSelector(state => state.modal.showEmployeesRoles);
+    const showSchichtplanErstellen = useSelector(state => state.modal.showSchichtplanErstellen);
+    const showSchichtplanFreigeben = useSelector(state => state.modal.showSchichtplanFreigeben);
+    const showSchichthinzufuegen = useSelector(state => state.modal.showSchichthinzufuegen);
+    const showBefuellungStarten = useSelector(state => state.modal.showBefuellungStarten);
+    const prioIsActive = useSelector(state => state.modal.prioIsActive);
+    const applyIsActive = useSelector(state => state.modal.applyIsActive);
+    const saveChanges = useSelector(state => state.modal.saveChanges);
+    const editShiftDescription = useSelector(state => state.modal.editShiftDescription);
+    const userApply = useSelector(state => state.modal.userApply);
+    const tradeShift = useSelector(state => state.modal.tradeShift);
+    const editCalendarShift = useSelector(state => state.modal.editCalendarShift);
+    const addCalendarShift = useSelector(state => state.modal.addCalendarShift);
+    const applyAfterPublish = useSelector(state => state.modal.applyAfterPublish);
     const dataModal = () => {
-        switch(modalkey) {
-            case "showReportFilter":
-                return <ModalFilterReport modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "requiredPaymentDetails":
-                return <ModalPaymentDetails modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "showErstellen":
-                return <ModalAddEmployee modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "showEmployeesRoles":
-                return <ModalEmployeesRoles modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "id":
-                return <ModalEditEmployee modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "showSchichtplanErstellen":
-                return <ModalCreateShiftplan modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "showSchichtplanFreigeben":
-                return <ModalReleaseShiftplan modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "showSchichthinzufuegen":
-                return <ModalAddShift modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "showBefuellungStarten":
-                return <ModalStartFilling modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "prioIsActive":
-                return <ModalEditSingleShift modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "applyIsActive":
-                return <ModalEditEmployeesInShift modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "saveChanges":
-                return <ModalSaveChanges modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "editShiftDescription": 
-                return <ModalEditShiftDescription modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "userApply": 
-                return <ModalUserApply modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "tradeShift":
-                return <ModalTradeShift modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "editCalendarShift":
-                return <ModalEditCalendarShift modalkey={modalkey} keytrue={keytrue} {...props}/>
-            case "addCalendarShift":
-                return <ModalAddCalendarShift modalkey={modalkey} keytrue={keytrue} {...props}/>
-            default:
-                return <ModalEditEmployee modalkey={modalkey} keytrue={keytrue} {...props}/>
+        if(showErstellen) {
+            return <ModalAddEmployee {...props}/>
+        } else if (showReportFilter) {
+            return <ModalFilterReport  {...props}/>
+        } else if (requiredPaymentDetails) {
+            return <ModalPaymentDetails  {...props}/>
+        } else if (showEmployeesRoles) {
+            return <ModalEmployeesRoles  {...props}/>
+        } else if (showSchichtplanErstellen) {
+            return <ModalCreateShiftplan  {...props}/>
+        } else if (showSchichtplanFreigeben) {
+            return <ModalReleaseShiftplan  {...props}/>
+        } else if (showSchichthinzufuegen) {
+            return <ModalAddShift  {...props}/>
+        } else if (showBefuellungStarten) {
+            return <ModalStartFilling  {...props}/>
+        } else if (prioIsActive) {
+            return <ModalEditSingleShift  {...props}/>
+        } else if (applyIsActive) {
+            return <ModalEditEmployeesInShift  {...props}/>
+        } else if (saveChanges) {
+            return <ModalSaveChanges  {...props}/>
+        } else if (editShiftDescription) {
+            return <ModalEditShiftDescription  {...props}/>
+        } else if (userApply) {
+            return <ModalUserApply  {...props}/>
+        } else if (showReportFilter) {
+            return <ModalFilterReport  {...props}/>
+        } else if (tradeShift) {
+            return <ModalTradeShift  {...props}/>
+        } else if (editCalendarShift) {
+            return <ModalEditCalendarShift  {...props}/>
+        } else if (addCalendarShift) {
+            return <ModalAddCalendarShift  {...props}/>
+        } else if (applyAfterPublish) {
+            return <ModalApplyAfterPublish {...props}/>
+        } else {
+            return <ModalEditEmployee  {...props}/>
         }
     }
         return (
         <>
-            {keytrue ? dataModal() : <></>}
+            {Object.values(modal).includes(true) ? dataModal() : <></>}
         </>
         );
     }

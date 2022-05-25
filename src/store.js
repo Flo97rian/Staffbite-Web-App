@@ -1,12 +1,43 @@
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './reducers';
-import thunkMiddleware from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { configureStore } from '@reduxjs/toolkit';
+import modalReducer from "./reducers/modal";
+import currentShiftPlanReducer from "./reducers/currentShiftPlan";
+import datePickerReducer from "./reducers/DatePicker";
+import DBReducer from "./reducers/DB";
+import newShiftPlanReducer from "./reducers/NewShiftPlan";
+import ShiftSlotReducer from "./reducers/ShiftSlot";
+import ShiftplanReducer from "./reducers/Shiftplan";
+import MetaReducer from "./reducers/Meta";
+import errorMessagesReducer from "./reducers/ErrorMessages"
+import infoSidebarReducer from "./reducers/InfoModal";
+import shiftplanChangedReducer from "./reducers/shiftplanChanged";
+import userInputReducer from './reducers/userInput';
+import displayReducer from "./reducers/display"
+import temporaryReducer from './reducers/temporary'
+import currentUserReducer from './reducers/currentUser'
+import successMessagesReducer from "./reducers/SuccessMessages"
+import processingReducer from "./reducers/processing"
 
-
-const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
-const store = createStore(rootReducer,
-    composedEnhancer);
+const store = configureStore({
+    reducer: {
+    modal: modalReducer,
+    DB: DBReducer,
+    currentShiftPlan: currentShiftPlanReducer,
+    date: datePickerReducer,
+    newShiftPlan: newShiftPlanReducer,
+    Shiftplan: ShiftplanReducer,
+    shiftSlot: ShiftSlotReducer,
+    Meta: MetaReducer,
+    ErrorMessages: errorMessagesReducer,
+    InfoSidebar: infoSidebarReducer,
+    ShiftplanChanged: shiftplanChangedReducer,
+    userInput: userInputReducer,
+    display: displayReducer,
+    temporary: temporaryReducer,
+    currentUser: currentUserReducer,
+    successMessage: successMessagesReducer,
+    processing: processingReducer,
+    }
+});
 
 export default store;
   

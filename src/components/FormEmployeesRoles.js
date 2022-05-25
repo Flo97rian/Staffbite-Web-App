@@ -4,41 +4,60 @@ import PropTypes from "prop-types"
 import { Row, Col, Card, Badge, Button, UncontrolledCollapse, Input, Label, InputGroupAddon, InputGroupText, InputGroup, InputGroupButtonDropdown, FormFeedback } from "reactstrap"
 import * as _ from "lodash";
 import store from "../store";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
+import { settingNewPosition } from "../reducers/userInput";
+import { addingNewPosition, deletingPosition, resettingAccessPosition, settingAccessPosition } from "../reducers/Meta";
+import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
+const accesses = [{
+    id: "accessAdminView",
+    name: "Schichten einsehen",
+    description: "Darf ein Mitarbeiter mit dieser Position einsehen, welche Mitarbeiter in einer Schicht arbeiten?"
+},
+{
+    id: "accessTradeWithoutAdmin",
+    name: "Eigenständig tauschen",
+    description: "Darf dieser Mitarbeiter eigenständig eine Schicht von einem Kollegen übernehmen?"
+},
+{
+    id: "accessSetInShiftWithoutAdmin",
+    name: "Eigenständig eintragen nach Veröffentlichung",
+    description: "Dürfen Mitarbeiter mit dieser Position sich eigenständig eine Schicht eintragen? Dies ist nur bei bereits veröffentlichten Schichtplänen möglich."
+}]
 
-
-const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition, deletePosition, updatePositionAccess}) => {
-    const [currentSelectedPosition, setCurrentSelectedPosition] = useState(positions[0])
-    const [accessValues, setAccessValues] = useState(_.get(accessPosition, [currentSelectedPosition], []));
+const FormEmployeesRoles = () => {
+    const dispatch = useDispatch();
+    const Meta = useSelector(state => state.Meta);
+    const CompanyPositions = useSelector(state => state.Meta.schichten)
+    const CompanyAccess = useSelector(state => state.Meta.accessPosition);
+    const userInputPosition = useSelector(state => state.userInput.newPosition);
+    const [currentSelectedPosition, setCurrentSelectedPosition] = useState(CompanyPositions[0])
+    const [accessValues, setAccessValues] = useState(_.get(CompanyAccess, [currentSelectedPosition], []));
     const [warning, setWarning] = useState(!1);
     const [toggleAddPosition, setToggleAddPosition] = useState(false);
-    const [positionInput, setPositionInput] = useState("");
     
+    function updatePositionAccess () {
+        dispatch(thunkUpdateProfile({...Meta}))
+        dispatch(resettingModal());
+    }
+
+    function addNewPosition (position) {
+        const isNewPosition = !_.includes(CompanyPositions, position, 0);
+        if(!isNewPosition) return; 
+        dispatch(thunkUpdateProfile({...Meta, schichten: [...CompanyPositions, position]}));
+      }
+      
+      function deletePosition (position) {
+        const hasPosition = _.includes(CompanyPositions, position, 0);
+        if(!hasPosition) return; 
+        dispatch(thunkUpdateProfile({...Meta, schichten: CompanyPositions.filter(pos => pos !== position)}));
+      }
     useEffect(() => {
     }, [accessValues])
     
     useEffect(() => {
-    }, [positionInput])
-    useEffect(() => {
     }, [toggleAddPosition])
 
-    FormEmployeesRoles.propTypes= {
-        positions: PropTypes.arrayOf(PropTypes.string.isRequired),
-        accesses: PropTypes.arrayOf( PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            description: PropTypes.string.isRequired
-        })),
-        accessPosition: PropTypes.object.isRequired,
-        addNewPosition: PropTypes.func.isRequired,
-        deletePosition: PropTypes.func.isRequired,
-        updatePositionAccess: PropTypes.func.isRequired
-    }
-    
-    FormEmployeesRoles.defaultProps = {
-        positions: [],
-        accesses: [],
-        accessPosition: {}
-    }
     return (
         <>
         <Row>
@@ -54,15 +73,15 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
                                 <Col xs="8">
                             <InputGroup>
                             <Input
-                            invalid={positionInput.length >= 30 || _.includes(positions, positionInput)}
-                            onChange={(event) => setPositionInput(event.target.value)}
+                            invalid={userInputPosition.length >= 30 || CompanyPositions.includes(userInputPosition)}
+                            onChange={(event) => dispatch(settingNewPosition(event.target.value))}
                             placeholder="Positionnamen wählen"
                             />
                                 <InputGroupAddon addonType="append">
-                                    <Button color="success" hidden={positionInput === ""} disabled={positionInput.length >= 30 || _.includes(positions, positionInput)} id="collapsTogglerAddPosition"  
+                                    <Button color="success" hidden={userInputPosition === ""} disabled={userInputPosition.length >= 30 || CompanyPositions.includes(userInputPosition)} id="collapsTogglerAddPosition"  
                                     onClick={
                                         () => {
-                                        addNewPosition(positionInput)
+                                        dispatch(addNewPosition(userInputPosition))
                                         setToggleAddPosition(false)
                                         }
                                     }
@@ -73,13 +92,13 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
                                     onClick={
                                         () => {
                                             setToggleAddPosition(false)
-                                            setPositionInput("")
+                                            dispatch(settingNewPosition(""))
                                         }
                                     }>X</Button>
                                 </InputGroupAddon>
-                                <FormFeedback invalid={positionInput.length >= 30}>
-                                    {positionInput.length >= 30 ? "Dieser Name ist zu lang!" : ""}
-                                    {_.includes(positions, positionInput) ? "Diese Position ist bereits vorhanden": ""}
+                                <FormFeedback invalid={userInputPosition.length >= 30}>
+                                    {userInputPosition.length >= 30 ? "Dieser Name ist zu lang!" : ""}
+                                    {CompanyPositions.includes(userInputPosition) ? "Diese Position ist bereits vorhanden": ""}
                                 </FormFeedback>
                             </InputGroup>
                             </Col>
@@ -112,7 +131,7 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
                 <Card className="card-secondary border mb-1">
                     <Row>
                         <Col  className="mx-2">
-                            {positions.map(position => {
+                            {CompanyPositions.map(position => {
                                 if(currentSelectedPosition === position) {
                                     return (
                                         <>
@@ -121,13 +140,9 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
                                                 <Badge color="primary" className="" 
                                                 style={{"cursor": "pointer"}}
                                                 onClick={
-                                                    () => {
-                                                        if(!_.isEmpty(_.difference(_.get(accessPosition, [currentSelectedPosition], []), accessValues))) {
-                                                            setWarning(true)    
-                                                        } else {
+                                                    () => {  
                                                             setCurrentSelectedPosition("")
-                                                            setAccessValues([]);    
-                                                        }
+                                                            setAccessValues(_.get(CompanyAccess, [position], []));
                                                     }} >{position}</Badge>
                                             </Col>
                                             <Col xs="6" className="text-right">
@@ -159,12 +174,8 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
                                             style={{"cursor": "pointer"}}
                                             onClick={
                                                 () => {
-                                                    if(!_.isEmpty(_.difference(_.get(accessPosition, [currentSelectedPosition], []), accessValues))) {
-                                                        setWarning(true)    
-                                                    } else {
                                                         setCurrentSelectedPosition(position)
-                                                        setAccessValues(_.get(accessPosition, [position], []));
-                                                    }
+                                                        setAccessValues(_.get(CompanyAccess, [position], []));
                                                 }} >{position}</Badge>
                                         </Col>
                                     </Row>
@@ -193,14 +204,14 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
                                         </Col>
                                         <Col xs="3" className="">
                                             <label className="custom-toggle">
-                                                <input type="checkbox" checked={_.includes(accessValues, access.id, 0)}/>
+                                                <input type="checkbox" checked={_.includes(_.get(CompanyAccess, [currentSelectedPosition], []), access.id, 0)}/>
                                                 <span className="custom-toggle-slider rounded-circle" data-label-off="Nein" data-label-on="Ja" 
                                                 onClick={() => {
-                                                    _.includes(accessValues, access.id, 0)
+                                                    _.includes(_.get(CompanyAccess, [currentSelectedPosition], []), access.id, 0)
                                                     ?
-                                                    setAccessValues((accessValues.filter(acc => acc !== access.id)))
+                                                    dispatch(resettingAccessPosition({position: currentSelectedPosition, accessValue: access.id}))
                                                     :
-                                                    setAccessValues([...accessValues, access.id])
+                                                    dispatch(settingAccessPosition({position: currentSelectedPosition, accessValue: access.id}))
                                                 }}/>
                                             </label>
                                         </Col>
@@ -227,7 +238,7 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
                                 <Button color="warning" size="sm" 
                                 onClick={() => {
                                     setWarning(false);
-                                    setAccessValues(_.get(accessPosition, [currentSelectedPosition], []));
+                                    setAccessValues(_.get(CompanyAccess, [currentSelectedPosition], []));
                                 }}>
                                 Änderungen verwerfen</Button> 
                             </small>
@@ -243,9 +254,9 @@ const FormEmployeesRoles = ({positions, accesses, accessPosition, addNewPosition
 
             </Col>
             <Col xs="6">
-                    <Button color="link" onClick={() => store.dispatch({type: "CLOSE"})}>Schließen</Button>
-                    {(_.isEmpty(_.difference(_.get(accessPosition, [currentSelectedPosition], []), accessValues))) && 
-                    (_.isEmpty(_.difference(accessValues, _.get(accessPosition, [currentSelectedPosition], []))))
+                    <Button color="link" onClick={() => dispatch(resettingModal())}>Schließen</Button>
+                    {(_.isEmpty(_.difference(_.get(CompanyAccess, [currentSelectedPosition], []), accessValues))) && 
+                    (_.isEmpty(_.difference(accessValues, _.get(CompanyAccess, [currentSelectedPosition], []))))
                     ?
                     <Button color="light" onClick={() => updatePositionAccess(currentSelectedPosition, accessValues)}>Änderungen speichern</Button>
                     :

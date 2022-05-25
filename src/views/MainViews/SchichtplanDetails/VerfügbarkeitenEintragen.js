@@ -25,11 +25,7 @@ import {
   Row,
   Col,
   Button,
-  Card,
-  CardText,
-  CardTitle,
   CardSubtitle,
-  CardImg
 } from "reactstrap";
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {VERFÜGBARKEITENEINTRAGEN_TITLE, VERFÜGBARKEITENEINTRAGEN_DESCRIPTION} from "../../../constants/MetaTexts"

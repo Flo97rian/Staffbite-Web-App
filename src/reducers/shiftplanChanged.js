@@ -1,12 +1,25 @@
-const shiftplanChangedReducer = (state = !1, action) => {
-    switch (action.type) {
-      case "setShiftplanChanged": 
-        return !0
-      case "resetShiftplanChanged": 
-        return !1
-      default:
-        return state
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  shiftplanChanged: false,
+}
+
+const shiftplanChangedSlice = createSlice({
+  name: "shiftplanChanged",
+  initialState,
+  reducers:{
+    settingShiftplanChanged(state) {
+      state.shiftplanChanged = true;
+    },
+    resettingShiftplanChanged(state) {
+      state.shiftplanChanged = false
     }
-  };
-  
-  export default shiftplanChangedReducer;
+  }
+})
+
+export const {
+  settingShiftplanChanged,
+  resettingShiftplanChanged
+} = shiftplanChangedSlice.actions;
+
+export default shiftplanChangedSlice.reducer;

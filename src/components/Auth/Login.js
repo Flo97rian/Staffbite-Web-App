@@ -18,39 +18,19 @@
 import React, { useState, useEffect } from "react";
 import store from "../../store"
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Alert, 
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
-
+import { useSelector, useDispatch } from "react-redux";
 // core components
-import LandingNavbar from "../Navbars/LandingNavbar"
-import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
 import { useNavigate } from "react-router-dom";
-import PasswordChecklist from "react-password-checklist";
 import ChangeInitalPassword from "./AuthComponents/ChangeInitialPassword";
-import VerifyEmployeeMail from "./AuthComponents/VerifyEmployeeMail";
 import LogIn from "./AuthComponents/LogIn";
-import { off } from "process";
 import ConfirmTenant from "./AuthComponents/ConfirmTenant";
-import { ShowTwoApplicantsWithOutUser } from "../ShiftplanElements";
 import { Helmet } from "react-helmet";
+import { settingIsAdmin, settingIsEmployee } from "../../reducers/currentUser";
 
 const Login = () => {
+    const dispatch = useDispatch();
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [passwordAgain, setPasswordAgain] = useState("");
@@ -65,6 +45,7 @@ const Login = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
+        console.log(authState);
        if(authState === undefined) {
                   Auth.currentAuthenticatedUser().then(authData => {
                     setAuthState(AuthState.SignedIn);
@@ -79,18 +60,6 @@ const Login = () => {
 
      useEffect(() => {
     }, [user]);
-
-
-    async function confirmUserAttribute() {
-        // To verify attribute with the code
-        Auth.verifyCurrentUserAttributeSubmit("email", code)
-        .then(() => {
-            setAuthState(AuthState.SignedIn);
-            console.log('email verified');
-        }).catch(e => {
-            console.log('failed with error', e);
-        });
-    }
 
     async function confirmSignUp() {
         try {
@@ -112,7 +81,6 @@ const Login = () => {
             let currentUsername = username;
             currentUsername = hasUsernameWhiteSpaces ? currentUsername.replace(/\s/g, "") : currentUsername;
             const user = await Auth.signIn(currentUsername, password);
-            console.log(user)
             // neuer MA hat challengeName "NEW_PASSWORD_REQUIRED"
             if ("challengeName" in user) {
                 if(!newpassword) {
@@ -123,8 +91,15 @@ const Login = () => {
                 }
             } else {
                 setAuthState(AuthState.SignedIn);
+                console.log(user);
                 setUser(user);
-                store.dispatch({type:"currentUser", payload: user.attributes})
+                if(user.username === user.attributes["custom:TenantId"]) {
+                    dispatch(settingIsAdmin())
+                }
+
+                if(user.username !== user.attributes["custom:TenantId"]) {
+                    dispatch(settingIsEmployee())
+                }
                 
             }
         } catch (error) {

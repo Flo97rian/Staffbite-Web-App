@@ -1,13 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { isMobile } from "react-device-detect";
 // reactstrap components
 import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Input,
-  Button,
   ListGroup,
   ListGroupItem,
   ListGroupItemHeading,

@@ -1,13 +1,17 @@
 import { API, Auth } from "aws-amplify";
+import { isBefore, isFuture, isPast, isThisWeek, startOfWeek } from "date-fns";
 import { FETCH_ALL_PLANS, API_HOSTNAME } from "../../constants/ApiConstants";
+import { settingPlansFetching, settingPlansFulfilled, settingPlansRejected, settingShiftplans } from "../../reducers/DB";
 
-export async function FetchFromDB(dispatch, getState) {
+export function thunkFetchAllShiftplans () {
+    return async function FetchFromDB(dispatch, getState) {
     Auth.currentAuthenticatedUser().then( user => {
         const apiName = API_HOSTNAME; // replace this with your api name.
         const path = FETCH_ALL_PLANS; //replace this with the path you have configured on your API
         const myInit = { // OPTIONAL
             body: user.attributes
         };
+        dispatch(settingPlansFetching())
         return API.post(apiName, path, myInit);
         }).then(response => {
             let plans = response.Items.map(item => {
@@ -21,7 +25,10 @@ export async function FetchFromDB(dispatch, getState) {
                 }
             });
             // Add your code here
-            dispatch({type: "All/GetPlansFromDB", payload: plans});
-            dispatch({type: "stopFetchPlansFromDB"});
+            dispatch(settingShiftplans(plans));
+            dispatch(settingPlansFulfilled())
+        }).catch(error => {
+            dispatch(settingPlansRejected())
         })        
+}
 }

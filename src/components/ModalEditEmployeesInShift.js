@@ -7,22 +7,37 @@ import Modal from 'react-bootstrap/Modal';
 import store from "../store"
 import DragAndDrop from "./EmployeesDnDForSingleShift";
 import FormSetApplicantsDetails from "./FormSetApplicantsDetails";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
+import { resettingUserInput } from "../reducers/userInput";
+import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
+import { settingApplicants, settingShiftNotice } from "../reducers/Shiftplan";
+import { resettingEmployeesDummyshifts, createShiftplanDummyshifts } from "../reducers/DB";
 
 const ModalEditEmployeesInShift = (props) => {
-    const day = props.bewerber.col;
-    const row = props.bewerber.row;
-    const shiftplan = props.shiftplan.plan
-    let shift = shiftplan[row][day];
-    const applicants = shift.setApplicants
-    const applyedApplicants = shift.applicants
-    let hasApplicantsAfterPublish = Object.keys(shift).includes("applicantsAfterPublish")
-    let applicantsAfterPublish = hasApplicantsAfterPublish ? shift.applicantsAfterPublish : []
-    let isPublished = props.shiftplan.id.split('#')[1] === "Veröffentlicht";
-    const validApplicants = shift.setValidApplicants
-    const position = shiftplan[row]["Wochentag"].ShiftPosition;
-    const shiftanzahl = shift.anzahl
+    const dispatch = useDispatch();
+    const applyIsActive = useSelector(state => state.modal.applyIsActive);
+    const index = useSelector(state => state.shiftSlot.index);
+    const day = useSelector(state => state.shiftSlot.day);
+    const shiftNotice = useSelector(state => state.userInput.shiftNotice);
+    const Shiftplan = useSelector(state => state.Shiftplan);
+    const currentShiftplanIndex = useSelector(state => state.currentShiftPlan.currentShiftplanIndex);
 
     const DragAndDropRef = useRef()
+    const handleClose = () => {
+        dispatch(resettingModal());
+        dispatch(resettingUserInput());
+        dispatch(resettingEmployeesDummyshifts());
+    }
+    const handleSetApplicant = () => {
+        const updateApplicant = DragAndDropRef.current;
+        dispatch(settingShiftNotice({index: index, day: day, shiftNotice: shiftNotice}));
+        dispatch(settingApplicants({index: index, day: day, updateApplicants: updateApplicant}))
+        dispatch(resettingUserInput())
+        dispatch(resettingModal())
+        dispatch(settingShiftplanChanged())
+        dispatch(resettingEmployeesDummyshifts());
+      };
         return (
             <Modal 
                     size="lg"
@@ -30,29 +45,23 @@ const ModalEditEmployeesInShift = (props) => {
                     centered
                     scrollable={true}
                     className="modal-secondary"
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
+                    show={applyIsActive}
+                    onHide={() => handleClose()}
             >
                 <Modal.Header className="pb-0" closeButton>
                     <Label className="h2 m-3 align-items-center">Schicht zuteilen</Label>
                 </Modal.Header>
                 <Modal.Body className="pt-1">
-                    <FormSetApplicantsDetails {...props}/>
+                    <FormSetApplicantsDetails/>
                     <DragAndDrop
-                    ref={DragAndDropRef}
-                    applyed={applyedApplicants}
-                    valid={validApplicants}
-                    isPublished={isPublished}
-                    applicantsAfterPublish={applicantsAfterPublish}
-                    hasApplicantsAfterPublish={applicantsAfterPublish}
-                    set={applicants}
-                    position={position}
-                    anzahl={shiftanzahl}
-                    {...props}
+                        ref={DragAndDropRef}
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button  color="link" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>
-                    <Button color="success" onClick={() => props.selectBewerber(props.modalkey, DragAndDropRef)}>Änderungen übernehmen</Button>
+                    <Button  color="link" 
+                        onClick={() => handleClose()}
+                    > Schließen </Button>
+                    <Button color="success" onClick={() => handleSetApplicant()}>Änderungen übernehmen</Button>
                 </Modal.Footer>
             </Modal>
         );

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Component } from "react";
 import {
     Row,
     Col,
@@ -6,27 +6,18 @@ import {
     Card,
     Collapse
 } from "reactstrap"
+import { useSelector } from "react-redux";
 import CalendarEditShift from "./CalendarEditShift";
 import { CalendarEditShiftAdvanced } from "./CalendarEditShiftAdvanced";
 import EmployeesDnDForSingleShift from "./EmployeesDnDForSingleShift";
+import SelectEmployeesForShift from "./SelectEmployeesForShift";
+
 
 
 const FromEditCalendarShift = (props) => {
     const [standardSettings, setStandardSettings] = useState(true);
     const [advancedSettings, setAdvancedSettings] = useState(false);
     const [applicantsSettings, setApplicantsSettings] = useState(false);
-    const day = props.shiftSlot.col;
-    const row = props.shiftSlot.row;
-    const shiftplan = props.shiftplan.plan
-    let shift = shiftplan[row][day];
-    const applicants = shift.setApplicants
-    const applyedApplicants = shift.applicants
-    let hasApplicantsAfterPublish = Object.keys(shift).includes("applicantsAfterPublish")
-    let applicantsAfterPublish = hasApplicantsAfterPublish ? shift.applicantsAfterPublish : []
-    let isPublished = props.shiftplan.id.split('#')[1] === "Veröffentlicht";
-    const validApplicants = shift.setValidApplicants
-    const position = shiftplan[row]["Wochentag"].ShiftPosition;
-    const shiftanzahl = shift.anzahl
     return (
         <Row>
             <Col>
@@ -68,17 +59,8 @@ const FromEditCalendarShift = (props) => {
                 </h3>
                 <Collapse isOpen={applicantsSettings}>
                     <Card className="bg-secondary shadow-none border p-2">
-                    <EmployeesDnDForSingleShift
+                    <SelectEmployeesForShift
                     ref={props.DragAndDropRef}
-                    applyed={applyedApplicants}
-                    valid={validApplicants}
-                    isPublished={isPublished}
-                    applicantsAfterPublish={applicantsAfterPublish}
-                    hasApplicantsAfterPublish={applicantsAfterPublish}
-                    set={applicants}
-                    position={position}
-                    anzahl={shiftanzahl}
-                    {...props}
                     />
                     </Card>
                 </Collapse>

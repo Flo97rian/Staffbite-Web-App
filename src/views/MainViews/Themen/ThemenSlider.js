@@ -15,10 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import ReactGA from "react-ga";
 // reactstrap components
 import {
   Container,

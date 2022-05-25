@@ -1,14 +1,37 @@
-const datePickerReducer = (state = !1, action) => {
-    switch (action.type) {
-      case "DatePicker": 
-        return {
-          ...state,
-          "start": action.payload.startDate,
-          "ende": action.payload.endDate
-        }
-      default:
-        return state
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  start: "",
+  end: "",
+}
+const datePickerSlice = createSlice({
+  name: "datePicker",
+  initialState,
+  reducers: {
+    settingStart(state, action) {
+      state.start = action.payload;
+    },
+    settingEnd(state, action) {
+      state.end = action.payload;
+    },
+    resettingStart(state, action) {
+      state.start = initialState.start;
+    },
+    resettingEnd(state, action) {
+      state.end = initialState.end;
+    },
+    resettingDatePicker(state, action) {
+      state = initialState;
     }
-  };
-  
-  export default datePickerReducer;
+  }
+})
+
+export const {
+  settingStart,
+  settingEnd,
+  resettingStart,
+  resettingEnd,
+  resettingDatePicker
+} = datePickerSlice.actions;
+
+export default datePickerSlice.reducer;

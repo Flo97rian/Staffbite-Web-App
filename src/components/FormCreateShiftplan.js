@@ -3,7 +3,8 @@ import {
     Col,
     Row,
     Badge,
-    FormGroup
+    FormGroup,
+    Input
 } from "reactstrap"
 import InputString from "./InputString";
 import InputStringShiftName from "./InputStringShiftplanName"
@@ -13,20 +14,40 @@ import InfoOverlay from "./InfoOverlay";
 import { INFO_SHIFTPLAN_DAYS_IS_CLOSED, INFO_SHIFTPLAN_NAME, INFO_SHIFTPLAN_NUMBER_OF_SHIFTS, INFO_SHIFTPLAN_PERIOD } from "../constants/InfoTexts";
 import { validShiftplanName } from "./ValidInputs";
 import _ from "lodash";
+import { useSelector, useDispatch } from "react-redux";
+import InfoLabel from "./InfoLabel";
+import { resettingShiftplanCompanyIsOpen, settingShiftplanCompanyIsOpen, settingShiftplanName, settingShiftplanNumberOfShifts } from "../reducers/userInput";
 
-const FormCreateShiftplan = (props) => {
+const FormCreateShiftplan = () => {
+    const dispatch = useDispatch()
+
+    const userInputCompanyIsOpen = useSelector(state => state.userInput.shiftplanCompanyIsOpen);
+
+    const handleIsOpen = (day) => {
+        const includesDay = userInputCompanyIsOpen.includes(day);
+
+        if(includesDay) {
+            dispatch(resettingShiftplanCompanyIsOpen(day));
+        }
+
+        if(!includesDay) {
+            dispatch(settingShiftplanCompanyIsOpen(day));
+        }
+
+    };
         return(
             <>
             <Row>
                 <Col xs={1} ></Col>
                 <Col xs={10} >
-                    <FormGroup>
-                        <InputStringShiftName info={true} description={INFO_SHIFTPLAN_NAME} label="Name deiner Vorlage" name="name" currentValue={props.userInput.name} isValid={validShiftplanName(props.userInput.name)} placeholder="Name" onChange={(e) => props.onChange(e, "userInput")} {...props}></InputStringShiftName>
+                    <FormGroup className="mb-0">
+                    <InfoLabel title="Name deiner Vorlage" description={INFO_SHIFTPLAN_NAME}></InfoLabel>
+                    <Input type="text" onChange={(event) => dispatch(settingShiftplanName(event.target.value))}></Input>
                     </FormGroup>
                     <FormGroup className="mt-2">
-                        <InputNumber info={true} description={INFO_SHIFTPLAN_NUMBER_OF_SHIFTS} label="Schichten pro Tag" name="schichtentag"  placeholder="" onChange={(e) => props.onChange(e, "userInput")}></InputNumber>
+                        <InfoLabel title="Schichten pro Tag" description={INFO_SHIFTPLAN_NUMBER_OF_SHIFTS}></InfoLabel>
+                        <Input type="number" min={1} onChange={(event) => dispatch(settingShiftplanNumberOfShifts(event.target.value))}></Input>
                     </FormGroup>
-                    <br/>
                     <Row className="text-center mt-0">
                         <Col xs={12}>
                             <InfoOverlay info={true} description={INFO_SHIFTPLAN_DAYS_IS_CLOSED} infotitle="An welchen Tagen ist dein Betrieb geschlossen?" InfoOverlay/>
@@ -36,100 +57,65 @@ const FormCreateShiftplan = (props) => {
                     <Badge 
                     key={"Montag"} 
                     className="mr-2 mt-2" 
-                    color={(_.hasIn(props.userInput, "Montag") ? "primary" : "light")} 
-                    onClick={() => props.onCompanyClosed("Montag")}>
+                    color={(userInputCompanyIsOpen.includes("Montag") ? "primary" : "light")} 
+                    onClick={() => handleIsOpen("Montag")}>
                         Montag 
                         {" "}
-                        {_.hasIn(props.userInput, "Montag") ? 
-                        <i 
-                        className="fas fa-times"
-                        ></i>
-                        : <></>
-                        }
+                        <i hidden={!userInputCompanyIsOpen.includes("Montag")} className="fas fa-times"></i>
                     </Badge>
                     <Badge 
                     key={"Dienstag"} 
                     className="mr-2 mt-2" 
-                    color={(_.hasIn(props.userInput, "Dienstag") ? "primary" : "light")} 
-                    onClick={() => props.onCompanyClosed("Dienstag")}>
+                    color={(userInputCompanyIsOpen.includes("Dienstag") ? "primary" : "light")} 
+                    onClick={() => handleIsOpen("Dienstag")}>
                         Dienstag 
                         {" "}
-                        {_.hasIn(props.userInput, "Dienstag") ? 
-                        <i 
-                        className="fas fa-times"
-                        ></i>
-                        : <></>
-                        }
+                        <i hidden={!userInputCompanyIsOpen.includes("Dienstag")} className="fas fa-times"></i>
                     </Badge>
                     <Badge 
                     key={"Mittwoch"} 
                     className="mr-2 mt-2" 
-                    color={(_.hasIn(props.userInput, "Mittwoch") ? "primary" : "light")} 
-                    onClick={() => props.onCompanyClosed("Mittwoch")}>
+                    color={(userInputCompanyIsOpen.includes("Mittwoch") ? "primary" : "light")} 
+                    onClick={() => handleIsOpen("Mittwoch")}>
                         Mittwoch
                         {" "}
-                        {_.hasIn(props.userInput, "Mittwoch") ? 
-                        <i 
-                        className="fas fa-times"
-                        ></i>
-                        : <></>
-                        }
+                        <i hidden={!userInputCompanyIsOpen.includes("Mittwoch")} className="fas fa-times"></i>
                     </Badge>
                     <Badge 
                     key={"Donnerstag"} 
                     className="mr-2 mt-2" 
-                    color={(_.hasIn(props.userInput, "Donnerstag") ? "primary" : "light")} 
-                    onClick={() => props.onCompanyClosed("Donnerstag")}>
+                    color={(userInputCompanyIsOpen.includes("Donnerstag") ? "primary" : "light")} 
+                    onClick={() => handleIsOpen("Donnerstag")}>
                         Donnerstag 
                         {" "}
-                        {_.hasIn(props.userInput, "Donnerstag") ? 
-                        <i 
-                        className="fas fa-times"
-                        ></i>
-                        : <></>
-                        }
+                        <i hidden={!userInputCompanyIsOpen.includes("Donnerstag")} className="fas fa-times"></i>
                     </Badge>
                     <Badge 
                     key={"Freitag"} 
                     className="mr-2 mt-2" 
-                    color={(_.hasIn(props.userInput, "Freitag") ? "primary" : "light")} 
-                    onClick={() => props.onCompanyClosed("Freitag")}>
+                    color={(userInputCompanyIsOpen.includes("Freitag") ? "primary" : "light")} 
+                    onClick={() => handleIsOpen("Freitag")}>
                         Freitag 
                         {" "}
-                        {_.hasIn(props.userInput, "Freitag") ? 
-                        <i 
-                        className="fas fa-times"
-                        ></i>
-                        : <></>
-                        }
+                        <i hidden={!userInputCompanyIsOpen.includes("Freitag")} className="fas fa-times"></i>
                     </Badge>
                     <Badge 
                     key={"Samstag"} 
                     className="mr-2 mt-2" 
-                    color={(_.hasIn(props.userInput, "Samstag") ? "primary" : "light")} 
-                    onClick={() => props.onCompanyClosed("Samstag")}>
+                    color={(userInputCompanyIsOpen.includes("Samstag") ? "primary" : "light")} 
+                    onClick={() => handleIsOpen("Samstag")}>
                         Samstag 
                         {" "}
-                        {_.hasIn(props.userInput, "Samstag") ? 
-                        <i 
-                        className="fas fa-times"
-                        ></i>
-                        : <></>
-                        }
+                        <i hidden={!userInputCompanyIsOpen.includes("Samstag")} className="fas fa-times"></i>
                     </Badge>
                     <Badge 
                     key={"Sonntag"} 
                     className="mr-2 mt-2" 
-                    color={(_.hasIn(props.userInput, "Sonntag") ? "primary" : "light")} 
-                    onClick={() => props.onCompanyClosed("Sonntag")}>
+                    color={(userInputCompanyIsOpen.includes("Sonntag") ? "primary" : "light")} 
+                    onClick={() => handleIsOpen("Sonntag")}>
                         Sonntag
                         {" "}
-                        {_.hasIn(props.userInput, "Sonntag") ? 
-                        <i 
-                        className="fas fa-times"
-                        ></i>
-                        : <></>
-                        }
+                        <i hidden={!userInputCompanyIsOpen.includes("Sonntag")} className="fas fa-times"></i>
                     </Badge>
                     </div>
                 </Col>

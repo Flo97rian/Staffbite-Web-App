@@ -24,11 +24,7 @@ import {
   Container,
   Row,
   Col,
-  CardTitle,
   Card,
-  CardImg,
-  CardSubtitle,
-  CardText
 } from "reactstrap";
 import LandingNavBar from "../../../components/Navbars/LandingNavbar"
 import {SCHICHTPLANERSTELLEN_TITLE, SCHICHTPLANERSTELLEN_DESCRIPTION} from "../../../constants/MetaTexts"
@@ -37,7 +33,6 @@ import SchichtplanVorlage from "../../../assets/img/theme/SchichtplanVorlageShif
 import Schichthinzufuegen from "../../../assets/img/themen/SchichtplanVorlage/Schichtdetailseintragen.png"
 import SchichtplanVorlageVerwenden from "../../../assets/img/landing/SchichtplanErstellen/Schichtplan-vorlage-verwenden.png"
 import SchichtplanVorlageFertig from "../../../assets/img/themen/SchichtplanVorlage/SchichtplanVorlageFertig.png"
-import { isMobile } from "react-device-detect";
 import ThemenSlider from "../Themen/ThemenSlider";
 import TrialBanner from "../sub/TrialBanner";
 

@@ -2,7 +2,6 @@ import modalReducer from "./modal";
 import currentShiftPlanReducer from "./currentShiftPlan";
 import datePickerReducer from "./DatePicker";
 import DBReducer from "./DB";
-import singleStateReducer from "./state";
 import loadingsReducer from "./loadings";
 import { combineReducers } from "redux";
 import userReducer from "./user";
@@ -14,10 +13,10 @@ import MetaReducer from "./Meta";
 import errorMessagesReducer from "./ErrorMessages"
 import infoSidebarReducer from "./InfoModal";
 import shiftplanChangedReducer from "./shiftplanChanged";
+import shiftDetailsSlice from "./ShiftDetails";
 
 const rootReducer = combineReducers({
     modal: modalReducer,
-    singleState: singleStateReducer,
     DB: DBReducer,
     user: userReducer,
     currentShiftPlan: currentShiftPlanReducer,
@@ -31,6 +30,7 @@ const rootReducer = combineReducers({
     ErrorMessages: errorMessagesReducer,
     InfoSidebar: infoSidebarReducer,
     ShiftplanChanged: shiftplanChangedReducer,
+    shiftDetails: shiftDetailsSlice
 })
 
 export default rootReducer;

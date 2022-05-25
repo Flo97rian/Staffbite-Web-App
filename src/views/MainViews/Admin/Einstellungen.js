@@ -44,14 +44,53 @@ import { Router, useNavigate, useLocation } from "react-router-dom";
 import EinstellungenContainer from "../../../components/AdminSettingsContainer"
 import AdminNavbar from "../../../components/Navbars/AdminNavbar.js";
 import AdminFooter from "../../../components/Footers/AdminFooter"
+import { useSelector, useDispatch } from "react-redux";
+import { Auth } from "aws-amplify";
+import { settingIsAdmin, settingIsEmployee } from "../../../reducers/currentUser.js";
+import Loading from "../Default/Loading.js";
+import { thunkFetchEmployees } from "../../../store/middleware/FetchEmployees.js";
+import { thunkFetchOrg } from "../../../store/middleware/FetchOrg.js";
+import { thunkFetchShiftplans } from "../../../store/middleware/FetchShiftplans.js";
 
 
 const Einstellungen = () => {
+  const dispatch = useDispatch();
+  const isAdmin = useSelector(state => state.currentUser.userType === "isAdmin");
+  const metaStatus = useSelector(state => state.DB.metaStatus);
+  const employeesStatus = useSelector(state => state.DB.employeesStatus);
+  const plansStatus = useSelector(state => state.DB.plansStatus);
   let location = useLocation()
 
   React.useEffect(() => {
     pageViewsTracking()
+    dispatch(thunkFetchEmployees());
+    dispatch(thunkFetchOrg());
+    dispatch(thunkFetchShiftplans());
+    if(!isAdmin) {
+      isLoggedIn()
+    }
   },[])
+
+
+  function SettingsContent() {
+    if( metaStatus !== "fulfilled" ||
+    employeesStatus !== "fulfilled" ||
+    plansStatus !== "fulfilled"
+    ) {
+      return <Loading/>;
+    }
+    return <EinstellungenContainer/>
+  }
+  async function isLoggedIn () {
+    let user = await Auth.currentAuthenticatedUser();
+    if(user.username === user.attributes["custom:TenantId"]) {
+      dispatch(settingIsAdmin())
+    }
+
+    if(user.username !== user.attributes["custom:TenantId"]) {
+      dispatch(settingIsEmployee())
+    }
+  }
 
   function pageViewsTracking () {
     const pathname = "/admin";
@@ -74,6 +113,10 @@ const Einstellungen = () => {
     }
     return "Brand";
   };
+
+  if(!isAdmin) {
+    return null;
+  }
     return (
     <>
       <div>
@@ -87,7 +130,7 @@ const Einstellungen = () => {
           }}
           brandText={getBrandText(location)}
         />
-        <EinstellungenContainer></EinstellungenContainer>
+        <SettingsContent/>
           <AdminFooter />
         </Container>
       </div>

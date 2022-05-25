@@ -1,13 +1,37 @@
-import React from "react";
+import React, {useState}  from "react";
 import {
     Button,
     Label
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import SchichtplanErstellen from "./FormCreateShiftplan"
-import store from "../store";
+import { useSelector, useDispatch } from "react-redux";
+import { resettingModal } from "../reducers/modal";
+import { createingNewShiftplan, createNewShiftplan, settingNewShiftplan } from "../reducers/NewShiftPlan";
+import { resettingUserInput } from "../reducers/userInput";
+import {settingDisplayNewShiftplan } from "../reducers/display";
+import { settingMissingShiftplanName } from "../reducers/ErrorMessages";
 
 const ModalCreateShiftplan = (props) => {
+    const dispatch = useDispatch();
+    const showSchichtplanErstellen = useSelector(state => state.modal.showSchichtplanErstellen);
+    const userInput = useSelector(state => state.userInput);
+
+      // Diese Funktion sorgt für die Speicherung eines neuen Schichtplans und schließt im Anschluss das zugehörige Modal
+  const createNewShiftPlan = () => {
+
+    if(userInput.shiftplanName === "") {
+        dispatch(settingMissingShiftplanName())
+    }
+
+    if(userInput.shiftplanName !== "") {
+        dispatch(createingNewShiftplan({closedDays: userInput.shiftplanCompanyIsOpen, shiftsPerDay: userInput.shiftplanNumberOfShifts, shiftplanName: userInput.shiftplanName}))
+        dispatch(settingDisplayNewShiftplan());
+        dispatch(resettingModal())
+    }
+
+
+  };
         return (
             <Modal 
                     size="lg"
@@ -15,17 +39,27 @@ const ModalCreateShiftplan = (props) => {
                     centered
                     scrollable={true}
                     className="modal-secondary"
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}
+                    show={showSchichtplanErstellen}
+                    onHide={() => {
+                        dispatch(resettingModal())
+                        dispatch(resettingUserInput())
+                    }}
             >
                 <Modal.Header className="pb-0">
                             <Label className="h2 m-3 align-items-center">Vorlage erstellen</Label>
                 </Modal.Header>
                 <Modal.Body className="pt-0">
-                    <SchichtplanErstellen {...props}></SchichtplanErstellen>
+                    <SchichtplanErstellen/>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button color="link" size="lg" onClick={() => {store.dispatch({type: "CLOSE", payload: props.modalkey})}}> Schließen </Button>{' '}
-                  <Button color="success" size="lg" onClick={() => props.onSave(props.modalkey)}>Erstellen</Button>{' '}
+                  <Button 
+                    color="link"
+                    size="lg"
+                    onClick={() => {
+                        dispatch(resettingModal());
+                        dispatch(resettingUserInput())
+                    }}> Schließen </Button>{' '}
+                  <Button color="success" size="lg" onClick={() => createNewShiftPlan()}>Erstellen</Button>{' '}
                 </Modal.Footer>
             </Modal>
         );

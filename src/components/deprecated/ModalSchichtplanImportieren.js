@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import FormSchichtplanImportieren from "../FormElements/FormSchichtplanImportieren";
 import Form from 'react-bootstrap/Form';
 import store from "../../store"
+import { resettingModal } from "../../reducers/modal";
 
 const ModalSchichtplanImportieren = (props) => {
         return (
@@ -16,7 +17,7 @@ const ModalSchichtplanImportieren = (props) => {
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
                     className="modal-secondary"
-                    show={props.keytrue} onHide={() => {store.dispatch({type: "CLOSE", payload: "showSchichtplanImportieren"})}}
+                    show={props.keytrue} onHide={() => store.dispatch(resettingModal())}
             >
                 <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
@@ -42,7 +43,7 @@ const ModalSchichtplanImportieren = (props) => {
                     <FormSchichtplanImportieren {...props}></FormSchichtplanImportieren>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button onClick={() => {store.dispatch({type: "CLOSE", payload: "showSchichtplanImportieren"})}}> Schließen </Button>
+                  <Button onClick={() => store.dispatch(resettingModal())}> Schließen </Button>
                 </Modal.Footer>
             </Modal>
         );

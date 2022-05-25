@@ -18,6 +18,7 @@ exports.handler = async (event) => {
     let body = JSON.parse(event.body);
     let org = body.org;
     let user = body.user;
+    console.log(org);
     await updateOrg(user, org)
      const response = {
         statusCode: 200,
@@ -55,6 +56,14 @@ function values(org) {
         } else if (typeof parameters[keys[i]] === "string") {
             params[":" + keys[i]] = {"S": parameters[keys[i]]}
         } else if (typeof parameters[keys[i]] == "object") {
+           console.log(parameters[keys[i]]);
+            if(keys[i] === "newsfeed" && keys[i].length > 10) {
+                console.log("try slice");
+                console.log(keys[i]);
+               console.log(parameters[keys[i]]);
+               console.log(parameters[keys[i]][0]);
+               parameters[keys[i]].slice(0, 11);
+            }
             params[":" + keys[i]] = {"S": JSON.stringify(parameters[keys[i]])}
         }
     }

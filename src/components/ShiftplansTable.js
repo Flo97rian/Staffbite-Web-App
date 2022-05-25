@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // reactstrap components
 import {
@@ -12,12 +12,18 @@ import { Badge } from "reactstrap";
 import PlanId from "./PlanStatus"
 import _ from "lodash";
 import ShiftplanDnD from "./ShiftplanDnD";
+import { useSelector, useDispatch } from "react-redux";
 
 const  ShiftplansTable = (props) => {
-
+    const dispatch = useDispatch();
+    const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
+    const Plans = useSelector(state => state.DB.plans);
+    const currentPlanIndex = useSelector(state => state.currentShiftPlan.currentShiftplanIndex)
+    const Shiftplan = useSelector(state => state.Shiftplan);
+    const DisplayBasicLayout = useSelector(state => state.display.displayBasicLayout);
     function getLegend() {
-        if(props.shiftplan.id) {
-            let id = props.shiftplan.id;
+        if(Shiftplan.id !== "") {
+            let id = Shiftplan.id;
             const idReview = id.split("#").includes("Review")
             const idVeröffentlicht = id.split("#").includes("Veröffentlicht")
             const idEntwurf = id.split("#").includes("Entwurf")
@@ -25,8 +31,8 @@ const  ShiftplansTable = (props) => {
             if (idEntwurf) {
                 return (
                     <>
-                                <Badge className="m-1" color="light">Betrieb geöffnet</Badge>
-                                <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
+                        <Badge className="m-1" color="light">Betrieb geöffnet</Badge>
+                        <Badge className="m-1" color="default">Betrieb geschlossen</Badge>
                     </>
                 )
             } else if (idFreigegeben) {
@@ -57,36 +63,9 @@ const  ShiftplansTable = (props) => {
         }
     }
 
-    function selectTable () {
-        const id = props.shiftplan.id
-        const idReview = id.split("#").includes("Review")
-        const idVeröffentlicht = id.split("#").includes("Veröffentlicht")
-        const idEntwurf = id.split("#").includes("Entwurf")
-        const idFreigegeben = id.split("#").includes("Freigeben")
-        if (idEntwurf) {
-            return (
-                <ShiftplanDnD id={props.shiftplan.id} {...props}/>
-            )
-        } else if (idFreigegeben) {
-            return (
-                <ShiftplanDnD id={props.shiftplan.id} {...props}/>
-            )
-        } else if (idReview) {
-            return (
-                <ShiftplanDnD id={props.shiftplan.id} {...props}/>
-            )
-        } else if (idVeröffentlicht) {
-            return (
-                <ShiftplanDnD id={props.shiftplan.id} {...props}/>
-            )
-        }
-
-}
-
-    let isActivePlan = props.bearbeiten;
-    let isImportedPlan = props.import;
-    let currentPlan = props.shiftplan.id;
-    if(isActivePlan && isImportedPlan && _.isObject(props.plans) && _.isObject(props.employees)) {
+    if( DisplayBasicLayout === false) return null;
+    let currentPlan = Shiftplan.id;
+    if(DisplayShiftplan && Plans) {
         if(currentPlan.split("#").includes("Entwurf")) {
             return (
                 <>
@@ -95,11 +74,11 @@ const  ShiftplansTable = (props) => {
                         <Row className="text-center mt-4">
                             <Col xs={4}>
                                 <p>Name</p>
-                                <p>{props.shiftplan.name}</p>
+                                <p>{Shiftplan.name}</p>
                             </Col>
                             <Col xs={4}>
                                 <p>Status</p>
-                                <PlanId id={props.shiftplan.id} ></PlanId>
+                                <PlanId id={Shiftplan.id} ></PlanId>
                             </Col>
                             <Col xs={4}>
                                 <p>Legende</p>
@@ -108,16 +87,16 @@ const  ShiftplansTable = (props) => {
                         </Row>
                         <br/>
                         <Row className="text-center" noGutters={true}>
-                            {selectTable()}
+                            <ShiftplanDnD/>
                         </Row>
                     </CardBody>
                 </Card>
                     </>
             );
         } 
-        else if (!props.shiftplan.id.split("#").includes("Entwurf")) {
-        let Montag = props.shiftplan.zeitraum.split(" - ")[0]
-        let Sonntag = props.shiftplan.zeitraum.split(" - ")[1]
+        else if (!Shiftplan.id.split("#").includes("Entwurf")) {
+        let Montag = Shiftplan.zeitraum.split(" - ")[0]
+        let Sonntag = Shiftplan.zeitraum.split(" - ")[1]
         return (
             <>
             <Card>
@@ -125,11 +104,11 @@ const  ShiftplansTable = (props) => {
                     <Row className="text-center mt-4">
                         <Col xs={3}>
                             <p>Name</p>
-                            <p>{props.shiftplan.name}</p>
+                            <p>{Shiftplan.name}</p>
                         </Col>
                         <Col xs={3}>
                             <p>Status</p>
-                            <PlanId id={props.shiftplan.id} ></PlanId>
+                            <PlanId id={Shiftplan.id} ></PlanId>
                         </Col>
                         <Col xs={3}>
                                 <p>Zeitraum</p>
@@ -142,7 +121,7 @@ const  ShiftplansTable = (props) => {
                     </Row>
                     <br/>
                     <Row className="text-center" noGutters={true}>
-                        {selectTable()}
+                        <ShiftplanDnD/>
                     </Row>
                 </CardBody>
             </Card>

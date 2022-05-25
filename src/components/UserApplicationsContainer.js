@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react";
-import { FetchEmployeePlansFromDB } from "../store/middleware/FetchPlansForEmployees";
 import { getUser } from "../store/middleware/FetchUser";
 import { thunkUploadApplication } from "../store/middleware/UploadApplication";
 import Spinner from 'react-bootstrap/Spinner'
 import InfoSidebar from "./Sidebar/InfoSidebar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Joyride from 'react-joyride';
 import 'moment/locale/de';
 import {
   Button,
     Col,
+    Container,
     Row,
   } from "reactstrap";
 import ApplicationsTable from "./UserApplicationsTable";
@@ -20,9 +20,15 @@ import ShiftPlan from "../libs/Shiftplan";
 import ButtonSave from "./deprecated/ButtonSave";
 import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_EINTRAGEN } from "../constants/OnBoardingTexts";
+import { resettingShiftplan, settingApplicant, settingShiftplan } from "../reducers/Shiftplan";
+import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
+import { resettingModal, settingModal } from "../reducers/modal";
+import { resettingDisplayShiftplan, settingDisplayShiftplan } from "../reducers/display";
+import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 
 
 const UserApplicationsContainer = () => {
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     run: !1,
     steps: [
@@ -39,125 +45,54 @@ const UserApplicationsContainer = () => {
   const { run, steps } = state;
 
   //REDUX-Filter für UI-Data
-  const selectPlans = state => state.DB.plans;
-  const selectModal = state => state.modal;
   const selectShiftplan = state => state.Shiftplan;
-  const selectCurrentShiftPlan = state => state.currentShiftPlan
-  const selectUser = state => state.user
-  const selectShiftSlot = state => state.shiftSlot;
-  const selectShiftPlanIsActive = state => state.visibility.ShiftPlanIsActive;
-  const selectLoadingFetchingPlans = state => state.loadings.isFetchingEmployeePlans;
   const selectInfoSidebar = state => state.InfoSidebar;
-  const selectShiftplanChanged = state => state.ShiftplanChanged;
+  const selectShiftplanChanged = state => state.ShiftplanChanged.shiftplanChanged;
 
   //REDUX-Listener für UI-Data
-  const Plans = useSelector(selectPlans);
-  const Modal = useSelector(selectModal);
-  const User = useSelector(selectUser);
-  const ShiftSlot = useSelector(selectShiftSlot);
-  const ShiftPlanIsActive = useSelector(selectShiftPlanIsActive);
-  const currentShiftPlan = useSelector(selectCurrentShiftPlan);
+  const Employee = useSelector(state => state.DB.employee);
+  const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
   const Shiftplan = useSelector(selectShiftplan);
-  const LoadingFetchingEmployeePlans = useSelector(selectLoadingFetchingPlans);
   const SidebarInfo = useSelector(selectInfoSidebar);
   const ShiftplanChanged = useSelector(selectShiftplanChanged);
+  const OnboardingApplication = useSelector(state => state.DB.employee?.onboarding?.eintragen || false);
 
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
-    store.dispatch({ type: "ResetCurrentShiftPlan"})
-    store.dispatch({ type: "stopShiftPlanIsImported"})
-    store.dispatch({ type: "stopShiftPlanIsActive"})
-    store.dispatch({ type: "resetShiftplan"})
-    store.dispatch(FetchEmployeePlansFromDB)
-    store.dispatch(getUser)
+    dispatch(resettingCurrentShiftplanIndex())
+    dispatch(resettingDisplayShiftplan())
+    dispatch(resettingShiftplan())
   }, []);
 
   useEffect(() => {
-    if(Plans && Shiftplan && currentShiftPlan) {
-    if (!LoadingFetchingEmployeePlans) {
-      let copyPlan = new ShiftPlan({...Plans[currentShiftPlan]});
-      let shiftplan = copyPlan.getAllPlanDetails();
-      store.dispatch({type: "setShiftplan", payload: shiftplan});
+    if(Employee) {
+      setState({...state, run: OnboardingApplication})
     }
-  }
-  }, [Plans]);
-
-  useEffect(() => {
-    if(User) {
-      let showEintragen = User.onboarding.eintragen
-      setState({...state, run: showEintragen})
-    }
-  }, [User]);
-
-  useEffect(() => {
-  }, [LoadingFetchingEmployeePlans]);
-
-  useEffect(() => {
-  }, [currentShiftPlan]);
-
-  useEffect(() => {
-  }, [Shiftplan]);
+  }, [Employee]);
 
   const handleOnboarding = () => {
-    let user = store.getState().user;
-    if(User) {
-      user.onboarding.eintragen = !1;
-      store.dispatch(thunkUpdateEmployee(user));
-    }
-  }
-  // Untersucht, ob der Wert eines Modals auf auf true steht und gibt den zugehörigen Key zurück
-  const getModalKey = (allmodals) => {
-    const modals = Object.entries(allmodals).map(([key, value]) =>  value ? key : null);
-    const modalfilter = modals.filter((modal) => typeof modal === "string");
-    const modal = modalfilter[0];
-    return modal;
+      dispatch(thunkUpdateEmployee({...Employee, onboarding: {...Employee.onboarding, eintragen: !OnboardingApplication}}));
   }
 
-  // Untersucht, ob der Wert eines Modals auf true steht und gibt den Wert true zurück
-  const getModalTrue = (allmodals) => {
-    let modals = Object.entries(allmodals).map(([key, value]) => {return value})
-    let truemodal = modals.includes(true)
-    return truemodal
-  }
   // Diese Funktion ist der handler, wenn sich auf eine Schicht beworben wird. Sie schließt das Modal und leitet einen API Call ein.
   const handleUploadApplication = () => {
-    store.dispatch({type: "startFetchingEmployeePlans"});
-    store.dispatch(thunkUploadApplication(Shiftplan));
-    store.dispatch({type: "CLOSE"});
+    dispatch(thunkUploadApplication(Shiftplan));
+    dispatch(resettingModal())
   }
 
   function onClickBack () {
     if (ShiftplanChanged) {
-      store.dispatch({type: "OPEN", payload: "saveChanges"});
+      dispatch(settingModal("saveChanges"))
     } else {
-        store.dispatch({ type: "ResetCurrentShiftPlan"})
-        store.dispatch({ type: "resetShiftplan"})
-        store.dispatch({ type: "stopShiftPlanIsActive"})
-        store.dispatch({ type: "stopShiftPlanIsImported"})
+        dispatch(resettingCurrentShiftplanIndex())
+        dispatch(resettingShiftplan())
+        dispatch(resettingDisplayShiftplan())
     }
   }
 
-  const handleDeleteApplication = (modal) => {
-    let copyPlan = new ShiftPlan({...Shiftplan});
-    copyPlan.removeApplicant(User, ShiftSlot);
-    let shiftplan = copyPlan.getAllPlanDetails();
-    store.dispatch({type: "setShiftplan", payload: shiftplan});
-    store.dispatch({type: "CLOSE", payload: modal});
-    store.dispatch({type: "setShiftplanChanged"})
-  }
-
-  function handleSetApplication (modal) {
-    let copyPlan = new ShiftPlan({...Shiftplan});
-    copyPlan.setApplicant(User, ShiftSlot);
-    let shiftplan = copyPlan.getAllPlanDetails();
-    store.dispatch({type: "setShiftplan", payload: shiftplan});
-    store.dispatch({type: "CLOSE", payload: modal});
-    store.dispatch({type: "setShiftplanChanged"})
-  }
-
   return(
-          <div className="pt-6">
+        <>
           <Joyride
           continuous={true}
           run={run}
@@ -171,23 +106,13 @@ const UserApplicationsContainer = () => {
             },
           }}
         />
-          { !User && !Plans?
-          <Row className="text-center">
-            <br/>
-            <Col xs={12}>
-              <Spinner animation="grow" variant="light"/>
-            </Col>
-          </Row>
-          :
-        <>
         <Row className="mt-6">
         <Col xs={2} className="mt-4">
         <h3 className="float-left pt-4 font-weight-bold text-lg">Eintragen</h3>
-        { LoadingFetchingEmployeePlans ? <Spinner color="success" /> : <></>}
         </Col>
         <Col xs={10} className="mt-2">
         <Button 
-        hidden={!ShiftPlanIsActive}
+        hidden={!DisplayShiftplan}
           color={ShiftplanChanged ? "success" : "white"}
           size="lg"
           className="float-right mt-2 ml-2 mr-0"
@@ -198,7 +123,7 @@ const UserApplicationsContainer = () => {
           </Button> 
         <Button 
           color="white"
-          hidden={!ShiftPlanIsActive}
+          hidden={!DisplayShiftplan}
           size="lg"
           className="float-right mt-2 ml-2 mr-0"
           onClick={() => onClickBack()}>
@@ -209,54 +134,15 @@ const UserApplicationsContainer = () => {
         </Col>
         </Row>
         <Row>
-        { Plans && User ?
-            <div className="col">
-              <>
-                { !ShiftPlanIsActive ? 
-                <ApplicationsImport 
-                  bearbeiten={ShiftPlanIsActive}
-                  plaene={Plans}
-                  plan={currentShiftPlan}
-                  ></ApplicationsImport>
-                  :
-                  <></>
-                }
-                </>
-                <>
-              {ShiftPlanIsActive ?
-                  <ApplicationsTable
-                  bearbeiten={ShiftPlanIsActive}
-                  shiftplan={Shiftplan}
-                  currentUser={User}
-                ></ApplicationsTable>
-                :
-                <></>
-              }
-              </>
-            </div>
-            :
-            <></>
-            }
+            <Col>
+              <ApplicationsImport />
+              <ApplicationsTable/>
+            </Col>
           </Row>
-        <OpenModal
-            show={Modal}
-            plaene={Plans}
-            User={User}
-            onDelete={handleDeleteApplication}
-            onBewerben={handleSetApplication}
-            shiftslot={ShiftSlot}
-            plan={currentShiftPlan}
-            shiftplan={Shiftplan}
-            bearbeiten={ShiftPlanIsActive}
-            handleUpdate={handleUploadApplication}
-            checkTrue={getModalTrue}
-            checkModalKey={getModalKey}
-            ></OpenModal>
-      </>
-      }
+        <OpenModal/>
        <InfoSidebar
       sidebarInfo={SidebarInfo}/>
-      </div>
+      </>
             );
         }
 export default UserApplicationsContainer;

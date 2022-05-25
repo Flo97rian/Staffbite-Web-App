@@ -293,7 +293,7 @@ export const ShowSingleApplicantWithOutUser = (FirstApplicant) => {
 )}
 export const ZeroApplicants = (index, col, Click) => {
     return (<ListGroup>
-       <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}><p className="m-0"><br/><br/></p></ListGroupItem>
+       <ListGroupItem className="mb-0" style={{"cursor": "pointer"}} color="white" onClick={(e, j) => Click(index, col)}><p className="m-0"><br/><br/></p></ListGroupItem>
     </ListGroup>
 )}
 
@@ -748,91 +748,257 @@ export const TwoSetApplicantsWithPrioFilled = (index, col, FirstApplicant, Secon
     </ListGroup>
 )}
 
-export const ProgessSetApplicantsWithPrioFilled = (index, col, FirstApplicant, SecondApplicant, Click) => {
+export const ProgessSetApplicantsWithPrioFilled = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, Click) => {
+    const { padding, margin} = getStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength)
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
             <ListGroupItemHeading className="m-0 p-0" color="">
             <Progress max="100" value="100" color="success" />
             <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
             </ListGroupItemHeading>
-            <ListGroupItemText className="m-0 p-0 pt-2">
-            {FirstApplicant}
-                <br/>
-                {SecondApplicant}
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getContent(FirstApplicant, SecondApplicant, SetAppplicantsLength)} 
             </ListGroupItemText>
         </ListGroupItem>
     </ListGroup>
 )}
 
-export const ProgessSetApplicantsWithPrioNotFilled = (index, col, FirstApplicant, SecondApplicant, Click, progress) => {
+export const ProgessSetApplicantsWithPrioNotFilled = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, Click, progress) => {
+    const { padding, margin} = getStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength)
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
             <ListGroupItemHeading className="m-0 p-0" color="">
             <Progress max="100" value="50" color="yellow" />
             <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
             </ListGroupItemHeading>
-            <ListGroupItemText className="m-0 p-3 pt-2">
-            {FirstApplicant}
-                <br/>
-                {SecondApplicant}
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getContent(FirstApplicant, SecondApplicant, SetAppplicantsLength)} 
             </ListGroupItemText>
         </ListGroupItem>
     </ListGroup>
 )}
 export const ProgessSetApplicantsWithPrioEmpty = (index, col, FirstApplicant, SecondApplicant, Click) => {
+    const { padding, margin} = getStyles(FirstApplicant, SecondApplicant)
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
             <ListGroupItemHeading className="m-0 p-0" color="">
             <Progress max="100" value="100" color="warning" />
             <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
             </ListGroupItemHeading>
-            <ListGroupItemText className="m-0 p-4">
-            {FirstApplicant}
-                <br/>
-                {SecondApplicant}
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getContent(FirstApplicant, SecondApplicant)} 
             </ListGroupItemText>
         </ListGroupItem>
     </ListGroup>
 )}
 
-export const ProgessSetApplicantsWithoutPrioFilled = (index, col, FirstApplicant, SecondApplicant, Click) => {
+export const ProgessSetApplicantsWithPrioTooFull = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, Click) => {
+    const { padding, margin} = getStyles(FirstApplicant, SecondApplicant)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress max="100" value="100" color="warning" />
+            <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getContent(FirstApplicant, SecondApplicant, SetAppplicantsLength)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgessSetApplicantsWithoutPrioFilled = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, Click) => {
+    const { padding, margin} = getStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength)
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
             <ListGroupItemHeading className="m-0 p-0" color="">
             <Progress max="100" value="100" color="success" />
             </ListGroupItemHeading>
-            <ListGroupItemText className="m-0 pt-2">
-            {FirstApplicant}
-                <br/>
-                {typeof SecondApplicant === "string" ? SecondApplicant : <br/>}
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getContent(FirstApplicant, SecondApplicant, SetAppplicantsLength)} 
             </ListGroupItemText>
         </ListGroupItem>
     </ListGroup>
 )}
 
-export const ProgessSetApplicantsWithoutPrioNotFilled = (index, col, FirstApplicant, SecondApplicant, Click, progress) => {
+export const ProgessSetApplicantsWithoutPrioNotFilled = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, Click, progress) => {
+    const { padding, margin} = getStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength)
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
             <ListGroupItemHeading className="m-0 p-0" color="">
             <Progress max="100" value="50" color="yellow" />
             </ListGroupItemHeading>
-            <ListGroupItemText className="m-0 p-3">
-            {FirstApplicant}
-                <br/>
-                {SecondApplicant}
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getContent(FirstApplicant, SecondApplicant, SetAppplicantsLength)} 
             </ListGroupItemText>
         </ListGroupItem>
     </ListGroup>
 )}
 export const ProgessSetApplicantsWithoutPrioEmpty = (index, col, FirstApplicant, SecondApplicant, Click) => {
+    const { padding, margin} = getStyles(FirstApplicant, SecondApplicant)
     return (<ListGroup>
         <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
             <ListGroupItemHeading className="m-0 p-0" color="">
             <Progress max="100" value="100" color="warning" />
             </ListGroupItemHeading>
-            <ListGroupItemText className="m-0 pt-2">
-            <br/>
-            <br/>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getContent(FirstApplicant, SecondApplicant)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+export const ProgessSetApplicantsWithoutPrioTooFull = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, Click) => {
+    const { padding, margin} = getStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress max="100" value="100" color="warning" />
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getContent(FirstApplicant, SecondApplicant, SetAppplicantsLength)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+export const ProgessApplicantsWithoutPrioDefault = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, Click) => {
+    const { padding, margin} = getStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress max="100" value="100" color="primary" />
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getContent(FirstApplicant, SecondApplicant, SetAppplicantsLength)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+export const ProgessApplicantsWithPrioDefault = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, Click) => {
+    const { padding, margin} = getStyles(FirstApplicant, SecondApplicant)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress max="100" value="100" color="primary" />
+            <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getContent(FirstApplicant, SecondApplicant, SetAppplicantsLength)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgressEmployeeApplicantsWithPrio  = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess, Click) => {
+    const { padding, margin} = getEmployeeStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress className="p-1 bg-primary" max="100" value="100"/>
+            <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getEmployeeContent(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgessEmployeeApplicantsWithoutPrio = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess, Click) => {
+    const { padding, margin} = getEmployeeStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress className="p-1 bg-primary" max="100" value="100"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getEmployeeContent(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgressWithEmployeeApplicantsWithPrio  = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess, Click) => {
+    const { padding, margin} = getEmployeeStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress className="p-1 bg-success" max="100" value="100"/>
+            <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getEmployeeContent(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgressWithEmployeeApplicantsWithoutPrio = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess, Click) => {
+    const { padding, margin} = getEmployeeStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress className="p-1 bg-success" max="100" value="100"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getEmployeeContent(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgressWithoutEmployeeApplicantsWithPrioNotFilled  = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess, Click) => {
+    const { padding, margin} = getEmployeeStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress className="p-1 bg-yellow" max="100" value="100"/>
+            <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getEmployeeContent(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgressWithoutEmployeeApplicantsWithoutPrioNotFilled = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess, Click) => {
+    const { padding, margin} = getEmployeeStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="" onClick={(e, j) => Click(index, col)}>
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress className="p-1 bg-yellow" max="100" value="100"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getEmployeeContent(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgressWithoutEmployeeApplicantsWithPrioFilled  = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess) => {
+    const { padding, margin} = getEmployeeStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="">
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress className="p-1 bg-primary" max="100" value="100"/>
+            <i className="fas fa-bookmark text-success float-right m-2 mt--2" aria-hidden="true"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getEmployeeContent(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)} 
+            </ListGroupItemText>
+        </ListGroupItem>
+    </ListGroup>
+)}
+
+export const ProgressWithoutEmployeeApplicantsWithoutPrioFilled = (index, col, FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess) => {
+    const { padding, margin} = getEmployeeStyles(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)
+    return (<ListGroup>
+        <ListGroupItem className="m-0 p-0" style={{"cursor": "pointer"}} color="">
+            <ListGroupItemHeading className="m-0 p-0" color="">
+            <Progress className="p-1 bg-primary max-100 value-100" max="100" value="100"/>
+            </ListGroupItemHeading>
+            <ListGroupItemText className={"m-0 " + padding}>
+            {getEmployeeContent(FirstApplicant, SecondApplicant, SetAppplicantsLength, AdminViewAccess)} 
             </ListGroupItemText>
         </ListGroupItem>
     </ListGroup>
@@ -888,4 +1054,174 @@ const renderCircle = (FirstApplicant = !1, SecondApplicant = !1, ApplicantsLengt
     } else {
         return null;
     }
+}
+
+function getStyles(FirstApplicant, SecondApplicant, ApplicantsLength = false) {
+    let padding = " p-3 ";
+    let margin = " ";
+    if(typeof FirstApplicant === "string" && FirstApplicant !== "") {
+
+    }
+    if(typeof SecondApplicant === "string" && SecondApplicant !== "") {
+
+    }
+
+    if(typeof FirstApplicant === "string" && FirstApplicant !== "" && typeof SecondApplicant === "string" && SecondApplicant !== "") {
+        padding = " pt-2 "
+    }
+
+    return {padding: padding, margin: margin}
+}
+
+
+function getEmployeeStyles(FirstApplicant, SecondApplicant, ApplicantsLength = false, AdminView) {
+    let padding = " p-3 ";
+    let margin = " ";
+    if(typeof FirstApplicant === "string" && FirstApplicant !== "") {
+        padding = " py-4"
+    }
+    if(typeof SecondApplicant === "string" && SecondApplicant !== "") {
+
+    }
+
+    if(typeof FirstApplicant === "string" && FirstApplicant !== "" && typeof SecondApplicant === "string" && SecondApplicant !== "") {
+        padding = " pt-3 pb-2"
+    }
+
+    if(ApplicantsLength === 0) {
+        padding = " py-4 "
+    }
+
+
+    return {padding: padding, margin: margin}
+}
+function getContent(FirstApplicant, SecondApplicant, ApplicantsLength = 0) {
+
+    if( typeof FirstApplicant === "string" &&
+        FirstApplicant !== "" &&
+        typeof SecondApplicant === "string" &&
+        SecondApplicant !== "" &&
+        ApplicantsLength > 2
+        ) {
+        let whiteSpace = /\s/;
+        let hasFirstApplicantWhiteSpace = whiteSpace.test(FirstApplicant);
+        let hasSecondApplicantWhiteSpace = whiteSpace.test(FirstApplicant);
+        if(FirstApplicant.length > 15 && hasFirstApplicantWhiteSpace) {
+            FirstApplicant = FirstApplicant.split(' ')[0] + " " + FirstApplicant.split(' ')[1] + "."
+        }
+        if(SecondApplicant.length > 15 && hasSecondApplicantWhiteSpace) {
+            SecondApplicant = SecondApplicant.split(' ')[0] + " " + SecondApplicant.split(' ')[1][0] + "."
+        }
+        return (
+            <>
+            {FirstApplicant}
+            <br/>
+            + {ApplicantsLength - 1} weitere
+            </>
+        )
+    }
+
+    if(typeof FirstApplicant === "string" && FirstApplicant !== "" && typeof SecondApplicant === "string" && SecondApplicant !== "") {
+        let whiteSpace = /\s/;
+        let hasFirstApplicantWhiteSpace = whiteSpace.test(FirstApplicant);
+        let hasSecondApplicantWhiteSpace = whiteSpace.test(SecondApplicant);
+        if(FirstApplicant.length > 15 && hasFirstApplicantWhiteSpace) {
+            FirstApplicant = FirstApplicant.split(' ')[0] + " " + FirstApplicant.split(' ')[1][0] + "."
+        }
+        if(SecondApplicant.length > 15 && hasSecondApplicantWhiteSpace) {
+            SecondApplicant = SecondApplicant.split(' ')[0] + " " + SecondApplicant.split(' ')[1][0] + "."
+        }
+        return (
+            <>
+            {FirstApplicant}
+            <br/>
+            {SecondApplicant}
+            </>
+        )
+    }
+
+    if(typeof FirstApplicant === "string" && FirstApplicant !== "") {
+        let whiteSpace = /\s/;
+        let hasFirstApplicantWhiteSpace = whiteSpace.test(FirstApplicant);
+        if(FirstApplicant.length > 15 && hasFirstApplicantWhiteSpace) {
+            FirstApplicant = FirstApplicant.split(' ')[0] + " " + FirstApplicant.split(' ')[1][0] + "."
+        }
+        return (
+            <>
+            {FirstApplicant}
+            <br/>
+            </>
+        )
+    }
+
+    return (
+        <>
+        <br/>
+        </>
+    )
+}
+
+function getEmployeeContent(FirstApplicant, SecondApplicant, ApplicantsLength = 0, AdminViewAccess) {
+    if( typeof FirstApplicant === "string" &&
+        FirstApplicant !== "" &&
+        typeof SecondApplicant === "string" &&
+        SecondApplicant !== "" &&
+        ApplicantsLength > 2
+        ) {
+        let whiteSpace = /\s/;
+        let hasFirstApplicantWhiteSpace = whiteSpace.test(FirstApplicant);
+        let hasSecondApplicantWhiteSpace = whiteSpace.test(FirstApplicant);
+        if(FirstApplicant.length > 15 && hasFirstApplicantWhiteSpace) {
+            FirstApplicant = FirstApplicant.split(' ')[0] + " " + FirstApplicant.split(' ')[1] + "."
+        }
+        if(SecondApplicant.length > 15 && hasSecondApplicantWhiteSpace) {
+            SecondApplicant = SecondApplicant.split(' ')[0] + " " + SecondApplicant.split(' ')[1][0] + "."
+        }
+        return (
+            <>
+            {FirstApplicant}
+            <br/>
+            + {ApplicantsLength - 1} weitere
+            </>
+        )
+    }
+
+    if(typeof FirstApplicant === "string" && FirstApplicant !== "" && typeof SecondApplicant === "string" && SecondApplicant !== "") {
+        let whiteSpace = /\s/;
+        let hasFirstApplicantWhiteSpace = whiteSpace.test(FirstApplicant);
+        let hasSecondApplicantWhiteSpace = whiteSpace.test(SecondApplicant);
+        if(FirstApplicant.length > 15 && hasFirstApplicantWhiteSpace) {
+            FirstApplicant = FirstApplicant.split(' ')[0] + " " + FirstApplicant.split(' ')[1][0] + "."
+        }
+        if(SecondApplicant.length > 15 && hasSecondApplicantWhiteSpace) {
+            SecondApplicant = SecondApplicant.split(' ')[0] + " " + SecondApplicant.split(' ')[1][0] + "."
+        }
+        return (
+            <>
+            {FirstApplicant}
+            <br/>
+            {SecondApplicant}
+            </>
+        )
+    }
+
+    if(typeof FirstApplicant === "string" && FirstApplicant !== "") {
+        let whiteSpace = /\s/;
+        let hasFirstApplicantWhiteSpace = whiteSpace.test(FirstApplicant);
+        if(FirstApplicant.length > 15 && hasFirstApplicantWhiteSpace) {
+            FirstApplicant = FirstApplicant.split(' ')[0] + " " + FirstApplicant.split(' ')[1][0] + "."
+        }
+        return (
+            <>
+            {FirstApplicant}
+            <br/>
+            </>
+        )
+    }
+
+    return (
+        <>
+        <br/>
+        </>
+    )
 }

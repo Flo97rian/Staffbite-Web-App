@@ -36,7 +36,6 @@ import LandingFooter from "../../../components/Footers/LandingFooter";
 import TeamÜbersicht from "../../../assets/img/theme/MAÜbersicht-min.png"
 import MitarbeiterEinladen from "../../../assets/img/landing/TeamVerwalten/MAEinladen.png"
 import MitarbeiterÜberblick from "../../../assets/img/landing/TeamVerwalten/TeamÜbersicht.png"
-import { isMobile } from "react-device-detect";
 import ThemenSlider from "../Themen/ThemenSlider";
 import TrialBanner from "../sub/TrialBanner";
 

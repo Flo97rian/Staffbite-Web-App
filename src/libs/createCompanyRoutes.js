@@ -25,7 +25,6 @@ const createCompanyRoutes = async (companyAccess) => {
 
     if(isAdmin) {
         const routes = createRoutes(adminroutes, companyAccess, "/admin") 
-        console.log(routes)
         return routes
     }
 
