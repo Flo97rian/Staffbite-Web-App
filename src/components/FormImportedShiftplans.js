@@ -14,7 +14,7 @@ import { settingShiftplan } from "../reducers/Shiftplan";
 import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 import { settingDisplayShiftplan } from "../reducers/display";
 import { thunkDeleteShiftPlan } from "../store/middleware/DeleteShiftPlan";
-import { createDummyshifts } from "../reducers/DB";
+import { createInitialDummyshifts } from "../reducers/DB";
 import { settingDeleteShiftplanID } from "../reducers/temporary";
 
 const FormImportedShiftplans = (props) => {
@@ -62,7 +62,7 @@ const FormImportedShiftplans = (props) => {
     const setCurrentShiftPlan = (id) => {
       dispatch(settingCurrentShiftplanIndex(id));
       dispatch(settingShiftplan(Plans[id]))
-      dispatch(createDummyshifts(id))
+      dispatch(createInitialDummyshifts(id))
       dispatch(settingDisplayShiftplan());
     }
 

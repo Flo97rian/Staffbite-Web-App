@@ -158,7 +158,6 @@ const ShiftplanContainer = () => {
 
 
   useEffect(() => {
-    console.log(ErrorMessage);
     if(ErrorMessage) {
       Notify("warning")
     }
@@ -270,6 +269,7 @@ const ShiftplanContainer = () => {
   const handleUploadShiftPlanToDB = () => {
     dispatch(thunkUploadShiftPlanToDB(NewShiftplan));
     dispatch(resettingDisplayNewShiftplan());
+    dispatch(resettingNewShiftplan());
     dispatch(resettingUserInput())
   };
 
@@ -513,6 +513,7 @@ const ShiftplanContainer = () => {
         onClick={() => {
           dispatch(resettingNewShiftplan());
           dispatch(resettingDisplayNewShiftplan());
+          dispatch(resettingNewShiftplan());
           }}>
           <p className="m-0 text-muted">
             Verwerfen

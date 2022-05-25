@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 const initalShiftplan = [
   {
     Wochentag: "Wochentag",
-    Montag: "Monatg",
+    Montag: "Montag",
     Dienstag: "Dienstag",
     Mittwoch: "Mittwoch",
     Donnerstag: "Donnerstag",
@@ -145,7 +145,7 @@ const newShiftplanSlice = createSlice({
 
       const weekdays = Object.keys(state.plan[currentShiftIndex]);
       weekdays.forEach((day) => {
-        if(day !== "Wochentag" && state.plan[currentShiftIndex][day].frei !== false) {
+        if(day !== "Wochentag") {
           if( state.plan[currentShiftIndex][day].anzahl !== userInput.numberOfEmployees &&
             userInput.numberOfEmployees !== 0
           ) {

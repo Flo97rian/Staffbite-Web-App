@@ -21,7 +21,7 @@ import Form from 'react-bootstrap/Form';
 import { resettingModal } from "../reducers/modal";
 import { resettingUserInput } from "../reducers/userInput";
 import { thunkRegisterEmployee } from "../store/middleware/RegisterEmployee";
-import { settingMissingNewEmployeeEmail, settingMissingNewEmployeeName } from "../reducers/ErrorMessages";
+import { settingMissingNewEmployeeEmail, settingMissingNewEmployeeName, settingMissingNewEmployeePosition } from "../reducers/ErrorMessages";
 
 const ModalAddEmployee = (props) => {
     const dispatch = useDispatch();
@@ -51,15 +51,20 @@ const ModalAddEmployee = (props) => {
             dispatch(settingMissingNewEmployeeName())
             setInvalidName(true);
         }
-        NewEmployee.name = userInput.employeeName;
+
         if( !emailhasAtChar.test(userInput.employeeEmail) | 
             !emailhasDotChar.test(userInput.employeeEmail)
             ) {
                 setInvalidEmail(true);
                 dispatch(settingMissingNewEmployeeEmail())
             }
+
+        if( userInput.employeePositions.length === 0) {
+            dispatch(settingMissingNewEmployeePosition())
+            }
+        NewEmployee.name = userInput.employeeName;
         NewEmployee.email = userInput.employeeEmail;
-        NewEmployee.position = userInput.employeePosition;
+        NewEmployee.position = userInput.employeePositions;
         NewEmployee.schichtenwoche = userInput.employeeShiftsPerWeek;
         NewEmployee.erfahrung = userInput.employeeQualification;
         NewEmployee.stundenlohn = 10;
@@ -68,7 +73,8 @@ const ModalAddEmployee = (props) => {
 
         if( namehasSpaceOrComma.test(userInput.employeeName) &&
             emailhasAtChar.test(userInput.employeeEmail) &&
-            emailhasDotChar.test(userInput.employeeEmail)
+            emailhasDotChar.test(userInput.employeeEmail) &&
+            userInput.employeePositions.length > 0
         ) {
             dispatch(thunkRegisterEmployee(NewEmployee));
             dispatch(resettingModal())

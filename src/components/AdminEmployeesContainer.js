@@ -13,7 +13,7 @@ import { thunkFetchOrg } from "../store/middleware/FetchOrg";
 import store from "../store.js";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile.js";
-import { WARNING_INVALID_EMPLOYEE_EMAIL, WARNING_INVALID_EMPLOYEE_NAME, WARNING_MISSING_EMPLOYEE_DETAILS } from "../constants/Alerts.js";
+import { WARNING_INVALID_EMPLOYEE_EMAIL, WARNING_INVALID_EMPLOYEE_NAME, WARNING_MISSING_EMPLOYEE_DETAILS, WARNING_MISSING_EMPLOYEE_POSITION } from "../constants/Alerts.js";
 import InfoSidebar from "./Sidebar/InfoSidebar.js";
 import { useLocation } from "react-router-dom";
 import { ONBOARDING_TEAM_INVITE, ONBOARDING_TEAM_OVERVIEW } from "../constants/OnBoardingTexts.js";
@@ -60,6 +60,7 @@ const AdminEmployeesContainer = (props) => {
   const ErrorMessages = {
     missingNewEmployeeName: WARNING_INVALID_EMPLOYEE_NAME,
     missingNewEmployeeEmail: WARNING_INVALID_EMPLOYEE_EMAIL,
+    missingNewEmployeePosition: WARNING_MISSING_EMPLOYEE_POSITION,
   }
 
   const selectEmployees = state => state.DB.employees;
@@ -95,6 +96,7 @@ const AdminEmployeesContainer = (props) => {
     }, [ErrorMessage])
     useEffect(() => {
     }, [Employees]);
+    
   const handleOnboarding = () => {
     let team = Meta.onboarding.team;
     let meta = Meta;

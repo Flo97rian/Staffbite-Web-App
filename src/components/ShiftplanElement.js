@@ -37,6 +37,7 @@ import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { settingModal } from "../reducers/modal";
 import { settingShiftSlot } from "../reducers/ShiftSlot";
+import { createShiftplanDummyshifts } from "../reducers/DB";
 
 export const ShiftplanElement = (props) => {
     const dispatch = useDispatch();
@@ -53,7 +54,10 @@ export const ShiftplanElement = (props) => {
 
     const setApplicant = (index, day) => {
         dispatch(settingModal("applyIsActive"))
-        dispatch(settingShiftSlot({index: index, day: day}))
+        dispatch(settingShiftSlot({index: index, day: day}));
+        if (type === "Review" || type === "Veröffentlicht") {
+            dispatch(createShiftplanDummyshifts(Shiftplan));
+        }
     };
     const type = _.isString(Shiftplan.id) ? Shiftplan.id.split('#')[1] : "";
     const ItemLength = props.ItemLength;

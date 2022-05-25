@@ -98,8 +98,37 @@ const DBSlice = createSlice({
         delete value.dummyshifts;
       }
     },
-    createDummyshifts(state, action) {
+    createInitialDummyshifts(state, action) {
       const shiftplan = state.plans[action.payload];
+      const shiftplanLength = shiftplan.plan.length;
+      const shiftplanIdSplit = shiftplan.id.split('#');
+      if(shiftplanIdSplit.includes("Review") || shiftplanIdSplit.includes("Veröffentlicht")) {
+        shiftplan.plan.forEach((shiftRow, index) => {
+          if (index !== 0 && index !== 1 && index !== shiftplanLength) {
+            for ( const [key, value] of Object.entries(shiftRow)) {
+              if( key !== "Wochentag" && value.setApplicants) {
+                const employeeIds = Object.keys(value.setApplicants);
+                employeeIds.forEach(employeeId => {
+                  if( state.employees[employeeId] && 
+                      Object.keys(state.employees[employeeId]).includes("dummyshifts")
+                    ) {
+                      state.employees[employeeId].dummyshifts += 1;
+                    }
+            
+                  if( state.employees[employeeId] &&
+                      !Object.keys(state.employees[employeeId]).includes("dummyshifts")
+                    ) {
+                      state.employees[employeeId].dummyshifts = 1;
+                    }
+                })
+              }
+            }
+          }
+        })
+      }
+    },
+    createShiftplanDummyshifts(state, action) {
+      const shiftplan = action.payload;
       const shiftplanLength = shiftplan.plan.length;
       const shiftplanIdSplit = shiftplan.id.split('#');
       if(shiftplanIdSplit.includes("Review") || shiftplanIdSplit.includes("Veröffentlicht")) {
@@ -145,7 +174,7 @@ const DBSlice = createSlice({
       if( userInput.employeeShiftsPerWeek !== state.employees[employeeID].schichtenwoche &&
         userInput.employeeShiftsPerWeek !== employeeStates.employeeShiftsPerWeek
       ) {
-        state.employees[employeeID].schichtenwoche = Number(userInput.employeeShiftsPerWeek);
+        state.employees[employeeID].schichtenwoche = userInput.employeeShiftsPerWeek;
       }
 
       if( userInput.employeeQualification !== state.employees[employeeID].erfahrung &&
@@ -191,7 +220,8 @@ export const {
   settingEmployeeDummyShift,
   resettingEmployeeDummyShift,
   resettingEmployeesDummyshifts,
-  createDummyshifts,
+  createInitialDummyshifts,
+  createShiftplanDummyshifts,
   settingMetaFetching,
   settingMetaFulfilled,
   settingMetaRejected

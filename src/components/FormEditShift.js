@@ -129,7 +129,7 @@ export const FormEditShift = (props) => {
                                         Diese Notiz ist zu lang.
                                     </FormFeedback>
                                 </FormGroup>
-                                <Button hidden={!getShiftNotice()} classname="mt-0"color="warning" size="sm" disabled={!getShiftActive()} onClick={() => resetShiftNotice()}>Zurücksetzen</Button>
+                                <Button hidden={!getShiftNotice()} className="mt-0" color="warning" size="sm" disabled={!getShiftActive()} onClick={() => resetShiftNotice()}>Zurücksetzen</Button>
                         </Col>
                     <Col xs={1} ></Col>
                 </Row>

@@ -105,7 +105,7 @@ const shiftplanSlice = createSlice({
 
       const weekdays = Object.keys(state.plan[currentShiftIndex]);
       weekdays.forEach((day) => {
-        if(day !== "Wochentag" && state.plan[currentShiftIndex][day].frei !== false) {
+        if(day !== "Wochentag") {
           if( state.plan[currentShiftIndex][day].anzahl !== userInput.numberOfEmployees &&
             userInput.numberOfEmployees !== 0
           ) {
@@ -140,7 +140,7 @@ const shiftplanSlice = createSlice({
       const userInput = action.payload;
       const newShiftRow = {
         Wochentag: {
-          ShiftName: userInput.shiftName !==  "" ? userInput.shiftName : "Name",
+          ShiftName: userInput.shiftName !==  "" ? userInput.shiftName : "",
           ShiftStart: userInput.shiftStart !== "" ? userInput.shiftStart : "00:00",
           ShiftEnd: userInput.shiftEnd !== "" ? userInput.shiftEnd : "24:00",
           ShiftPosition: userInput.shiftPosition !== "" ? userInput.shiftPosition : "",

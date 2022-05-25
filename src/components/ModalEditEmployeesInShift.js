@@ -12,7 +12,7 @@ import { resettingModal } from "../reducers/modal";
 import { resettingUserInput } from "../reducers/userInput";
 import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { settingApplicants, settingShiftNotice } from "../reducers/Shiftplan";
-import { resettingEmployeesDummyshifts } from "../reducers/DB";
+import { resettingEmployeesDummyshifts, createShiftplanDummyshifts } from "../reducers/DB";
 
 const ModalEditEmployeesInShift = (props) => {
     const dispatch = useDispatch();
@@ -20,9 +20,15 @@ const ModalEditEmployeesInShift = (props) => {
     const index = useSelector(state => state.shiftSlot.index);
     const day = useSelector(state => state.shiftSlot.day);
     const shiftNotice = useSelector(state => state.userInput.shiftNotice);
+    const Shiftplan = useSelector(state => state.Shiftplan);
+    const currentShiftplanIndex = useSelector(state => state.currentShiftPlan.currentShiftplanIndex);
 
     const DragAndDropRef = useRef()
-
+    const handleClose = () => {
+        dispatch(resettingModal());
+        dispatch(resettingUserInput());
+        dispatch(resettingEmployeesDummyshifts());
+    }
     const handleSetApplicant = () => {
         const updateApplicant = DragAndDropRef.current;
         dispatch(settingShiftNotice({index: index, day: day, shiftNotice: shiftNotice}));
@@ -30,6 +36,7 @@ const ModalEditEmployeesInShift = (props) => {
         dispatch(resettingUserInput())
         dispatch(resettingModal())
         dispatch(settingShiftplanChanged())
+        dispatch(resettingEmployeesDummyshifts());
       };
         return (
             <Modal 
@@ -39,10 +46,7 @@ const ModalEditEmployeesInShift = (props) => {
                     scrollable={true}
                     className="modal-secondary"
                     show={applyIsActive}
-                    onHide={() => {
-                        dispatch(resettingModal());
-                        dispatch(resettingUserInput());
-                    }}
+                    onHide={() => handleClose()}
             >
                 <Modal.Header className="pb-0" closeButton>
                     <Label className="h2 m-3 align-items-center">Schicht zuteilen</Label>
@@ -55,10 +59,7 @@ const ModalEditEmployeesInShift = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button  color="link" 
-                        onClick={() => {
-                            dispatch(resettingModal());
-                            dispatch(resettingUserInput());
-                        }}
+                        onClick={() => handleClose()}
                     > Schließen </Button>
                     <Button color="success" onClick={() => handleSetApplicant()}>Änderungen übernehmen</Button>
                 </Modal.Footer>

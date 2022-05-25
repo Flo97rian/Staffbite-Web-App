@@ -43,6 +43,9 @@ const userInputSlice = createSlice({
         settingShiftEnd(state, action) {
             state.shiftEnd = action.payload
         },
+        resettingShiftEnd(state, action) {
+            state.shiftEnd = initialState.shiftEnd;
+        },
         settingShiftPosition(state, action) {
             state.shiftPosition = action.payload
         },
@@ -137,7 +140,7 @@ const userInputSlice = createSlice({
             state.companySurname = "";
             state.shiftplanName = "";
             state.shiftName = "";
-            state.shiftPosition = "Name";
+            state.shiftPosition = "";
             state.shiftStart = "";
             state.shiftEnd = "";
             state.numberOfEmployees = 0;
@@ -167,6 +170,7 @@ export const {
     settingShiftName,
     settingShiftStart,
     settingShiftEnd,
+    resettingShiftEnd,
     settingShiftPosition,
     settingShiftMinQualification,
     settingShiftNumberOfEmployees,

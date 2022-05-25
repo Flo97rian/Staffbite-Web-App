@@ -11,6 +11,7 @@ const initialState = {
   missingReportDate: false,
   missingNewEmployeeName: false,
   missingNewEmployeeEmail: false,
+  missingNewEmployeePosition: false,
 }
 
 const errorMessageSlice = createSlice({
@@ -59,6 +60,9 @@ const errorMessageSlice = createSlice({
     settingMissingNewEmployeeEmail(state) {
       state.missingNewEmployeeEmail = true;
     },
+    settingMissingNewEmployeePosition(state) {
+      state.missingNewEmployeePosition = true;
+    },
     resettingErrorMessages(state) {
       state.InvalidReportInput = initialState.InvalidReportInput;
       state.MissingShiftDetails = initialState.MissingShiftDetails;
@@ -70,6 +74,7 @@ const errorMessageSlice = createSlice({
       state.missingReportDate = initialState.missingReportDate;
       state.missingNewEmployeeName = initialState.missingNewEmployeeName;
       state.missingNewEmployeeEmail = initialState.missingNewEmployeeEmail;
+      state.missingNewEmployeePosition = initialState.missingNewEmployeePosition;
     }
   }
 })
@@ -89,6 +94,7 @@ export const {
   settingMissingReportFilter,
   settingMissingNewEmployeeName,
   settingMissingNewEmployeeEmail,
+  settingMissingNewEmployeePosition,
   resettingErrorMessages
 } = errorMessageSlice.actions;
 

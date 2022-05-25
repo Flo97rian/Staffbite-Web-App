@@ -13,7 +13,6 @@ import PlanId from "./PlanStatus"
 import _ from "lodash";
 import ShiftplanDnD from "./ShiftplanDnD";
 import { useSelector, useDispatch } from "react-redux";
-import { createDummyshifts } from "../reducers/DB";
 
 const  ShiftplansTable = (props) => {
     const dispatch = useDispatch();

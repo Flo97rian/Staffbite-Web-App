@@ -3,8 +3,9 @@ import {
     Col,
     Row,
     FormGroup,
-    Input
+    Input,
 } from "reactstrap"
+import Form from 'react-bootstrap/Form';
 import InfoLabel from "./InfoLabel";
 import InputStringShiftName from "./InputStringShiftName"
 import { validShiftName } from "./ValidInputs";
@@ -17,7 +18,9 @@ import _ from "lodash";
 import getShiftDescriptionDetails from "../libs/getShiftDetails";
 import getShiftsNumberOfEmployees from "../libs/getShiftsNumberOfEmployees";
 import { useSelector, useDispatch } from "react-redux";
-import { settingShiftEnd, settingShiftName, settingShiftNumberOfEmployees, settingShiftPosition, settingShiftStart } from "../reducers/userInput";
+import { resettingShiftEnd, settingShiftEnd, settingShiftName, settingShiftNumberOfEmployees, settingShiftPosition, settingShiftStart } from "../reducers/userInput";
+import InfoOverlayWithSwitch from "./InfoOverlayWithSwitch";
+import { resettingMissingShiftDetails } from "../reducers/ErrorMessages";
 
 
 const EditShiftDescription = (props) => {
@@ -30,6 +33,7 @@ const EditShiftDescription = (props) => {
     const shiftDetails = DisplayNewShiftplan ? newShiftplanDescription : ShiftplanDescription;
     const anzahl = DisplayNewShiftplan ? newShiftplanNumberOfEmployees : ShiftplanNumberOfEmployees;
     const CompanyPositions = useSelector(state => state.Meta.schichten);
+    const userInput = useSelector(state => state.userInput);
 
     useEffect(() => {
         if(shiftDetails.ShiftPosition === "") {
@@ -69,7 +73,31 @@ const EditShiftDescription = (props) => {
                                 <InputTime info={true} description={INFO_SHIFTPLAN_SHIFT_START}label="Beginn" name="beginn"  placeholder={shiftDetails.ShiftStart} onChange={(event) => dispatch(settingShiftStart(event.target.value))}></InputTime>
                             </Col>
                             <Col>
-                                <InputTimeWithSwitch info={true} description={INFO_SHIFTPLAN_SHIFT_END} label="Ende" name="ende" placeholder={shiftDetails.ShiftEnd} onChange={(event) => dispatch(settingShiftEnd(event.target.value))}></InputTimeWithSwitch>
+                                <Row>
+                                    <Col>
+                                        <InfoLabel title="Ende" description={INFO_SHIFTPLAN_SHIFT_END}></InfoLabel>
+                                    </Col>
+                                    <Col>
+                                        <Row className="">
+                                            <Col className="p-0">
+                                                <p className="p-0 m-0">Open End?</p>
+                                            </Col>
+                                            <Col className="p-0">
+                                            <Form className="pl-5">
+                                                <Form.Check type="switch" id="ShiftEnd" defaultChecked={(shiftDetails.ShiftEnd === "open End" || userInput.shiftEnd === "on")} onChange={(event) => {
+                                                    if(userInput.shiftEnd === "on") {
+                                                        dispatch(resettingShiftEnd(event.target.value))
+                                                    } 
+                                                    if(userInput.shiftEnd !== "on") {
+                                                        dispatch(settingShiftEnd(event.target.value))
+                                                    }
+                                                }}></Form.Check>
+                                                </Form>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                                <Input type="time" className=" edit-event--description input-autosize form-control" name={props.name} value={props.value} defaultValue={shiftDetails.ShiftEnd} onChange={(event) => dispatch(settingShiftEnd(event.target.value))}></Input>
                             </Col>
                         </Row>
                         </Col>

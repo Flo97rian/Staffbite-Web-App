@@ -12,6 +12,7 @@ export const SUCCESS_LOADING_META = "Deine Änderungen wurden gespeichert! Aktua
 export const INFO_CREATED_POSITION = "Du hast eine neue Position erstellt. Speichere deine neue Position, damit sie nicht verloren geht.";
 export const WARNING_INVALID_EMPLOYEE_NAME = "Bitte wähle einen vollständigen Namen (Vorname Nachname) ein."
 export const WARNING_INVALID_EMPLOYEE_EMAIL = "Bitte wähle eine gültige E-Mail Adresse. Beispiel: max@mustermann.de."
+export const WARNING_MISSING_EMPLOYEE_POSITION = "Bitte wähle mindestens eine Position für deinen Mitarbeiter aus."
 // Neu
 export const WARNING_AGB_NOT_ACCEPTED = "Bitte setze den Haken für die Allgemeinen Geschäftsbedingungen. Ohne dieses Einverständis kannst du leider nicht fortfahren.";
 export const WARNING_MISSING_MAIL = "Bitte trage eine gültige Mail Adresse ein.";
