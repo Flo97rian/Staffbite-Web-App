@@ -127,7 +127,9 @@ const shiftplanSlice = createSlice({
       const index = action.payload.index;
       const day = action.payload.day;
       const notice = action.payload.shiftNotice;
-      state.plan[index][day].notice = notice;
+      if( state.plan[index][day].notice !== notice && notice !== "" ) {
+        state.plan[index][day].notice = notice;
+      }
     },
     resettingShiftNotice(state, action) {
       const index = action.payload.index;
@@ -142,14 +144,15 @@ const shiftplanSlice = createSlice({
           ShiftStart: userInput.shiftStart !== "" ? userInput.shiftStart : "00:00",
           ShiftEnd: userInput.shiftEnd !== "" ? userInput.shiftEnd : "24:00",
           ShiftPosition: userInput.shiftPosition !== "" ? userInput.shiftPosition : "",
+          frei: true,
         },
-        Montag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
-        Dienstag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
-        Mittwoch: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
-        Donnerstag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
-        Freitag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
-        Samstag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
-        Sonntag: {frei: true, anzahl: userInput.numberOfEmployees !== 0 ? userInput.numberOfEmployees : 0,},
+        Montag: {frei: true, anzahl: userInput.numberOfEmployees || 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Dienstag: {frei: true, anzahl: userInput.numberOfEmployees || 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Mittwoch: {frei: true, anzahl: userInput.numberOfEmployees || 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Donnerstag: {frei: true, anzahl: userInput.numberOfEmployees || 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Freitag: {frei: true, anzahl: userInput.numberOfEmployees || 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Samstag: {frei: true, anzahl: userInput.numberOfEmployees || 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Sonntag: {frei: true, anzahl: userInput.numberOfEmployees || 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
       }
       const shiftplanLenght = state.plan.length;
       state.plan.splice(shiftplanLenght - 1, 0, newShiftRow)
@@ -183,7 +186,6 @@ const shiftplanSlice = createSlice({
           state.plan[index][day].setApplicants[employeeId] = employeeName;
         }
       });
-
     },
     settingApplicant(state, action) {
       const index = action.payload.index;
@@ -191,9 +193,31 @@ const shiftplanSlice = createSlice({
       const Employee = action.payload.Employee;
       let EmployeeId = Employee.SK;
       let EmployeeName = Employee.name;
+      if(!Object.keys(state.plan[index][day]).includes("applicants")) {
+        state.plan[index][day].applicants = {};
+      }
       if(!Object.keys(state.plan[index][day].applicants).includes(EmployeeId)) {
         state.plan[index][day].applicants[EmployeeId] = EmployeeName;
       }
+    },
+    settingApplicantAfterPublish(state, action) {
+      const index = action.payload.index;
+      const day = action.payload.day;
+      const Employee = action.payload.Employee;
+      let EmployeeId = Employee.SK;
+      let EmployeeName = Employee.name;
+      if(!Object.keys(state.plan[index][day]).includes("applicantsAfterPublish")) {
+        state.plan[index][day].applicantsAfterPublish = {};
+      }
+      if(!Object.keys(state.plan[index][day].applicantsAfterPublish).includes(EmployeeId)) {
+        state.plan[index][day].applicantsAfterPublish[EmployeeId] = EmployeeName;
+      }
+    },
+    deleteApplicantAfterPublish(state, action) {
+        const index = action.payload.index;
+        const day = action.payload.day;
+        let EmployeeId = action.payload.employeeId;
+        delete state.plan[index][day].applicantsAfterPublish[EmployeeId]
     },
     deleteApplicant(state, action) {
       const index = action.payload.index;
@@ -243,7 +267,20 @@ const shiftplanSlice = createSlice({
       if(!filterTrade.length) {
         state.tauschanfrage.push(trade);
       }
-    }
+    },
+    settingSetApplicant(state, action) {
+      const index = action.payload.index;
+      const day = action.payload.day;
+      const Employee = action.payload.Employee;
+      let EmployeeId = Employee.SK;
+      let EmployeeName = Employee.name;
+      if(!Object.keys(state.plan[index][day]).includes("setApplicants")) {
+        state.plan[index][day].setApplicants = {};
+      }
+      if(!Object.keys(state.plan[index][day].setApplicants).includes(EmployeeId)) {
+        state.plan[index][day].setApplicants[EmployeeId] = EmployeeName;
+      }
+    },
   }
 })
 
@@ -269,6 +306,9 @@ export const {
   applyForShiftTrade,
   removeApplyForShiftTrade,
   deleteTradeShift,
+  settingApplicantAfterPublish,
+  deleteApplicantAfterPublish,
+  settingSetApplicant,
   settingTradeShift
 } = shiftplanSlice.actions;
 

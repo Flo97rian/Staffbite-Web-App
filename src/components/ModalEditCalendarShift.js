@@ -13,7 +13,6 @@ import { resettingModal } from "../reducers/modal";
 const ModalEditCalendarShift = (props) => {
     const dispatch = useDispatch();
     const editCalendarShift = useSelector(state => state.modal.editCalendarShift);
-    console.log("hello")
     const handleCalendarShiftChanges = () => {
         //const copyShiftplan = new ShiftPlan({...Shiftplan});
         //copyShiftplan.updateCalendarShift(userInput, ShiftSlot, DragAndDropRef);

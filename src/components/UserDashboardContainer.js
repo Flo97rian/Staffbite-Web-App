@@ -105,7 +105,7 @@ const UserDashboardContainer = (props) => {
   }
 
         return (
-          <Container className="px-4">
+          <Container>
           <Joyride
           continuous={true}
           run={run}

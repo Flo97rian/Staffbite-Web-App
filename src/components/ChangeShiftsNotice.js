@@ -35,7 +35,7 @@ const ChangeShiftsNotice = (props) => {
                         onChange={(event) => dispatch(settingShiftNotice(event.target.value))}
                         />
                         <FormFeedback invalid>{FEEDBACK_INVALID_NOTICE}</FormFeedback>
-                        <Button hidden={_.isEmpty(userInputShiftNotice)} classname="mt-0"color="warning" size="sm" onClick={() => resetShiftNotice()}>Zurücksetzen</Button>
+                        <Button hidden={(_.isEmpty(ShiftNotice) && _.isEmpty(userInputShiftNotice))} classname="mt-0"color="warning" size="sm" onClick={() => resetShiftNotice()}>Zurücksetzen</Button>
                     </FormGroup>
                 )
         }

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import { thunkFetchEmployeesPlans } from "../store/middleware/FetchPlansForEmployees";
 import { getUser } from "../store/middleware/FetchUser";
 import { thunkUploadApplication } from "../store/middleware/UploadApplication";
 import Spinner from 'react-bootstrap/Spinner'
@@ -88,12 +87,12 @@ const UserApplicationsContainer = () => {
     } else {
         dispatch(resettingCurrentShiftplanIndex())
         dispatch(resettingShiftplan())
-        dispatch(settingDisplayShiftplan())
+        dispatch(resettingDisplayShiftplan())
     }
   }
 
   return(
-        <Container fluid className="px-6">
+        <>
           <Joyride
           continuous={true}
           run={run}
@@ -143,7 +142,7 @@ const UserApplicationsContainer = () => {
         <OpenModal/>
        <InfoSidebar
       sidebarInfo={SidebarInfo}/>
-      </Container>
+      </>
             );
         }
 export default UserApplicationsContainer;

@@ -99,7 +99,6 @@ export const FormEditShift = (props) => {
         return color;
     }
 
-    console.log(ShiftplanShiftNotice);
         return(
             <>
                 <Row>

@@ -22,7 +22,7 @@ import SchichtplanImport from "./FormImportedShiftplans";
 import store from "../store";
 import { thunkPublishShiftPlan } from "../store/middleware/PublishShiftPlan";
 import { thunkFetchEmployees } from "../store/middleware/FetchEmployees";
-import { SUCCESS_FILLING_DONE, SUCCESS_RELEASE_DONE, WARNING_MISSING_SHIFT_DETAILS, WARNING_MISSING_SHIFT_POSITION } from "../constants/Alerts";
+import { SUCCESS_FILLING_DONE, SUCCESS_RELEASE_DONE, WARNING_MISSING_SHIFTPLAN_DATE, WARNING_MISSING_SHIFTPLAN_NAME, WARNING_MISSING_SHIFT_DETAILS, WARNING_MISSING_SHIFT_POSITION } from "../constants/Alerts";
 import ImportSchichtplanTabelle from "./ShiftplansTable";
 import NeuerSchichtplanTabelle from "./NewShiftplan";
 import InfoSidebar from "./Sidebar/InfoSidebar";
@@ -42,6 +42,8 @@ import { resettingSuccessMessages } from "../reducers/SuccessMessages";
 import { thunkFetchAllShiftplans } from "../store/middleware/FetchPlansFromDB";
 import { thunkDeleteShiftPlan } from "../store/middleware/DeleteShiftPlan";
 import { resettingDeleteShiftplanID, resettingRemindShiftplanID } from "../reducers/temporary";
+import { resettingErrorMessages } from "../reducers/ErrorMessages";
+import { resettingNewShiftplan } from "../reducers/NewShiftPlan";
 
 const ShiftplanContainer = () => {
   const dispatch = useDispatch();
@@ -107,14 +109,13 @@ const ShiftplanContainer = () => {
 
   const selectMeta = state => state.Meta;
   const selectShiftplan = state => state.Shiftplan;
-  const selectNewShiftplan = state => state.newShiftPlan;
   const selectInfoSidebar = state => state.InfoSidebar;
   const selectShiftplanChanged = state => state.ShiftplanChanged.shiftplanChanged;
 
   //REDUX-Listener für UI-Data
   const Meta = useSelector(selectMeta);
   const Shiftplan = useSelector(selectShiftplan);
-  const NewShiftplan = useSelector(selectNewShiftplan);
+  const NewShiftplan = useSelector(state => state.newShiftPlan);
   const FetchingPlans = useSelector(state => state.DB.plansStatus === "loading");
   const SidebarInfo = useSelector(selectInfoSidebar);
   const Plans = useSelector(state => state.DB.plans);
@@ -132,6 +133,7 @@ const ShiftplanContainer = () => {
   const ProcessingShowLoading = useSelector(state => Object.values(state.processing).includes("loading"));
   const TemporaryDeleteShiftplanId = useSelector(state => state.temporary.deleteShiftplanId);
   const TemporaryRemindedShiftplanId = useSelector(state => state.temporary.shiftplanId);
+  const ErrorMessage = useSelector(state => Object.keys(state.ErrorMessages).find(key => state.ErrorMessages[key] === true));
 
   const AltertSuccessMessages = {
     reportInProgress: false,
@@ -142,11 +144,25 @@ const ShiftplanContainer = () => {
     shiftplanFilled: SUCCESS_FILLING_DONE,
     employeeChanged: false,
   }
+
+  const ErrorMessages = {
+    MissingShiftDetails: WARNING_MISSING_SHIFT_DETAILS,
+    missingDate: WARNING_MISSING_SHIFTPLAN_DATE,
+    missingShiftplanName: WARNING_MISSING_SHIFTPLAN_NAME,
+  }
+
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     }, []);
 
+
+  useEffect(() => {
+    console.log(ErrorMessage);
+    if(ErrorMessage) {
+      Notify("warning")
+    }
+  }, [ErrorMessage])
 
   useEffect(() => {
     if (_.isObject(Meta)) {
@@ -190,7 +206,7 @@ const ShiftplanContainer = () => {
             {" "}
           </span>
           <span data-notify="message">
-            {title}
+            {ErrorMessages[ErrorMessage]}
           </span>
         </div>
       ),
@@ -199,8 +215,7 @@ const ShiftplanContainer = () => {
       autoDismiss: 7
     };
     notificationAlert.current.notificationAlert(options);
-    dispatch(resettingSuccessMessages());
-    setErrMsng({...ErrMsng, [err]: !1})
+    dispatch(resettingErrorMessages());
 
   };
 
@@ -254,6 +269,7 @@ const ShiftplanContainer = () => {
   //Diese Funktion fürgt einen neu erstelten Schichtplan der Datenbank hinzu
   const handleUploadShiftPlanToDB = () => {
     dispatch(thunkUploadShiftPlanToDB(NewShiftplan));
+    dispatch(resettingDisplayNewShiftplan());
     dispatch(resettingUserInput())
   };
 
@@ -294,9 +310,6 @@ const ShiftplanContainer = () => {
           },
         }}
       />
-    { ErrMsng.MissingShiftDetails ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "MissingShiftDetails") : null}
-    { ErrMsng.ShiftDetailsNotUpToDate ? Notify("warning", WARNING_MISSING_SHIFT_DETAILS, "ShiftDetailsNotUpToDate") : null}
-    { ErrMsng.MissingShiftPosition ? Notify("warning", WARNING_MISSING_SHIFT_POSITION, "MissingShiftPosition") : null}
      <ReactBSAlert
       show={SuccessMessageShow}
       type='success'
@@ -306,8 +319,10 @@ const ShiftplanContainer = () => {
       onConfirm={() => {
         dispatch(resettingSuccessMessages());
         const shiftplanIndex = Plans.findIndex(plan => plan.id === TemporaryRemindedShiftplanId);
-        dispatch(settingShiftplan(Plans[shiftplanIndex]));
-        dispatch(settingDisplayShiftplan());
+        if(shiftplanIndex !== -1) {
+          dispatch(settingShiftplan(Plans[shiftplanIndex]));
+          dispatch(settingDisplayShiftplan());
+        }
       }}
       showCancel
       cancelBtnText="Zur Übersicht"
@@ -489,6 +504,19 @@ const ShiftplanContainer = () => {
           <p className="m-0 text-muted">
             Zurück zur Auswahl
           </p>
+      </Button>
+      <Button 
+        color="white"
+        hidden={!DisplayNewShiftplan}
+        size="lg"
+        className="float-right mt-2 ml-2 mr-0"
+        onClick={() => {
+          dispatch(resettingNewShiftplan());
+          dispatch(resettingDisplayNewShiftplan());
+          }}>
+          <p className="m-0 text-muted">
+            Verwerfen
+          </p>
       </Button> 
     </Col>
     </Row>
@@ -504,7 +532,7 @@ const ShiftplanContainer = () => {
       <SetTradeShift/>
       <Row className="text-center mt-4">
         <Col>
-          <Button color="link" hidden={DisplayShiftplan} onClick={() => dispatch(thunkFetchAllShiftplans())}>Alle  Schichtpläne laden</Button>
+          <Button color="link" hidden={(DisplayShiftplan || DisplayNewShiftplan)} onClick={() => dispatch(thunkFetchAllShiftplans())}>Alle  Schichtpläne laden</Button>
         </Col>
       </Row>
       <OpenModal

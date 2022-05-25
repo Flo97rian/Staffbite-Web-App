@@ -10,6 +10,7 @@ import { resettingModal } from "../../../reducers/modal";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingUserInput } from "../../../reducers/userInput";
 import { thunkStartReport } from "../../../store/middleware/StartReport";
+import { settingMissingReportDate, settingMissingReportFilter } from "../../../reducers/ErrorMessages";
 
 const ModalFilterReport = ({filter, onClickFilter, keytrue, modalkey, getEmployeesReport}) => {
     const dispatch = useDispatch()
@@ -18,19 +19,28 @@ const ModalFilterReport = ({filter, onClickFilter, keytrue, modalkey, getEmploye
     const reportEndDate = useSelector(state => state.date.end);
     const useInputReportFilter = useSelector(state => state.userInput.reportFilter);
     const getReport = () => {
-        if( reportStartDate === undefined || 
-            reportEndDate === undefined || 
-            Object.keys(useInputReportFilter).length === 0
-        ) 
-            return
-            //setErrMsg({...errMsg, InvalidReportInput: !0})
-        let reportConfig = {
-        ...useInputReportFilter,
-        start:  reportStartDate, 
-        ende: reportEndDate
+        if(Object.keys(useInputReportFilter).length === 0) {
+            dispatch(settingMissingReportFilter());
         }
-        dispatch(thunkStartReport(reportConfig));
-        dispatch(resettingModal())
+
+        if( !reportStartDate || 
+            !reportEndDate
+        ) {
+            dispatch(settingMissingReportDate())
+        }
+
+        if( reportStartDate && 
+            reportEndDate && 
+            Object.keys(useInputReportFilter).length > 0
+        ) {
+            let reportConfig = {
+            ...useInputReportFilter,
+            start:  reportStartDate, 
+            ende: reportEndDate
+            }
+            dispatch(thunkStartReport(reportConfig));
+            dispatch(resettingModal())
+        }
     }
         return (
             <Modal 

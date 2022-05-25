@@ -19,8 +19,14 @@ exports.handler = async (event) => {
     let id = body.id;
     let planDB = await getShiftplan(user, id);
     let mitarbeiter = await getUser(user);
-    await setUpdatedPlan(user, planDB, body, mitarbeiter);
-    await updateEmployeeBewerbungen(planDB, body, user, mitarbeiter);
+    if(mitarbeiter) {
+        mitarbeiter.bewerbungen = JSON.parse(mitarbeiter.bewerbungen.S);
+        mitarbeiter.schichten = JSON.parse(mitarbeiter.schichten.S);
+    }
+    let testDBPlan = JSON.parse(planDB.data["S"]);
+    let {plan, employee } = await mergeShiftplans(testDBPlan, body.plan, mitarbeiter, planDB.zeitraum["S"]);
+    await setUpdatedPlan(user, plan, body);
+    await updateEmployeeBewerbungen(body, user, employee);
     const response = {
         statusCode: 200,
         headers: {
@@ -34,10 +40,8 @@ exports.handler = async (event) => {
     return response;
 };
 
-const updateEmployeeBewerbungen = async (planDB, body, user, mitarbeiter) => {
-    let updatedMitarbeiter = new Mitarbeiter(mitarbeiter);
-    await updatedMitarbeiter.mergeBewerbungen(planDB, body.plan);
-    let bewerbungenObj = updatedMitarbeiter.getBewerbungen();
+const updateEmployeeBewerbungen = async (body, user, mitarbeiter) => {
+    console.log(mitarbeiter);
     var empparams = {
     Key: {
     "PK": {
@@ -49,15 +53,19 @@ const updateEmployeeBewerbungen = async (planDB, body, user, mitarbeiter) => {
     },
     ExpressionAttributeNames: {
     "#bewerbungen": "bewerbungen",
+    "#schichten": "schichten",
     }, 
     ExpressionAttributeValues: {
                 ":bewerbungen": {
-                 "S": JSON.stringify(bewerbungenObj)
+                 "S": JSON.stringify(mitarbeiter.bewerbungen)
+                },
+                ":bewerbungen": {
+                 "S": JSON.stringify(mitarbeiter.schichten)
                 }
     }, 
     ReturnValues: "ALL_NEW", 
     TableName: "Staffbite-DynamoDB", 
-    UpdateExpression: "SET #bewerbungen = :bewerbungen"
+    UpdateExpression: "SET #bewerbungen = :bewerbungen, #schichten = :schichten"
     };
     let data = null
     try {
@@ -114,11 +122,8 @@ const getUser = async (user) => {
 }
 
 
-const setUpdatedPlan = async (user, planDB, body, mitarbeiter) => {
-    let updatedPlan = new Shiftplan(planDB, body.plan);
-    await updatedPlan.mergePlans(mitarbeiter);
-    let plan = updatedPlan.getMergedPlan();
-    console.log(plan);
+const setUpdatedPlan = async (user, plan, body) => {
+    console.log("done", plan);
     var params = {
         Key: {
         "PK": {
@@ -150,262 +155,157 @@ const setUpdatedPlan = async (user, planDB, body, mitarbeiter) => {
     }
     return updated;
 }
-    
-class Shiftplan {
-  constructor(planDB, planUser)  {
-      this.userPlan = planUser;
-      this.DBplan = JSON.parse(planDB.data["S"]);
-  }
-  
-  mergePlans(mitarbeiter) {
-   let copyDBPlan = [...this.DBplan];
-   let copyUserPlan = [...this.userPlan];
 
-  function setApplicantInShiftplan(copyDetails) {
-    if (copyDetails.key !== "Wochentag") {
-            if ("applicants" in copyDetails.value) {
-            setFurtherApplicant(copyDetails);
-        } else {
-            setFirstApplicant(copyDetails);
-        }       
-    return copyDBPlan;
-    };
-  };
-  
-    function removeApplicantInShiftplan(copyDetails) {
-        if (copyDetails.key !== "Wochentag") {
-                if ("applicants" in copyDetails.value) {
-                    removeApplicant(copyDetails)  
-                }    
-        return copyDBPlan;
-        };
-      };
-    
-    function filterValidShifts (copyDetails) {
-        copyDetails.copyDBPlan.forEach((item,index) => {
-            if (index !== 0 && index !== 1 && index !== copyDetails.copyPlanLength - 1 ) {
-                for (let [key, value] of Object.entries(item)) {
-                    if (checkAddApplicant(copyDetails.copyDBPlan[index][key], copyDetails.copyUserPlan[index][key])) {
-                        console.log("checked add ", index, key)
-                        setApplicantInShiftplan({...copyDetails, index: index, key, key, value: value});
-                    } else if (checkRemoveApplicant(copyDetails.copyDBPlan[index][key], copyDetails.copyUserPlan[index][key])) {
-                        console.log("checked remove ", index, key)
-                        removeApplicantInShiftplan({...copyDetails, index: index, key, key, value: value});
-                    };
-                };
-            };
-        });
-        return copyDBPlan;
-    }
-    
-    function getCopyPlanLength (copyDBPlan) {
-        return copyDBPlan.length
-    }
-    
-    function setFirstApplicant(copyDetails) {
-        let DBplan = copyDetails.copyDBPlan[copyDetails.index][copyDetails.key]
-        let Userplan = copyDetails.copyUserPlan[copyDetails.index][copyDetails.key]
-        if ("applicants" in Userplan) {
-            if ( !("applicants" in DBplan)) {
-                console.log("try set first")
-                let newApplicant = Userplan["applicants"]
-                copyDetails.copyDBPlan[copyDetails.index][copyDetails.key]["applicants"] = {...newApplicant}
+const mergeShiftplans = async (planDB, planUser, currentEmployee, zeitraum) => {
+    planDB.forEach((shiftRow, index) => {
+        if(index !== 0 && index !== 1 && index !== planDB.length - 1) {
+            for (let [key, value] of Object.entries(shiftRow)) {
+                if(key !== "Wochentag") {
+                    checkChange(planDB, planUser, index, key, currentEmployee, zeitraum)
+                }
             }
-        }  
-    return copyDetails.copyDBPlan;
-    }
+        }
+    })
+    return {plan: planDB, employee: currentEmployee};
+}
 
-    function setFurtherApplicant(copyDetails) {
+function checkChange(planDB, planUser, index, day, currentEmployee, zeitraum) {
+    let ApplicantsDB = "applicants" in planDB[index][day] ? planDB[index][day].applicants : {};
+    let ApplicantsEmployeePlan = "applicants" in planUser[index][day] ? planUser[index][day].applicants : {};
+    
+    if(JSON.stringify(ApplicantsDB) !== JSON.stringify(ApplicantsEmployeePlan)) {
+        const deleteEmployees = Object.keys(ApplicantsDB).filter( employeeId => ApplicantsEmployeePlan[employeeId] === undefined);
+        const addEmployees = Object.keys(ApplicantsEmployeePlan).filter( employeeId => ApplicantsDB[employeeId] === undefined);
         
-        let DBplan = copyDetails.copyDBPlan[copyDetails.index][copyDetails.key]
-        let Userplan = copyDetails.copyUserPlan[copyDetails.index][copyDetails.key]
-        if ("applicants" in Userplan) {
-            if ( "applicants" in DBplan) {
-                console.log("try set further", mitarbeiter.SK)
-                if (mitarbeiter.SK["S"] in Userplan.applicants && !(mitarbeiter.SK["S"] in DBplan.applicants)) {
-                    console.log("is setting")
-                let currentApplicants = DBplan.applicants
-                 copyDetails.copyDBPlan[copyDetails.index][copyDetails.key]["applicants"] = {...currentApplicants, [mitarbeiter.SK["S"]]: mitarbeiter.name["S"]};
-                }
+        //delete outdate Employees
+        deleteEmployees.forEach((employeeId => {
+            if(Object.keys(planDB[index][day]).includes("applicants")) {
+                delete planDB[index][day].applicants[employeeId];    
+            }
+        }))
+        
+        //addNewEmployees to Shiftplan
+        addEmployees.forEach((employeeId) => {
+            if(!Object.keys(planDB[index][day]).includes("applicants")) {
+                planDB[index][day].applicants = {};
+            }
+            planDB[index][day].applicants[employeeId] = planUser[index][day].applicants[employeeId]
+        })
+        
+        // add CurrentEmployee to Shiftplan
+        if(ApplicantsEmployeePlan[currentEmployee.SK.S]) {
+            if(!Object.keys(planDB[index][day]).includes("applicants")) {
+                planDB[index][day].applicants = {};
+            }
+            planDB[index][day].applicants[currentEmployee.SK.S] = currentEmployee.name.S;
+            
+            const ShiftName = planDB[index].Wochentag.ShiftName;
+            const WeekDay = planDB[1][day];
+            
+            if(currentEmployee.bewerbungen[zeitraum]) {
+                currentEmployee.bewerbungen[zeitraum].push(index + '#' + ShiftName + '#' + WeekDay);
+            }
+            
+            if(!currentEmployee.bewerbungen[zeitraum]) {
+                currentEmployee.bewerbungen[zeitraum] = [index + '#' + ShiftName + '#' + WeekDay];
             }
         }
-        return copyDetails.copyDBPlan;
+    }
+    
+    
+    
+    //get Users and DBs shiftSlot
+    let ApplicantsAfterPublishDB = "applicantsAfterPublish" in planDB[index][day] ? planDB[index][day].applicantsAfterPublish : {};
+    let ApplicantsAfterPublishEmployeePlan = "applicantsAfterPublish" in planUser[index][day] ? planUser[index][day].applicantsAfterPublish : {};
+    
+    
+    
+    //check if Shiftslot changed and update
+    if(JSON.stringify(ApplicantsAfterPublishDB) !== JSON.stringify(ApplicantsAfterPublishEmployeePlan)) {
+        const deleteEmployees = Object.keys(ApplicantsAfterPublishDB).filter( employeeId => ApplicantsAfterPublishEmployeePlan[employeeId] === undefined);
+        const addEmployees = Object.keys(ApplicantsAfterPublishEmployeePlan).filter( employeeId => ApplicantsAfterPublishDB[employeeId] === undefined);
+        
+        //delete outdate Employees
+        deleteEmployees.forEach((employeeId => {
+            if(Object.keys(planDB[index][day]).includes("applicantsAfterPublish")) {
+                delete planDB[index][day].applicantsAfterPublish[employeeId];    
+            }
+        }))
+        
+        //addNewEmployees to Shiftplan
+        addEmployees.forEach((employeeId) => {
+            if(!Object.keys(planDB[index][day]).includes("applicantsAfterPublish")) {
+                planDB[index][day].applicantsAfterPublish = {};
+            }
+            planDB[index][day].applicantsAfterPublish[employeeId] = planUser[index][day].applicantsAfterPublish[employeeId]
+        })
+        
+        // add CurrentEmployee to Shiftplan
+        if(ApplicantsAfterPublishEmployeePlan[currentEmployee.SK.S]) {
+            if(!Object.keys(planDB[index][day]).includes("applicantsAfterPublish")) {
+                planDB[index][day].applicantsAfterPublish = {};
+            }
+            planDB[index][day].applicantsAfterPublish[currentEmployee.SK.S] = currentEmployee.name.S;
+            
+            const ShiftName = planDB[index].Wochentag.ShiftName;
+            const WeekDay = planDB[1][day];
+            if(currentEmployee.bewerbungen[zeitraum]) {
+                currentEmployee.bewerbungen[zeitraum].push(index);
+            }
+            
+            if(!currentEmployee.bewerbungen[zeitraum]) {
+                currentEmployee.bewerbungen[zeitraum] = [index + '#' + ShiftName + '#' + WeekDay];
+            }
+                    console.log(currentEmployee)
+        }
+        
     };
     
-    function removeApplicant (copyDetails) {
-        let DBplan = copyDetails.copyDBPlan[copyDetails.index][copyDetails.key]
-        let Userplan = copyDetails.copyUserPlan[copyDetails.index][copyDetails.key]
-        if ("applicants" in Userplan) {
-            if ( "applicants" in DBplan) {
-                console.log("try remove", mitarbeiter.SK)
-                if (mitarbeiter.SK["S"] in DBplan.applicants && !(mitarbeiter.SK["S"] in Userplan.applicants)) {
-                    let currentApplicants = DBplan.applicants
-                    delete copyDetails.copyDBPlan[copyDetails.index][copyDetails.key]["applicants"][mitarbeiter.SK["S"]];
-                }
+        //get Users and DBs shiftSlot
+    let setApplicantsAfterPublishDB = "setApplicants" in planDB[index][day] ? planDB[index][day].setApplicants : {};
+    let setApplicantsAfterPublishEmployeePlan = "setApplicants" in planUser[index][day] ? planUser[index][day].setApplicants : {};
+    
+    
+    
+    //check if setApplicants Shiftslot changed and update
+    if(JSON.stringify(setApplicantsAfterPublishDB) !== JSON.stringify(setApplicantsAfterPublishEmployeePlan)) {
+        const deleteEmployees = Object.keys(setApplicantsAfterPublishDB).filter( employeeId => setApplicantsAfterPublishEmployeePlan[employeeId] === undefined);
+        const addEmployees = Object.keys(setApplicantsAfterPublishEmployeePlan).filter( employeeId => setApplicantsAfterPublishDB[employeeId] === undefined);
+        
+        //delete outdate Employees
+        deleteEmployees.forEach((employeeId => {
+            if(Object.keys(planDB[index][day]).includes("setApplicants")) {
+                delete planDB[index][day].setApplicants[employeeId];    
+            }
+        }))
+        
+        //addNewEmployees to Shiftplan
+        addEmployees.forEach((employeeId) => {
+            if(!Object.keys(planDB[index][day]).includes("setApplicants")) {
+                planDB[index][day].setApplicants = {};
+            }
+            planDB[index][day].setApplicants[employeeId] = planUser[index][day].setApplicants[employeeId]
+        })
+        
+        // add CurrentEmployee to Shiftplan
+        if(setApplicantsAfterPublishEmployeePlan[currentEmployee.SK.S]) {
+            if(!Object.keys(planDB[index][day]).includes("setApplicants")) {
+                planDB[index][day].setApplicants = {};
+            }
+            planDB[index][day].setApplicants[currentEmployee.SK.S] = currentEmployee.name.S;
+            
+            const ShiftName = planDB[index].Wochentag.ShiftName;
+            const WeekDay = planDB[1][day];
+            if(currentEmployee.schichten[zeitraum]) {
+                currentEmployee.schichten[zeitraum].push(index + '#' + ShiftName + '#' + WeekDay);
+            }
+            
+            if(!currentEmployee.schichten[zeitraum]) {
+                currentEmployee.schichten[zeitraum] = [index + '#' + ShiftName + '#' + WeekDay];
             }
         }
-        return copyDetails.copyDBPlan;
-    }
-
-
-    function checkAddApplicant(planDB, planUser) {
-        let response = !1;
-        let planDBHasApplicants = "applicants" in planDB;
-        let planUserHasApplicants = "applicants" in planUser;
-        if (planDBHasApplicants && planUserHasApplicants) {
-            if (Object.keys(planDB.applicants).length < Object.keys(planUser.applicants).length && Object.keys(planUser.applicants).length !== 0) {
-                console.log("IT ISS NEW")
-                response = !0;
-            }
-        }
-        else if (planUserHasApplicants && !planDBHasApplicants) {
-            response = !0
-        }
-        return response;
-    }
+        
+    };
     
-    function checkRemoveApplicant(planDB, planUser) {
-        let response = !1;
-        let planDBHasApplicants = "applicants" in planDB;
-        let planUserHasApplicants = "applicants" in planUser;
-        if (planDBHasApplicants && planUserHasApplicants) {
-            if (Object.keys(planDB.applicants).length > Object.keys(planUser.applicants).length) {
-                console.log("Remove")
-                response = !0;
-            }
-        }
-        else if (planUserHasApplicants && !planDBHasApplicants) {
-            response = !0
-        }
-        return response;
-    }
-    let copyPlanLength = getCopyPlanLength(copyDBPlan);
-    filterValidShifts({copyDBPlan: copyDBPlan, copyUserPlan: copyUserPlan, copyPlanLength: copyPlanLength, mitarbeiter: mitarbeiter});
-    console.log(copyDBPlan);
-    this.DBplan = [...copyDBPlan];
-  };
-  
-  getAllDetails () {
-      return {
-          updatedPlan: this.DBplan,
-          zeitraum: this.zeitraum,
-      }
-  };
-  
-  getMergedPlan() {
-      return this.DBplan;
-  }
-  
-  
-};
-
-class Mitarbeiter {
-    constructor(mitarbeiter) {
-        this.SK = mitarbeiter.SK["S"]
-        this.bewerbungen = JSON.parse(mitarbeiter.bewerbungen["S"]);
-    }
-    
-    
-    mergeBewerbungen (copyDBPlan, copyUserPlan) {
-    let bewerbungsArray = [];
-    let copyBewerbungen = {...this.bewerbungen};
-    
-    
-    function getZeitraum (copyPlan) {
-        let zeitraum = copyPlan.zeitraum["S"]; 
-        return zeitraum;
-    }
-    
-    function filterValidShifts (bewerbungsArray, copyDetails) {
-        let plan = JSON.parse(copyDetails.copyDBPlan.data["S"])
-        plan.forEach((item,index) => {
-            if (index !== 0 && index !== 1 && index !== copyDetails.copyPlanLength - 1 ) {
-                    for (let [key, value] of Object.entries(item)) {
-                        if (checkUnequalApplicants(plan[index][key], copyDetails.copyUserPlan[index][key])) {
-                            getBewerbungsDetails(bewerbungsArray, {...copyDetails, index: index, key, key, value: value});
-                        } else if(checkRemoveApplicant(plan[index][key], copyDetails.copyUserPlan[index][key])) {
-                            removeBewerbungsDetails(bewerbungsArray, {...copyDetails, index: index, key, key, value: value});
-                        }
-                    };
-                };
-        });
-    return  bewerbungsArray;
-    }
-    
-    function checkUnequalApplicants(planDB, planUser) {
-        let response = !1;
-        let planDBHasApplicants = "applicants" in planDB;
-        let planUserHasApplicants = "applicants" in planUser;
-        if (planDBHasApplicants && planUserHasApplicants) {
-            if (Object.keys(planDB.applicants).length < Object.keys(planUser.applicants).length && Object.keys(planUser.applicants).length !== 0) {
-                response = !0;
-            }
-        }
-        else if (planUserHasApplicants && !planDBHasApplicants) {
-            response = !0
-        }
-        return response;
-    }
-    function checkRemoveApplicant(planDB, planUser) {
-        let response = !1;
-        let planDBHasApplicants = "applicants" in planDB;
-        let planUserHasApplicants = "applicants" in planUser;
-        if (planDBHasApplicants && planUserHasApplicants) {
-            if (Object.keys(planDB.applicants).length > Object.keys(planUser.applicants).length) {
-                console.log("Remove")
-                response = !0;
-            }
-        }
-        else if (planUserHasApplicants && !planDBHasApplicants) {
-            response = !0
-        }
-        return response;
-    }
-    
-    function getBewerbungsDetails (bewerbungsArray,copyDetails) {
-        let plan = JSON.parse(copyDetails.copyDBPlan.data["S"])
-        let getDay = copyDetails.key
-        let getShiftName = plan[copyDetails.index]["Wochentag"].ShiftName;
-        let getPosition = plan[copyDetails.index]["Wochentag"].ShiftPosition;
-        bewerbungsArray.push(String(getShiftName + "#" + getPosition + "#" + getDay))
-        return bewerbungsArray;
-    }
-    
-    function removeBewerbungsDetails (bewerbungsArray, copyDetails) {
-        let plan = JSON.parse(copyDetails.copyDBPlan.data["S"])
-        let getDay = copyDetails.key
-        let getShiftName = plan[copyDetails.index]["Wochentag"].ShiftName;
-        let getPosition = plan[copyDetails.index]["Wochentag"].ShiftPosition;
-        bewerbungsArray.push(String(getShiftName + "#" + getPosition + "#" + getDay))
-        return bewerbungsArray;
-    }
-    
-    function getCopyPlanLength (copyDBPlan) {
-        return JSON.parse(copyDBPlan.data["S"]).length
-    }
-    
-        let copyPlanLength = getCopyPlanLength(copyDBPlan);
-        let zeitraum = getZeitraum(copyDBPlan);
-        filterValidShifts (bewerbungsArray, {copyDBPlan: copyDBPlan, copyUserPlan: copyUserPlan, copyPlanLength: copyPlanLength});
-        if (Object.keys(copyBewerbungen).includes(zeitraum)) {
-            let copyBewerbung = copyBewerbungen[zeitraum];
-            console.log(copyBewerbungen, bewerbungsArray)
-            console.log(copyBewerbungen[zeitraum]);
-            bewerbungsArray.forEach(item => {
-                if (copyBewerbung.includes(item)) {
-                    let index = copyBewerbung.indexOf(item);
-                    copyBewerbung.splice(index, 1);
-                } else {
-                    copyBewerbung.push(item);
-                }})
-            console.log(copyBewerbung);
-            this.bewerbungen = {...this.bewerbungen, [zeitraum]: copyBewerbung};
-        } else {
-            this.bewerbungen = {...this.bewerbungen, [zeitraum]: bewerbungsArray};
-        }
-    }
-      
-  getBewerbungen() {
-      return this.bewerbungen;
-  }
+    return {planDB, currentEmployee};
 }

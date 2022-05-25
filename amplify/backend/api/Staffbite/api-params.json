@@ -300,6 +300,20 @@
                 ]
             },
             "policyResourceName": "/fetchShiftplans"
+        },
+        {
+            "name": "/fetchShiftplansForEmployee",
+            "lambdaFunction": "fetchShiftplansForEmployee",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            },
+            "policyResourceName": "/fetchShiftplansForEmployee"
         }
     ],
     "resourceName": "Staffbite",
@@ -382,10 +396,13 @@
         },
         {
             "lambdaFunction": "fetchShiftplans"
+        },
+        {
+            "lambdaFunction": "fetchShiftplansForEmployee"
         }
     ],
     "privacy": {
-        "auth": 20,
+        "auth": 21,
         "unauth": 0,
         "authRoleName": "amplify-staffbite-dev-180625-authRole",
         "unAuthRoleName": "amplify-staffbite-dev-180625-unauthRole"
@@ -598,7 +615,15 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "fetchShiftplansForEmployee",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
     ],
-    "uuid": "bdf1836b"
+    "uuid": "02adeebb"
 }

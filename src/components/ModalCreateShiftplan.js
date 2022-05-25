@@ -10,10 +10,10 @@ import { resettingModal } from "../reducers/modal";
 import { createingNewShiftplan, createNewShiftplan, settingNewShiftplan } from "../reducers/NewShiftPlan";
 import { resettingUserInput } from "../reducers/userInput";
 import {settingDisplayNewShiftplan } from "../reducers/display";
+import { settingMissingShiftplanName } from "../reducers/ErrorMessages";
 
 const ModalCreateShiftplan = (props) => {
     const dispatch = useDispatch();
-    const [invalidName, setInvalidName] = useState(false)
     const showSchichtplanErstellen = useSelector(state => state.modal.showSchichtplanErstellen);
     const userInput = useSelector(state => state.userInput);
 
@@ -21,7 +21,7 @@ const ModalCreateShiftplan = (props) => {
   const createNewShiftPlan = () => {
 
     if(userInput.shiftplanName === "") {
-        setInvalidName(true);
+        dispatch(settingMissingShiftplanName())
     }
 
     if(userInput.shiftplanName !== "") {
@@ -52,7 +52,6 @@ const ModalCreateShiftplan = (props) => {
                     <SchichtplanErstellen/>
                 </Modal.Body>
                 <Modal.Footer>
-                <p hidden={!invalidName} className="text-danger">Bitte wähle einen Namen für deine Vorlage.</p>
                   <Button 
                     color="link"
                     size="lg"

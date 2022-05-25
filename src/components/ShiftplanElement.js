@@ -2,19 +2,16 @@ import {
     CompanyClosed,
     CompanyClosedEntwurf,
     DateOrWeekDayRow,
-    shiftHasPrio,
     DefaultWithPrio,
     Default,
     setShiftDetails,
     editShiftDetails,
-    shiftSetPrio,
     MultipleApplicants,
     TwoApplicants,
     SingleApplicant,
     MultipleApplicantsWithPrio,
     TwoApplicantsWithPrio,
     SingleApplicantWithPrio,
-    setShiftDetailsErr,
     MultipleSetApplicantsWithPrio,
     MultiSetApplicantsWithoutPrio,
     ZeroApplicantsWithPrio,
@@ -23,16 +20,10 @@ import {
     SingleSetApplicantWithoutPrio,
     TwoSetApplicantsWithPrio,
     TwoSetApplicantsWithoutPrio,
-    ZeroApplicantsRed,
-    ZeroApplicantsWithPrioRed,
-    TwoSetApplicantsWithoutPrioNotFilled,
-    SingleSetApplicantWithoutPrioNotFilled,
-    MultiSetApplicantsWithoutPrioNotFilled,
-    TwoSetApplicantsWithPrioNotFilled,
-    SingleSetApplicantWithPrioNotFilled,
-    MultiSetApplicantsWithPrioNotFilled,
-    MultiSetApplicantsWithoutPrioFilled,
-    MultiSetApplicantsWithPrioFilled,
+    ProgessApplicantsWithoutPrioDefault,
+    ProgessApplicantsWithPrioDefault,
+    ProgessSetApplicantsWithPrioTooFull,
+    ProgessSetApplicantsWithoutPrioTooFull,
     ProgessSetApplicantsWithPrioEmpty,
     ProgessSetApplicantsWithPrioFilled,
     ProgessSetApplicantsWithPrioNotFilled,
@@ -54,10 +45,6 @@ export const ShiftplanElement = (props) => {
         dispatch(settingModal("prioIsActive"))
         dispatch(settingShiftSlot({index: index, day: day}))
     };
-
-    function setActive(index, col) {
-        props.handleActive(index, col);
-    }
 
     const editShift = (index) => {
         dispatch(settingModal("editShiftDescription"))
@@ -116,26 +103,18 @@ export const ShiftplanElement = (props) => {
                 return DateOrWeekDayRow(currentItem);
             } else if (!isFree && isDiscribeWeekDay){
                 return editShiftDetails(currentItem, index, anzahl, editShift);
-            } else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay && (hasPrio || hasNotice)) {
-                return MultipleApplicantsWithPrio(ApplicantsLength, FirstApplicant, index, day, setPrio);
-            } else if (isFree && hasApplicants && ApplicantsLength === 2 && !isDiscribeWeekDay && (hasPrio || hasNotice)) {
-                return TwoApplicantsWithPrio(FirstApplicant, SecondApplicant, index, day, setPrio);
-            }  else if (isFree && hasApplicants && ApplicantsLength === 2 && !isDiscribeWeekDay) {
-                return TwoApplicants(FirstApplicant, SecondApplicant, index, day, setPrio);
-            }  else if (isFree && hasApplicants && ApplicantsLength > 1 && !isDiscribeWeekDay) {
-                return MultipleApplicants(ApplicantsLength, FirstApplicant, index, day, setPrio);
+            } else if (isFree && !isDiscribeWeekDay && !(hasPrio || hasNotice)) {
+                return ProgessApplicantsWithoutPrioDefault( index, day, FirstApplicant, SecondApplicant, ApplicantsLength, setPrio);
+            } else if (isFree && !isDiscribeWeekDay && (hasPrio || hasNotice)) {
+                return ProgessApplicantsWithPrioDefault( index, day,FirstApplicant, SecondApplicant, ApplicantsLength, setPrio);
             } else if (!isFree && !isDiscribeWeekDay) {
                 return CompanyClosedEntwurf(index, day, setPrio);
-            } else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay && (hasPrio || hasNotice)) {
-                return SingleApplicantWithPrio(FirstApplicant, index, day, setPrio);
-            }  else if (isFree && hasApplicants && ApplicantsLength === 1 && !isDiscribeWeekDay) {
-                return SingleApplicant(FirstApplicant, index, day, setPrio);
             } else if ((hasPrio || hasNotice)) {
                 return DefaultWithPrio(index, day, setPrio);
             }  else {
                 return Default(index, day, setPrio);
             }
-        } else if (type === "Review") {
+        } else if (type === "Review" || type === "Veröffentlicht") {
             if (index === 0 || index === 1 || index === ItemLength - 1 ) {
                 return DateOrWeekDayRow(currentItem);
             } else if (!isFree && isDiscribeWeekDay){
@@ -146,50 +125,27 @@ export const ShiftplanElement = (props) => {
                 return CompanyClosed();
             } else if (SetAppplicantsLength < Number(anzahl) && !(hasPrio || hasNotice)) {
                 if(isFree && hasSetApplicants && !isDiscribeWeekDay) {
-                    return ProgessSetApplicantsWithoutPrioNotFilled(index, day, FirstSetApplicant, SecondSetApplicant, setApplicant);
+                    return ProgessSetApplicantsWithoutPrioNotFilled(index, day, FirstSetApplicant, SecondSetApplicant, SetAppplicantsLength, setApplicant);
                 } else {
-                    return ProgessSetApplicantsWithoutPrioEmpty(index, day, setApplicant);
+                    return ProgessSetApplicantsWithoutPrioEmpty(index, day, FirstSetApplicant, SecondSetApplicant, setApplicant);
                 }
             } else if (SetAppplicantsLength < Number(anzahl) && (hasPrio || hasNotice)) {
-                if(isFree && hasSetApplicants && SetApplicants > 0 && !isDiscribeWeekDay) {
-                    return ProgessSetApplicantsWithPrioNotFilled(index, day, FirstSetApplicant, SecondSetApplicant, setApplicant);
+                if(isFree && hasSetApplicants && !isDiscribeWeekDay) {
+                    return ProgessSetApplicantsWithPrioNotFilled(index, day, FirstSetApplicant, SecondSetApplicant, SetAppplicantsLength, setApplicant);
                 }  else {
-                    return ProgessSetApplicantsWithPrioEmpty(index, day, setApplicant);
+                    return ProgessSetApplicantsWithPrioEmpty(index, day, FirstSetApplicant, SecondSetApplicant, setApplicant);
                 }
             } else if (SetAppplicantsLength === Number(anzahl) && !(hasPrio || hasNotice)) {
-                return ProgessSetApplicantsWithoutPrioFilled(index, day, FirstSetApplicant, SecondSetApplicant, SetApplicants, setApplicant)
+                return ProgessSetApplicantsWithoutPrioFilled(index, day, FirstSetApplicant, SecondSetApplicant, SetAppplicantsLength, setApplicant)
             } else if (SetAppplicantsLength === Number(anzahl) && (hasPrio || hasNotice)) {
-                return ProgessSetApplicantsWithPrioFilled(index, day, FirstSetApplicant, SecondSetApplicant, SetApplicants, setApplicant);
+                return ProgessSetApplicantsWithPrioFilled(index, day, FirstSetApplicant, SecondSetApplicant, SetAppplicantsLength, setApplicant);
+            }  else if (SetAppplicantsLength > Number(anzahl) && (hasPrio || hasNotice)) {
+                return ProgessSetApplicantsWithPrioTooFull(index, day, FirstSetApplicant, SecondSetApplicant, SetAppplicantsLength, setApplicant)
+            } else if (SetAppplicantsLength > Number(anzahl) && !(hasPrio || hasNotice)) {
+                return ProgessSetApplicantsWithoutPrioTooFull(index, day, FirstSetApplicant, SecondSetApplicant, SetAppplicantsLength, setApplicant)
             } else {
                 return Default(index, day, setApplicant);
             }
-            {/*if (index === 0 || index === 1 || index === ItemLength - 1 ) {
-                return DateOrWeekDayRow(currentItem);
-            } else if (!isFree && isDiscribeWeekDay){
-                return editShiftDetails(currentItem, index, anzahl, editShift);
-            } else if (isFree && isDiscribeWeekDay && !hasShiftName){
-                return setShiftDetails(currentItem, index);
-            } else if (isFree && hasSetApplicants && SetAppplicantsLength === 2 && !isDiscribeWeekDay &&  (hasPrio || hasNotice)) {
-                return TwoSetApplicantsWithPrio(index, day, FirstSetApplicant, SecondSetApplicant, setApplicant);
-            }  else if (isFree && hasSetApplicants && SetAppplicantsLength === 2 && !isDiscribeWeekDay) {
-                return TwoSetApplicantsWithoutPrio(index, day, FirstSetApplicant, SecondSetApplicant, setApplicant);
-            } else if (isFree && hasSetApplicants && SetAppplicantsLength > 1 && !isDiscribeWeekDay &&  (hasPrio || hasNotice)) {
-                return MultipleSetApplicantsWithPrio(index, day, FirstSetApplicant, SetAppplicantsLength, setApplicant);
-            }  else if (isFree && hasSetApplicants && SetAppplicantsLength > 1 && !isDiscribeWeekDay) {
-                return MultiSetApplicantsWithoutPrio(index, day, FirstSetApplicant, SetAppplicantsLength, setApplicant);
-            } else if (!isFree && !isDiscribeWeekDay) {
-                return CompanyClosed();
-            } else if (isFree && hasSetApplicants && SetAppplicantsLength === 1 && !isDiscribeWeekDay &&  (hasPrio || hasNotice)) {
-                return SingleSetApplicantWithPrio(index, day, FirstSetApplicant, setApplicant, setPrio);
-            }  else if (isFree && hasSetApplicants && SetAppplicantsLength === 1 && !isDiscribeWeekDay) {
-                return SingleSetApplicantWithoutPrio(index, day, FirstSetApplicant, setApplicant);
-            } else if (isFree && !hasSetApplicants && !isDiscribeWeekDay &&  (hasPrio || hasNotice)) {
-                return ZeroApplicantsWithPrio(index, day, setApplicant);
-            } else if (isFree && !hasSetApplicants && !isDiscribeWeekDay) {
-                return ZeroApplicants(index, day, setApplicant);
-            } else {
-                return Default(index, day, setPrio);
-            }*/}
         } else if (type === "Veröffentlicht") {
             if (index === 0 || index === 1 || index === ItemLength - 1 ) {
                 return DateOrWeekDayRow(currentItem);

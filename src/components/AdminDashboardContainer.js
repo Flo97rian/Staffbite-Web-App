@@ -12,7 +12,7 @@ import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
 import NotificationAlert from "react-notification-alert";
 import store from "../store";
 import OpenModal from "./OpenModal";
-import { WARNING_INVALID_REPORT_INPUT } from "../constants/Alerts"; 
+import { WARNING_INVALID_REPORT_INPUT, WARNING_MISSING_REPORT_DATE, WARNING_MISSING_REPORT_FILTER } from "../constants/Alerts"; 
 import InfoSidebar from "./Sidebar/InfoSidebar.js";
 import { ONBOARDING_OVERVIEW_SHIFTPLAN, ONBOARDING_OVERVIEW_SHIFTRADE, ONBOARDING_OVERVIEW_TEAM } from "../constants/OnBoardingTexts.js";
 import { isUndefined } from "lodash";
@@ -26,6 +26,7 @@ import { settingModal } from "../reducers/modal";
 import { resettingDisplayShiftplan } from "../reducers/display";
 import { resettingShiftSlot } from "../reducers/ShiftSlot";
 import { isThisWeek } from "date-fns";
+import { resettingErrorMessages } from "../reducers/ErrorMessages";
 
 
 const AdminDashboardContainer = (props) => {
@@ -70,6 +71,10 @@ const AdminDashboardContainer = (props) => {
   let location = useLocation()
   const { run, steps } = state;
 
+  const ErrorMessages = {
+    missingReportFilter: WARNING_MISSING_REPORT_FILTER,
+    missingReportDate: WARNING_MISSING_REPORT_DATE
+  }
   //REDUX-Filter für UI-Data
   const selectMeta = state => state.Meta;
   const selectPlans = state => state.DB.plans;
@@ -85,7 +90,8 @@ const AdminDashboardContainer = (props) => {
   const NumberOfEmployees = useSelector(state => Object.keys(state.DB.employees).length);
   const NumberOfTrades = useSelector(state => state.Shiftplan.tauschanfrage.length);
   const newsFeed = useSelector(state => state?.Meta?.newsfeed)
-  const showOverview = useSelector(state => state.Meta.onboarding.overview)
+  const showOverview = useSelector(state => state.Meta.onboarding.overview);
+  const ErrorMessage = useSelector(state => Object.keys(state.ErrorMessages).find(key => state.ErrorMessages[key] === true));
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
@@ -114,6 +120,12 @@ const AdminDashboardContainer = (props) => {
     }
   }, [Meta]);
 
+  useEffect(() => {
+    console.log(ErrorMessage);
+    if(ErrorMessage) {
+      Notify("warning")
+    }
+  }, [ErrorMessage])
 
   function handleOnboarding() {
     dispatch(thunkUpdateProfile({...Meta, onboarding: {...Meta.onboarding, overview: false}}));
@@ -128,7 +140,7 @@ const AdminDashboardContainer = (props) => {
             {" "}
           </span>
           <span data-notify="message">
-            {title}
+            {ErrorMessages[ErrorMessage]}
           </span>
         </div>
       ),
@@ -137,7 +149,7 @@ const AdminDashboardContainer = (props) => {
       autoDismiss: 7
     };
     notificationAlert.current.notificationAlert(options);
-    setErrMsg({...errMsg, [err]: !1})
+    dispatch(resettingErrorMessages())
 
   };
   
@@ -174,7 +186,6 @@ const AdminDashboardContainer = (props) => {
             },
           }}
         />
-            { errMsg.InvalidReportInput ? Notify("warning", WARNING_INVALID_REPORT_INPUT, "InvalidReportInput") : null}
           <>
               <Row className="pt-6">
               <div className="rna-wrapper">

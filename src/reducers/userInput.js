@@ -71,7 +71,6 @@ const userInputSlice = createSlice({
             state.companySurname = action.payload
         },
         settingShiftplanFillingReverse(state, action) {
-            console.log(action);
             state.shiftplanFillingReverse = action.payload;
         },
         settingShiftplanFillingFair(state, action) {
@@ -118,7 +117,6 @@ const userInputSlice = createSlice({
             delete state.reportFilter[action.payload]
         },
         settingEmployeeTargetShiftTrade(state, action) {
-            console.log(action);
             state.employeeTargetShiftTrade = action.payload;
         },
         settingShiftplanName(state, action) {

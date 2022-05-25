@@ -44,7 +44,7 @@ const UserApplicationsTable = (props) => {
             </Row>
                     <br/>
                     <Row className="text-center" noGutters={true}>
-                    <Table responsive={true} borderless={true} style={{"padding": "0"}}>
+                    <Table borderless={true}>
                         <thead>
                         </thead>
                         <tbody>

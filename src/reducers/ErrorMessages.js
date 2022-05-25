@@ -2,9 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   InvalidReportInput: !1,
+  missingDate: false,
   MissingShiftDetails: !1,
   EmailNotSend: !1,
-  EmailIsSend: !1
+  EmailIsSend: !1,
+  missingShiftplanName: false,
+  missingReportFilter: false,
+  missingReportDate: false,
+  missingNewEmployeeName: false,
+  missingNewEmployeeEmail: false,
 }
 
 const errorMessageSlice = createSlice({
@@ -34,6 +40,36 @@ const errorMessageSlice = createSlice({
     },
     resettingEmailIsSend(state, action) {
       state.EmailIsSend = false;
+    },
+    settingMissingDate(state) {
+      state.missingDate = true;
+    },
+    settingMissingShiftplanName(state) {
+      state.missingShiftplanName = true;
+    },
+    settingMissingReportFilter(state) {
+      state.missingReportFilter = true;
+    },
+    settingMissingReportDate(state) {
+      state.missingReportDate = true;
+    },
+    settingMissingNewEmployeeName(state) {
+      state.missingNewEmployeeName = true;
+    },
+    settingMissingNewEmployeeEmail(state) {
+      state.missingNewEmployeeEmail = true;
+    },
+    resettingErrorMessages(state) {
+      state.InvalidReportInput = initialState.InvalidReportInput;
+      state.MissingShiftDetails = initialState.MissingShiftDetails;
+      state.EmailNotSend = initialState.EmailNotSend;
+      state.EmailIsSend = initialState.EmailIsSend;
+      state.missingDate = initialState.missingDate;
+      state.missingShiftplanName = initialState.missingShiftplanName;
+      state.missingReportFilter = initialState.missingReportFilter;
+      state.missingReportDate = initialState.missingReportDate;
+      state.missingNewEmployeeName = initialState.missingNewEmployeeName;
+      state.missingNewEmployeeEmail = initialState.missingNewEmployeeEmail;
     }
   }
 })
@@ -46,7 +82,14 @@ export const {
   settingEmailNotSend,
   resettingEmailNotSend,
   settingEmailIsSend,
-  resettingEmailIsSend
+  resettingEmailIsSend,
+  settingMissingDate,
+  settingMissingShiftplanName,
+  settingMissingReportDate,
+  settingMissingReportFilter,
+  settingMissingNewEmployeeName,
+  settingMissingNewEmployeeEmail,
+  resettingErrorMessages
 } = errorMessageSlice.actions;
 
 export default errorMessageSlice.reducer;

@@ -6,19 +6,14 @@ import {
     ShiftDescription,
     CompanyClosed,
     ApplicantDoesntMatchesPosition,
-    ApplicantDoesntMatchesPrio,
-    MultipleApplicantsWithUser,
-    SingleApplicantWithUser,
-    MultipleApplicantsWithOutUser,
-    SingleApplicantWithOutUser,
     ZeroApplicants,
     Default,
     DefaultWithPrio,
-    MultipleApplicantsWithUserWithNotice,
-    SingleApplicantWithUserWithNotice,
-    MultipleApplicantsWithOutUserWithNotice,
     ZeroApplicantsWithNotice,
-    SingleApplicantWithOutUserWithNotice
+    ProgressEmployeeApplicantsWithPrio,
+    ProgessEmployeeApplicantsWithoutPrio,
+    ProgressWithEmployeeApplicantsWithPrio,
+    ProgressWithEmployeeApplicantsWithoutPrio
 } from "./ShiftplanElements";
 import { 
     getIsObject,
@@ -42,9 +37,10 @@ const UserApplicationShiftplanElements = (props) => {
     const dispatch = useDispatch()
     const Employee = useSelector(state => state.DB.employee);
     const Shiftplan = useSelector(state => state.Shiftplan);
+    const AccessPermissions = useSelector(state => state.Meta.accessPosition);
     const setApplicant = (index, day) => {
-        dispatch(settingModal("userApply"))
         dispatch(settingShiftSlot({index: index, day: day}))
+        dispatch(settingModal("userApply"))
     }
 
     const type = _.isString(Shiftplan.id) ? Shiftplan.id.split('#')[1] : "";
@@ -53,18 +49,23 @@ const UserApplicationShiftplanElements = (props) => {
     const day = props.col;
     const currentItem = props.currentItem[day];
     const notice = _.get(currentItem, "notice", "");
+    const prio = _.get(currentItem, "prio", false)
     const isFree = _.get(currentItem, "frei", false)
     const hasNotice = !_.isEmpty(notice)
+    const hasPrio = !_.isBoolean(prio);
     const anzahl = props.anzahl;
     const isDiscribeWeekDay = day === "Wochentag";
     const Applicants = _.get(currentItem, "applicants", {})
     const hasApplicants = !_.isEmpty(_.get(currentItem, "applicants", {}));
     const ApplicantsLength = _.size(Applicants);
     const ApplicantsKeys = _.keys(Applicants)
+    const ShiftPosition = _.get(Shiftplan, "plan[" + index + "].Wochentag.ShiftPosition")
     const FirstApplicant = _.get(Applicants, [ApplicantsKeys[0]], "");
-    const ShiftIncludesApplicant = _.includes(Object.keys(_.get(currentItem, "applicants", {}), Employee.SK))
-    const ApplicantMatchesPosition = _.includes(Employee.position, _.get(Shiftplan, "plan[" + index + "].Wochentag.ShiftPosition"));
     const ApplicantName = Employee.name;
+    const SecondApplicant = _.get(Applicants, [ApplicantsKeys[1]], "") === ApplicantName ? FirstApplicant : _.get(Applicants, [ApplicantsKeys[1]], "");
+    const ShiftIncludesApplicant = _.includes(ApplicantsKeys, Employee.SK);
+    const ApplicantMatchesPosition = _.includes(Employee.position, ShiftPosition);
+    const EmployeeAccessAdminView = _.includes(_.get(AccessPermissions, "[" + ShiftPosition + "]", ""), "accessAdminView");
 
         if (index === 0 || index === 1) {
             return DateOrWeekDayRow(currentItem);
@@ -72,27 +73,19 @@ const UserApplicationShiftplanElements = (props) => {
             return null
         } else if (!isFree && !isDiscribeWeekDay) {
             return CompanyClosed();
-        } else if (isFree && hasApplicants && ApplicantMatchesPosition && ShiftIncludesApplicant && ApplicantsLength > 1 && !isDiscribeWeekDay && hasNotice) {
-            return MultipleApplicantsWithUserWithNotice(index, day, ApplicantName, ApplicantsLength, setApplicant);
-        } else if (isFree && hasApplicants && ApplicantMatchesPosition && ShiftIncludesApplicant && ApplicantsLength > 1 && !isDiscribeWeekDay) {
-            return MultipleApplicantsWithUser(index, day, ApplicantName, ApplicantsLength, setApplicant);
-        } else if (isFree && hasApplicants && ApplicantMatchesPosition && ShiftIncludesApplicant && !isDiscribeWeekDay && hasNotice) {
-            return SingleApplicantWithUserWithNotice(index, day, ApplicantName, setApplicant);
-        } else if (isFree && hasApplicants && ApplicantMatchesPosition && ShiftIncludesApplicant && !isDiscribeWeekDay) {
-            return SingleApplicantWithUser(index, day, ApplicantName, setApplicant);
-        } else if (isFree && hasApplicants && ApplicantMatchesPosition && ApplicantsLength > 1 && !isDiscribeWeekDay && hasNotice) {
-            return MultipleApplicantsWithOutUserWithNotice(index, day, FirstApplicant, ApplicantsLength, setApplicant);
-        }  else if (isFree && hasApplicants && ApplicantMatchesPosition && ApplicantsLength > 1 && !isDiscribeWeekDay) {
-            return MultipleApplicantsWithOutUser(index, day, FirstApplicant, ApplicantsLength, setApplicant);
-        } else if (isFree && hasApplicants && ApplicantMatchesPosition && !isDiscribeWeekDay && hasNotice) {
-            return SingleApplicantWithOutUserWithNotice(index, day, FirstApplicant, setApplicant);
-        } else if (isFree && hasApplicants && ApplicantMatchesPosition && !isDiscribeWeekDay) {
-            return SingleApplicantWithOutUser(index, day, FirstApplicant, setApplicant);
+        } else if (isFree && ShiftIncludesApplicant && hasApplicants && ApplicantMatchesPosition && !isDiscribeWeekDay && (hasPrio || hasNotice)) {
+            return ProgressWithEmployeeApplicantsWithPrio(index, day, ApplicantName, SecondApplicant, ApplicantsLength, EmployeeAccessAdminView, setApplicant);
+        } else if (isFree && ShiftIncludesApplicant && hasApplicants && ApplicantMatchesPosition && !isDiscribeWeekDay && !(hasPrio || hasNotice)) {
+            return ProgressWithEmployeeApplicantsWithoutPrio(index, day, ApplicantName, SecondApplicant, ApplicantsLength, EmployeeAccessAdminView, setApplicant);
+        } else if (isFree && hasApplicants && ApplicantMatchesPosition && !isDiscribeWeekDay && (hasPrio || hasNotice)) {
+            return ProgressEmployeeApplicantsWithPrio(index, day, FirstApplicant, SecondApplicant, ApplicantsLength, EmployeeAccessAdminView, setApplicant);
+        } else if (isFree && hasApplicants && ApplicantMatchesPosition && !isDiscribeWeekDay && !(hasPrio || hasNotice)) {
+            return ProgessEmployeeApplicantsWithoutPrio(index, day, FirstApplicant, SecondApplicant, ApplicantsLength, EmployeeAccessAdminView, setApplicant);
         } else if (isFree && !ApplicantMatchesPosition && !isDiscribeWeekDay) {
             return ApplicantDoesntMatchesPosition();
-        } else if (isFree && !isDiscribeWeekDay && hasNotice) {
+        } else if (isFree && !isDiscribeWeekDay && (hasPrio || hasNotice)) {
             return ZeroApplicantsWithNotice(index, day, setApplicant);
-        }  else if (isFree && !isDiscribeWeekDay) {
+        }  else if (isFree && !isDiscribeWeekDay && !(hasPrio || hasNotice)) {
             return ZeroApplicants(index, day, setApplicant);
         } else if (!isFree && isDiscribeWeekDay){
             return ShiftDescription(currentItem, anzahl);

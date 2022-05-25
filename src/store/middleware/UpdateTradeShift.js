@@ -1,6 +1,6 @@
 import { API, Auth } from "aws-amplify";
-import { thunkFetchEmployeesPlans } from "./FetchPlansForEmployees";
 import { API_HOSTNAME, UPDATE_EMPLOYEE_POST_TRADE } from "../../constants/ApiConstants";
+import { thunkFetchShiftplansForEmployee } from "./FetchShiftplansForEmployee";
 
 export function thunkUpdateTradeShift(plan) {
   return async function updateTradeShift(dispatch, getState) {
@@ -18,7 +18,7 @@ export function thunkUpdateTradeShift(plan) {
       return API.post(apiName, path, myInit)
       })
     .then(response => {
-      dispatch(thunkFetchEmployeesPlans());
+      dispatch(thunkFetchShiftplansForEmployee());
     })
     }
   }

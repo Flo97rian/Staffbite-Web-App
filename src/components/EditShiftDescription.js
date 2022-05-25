@@ -44,7 +44,7 @@ const EditShiftDescription = (props) => {
                     <Col xs={10} >
                         <FormGroup className="mb-0 mt-0">
                             <InfoLabel title="Name der Schicht" description={INFO_SHIFTPLAN_SHIFT_NAME}></InfoLabel>
-                            <Input type="text" size="lg" className="" placeholder={shiftDetails.ShiftName} onChange={(event) => dispatch(settingShiftName(event.target.value))}></Input>
+                            <Input type="text" className="" placeholder={shiftDetails.ShiftName} onChange={(event) => dispatch(settingShiftName(event.target.value))}></Input>
                         </FormGroup>
                         <Row className="mt-3">
                             <Col>

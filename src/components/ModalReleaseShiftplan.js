@@ -14,6 +14,7 @@ import { resettingModal } from "../reducers/modal";
 import { INFO_SHIFTPLAN_RELEASE_FOR_NEW_PERIOD, INFO_SHIFTPLAN_RELEASE_WITH_NEW_NAME } from "../constants/InfoTexts";
 import { resettingUserInput, settingShiftplanName } from "../reducers/userInput";
 import { thunkReleaseForApplication } from "../store/middleware/ReleaseForApplication";
+import { settingMissingDate, settingMissingShiftDetails } from "../reducers/ErrorMessages";
 
 const ModalReleaseShiftplan = (props) => {
     const dispatch = useDispatch();
@@ -37,6 +38,15 @@ const ModalReleaseShiftplan = (props) => {
             dispatch(resettingModal())
             dispatch(resettingUserInput())
         }
+
+        if(!detailsFilled) {
+            dispatch(settingMissingShiftDetails());
+        }
+
+        if(!startDate || !endDate) {
+            dispatch(settingMissingDate());
+        }
+
     }
 
     const validateShiftplan = () => {

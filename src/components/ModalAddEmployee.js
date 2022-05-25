@@ -21,6 +21,7 @@ import Form from 'react-bootstrap/Form';
 import { resettingModal } from "../reducers/modal";
 import { resettingUserInput } from "../reducers/userInput";
 import { thunkRegisterEmployee } from "../store/middleware/RegisterEmployee";
+import { settingMissingNewEmployeeEmail, settingMissingNewEmployeeName } from "../reducers/ErrorMessages";
 
 const ModalAddEmployee = (props) => {
     const dispatch = useDispatch();
@@ -43,9 +44,11 @@ const ModalAddEmployee = (props) => {
         }
 
     }, [userInput])
+
     const addEmployee = () => {
         let NewEmployee = {};
         if( !namehasSpaceOrComma.test(userInput.employeeName)) {
+            dispatch(settingMissingNewEmployeeName())
             setInvalidName(true);
         }
         NewEmployee.name = userInput.employeeName;
@@ -53,6 +56,7 @@ const ModalAddEmployee = (props) => {
             !emailhasDotChar.test(userInput.employeeEmail)
             ) {
                 setInvalidEmail(true);
+                dispatch(settingMissingNewEmployeeEmail())
             }
         NewEmployee.email = userInput.employeeEmail;
         NewEmployee.position = userInput.employeePosition;
@@ -61,7 +65,11 @@ const ModalAddEmployee = (props) => {
         NewEmployee.stundenlohn = 10;
         NewEmployee.zielmtleuro = 450;
         NewEmployee.zielmtlh = 45;
-        if(!invalidName && !invalidEmail) {
+
+        if( namehasSpaceOrComma.test(userInput.employeeName) &&
+            emailhasAtChar.test(userInput.employeeEmail) &&
+            emailhasDotChar.test(userInput.employeeEmail)
+        ) {
             dispatch(thunkRegisterEmployee(NewEmployee));
             dispatch(resettingModal())
         }

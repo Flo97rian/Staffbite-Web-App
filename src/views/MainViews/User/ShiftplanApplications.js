@@ -26,13 +26,13 @@ import UserNavbar from "../../../components/Navbars/UserNavbar";
 import ShiftplanContainer from "../../../components/UserShiftplanContainer"
 import UserFooter from "../../../components/Footers/AdminFooter"
 import { userroutes } from "../../../routes";
-import { thunkFetchEmployeesPlans } from "../../../store/middleware/FetchPlansForEmployees";
 import { thunkFetchOrg } from "../../../store/middleware/FetchOrg";
 import { thunkFetchEmployee } from "../../../store/middleware/FetchUser";
 import { settingIsAdmin, settingIsEmployee } from "../../../reducers/currentUser";
 import { Auth } from "aws-amplify";
 import Loading from "../Default/Loading";
 import { useSelector, useDispatch } from "react-redux";
+import { thunkFetchShiftplansForEmployee } from "../../../store/middleware/FetchShiftplansForEmployee";
 
 
 const ShfitplanApplications = (props) => {
@@ -44,7 +44,7 @@ const ShfitplanApplications = (props) => {
   const location = useLocation();
   useEffect(() => {
     pageViewsTracking();
-    dispatch(thunkFetchEmployeesPlans());
+    dispatch(thunkFetchShiftplansForEmployee());
     dispatch(thunkFetchOrg());
     dispatch(thunkFetchEmployee());
     if(!isEmployee) {

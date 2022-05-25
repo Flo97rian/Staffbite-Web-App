@@ -15,7 +15,6 @@ import { useSelector, useDispatch } from "react-redux";
 const NewShiftplan = (props) => {
         const DisplayNewShiftplan = useSelector(state => state.display.displayNewShiftplan);
         if (DisplayNewShiftplan) {
-            console.log("display");
             return (
                 <>
                 <Card>

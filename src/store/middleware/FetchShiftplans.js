@@ -14,7 +14,6 @@ export function thunkFetchShiftplans () {
         dispatch(settingPlansFetching())
         return API.post(apiName, path, myInit);
         }).then(response => {
-            console.log(response);
             let plans = response.map(item => {
                 return {
                     id: item.SK["S"],

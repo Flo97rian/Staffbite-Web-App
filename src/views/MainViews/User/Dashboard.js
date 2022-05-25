@@ -27,12 +27,12 @@ import DashboardContainer from "../../../components/UserDashboardContainer"
 import UserFooter from "../../../components/Footers/AdminFooter"
 import { useSelector, useDispatch } from "react-redux";
 import { userroutes } from "../../../routes";
-import { thunkFetchEmployeesPlans } from "../../../store/middleware/FetchPlansForEmployees";
 import { thunkFetchOrg } from "../../../store/middleware/FetchOrg";
 import { thunkFetchEmployee } from "../../../store/middleware/FetchUser";
 import { Auth } from "aws-amplify";
 import { settingIsAdmin, settingIsEmployee } from "../../../reducers/currentUser";
 import Loading from "../Default/Loading";
+import { thunkFetchShiftplansForEmployee } from "../../../store/middleware/FetchShiftplansForEmployee";
 
 
 const UserDashboard = (props) => {
@@ -44,7 +44,7 @@ const UserDashboard = (props) => {
   const location = useLocation();
   useEffect(() => {
     pageViewsTracking()
-    dispatch(thunkFetchEmployeesPlans());
+    dispatch(thunkFetchShiftplansForEmployee());
     dispatch(thunkFetchOrg());
     dispatch(thunkFetchEmployee());
     if(!isEmployee) {
@@ -104,7 +104,7 @@ const UserDashboard = (props) => {
   return (
     <>
       <div>
-        <Container fluid className="p-0">
+        <Container fluid>
         <UserNavbar
           {...props}
           routes={userroutes}

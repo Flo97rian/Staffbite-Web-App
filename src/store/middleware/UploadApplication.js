@@ -1,9 +1,9 @@
 import { API, Auth } from "aws-amplify";
-import { thunkFetchEmployeesPlans } from "./FetchPlansForEmployees";
 import { API_HOSTNAME, UPLOAD_APPLICATION } from "../../constants/ApiConstants";
 import { resettingShiftplan } from "../../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
 import { resettingDisplayShiftplan } from "../../reducers/display";
+import { thunkFetchShiftplansForEmployee, thunkFetchShiftplansForEmployes } from "./FetchShiftplansForEmployee";
 
 export function thunkUploadApplication(Shiftplan) {
     return async function uploadApplication(dispatch, getState) {
@@ -20,7 +20,7 @@ export function thunkUploadApplication(Shiftplan) {
             return API.post(apiName, path, myInit)
             })
         .then(response => {
-            dispatch(thunkFetchEmployeesPlans());
+            dispatch(thunkFetchShiftplansForEmployee());
             dispatch({type: "stopFetchingEmployeePlans"});
             dispatch(resettingCurrentShiftplanIndex())
             dispatch(resettingDisplayShiftplan())

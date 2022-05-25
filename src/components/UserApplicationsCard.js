@@ -10,7 +10,6 @@ import {
  } from "reactstrap";
 const UserApplicationsCard = () => {
     const EmployeeApplications = useSelector(state => state.DB.employee?.bewerbungen[state?.Shiftplan?.zeitraum] || 0);
-    console.log(EmployeeApplications)
     return (
         <Link to="/user/bewerben" tag={Link}>
         <Card className="card-stats mb-4 mb-xl-0 card_bewerbungen">

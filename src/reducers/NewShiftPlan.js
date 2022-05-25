@@ -14,13 +14,13 @@ const initalShiftplan = [
   },
   {
     Wochentag: {ShiftName: "", ShiftStart: "", ShiftEnd: "", ShiftPosition: "", frei : true},
-    Montag: {frei : true, anzahl: 1},
-    Dienstag: {frei : true, anzahl: 1},
-    Mittwoch: {frei : true, anzahl: 1},
-    Donnerstag: {frei : true, anzahl: 1},
-    Freitag: {frei : true, anzahl: 1},
-    Samstag: {frei : true, anzahl: 1},
-    Sonntag: {frei : true, anzahl: 1},
+    Montag: {frei: true, anzahl:  0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Dienstag: {frei: true, anzahl: 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Mittwoch: {frei: true, anzahl: 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Donnerstag: {frei: true, anzahl: 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Freitag: {frei: true, anzahl: 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Samstag: {frei: true, anzahl: 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
+        Sonntag: {frei: true, anzahl: 0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""},
   },
   {
     Wochentag: "Summe",
@@ -53,6 +53,7 @@ const newShiftplanSlice = createSlice({
 
       //initalize Shiftplan
       state.id = "PLAN#Entwurf#" + uuidv4();
+      state.name = action.payload.shiftplanName;
       state.schichtentag = settingShiftsPerDay;
       const sampleShiftRow = initalShiftplan[1];
 

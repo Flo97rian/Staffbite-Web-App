@@ -58,15 +58,12 @@ const MetaSlice = createSlice({
     settingAccessPosition(state, action) {
       const position = action.payload.position;
       const newAccessValue = action.payload.accessValue;
-      console.log(position, newAccessValue);
       const currentAccessValues = state.accessPosition[position] || [];
-      console.log(currentAccessValues);
       state.accessPosition = {...state.accessPosition, [position]: [...currentAccessValues, newAccessValue]}
     },
     resettingAccessPosition(state, action) {
       const position = action.payload.position;
       const deleteAccessValue = action.payload.accessValue;
-      console.log(position, deleteAccessValue);
       state.accessPosition[position] = state.accessPosition[position].filter(acc => acc !== deleteAccessValue)
     }
   }

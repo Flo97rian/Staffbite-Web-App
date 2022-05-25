@@ -13,7 +13,7 @@ import { thunkFetchOrg } from "../store/middleware/FetchOrg";
 import store from "../store.js";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile.js";
-import { WARNING_MISSING_EMPLOYEE_DETAILS } from "../constants/Alerts.js";
+import { WARNING_INVALID_EMPLOYEE_EMAIL, WARNING_INVALID_EMPLOYEE_NAME, WARNING_MISSING_EMPLOYEE_DETAILS } from "../constants/Alerts.js";
 import InfoSidebar from "./Sidebar/InfoSidebar.js";
 import { useLocation } from "react-router-dom";
 import { ONBOARDING_TEAM_INVITE, ONBOARDING_TEAM_OVERVIEW } from "../constants/OnBoardingTexts.js";
@@ -22,6 +22,7 @@ import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan.js"
 import { settingModal } from "../reducers/modal.js";
 import { resettingDisplayShiftplan } from "../reducers/display.js";
 import { resettingShiftSlot } from "../reducers/ShiftSlot.js";
+import { resettingErrorMessages } from "../reducers/ErrorMessages.js";
 
 const AdminEmployeesContainer = (props) => {
   const dispatch = useDispatch();
@@ -56,6 +57,11 @@ const AdminEmployeesContainer = (props) => {
   const mainContent = useRef()
   const { run, steps } = state;
     
+  const ErrorMessages = {
+    missingNewEmployeeName: WARNING_INVALID_EMPLOYEE_NAME,
+    missingNewEmployeeEmail: WARNING_INVALID_EMPLOYEE_EMAIL,
+  }
+
   const selectEmployees = state => state.DB.employees;
   const selectMeta = state => state.Meta;
   const selectInfoSidebar = state => state.InfoSidebar;
@@ -63,6 +69,7 @@ const AdminEmployeesContainer = (props) => {
   const Employees = useSelector(selectEmployees);
   const Meta = useSelector(selectMeta);
   const SidebarInfo = useSelector(selectInfoSidebar);
+  const ErrorMessage = useSelector(state => Object.keys(state.ErrorMessages).find(key => state.ErrorMessages[key] === true));
 
   // Initiales laden der aktuellen Users
   useEffect(() => {
@@ -81,6 +88,12 @@ const AdminEmployeesContainer = (props) => {
     }, [Meta]);
 
     useEffect(() => {
+      console.log(ErrorMessage);
+      if(ErrorMessage) {
+        Notify("warning")
+      }
+    }, [ErrorMessage])
+    useEffect(() => {
     }, [Employees]);
   const handleOnboarding = () => {
     let team = Meta.onboarding.team;
@@ -98,7 +111,7 @@ const AdminEmployeesContainer = (props) => {
             {" "}
           </span>
           <span data-notify="message">
-            {title}
+            {ErrorMessages[ErrorMessage]}
           </span>
         </div>
       ),
@@ -107,7 +120,7 @@ const AdminEmployeesContainer = (props) => {
       autoDismiss: 7
     };
     notificationAlert.current.notificationAlert(options);
-    setErrMsg({...errMsg, [err]: !1})
+    dispatch(resettingErrorMessages())
 
   };
 
@@ -135,7 +148,6 @@ const AdminEmployeesContainer = (props) => {
             },
           }}
         />
-        { errMsg.InvalidInputForCreation ? Notify("warning", WARNING_MISSING_EMPLOYEE_DETAILS, "InvalidInputForCreation") : null}
         <div className="rna-wrapper">
           <NotificationAlert ref={notificationAlert} />
         </div>

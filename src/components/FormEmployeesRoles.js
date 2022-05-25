@@ -207,7 +207,6 @@ const FormEmployeesRoles = () => {
                                                 <input type="checkbox" checked={_.includes(_.get(CompanyAccess, [currentSelectedPosition], []), access.id, 0)}/>
                                                 <span className="custom-toggle-slider rounded-circle" data-label-off="Nein" data-label-on="Ja" 
                                                 onClick={() => {
-                                                    console.log(_.includes(_.get(CompanyAccess, [currentSelectedPosition], []), access.id, 0));
                                                     _.includes(_.get(CompanyAccess, [currentSelectedPosition], []), access.id, 0)
                                                     ?
                                                     dispatch(resettingAccessPosition({position: currentSelectedPosition, accessValue: access.id}))
