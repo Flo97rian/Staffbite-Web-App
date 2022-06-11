@@ -170,9 +170,7 @@ function getDays() {
 }
 
 async function updateTrial() {
-  let meta = Meta;
-  meta.tenantCategorie.trial = !1
-  await store.dispatch(thunkUpdateProfile(meta));
+  dispatch(thunkUpdateProfile({...Meta, tenantCategorie: {...Meta.tenantCategorie, trial: false}}));
 }
 function tourStarten() {
   dispatch(

@@ -14,7 +14,9 @@ export function thunkUploadShiftPlanToDB(shiftplan) {
           id: shiftplan.id,
           name: shiftplan.name,
           schichtentag: shiftplan.schichtentag,
-          zeitraum: shiftplan.zeitraum
+          zeitraum: shiftplan.zeitraum,
+          startOfWeek: shiftplan?.startOfWeek || '',
+          endOfWeek: shiftplan?.endOfWeek || '',
         },
         body: {
           plan: shiftplan.plan,

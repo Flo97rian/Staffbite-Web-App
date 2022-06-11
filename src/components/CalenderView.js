@@ -51,9 +51,15 @@ import _, { set } from "lodash";
 import store from "../store";
 import { useSelector, useDispatch } from "react-redux";
 import { weekdays } from "../constants/Weekdays";
-import { settingModal } from "../reducers/modal";
+import { resettingModal, settingModal } from "../reducers/modal";
 import { settingShiftSlot } from "../reducers/ShiftSlot";
-import { settingShiftplan } from "../reducers/Shiftplan";
+import { addCalendarShift, resettingShiftplan, settingCalenderShift, settingShiftDescription, settingShiftplan, settingShiftTime } from "../reducers/Shiftplan";
+import isSameWeek from "date-fns/isSameWeek";
+import { de } from 'date-fns/locale'
+import { resettingTemporaryCalendarWeekIndicator, settingCalendarFilter, settingRemindShiftplanID, settingTemporaryCalendarWeekIndicator, settingTemporaryEventId } from "../reducers/temporary";
+import { settingShiftStart, settingCompanyPositions } from "../reducers/userInput";
+import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
+import { thunkUpdateShiftPlan } from "../store/middleware/UpdateShiftPlan";
 const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
 const borderColor = ["border-success", "border-info", "border-light"]
 
@@ -65,6 +71,8 @@ function CalendarView(props) {
   const [alert, setAlert] = useState(null);
   const [modalAdd, setModalAdd] = useState(false);
   const [modalChange, setModalChange] = useState(false);
+  const [viewTimeGridWeek, setViewTimeGridWeek] = useState(true);
+  const [viewDayGridMonth, setViewDayGridMonth] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [radios, setRadios] = useState(null);
@@ -72,23 +80,32 @@ function CalendarView(props) {
   const [eventTitle, setEventTitle] = useState(null);
   const [headerTitle, setHeaderTitle] = useState(null);
   const [headerBadge, setHeaderBadge] = useState(null);
-  const [bussinessHoursStart, setBussinessHoursStart] = useState("00:00")
+  const [bussinessHoursStart, setBussinessHoursStart] = useState("12:00")
   const [eventDescription, setEventDescription] = useState(null);
   // eslint-disable-next-line
   const [event, setEvent] = useState(null);
   const [currentDate, setCurrentDate] = useState(null);
+  const [currentFilter, setCurrentFilter] = useState(false);
   const calendarRef = useRef(null);
   const dispatch = useDispatch()
+  const Meta = useSelector(state => state.Meta);
   const shiftplan = useSelector(state => state.Shiftplan)
   const Plans = useSelector(state => state.DB.plans);
+  const index = useSelector(state => state.shiftSlot.index);
+  const day = useSelector(state => state.shiftSlot.day);
+  const userInput = useSelector(state => state.userInput);
   const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
   const DisplayBasicLayout = useSelector(state => state.display.displayBasicLayout);
   const DisplayCalendarLayout = useSelector(state => state.display.displayCalendarLayout);
+  const ShiftplanChanged = useSelector(state => state.ShiftplanChanged.shiftplanChanged);
+  const currentEventId = useSelector(state => state.temporary.eventId);
+  const calendarFilter = useSelector(state => state.temporary.calendarFilter);
+  const calenderWeekIndicator = useSelector(state => state.temporary.calenderWeekIndicator);
 
   
   useEffect(() => {
-    setEventsData();
-    getPositions();
+    //setEventsData();
+    //getPositions();
     //getEarlyestShiftStart()
     // eslint-disable-next-line
   }, [])
@@ -101,29 +118,106 @@ function CalendarView(props) {
       setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
     }
   }, [calendarRef])
+
+  useEffect(() => {
+    if(viewTimeGridWeek && shiftplan.id === "") {
+      setCurrentShiftplan();
+    }
+  }, [viewTimeGridWeek, events])
+
+    useEffect(() => {
+      if(shiftplan.id !== "") {
+        getPositions();
+        getEarlyestShiftStart()
+      }
+    }, [shiftplan]);
+
+    useEffect(() => {
+      if (_.isObject(Meta)) {
+        dispatch(settingCompanyPositions([...Meta.schichten]))
+      }
+    }, [Meta]);
+
+    useEffect(() => {
+      if(viewDayGridMonth) {
+        console.log("showDayGirdMonth");
+      }
+      if(shiftplan.id !== "") {
+        dispatch(resettingShiftplan());
+        setPositions([]);
+      }
+    }, [viewTimeGridWeek])
+
+    useEffect(() => {
+      if(shiftplan.id !== "") {
+        getEarlyestShiftStart()
+      }
+    }, [currentFilter])
+
+    useEffect(() => {
+      if(ShiftplanChanged) {
+        let calendarApi = calendarRef.current.getApi();
+        dispatch(settingTemporaryCalendarWeekIndicator(calendarApi.getDate().toISOString()))
+        dispatch(settingRemindShiftplanID(shiftplan.id));
+        dispatch(thunkUpdateShiftPlan(shiftplan));
+      }
+    }, [ShiftplanChanged])
+
   useEffect(() => {
     setAllEventsData();
-    //setEventsData();
-    getPositions();
     //getEarlyestShiftStart()
     // eslint-disable-next-line
   }, [Plans])
-  const handleCalendarShiftChanges = () => {
-    //const copyShiftplan = new ShiftPlan({...Shiftplan});
-    //copyShiftplan.updateCalendarShift(userInput, ShiftSlot, DragAndDropRef);
-    //const shiftplan = copyShiftplan.getAllPlanDetails()
-    //dispatch(settingShiftplan(shiftplan))
-    //dispatch(resettingModal())
-  }
+
+  useEffect(() => {
+    setEventsData();
+    //getEarlyestShiftStart()
+    // eslint-disable-next-line
+  }, [shiftplan])
 
 
-  const handleCalendarAddShift = () => {
-    //const copyShiftplan = new ShiftPlan({...Shiftplan});
-    //copyShiftplan.addCalendarShift(userInput, ShiftSlot);
-    //const shiftplan = copyShiftplan.getAllPlanDetails();
-    //dispatch(settingShiftplan(shiftplan))
-    //dispatch(resettingModal())
+  const setCurrentShiftplan = () => {
+    let calendarApi = calendarRef.current.getApi();
+    const dateOfSelectedWeek = calendarApi.getDate();
+    const filteredEvent = events.find(event => isSameWeek(event.start, dateOfSelectedWeek, {locale: de, weekStartsOn: 1}))
+    if(filteredEvent) {
+      const shiftplanIndex = Plans.findIndex(plan => plan.id === filteredEvent.shiftplanId);
+      if(shiftplanIndex !== -1) {
+        dispatch(settingShiftplan(Plans[shiftplanIndex]));  
+        dispatch(settingRemindShiftplanID(Plans[shiftplanIndex].id));
+      }
+    }
   }
+  const filterCurrentShiftplanFromEvents = () => {
+    let newEvents = events;
+    if(newEvents.length) {
+      newEvents = events.filter(event => event.shiftplanId !== shiftplan.id);
+    }
+    return newEvents;
+  };
+  const handleUpdateShiftTime = (eventInfo) => {
+    const index = eventInfo?.event?._def?.extendedProps?.row || false;
+    const day = eventInfo?.event?._def?.extendedProps?.day || false;
+    let startDeltaInMilliseconds = eventInfo?.startDelta?.milliseconds || 0;
+    let endDeltaInMilliseconds = eventInfo?.endDelta?.milliseconds || 0;
+    //determin if just ShiftEnd changed or ShiftStart and ShiftEnd
+    if (startDeltaInMilliseconds === 0 && endDeltaInMilliseconds === 0) {
+      startDeltaInMilliseconds = eventInfo?.delta?.milliseconds || 0;
+      endDeltaInMilliseconds = eventInfo?.delta?.milliseconds || 0;
+    }
+    const shiftChangeInDays = eventInfo?.delta?.days || 0;
+    dispatch(settingShiftTime({
+      index: index,
+      day: day, 
+      startDeltaInMilliseconds: startDeltaInMilliseconds,
+      endDeltaInMilliseconds: endDeltaInMilliseconds,
+      shiftChangeInDays: shiftChangeInDays
+
+    }
+    ))
+    dispatch(settingShiftplanChanged());
+  };
+
     const getEarlyestShiftStart = () => {
       const plan = _.get(shiftplan, "plan", [])
       let currentEarlyestStartSplit = bussinessHoursStart.split(':')
@@ -136,6 +230,7 @@ function CalendarView(props) {
                   let updatedStartHour = String(Number(targetsShiftStart[0]) - 2 < 0 ? 0 : Number(targetsShiftStart[0]) - 2)
                   currentEarlyestStart = updatedStartHour + ":" + targetsShiftStart[1];
                   currentEarlyestStartSplit = currentEarlyestStart.split(':')
+                  console.log(currentEarlyestStart);
               }
           }
       })
@@ -157,7 +252,11 @@ function CalendarView(props) {
     };
  
 
-    const setAllEventsData = (filter = false) => {
+    const setAllEventsData = (nextFilter = undefined) => {
+      if(nextFilter !== undefined) {
+        dispatch(settingCalendarFilter(nextFilter));
+      }
+      const filter = nextFilter !== undefined ? nextFilter : calendarFilter;
       let eventsData = [];
       let memorizeIDs = [];
       const plansPublished = Plans.filter(shiftplan => {
@@ -239,176 +338,110 @@ function CalendarView(props) {
       })
       setEvents(eventsData);
     }
-    const setEventsData = (filter = !1) => {
-        let eventsData = [];
-        const plan = _.get(shiftplan, "plan", [])
-        let index = 0
-        _.forEach(plan, function (row, rowIndex) {
-            if (filter === false || row.Wochentag.ShiftPosition === filter) {
-                _.forIn(row, function (value, key, row) {
-                    if(_.isObject(value) && key !== "Wochentag" && value.frei !== false) {
-                        const splittedDate = plan[0][key].split(".");
-                        const splittedStartTime = row.Wochentag.ShiftStart.split(":");
-                        const splttedEndTime = _.isBoolean(row.Wochentag.ShiftEnd) ? ("24:00").split(":") : row.Wochentag.ShiftEnd.split(":")
-                        const startTime = new Date(splittedDate[2], Number(splittedDate[1]) - 1, splittedDate[0], splittedStartTime[0], splittedStartTime[1])
-                        const endTime = new Date(splittedDate[2], Number(splittedDate[1] - 1), splittedDate[0], splttedEndTime[0], splttedEndTime[1])
-                        let background = "";
-                        const setApplicantsLenght = _.size(_.get(value, "setApplicants", {}))
-                        if(setApplicantsLenght === value.anzahl)
-                          background = "#2dce89";
-                        if(setApplicantsLenght > value.anzahl)
-                          background = "#f5365c";
-                        if(setApplicantsLenght < value.anzahl)
-                          background = "#fb6340"
-                        eventsData.push({
-                            id: index,
-                            title: row.Wochentag.ShiftName,
-                            start: startTime,
-                            end: endTime,
-                            filling: _.size(_.get(value, "setApplicants", {})) + "/" + value.anzahl + " Mitarbeiter",
-                            description: "gello",
-                            display: "block",
-                            backgroundColor: background,
-                            borderColor: background,
-                            textColor: "dark",
-                            notice: _.get(value, "notice", ""),
-                            applicants: _.get(value, "applicants", {}),
-                            setApplicants: _.get(value, "setApplicants", {}),
-                            row: rowIndex,
-                            day: key
-                    })
-                    index +=1
-                    }
-                })
-            }
-        });
-        setEvents(eventsData);
+
+    const setEventsData = (nextFilter = undefined) => {
+      if(nextFilter !== undefined) {
+        dispatch(settingCalendarFilter(nextFilter));
+      }
+      const filter = nextFilter !== undefined ? nextFilter : calendarFilter;
+      let events = filterCurrentShiftplanFromEvents();
+      if(events.length) {
+      const shiftplanIdType = shiftplan.id.split('#')[1];
+      setHeaderBadge(shiftplanIdType);
+      const lastId = events[events.length - 1].id;
+      let eventsData = [];
+      const plan = _.get(shiftplan, "plan", [])
+      let index = 0
+      _.forEach(plan, function (row, rowIndex) {
+          if (filter === false || row.Wochentag.ShiftPosition === filter) {
+              _.forIn(row, function (value, key, row) {
+                  if(_.isObject(value) && key !== "Wochentag" && value.frei !== false) {
+                      const splittedDate = plan[0][key].split(".");
+                      const splittedStartTime = row.Wochentag.ShiftStart.split(":");
+                      const splttedEndTime = _.isBoolean(row.Wochentag.ShiftEnd) ? ("24:00").split(":") : row.Wochentag.ShiftEnd.split(":")
+                      const startTime = new Date(splittedDate[2], Number(splittedDate[1]) - 1, splittedDate[0], splittedStartTime[0], splittedStartTime[1])
+                      const endTime = new Date(splittedDate[2], Number(splittedDate[1] - 1), splittedDate[0], splttedEndTime[0], splttedEndTime[1])
+                      let background = "";
+                      const setApplicantsLenght = _.size(_.get(value, "setApplicants", {}))
+                      if(setApplicantsLenght === value.anzahl)
+                        background = "#2dce89";
+                      if(setApplicantsLenght > value.anzahl)
+                        background = "#f5365c";
+                      if(setApplicantsLenght < value.anzahl)
+                        background = "#fb6340"
+                      eventsData.push({
+                          id: lastId + index + 1,
+                          title: row.Wochentag.ShiftName,
+                          start: startTime,
+                          end: endTime,
+                          filling: _.size(_.get(value, "setApplicants", {})) + "/" + value.anzahl + " Mitarbeiter",
+                          description: "gello",
+                          display: "block",
+                          backgroundColor: background,
+                          borderColor: background,
+                          textColor: "dark",
+                          notice: _.get(value, "notice", ""),
+                          applicants: _.get(value, "applicants", {}),
+                          setApplicants: _.get(value, "setApplicants", {}),
+                          shiftplanId: shiftplan.id,
+                          row: rowIndex,
+                          day: key
+                  })
+                  index +=1
+                  }
+              })
+          }
+      });
+      setEvents([...events, ...eventsData]);
     }
+  }
+  const selectDate = (info) => {
+    console.log(info);
+    console.log(viewDayGridMonth);
+    if(viewDayGridMonth) {
+      console.log(info);
+    }
+  }
   const changeView = (newView) => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.changeView(newView);
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
+    setHeaderBadge(null);
+    if(newView === "timeGridWeek") {
+      console.log(calendarApi);
+      setViewTimeGridWeek(true);
+      setViewDayGridMonth(false);
+    }
+    if(newView === "dayGridMonth") {
+      console.log("setting");
+      setViewTimeGridWeek(false);
+      setViewDayGridMonth(true);
+    }
   };
 
   const changeToToday = () => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.changeView("timeGridWeek", new Date().toISOString());
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
+    dispatch(resettingTemporaryCalendarWeekIndicator());
+    setViewTimeGridWeek(true);
+    setViewDayGridMonth(false);
   };
 
   const changeToNext = () => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.next();
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
+    setCurrentShiftplan();
+    setHeaderBadge(null);
   };
 
   const changeToPrev = () => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.prev();
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
-  };
-  const addNewEvent = () => {
-    var newEvents = events;
-    newEvents.push({
-      title: eventTitle,
-      start: startDate,
-      end: endDate,
-      className: radios,
-      id: events[events.length - 1] + 1,
-    });
-    calendar.addEvent({
-      title: eventTitle,
-      start: startDate,
-      end: endDate,
-      className: radios,
-      id: events[events.length - 1] + 1,
-    });
-    setModalAdd(false);
-    setEvents(newEvents);
-    setStartDate(undefined);
-    setEndDate(undefined);
-    setRadios("bg-info");
-    setEventTitle(undefined);
-  };
-  const changeEvent = () => {
-    var newEvents = events.map((prop, key) => {
-      if (prop.id + "" === eventId + "") {
-        setEvent(undefined);
-        calendar.getEventById(eventId).remove();
-        let saveNewEvent = {
-          ...prop,
-          title: eventTitle,
-          className: radios,
-          description: eventDescription,
-        };
-        calendar.addEvent(saveNewEvent);
-        return {
-          ...prop,
-          title: eventTitle,
-          className: radios,
-          description: eventDescription,
-        };
-      } else {
-        return prop;
-      }
-    });
-    setModalChange(false);
-    setEvents(newEvents);
-    setRadios("bg-info");
-    setEventTitle(undefined);
-    setEventDescription(undefined);
-    setEventId(undefined);
-    setEvent(undefined);
-  };
-  const deleteEventSweetAlert = () => {
-    setAlert(
-      <ReactBSAlert
-        warning
-        style={{ display: "block", marginTop: "-100px" }}
-        title="Bist du dir sicher?"
-        onConfirm={() => {
-          setAlert(false);
-          setRadios("bg-info");
-          setEventTitle(undefined);
-          setEventDescription(undefined);
-          setEventId(undefined);
-        }}
-        onCancel={() => deleteEvent()}
-        confirmBtnCssClass="btn-secondary"
-        cancelBtnBsStyle="danger"
-        confirmBtnText="Cancel"
-        cancelBtnText="Löschen"
-        showCancel
-        btnSize=""
-      >
-        Diese Änderung kannst du nicht rückgängig machen!
-      </ReactBSAlert>
-    );
-  };
-  const deleteEvent = () => {
-    var newEvents = events.filter((prop) => prop.id + "" !== eventId);
-    setEvent(undefined);
-    setAlert(
-      <ReactBSAlert
-        success
-        style={{ display: "block", marginTop: "-100px" }}
-        title="Success"
-        onConfirm={() => setAlert(null)}
-        onCancel={() => setAlert(null)}
-        confirmBtnBsStyle="primary"
-        confirmBtnText="Ok"
-        btnSize=""
-      >
-        Erfolgreich!
-      </ReactBSAlert>
-    );
-    setModalChange(false);
-    setEvents(newEvents);
-    setRadios("bg-info");
-    setEventTitle(undefined);
-    setEventDescription(undefined);
-    setEventId(undefined);
-    setEvent(undefined);
+    setCurrentShiftplan();
+    setHeaderBadge(null);
   };
 
   const CalendarTitle = () => {
@@ -418,22 +451,32 @@ function CalendarView(props) {
   }
 
   const StatusBadge = () => {
-    if(headerBadge === "live") {
-      return <Badge color="success">Live</Badge>
+    if(viewTimeGridWeek) {
+      if(headerBadge === "Veröffentlicht") {
+        return <Badge color="success">Live</Badge>
+      } else if (headerBadge === "Review") {
+        return <Badge color="primary">Review</Badge>
+      } else if (headerBadge === "Freigeben") {
+        return <Badge color="warning">In Bewerbung</Badge>
+      } else if (headerBadge === "Entwurf") {
+        return <Badge color="primary">Entwurf</Badge>
+      } else {
+        return null;
+      }
     }
     return null;
   }
   const renderEventContent = (eventInfo) => {
-    if(_.isObject(shiftplan)) {
+    if(shiftplan.id !== "") {
       const Shift = _.get(shiftplan, "plan[" + eventInfo.event.extendedProps.row + "][" + eventInfo.event.extendedProps.day + "]")
       return (
         <Row className="p-1">
             <Col>
              <b>{eventInfo.timeText}{" "}<i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-paperclip ml-2"></i></b>
              <br/>
-             <b>{eventInfo.event.title}</b>
-             <br/>
              <b>{eventInfo.event.extendedProps.filling}</b>
+             <br/>
+             <b>{eventInfo.event.title}</b>
            </Col>
         </Row>
     )
@@ -543,9 +586,10 @@ function CalendarView(props) {
                         className="calendar"
                         data-toggle="calendar"
                         id="calendar"
+                        initialDate={calenderWeekIndicator ? new Date(calenderWeekIndicator) : new Date()}
                         ref={calendarRef}
                         plugins={[interaction, dayGridPlugin, timeGridPlugin]}
-                        slotDuration="01:00:00"
+                        slotDuration="00:30:00"
                         allDaySlot={false}
                         initialView="timeGridWeek"
                         firstDay={1}
@@ -571,8 +615,8 @@ function CalendarView(props) {
                             meridiem: 'long'
                         }}
                         slotLabelClassNames={["px-3"]}
-                        eventResize={(info) => props.updateCalendarShiftTime(info)}
-                        eventDrop={(info) => props.updateCalendarShiftTime(info)}
+                        eventResize={(info) => handleUpdateShiftTime(info)}
+                        eventDrop={(info) => handleUpdateShiftTime(info)}
                         selectable={true}
                         editable={true}
                         locale="de"
@@ -581,26 +625,31 @@ function CalendarView(props) {
                         eventDisplay="block"
                         // Add new event
                         select={(info) => {
-                            let calendarApi = calendarRef.current.getApi();
-                            if(calendarApi.currentDataManager.state.currentViewType === "dayGridMonth") {
-                              calendarApi.changeView("timeGridWeek")
-                            } else {
+                            console.log("add");
+
+                            if(viewDayGridMonth) {
+                              changeView("timeGridWeek");
+                            } 
+
+                            if(viewTimeGridWeek) {
                             let getStartTime = String(info.start.getHours()); 
                             const startTime = getStartTime.length === 1 ? "0" + getStartTime + ":00" : getStartTime + ":00";
-                            props.handleAddEventSetStart(startTime)
                             let getDay = info.start.getDay();
-                            const day = weekdays[getDay];
+                            const day = weekdays[getDay - 1];
+                            dispatch(settingShiftStart(startTime));
                             dispatch(settingShiftSlot({day: day}))
                             dispatch(settingModal("addCalendarShift"))
                             }
                         }}
+                        dateClick={(info) => selectDate(info)}
                         // Edit calendar event action
                         eventClick={({ event }) => {
-                            let calendarApi = calendarRef.current.getApi();
-                            if(calendarApi.currentDataManager.state.currentViewType === "dayGridMonth") {
-                              calendarApi.changeView("timeGridWeek")
+                            if(viewDayGridMonth) {
+                              changeView("timeGridWeek");
                             }
-                            if(calendarApi.currentDataManager.state.currentViewType === "timeGridWeek") {
+
+                            if(viewTimeGridWeek) {
+                              dispatch(settingTemporaryEventId(event._def.publicId))
                               const shiftplanIndex = Plans.findIndex(shiftplan => shiftplan.id === event.extendedProps.shiftplanId);
                               dispatch(settingShiftplan(Plans[shiftplanIndex]))
                               dispatch(settingShiftSlot({index: event.extendedProps.row, day: event.extendedProps.day}))

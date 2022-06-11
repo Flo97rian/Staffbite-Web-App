@@ -23,6 +23,8 @@ export function thunkFetchAllShiftplansForEmployee() {
                             plan: JSON.parse(item.data["S"]),
                             schichtentag: item.schichtentag["N"],
                             zeitraum: item.zeitraum["S"],
+                            startOfWeek: item?.startOfWeek?.S || '',
+                            endOfWeek: item?.endOfWeek?.S || '',
                             tauschanfrage: JSON.parse(item.tauschanfrage["S"])
                         };
                     });

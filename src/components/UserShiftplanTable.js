@@ -12,13 +12,15 @@ from "reactstrap";
 import SchichtplanElementPublished from "./UserShiftplanElementPublish";
 import { Badge } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { de } from 'date-fns/locale';
+import format from "date-fns/format";
 
 
 const UserShiftplanTable = (props) => {
     const Shiftplan = useSelector(state => state.Shiftplan);
     const DisplayShiftplan = useSelector(state => state.display.displayShiftplan)
-    const Montag = Shiftplan.zeitraum.split(" - ")[0]
-    const Sonntag = Shiftplan.zeitraum.split(" - ")[1]
+    const Montag = Shiftplan.startOfWeek ?  format(Shiftplan.startOfWeek, 'do.MMMM.yyyy', { locale: de, weekStartsOn: 1}) : Shiftplan.zeitraum.split(" - ")[0];
+    const Sonntag = Shiftplan.startOfWeek ?  format(Shiftplan.startOfWeek, 'do.MMMM.yyyy', { locale: de, weekStartsOn: 1}) :  Shiftplan.zeitraum.split(" - ")[1]
     const ShiftplanLength = Shiftplan.plan.length;
 
     if(DisplayShiftplan) {

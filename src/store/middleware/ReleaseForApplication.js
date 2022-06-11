@@ -1,7 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { v4 as uuidv4 } from 'uuid';
 import { thunkFetchShiftplans } from "./FetchShiftplans";
-import moment from "moment";
 import { API_HOSTNAME, RELEASE_SHIFTPLAN_FOR_APPLICATION } from "../../constants/ApiConstants";
 import { resettingShiftplan } from "../../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
@@ -10,6 +9,13 @@ import { settingShiftplanReleased } from "../../reducers/SuccessMessages";
 import { resettingProcessing, settingProcessingFulfilledRelease, settingProcessingRejectedRelease, settingProcessingStartRelease } from "../../reducers/processing";
 import { settingRemindShiftplanID } from "../../reducers/temporary";
 import { resettingDatePicker } from "../../reducers/DatePicker";
+import addDays from "date-fns/addDays";
+import toDate from "date-fns/toDate";
+import parse from "date-fns/parse";
+import parseISO from "date-fns/parseISO";
+import getDate from "date-fns/getDate";
+import getMonth from "date-fns/getMonth";
+import getYear from 'date-fns/getYear';
 
 export function thunkReleaseForApplication() {
     return async function releaseForApplication(dispatch, getState) {
@@ -18,7 +24,18 @@ export function thunkReleaseForApplication() {
         let id = state.Shiftplan.id;
         const uuid = uuidv4()
         let name = state.userInput.shiftplanName !== Shiftplan.name ? state.userInput.shiftplanName : Shiftplan.name;
-        let newDate = state.date.start ? state.date.start : !1;
+
+        let dateKeys = Object.keys(state.Shiftplan.plan[0]);
+        let dateRow = {};
+        dateKeys.shift();
+        dateKeys.forEach((day, index) => {
+            if(state?.date?.start) {
+                let newDate = addDays(parseISO(state.date.start), index);
+                dateRow[day] = getDate(newDate) + '.' + (getMonth(newDate) + 1) + '.' + getYear(newDate);
+            }
+        });
+        dateRow["Wochentag"] = "Datum";
+        let newDate = state.date.start ? dateRow : !1;
         let newId = "PLAN#Freigeben#" + uuid
         dispatch(settingProcessingStartRelease());
         dispatch(settingRemindShiftplanID(newId));

@@ -30,59 +30,15 @@ exports.handler = async (event, context, callback) => {
     await addNews(body, meta, name);
     console.log(body)
     console.log(name, body.name);
+    
     let newShiftplan = null;
-        let shiftplan = JSON.parse(plan.data["S"])
-        let keys = Object.keys(shiftplan[0]);
-        let createDates = {}
-        createDates["Wochentag"] = "Datum";
-        keys.shift()
-        if (shiftplan[0].Wochentag === "Wochentag") {
-            if(body.newDate !== !1) {
-                keys.forEach((key, index) => {
-                    let splittedDate = body.newDate.split('.');
-                    var startDate = new Date(splittedDate[2], splittedDate[1], splittedDate[0])
-                    var nextDate = new Date(splittedDate[2], splittedDate[1], splittedDate[0])
-                    console.log(body.newDate, body.newDate, startDate)
-                    nextDate.setDate(startDate.getDate() + index);
-                    var day = nextDate.getUTCDate()
-                    var month = Number(nextDate.getUTCMonth());
-                    var year = nextDate.getUTCFullYear()
-                    console.log(day, month, year)
-                    createDates[key] = day + "." + month + "." + year;
-                })
-            } else {
-                keys.forEach((key, index) => {
-                    var startDate = new Date("2021-01-01T00:00:00.000Z")
-                    var nextDate = new Date("2021-01-01T00:00:00.000Z")
-                    nextDate.setDate(startDate.getDate() + index);
-                    var day = nextDate.getUTCDate()
-                    var month = Number(nextDate.getUTCMonth());
-                    var year = nextDate.getUTCFullYear()
-                    console.log(day, month, year)
-                    createDates[key] = day + "." + month + "." + year;
-                })
-            }
-            shiftplan.unshift(createDates)
-        } else {
-             if(body.newDate !== !1) {
-                keys.forEach((key, index) => {
-                    let splittedDate = body.newDate.split('.');
-                    var startDate = new Date(splittedDate[2], splittedDate[1], splittedDate[0])
-                    var nextDate = new Date(splittedDate[2], splittedDate[1], splittedDate[0])
-                    console.log(body.newDate, body.newDate, startDate)
-                    nextDate.setDate(startDate.getDate() + index);
-                    var day = nextDate.getUTCDate()
-                    var month = Number(nextDate.getUTCMonth());
-                    var year = nextDate.getUTCFullYear()
-                    console.log(day, month, year)
-                    createDates[key] = day + "." + month + "." + year;
-                })
-                shiftplan[0] = createDates;
-             }
-        }
-        plan.SK["S"] = "PLAN#Freigeben#" + body.uuid;
-        plan.zeitraum["S"] = shiftplan[0]["Montag"] + " - " + shiftplan[0]["Sonntag"]
-        newShiftplan = shiftplan;
+    let shiftplan = JSON.parse(plan.data["S"])
+    if(body.newDate !== false) {
+        shiftplan.unshift(body.newDate);
+    }
+    plan.SK["S"] = "PLAN#Freigeben#" + body.uuid;
+    plan.zeitraum["S"] = shiftplan[0]["Montag"] + " - " + shiftplan[0]["Sonntag"]
+    newShiftplan = shiftplan;
     
     console.log(plan.data["S"])
           var params = {
@@ -130,15 +86,8 @@ exports.handler = async (event, context, callback) => {
     };
     if (data !== null) {
         let employees = await getEmployees(user)
-        console.log(employees);
-        console.log("getting tokens");
         let [tokensIOS, tokensAndroid] = await getTokens(employees);
-        console.log("gottokens");
-        console.log("token", tokensIOS)
-            console.log("token", tokensAndroid)
         if(tokensIOS.length > 0 || tokensAndroid.length > 0) {
-            console.log("token", tokensIOS)
-            console.log("token", tokensAndroid)
             console.log("send push");
             await SendMessage(tokensIOS, tokensAndroid);
     }
@@ -437,15 +386,10 @@ async function SendMessage(tokensIOS, tokensAndroid) {
   };
 
   // Try to send the message.
-  console.log(messageRequestIOS);
-  console.log(messageRequestAndroid);
-  console.log(tokensIOS);
-  console.log(tokensAndroid);
   if(tokensIOS.length > 0) {
   try {
       let response = await pinpoint.sendMessages(paramsIOS).promise();
       console.log("doneIOS")
-      console.log(response);
   } catch(er) {
    console.log(er)   
   }
@@ -454,13 +398,8 @@ async function SendMessage(tokensIOS, tokensAndroid) {
     try {
       let response = await pinpoint.sendMessages(paramsAndroid).promise();
       console.log("doneAndroid")
-      console.log(response);
   } catch(er) {
    console.log(er)   
   }
   }
 }
-
-
-
-

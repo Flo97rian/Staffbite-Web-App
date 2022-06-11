@@ -67,7 +67,7 @@ function InputString (props) {
             <InputGroup>
             <Input 
                 type="text"
-                invalid={((props.value === props.placeholder && props.placeholder === "Max Mustermann") || _.isEmpty(props.value) || props.value.length >= 30)}
+                invalid={(((props.value === props.placeholder && props.placeholder === "") || props.value.length >= 30))}
                 label={props.label}
                 name={props.name}
                 disabled={props.disabled}
@@ -77,9 +77,8 @@ function InputString (props) {
                 </Input>
                     {getEditAppends()}
             </InputGroup>
-            <small className="text-danger" invalid={((props.value === props.placeholder && props.placeholder === "Max Mustermann") || _.isEmpty(props.value) || props.value.length >= 30)}>
-                        {(props.value === props.placeholder && props.placeholder === "Max Mustermann") ? "Wähle bitte einen anderen Namen." : ""}
-                        {_.isEmpty(props.value) ? "Wähle bitte einen Namen." : ""}
+            <small className="text-danger" invalid={((props.value === props.placeholder && props.placeholder === "") || props.value.length >= 30)}>
+                        {(props.value === props.placeholder && props.placeholder === "") ? "Wähle bitte einen anderen Namen." : ""}
                         { props.value.length >= 30 ? "Wähle bitte einen kürzeren Namen." : ""}
                     </small>
         </FormGroup>

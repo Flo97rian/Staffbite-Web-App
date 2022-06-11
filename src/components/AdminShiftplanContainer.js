@@ -22,7 +22,7 @@ import SchichtplanImport from "./FormImportedShiftplans";
 import store from "../store";
 import { thunkPublishShiftPlan } from "../store/middleware/PublishShiftPlan";
 import { thunkFetchEmployees } from "../store/middleware/FetchEmployees";
-import { SUCCESS_FILLING_DONE, SUCCESS_RELEASE_DONE, WARNING_MISSING_SHIFTPLAN_DATE, WARNING_MISSING_SHIFTPLAN_NAME, WARNING_MISSING_SHIFT_DETAILS, WARNING_MISSING_SHIFT_POSITION } from "../constants/Alerts";
+import { SUCCESS_FILLING_DONE, SUCCESS_RELEASE_DONE, SUCCESS_SEND_REMINDER_FOR_APPLICATION, WARNING_MISSING_SHIFTPLAN_DATE, WARNING_MISSING_SHIFTPLAN_NAME, WARNING_MISSING_SHIFT_DETAILS, WARNING_MISSING_SHIFT_POSITION } from "../constants/Alerts";
 import ImportSchichtplanTabelle from "./ShiftplansTable";
 import NeuerSchichtplanTabelle from "./NewShiftplan";
 import InfoSidebar from "./Sidebar/InfoSidebar";
@@ -142,6 +142,7 @@ const ShiftplanContainer = () => {
     shiftplanReleased: SUCCESS_RELEASE_DONE,
     shiftplanPublished: false,
     shiftplanFilled: SUCCESS_FILLING_DONE,
+    sendReminderForApplication: SUCCESS_SEND_REMINDER_FOR_APPLICATION,
     employeeChanged: false,
   }
 
@@ -341,7 +342,11 @@ const ShiftplanContainer = () => {
       show={ProcessingShowRejected}
       type='error'
       title="Ein Fehler ist aufgetreten."
-      showConfirm={false}
+      confirmBtnText="Schließen"
+      confirmBtnCssClass="danger"
+      onConfirm={() => {
+        dispatch(resettingErrorMessages());
+      }}
      >
       <Row>
         <Col>

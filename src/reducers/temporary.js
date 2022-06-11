@@ -6,6 +6,9 @@ const initialState = {
     employeeID: "",
     deleteShiftplanId: "",
     shiftplanId: "",
+    eventId: "",
+    calendarFilter: false,
+    calenderWeekIndicator: false,
 }
 
 const temporarySlice = createSlice({
@@ -29,6 +32,24 @@ const temporarySlice = createSlice({
         },
         resettingRemindShiftplanID(state) {
             state.shiftplanId = initialState.shiftplanId;
+        },
+        settingTemporaryEventId(state, action) {
+            state.eventId = action.payload;
+        },
+        resettingTemporaryEventId(state) {
+            state.eventId = initialState.eventId;
+        },
+        settingCalendarFilter(state, action) {
+            state.calendarFilter = action.payload;
+        },
+        resettingCalendarFilter(state) {
+            state.calendarFilter = false;
+        },
+        settingTemporaryCalendarWeekIndicator(state, action) {
+            state.calenderWeekIndicator = action.payload;
+        },
+        resettingTemporaryCalendarWeekIndicator(state, action) {
+            state.calenderWeekIndicator = false;
         }
     }
 })
@@ -39,7 +60,13 @@ export const {
     settingDeleteShiftplanID,
     resettingDeleteShiftplanID,
     settingRemindShiftplanID,
-    resettingRemindShiftplanID
+    resettingRemindShiftplanID,
+    settingTemporaryEventId,
+    resettingTemporaryEventId,
+    settingCalendarFilter,
+    resettingCalendarFilter,
+    settingTemporaryCalendarWeekIndicator,
+    resettingTemporaryCalendarWeekIndicator
 } = temporarySlice.actions;
 
 export default temporarySlice.reducer;

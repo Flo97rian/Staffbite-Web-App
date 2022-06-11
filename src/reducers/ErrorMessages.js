@@ -12,6 +12,9 @@ const initialState = {
   missingNewEmployeeName: false,
   missingNewEmployeeEmail: false,
   missingNewEmployeePosition: false,
+  authExpiredCodeException: false,
+  authCodeMismatchException: false,
+  authNotAuthorizedException: false,
 }
 
 const errorMessageSlice = createSlice({

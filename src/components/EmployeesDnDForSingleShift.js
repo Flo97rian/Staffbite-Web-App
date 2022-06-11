@@ -77,16 +77,16 @@ const move = (source, destination, droppableSource, droppableDestination, empId,
   const destClone = Array.from(destination);
   empId = empId.substring(1)
   if(employees && employees[empId]) {
-  if (destClone[0].id.length === 1) {
-    const employee = sourceClone[droppableSource.index];
-    const newid = droppableDestination.droppableId + empId;
-    destClone.splice(0,1, {id: newid, content: employee.content});
-  } else {
-    const employee = sourceClone[droppableSource.index];
-    const newid = droppableDestination.droppableId + empId;
-    destClone.splice(droppableDestination.index ,0, {id: newid, content: employee.content});
-  }
-  store.dispatch(settingEmployeeDummyShift(empId))
+    if (destClone[0].id.length === 1) {
+      const employee = sourceClone[droppableSource.index];
+      const newid = droppableDestination.droppableId + empId;
+      destClone.splice(0,1, {id: newid, content: employee.content});
+    } else {
+      const employee = sourceClone[droppableSource.index];
+      const newid = droppableDestination.droppableId + empId;
+      destClone.splice(droppableDestination.index ,0, {id: newid, content: employee.content});
+    }
+    store.dispatch(settingEmployeeDummyShift(empId))
   }
   const result = {};
   result[droppableSource.droppableId] = sourceClone;
@@ -161,7 +161,6 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
   const numberOfEmployees = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].anzahl);
   const [state, setState] = useState([getEmployees(employees, 0, ShiftPosition), getItems(validateHasAfterPublish(isPublished, applicants, applicantsAfterPublish), 1), getItems(setApplicants, 2)]);
   const [Employees, setEmployees] = useState(employees)
-
   useImperativeHandle(ref, () => (state[2]), [state]);
 
   useEffect(() => {

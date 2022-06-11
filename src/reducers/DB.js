@@ -70,6 +70,7 @@ const DBSlice = createSlice({
     },
     settingEmployeeDummyShift(state, action) {
       const employeeId = action.payload;
+      console.log(state.employees[employeeId]);
       if(Object.keys(state.employees[employeeId]).includes("dummyshifts")) {
         state.employees[employeeId].dummyshifts += 1;
       }

@@ -27,6 +27,9 @@ import { resettingDisplayShiftplan } from "../reducers/display";
 import { resettingShiftSlot } from "../reducers/ShiftSlot";
 import { isThisWeek } from "date-fns";
 import { resettingErrorMessages } from "../reducers/ErrorMessages";
+import differenceInDays from 'date-fns/differenceInDays';
+import toDate from "date-fns/toDate";
+import parseISO from "date-fns/parseISO";
 
 
 const AdminDashboardContainer = (props) => {
@@ -85,8 +88,8 @@ const AdminDashboardContainer = (props) => {
   const Plans = useSelector(selectPlans);
   const SidebarInfo = useSelector(selectInfoSidebar);
   const PlansFetched = useSelector(state => state.DB.plansStatus === "fulfilled");
-  const FreeTrial = useSelector(state => state?.Meta?.tenantCategorie?.trial)
-  const PaymentDetails = useSelector(state => state?.Meta?.tenantCategorie?.paymentDetails)
+  const FreeTrial = useSelector(state => state?.Meta?.tenantCategorie?.trial || true);
+  const PaymentDetails = useSelector(state => state?.Meta?.tenantCategorie?.paymentDetails || false)
   const NumberOfEmployees = useSelector(state => Object.keys(state.DB.employees).length);
   const NumberOfTrades = useSelector(state => state.Shiftplan.tauschanfrage.length);
   const newsFeed = useSelector(state => state?.Meta?.newsfeed)
@@ -111,12 +114,12 @@ const AdminDashboardContainer = (props) => {
 
   useEffect(() => {
     setState({...state, run: showOverview})
-    if(!isUndefined(FreeTrial) && !isUndefined(PaymentDetails)) {
-        if(FreeTrial === false && PaymentDetails === false) {
-          if(_.isBoolean(PaymentDetails)) {
-            //store.dispatch({type: "OPEN", payload: "requiredPaymentDetails"})
+    if(!PaymentDetails) {
+        const inTrail = Meta?.tenantCategorie?.registeredAt ? Meta.tenantCategorie.registeredAt : false;
+        const trialNearEnd = (30 - differenceInDays(new Date(), parseISO(inTrail))) < 7;
+        if(inTrail !== false && _.isBoolean(PaymentDetails) && trialNearEnd) {
+            dispatch(settingModal("requiredPaymentDetails"))
           }
-        }
     }
   }, [Meta]);
 

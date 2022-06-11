@@ -1,12 +1,32 @@
+/*
+Use the following code to retrieve configured secrets from SSM:
 
-const stripe = require('stripe')("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");
+const aws = require('aws-sdk');
+
+const { Parameters } = await (new aws.SSM())
+  .getParameters({
+    Names: ["STRIPE_SK"].map(secretName => process.env[secretName]),
+    WithDecryption: true,
+  })
+  .promise();
+
+Parameters will be of the form { Name: 'secretName', Value: 'secretValue', ... }[]
+*/
+
 const _ = require('lodash');
+const aws = require('aws-sdk');
 
 exports.handler = async (event) => {
+    const { Parameters } = await (new aws.SSM())
+    .getParameters({
+      Names: ["STRIPE_SK"].map(secretName => process.env[secretName]),
+      WithDecryption: true,
+    })
+    .promise();
+    const STRIPE_SK =  process.env.ENV === "dev" ? "sk_test_51KskmIAQ7Ygg2HBETJXq8xsJSMQDK7FrmhHfDiGPURifLt6UvCEsdRFqoFoG8jXcB7H3jVW072zuQFw7qY5ClTtw00xeycp1wf" : Parameters.pop().Value;
+    const stripe = require('stripe')(STRIPE_SK);
     const body = JSON.parse(event.body);
     const Email = _.get(body, "email", "");
-    const NumberOfEmployees = _.get(body, "MitarbeiterAnzahl", 0);
-    const priceID = _.get(body, "priceID", "");
     
     
     const response = {
@@ -28,8 +48,11 @@ exports.handler = async (event) => {
             body: JSON.stringify('TenantID not defined!'),
         };
     }
-    
-    
+    const isYearly = body.isYearly;
+    const getTaxRate = process.env.ENV === "dev" ? "txr_1Kw6eTAQ7Ygg2HBEm2VE9cUR" : "txr_1Kw43nAQ7Ygg2HBEi4UCXOF4";
+    const getMothly = process.env.ENV === "dev" ? "price_1KwM8EAQ7Ygg2HBE2pzPSSnR" : "price_1Kz0IIAQ7Ygg2HBEOnTJLow2";
+    const getYearly = process.env.ENV === "dev" ?  "price_1KwLzOAQ7Ygg2HBEBaASvLcn" : "price_1Kz0JnAQ7Ygg2HBEvDlPKKAu";
+    const priceID = isYearly ? getYearly : getMothly
     if( _.isEmpty(priceID)) {
         return {
             statusCode: 200,
@@ -41,7 +64,7 @@ exports.handler = async (event) => {
         };
     }
     const taxRate = await stripe.taxRates.retrieve(
-      'txr_1Kw43nAQ7Ygg2HBEi4UCXOF4'
+      getTaxRate
     );
     
     let params = {line_items: [
@@ -60,7 +83,7 @@ exports.handler = async (event) => {
       allow_promotion_codes: true
     };
     
-    if (priceID === "price_1Kz0JnAQ7Ygg2HBEvDlPKKAu") {
+    if (priceID === getYearly) {
       params.line_items[0].quantity = 1;
       params.allow_promotion_codes = true;
     }

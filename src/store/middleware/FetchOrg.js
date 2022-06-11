@@ -23,18 +23,10 @@ export function thunkFetchOrg() {
             reverse: response.Item.reverse["BOOL"],
             schichten: JSON.parse(response.Item.schichten["S"]),
             onboarding: JSON.parse(response.Item.onboarding["S"]),
-          }
-          if(Object.keys(response.Item).includes("newsfeed")) {
-              org.newsfeed = JSON.parse(response.Item.newsfeed["S"])
-          }
-          if(Object.keys(response.Item).includes("vorname")) {
-            org.vorname = response.Item.vorname["S"]
-          }
-          if(Object.keys(response.Item).includes("tenantCategorie")) {
-            org.tenantCategorie = JSON.parse(response.Item.tenantCategorie["S"])
-          }
-          if(Object.keys(response.Item).includes("accessPosition")) {
-            org.accessPosition = JSON.parse(response.Item.accessPosition["S"])
+            newsfeed: response?.Item?.newsfeed?.S ? JSON.parse(response.Item.newsfeed["S"]) : [],
+            vorname: response?.Item?.vorname?.S ? response.Item.vorname.S : "",
+            tenantCategorie: response?.Item?.tenantCategorie?.S ? JSON.parse(response.Item.tenantCategorie["S"]) : {},
+            accessPosition: response?.Item?.accessPosition?.S ? JSON.parse(response.Item.accessPosition["S"]) : {}
           }
           dispatch(settingMeta(org))
           dispatch(settingMetaFulfilled())

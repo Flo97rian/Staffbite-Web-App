@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { settingShiftEnd, settingShiftIsDayly, settingShiftName, settingShiftNumberOfEmployees, settingShiftStart } from "../reducers/userInput";
 import { deletingCalendarShift } from "../reducers/Shiftplan";
 import { resettingModal } from "../reducers/modal";
+import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 
 const CalendarEditShift = (props) => {
     const index = useSelector(state => state.shiftSlot.index);
@@ -32,6 +33,7 @@ const CalendarEditShift = (props) => {
     const deleteShift = () => {
         dispatch(deletingCalendarShift({day: day, index: index}))
         dispatch(resettingModal())
+        dispatch(settingShiftplanChanged());
     }
     if(_.isEmpty(shift)) 
         return null
@@ -49,7 +51,7 @@ const CalendarEditShift = (props) => {
                     <InputString info={true} description={INFO_SHIFTPLAN_SHIFT_NAME} label="Name der Schicht" value={userInputName} placeholder={shiftDetails.ShiftName} onChange={(event) => dispatch(settingShiftName(event.target.value))}></InputString>
                     <Row>
                         <Col>
-                            <SelectPosition {...props} shiftDetails={shiftDetails}></SelectPosition>
+                            <SelectPosition shiftDetails={shiftDetails}></SelectPosition>
                         </Col>
                         <Col>
                             <InputNumber info={true} description={INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES} label="Anzahl benötigter Mitarbeiter" name="anzahl"  placeholder={anzahl} onChange={(event) => dispatch(settingShiftNumberOfEmployees(event.target.value))}></InputNumber>
@@ -60,7 +62,7 @@ const CalendarEditShift = (props) => {
                             <InputTime info={true} description={INFO_SHIFTPLAN_SHIFT_START}label="Beginn" name="beginn"  placeholder={shiftDetails.ShiftStart} onChange={(event) => dispatch(settingShiftStart(event.target.value))}></InputTime>
                         </Col>
                         <Col>
-                            <InputTimeWithSwitch info={true} description={INFO_SHIFTPLAN_SHIFT_END} label="Ende" name="ende" {...props} placeholder={shiftDetails.ShiftEnd} onChange={(event) => dispatch(settingShiftEnd(event.target.value))}></InputTimeWithSwitch>
+                            <InputTimeWithSwitch info={true} description={INFO_SHIFTPLAN_SHIFT_END} label="Ende" name="ende" placeholder={shiftDetails.ShiftEnd} onChange={(event) => dispatch(settingShiftEnd(event.target.value))}></InputTimeWithSwitch>
                         </Col>
                     </Row>
                     <Row>

@@ -36,10 +36,8 @@ const Datepicker = (props) => {
   }
   useEffect(() => {
     if(startDate && endDate) {
-      const start = formattedStart.getDate() + "." + (formattedStart.getMonth() + 1) + "." + formattedStart.getFullYear()
-      const end = formattedEnd.getDate() + "." + (formattedEnd.getMonth() + 1) + "." + formattedEnd.getFullYear()
-      dispatch(settingStart(start))
-      dispatch(settingEnd(end))
+      dispatch(settingStart(new Date(startDate).toISOString()))
+      dispatch(settingEnd(new Date(endDate).toISOString()))
   }
 }, [endDate, startDate])
 

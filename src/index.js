@@ -74,6 +74,8 @@ import Payment from './api/stripe/Payment';
 import PaymentSuccess from './api/stripe/PaymentSuccess';
 import PaymentDecline from './api/stripe/PaymentDecline';
 import NoAdminPermission from './views/MainViews/Default/NoAdminPermission';
+import LandingTest from './views/MainViews/User/LandingTest';
+import CalendarDemo from './views/MainViews/CalendarDemo';
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -125,6 +127,8 @@ ReactDOM.render(
         <Route path="/contact" element={ <Contact />} />
         <Route path="/auth" element={ <AuthLayout />} />
         <Route path="/demo" element={ <Demo />} />
+        <Route path="/test" element={ <LandingTest/>}/>
+        <Route path="/shiftplan" element={<CalendarDemo/>}/>
         <Route path="/payment" element={ <Payment />} />
         <Route path="/payment-success" element={ <PaymentSuccess />} />
         <Route path="/payment-decline" element={ <PaymentDecline />} />

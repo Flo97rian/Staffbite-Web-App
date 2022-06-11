@@ -28,4 +28,5 @@ export const WARNING_EMAIL_NOT_CORRECT = "Bitte trage eine gültige Mail Adresse
 export const WARNING_CODE_MISSMATCH = "Der eingegebene Code ist nicht gültig. Er ist entweder falsch oder bereits abgelaufen. Die passiert normalerweise nach etwa einer Stunde."
 export const SUCCESS_FILLING_DONE = "Die automatisierte Befüllung ist abgeschlossen. Du kannst den befüllten Schichtplan jetzt einsehen!"
 export const SUCCESS_RELEASE_DONE = "Die Freigabe ist nun abgeschlossen. Dein Team kann sich ab jetzt in den Schichtplan eintragen."
+export const SUCCESS_SEND_REMINDER_FOR_APPLICATION = "Die Erinnerungen wurden erfolgreich verschickt."
 

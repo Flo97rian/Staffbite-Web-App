@@ -190,14 +190,6 @@
         },
         {
           "category": "function",
-          "resourceName": "stripeCheckout",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        },
-        {
-          "category": "function",
           "resourceName": "validateStripeNumberOfEmployees",
           "attributes": [
             "Name",
@@ -215,6 +207,30 @@
         {
           "category": "function",
           "resourceName": "fetchShiftplansForEmployee",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "sendReminderForApplication",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "stripeCheckout",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "settingStripeInvoiceLanguage",
           "attributes": [
             "Name",
             "Arn"
@@ -620,6 +636,16 @@
       "service": "Lambda"
     },
     "fetchShiftplansForEmployee": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "sendReminderForApplication": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "settingStripeInvoiceLanguage": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

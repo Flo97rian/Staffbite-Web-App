@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import CalendarEditShift from "./CalendarEditShift";
 import { CalendarEditShiftAdvanced } from "./CalendarEditShiftAdvanced";
 import EmployeesDnDForSingleShift from "./EmployeesDnDForSingleShift";
-import SelectEmployeesForShift from "./SelectEmployeesForShift";
 
 
 
@@ -59,7 +58,7 @@ const FromEditCalendarShift = (props) => {
                 </h3>
                 <Collapse isOpen={applicantsSettings}>
                     <Card className="bg-secondary shadow-none border p-2">
-                    <SelectEmployeesForShift
+                    <EmployeesDnDForSingleShift
                     ref={props.DragAndDropRef}
                     />
                     </Card>

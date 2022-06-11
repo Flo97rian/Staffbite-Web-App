@@ -7,7 +7,7 @@ import { Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
-function Payment({EmployeesLength}) {
+function Payment({EmployeesLength, trialEnd}) {
   let [message, setMessage] = useState('');
   let [success, setSuccess] = useState(false);
   let [sessionId, setSessionId] = useState('');
@@ -36,13 +36,13 @@ function Payment({EmployeesLength}) {
     }
   },[sessionURL])
 
-  async function handleCreateCheckoutSession(priceID) {
+  async function handleCreateCheckoutSession(isYearly) {
     console.log("create");
     let response;
     let user = await Auth.currentAuthenticatedUser()
     if(_.hasIn(user, "attributes.email")) {
       const email = user.attributes.email;
-      response = await API.post(API_HOSTNAME, "/stripeCheckout", {body: {priceID: priceID, MitarbeiterAnzahl: EmployeesLength, email: email}})
+      response = await API.post(API_HOSTNAME, "/stripeCheckout", {body: {email: email, isYearly: isYearly}})
     }
     setSessionURL(response?.session?.url);
   }
@@ -53,7 +53,7 @@ function Payment({EmployeesLength}) {
         <Col>
           <Row className='text-center'>
             <Col>
-              <h3 className='staffbite-display-4'>Dein Probemonat ist ausgelaufen</h3>
+              <h3 className='staffbite-display-4'>{trialEnd ? "Dein Probemonat ist ausgelaufen" : "Dein Probemonat läuft bald aus"}</h3>
             </Col>
           </Row>
           <Row>
@@ -104,7 +104,7 @@ function Payment({EmployeesLength}) {
                 </Row>
             </div>
               {/* Add a hidden field with the lookup_key of your Price */}
-              <button className="payment-button pt-1" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1Kz0IIAQ7Ygg2HBEOnTJLow2")}>
+              <button className="payment-button pt-1" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession(false)}>
                 <p>
                   Zahlungsmittel auswählen
                 </p>
@@ -142,7 +142,7 @@ function Payment({EmployeesLength}) {
                   </Col>
               </Row>
             </div>
-            <button className="payment-button pt-1" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession("price_1Kz0JnAQ7Ygg2HBEvDlPKKAu")}>
+            <button className="payment-button pt-1" id="checkout-and-portal-button" onClick={() => handleCreateCheckoutSession(true)}>
               <p>
                 Zahlungsmittel auswählen
               </p>

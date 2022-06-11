@@ -1,5 +1,18 @@
+/*
+Use the following code to retrieve configured secrets from SSM:
 
-const stripe = require('stripe')("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");
+const aws = require('aws-sdk');
+
+const { Parameters } = await (new aws.SSM())
+  .getParameters({
+    Names: ["STRIPE_SK"].map(secretName => process.env[secretName]),
+    WithDecryption: true,
+  })
+  .promise();
+
+Parameters will be of the form { Name: 'secretName', Value: 'secretValue', ... }[]
+*/
+
 const _ = require('lodash');
 var AWS = require('aws-sdk');
 AWS.config.apiVersions = {
@@ -7,6 +20,7 @@ AWS.config.apiVersions = {
   // other service API versions
 };
 var dynamodb = new AWS.DynamoDB();
+const aws = require('aws-sdk');
 var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
 exports.handler = async (event) => {
@@ -14,7 +28,15 @@ exports.handler = async (event) => {
     const body = JSON.parse(event.body);
     const email = _.get(body, 'data.object.customer_email', "");
     console.log(email);
-    
+    const { Parameters } = await (new aws.SSM())
+    .getParameters({
+      Names: ["STRIPE_SK"].map(secretName => process.env[secretName]),
+      WithDecryption: true,
+    })
+    .promise();
+    const STRIPE_SK = process.env.ENV === "dev" ? "sk_test_51KskmIAQ7Ygg2HBETJXq8xsJSMQDK7FrmhHfDiGPURifLt6UvCEsdRFqoFoG8jXcB7H3jVW072zuQFw7qY5ClTtw00xeycp1wf" : Parameters.pop().Value;
+    console.log(STRIPE_SK);
+    const stripe = require('stripe')(STRIPE_SK);
     if (_.isEmpty(email)) {
         return {
             statusCode: 200,

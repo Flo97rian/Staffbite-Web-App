@@ -4,6 +4,7 @@ const initialState = {
     algStatus: "idle",
     releaseStatus: "idle",
     publishStatus: "idle",
+    sendReminderForApplication: 'idle',
 }
 
 const ProcessingSlice = createSlice({
@@ -29,29 +30,42 @@ const ProcessingSlice = createSlice({
             state.publishStatus = "fulfilled"
         },
         settingProcessingRejectedAlg(state) {
-            state.algStatus = "fulfilled";
+            state.algStatus = "rejected";
         },
         settingProcessingRejectedRelease(state) {
-            state.releaseStatus = "fulfilled";
+            state.releaseStatus = "rejected";
         },
         settingProcessingRejectedPublish(state) {
-            state.publishStatus = "fulfilled"
+            state.publishStatus = "rejected";
+        },
+        settingProcessingStartSendReminderForApplication(state) {
+            state.sendReminderForApplication = "loading";
+        },
+        settingProcessingFulfilledSendReminderForApplication(state) {
+            state.sendReminderForApplication = "fulfilled";
+        },
+        settingProcessingRejectedSendReminderForApplication(state) {
+            state.sendReminderForApplication = "rejected";
         },
         resettingProcessing(state) {
             state.algStatus = "idle";
             state.releaseStatus = "idle";
             state.publishStatus = "idle";
+            state.sendReminderForApplication = 'idle';
         }
     }
 })
 
 export const {
+    settingProcessingFulfilledSendReminderForApplication,
     settingProcessingFulfilledAlg,
     settingProcessingFulfilledPublish,
     settingProcessingFulfilledRelease,
+    settingProcessingRejectedSendReminderForApplication,
     settingProcessingRejectedAlg,
     settingProcessingRejectedPublish,
     settingProcessingRejectedRelease,
+    settingProcessingStartSendReminderForApplication,
     settingProcessingStartAlg,
     settingProcessingStartPublish,
     settingProcessingStartRelease,

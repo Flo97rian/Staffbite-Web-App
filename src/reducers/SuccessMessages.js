@@ -8,6 +8,7 @@ const initialState = {
   shiftplanPublished: false,
   shiftplanFilled: false,
   employeeChanged: false,
+  sendReminderForApplication: false,
 
 }
 
@@ -36,6 +37,9 @@ const successMessageSlice = createSlice({
     settingEmployeeChanged(state) {
         state.employeeChanged = true;
     },
+    settingSendReminderForApplication(state) {
+        state.sendReminderForApplication = true;
+    },
     resettingSuccessMessages(state) {
         state.reportInProgress = false;
         state.employeeCreated = false;
@@ -44,6 +48,7 @@ const successMessageSlice = createSlice({
         state.shiftplanPublished = false;
         state.shiftplanFilled = false;
         state.employeeChanged = false;
+        state.sendReminderForApplication = false;
     }
   }
 })
@@ -56,6 +61,7 @@ export const {
     settingShiftplanFilled,
     settingShiftplanPublished,
     settingShiftplanReleased,
+    settingSendReminderForApplication,
     resettingSuccessMessages
 } = successMessageSlice.actions;
 

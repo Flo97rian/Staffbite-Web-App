@@ -4,21 +4,22 @@ import {
     Label
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
-import SchichtHinzufuegen from "./AddShift"
-import store from "../store";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
+import AddShift from "./AddShift";
+import { addCalendarShift } from "../reducers/Shiftplan";
+import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 
 const ModalAddCalendarShift = (props) => {
     const dispatch = useDispatch();
     const showCalendarAddShift = useSelector(state => state.modal.addCalendarShift)
+    const day = useSelector(state => state.shiftSlot.day);
+    const userInput = useSelector(state => state.userInput);
 
     const handleCalendarAddShift = () => {
-        //const copyShiftplan = new ShiftPlan({...Shiftplan});
-        //copyShiftplan.addCalendarShift(userInput, ShiftSlot);
-        //const shiftplan = copyShiftplan.getAllPlanDetails();
-        //dispatch(settingShiftplan(shiftplan))
-        //dispatch(resettingModal())
+        dispatch(addCalendarShift({day: day, userInput: userInput}));
+        dispatch(resettingModal())
+        dispatch(settingShiftplanChanged());
       }
         return (
             <Modal 
@@ -32,7 +33,7 @@ const ModalAddCalendarShift = (props) => {
                     <Label className="h2 m-3 align-items-center">Schicht hinzufügen</Label>
                 </Modal.Header>
                 <Modal.Body className="pt-1">
-                    <SchichtHinzufuegen {...props}></SchichtHinzufuegen>
+                    <AddShift/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button color="link" onClick={() => dispatch(resettingModal())}> Schließen </Button>

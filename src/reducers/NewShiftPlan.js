@@ -37,6 +37,8 @@ const initialState = {
   id: "",
   name: "",
   zeitraum: "",
+  startOfWeek: '',
+  endOfWeek: '',
   plan: [],
   schichtentag: 0,
   tauschanfrage: []
@@ -78,6 +80,8 @@ const newShiftplanSlice = createSlice({
       state.id = shiftplan.id;
       state.name = shiftplan.name;
       state.zeitraum = shiftplan.zeitraum;
+      state.startOfWeek = shiftplan.startOfWeek;
+      state.endOfWeek = shiftplan.endOfWeek;
       state.plan = shiftplan.plan;
       state.schichtentag = shiftplan.schichtentag;
       state.tauschanfrage = shiftplan.tauschanfrage;

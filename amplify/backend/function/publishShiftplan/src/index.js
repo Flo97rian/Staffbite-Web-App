@@ -450,13 +450,10 @@ var ttl = 30;
 var silent = false;
 
 function CreateMessageRequestIOS(recipient) {
-  var token = recipient;
-  console.log(token);
+  var tokens = recipient;
+  console.log(tokens);
     var messageRequest = {
       'Addresses': {
-        [String(token[0])]: {
-          'ChannelType' : 'APNS'
-        }
       },
       'MessageConfiguration': {
         'APNSMessage': {
@@ -469,18 +466,21 @@ function CreateMessageRequestIOS(recipient) {
         }
       }
     };
+    if (tokens.length > 0) {
+    tokens.forEach(token => {
+        messageRequest.Addresses[token] = {
+          'ChannelType' : 'APNS_SANDBOX'
+        }
+    })}
 
   return messageRequest
 }
 
 function CreateMessageRequestAndroid(recipient) {
-  var token = recipient;
-  console.log(token);
+  var tokens = recipient;
+  console.log(tokens);
     var messageRequest = {
       'Addresses': {
-        [String(token[0])]: {
-          'ChannelType' : 'GCM'
-        }
       },
       'MessageConfiguration': {
         'GCMMessage': {
@@ -493,6 +493,12 @@ function CreateMessageRequestAndroid(recipient) {
         }
       }
     };
+        if (tokens.length > 0) {
+    tokens.forEach(token => {
+        messageRequest.Addresses[token] = {
+          'ChannelType' : 'GCM'
+        }
+    })}
 
   return messageRequest
 }

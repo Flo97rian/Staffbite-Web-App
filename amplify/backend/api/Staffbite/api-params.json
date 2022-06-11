@@ -272,14 +272,6 @@
             "policyResourceName": "/addStripeCustomerID"
         },
         {
-            "name": "/stripeCheckout",
-            "lambdaFunction": "stripeCheckout",
-            "privacy": {
-                "open": true
-            },
-            "policyResourceName": "/stripeCheckout"
-        },
-        {
             "name": "/validateStripeNumberOfEmployees",
             "lambdaFunction": "validateStripeNumberOfEmployees",
             "privacy": {
@@ -314,6 +306,35 @@
                 ]
             },
             "policyResourceName": "/fetchShiftplansForEmployee"
+        },
+        {
+            "name": "/sendReminderForApplication",
+            "lambdaFunction": "sendReminderForApplication",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            },
+            "policyResourceName": "/sendReminderForApplication"
+        },
+        {
+            "name": "/stripeCheckout",
+            "lambdaFunction": "stripeCheckout",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/stripeCheckout"
+        },
+        {
+            "name": "/settingStripeInvoiceLanguage",
+            "lambdaFunction": "settingStripeInvoiceLanguage",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/settingStripeInvoiceLanguage"
         }
     ],
     "resourceName": "Staffbite",
@@ -389,9 +410,6 @@
             "lambdaFunction": "addStripeCustomerID"
         },
         {
-            "lambdaFunction": "stripeCheckout"
-        },
-        {
             "lambdaFunction": "validateStripeNumberOfEmployees"
         },
         {
@@ -399,10 +417,19 @@
         },
         {
             "lambdaFunction": "fetchShiftplansForEmployee"
+        },
+        {
+            "lambdaFunction": "sendReminderForApplication"
+        },
+        {
+            "lambdaFunction": "stripeCheckout"
+        },
+        {
+            "lambdaFunction": "settingStripeInvoiceLanguage"
         }
     ],
     "privacy": {
-        "auth": 21,
+        "auth": 22,
         "unauth": 0,
         "authRoleName": "amplify-staffbite-dev-180625-authRole",
         "unAuthRoleName": "amplify-staffbite-dev-180625-unauthRole"
@@ -594,14 +621,6 @@
         },
         {
             "category": "function",
-            "resourceName": "stripeCheckout",
-            "attributes": [
-                "Name",
-                "Arn"
-            ]
-        },
-        {
-            "category": "function",
             "resourceName": "validateStripeNumberOfEmployees",
             "attributes": [
                 "Name",
@@ -623,7 +642,31 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "sendReminderForApplication",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "stripeCheckout",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "settingStripeInvoiceLanguage",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
     ],
-    "uuid": "02adeebb"
+    "uuid": "ad727eed"
 }

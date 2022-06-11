@@ -1,8 +1,12 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import { stat } from "fs";
+import millisecondsToHours from 'date-fns/millisecondsToHours'
+import { weekdays } from "../constants/Weekdays";
+import shiftplanStates from "../constants/ShiftplanDefault";
 const initialState = {
   id: "",
   name: "",
+  startOfWeek: "",
+  endOfWeek: "",
   zeitraum: "",
   plan: [],
   schichtentag: 0,
@@ -18,6 +22,8 @@ const shiftplanSlice = createSlice({
       state.id = shiftplan.id;
       state.name = shiftplan.name;
       state.zeitraum = shiftplan.zeitraum;
+      state.startOfWeek = shiftplan.startOfWeek;
+      state.endOfWeek = shiftplan.endOfWeek;
       state.plan = shiftplan.plan;
       state.schichtentag = shiftplan.schichtentag;
       state.tauschanfrage = shiftplan.tauschanfrage;
@@ -29,6 +35,8 @@ const shiftplanSlice = createSlice({
       state.schichtentag = initialState.schichtentag;
       state.tauschanfrage = initialState.tauschanfrage;
       state.zeitraum = initialState.zeitraum;
+      state.startOfWeek = initialState.startOfWeek;
+      state.endOfWeek = initialState.endOfWeek;
     },
     settingShiftName(state, action) {
       const shiftName = action.payload.shiftName;
@@ -281,8 +289,255 @@ const shiftplanSlice = createSlice({
         state.plan[index][day].setApplicants[EmployeeId] = EmployeeName;
       }
     },
+    settingShiftTime(state, action) {
+      const index = action.payload.index || false;
+      const day = action.payload.day || false;
+      let startDeltaInMilliseconds = action.payload.startDeltaInMilliseconds;
+      let endDeltaInMilliseconds = action.payload.endDeltaInMilliseconds;
+      const shiftChangeInDays = action.payload.shiftChangeInDays;
+      const weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+
+      if(index && day) {
+
+        const ShiftStart = state?.plan[index]?.Wochentag?.ShiftStart || "";
+        const ShiftEnd = state?.plan[index]?.Wochentag?.ShiftEnd || "";
+        const ShiftName = state?.plan[index]?.Wochentag?.ShiftName || "";
+        const ShiftPosition = state?.plan[index]?.Wochentag?.ShiftPosition || "";
+      
+      //fromatting new ShiftStart and ShiftEnd
+      let unformattedStart;
+      let unformattedEnd;
+
+      if(startDeltaInMilliseconds !== 0) {
+        unformattedStart = String(Number(ShiftStart.split(":")[0]) + millisecondsToHours(startDeltaInMilliseconds)) + ":00"
+      }
+
+      if(startDeltaInMilliseconds === 0) {
+        unformattedStart = ShiftStart;
+      }
+
+      if(ShiftEnd !== true) {
+        if(endDeltaInMilliseconds !== 0) {
+          unformattedEnd = String(Number(ShiftEnd.split(":")[0]) + millisecondsToHours(endDeltaInMilliseconds)) + ":00"
+        }
+
+        if(endDeltaInMilliseconds === 0) {
+          unformattedEnd = ShiftEnd;
+        }
+      }
+
+      if(ShiftEnd === true) {
+        unformattedEnd = "24:00";
+      }
+
+      const start = unformattedStart[1] === ":" ? "0" + unformattedStart : unformattedStart;
+      const end = unformattedEnd[1] === ":" ? "0" + unformattedEnd : unformattedEnd;
+
+      //check if ShiftRow with spezifications exists
+      const haveMatchingRow = state.plan.filter(row => {
+        if (  row.Wochentag.ShiftName === ShiftName &&
+              row.Wochentag.ShiftPosition === ShiftPosition &&
+              row.Wochentag.ShiftStart === start &&
+              row.Wochentag.ShiftEnd === end
+        ) return true;
+        return false;
+      })
+
+      const changeDayTo = shiftChangeInDays !== 0 ? weekdays[weekdays.indexOf(day) + shiftChangeInDays] : day
+      // add Shift to existing Shiftrow
+      if(haveMatchingRow.length) {
+          const targetIndex = state.plan.indexOf(haveMatchingRow[0]);
+          state.plan[targetIndex][changeDayTo] = state.plan[index][day];
+          state.plan[index][day] = {frei: false}
+      }
+
+      // create and add Shift to new Shiftrow
+      if(!haveMatchingRow.length) {
+        let shiftRow = {}
+        const shift = state.plan[index][day];
+        const currentShiftRow = state.plan[index];
+        for (let [shiftday, shift] of Object.entries(currentShiftRow)) {
+          shiftRow[shiftday] = {frei: false};
+        };
+        let shiftWeekdayDetails = {...state.plan[index].Wochentag};
+        shiftWeekdayDetails.ShiftStart = start;
+        shiftWeekdayDetails.ShiftEnd = end;
+        shiftRow["Wochentag"] = shiftWeekdayDetails;
+        shiftRow[changeDayTo] = shift;
+        const planLength = state.plan.length;
+        state.plan.splice(planLength - 1, 0, shiftRow)
+        state.plan[index][day] = {frei: false};
+
+      }
+
+      //check if old Shiftrow has other Shifts
+      let hasOtherShiftsInRow = false;
+      for (let [shiftday, shift] of Object.entries(state.plan[index])) {
+        if(shiftday !== "Wochentag" && shift.frei === true) {
+          hasOtherShiftsInRow = true;
+        }
+      };
+      // delte shiftrow if no other Shift in row
+      if(!hasOtherShiftsInRow) {
+        state.plan.splice(index, 1)
+      }
+      };
+    },
+    settingCalenderShift(state, action) {
+      const index = action.payload.index || false;
+      const day = action.payload.day || false;
+      const userInput = action.payload.userInput;
+      const DnDRef = action.payload.DnDRef;
+      const weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+
+      if(index && day) {
+      //getCurrent
+      //ShiftName
+      //ShiftPosition
+      //ShiftStart
+      //ShiftEnd
+      //NumberOfEmployees
+      //Notice
+      //MinQualifications
+      //newSetApplicants
+      const ShiftStart = state?.plan[index]?.Wochentag?.ShiftStart || "";
+      const ShiftEnd = state?.plan[index]?.Wochentag?.ShiftEnd || "";
+      const ShiftName = state?.plan[index]?.Wochentag?.ShiftName || "";
+      const ShiftPosition = state?.plan[index]?.Wochentag?.ShiftPosition || "";
+      const ShiftsRequiredNumberOfEmployees = state?.plan[index][day]?.anzahl || 0;
+      const ShiftsNotice = state?.plan[index][day]?.notice || "";
+      const CurrentSetApplicants = state?.plan[index][day]?.setApplicants || {};
+
+      //getChanges
+      //ShiftName
+      //ShiftPosition
+      //ShiftStart
+      //ShiftEnd
+      //NumberOfEmployees
+      //Notice
+      //MinQualifications
+      //newSetApplicants
+      const InputShiftName = userInput.shiftName || "";
+      const InputShiftPosition = userInput.shiftPosition || "";
+      const InputShiftStart = userInput.shiftStart || "";
+      const InputShiftEnd = userInput.shiftEnd || "";
+      const InputShiftsRequiredNumberOfEmployees = userInput.numberOfEmployees || 0;
+      const InputShiftsNotice = userInput.shiftNotice || "";
+      const InputShiftDayly = userInput.shiftIsDayly || false;
+      let InputSetApplicants = DnDRef || [];
+
+      const changeShiftWeekDayDetail = (target, changeValue) => {
+        state.plan[index].Wochentag[target] = changeValue
+      };
+
+      const changeShiftsDetail = (target, changeValue) => {
+          state.plan[index][day][target] = changeValue;
+      };
+
+      //check
+      //check ShiftName
+      if( InputShiftName !== ShiftName && 
+          InputShiftName !== "") {
+            console.log("changeShiftName")
+            changeShiftWeekDayDetail("ShiftName", InputShiftName);
+      }
+      //checkShiftPosition
+      if( InputShiftPosition !== ShiftPosition && 
+          InputShiftPosition !== "") {
+            console.log("ChangePosition")
+            changeShiftWeekDayDetail("ShiftPosition", InputShiftPosition);
+      }
+      //check ShiftStart
+      if( InputShiftStart !== ShiftStart && 
+          InputShiftStart !== "") {
+            console.log("shouldChngeStart")
+            changeShiftWeekDayDetail("ShiftStart", InputShiftStart)
+        }      
+      // check ShiftEnde
+      if( InputShiftEnd !== ShiftEnd && 
+          InputShiftEnd !== "") {
+            console.log("shouldChngeEnde")
+            changeShiftWeekDayDetail("ShiftEnd", InputShiftEnd)
+      }      
+      // check ShiftsRequuiredNumberOfEmployees
+      if( InputShiftsRequiredNumberOfEmployees !== ShiftsRequiredNumberOfEmployees && 
+          InputShiftsRequiredNumberOfEmployees !==  0) {
+            console.log("shouldChngeNumberOfEmployees")
+            changeShiftsDetail("anzahl", InputShiftsRequiredNumberOfEmployees)
+      }
+      // check Notice
+      if( InputShiftsNotice !== ShiftsNotice && 
+          InputShiftsNotice !== "") {
+            console.log("shouldChngeNotice")
+            changeShiftsDetail("notice", InputShiftsNotice)
+      }
+
+      if(InputShiftDayly) {
+        weekdays.forEach(day => {
+          if( InputShiftsRequiredNumberOfEmployees !== ShiftsRequiredNumberOfEmployees && 
+              InputShiftsRequiredNumberOfEmployees !== 0) {
+                console.log("shouldChngeNumberOfEmployees")
+                state.plan[index][day].anzahl = InputShiftsRequiredNumberOfEmployees;
+            } else {
+                state.plan[index][day].anzahl = ShiftsRequiredNumberOfEmployees;
+            }
+          if( InputShiftsNotice !== ShiftsNotice && 
+              InputShiftsNotice !== "") {
+                console.log("shouldChngeNotice")
+                state.plan[index][day].notice = InputShiftsNotice;
+            } else {
+                state.plan[index][day].notice = InputShiftsNotice;
+            }
+            state.plan[index][day].frei = true;
+        })
+      }
+
+      //check SetApplicants
+
+      state.plan[index][day].setApplicants = {};
+      InputSetApplicants.forEach(applicantObject => {
+        const employeeId = applicantObject.id.substring(1);
+        const employeeName = applicantObject.content;
+        if(employeeName !== "Leer") {
+          state.plan[index][day].setApplicants[employeeId] = employeeName;
+        }
+      });
+
+      }
+  },
+  addCalendarShift(state, action) {
+    const userInput = action.payload.userInput;
+    const day = action.payload.day;
+
+    const InputShiftName = userInput.shiftName;
+    const InputShiftPosition = userInput.shiftPosition === "" ? userInput.positions[0] : userInput.shiftPosition;
+    const InputShiftStart = userInput.shiftStart;
+    const InputShiftEnd = userInput.shiftEnd;
+    const InputShiftsRequiredNumberOfEmployees = userInput.numberOfEmployees;
+    if(
+      InputShiftName &&
+      InputShiftPosition &&
+      InputShiftStart &&
+      InputShiftEnd
+      ) {
+        let shiftRow = {}
+        shiftRow.Wochentag = {
+          ShiftName: InputShiftName,
+          ShiftStart: InputShiftStart,
+          ShiftEnd: InputShiftEnd,
+          ShiftPosition: InputShiftPosition,
+          frei: false
+        }
+        weekdays.forEach(day => {
+          shiftRow[day] = {frei: false, anzahl: Number(InputShiftsRequiredNumberOfEmployees), notice: ""};
+        });
+        shiftRow[day] = {...shiftRow[day], frei: true, anzahl: Number(InputShiftsRequiredNumberOfEmployees), notice: ""}
+        const PlanLength = state.plan.length;
+        state.plan.splice(PlanLength - 1, 0, shiftRow)
+    }
+
   }
-})
+}});
 
 export const {
   settingShiftplan,
@@ -309,7 +564,10 @@ export const {
   settingApplicantAfterPublish,
   deleteApplicantAfterPublish,
   settingSetApplicant,
-  settingTradeShift
+  settingTradeShift,
+  settingShiftTime,
+  settingCalenderShift,
+  addCalendarShift,
 } = shiftplanSlice.actions;
 
 export default shiftplanSlice.reducer
