@@ -49,7 +49,6 @@ exports.handler = async (event) => {
         };
     }
     const isYearly = body.isYearly;
-    const getTaxRate = process.env.ENV === "dev" ? "txr_1Kw6eTAQ7Ygg2HBEm2VE9cUR" : "txr_1Kw43nAQ7Ygg2HBEi4UCXOF4";
     const getMothly = process.env.ENV === "dev" ? "price_1KwM8EAQ7Ygg2HBE2pzPSSnR" : "price_1Kz0IIAQ7Ygg2HBEOnTJLow2";
     const getYearly = process.env.ENV === "dev" ?  "price_1KwLzOAQ7Ygg2HBEBaASvLcn" : "price_1Kz0JnAQ7Ygg2HBEvDlPKKAu";
     const priceID = isYearly ? getYearly : getMothly
@@ -63,9 +62,6 @@ exports.handler = async (event) => {
             body: JSON.stringify('PriceID not set!'),
         };
     }
-    const taxRate = await stripe.taxRates.retrieve(
-      getTaxRate
-    );
     
     let params = {line_items: [
         {
