@@ -258,15 +258,15 @@
         },
         "publishShiftplan": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/publishShiftplan-716648456757572b4a66-build.zip"
+          "s3Key": "amplify-builds/publishShiftplan-52473250476c71505a46-build.zip"
         },
         "addEmployee": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/addEmployee-682f7179433056743862-build.zip"
+          "s3Key": "amplify-builds/addEmployee-6a4d4e4f324651434951-build.zip"
         },
         "releaseShiftplan": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/releaseShiftplan-31693351347066533156-build.zip"
+          "s3Key": "amplify-builds/releaseShiftplan-364153746d667a617755-build.zip"
         },
         "startAlgorithm": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
@@ -318,11 +318,13 @@
         },
         "stripeCheckout": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/stripeCheckout-667a4f53646669773056-build.zip"
+          "s3Key": "amplify-builds/stripeCheckout-6569787664677175664a-build.zip",
+          "secretsPathAmplifyAppId": "d3p8gdtbc86r0o"
         },
         "validateStripeNumberOfEmployees": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
-          "s3Key": "amplify-builds/validateStripeNumberOfEmployees-5a49715a787246492f76-build.zip"
+          "s3Key": "amplify-builds/validateStripeNumberOfEmployees-6c38662f587277514130-build.zip",
+          "secretsPathAmplifyAppId": "d3p8gdtbc86r0o"
         },
         "fetchShiftplans": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
@@ -331,6 +333,15 @@
         "fetchShiftplansForEmployee": {
           "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
           "s3Key": "amplify-builds/fetchShiftplansForEmployee-6a52705a445161327566-build.zip"
+        },
+        "sendReminderForApplication": {
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/sendReminderForApplication-4966784b566654422f68-build.zip"
+        },
+        "settingStripeInvoiceLanguage": {
+          "secretsPathAmplifyAppId": "d3p8gdtbc86r0o",
+          "deploymentBucketName": "amplify-staffbite-main-151241-deployment",
+          "s3Key": "amplify-builds/settingStripeInvoiceLanguage-764969324c5356426231-build.zip"
         }
       },
       "auth": {
