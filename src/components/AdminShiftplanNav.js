@@ -15,7 +15,7 @@ function AdminShiftplanNav (props) {
     return (
       <>
         <Nav
-          className="nav-fill flex-column flex-md-row mt-4 mb-4"
+          className="nav-fill flex-column flex-md-row mt-2 mb-4"
           id="tabs-admin-text"
           pills
           role="tablist"

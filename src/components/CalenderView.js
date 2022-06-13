@@ -564,7 +564,7 @@ function CalendarView(props) {
   return (
     <>
       {alert}
-      <Container className="mt-6" fluid>
+      <Container className="mt-3" fluid>
       <Row className="text-right my-2">
           <Col>
               <NextButtons/>

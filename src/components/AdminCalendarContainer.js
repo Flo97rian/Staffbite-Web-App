@@ -8,7 +8,7 @@ const AdminCalendarContainer = () => {
 
     return (
         <>
-            <Row className="mt-8 mx-4">
+            <Row className="mx-4">
                 <Col>
                     <CalendarView/>
                 </Col>
