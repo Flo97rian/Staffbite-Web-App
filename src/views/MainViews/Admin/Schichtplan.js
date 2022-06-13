@@ -35,7 +35,10 @@
 import React from "react";
 // reactstrap components
 import {
-  Container
+  Button,
+  Col,
+  Container,
+  Row
 } from "reactstrap";
 import ReactGA from "react-ga"
 // core components
@@ -51,7 +54,7 @@ import Loading from "../Default/Loading.js";
 import { thunkFetchOrg } from "../../../store/middleware/FetchOrg.js";
 import { thunkFetchEmployees } from "../../../store/middleware/FetchEmployees.js";
 import { thunkFetchShiftplans } from "../../../store/middleware/FetchShiftplans.js";
-import { settingCalendarLayout } from "../../../reducers/display.js";
+import { settingBasicLayout, settingCalendarLayout, switchToBasicLayout, switchToCalendarLayout } from "../../../reducers/display.js";
 import AdminCalendarContainer from "../../../components/AdminCalendarContainer.js";
 
 
@@ -122,6 +125,19 @@ const SchichtplanErstellen = () => {
     ReactGA.pageview(pageView);
   } 
 
+  const ViewButton = () => {
+
+    return null;
+    
+    if(DisplayBasicLayout) {
+      return <Button color="primary" onClick={() => dispatch(switchToCalendarLayout())}>Kalender-Ansicht</Button>
+    }
+
+    if(DisplayCalendarLayout) {
+      return <Button color="primary" onClick={() => dispatch(switchToBasicLayout())}>Standard-Ansicht</Button>
+    }
+    
+  }
 
   const getBrandText = (path) => {
     for (let i = 0; i < adminroutes.length; i++) {
@@ -149,6 +165,11 @@ const SchichtplanErstellen = () => {
           }}
           brandText={getBrandText(location)}
         />
+          <Row className="text-center mt-8">
+            <Col>
+              <ViewButton/>
+            </Col>
+          </Row>
           <ShiftplanContent/>
           <AdminFooter />
         </Container>
