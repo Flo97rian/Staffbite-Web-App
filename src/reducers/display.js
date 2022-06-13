@@ -34,6 +34,14 @@ const displaySlice = createSlice({
         },
         resettingCalendarLayout(state) {
             state.displayCalendarLayout = false;
+        },
+        switchToCalendarLayout(state) {
+            state.displayBasicLayout = false;
+            state.displayCalendarLayout = true;
+        },
+        switchToBasicLayout(state) {
+            state.displayBasicLayout = true;
+            state.displayCalendarLayout = false;
         }
     }
 })
@@ -46,7 +54,9 @@ export const {
     settingBasicLayout,
     settingCalendarLayout,
     resettingBasicLayout,
-    resettingCalendarLayout
+    resettingCalendarLayout,
+    switchToBasicLayout,
+    switchToCalendarLayout
 } = displaySlice.actions;
 
 export default displaySlice.reducer;

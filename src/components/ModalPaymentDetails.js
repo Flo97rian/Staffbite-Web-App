@@ -20,8 +20,8 @@ const ModalPaymentDetails = ({keytrue, modalkey}) => {
         const Meta = useSelector(state => state.Meta);
         const inTrail = Meta?.tenantCategorie?.registeredAt ? Meta.tenantCategorie.registeredAt : false;
 
-        const trialNearEnd = (30 - differenceInDays(new Date(), parseISO(inTrail))) < 7;
-        const trialEnd = (30 - differenceInDays(new Date(), parseISO(inTrail))) < 0;
+        const trialNearEnd = (30 - differenceInDays(new Date(), new Date(inTrail))) < 8;
+        const trialEnd = (30 - differenceInDays(new Date(), new Date(inTrail))) < 0;
         const trialLeft = () => {
             if(trialEnd) {
                 return null;

@@ -549,7 +549,7 @@ const ShiftplanContainer = () => {
   };
         return(
           <>
-            <div className="main-content mt-9 px-4" ref={mainContent}>
+            <div className="main-content mt-6 px-4" ref={mainContent}>
                   {showMain()}
             </div>
             <InfoSidebar
