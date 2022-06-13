@@ -138,7 +138,7 @@ const newShiftplanSlice = createSlice({
       if( state.plan[currentShiftIndex].Wochentag.ShiftEnd !== userInput.shiftEnd &&
         userInput.shiftEnd !== "" 
       ) {
-        state.plan[currentShiftIndex].Wochentag.ShiftEnd = userInput.shiftEnd === "on" ? "open End" : userInput.shiftEnd;
+        state.plan[currentShiftIndex].Wochentag.ShiftEnd = userInput.shiftEnd === "on" ? true : userInput.shiftEnd;
       }
 
       if( state.plan[currentShiftIndex].Wochentag.ShiftPosition !== userInput.shiftPosition &&
@@ -167,6 +167,21 @@ const newShiftplanSlice = createSlice({
           state.plan[currentShiftIndex].Wochentag.frei = false;
         }
     },
+    createingNewShiftplanFromExistingShiftplan(state, action) {
+      let existingShiftplan = action.payload.existingShiftplan;
+      let newStartDate = action.payload.newStartDate;
+      let newShiftplan = {
+        id: "",
+        name: "",
+        zeitraum: "",
+        startOfWeek: '',
+        endOfWeek: '',
+        plan: [],
+        schichtentag: 0,
+        tauschanfrage: []
+      }
+      
+    }
   }
 })
 

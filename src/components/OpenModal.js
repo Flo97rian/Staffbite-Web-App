@@ -20,6 +20,7 @@ import ModalTradeShift from "./ModalTradeShift";
 import ModalEditCalendarShift from "./ModalEditCalendarShift";
 import ModalAddCalendarShift from "./ModalAddCalendarShift";
 import ModalApplyAfterPublish from "./ModalApplyAfterPublish";
+import ModalCalendarCreateShiftplan from "./ModalCalendarCreateShiftplan";
 
 
 const OpenModal = (props) => {
@@ -41,6 +42,7 @@ const OpenModal = (props) => {
     const editCalendarShift = useSelector(state => state.modal.editCalendarShift);
     const addCalendarShift = useSelector(state => state.modal.addCalendarShift);
     const applyAfterPublish = useSelector(state => state.modal.applyAfterPublish);
+    const showCalendarCreateShiftplan = useSelector(state => state.modal.showCalendarCreateShiftplan);
     const dataModal = () => {
         if(showErstellen) {
             return <ModalAddEmployee {...props}/>
@@ -78,6 +80,8 @@ const OpenModal = (props) => {
             return <ModalAddCalendarShift  {...props}/>
         } else if (applyAfterPublish) {
             return <ModalApplyAfterPublish {...props}/>
+        } else if (showCalendarCreateShiftplan) {
+            return <ModalCalendarCreateShiftplan />
         } else {
             return <ModalEditEmployee  {...props}/>
         }

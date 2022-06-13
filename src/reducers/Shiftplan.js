@@ -102,7 +102,7 @@ const shiftplanSlice = createSlice({
       if( state.plan[currentShiftIndex].Wochentag.ShiftEnd !== userInput.shiftEnd &&
         userInput.shiftEnd !== "" 
       ) {
-        state.plan[currentShiftIndex].Wochentag.ShiftEnd = userInput.shiftEnd === "on" ? "open End" : userInput.shiftEnd;
+        state.plan[currentShiftIndex].Wochentag.ShiftEnd = userInput.shiftEnd === "on" ? true : userInput.shiftEnd;
       }
 
       if( state.plan[currentShiftIndex].Wochentag.ShiftPosition !== userInput.shiftPosition &&
@@ -420,7 +420,7 @@ const shiftplanSlice = createSlice({
       const InputShiftName = userInput.shiftName || "";
       const InputShiftPosition = userInput.shiftPosition || "";
       const InputShiftStart = userInput.shiftStart || "";
-      const InputShiftEnd = userInput.shiftEnd || "";
+      const InputShiftEnd = userInput.shiftEnd === "on" ? true : userInput.shiftEnd;
       const InputShiftsRequiredNumberOfEmployees = userInput.numberOfEmployees || 0;
       const InputShiftsNotice = userInput.shiftNotice || "";
       const InputShiftDayly = userInput.shiftIsDayly || false;
