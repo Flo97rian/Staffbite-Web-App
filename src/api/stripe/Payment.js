@@ -86,7 +86,7 @@ function Payment({EmployeesLength, trialEnd}) {
                 <Row className='mt-2'>
                   <Col>
                     <h3 className='m-0'>
-                      {EmployeesLength > 25 ? 74.90 : (9.90 + 2.50 * EmployeesLength).toLocaleString("de", {style: "currency", currency: "EUR"})}
+                      {EmployeesLength > 25 ? (74.90).toLocaleString("de", {style: "currency", currency: "EUR"}) : (9.90 + 2.50 * EmployeesLength).toLocaleString("de", {style: "currency", currency: "EUR"})}
                     </h3>
                   </Col>
                 </Row>
