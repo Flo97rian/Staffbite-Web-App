@@ -43,6 +43,12 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Badge,
+  Progress,
+  PopoverBody,
+  UncontrolledPopover,
+  PopoverHeader,
+  UncontrolledTooltip,
+  Popover
 } from "reactstrap";
 // core components
 
@@ -56,10 +62,11 @@ import { settingShiftSlot } from "../reducers/ShiftSlot";
 import { addCalendarShift, resettingShiftplan, settingCalenderShift, settingShiftDescription, settingShiftplan, settingShiftTime } from "../reducers/Shiftplan";
 import isSameWeek from "date-fns/isSameWeek";
 import { de } from 'date-fns/locale'
-import { resettingTemporaryCalendarWeekIndicator, settingCalendarFilter, settingRemindShiftplanID, settingTemporaryCalendarWeekIndicator, settingTemporaryEventId } from "../reducers/temporary";
+import { resettingRemindShiftplanID, resettingTemporaryCalendarWeekIndicator, settingCalendarFilter, settingRemindShiftplanID, settingTemporaryCalendarWeekIndicator, settingTemporaryEventId } from "../reducers/temporary";
 import { settingShiftStart, settingCompanyPositions } from "../reducers/userInput";
 import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { thunkUpdateShiftPlan } from "../store/middleware/UpdateShiftPlan";
+import { thunkPublishShiftPlan } from "../store/middleware/PublishShiftPlan";
 const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
 const borderColor = ["border-success", "border-info", "border-light"]
 
@@ -69,23 +76,13 @@ function CalendarView(props) {
   const [events, setEvents] = useState([]);
   const [positions, setPositions] = useState([]);
   const [alert, setAlert] = useState(null);
-  const [modalAdd, setModalAdd] = useState(false);
-  const [modalChange, setModalChange] = useState(false);
   const [viewTimeGridWeek, setViewTimeGridWeek] = useState(true);
   const [viewDayGridMonth, setViewDayGridMonth] = useState(false);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [radios, setRadios] = useState(null);
-  const [eventId, setEventId] = useState(null);
-  const [eventTitle, setEventTitle] = useState(null);
   const [headerTitle, setHeaderTitle] = useState(null);
   const [headerBadge, setHeaderBadge] = useState(null);
   const [bussinessHoursStart, setBussinessHoursStart] = useState("12:00")
-  const [eventDescription, setEventDescription] = useState(null);
+  const [isWeekEmpty, setIsWeekEmpty] = useState(true);
   // eslint-disable-next-line
-  const [event, setEvent] = useState(null);
-  const [currentDate, setCurrentDate] = useState(null);
-  const [currentFilter, setCurrentFilter] = useState(false);
   const calendarRef = useRef(null);
   const dispatch = useDispatch()
   const Meta = useSelector(state => state.Meta);
@@ -149,12 +146,6 @@ function CalendarView(props) {
     }, [viewTimeGridWeek])
 
     useEffect(() => {
-      if(shiftplan.id !== "") {
-        getEarlyestShiftStart()
-      }
-    }, [currentFilter])
-
-    useEffect(() => {
       if(ShiftplanChanged) {
         let calendarApi = calendarRef.current.getApi();
         dispatch(settingTemporaryCalendarWeekIndicator(calendarApi.getDate().toISOString()))
@@ -183,9 +174,14 @@ function CalendarView(props) {
     if(filteredEvent) {
       const shiftplanIndex = Plans.findIndex(plan => plan.id === filteredEvent.shiftplanId);
       if(shiftplanIndex !== -1) {
+        setIsWeekEmpty(false);
         dispatch(settingShiftplan(Plans[shiftplanIndex]));  
         dispatch(settingRemindShiftplanID(Plans[shiftplanIndex].id));
       }
+    }
+    console.log(filteredEvent);
+    if(!filteredEvent) {
+      setIsWeekEmpty(true);
     }
   }
   const filterCurrentShiftplanFromEvents = () => {
@@ -230,7 +226,6 @@ function CalendarView(props) {
                   let updatedStartHour = String(Number(targetsShiftStart[0]) - 2 < 0 ? 0 : Number(targetsShiftStart[0]) - 2)
                   currentEarlyestStart = updatedStartHour + ":" + targetsShiftStart[1];
                   currentEarlyestStartSplit = currentEarlyestStart.split(':')
-                  console.log(currentEarlyestStart);
               }
           }
       })
@@ -306,11 +301,11 @@ function CalendarView(props) {
                     const endTime = new Date(splittedDate[2], Number(splittedDate[1] - 1), splittedDate[0], splttedEndTime[0], splttedEndTime[1])
                     let background = "";
                     const setApplicantsLenght = _.size(_.get(value, "setApplicants", {}))
-                    if(setApplicantsLenght === value.anzahl)
+                    if(setApplicantsLenght === Number(value.anzahl))
                       background = "#2dce89";
-                    if(setApplicantsLenght > value.anzahl)
+                    if(setApplicantsLenght > Number(value.anzahl))
                       background = "#f5365c";
-                    if(setApplicantsLenght < value.anzahl)
+                    if(setApplicantsLenght < Number(value.anzahl))
                       background = "#fb6340"
                     eventsData.push({
                         id: index,
@@ -363,11 +358,11 @@ function CalendarView(props) {
                       const endTime = new Date(splittedDate[2], Number(splittedDate[1] - 1), splittedDate[0], splttedEndTime[0], splttedEndTime[1])
                       let background = "";
                       const setApplicantsLenght = _.size(_.get(value, "setApplicants", {}))
-                      if(setApplicantsLenght === value.anzahl)
+                      if(setApplicantsLenght === Number(value.anzahl))
                         background = "#2dce89";
-                      if(setApplicantsLenght > value.anzahl)
+                      if(setApplicantsLenght > Number(value.anzahl))
                         background = "#f5365c";
-                      if(setApplicantsLenght < value.anzahl)
+                      if(setApplicantsLenght < Number(value.anzahl))
                         background = "#fb6340"
                       eventsData.push({
                           id: lastId + index + 1,
@@ -381,6 +376,7 @@ function CalendarView(props) {
                           borderColor: background,
                           textColor: "dark",
                           notice: _.get(value, "notice", ""),
+                          position: row.Wochentag.ShiftPosition,
                           applicants: _.get(value, "applicants", {}),
                           setApplicants: _.get(value, "setApplicants", {}),
                           shiftplanId: shiftplan.id,
@@ -396,10 +392,7 @@ function CalendarView(props) {
     }
   }
   const selectDate = (info) => {
-    console.log(info);
-    console.log(viewDayGridMonth);
     if(viewDayGridMonth) {
-      console.log(info);
     }
   }
   const changeView = (newView) => {
@@ -408,14 +401,20 @@ function CalendarView(props) {
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
     setHeaderBadge(null);
     if(newView === "timeGridWeek") {
-      console.log(calendarApi);
       setViewTimeGridWeek(true);
       setViewDayGridMonth(false);
+      const selectedDate = calendarApi.getDate();
+      console.log(calendarApi);
+      console.log(selectedDate);
+      calendarApi.gotoDate(selectedDate);
     }
     if(newView === "dayGridMonth") {
       console.log("setting");
       setViewTimeGridWeek(false);
       setViewDayGridMonth(true);
+      dispatch(resettingShiftplan());
+      dispatch(resettingTemporaryCalendarWeekIndicator());
+      dispatch(resettingRemindShiftplanID());
     }
   };
 
@@ -450,18 +449,76 @@ function CalendarView(props) {
     )
   }
 
+  const Popover = ({eventInfo}) => {
+    const target = "Popover" + String(eventInfo.event.id);
+    if (!target) {
+      return null;
+    }
+    const Shift = _.get(shiftplan, "plan[" + eventInfo.event.extendedProps.row + "][" + eventInfo.event.extendedProps.day + "]")
+    const setApplicants = Shift?.setApplicants || {};
+    return (
+      <UncontrolledPopover className="px-4" trigger="hover" placement="top" target={target} placementPrefix="bs-popover">
+        <Row className="mx-4 text-center">
+          <Col>
+            <PopoverHeader>
+            <h3 className="mb-0 pb-0">{eventInfo.event.title}</h3>
+            <small className="m-0 p-0">{eventInfo.event.extendedProps.position}</small>
+          </PopoverHeader>
+          </Col>
+        </Row>
+        <Row className="m-2">
+          <Col>
+          <PopoverBody>
+            <p>
+          <i className="fas fa-clock"></i>{" "}{eventInfo.timeText}{" "}Uhr
+             <div className="m-0 p-0" hidden={_.isEmpty(_.get(Shift, "notice", ""))}>
+             <i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-comment"></i>{" "}{_.get(Shift, "notice", "")}
+             </div>
+             <br/>
+             <i className="fas fa-users"></i>{" "}{eventInfo.event.extendedProps.filling}:
+             {Object.keys(setApplicants).length > 0 ? Object.keys(Shift.setApplicants).map(applicantId => {
+               return <>
+                        <br/>
+                        <b>{Shift.setApplicants[applicantId]}</b>
+                      </>
+             }) : <></>}
+            
+             </p> 
+          </PopoverBody>
+          </Col>
+        </Row>
+      </UncontrolledPopover>
+    );
+  };
   const StatusBadge = () => {
     if(viewTimeGridWeek) {
       if(headerBadge === "Veröffentlicht") {
-        return <Badge color="success">Live</Badge>
+        return <Progress max="100" value="100" style={{height: "18px"}}color="success"><p className="p-0 m-0">Live</p></Progress>
       } else if (headerBadge === "Review") {
-        return <Badge color="primary">Review</Badge>
+        return <Progress max="100" value="75" style={{height: "18px"}}color="primary"><p className="p-0 m-0">Review</p></Progress>
       } else if (headerBadge === "Freigeben") {
-        return <Badge color="warning">In Bewerbung</Badge>
+        return <Progress max="100" value="50" style={{height: "18px"}}color="yellow"><p className="p-0 m-0">Bewerbung</p></Progress>
       } else if (headerBadge === "Entwurf") {
-        return <Badge color="primary">Entwurf</Badge>
+        return <Progress max="100" value="25" style={{height: "15px"}}color="primary">Entwurf</Progress>
       } else {
         return null;
+      }
+    }
+    return null;
+  }
+
+  const NextButtons = () => {
+    if(viewTimeGridWeek) {
+      if (headerBadge === "Review") {
+        return <Button color="success" onClick={() => dispatch(thunkPublishShiftPlan(shiftplan))}>Zur Veröffentlichung</Button>
+      } else if (headerBadge === "Freigeben") {
+        return <Button color="success" onClick={() => dispatch(settingModal("showBefuellungStarten"))}>Zur Befüllung</Button>
+      } else if (headerBadge === "Entwurf") {
+        return <Button color="success"onClick={() => dispatch(settingModal("showSchichtplanFreigeben"))}>Zur Freigabe</Button>
+      } else if (headerBadge === "Veröffentlicht") {
+          return <div className="py-3 pb-4"></div>;
+      } else {
+        return <Button color="primary"onClick={() => dispatch(settingModal("showSchichtplanErstellen"))}>Vorlage anwenden</Button>
       }
     }
     return null;
@@ -469,16 +526,26 @@ function CalendarView(props) {
   const renderEventContent = (eventInfo) => {
     if(shiftplan.id !== "") {
       const Shift = _.get(shiftplan, "plan[" + eventInfo.event.extendedProps.row + "][" + eventInfo.event.extendedProps.day + "]")
+      const setApplicants = Shift?.setApplicants || {};
       return (
+        <div id={"Popover" + String(eventInfo.event.id)}>
+        <Popover eventInfo={eventInfo}/>
         <Row className="p-1">
             <Col>
-             <b>{eventInfo.timeText}{" "}<i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-paperclip ml-2"></i></b>
-             <br/>
-             <b>{eventInfo.event.extendedProps.filling}</b>
-             <br/>
-             <b>{eventInfo.event.title}</b>
+            <b>{eventInfo.timeText}{" Uhr "}<i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-comment ml-2"></i></b>
+            <br/>
+            <br/>
+            <b><i className="fas fa-users"></i>{" "}{eventInfo.event.extendedProps.filling}</b>
+             {Object.keys(setApplicants).length > 0 ? Object.keys(Shift.setApplicants).map(applicantId => {
+               return <>
+                        <br/>
+                        <b className="ml-3">{Shift.setApplicants[applicantId]}</b>
+                      </>
+             }) : <></>}
+             
            </Col>
         </Row>
+        </div>
     )
     }
     return (
@@ -498,6 +565,11 @@ function CalendarView(props) {
     <>
       {alert}
       <Container className="mt-6" fluid>
+      <Row className="text-right my-2">
+          <Col>
+              <NextButtons/>
+          </Col>
+        </Row>
         <Row>
           <div className="col">
             <Card className="card-calendar">
@@ -562,9 +634,15 @@ function CalendarView(props) {
                 </Row>
                 <Row>
                   <Col>
-                        <Row>
+                  </Col>
+                  <Col>
+                        <Row className="pt-2">
                           <Col>
+                          </Col>  
+                          <Col lg="6">
                             <StatusBadge/>
+                          </Col>
+                          <Col>
                           </Col>
                         </Row>
                   </Col>
@@ -593,6 +671,7 @@ function CalendarView(props) {
                         allDaySlot={false}
                         initialView="timeGridWeek"
                         firstDay={1}
+                        eventInteractive={true}
                         height="auto"
                         headerToolbar={""}
                         slotMinTime={bussinessHoursStart}
@@ -626,7 +705,10 @@ function CalendarView(props) {
                         // Add new event
                         select={(info) => {
                             console.log("add");
-
+                            if(viewTimeGridWeek && isWeekEmpty) {
+                              dispatch(settingModal("showCalendarCreateShiftplan"));
+                              return;
+                            }
                             if(viewDayGridMonth) {
                               changeView("timeGridWeek");
                             } 

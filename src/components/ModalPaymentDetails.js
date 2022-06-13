@@ -13,11 +13,13 @@ import differenceInDays from 'date-fns/differenceInDays';
 import parseISO from "date-fns/parseISO";
 import { resettingModal } from "../reducers/modal";
 
-const ModalPaymentDetails = ({keytrue, modalkey, EmployeesLength}) => {
+const ModalPaymentDetails = ({keytrue, modalkey}) => {
         const dispatch = useDispatch();
         const requiredPaymentDetails = useSelector(state => state.modal.requiredPaymentDetails);
+        const EmployeesLength = useSelector(state => state?.DB?.employees || {});
         const Meta = useSelector(state => state.Meta);
         const inTrail = Meta?.tenantCategorie?.registeredAt ? Meta.tenantCategorie.registeredAt : false;
+
         const trialNearEnd = (30 - differenceInDays(new Date(), parseISO(inTrail))) < 7;
         const trialEnd = (30 - differenceInDays(new Date(), parseISO(inTrail))) < 0;
         const trialLeft = () => {
@@ -44,7 +46,7 @@ const ModalPaymentDetails = ({keytrue, modalkey, EmployeesLength}) => {
                 show={requiredPaymentDetails}
             >
                     <Modal.Body>
-                        <Payment trialEnd={trialEnd} EmployeesLength={EmployeesLength}/>
+                        <Payment trialEnd={trialEnd} EmployeesLength={Object.keys(EmployeesLength).length}/>
                     </Modal.Body>
                     {trialLeft()}
             </Modal>

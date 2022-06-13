@@ -116,7 +116,7 @@ const AdminDashboardContainer = (props) => {
     setState({...state, run: showOverview})
     if(!PaymentDetails) {
         const inTrail = Meta?.tenantCategorie?.registeredAt ? Meta.tenantCategorie.registeredAt : false;
-        const trialNearEnd = (30 - differenceInDays(new Date(), parseISO(inTrail))) < 7;
+        const trialNearEnd = (30 - differenceInDays(new Date(), parseISO(inTrail))) < 8;
         if(inTrail !== false && _.isBoolean(PaymentDetails) && trialNearEnd) {
             dispatch(settingModal("requiredPaymentDetails"))
           }

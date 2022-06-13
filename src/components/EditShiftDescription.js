@@ -84,7 +84,7 @@ const EditShiftDescription = (props) => {
                                             </Col>
                                             <Col className="p-0">
                                             <Form className="pl-5">
-                                                <Form.Check type="switch" id="ShiftEnd" defaultChecked={(shiftDetails.ShiftEnd === "open End" || userInput.shiftEnd === "on")} onChange={(event) => {
+                                                <Form.Check type="switch" id="ShiftEnd" defaultChecked={(shiftDetails.ShiftEnd === true || userInput.shiftEnd === "on")} onChange={(event) => {
                                                     if(userInput.shiftEnd === "on") {
                                                         dispatch(resettingShiftEnd(event.target.value))
                                                     } 
