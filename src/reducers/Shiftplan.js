@@ -423,7 +423,7 @@ const shiftplanSlice = createSlice({
       const InputShiftEnd = userInput.shiftEnd === "on" ? true : userInput.shiftEnd;
       const InputShiftsRequiredNumberOfEmployees = userInput.numberOfEmployees || 0;
       const InputShiftsNotice = userInput.shiftNotice || "";
-      const InputShiftDayly = userInput.shiftIsDayly || false;
+      const InputShiftDayly = typeof userInput.shiftIsDayly === "boolean" ? userInput.shiftIsDayly : "";
       let InputSetApplicants = DnDRef || [];
 
       const changeShiftWeekDayDetail = (target, changeValue) => {
@@ -471,25 +471,37 @@ const shiftplanSlice = createSlice({
             console.log("shouldChngeNotice")
             changeShiftsDetail("notice", InputShiftsNotice)
       }
-
-      if(InputShiftDayly) {
-        weekdays.forEach(day => {
-          if( InputShiftsRequiredNumberOfEmployees !== ShiftsRequiredNumberOfEmployees && 
-              InputShiftsRequiredNumberOfEmployees !== 0) {
-                console.log("shouldChngeNumberOfEmployees")
-                state.plan[index][day].anzahl = InputShiftsRequiredNumberOfEmployees;
-            } else {
-                state.plan[index][day].anzahl = ShiftsRequiredNumberOfEmployees;
+      console.log(InputShiftDayly);
+      if(typeof InputShiftDayly === "boolean") {
+        if(InputShiftDayly) {
+          weekdays.forEach(day => {
+            if( InputShiftsRequiredNumberOfEmployees !== ShiftsRequiredNumberOfEmployees && 
+                InputShiftsRequiredNumberOfEmployees !== 0) {
+                  console.log("shouldChngeNumberOfEmployees")
+                  state.plan[index][day].anzahl = InputShiftsRequiredNumberOfEmployees;
+              } else {
+                  state.plan[index][day].anzahl = ShiftsRequiredNumberOfEmployees;
+              }
+            if( InputShiftsNotice !== ShiftsNotice && 
+                InputShiftsNotice !== "") {
+                  console.log("shouldChngeNotice")
+                  state.plan[index][day].notice = InputShiftsNotice;
+              } else {
+                  state.plan[index][day].notice = InputShiftsNotice;
+              }
+              state.plan[index][day].frei = true;
+          })
+        }
+        
+        if(!InputShiftDayly) {
+          console.log(state.plan[index]);
+          weekdays.forEach(weekday => {
+            if(day !== weekday) {
+              state.plan[index][weekday].frei = false;
             }
-          if( InputShiftsNotice !== ShiftsNotice && 
-              InputShiftsNotice !== "") {
-                console.log("shouldChngeNotice")
-                state.plan[index][day].notice = InputShiftsNotice;
-            } else {
-                state.plan[index][day].notice = InputShiftsNotice;
-            }
-            state.plan[index][day].frei = true;
-        })
+          });
+        
+        }
       }
 
       //check SetApplicants

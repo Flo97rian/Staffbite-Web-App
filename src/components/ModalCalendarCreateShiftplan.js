@@ -9,12 +9,17 @@ import Modal from 'react-bootstrap/Modal';
 import SchichtplanErstellen from "./FormCreateShiftplan"
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
-import { createingNewShiftplan, createNewShiftplan, settingNewShiftplan } from "../reducers/NewShiftPlan";
+import { createingNewShiftplan, createingNewShiftplanFromExistingShiftplan, createingNewShiftplanInCalendar, createNewShiftplan, settingNewShiftplan } from "../reducers/NewShiftPlan";
 import { resettingUserInput } from "../reducers/userInput";
 import {settingDisplayNewShiftplan } from "../reducers/display";
 import { settingMissingShiftplanName } from "../reducers/ErrorMessages";
 import FormCalendarImportVorlage from "./FormCalendarImportVorlage";
 import FormCalendarCreateShiftplan from "./FormCalendarCreateShiftplan";
+import { settingProcessingStartCreateShiftplan } from "../reducers/processing";
+import { resettingShiftSlot } from "../reducers/ShiftSlot";
+import { resettingDatePicker } from "../reducers/DatePicker";
+import format from "date-fns/format";
+import { de } from "date-fns/locale";
 
 const ModalCalendarCreateShiftplan = (props) => {
     const dispatch = useDispatch();
@@ -24,18 +29,46 @@ const ModalCalendarCreateShiftplan = (props) => {
     const [showNewOptions, setShowNewOptions] = useState(hasPlans);
     const showCalendarCreateShiftplan = useSelector(state => state.modal.showCalendarCreateShiftplan);
     const userInput = useSelector(state => state.userInput);
+    const TemporaryShiftplanId = useSelector(state => state.temporary.shiftplanId);
+    const day = useSelector(state => state.shiftSlot.day);
+    const Plans = useSelector(state => state.DB.plans);
+    const Dates = useSelector(state => state.date);
 
       // Diese Funktion sorgt für die Speicherung eines neuen Schichtplans und schließt im Anschluss das zugehörige Modal
   const createNewShiftPlan = () => {
+    if(showImportVorlage && TemporaryShiftplanId) {
+        const targetShiftplan = Plans[Plans.findIndex(shiftplan => shiftplan.id === TemporaryShiftplanId)]; 
+        dispatch(createingNewShiftplanFromExistingShiftplan({existingShiftplan: targetShiftplan, newStartDate: Dates.start, newEndDate: Dates.end}))
+        dispatch(resettingModal());
+        dispatch(settingProcessingStartCreateShiftplan());
+        dispatch(resettingDatePicker())
+    }
 
+    if(showNewVorlage) {
+        let shiftplanName = userInput.shiftplanName;
+        if(!shiftplanName.length) {
+            let startDate = new Date(Dates.start);
+            let endDate = new Date(Dates.end);
+            let startOfWeek = startDate.getDate();
+            let endOfWeek = endDate.getDate();
+            let startMonthOfWeek = format(endDate, "MMM", {locale: de, weekStartsOn: 1});
+            let endMonthOfWeek = format(endDate, "MMM", {locale: de, weekStartsOn: 1});
+            shiftplanName = startOfWeek + '. ' + startMonthOfWeek + ' - ' + endOfWeek + '. ' + endMonthOfWeek;  
+        }
+        dispatch(createingNewShiftplanInCalendar({userInput: {...userInput, shiftplanName: shiftplanName}, newStartDate: Dates.start, newEndDate: Dates.end, day: day}));
+        dispatch(resettingModal());
+        dispatch(settingProcessingStartCreateShiftplan());
+        dispatch(resettingShiftSlot());
+        dispatch(resettingDatePicker())
+    }
     if(userInput.shiftplanName === "") {
-        dispatch(settingMissingShiftplanName())
+        //dispatch(settingMissingShiftplanName())
     }
 
     if(userInput.shiftplanName !== "") {
-        dispatch(createingNewShiftplan({closedDays: userInput.shiftplanCompanyIsOpen, shiftsPerDay: userInput.shiftplanNumberOfShifts, shiftplanName: userInput.shiftplanName}))
-        dispatch(settingDisplayNewShiftplan());
-        dispatch(resettingModal())
+        //dispatch(createingNewShiftplan({closedDays: userInput.shiftplanCompanyIsOpen, shiftsPerDay: userInput.shiftplanNumberOfShifts, shiftplanName: userInput.shiftplanName}))
+        //dispatch(settingDisplayNewShiftplan());
+        //dispatch(resettingModal())
     }
 
 

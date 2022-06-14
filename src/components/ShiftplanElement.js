@@ -68,7 +68,8 @@ export const ShiftplanElement = (props) => {
     const notice = _.get(currentItem, "notice", "");
     const isFree = _.get(currentItem, "frei", false)
     const hasPrio = !_.isBoolean(prio);
-    const hasNotice = !_.isEmpty(notice)
+    const hasNotice = !_.isEmpty(notice);
+    const hasDates = _.get(Shiftplan, "plan.[0].Wochentag", false) === "Datum";
     const anzahl = _.get(Shiftplan, "plan.[" + index + "].Montag.anzahl", "0");
     const hasShiftName = _.get(currentItem, "Wochentag.ShiftName", "");
     const isDiscribeWeekDay = day === "Wochentag";
@@ -84,10 +85,14 @@ export const ShiftplanElement = (props) => {
     const SetApplicantsKeys = _.keys(SetApplicants);
     const FirstSetApplicant = _.get(SetApplicants, [SetApplicantsKeys[0]], "");
     const SecondSetApplicant = _.get(SetApplicants, [SetApplicantsKeys[1]], "");
-
+    console.log(index);
+    console.log(Shiftplan.plan[index]);
+    console.log(hasDates);
     if(!_.isEmpty(type)) {
         if(type === "Entwurf") {
-            if (index === 0 || index === ItemLength - 1 ) {
+            if (index === 0 && hasDates) {
+                return null;
+            } else if ((index === 0 && !hasDates) || (index === 1 && hasDates) || index === ItemLength - 1 ) {
                 return DateOrWeekDayRow(currentItem);
             } else if (isFree && isDiscribeWeekDay && !hasShiftName){
                 return setShiftDetails(index, editShift);

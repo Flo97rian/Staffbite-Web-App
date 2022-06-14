@@ -25,6 +25,7 @@ export function thunkReleaseForApplication() {
         const uuid = uuidv4()
         let name = state.userInput.shiftplanName !== Shiftplan.name ? state.userInput.shiftplanName : Shiftplan.name;
 
+        
         let dateKeys = Object.keys(state.Shiftplan.plan[0]);
         let dateRow = {};
         dateKeys.shift();

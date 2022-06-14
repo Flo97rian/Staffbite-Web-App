@@ -4,7 +4,7 @@ import { API_HOSTNAME, PUBLISH_SHIFTPLAN } from "../../constants/ApiConstants";
 import { resettingShiftplan } from "../../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
 import { resettingDisplayShiftplan } from "../../reducers/display";
-import { settingShiftplanReleased } from "../../reducers/SuccessMessages";
+import { settingShiftplanPublished, settingShiftplanReleased } from "../../reducers/SuccessMessages";
 import { settingRemindShiftplanID } from "../../reducers/temporary";
 import { resettingProcessing, settingProcessingRejectedPublish, settingProcessingStartPublish } from "../../reducers/processing";
 
@@ -27,7 +27,7 @@ export function thunkPublishShiftPlan(plan) {
             return API.post(apiName, path, myInit)
             })
             .then(response => {
-                dispatch(settingShiftplanReleased());
+                dispatch(settingShiftplanPublished());
                 dispatch(thunkFetchShiftplans());
                 dispatch(resettingDisplayShiftplan());
                 dispatch(resettingCurrentShiftplanIndex());

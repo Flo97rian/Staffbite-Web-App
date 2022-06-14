@@ -400,6 +400,7 @@ const ShiftplanContainer = () => {
           onClick={() => {
             dispatch(settingCalendarLayout());
             dispatch(resettingBasicLayout());
+            dispatch(resettingShiftplan());
           }}
           >
             Kalender
@@ -408,6 +409,7 @@ const ShiftplanContainer = () => {
           hidden={DisplayBasicLayout}
           color="link"
           onClick={() => {
+            dispatch(resettingShiftplan());
             dispatch(settingBasicLayout());
             dispatch(resettingCalendarLayout());
           }}

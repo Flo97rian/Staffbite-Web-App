@@ -7,7 +7,9 @@ import timeGridPlugin from "@fullcalendar/timegrid"
 import interaction from "@fullcalendar/interaction";
 import _ from 'lodash';
 import isBefore from 'date-fns/isBefore';
+import { settingRemindShiftplanID } from "../reducers/temporary";
 const FormCalendarImportVorlage = () => {
+    const dispatch = useDispatch();
     const Plans = useSelector(state => state.DB.plans);
     const [currentVorlageIndex, setCurrentVorlageIndex] = useState(0);
     const [vorlagen, setVorlagen] = useState([...Plans.filter(plan => plan.id.split('#').includes("Veröffentlicht"))]);
@@ -19,7 +21,9 @@ const FormCalendarImportVorlage = () => {
     const calendarRef = useRef(null);
 
     useEffect(() => {
-        setShiftplan(Plans[Plans.findIndex(shiftplan => shiftplan.id === vorlagen[currentVorlageIndex].id)])
+        const targetShiftplan = Plans[Plans.findIndex(shiftplan => shiftplan.id === vorlagen[currentVorlageIndex].id)]; 
+        setShiftplan(targetShiftplan);
+        dispatch(settingRemindShiftplanID(targetShiftplan.id));
     }, [currentVorlageIndex])
 
     useEffect(() => {

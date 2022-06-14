@@ -1,4 +1,4 @@
-import React, { useRef, useState, Component } from "react";
+import React, { useRef, useState, Component, useEffect } from "react";
 import {
     Row,
     Col,
@@ -14,9 +14,29 @@ import EmployeesDnDForSingleShift from "./EmployeesDnDForSingleShift";
 
 
 const FromEditCalendarShift = (props) => {
+    const Shiftplan = useSelector(state => state.Shiftplan);
     const [standardSettings, setStandardSettings] = useState(true);
     const [advancedSettings, setAdvancedSettings] = useState(false);
     const [applicantsSettings, setApplicantsSettings] = useState(false);
+
+    useEffect(() => {
+        selectSettings();
+    }, [])
+
+    const selectSettings = () => {
+        const shiftplanType = Shiftplan.id.split('#')[1];
+        if(shiftplanType === "Veröffentlicht") {
+            setAdvancedSettings(false)
+            setStandardSettings(false);
+            setApplicantsSettings(true);
+        }
+
+        if(shiftplanType === "Review") {
+            setAdvancedSettings(false)
+            setStandardSettings(false);
+            setApplicantsSettings(true); 
+        }
+    }
     return (
         <Row>
             <Col>
@@ -57,7 +77,7 @@ const FromEditCalendarShift = (props) => {
                     <i className="fas fa-angle-down fas-sm ml-2 text-right"/>
                 </h3>
                 <Collapse isOpen={applicantsSettings}>
-                    <Card className="bg-secondary shadow-none border p-2">
+                    <Card className="bg-secondary shadow-none border p-2 overflow-auto">
                     <EmployeesDnDForSingleShift
                     ref={props.DragAndDropRef}
                     />

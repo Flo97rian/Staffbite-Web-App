@@ -15,7 +15,7 @@ const initialState = {
     minQualification: !1,
     shiftsPerDay: 1,
     shiftNotice: "",
-    shiftIsDayly: !1,
+    shiftIsDayly: "",
     shiftplanFillingReverse: !1,
     shiftplanFillingFair: !1,
     employeeName: "",
@@ -135,33 +135,33 @@ const userInputSlice = createSlice({
             state.shiftplanCompanyIsOpen = state.shiftplanCompanyIsOpen.filter(day => day !== action.payload);
         },
         resettingUserInput(state) {
-            state.positions = [];
-            state.companyName = "";
-            state.companySurname = "";
-            state.shiftplanName = "";
-            state.shiftName = "";
-            state.shiftPosition = "";
-            state.shiftStart = "";
-            state.shiftEnd = "";
-            state.numberOfEmployees = 0;
-            state.minQualification = !1;
-            state.shiftsPerDay = 1;
-            state.shiftNotice = "";
-            state.shiftIsDayly = !1;
-            state.shiftplanFillingReverse = !1;
-            state.shiftplanFillingFair = !1;
-            state.employeeName = "";
-            state.employeeShiftsPerWeek = 0;
-            state.employeeQualification = "Anfänger";
-            state.employeePositions = [];
-            state.employeeActive = false;
-            state.employeeFree = false;
-            state.employeeEmail = "";
-            state.newPosition = "";
-            state.reportFilter = {};
-            state.employeeTargetShiftTrade = "";
-            state.shiftplanNumberOfShifts = 1;
-            state.shiftplanCompanyIsOpen = [];
+            state.positions = initialState.positions;
+            state.companyName = initialState.companyName;
+            state.companySurname = initialState.companySurname;
+            state.shiftplanName = initialState.shiftplanName;
+            state.shiftName = initialState.shiftName;
+            state.shiftPosition = initialState.shiftPosition;
+            state.shiftStart = initialState.shiftStart;
+            state.shiftEnd = initialState.shiftEnd;
+            state.numberOfEmployees = initialState.numberOfEmployees;
+            state.minQualification = initialState.minQualification;
+            state.shiftsPerDay = initialState.shiftsPerDay;
+            state.shiftNotice = initialState.shiftNotice;
+            state.shiftIsDayly = initialState.shiftIsDayly;
+            state.shiftplanFillingReverse = initialState.shiftplanFillingReverse;
+            state.shiftplanFillingFair = initialState.shiftplanFillingFair;
+            state.employeeName = initialState.employeeName;
+            state.employeeShiftsPerWeek = initialState.employeeShiftsPerWeek;
+            state.employeeQualification = initialState.employeeQualification;
+            state.employeePositions = initialState.employeePositions;
+            state.employeeActive = initialState.employeeActive;
+            state.employeeFree = initialState.employeeFree;
+            state.employeeEmail = initialState.employeeEmail;
+            state.newPosition = initialState.newPosition;
+            state.reportFilter = initialState.reportFilter;
+            state.employeeTargetShiftTrade = initialState.employeeTargetShiftTrade;
+            state.shiftplanNumberOfShifts = initialState.shiftplanNumberOfShifts;
+            state.shiftplanCompanyIsOpen = initialState.shiftplanCompanyIsOpen;
         }
     }
 });

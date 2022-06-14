@@ -126,9 +126,6 @@ const SchichtplanErstellen = () => {
   } 
 
   const ViewButton = () => {
-
-    return null;
-    
     if(DisplayBasicLayout) {
       return <Button color="primary" onClick={() => dispatch(switchToCalendarLayout())}>Kalender-Ansicht</Button>
     }
