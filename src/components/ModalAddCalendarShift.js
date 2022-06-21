@@ -18,8 +18,8 @@ const ModalAddCalendarShift = (props) => {
 
     const handleCalendarAddShift = () => {
         dispatch(addCalendarShift({day: day, userInput: userInput}));
-        dispatch(resettingModal())
         dispatch(settingShiftplanChanged());
+        dispatch(resettingModal())
       }
         return (
             <Modal 

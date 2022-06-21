@@ -85,11 +85,10 @@ export const ShiftplanElement = (props) => {
     const SetApplicantsKeys = _.keys(SetApplicants);
     const FirstSetApplicant = _.get(SetApplicants, [SetApplicantsKeys[0]], "");
     const SecondSetApplicant = _.get(SetApplicants, [SetApplicantsKeys[1]], "");
-    console.log(index);
-    console.log(Shiftplan.plan[index]);
-    console.log(hasDates);
     if(!_.isEmpty(type)) {
         if(type === "Entwurf") {
+            console.log("moin");
+            console.log(index);
             if (index === 0 && hasDates) {
                 return null;
             } else if ((index === 0 && !hasDates) || (index === 1 && hasDates) || index === ItemLength - 1 ) {
@@ -185,6 +184,7 @@ export const ShiftplanElement = (props) => {
             }
         }
     }
+    return null;
 
 }
 

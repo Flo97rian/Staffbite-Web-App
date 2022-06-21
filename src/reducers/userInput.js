@@ -15,7 +15,7 @@ const initialState = {
     minQualification: !1,
     shiftsPerDay: 1,
     shiftNotice: "",
-    shiftIsDayly: "",
+    shiftIsDayly: false,
     shiftplanFillingReverse: !1,
     shiftplanFillingFair: !1,
     employeeName: "",
@@ -27,7 +27,8 @@ const initialState = {
     employeeEmail: "",
     newPosition: "",
     reportFilter: {},
-    employeeTargetShiftTrade: ""
+    employeeTargetShiftTrade: "",
+    shiftCustomDays: [],
 }
 
 const userInputSlice = createSlice({
@@ -61,8 +62,11 @@ const userInputSlice = createSlice({
         settingShiftNotice(state, action) {
             state.shiftNotice = action.payload
         },
-        settingShiftIsDayly(state, action) {
-            state.shiftIsDayly = action.payload
+        settingShiftIsDayly(state) {
+            state.shiftIsDayly = true;
+        },
+        resettingShiftIsDayly(state) {
+            state.shiftIsDayly = false;
         },
         settingCompanyPositions(state, action) {
             state.positions = action.payload
@@ -134,6 +138,20 @@ const userInputSlice = createSlice({
         resettingShiftplanCompanyIsOpen(state, action) {
             state.shiftplanCompanyIsOpen = state.shiftplanCompanyIsOpen.filter(day => day !== action.payload);
         },
+        settingCurrentShiftCustomsDays(state, action) {
+            state.shiftCustomDays = action.payload;
+        },
+        resettingCurrentShiftCustomDays(state) {
+            state.shiftCustomDays = initialState.shiftCustomDays;
+        },
+        settingShiftCustomDays(state, action) {
+            state.shiftCustomDays.push(action.payload);
+        },
+        resettingShiftCustomDays(state, action) {
+            const removeDay = action.payload;
+            const filteredDays = state.shiftCustomDays.filter(day => day !== removeDay);
+            state.shiftCustomDays = filteredDays;
+        },
         resettingUserInput(state) {
             state.positions = initialState.positions;
             state.companyName = initialState.companyName;
@@ -162,6 +180,7 @@ const userInputSlice = createSlice({
             state.employeeTargetShiftTrade = initialState.employeeTargetShiftTrade;
             state.shiftplanNumberOfShifts = initialState.shiftplanNumberOfShifts;
             state.shiftplanCompanyIsOpen = initialState.shiftplanCompanyIsOpen;
+            state.shiftCustomDays = initialState.shiftCustomDays;
         }
     }
 });
@@ -177,6 +196,7 @@ export const {
     settingShiftsPerDay,
     settingShiftNotice,
     settingShiftIsDayly,
+    resettingShiftIsDayly,
     settingCompanyPositions,
     settingCompanyName,
     settingCompanySurname,
@@ -201,6 +221,10 @@ export const {
     settingShiftplanCompanyIsOpen,
     resettingShiftplanCompanyIsOpen,
     resettingEmployeePositions,
+    settingShiftCustomDays,
+    resettingShiftCustomDays,
+    settingCurrentShiftCustomsDays,
+    resettingCurrentShiftCustomDays
 } = userInputSlice.actions;
   
 export default userInputSlice.reducer

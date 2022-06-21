@@ -15,6 +15,7 @@ export function thunkFetchEmployees() {
             return API.post(apiName, path, myInit)
             })
             .then(response => {
+                console.log(response);
                 let employees = {};
                     response.Items.forEach(item => {
                         employees[item.SK.S]  = {
@@ -31,7 +32,8 @@ export function thunkFetchEmployees() {
                             erfahrung: item.erfahrung.S,
                             schichtenwoche: item.schichtenwoche.N,
                             position: JSON.parse(item.position.S),
-                            bewerbungen: JSON.parse(item.bewerbungen.S)
+                            bewerbungen: JSON.parse(item.bewerbungen.S),
+                            schichten: JSON.parse(item.schichten.S),
                         };
                         if(Object.keys(item).includes("onboarding")) {
                             employees[item.SK.S].onboarding = JSON.parse(item.onboarding.S)
@@ -41,6 +43,7 @@ export function thunkFetchEmployees() {
                 dispatch(settingEmployees(employees))
                 })
             .catch(error => {
+                console.log(error);
                 dispatch(settingEmployeesRejected())
             })
     

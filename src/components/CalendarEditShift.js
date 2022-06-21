@@ -1,11 +1,17 @@
 import _ from "lodash";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import getShiftDescriptionDetails from "../libs/getShiftDetails";
 import {
     Row,
     Col,
     Card,
     Button,
+    Pagination,
+    PaginationItem,
+    PaginationLink,
+    Input,
+    UncontrolledCollapse,
+    Collapse
 } from "reactstrap"
 import InputString from "./InputString";
 import InputTime from "./InputTime";
@@ -15,10 +21,12 @@ import SelectPosition from "./SelectPosition";
 import { INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_START, INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES } from "../constants/InfoTexts";
 import Switch from "./Switch";
 import { useSelector, useDispatch } from "react-redux";
-import { settingShiftEnd, settingShiftIsDayly, settingShiftName, settingShiftNumberOfEmployees, settingShiftStart } from "../reducers/userInput";
+import { resettingCurrentShiftCustomDays, resettingShiftCustomDays, resettingShiftIsDayly, settingCurrentShiftCustomsDays, settingShiftCustomDays, settingShiftEnd, settingShiftIsDayly, settingShiftName, settingShiftNumberOfEmployees, settingShiftStart } from "../reducers/userInput";
 import { deletingCalendarShift } from "../reducers/Shiftplan";
 import { resettingModal } from "../reducers/modal";
 import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
+import { weekdays } from "../constants/Weekdays";
+import InfoLabel from "./InfoLabel";
 
 const CalendarEditShift = (props) => {
     const index = useSelector(state => state.shiftSlot.index);
@@ -28,6 +36,10 @@ const CalendarEditShift = (props) => {
     const shiftDetails = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag);
     const anzahl = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].anzahl);
     const userInputName = useSelector(state => state.userInput.shiftName);
+    const userInputShiftIsDayly = useSelector(state => state.userInput.shiftIsDayly);
+    const userInputCustomDays = useSelector(state => state.userInput.shiftCustomDays);
+    const userInputIsDayly = useSelector(state => state.userInput.shiftIsDayly)
+    const [customRepeat, setCustomRepeat] = useState(false);
     const dispatch = useDispatch()
 
     const deleteShift = () => {
@@ -35,14 +47,89 @@ const CalendarEditShift = (props) => {
         dispatch(resettingModal())
         dispatch(settingShiftplanChanged());
     }
-    if(_.isEmpty(shift)) 
-        return null
+    useEffect(() => {
     let isDayly = true;
     _.forIn(shiftRow, function (value, key) {
         if (key === "Wochentag") return
         if (value.frei !== true) 
             isDayly = false;
     });
+    let shiftsActiveDays = [];
+    _.forIn(shiftRow, function (value, key) {
+
+        if (key === "Wochentag") return
+        if (value.frei === true) 
+        shiftsActiveDays.push(key);
+    });
+    if(shiftsActiveDays.length === 1 && !isDayly && !customRepeat) {
+        dispatch(settingCurrentShiftCustomsDays(shiftsActiveDays));
+    }
+
+    if(shiftsActiveDays.length > 1 && !isDayly && !customRepeat) {
+        setCustomRepeat(true);
+        dispatch(settingCurrentShiftCustomsDays(shiftsActiveDays));
+    }
+
+    if(isDayly) {
+        dispatch(settingShiftIsDayly());
+        dispatch(settingCurrentShiftCustomsDays(shiftsActiveDays));
+    }
+    }, [])
+
+    useEffect(() => {
+        let shiftsActiveDays = [];
+        _.forIn(shiftRow, function (value, key) {
+    
+            if (key === "Wochentag") return
+            if (value.frei === true) 
+            shiftsActiveDays.push(key);
+        });
+        if(shiftsActiveDays !== userInputCustomDays && customRepeat) {
+            dispatch(settingCurrentShiftCustomsDays(shiftsActiveDays));
+        }
+    }, [customRepeat])
+
+    if(_.isEmpty(shift)) 
+    return null
+
+    const handleSelectRepeat = (event) => {
+        if(event === "Eigene") {
+            setCustomRepeat(true);
+            dispatch(resettingShiftIsDayly());
+        }
+
+        if(event === "Täglich") {
+            setCustomRepeat(false);
+            dispatch(resettingCurrentShiftCustomDays());
+            dispatch(settingShiftIsDayly())    
+        }
+
+        if(event === "Ohne") {
+            setCustomRepeat(false);
+            if(userInputIsDayly) {
+                dispatch(resettingShiftIsDayly()) 
+            }
+            if(customRepeat) {
+                dispatch(resettingCurrentShiftCustomDays());
+            }
+            dispatch(settingShiftCustomDays(day));
+        }
+    }
+
+    const handleCustomDays = (day) => {
+        if(userInputCustomDays.includes(day)) {
+            dispatch(resettingShiftCustomDays(day));
+        }
+        if(!userInputCustomDays.includes(day)) {
+            dispatch(settingShiftCustomDays(day));
+        }
+    }
+
+    const showActive = () => {
+        if(!userInputCustomDays.length) {
+
+        }
+    }
 
     return (
         <Card className="bg-secondary border px-2 shadow-none">
@@ -67,7 +154,31 @@ const CalendarEditShift = (props) => {
                     </Row>
                     <Row>
                         <Col>
-                            <Switch info={true} description={"Moin"} type="switch" label="Täglich wiederholen" name="dayly" value={isDayly} onChange={(event) => dispatch(settingShiftIsDayly(event.target.checked))}></Switch>
+                            <InfoLabel title={"Wiederholen"}/>
+                            <Input type="select" className=" edit-event--description input-autosize form-control" onChange={(event) => handleSelectRepeat(event.target.value)}>
+                                <option key={"Ohne"} value={"Ohne"}>Ohne</option>
+                                <option key={"isDayly"} value={"Täglich"} selected={userInputIsDayly}>Täglich</option>
+                                <option key={"customRepeat"} value={"Eigene"} selected={customRepeat}>Eigene</option>
+                            </Input>
+                            <Row>
+                                <Col>
+                                    <Collapse isOpen={customRepeat}>
+                                        <div className="m-4">
+                                        <Pagination>
+                                            {weekdays.map((weekday, index) => {
+                                                return (
+                                                    <PaginationItem key={index} active={userInputCustomDays.includes(weekday) ? true: false}>
+                                                        <PaginationLink onClick={() => handleCustomDays(weekday)}>
+                                                            {weekday.substring(0, 2)}
+                                                        </PaginationLink>
+                                                    </PaginationItem>
+                                                )
+                                            })}
+                                        </Pagination>
+                                        </div>
+                                    </Collapse>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                     <Row className="mt-2">

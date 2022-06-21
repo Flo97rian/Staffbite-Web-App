@@ -16,10 +16,14 @@ var dynamodb = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
     let body = JSON.parse(event.body);
+    let type = body.type;
+    let index = body.index;
+    let day = body.day;
     let user = body.user;
+    console.log(body);
     let shiftplan = body.shiftplan;
+    await updateEmployeesSchichten(shiftplan, type, index, day, user, shiftplan.id)
     console.log(body)
-    console.log(typeof body.schichtentag)
  var params = {
     Key: {
    "PK": {
@@ -79,3 +83,128 @@ exports.handler = async (event) => {
 
 
 
+const updateEmployeesSchichten = async (Plan, type, index, day, user, id) => {
+    if(type === "updateShifts") {
+        let planDB = await getShiftplan(user, id);
+        if(JSON.stringify(Plan.plan[index][day].setApplicants) !== JSON.stringify(planDB[index][day].setApplicants)) {
+            //get new and removed applicants
+            let oldPlansSetApplicants = Object.keys(planDB[index][day].setApplicants);
+            let newPlansSetApplicants = Object.keys(Plan.plan[index][day].setApplicants);
+            let newApplicants = newPlansSetApplicants.filter(applicant => !oldPlansSetApplicants.includes(applicant));
+            let removedApplicants = oldPlansSetApplicants.filter(applicant => !newPlansSetApplicants.includes(applicant));
+            
+            // get ShiftIndicator
+            let ShiftIndicator = index + '#' + Plan.plan[index].Wochentag.ShiftPosition + '#' + day
+            
+            //update schichten of new applicants
+            console.log(newApplicants, removedApplicants);
+            for (const applicant of newApplicants) {
+                let employeeSchichten = await getEmployeeSchichten(user, applicant);
+                if(!employeeSchichten[Plan.zeitraum]) {
+                    employeeSchichten[Plan.zeitraum] = [];
+                }
+                employeeSchichten[Plan.zeitraum].push(ShiftIndicator);
+                await updateEmployeeSchichten(user, applicant, employeeSchichten);
+            }
+            
+            //update schichten of removed applicants
+            for (const applicant of removedApplicants) {
+                
+                let employeeSchichten = await getEmployeeSchichten(user, applicant);
+                if(employeeSchichten[Plan.zeitraum]) {
+                    
+                    let indexInSchichten = employeeSchichten[Plan.zeitraum].indexOf(ShiftIndicator);
+                    if( indexInSchichten !== -1) {
+                        employeeSchichten[Plan.zeitraum].splice(indexInSchichten, 1);
+                    }
+                    
+                    await updateEmployeeSchichten(user, applicant, employeeSchichten);
+                }
+            }
+        }
+        
+    };
+}
+
+const getShiftplan = async (user, id) => {
+    var plan = null
+    var params = {
+      Key: {
+       "PK": {
+         S: "ORG#" + user["custom:TenantId"]
+        }, 
+       "SK": {
+         S: id
+        }
+      }, 
+      TableName: "Staffbite-DynamoDB"
+     };
+
+    try {
+        plan = await dynamodb.getItem(params).promise();
+    } catch(error) {
+        console.log(JSON.stringify(error))
+    }
+    if(plan) {
+        return JSON.parse(plan.Item.data["S"]);
+    }
+    return null;
+}
+
+const getEmployeeSchichten = async (user, employeeId) => {
+    var employee = null
+    var params = {
+      Key: {
+       "PK": {
+         S: "ORG#" + user["custom:TenantId"]
+        }, 
+       "SK": {
+         S: "EMP#" + employeeId,
+        }
+      }, 
+      TableName: "Staffbite-DynamoDB"
+     };
+
+    try {
+        employee = await dynamodb.getItem(params).promise();
+    } catch(error) {
+        console.log(JSON.stringify(error))
+    }
+    if(employee) {
+        return employee.Item?.schichten?.S ? JSON.parse(employee.Item.schichten.S) : {};
+    }
+    return null;
+}
+
+const updateEmployeeSchichten = async (user, employeeId, schichten) => {
+ var params = {
+        Key: {
+        "PK": {
+         "S": "ORG#" + user["custom:TenantId"]
+        }, 
+        "SK": {
+          "S": employeeId,
+        }
+    },
+      ExpressionAttributeNames: {
+       "#schichten": "schichten",
+      }, 
+      ExpressionAttributeValues: {
+                    ":schichten": {
+                     "S": JSON.stringify(schichten)
+                    }
+      }, 
+      ReturnValues: "ALL_NEW", 
+      TableName: "Staffbite-DynamoDB", 
+      UpdateExpression: "SET #schichten = :schichten"
+        };
+     
+    var updated = null
+
+    try {
+        updated = await dynamodb.updateItem(params).promise();
+    } catch(error) {
+        updated = error
+    }
+    return updated;
+}

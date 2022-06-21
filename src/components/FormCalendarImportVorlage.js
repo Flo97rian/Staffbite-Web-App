@@ -8,15 +8,18 @@ import interaction from "@fullcalendar/interaction";
 import _ from 'lodash';
 import isBefore from 'date-fns/isBefore';
 import { settingRemindShiftplanID } from "../reducers/temporary";
+import { addDays, startOfWeek } from "date-fns";
+import { de } from "date-fns/locale";
+import { weekdays } from "../constants/Weekdays";
 const FormCalendarImportVorlage = () => {
     const dispatch = useDispatch();
     const Plans = useSelector(state => state.DB.plans);
     const [currentVorlageIndex, setCurrentVorlageIndex] = useState(0);
-    const [vorlagen, setVorlagen] = useState([...Plans.filter(plan => plan.id.split('#').includes("Veröffentlicht"))]);
+    const [vorlagen, setVorlagen] = useState([...Plans.filter(plan => plan.id.split('#').includes("Veröffentlicht")), ...Plans.filter(plan => plan.id.split('#').includes("Entwurf"))]);
     const [events, setEvents] = useState([]);
     const [filter, setFilter] = useState(false)
     const [positions, setPositions] = useState([]);
-    const [shiftplan, setShiftplan] = useState(Plans.findIndex(shiftplan => shiftplan.id === vorlagen[currentVorlageIndex].id))
+    const [shiftplan, setShiftplan] = useState(Plans.findIndex(shiftplan => shiftplan.id === vorlagen[currentVorlageIndex].id));
     const [bussinessHoursStart, setBussinessHoursStart] = useState("12:00");
     const calendarRef = useRef(null);
 
@@ -80,17 +83,33 @@ const FormCalendarImportVorlage = () => {
 
       const setEventsData = (filter = false) => {
         let eventsData = [];
-        const plan = _.get(shiftplan, "plan", [])
+        const plan = _.get(shiftplan, "plan", []);
         let index = 0
         _.forEach(plan, function (row, rowIndex) {
             if (filter === false || row.Wochentag.ShiftPosition === filter) {
                 _.forIn(row, function (value, key, row) {
                     if(_.isObject(value) && key !== "Wochentag" && value.frei !== false) {
+                        console.log(plan);
                         const splittedDate = plan[0][key].split(".");
-                        const splittedStartTime = row.Wochentag.ShiftStart.split(":");
-                        const splttedEndTime = _.isBoolean(row.Wochentag.ShiftEnd) ? ("24:00").split(":") : row.Wochentag.ShiftEnd.split(":")
-                        const startTime = new Date(splittedDate[2], Number(splittedDate[1]) - 1, splittedDate[0], splittedStartTime[0], splittedStartTime[1])
-                        const endTime = new Date(splittedDate[2], Number(splittedDate[1] - 1), splittedDate[0], splttedEndTime[0], splttedEndTime[1])
+                        let startTime;
+                        let endTime;
+                        let splittedStartTime = row.Wochentag.ShiftStart.split(":");
+                        let splttedEndTime = _.isBoolean(row.Wochentag.ShiftEnd) ? ("24:00").split(":") : row.Wochentag.ShiftEnd.split(":")
+                        if(plan[0].Wochentag === "Datum") {
+                            startTime = new Date(splittedDate[2], Number(splittedDate[1]) - 1, splittedDate[0], splittedStartTime[0], splittedStartTime[1])
+                            endTime = new Date(splittedDate[2], Number(splittedDate[1] - 1), splittedDate[0], splttedEndTime[0], splttedEndTime[1])
+                        }
+                        if(plan[0].Wochentag === "Wochentag") {
+                            startTime = addDays(startOfWeek(new Date(), { locale: de, weekStartsOn: 1}), weekdays.indexOf(key));
+                            startTime.setHours(splittedStartTime[0])
+                            startTime.setMinutes(splittedStartTime[1])
+                            endTime = addDays(startOfWeek(new Date(), { locale: de, weekStartsOn: 1}), weekdays.indexOf(key));
+                            endTime.setHours(splttedEndTime[0]);
+                            endTime.setMinutes(splttedEndTime[1])
+                        }
+
+                        console.log(splittedDate);
+                        
                         let background = "";
                         eventsData.push({
                             id: index,

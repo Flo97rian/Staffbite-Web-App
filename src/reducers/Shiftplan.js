@@ -2,6 +2,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import millisecondsToHours from 'date-fns/millisecondsToHours'
 import { weekdays } from "../constants/Weekdays";
 import shiftplanStates from "../constants/ShiftplanDefault";
+import getNumberOfEmployees from "../libs/getNumberOfEmployees";
 const initialState = {
   id: "",
   name: "",
@@ -46,7 +47,7 @@ const shiftplanSlice = createSlice({
     deletingCalendarShift(state, action) {
       const index = action.payload.index;
       const day = action.payload.day;
-      state.plan[index][day] = {frei: false}
+      state.plan[index][day] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0}
 
       let isRowEmptyNow = true;
       for (const [key, value] of Object.entries(state.plan[index])) {
@@ -164,7 +165,6 @@ const shiftplanSlice = createSlice({
       }
       const shiftplanLenght = state.plan.length;
       state.plan.splice(shiftplanLenght - 1, 0, newShiftRow)
-      //state.plan[index][day].notice = "";
     },
     settingTenantInShift(state, action) {
       const index = action.payload.index;
@@ -348,7 +348,7 @@ const shiftplanSlice = createSlice({
       if(haveMatchingRow.length) {
           const targetIndex = state.plan.indexOf(haveMatchingRow[0]);
           state.plan[targetIndex][changeDayTo] = state.plan[index][day];
-          state.plan[index][day] = {frei: false}
+          state.plan[index][day] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0}
       }
 
       // create and add Shift to new Shiftrow
@@ -357,7 +357,7 @@ const shiftplanSlice = createSlice({
         const shift = state.plan[index][day];
         const currentShiftRow = state.plan[index];
         for (let [shiftday, shift] of Object.entries(currentShiftRow)) {
-          shiftRow[shiftday] = {frei: false};
+          shiftRow[shiftday] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0}
         };
         let shiftWeekdayDetails = {...state.plan[index].Wochentag};
         shiftWeekdayDetails.ShiftStart = start;
@@ -366,7 +366,7 @@ const shiftplanSlice = createSlice({
         shiftRow[changeDayTo] = shift;
         const planLength = state.plan.length;
         state.plan.splice(planLength - 1, 0, shiftRow)
-        state.plan[index][day] = {frei: false};
+        state.plan[index][day] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0}
 
       }
 
@@ -387,6 +387,7 @@ const shiftplanSlice = createSlice({
       const index = action.payload.index || false;
       const day = action.payload.day || false;
       const userInput = action.payload.userInput;
+      const changeAllSelectedDays = action.payload.changeAllSelectedDays;
       const DnDRef = action.payload.DnDRef;
       const weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 
@@ -423,97 +424,338 @@ const shiftplanSlice = createSlice({
       const InputShiftEnd = userInput.shiftEnd === "on" ? true : userInput.shiftEnd;
       const InputShiftsRequiredNumberOfEmployees = userInput.numberOfEmployees || 0;
       const InputShiftsNotice = userInput.shiftNotice || "";
-      const InputShiftDayly = typeof userInput.shiftIsDayly === "boolean" ? userInput.shiftIsDayly : "";
+      const InputShiftDayly = typeof userInput.shiftIsDayly === "boolean" ? userInput.shiftIsDayly : false;
+      const InputShiftCustomDays = userInput.shiftCustomDays.length ? userInput.shiftCustomDays : [];
       let InputSetApplicants = DnDRef || [];
 
-      const changeShiftWeekDayDetail = (target, changeValue) => {
-        state.plan[index].Wochentag[target] = changeValue
-      };
 
-      const changeShiftsDetail = (target, changeValue) => {
-          state.plan[index][day][target] = changeValue;
-      };
+      const getShiftNameChanged = InputShiftName !== ShiftName && InputShiftName !== "";
+      const getShiftPositionChanged = InputShiftPosition !== ShiftPosition && InputShiftPosition !== "";
+      const getShiftStartChanged = InputShiftStart !== ShiftStart && InputShiftStart !== "";
+      const getShiftEndChanged = InputShiftEnd !== ShiftEnd && InputShiftEnd !== "";
+      const getShiftsNumberOfEmployeesChanged = InputShiftsRequiredNumberOfEmployees !== ShiftsRequiredNumberOfEmployees && InputShiftsRequiredNumberOfEmployees !== 0;
+      const getShiftNoticeChanged = InputShiftsNotice !== ShiftsNotice && InputShiftsNotice !== "";
 
-      //check
-      //check ShiftName
-      if( InputShiftName !== ShiftName && 
-          InputShiftName !== "") {
-            console.log("changeShiftName")
-            changeShiftWeekDayDetail("ShiftName", InputShiftName);
-      }
-      //checkShiftPosition
-      if( InputShiftPosition !== ShiftPosition && 
-          InputShiftPosition !== "") {
-            console.log("ChangePosition")
-            changeShiftWeekDayDetail("ShiftPosition", InputShiftPosition);
-      }
-      //check ShiftStart
-      if( InputShiftStart !== ShiftStart && 
-          InputShiftStart !== "") {
-            console.log("shouldChngeStart")
-            changeShiftWeekDayDetail("ShiftStart", InputShiftStart)
-        }      
-      // check ShiftEnde
-      if( InputShiftEnd !== ShiftEnd && 
-          InputShiftEnd !== "") {
-            console.log("shouldChngeEnde")
-            changeShiftWeekDayDetail("ShiftEnd", InputShiftEnd)
-      }      
-      // check ShiftsRequuiredNumberOfEmployees
-      if( InputShiftsRequiredNumberOfEmployees !== ShiftsRequiredNumberOfEmployees && 
-          InputShiftsRequiredNumberOfEmployees !==  0) {
-            console.log("shouldChngeNumberOfEmployees")
-            changeShiftsDetail("anzahl", InputShiftsRequiredNumberOfEmployees)
-      }
-      // check Notice
-      if( InputShiftsNotice !== ShiftsNotice && 
-          InputShiftsNotice !== "") {
-            console.log("shouldChngeNotice")
-            changeShiftsDetail("notice", InputShiftsNotice)
-      }
-      console.log(InputShiftDayly);
-      if(typeof InputShiftDayly === "boolean") {
-        if(InputShiftDayly) {
-          weekdays.forEach(day => {
-            if( InputShiftsRequiredNumberOfEmployees !== ShiftsRequiredNumberOfEmployees && 
-                InputShiftsRequiredNumberOfEmployees !== 0) {
-                  console.log("shouldChngeNumberOfEmployees")
-                  state.plan[index][day].anzahl = InputShiftsRequiredNumberOfEmployees;
-              } else {
-                  state.plan[index][day].anzahl = ShiftsRequiredNumberOfEmployees;
-              }
-            if( InputShiftsNotice !== ShiftsNotice && 
-                InputShiftsNotice !== "") {
-                  console.log("shouldChngeNotice")
-                  state.plan[index][day].notice = InputShiftsNotice;
-              } else {
-                  state.plan[index][day].notice = InputShiftsNotice;
-              }
-              state.plan[index][day].frei = true;
-          })
-        }
-        
-        if(!InputShiftDayly) {
-          console.log(state.plan[index]);
-          weekdays.forEach(weekday => {
-            if(day !== weekday) {
-              state.plan[index][weekday].frei = false;
+
+      const getIsShiftDayly = () => {
+        let isDayly = true;
+        const currentShiftRow = state.plan[index];
+        for (let [shiftday, shift] of Object.entries(currentShiftRow)) {
+            if (shiftday !== "Wochentag") {
+              if (shift.frei !== true) 
+                  isDayly = false;
             }
-          });
-        
+        }; 
+        return isDayly; 
+      }
+
+      const getActiveDays = () => {
+        let activeDays = [];
+        const currentShiftRow = state.plan[index];
+        for (let [shiftday, shift] of Object.entries(currentShiftRow)) {
+            if (shiftday !== "Wochentag") {
+              if (shift.frei !== false) 
+                activeDays.push(shiftday);
+            }
+        }; 
+        console.log(currentShiftRow);
+        return activeDays; 
+      }
+
+      const getCurrentWeekDetails = () => {
+        return state.plan[index].Wochentag;
+      }
+
+      const getTargetWeekDetails = (targetIndex) => {
+        return state.plan[targetIndex].Wochentag;
+      }
+
+      const getDetfaultWeekdaysForCurrentIndex = () => {
+        for (let [shiftday, shift] of Object.entries(state.plan[index])) {
+          state.plan[index][shiftday] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0}
+        };
+      }
+
+      const getDefaultShiftRow = () => {
+        let shiftRow = {};
+        weekdays.forEach(day => {
+          shiftRow[day] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0}
+        });
+        return shiftRow;
+
+      }
+
+      const getDetailsFromShift = (day) => {
+        return state.plan[index][day];
+      }
+
+      const getExistingShiftRow = () => {
+        const {newShiftName, newShiftPosition, newShiftStart, newShiftEnd } = getChangedWeekdayDetails();
+        const haveMatchingRow = state.plan.filter(row => {
+          if (  row.Wochentag.ShiftName === newShiftName &&
+                row.Wochentag.ShiftPosition === newShiftPosition &&
+                row.Wochentag.ShiftStart === newShiftStart &&
+                row.Wochentag.ShiftEnd === newShiftEnd
+          ) return true;
+          return false;
+        })
+        return haveMatchingRow;
+      }
+
+      const getChangedWeekdayDetails = () => {
+        const newShiftName = getShiftNameChanged ? InputShiftName : ShiftName;
+        const newShiftPosition = getShiftPositionChanged ? InputShiftPosition : ShiftPosition;
+        const newShiftStart = getShiftStartChanged ? InputShiftStart : ShiftStart;
+        const newShiftEnd = getShiftEndChanged ? InputShiftEnd : ShiftEnd;
+        return {newShiftName: newShiftName, newShiftPosition: newShiftPosition, newShiftStart: newShiftStart, newShiftEnd: newShiftEnd};
+      }
+
+      const getChangedShiftNotice = () => {
+        const newNotice = getShiftNoticeChanged ? InputShiftsNotice : state.plan[index][day].notice;
+        return {newNotice: newNotice};
+      }
+
+      const getChangedNumberOfEmployees = () => {
+        const newNumberOfEmployees = getShiftsNumberOfEmployeesChanged ? InputShiftsRequiredNumberOfEmployees : state.plan[index][day].anzahl;
+        return {newNumberOfEmployees: newNumberOfEmployees};
+      }
+
+      const getChangedMinQualification = () => {
+        const newMinQualification = state.plan[index][day].prio;
+        return {newMinQualification: newMinQualification};
+      }
+
+      const createNewWeekDayDetails = () => {
+        const {newShiftName, newShiftPosition, newShiftStart, newShiftEnd } = getChangedWeekdayDetails();
+        const WeekdayDetails = {
+          ShiftName: newShiftName,
+          ShiftPosition: newShiftPosition,
+          ShiftStart: newShiftStart,
+          ShiftEnd: newShiftEnd,
+          frei: true,
+        }
+        return WeekdayDetails;
+      }
+
+      const createNewShiftRow = () => {
+        let shiftRow = getDefaultShiftRow();
+        shiftRow["Wochentag"] = createNewWeekDayDetails();
+        return shiftRow;
+      }
+
+      const setDetailsForSelectedDays = (shiftRow) => {
+        const { newNumberOfEmployees } = getChangedNumberOfEmployees();
+        const { newNotice } = getChangedShiftNotice();
+        const { newMinQualification } = getChangedMinQualification();
+        InputShiftCustomDays.forEach((customDay) => {
+          const newDay = {frei: true, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}
+          shiftRow[customDay] = newDay;
+        });
+        return shiftRow;
+      }
+
+      const resettingDetailsInCurrentRow = () => {
+        InputShiftCustomDays.forEach((customDay) => {
+          state.plan[index][customDay] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0};
+        });
+      }
+
+      const setDetailsForNewDaysInExistingRow = (targetIndex) => {
+        const { newNumberOfEmployees } = getChangedNumberOfEmployees();
+        const { newNotice } = getChangedShiftNotice();
+        const { newMinQualification } = getChangedMinQualification();
+        const newDays = InputShiftCustomDays.filter(customDay => getCurrentActiveDays.includes(customDay));
+        newDays.forEach((customDay) => {
+          const newShift = state.plan[index][day];
+          newShift.notice = newNotice;
+          newShift.anzahl = newNumberOfEmployees;
+          newShift.prio = newMinQualification; 
+          state.plan[targetIndex][customDay] = newShift;
+        });
+      }
+
+      const getTargetRowIndex = (haveMatchingRow) => {
+        const targetIndex = state.plan.indexOf(haveMatchingRow[0]);
+        return targetIndex;
+      }
+
+      const setDetailsForSelectedDaysInIndex = () => {
+        const { newNumberOfEmployees } = getChangedNumberOfEmployees();
+        const { newNotice } = getChangedShiftNotice();
+        const { newMinQualification } = getChangedMinQualification();
+        InputShiftCustomDays.forEach((customDay) => {
+          state.plan[index][customDay] = {frei: true, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}
+        });
+      }
+
+      const setDetailsForSelectedDaysInTargetIndex = (targetIndex) => {
+        const { newNumberOfEmployees } = getChangedNumberOfEmployees();
+        const { newNotice } = getChangedShiftNotice();
+        const { newMinQualification } = getChangedMinQualification();
+        InputShiftCustomDays.forEach((customDay) => {
+          state.plan[targetIndex][customDay] = {frei: true, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}
+        });
+      }
+
+
+      const getCurrentShiftIsDayly = getIsShiftDayly()
+      const getCurrentActiveDays = getActiveDays();
+
+      const changeCustomShift = () => {
+        const haveMatchingRow = getExistingShiftRow();
+
+        // create and add Shift to new Shiftrow
+        if(!haveMatchingRow.length) {
+          let shiftRow = createNewShiftRow();
+
+          if(changeAllSelectedDays) {
+            shiftRow = setDetailsForSelectedDays(shiftRow);
+            resettingDetailsInCurrentRow();
+            const planLength = state.plan.length;
+            state.plan.splice(planLength - 1, 0, shiftRow)
+          }
+        }
+
+        if(haveMatchingRow.length) {
+          const targetIndex = getTargetRowIndex(haveMatchingRow);
+
+          if(!changeAllSelectedDays) {
+            state.plan[targetIndex][day] = state.plan[index][day];
+            state.plan[index][day] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0};
+
+          }
+
+          if(changeAllSelectedDays) {
+            setDetailsForSelectedDaysInTargetIndex(targetIndex);
+            setDetailsForSelectedDaysInIndex();
+          }
+        }
+
+        if(!getActiveDays().length) {
+          state.plan.splice(index, 1);
         }
       }
 
-      //check SetApplicants
+      const reduceToSingleShift = () => {
+        InputShiftCustomDays.forEach((customDay) => {
+          state.plan[index][customDay] = state.plan[index][day];
+        });
+        const remainingDays = weekdays.filter(day => !InputShiftCustomDays.includes(day));
+        remainingDays.filter(remainingDay => remainingDay !== day);
 
-      state.plan[index][day].setApplicants = {};
-      InputSetApplicants.forEach(applicantObject => {
-        const employeeId = applicantObject.id.substring(1);
-        const employeeName = applicantObject.content;
-        if(employeeName !== "Leer") {
-          state.plan[index][day].setApplicants[employeeId] = employeeName;
+        remainingDays.forEach(remainingDay => {
+          state.plan[index][remainingDay] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0}  
+        })
+      }
+
+      const settingShiftDetailsForSingleShift = () => {
+        const {newShiftName, newShiftPosition, newShiftStart, newShiftEnd } = getChangedWeekdayDetails();
+        const newNumberOfEmployees = getShiftsNumberOfEmployeesChanged ? InputShiftsRequiredNumberOfEmployees : state.plan[index][day].anzahl
+        const newNotice = getShiftNoticeChanged ? InputShiftsNotice : state.plan[index][day].notice;
+
+        const newDetails = {
+          ShiftName: newShiftName,
+          ShiftPosition: newShiftPosition,
+          ShiftStart: newShiftStart,
+          ShiftEnd: newShiftEnd,
+          frei: false,
         }
-      });
+        state.plan[index].Wochentag = newDetails;
+        state.plan[index][day].anzahl = newNumberOfEmployees;
+        state.plan[index][day].notice = newNotice;
+
+      }
+
+      const settingShiftDetailsForDaylyShift = () => {
+        const newShiftName = getShiftNameChanged ? InputShiftName : ShiftName;
+        const newShiftPosition = getShiftPositionChanged ? InputShiftPosition : ShiftPosition;
+        const newShiftStart = getShiftStartChanged ? InputShiftStart : ShiftStart;
+        const newShiftEnd = getShiftEndChanged ? InputShiftEnd : ShiftEnd;
+
+        const newDetails = {
+          ShiftName: newShiftName,
+          ShiftPosition: newShiftPosition,
+          ShiftStart: newShiftStart,
+          ShiftEnd: newShiftEnd,
+          frei: false,
+        }
+        state.plan[index].Wochentag = newDetails;
+
+      }
+
+      const changeDaylyShift = () => {
+        const newNumberOfEmployees = getShiftsNumberOfEmployeesChanged ? InputShiftsRequiredNumberOfEmployees : state.plan[index][day].anzahl
+        const newNotice = getShiftNoticeChanged ? InputShiftsNotice : state.plan[index][day].notice;
+        const newMinQualification = state.plan[index][day].prio;
+        weekdays.forEach(day => {
+          const newDay = {
+            frei: true,
+            prio: false,
+            applicants: {},
+            applicantsAfterPublish: {},
+            setApplicants: {},
+            anzahl: 0,
+            notice: "",
+          }
+          state.plan[index][day] = newDay
+          state.plan[index][day].anzahl = newNumberOfEmployees;
+          state.plan[index][day].notice = newNotice;
+          state.plan[index][day].prio = newMinQualification;
+        })
+        settingShiftDetailsForDaylyShift()
+      }
+
+      const changeSingleShift = () => {
+        const haveMatchingRow = getExistingShiftRow();
+        
+        if(haveMatchingRow.length) {
+          const targetIndex = getTargetRowIndex(haveMatchingRow);
+          const { newNumberOfEmployees } = getChangedNumberOfEmployees();
+          const { newNotice } = getChangedShiftNotice();
+          const { newMinQualification } = getChangedMinQualification();
+          state.plan[targetIndex][day] = {frei: true, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}  
+        }
+
+        if(!haveMatchingRow.length) {
+          const { newNumberOfEmployees } = getChangedNumberOfEmployees();
+          const { newNotice } = getChangedShiftNotice();
+          const { newMinQualification } = getChangedMinQualification();
+          let shiftRow = createNewShiftRow();
+
+          //setting new day
+          shiftRow[day] = {frei: true, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees};
+          // resetting old day
+          state.plan[index][day] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0};
+          const planLength = state.plan.length;
+          state.plan.splice(planLength - 1, 0, shiftRow)
+        }
+      }
+
+      const changeCurrentNotice = () => {
+        state.plan[index][day].notice = getShiftNoticeChanged ? InputShiftsNotice : ShiftsNotice;
+      }
+
+      const changeCurrentNumberOfEmployees = () => {
+        state.plan[index][day].anzahl = getShiftsNumberOfEmployeesChanged ? InputShiftsRequiredNumberOfEmployees : ShiftsRequiredNumberOfEmployees;
+      }
+
+
+      if(InputShiftDayly && !getCurrentShiftIsDayly && changeAllSelectedDays) {
+        changeDaylyShift();
+      }
+
+      if(InputShiftCustomDays.length > 1 && changeAllSelectedDays) {
+        changeCustomShift();
+      }
+
+      if(InputShiftCustomDays.length > 1 && !changeAllSelectedDays) {
+        changeSingleShift();
+      }
+      if(InputShiftCustomDays.length === 1 && !changeAllSelectedDays) {
+        reduceToSingleShift();
+        settingShiftDetailsForSingleShift();
+
+      }
 
       }
   },
@@ -541,7 +783,7 @@ const shiftplanSlice = createSlice({
           frei: false
         }
         weekdays.forEach(day => {
-          shiftRow[day] = {frei: false, anzahl: Number(InputShiftsRequiredNumberOfEmployees), notice: ""};
+          shiftRow[day] = {frei: false, anzahl: Number(InputShiftsRequiredNumberOfEmployees), notice: "", applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false};
         });
         shiftRow[day] = {...shiftRow[day], frei: true, anzahl: Number(InputShiftsRequiredNumberOfEmployees), notice: ""}
         const PlanLength = state.plan.length;

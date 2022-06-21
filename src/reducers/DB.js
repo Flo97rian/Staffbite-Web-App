@@ -193,6 +193,29 @@ const DBSlice = createSlice({
     settingMetaRejected(state) {
       state.metaStatus = "rejected";
     },
+    deleteingEmployeeShiftFromSchichten(state, action) {
+      const employeeId = action.payload.employeeId;
+      const zeitraum = action.payload.zeitraum;
+      const shiftIndicator = action.payload.shiftIndicator;
+      if(state.employees[employeeId]?.schichten[zeitraum]) {
+        const shiftIndex = state.employees[employeeId].schichten[zeitraum].indexOf(shiftIndicator);
+        if(shiftIndex !== -1) {
+          state.employees[employeeId]?.schichten[zeitraum].splice(shiftIndex, 1);
+        }
+      }
+    },
+    settingEmployeeShiftInSchichten(state, action) {
+      const employeeId = action.payload.employeeId;
+      const zeitraum = action.payload.zeitraum;
+      const shiftIndicator = action.payload.shiftIndicator;
+      if(employeeId && employeeId !== "TENANT") {
+        if(!state.employees[employeeId]?.schichten[zeitraum]) {
+          state.employees[employeeId].schichten[zeitraum] = [];
+        }
+
+        state.employees[employeeId].schichten[zeitraum].push(shiftIndicator);
+      }
+    },
   }
 })
 
@@ -222,7 +245,9 @@ export const {
   createShiftplanDummyshifts,
   settingMetaFetching,
   settingMetaFulfilled,
-  settingMetaRejected
+  settingMetaRejected,
+  deleteingEmployeeShiftFromSchichten,
+  settingEmployeeShiftInSchichten,
 } = DBSlice.actions;
 
 export default DBSlice.reducer;

@@ -175,7 +175,7 @@ function CalendarView(props) {
     useEffect(() => {
       if(ShiftplanChanged) {
         let calendarApi = calendarRef.current.getApi();
-        dispatch(settingTemporaryCalendarWeekIndicator(calendarApi.getDate().toISOString()))
+        dispatch(settingTemporaryCalendarWeekIndicator(calendarApi.getDate().toISOString()));
         dispatch(settingRemindShiftplanID(shiftplan.id));
         dispatch(thunkUpdateShiftPlan(shiftplan));
       }
@@ -209,7 +209,6 @@ function CalendarView(props) {
         dispatch(resettingEmployeesDummyshifts());
         dispatch(settingShiftplan(Plans[shiftplanIndex]));  
         dispatch(settingRemindShiftplanID(Plans[shiftplanIndex].id));
-        dispatch(createInitialDummyshifts(shiftplanIndex));
         const shiftplanIdType = Plans[shiftplanIndex].id.split('#')[1];
         setHeaderBadge(shiftplanIdType);
       }
@@ -432,7 +431,7 @@ function CalendarView(props) {
                           title: row.Wochentag.ShiftName,
                           start: startTime,
                           end: endTime,
-                          filling: _.size(_.get(value, "setApplicants", {})) + "/" + value.anzahl + " Mitarbeiter",
+                          filling: _.size(_.get(value, "setApplicants", {})) + "/" + (value.anzahl ? value.anzahl : "0") + " Mitarbeiter",
                           description: "gello",
                           display: "block",
                           backgroundColor: background,
@@ -479,6 +478,8 @@ function CalendarView(props) {
   const goToDate = (info) => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.gotoDate(info.start);
+    let newcalendarApi = calendarRef.current.getApi();
+    setHeaderTitle(newcalendarApi.currentDataManager.data.viewTitle)
   } 
 
   const changeToToday = () => {
@@ -700,8 +701,8 @@ function CalendarView(props) {
                           return (
                             <Button
                                 key={index}
-                                className="btn-neutral"
-                                color="link"
+                                color={(calendarFilter === value) ? "primary" : "link"}
+                                outline={(calendarFilter === value)}
                                 data-calendar-view="basicDay"
                                 onClick={() => setEventsData(value)}
                                 size="sm"
@@ -711,8 +712,8 @@ function CalendarView(props) {
                           )
                         })}
                         <Button
-                          className="btn-neutral"
-                          color="link"
+                          color={(calendarFilter === false) ? "primary" : "link"}
+                          outline={(calendarFilter === false)}
                           data-calendar-view="basicDay"
                           onClick={() => setEventsData(!1)}
                           size="sm"
@@ -728,6 +729,7 @@ function CalendarView(props) {
                           <Button
                           className="btn-neutral"
                           color="link"
+                          outline
                           data-calendar-view="month"
                           onClick={() => changeView("dayGridMonth")}
                           size="sm"
@@ -796,10 +798,12 @@ function CalendarView(props) {
                             titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' },
                             // other view-specific options here
                             dayMaxEventRows: 2,
-                            moreLinkText: "weitere"
+                            moreLinkText: "weitere Schichten"
                           },
                           timeGridWeek: {
-                            dayHeaderFormat: {weekday: "long", month: 'long', day: 'numeric'}
+                            dayHeaderFormat: {weekday: "long", month: 'long', day: 'numeric'},
+                            dayMaxEventRows: 2,
+                            moreLinkText: "weitere Schichten"
                           }
                         }}
                         slotLabelFormat= {{

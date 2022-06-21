@@ -2,7 +2,7 @@ import React, { useState, useImperativeHandle, useEffect} from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Col, Row } from "reactstrap";
-import { resettingEmployeeDummyShift, settingEmployeeDummyShift } from "../reducers/DB";
+import { deleteingEmployeeShiftFromSchichten, resettingEmployeeDummyShift, settingEmployeeDummyShift } from "../reducers/DB";
 import store from "../store";
 
 // fake data generator
@@ -72,27 +72,6 @@ const reorder = (list, startIndex, endIndex) => {
 /**
  * Moves an item from one list to another list.
  */
-const move = (source, destination, droppableSource, droppableDestination, empId, employees) => {
-  const sourceClone = Array.from(source);
-  const destClone = Array.from(destination);
-  empId = empId.substring(1)
-  if(employees && employees[empId]) {
-    if (destClone[0].id.length === 1) {
-      const employee = sourceClone[droppableSource.index];
-      const newid = droppableDestination.droppableId + empId;
-      destClone.splice(0,1, {id: newid, content: employee.content});
-    } else {
-      const employee = sourceClone[droppableSource.index];
-      const newid = droppableDestination.droppableId + empId;
-      destClone.splice(droppableDestination.index ,0, {id: newid, content: employee.content});
-    }
-    store.dispatch(settingEmployeeDummyShift(empId))
-  }
-  const result = {};
-  result[droppableSource.droppableId] = sourceClone;
-  result[droppableDestination.droppableId] = destClone;
-  return [result, employees];
-};
 const grid = 12;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -119,8 +98,8 @@ const getListStyle = isDraggingOver => ({
 const getEmployeeStyle = (empSchichtenWocheBisher, empSchichtenWoche, alreadySetToday) => {
   if (empSchichtenWocheBisher > empSchichtenWoche) {
     return "text-warning";
-  } else if (alreadySetToday.length > 0 ) {
-    return "text-yellow";
+  } else if(alreadySetToday.length > 0) {
+    return "text-warning"
   } else if (empSchichtenWocheBisher < empSchichtenWoche ) {
     return "";
   } else {
@@ -130,11 +109,15 @@ const getEmployeeStyle = (empSchichtenWocheBisher, empSchichtenWoche, alreadySet
 
 
 const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
+  const dispatch = useDispatch();
   const isPublished = useSelector(state => state.Shiftplan.id.split('#')[1] === "Veröffentlicht");
   const [showApplicantsAfterPublish, setShowApplicantsAfterPublish] = useState(isPublished);
   const employees = useSelector(state => state.DB.employees);
   const Meta = useSelector(state => state.Meta);
+  const shiftIndex = useSelector(state => state.shiftSlot.index);
+  const day = useSelector(state => state.shiftSlot.day);
   const Zeitraum = useSelector(state => state.Shiftplan.zeitraum);
+  const ShiftName = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftName);
   const ShiftPosition = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftPosition);
   const ShiftMinQualification = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].prio);
   const applicants = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].applicants);
@@ -183,31 +166,48 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
     }
   }
 
+  const move = (source, destination, droppableSource, droppableDestination, empId, employees) => {
+    const sourceClone = Array.from(source);
+    const destClone = Array.from(destination);
+    empId = empId.substring(1)
+    if(employees && employees[empId]) {
+      if (destClone[0].id.length === 1) {
+        const employee = sourceClone[droppableSource.index];
+        const newid = droppableDestination.droppableId + empId;
+        destClone.splice(0,1, {id: newid, content: employee.content});
+      } else {
+        const employee = sourceClone[droppableSource.index];
+        const newid = droppableDestination.droppableId + empId;
+        destClone.splice(droppableDestination.index ,0, {id: newid, content: employee.content});
+      }
+      dispatch(settingEmployeeDummyShift(empId));
+    }
+    const result = {};
+    result[droppableSource.droppableId] = sourceClone;
+    result[droppableDestination.droppableId] = destClone;
+    return [result, employees];
+  };
+
   const getItemContent = (item, ind, index, employees, Meta, Zeitraum) => {
     let IsEmpty = item.id.length === 1;
     let empId = item.id.substring(1);
     if (!IsEmpty && employees) {
       if(employees[empId]) {
           let empName = employees[empId].name;
-          const empSchichtenWoche = employees[empId].schichtenwoche
-          const empDummyShifts = employees[empId].dummyshifts;
-          console.log(empDummyShifts);
-          let dummyShifts = 0;
-          if(Object.keys(employees[empId]).includes("dummyshifts")) {
-            dummyShifts = employees[empId].dummyshifts;
+          let dummyshifts = 0;
+          if(employees[empId]?.dummyshifts) {
+            dummyshifts = dummyshifts + employees[empId].dummyshifts
           }
+          const empSchichtenWoche = employees[empId].schichtenwoche
           const employeeQualification = employees[empId].erfahrung;
           const currentZeitraumSchichten = employees[empId]?.schichten && employees[empId].schichten[Zeitraum] ? employees[empId].schichten[Zeitraum] : []
-          let alreadySetToday = currentZeitraumSchichten.filter(schicht => schicht.split('#')[1] === "Montag");
-          const empSchichtenWocheBisher = currentZeitraumSchichten.length + dummyShifts;
+          let alreadySetToday = currentZeitraumSchichten.filter(schicht => schicht.split('#')[2] === day && schicht.split('#')[0] !== shiftIndex && ind === 2);
+          const empSchichtenWocheBisher = currentZeitraumSchichten.length + dummyshifts;
           return <div className="m-0 px-3 py-2 pr-0">
                   <Row className="">
                     <Col xs="8" className="pr-0">
                       <p className={"m-0 p-0"}>
                         {empName}{" "} 
-                        <small>
-                          {empSchichtenWocheBisher > empSchichtenWoche ? <i className="fas fa-exclamation text-warning m-0 p-0 pr-2"></i> : <></> }
-                        </small>
                       </p>
                     </Col>
                     <Col>
@@ -226,22 +226,16 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
                     </Col>
                   </Row>
                   <Row>
-                    <Col xs="8" className="pr-0">
+                    <Col xs="9" className="pr-0">
                       <small className={checkMinQualification(employeeQualification)}>
                         <i className="fas fa-user-shield mr-1"></i>{employeeQualification}
                       </small>
                       <small className={getEmployeeStyle(empSchichtenWocheBisher, empSchichtenWoche, alreadySetToday)}>
                         <br/>
                         <i className={"fas fa-user-clock mr-1 "}></i>{ empSchichtenWocheBisher + "/" + empSchichtenWoche }{" Schichten"}
+                        <br/>
+                        {alreadySetToday.length > 0 && ind === 2 ? "heute bereits eingetragen" : <></> }
                       </small>
-                    </Col>
-                    <Col className="pl-0">
-                      <Row className="m-0 p-0 text-sm-right">
-                        <Col className="p-0">
-                          {alreadySetToday.length > 0 ? <i className="fas fa-exclamation text-yellow m-0 p-0 pr-2"></i> : <></> }
-                        
-                        </Col>
-                      </Row>
                     </Col>
                   </Row>
                 </div>
@@ -331,7 +325,7 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
   function handleDelete(ind, index, item) {
     const newState = [...state];
     if(item.id.substring(1) !== "TENANT") {
-      store.dispatch(resettingEmployeeDummyShift(item.id.substring(1)))
+      dispatch(resettingEmployeeDummyShift(item.id.substring(1)));
     }
     if (newState[ind].length === 1) {
       newState[ind][index].id = String(ind);
@@ -384,7 +378,7 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
 
   return (
     <>
-      <div style={{ display: "flex"}}>
+      <div style={{ display: "flex", height: "450px"}}>
         <DragDropContext onDragEnd={onDragEnd} >
           {state.map((el, ind) => (
             <Droppable key={ind} droppableId={`${ind}`}>
@@ -392,29 +386,11 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
                 <div
                   className="list-group"
                   ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
+                  style={{...getListStyle(snapshot.isDraggingOver), ...{overflowY: "scroll"}}}
                   {...provided.droppableProps}
                 >
                 <p>{renderTitle(ind)}</p>
                   {el.map((item, index) => {
-                     if(index === 3 && !showMore) 
-                      return (
-                        <div
-                          onClick={() => setShowMore(true)}
-                          color="primary"
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-around"
-                          }}
-                          className="mx-3"
-                        >
-                          <p className="text-primary">
-                            Mehr anzeigen
-                          </p>
-                        </div>
-                      )
-
-                     if(index > 3 && !showMore) return null;
 
                      return (
                       <>
@@ -446,23 +422,6 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
                           </div>
                           )}}
                       </Draggable>
-                      {Object.keys(el).length - 1 === index && index > 3 ?
-                        <div
-                          onClick={() => setShowMore(false)}
-                          color="primary"
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-around"
-                          }}
-                          className="mx-3"
-                        >
-                        <p className="text-primary">
-                          Weniger anzeigen
-                        </p>
-                        </div>
-                        : 
-                        <></>
-                      }
                     </>
                     )}
                   )}

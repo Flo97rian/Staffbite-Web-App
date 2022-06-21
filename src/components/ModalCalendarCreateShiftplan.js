@@ -32,6 +32,8 @@ const ModalCalendarCreateShiftplan = (props) => {
     const TemporaryShiftplanId = useSelector(state => state.temporary.shiftplanId);
     const day = useSelector(state => state.shiftSlot.day);
     const Plans = useSelector(state => state.DB.plans);
+    const [vorlagen, setVorlagen] = useState([...Plans.filter(plan => plan.id.split('#').includes("Veröffentlicht")), ...Plans.filter(plan => plan.id.split('#').includes("Entwurf"))]);
+    console.log(vorlagen);
     const Dates = useSelector(state => state.date);
 
       // Diese Funktion sorgt für die Speicherung eines neuen Schichtplans und schließt im Anschluss das zugehörige Modal
@@ -94,6 +96,7 @@ const ModalCalendarCreateShiftplan = (props) => {
                                 <p>Wähle eine vorhandene Vorlage oder erstelle einen neuen Plan</p>
                             </Col>
                         </Row>
+                        {vorlagen.length > 0 ? 
                         <Row className="text-center m-2">
                             <Col>
                                 <Button
@@ -107,6 +110,9 @@ const ModalCalendarCreateShiftplan = (props) => {
                                 </Button>
                             </Col>
                         </Row>
+                        : 
+                        <></>
+                        }
                         <Row className="text-center m-2">
                             <Col>
                                 <Button
@@ -122,7 +128,7 @@ const ModalCalendarCreateShiftplan = (props) => {
                         </Row>
                     </div>
                     <div hidden={!showImportVorlage}>
-                        <FormCalendarImportVorlage />
+                    {vorlagen.length > 0 ? <FormCalendarImportVorlage /> : <></> }
                     </div>
                     <div hidden={!showNewVorlage}>
                     <FormCalendarCreateShiftplan />

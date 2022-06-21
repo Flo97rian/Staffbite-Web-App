@@ -155,6 +155,8 @@ const ShiftplanContainer = () => {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
+    dispatch(resettingDisplayShiftplan());
+    dispatch(resettingShiftplan());
     }, []);
 
 

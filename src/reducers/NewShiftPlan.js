@@ -194,6 +194,18 @@ const newShiftplanSlice = createSlice({
         tauschanfrage: []
       }
       existingShiftplan.plan.forEach((shiftRow, shiftRowIndex) => {
+
+        if(shiftRowIndex === 0 && shiftRow.Wochentag !== "Datum") {
+          let dateShiftRow = {}
+          dateShiftRow.Wochentag = "Datum";
+          weekdays.forEach((day, index) => {
+            const weekDayDate = addDays(newStartDate, index);
+            const weekDayDateString = weekDayDate.getDate() + '.' + (Number(weekDayDate.getMonth()) + 1) + '.' + weekDayDate.getFullYear();
+            dateShiftRow[day] = weekDayDateString;
+          })
+          newShiftplan.plan.push(dateShiftRow);
+        }
+
         if(shiftRow.Wochentag === "Wochentag") {
           newShiftplan.plan.push(shiftRow);
         }
@@ -210,21 +222,22 @@ const newShiftplanSlice = createSlice({
         }
 
 
-
         if(typeof shiftRow.Wochentag === "object") {
-          newShiftplan.plan.push({});
+          let newShiftRow = {};
           weekdays.forEach(day => {
             let newShift = {
               frei: shiftRow[day].frei,
               anzahl: shiftRow[day].anzahl || 1,
-              prio: shiftRow.prio || true,
+              prio: shiftRow.prio || false,
               applicants: {},
               setApplicants: {},
               applicantsAfterPublish: {},
+              notice: "",
             };
-            newShiftplan.plan[shiftRowIndex][day] = newShift;
-            newShiftplan.plan[shiftRowIndex].Wochentag = shiftRow.Wochentag;
+            newShiftRow[day] = newShift;
           })
+          newShiftRow.Wochentag = shiftRow.Wochentag;
+          newShiftplan.plan.push(newShiftRow);
         }
 
         if(shiftRow.Wochentag === "Summe") {
@@ -297,11 +310,11 @@ const newShiftplanSlice = createSlice({
       
       weekdays.forEach(weekday => {
         if(day === weekday) {
-          shiftRow[weekday] = {frei: true, anzahl:  InputShiftsRequiredNumberOfEmployees, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""};
+          shiftRow[weekday] = {frei: true, anzahl:  String(InputShiftsRequiredNumberOfEmployees), applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""};
         }
 
         if(day !== weekday) {
-          shiftRow[weekday] = {frei: false, anzahl:  0, applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""};
+          shiftRow[weekday] = {frei: false, anzahl:  String(0), applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""};
         }
       });
 

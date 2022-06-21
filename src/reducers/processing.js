@@ -5,6 +5,7 @@ const initialState = {
     releaseStatus: "idle",
     publishStatus: "idle",
     sendReminderForApplication: 'idle',
+    changeShiftDayOrSelectedDays: 'idle',
     createShiftplan: "idle",
 }
 

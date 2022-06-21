@@ -56,6 +56,7 @@ import { thunkFetchEmployees } from "../../../store/middleware/FetchEmployees.js
 import { thunkFetchShiftplans } from "../../../store/middleware/FetchShiftplans.js";
 import { settingBasicLayout, settingCalendarLayout, switchToBasicLayout, switchToCalendarLayout } from "../../../reducers/display.js";
 import AdminCalendarContainer from "../../../components/AdminCalendarContainer.js";
+import { resettingShiftplan } from "../../../reducers/Shiftplan.js";
 
 
 const SchichtplanErstellen = () => {

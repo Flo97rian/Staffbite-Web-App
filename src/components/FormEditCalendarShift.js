@@ -4,11 +4,21 @@ import {
     Col,
     UncontrolledCollapse,
     Card,
-    Collapse
+    Collapse,
+    Container,
+    Button
 } from "reactstrap"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CalendarEditShift from "./CalendarEditShift";
 import { CalendarEditShiftAdvanced } from "./CalendarEditShiftAdvanced";
+import { resettingModal } from "../reducers/modal";
+import { settingApplicants, settingCalenderShift, settingShiftNotice, settingShiftplan } from "../reducers/Shiftplan";
+import { resettingCurrentShiftCustomDays, resettingShiftIsDayly, resettingUserInput, settingShiftIsDayly } from "../reducers/userInput";
+import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
+import { deleteingEmployeeShiftFromSchichten, resettingEmployeeDummyShift, resettingEmployeesDummyshifts, settingEmployeeFetching, settingEmployeeShiftInSchichten, setttingEmployeeShiftInSchichten } from "../reducers/DB";
+import { resettingChangeDayOrSelectedDays, settingChangeDayOrSelectedDays, settingTemporaryEmployeeID, settingUpdateType } from "../reducers/temporary";
+import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
+import { thunkFetchEmployees } from "../store/middleware/FetchEmployees";
 import EmployeesDnDForSingleShift from "./EmployeesDnDForSingleShift";
 
 
@@ -18,6 +28,44 @@ const FromEditCalendarShift = (props) => {
     const [standardSettings, setStandardSettings] = useState(true);
     const [advancedSettings, setAdvancedSettings] = useState(false);
     const [applicantsSettings, setApplicantsSettings] = useState(false);
+    const dispatch = useDispatch();
+    const index = useSelector(state => state.shiftSlot.index);
+    const day = useSelector(state => state.shiftSlot.day);
+    const userInput = useSelector(state => state.userInput);
+    const userInputShiftIsDayly = useSelector(state => state.userInput.shiftIsDayly);
+    const userInputCustomDays = useSelector(state => state.userInput.shiftCustomDays);
+    const DragAndDropRef = useRef()
+
+    const handleCalendarShiftChanges = (changeAllSelectedDays = false) => {
+        const updateApplicant = DragAndDropRef.current;
+        if(userInputCustomDays.length === 7) {
+            dispatch(settingShiftIsDayly());
+        }
+        if(userInputCustomDays.length !== 7 && userInputShiftIsDayly) {
+            dispatch(resettingShiftIsDayly());
+        }
+        dispatch(settingCalenderShift({index: index, day: day, userInput: userInput, DnDRef: updateApplicant, changeAllSelectedDays:changeAllSelectedDays}));
+        dispatch(resettingUserInput())
+        dispatch(resettingCurrentShiftCustomDays());
+        dispatch(resettingShiftIsDayly());
+        dispatch(resettingModal());
+        dispatch(settingUpdateType("updateShifts"));
+        dispatch(settingShiftplanChanged())
+        dispatch(resettingEmployeesDummyshifts());
+      }
+    
+    const handleChangeEmployees = () => {
+
+        dispatch(settingApplicants({
+            index: index,
+            day: day,
+            updateApplicants: DragAndDropRef.current
+        }))
+        dispatch(resettingModal())
+        dispatch(settingUpdateType("updateShifts"));
+        dispatch(settingShiftplanChanged())
+        dispatch(resettingEmployeesDummyshifts());
+    }
 
     useEffect(() => {
         selectSettings();
@@ -38,6 +86,7 @@ const FromEditCalendarShift = (props) => {
         }
     }
     return (
+        <>
         <Row>
             <Col>
                 <h3 onClick={
@@ -76,15 +125,23 @@ const FromEditCalendarShift = (props) => {
                     Mitarbeiter eintragen
                     <i className="fas fa-angle-down fas-sm ml-2 text-right"/>
                 </h3>
-                <Collapse isOpen={applicantsSettings}>
-                    <Card className="bg-secondary shadow-none border p-2 overflow-auto">
+                <Collapse className="mb-3" isOpen={applicantsSettings}>
                     <EmployeesDnDForSingleShift
-                    ref={props.DragAndDropRef}
+                    ref={DragAndDropRef}
                     />
-                    </Card>
                 </Collapse>
             </Col>
         </Row>
+        <Row className="text-right">
+            <Col>
+            <Button color="link" onClick={() => dispatch(resettingModal())}> Schließen </Button>
+                    <Button hidden={((userInputCustomDays.length === 1 && !applicantsSettings) || applicantsSettings)} color="success" onClick={() => handleCalendarShiftChanges(true)}>Alle Schichten änern</Button>
+                    <Button hidden={((userInputCustomDays.length === 1 && !applicantsSettings)|| applicantsSettings)} color="success" onClick={() => handleCalendarShiftChanges()}>Nur diese Schicht ändern</Button>
+                    <Button hidden={((userInputCustomDays.length > 1 && !applicantsSettings) || applicantsSettings || userInputShiftIsDayly)} color="success" onClick={() => handleCalendarShiftChanges()}>Schicht ändern</Button>
+                    <Button hidden={(!applicantsSettings)} color="success" onClick={() => handleChangeEmployees()}>Mitarbeiter ändern</Button>
+            </Col>
+        </Row>
+    </>
     )
 
 }
