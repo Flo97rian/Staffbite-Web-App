@@ -29,6 +29,8 @@ const initialState = {
     reportFilter: {},
     employeeTargetShiftTrade: "",
     shiftCustomDays: [],
+    selectedAuthenticationIndex: 0,
+    authenticationAnswere: "",
 }
 
 const userInputSlice = createSlice({
@@ -152,6 +154,12 @@ const userInputSlice = createSlice({
             const filteredDays = state.shiftCustomDays.filter(day => day !== removeDay);
             state.shiftCustomDays = filteredDays;
         },
+        settingSelectedAuthenticationIndex(state, action) {
+            state.selectedAuthenticationIndex = action.payload;
+        },
+        settingAuthenticationAnswere(state, action) {
+            state.authenticationAnswere = action.payload;
+        },
         resettingUserInput(state) {
             state.positions = initialState.positions;
             state.companyName = initialState.companyName;
@@ -181,6 +189,8 @@ const userInputSlice = createSlice({
             state.shiftplanNumberOfShifts = initialState.shiftplanNumberOfShifts;
             state.shiftplanCompanyIsOpen = initialState.shiftplanCompanyIsOpen;
             state.shiftCustomDays = initialState.shiftCustomDays;
+            state.authenticationAnswere = initialState.authenticationAnswere;
+            state.selectedAuthenticationIndex = initialState.selectedAuthenticationIndex;
         }
     }
 });
@@ -224,7 +234,9 @@ export const {
     settingShiftCustomDays,
     resettingShiftCustomDays,
     settingCurrentShiftCustomsDays,
-    resettingCurrentShiftCustomDays
+    resettingCurrentShiftCustomDays,
+    settingAuthenticationAnswere,
+    settingSelectedAuthenticationIndex
 } = userInputSlice.actions;
   
 export default userInputSlice.reducer

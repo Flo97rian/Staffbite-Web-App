@@ -145,6 +145,7 @@ function CalendarView(props) {
   useEffect(() => {
     if(viewTimeGridWeek && shiftplan.id === "") {
       setCurrentShiftplan();
+      console.log(events);
     }
   }, [viewTimeGridWeek, events])
 
@@ -291,6 +292,16 @@ function CalendarView(props) {
         })
         setPositions(positions);
     };
+
+    const handleSetFilter = (filter) => {
+      if(viewDayGridMonth) {
+        setAllEventsData(filter);
+      }
+
+      if(viewTimeGridWeek) {
+        setEventsData(filter);
+      }
+    }
  
 
     const setAllEventsData = (nextFilter = undefined) => {
@@ -465,10 +476,12 @@ function CalendarView(props) {
     if(newView === "timeGridWeek") {
       setViewTimeGridWeek(true);
       setViewDayGridMonth(false);
+      getPositions();
     }
     if(newView === "dayGridMonth") {
       setViewTimeGridWeek(false);
       setViewDayGridMonth(true);
+      setPositions(Meta.schichten);
       dispatch(resettingShiftplan());
       dispatch(resettingTemporaryCalendarWeekIndicator());
       dispatch(resettingRemindShiftplanID());
@@ -509,9 +522,14 @@ function CalendarView(props) {
   };
 
   const CalendarTitle = () => {
-    return (
-      <h5 className="h3 mb-0">{headerTitle}</h5>
-    )
+    if(calendarRef.current) {
+      let calendarApi = calendarRef.current.getApi();
+      let viewTitle = calendarApi.currentDataManager.data.viewTitle;
+      return (
+        <h5 className="h3 mb-0">{viewTitle}</h5>
+      )
+    }
+    return null;
   }
 
   const Popover = ({eventInfo}) => {
@@ -704,7 +722,7 @@ function CalendarView(props) {
                                 color={(calendarFilter === value) ? "primary" : "link"}
                                 outline={(calendarFilter === value)}
                                 data-calendar-view="basicDay"
-                                onClick={() => setEventsData(value)}
+                                onClick={() => handleSetFilter(value)}
                                 size="sm"
                             >
                             {value}
@@ -715,7 +733,7 @@ function CalendarView(props) {
                           color={(calendarFilter === false) ? "primary" : "link"}
                           outline={(calendarFilter === false)}
                           data-calendar-view="basicDay"
-                          onClick={() => setEventsData(!1)}
+                          onClick={() => handleSetFilter(!1)}
                           size="sm"
                         >
                           Alle
@@ -802,6 +820,7 @@ function CalendarView(props) {
                           },
                           timeGridWeek: {
                             dayHeaderFormat: {weekday: "long", month: 'long', day: 'numeric'},
+                            titleFormat: { year: 'numeric', month: 'long', day: '2-digit' },
                             dayMaxEventRows: 2,
                             moreLinkText: "weitere Schichten"
                           }

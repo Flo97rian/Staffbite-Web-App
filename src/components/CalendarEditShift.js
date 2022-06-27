@@ -22,7 +22,7 @@ import { INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_START, INFO_SHIFTPLAN_S
 import Switch from "./Switch";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingCurrentShiftCustomDays, resettingShiftCustomDays, resettingShiftIsDayly, settingCurrentShiftCustomsDays, settingShiftCustomDays, settingShiftEnd, settingShiftIsDayly, settingShiftName, settingShiftNumberOfEmployees, settingShiftStart } from "../reducers/userInput";
-import { deletingCalendarShift } from "../reducers/Shiftplan";
+import { deletingCalendarShift, deletingCalendarShifts } from "../reducers/Shiftplan";
 import { resettingModal } from "../reducers/modal";
 import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { weekdays } from "../constants/Weekdays";
@@ -45,6 +45,16 @@ const CalendarEditShift = (props) => {
     const deleteShift = () => {
         dispatch(deletingCalendarShift({day: day, index: index}))
         dispatch(resettingModal())
+        dispatch(resettingShiftIsDayly())
+        dispatch(resettingShiftCustomDays())
+        dispatch(settingShiftplanChanged());
+    }
+
+    const deleteMultipleShifts = () => {
+        dispatch(deletingCalendarShifts({index: index, customDays: userInputCustomDays}));
+        dispatch(resettingShiftIsDayly())
+        dispatch(resettingShiftCustomDays())
+        dispatch(resettingModal());
         dispatch(settingShiftplanChanged());
     }
     useEffect(() => {
@@ -184,7 +194,9 @@ const CalendarEditShift = (props) => {
                     <Row className="mt-2">
                         <Col>
                             <Card className="mb-2">
-                            <Button size="sm" outline color="danger" onClick={() => deleteShift()}>Schicht löschen</Button>
+                            <Button hidden={!userInputIsDayly} size="sm" outline color="danger" onClick={() => deleteMultipleShifts()}>Schichten löschen</Button>
+                            <Button hidden={userInputCustomDays.length === 1 || userInputIsDayly} size="sm" outline color="danger" onClick={() => deleteMultipleShifts()}>Ausgewählte Schichten löschen</Button>    
+                            <Button hidden={userInputCustomDays.length > 1 || userInputIsDayly} size="sm" outline color="danger" onClick={() => deleteShift()}>Schicht löschen</Button>
                             </Card>
                         </Col>
                     </Row>

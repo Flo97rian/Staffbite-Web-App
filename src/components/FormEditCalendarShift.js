@@ -135,7 +135,7 @@ const FromEditCalendarShift = (props) => {
         <Row className="text-right">
             <Col>
             <Button color="link" onClick={() => dispatch(resettingModal())}> Schließen </Button>
-                    <Button hidden={((userInputCustomDays.length === 1 && !applicantsSettings) || applicantsSettings)} color="success" onClick={() => handleCalendarShiftChanges(true)}>Alle Schichten änern</Button>
+                    <Button hidden={((userInputCustomDays.length === 1 && !applicantsSettings) || applicantsSettings)} color="success" onClick={() => handleCalendarShiftChanges(true)}>Alle Schichten ändern</Button>
                     <Button hidden={((userInputCustomDays.length === 1 && !applicantsSettings)|| applicantsSettings)} color="success" onClick={() => handleCalendarShiftChanges()}>Nur diese Schicht ändern</Button>
                     <Button hidden={((userInputCustomDays.length > 1 && !applicantsSettings) || applicantsSettings || userInputShiftIsDayly)} color="success" onClick={() => handleCalendarShiftChanges()}>Schicht ändern</Button>
                     <Button hidden={(!applicantsSettings)} color="success" onClick={() => handleChangeEmployees()}>Mitarbeiter ändern</Button>

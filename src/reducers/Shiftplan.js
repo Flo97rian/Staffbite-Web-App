@@ -58,6 +58,22 @@ const shiftplanSlice = createSlice({
         state.plan.splice(index, 1);
       }
     },
+    deletingCalendarShifts(state, action) {
+      const index = action.payload.index;
+      const customDays = action.payload.customDays;
+      customDays.forEach(day => {
+        state.plan[index][day] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0}
+      })
+
+      let isRowEmptyNow = true;
+      for (const [key, value] of Object.entries(state.plan[index])) {
+        if(key === "Wochentag") return;
+        if(value.frei === true) isRowEmptyNow = false;
+      }
+      if(isRowEmptyNow) {
+        state.plan.splice(index, 1);
+      }
+    },
     settingMinQufalification(state, action) {
       const shiftMinQualification = action.payload.minQualification;
       const index = action.payload.index;
@@ -822,6 +838,7 @@ export const {
   settingShiftTime,
   settingCalenderShift,
   addCalendarShift,
+  deletingCalendarShifts,
 } = shiftplanSlice.actions;
 
 export default shiftplanSlice.reducer
