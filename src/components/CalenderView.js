@@ -381,19 +381,23 @@ function CalendarView(props) {
                     if(setApplicantsLenght > Number(value.anzahl))
                       background = "#f5365c";
                     if(setApplicantsLenght < Number(value.anzahl))
+                      background = "#ffd300"
+                      //ffcc33
+                      //f5365c
+                    if(setApplicantsLenght === 0)
                       background = "#fb6340"
                     eventsData.push({
                         id: index,
                         title: row.Wochentag.ShiftName,
                         start: startTime,
                         end: endTime,
-                        filling: _.size(_.get(value, "setApplicants", {})) + "/" + value.anzahl + " Mitarbeiter",
                         description: "gello",
                         display: "block",
                         backgroundColor: background,
                         borderColor: background,
                         textColor: "dark",
                         notice: _.get(value, "notice", ""),
+                        anzahl: value.anzahl,
                         applicants: _.get(value, "applicants", {}),
                         setApplicants: _.get(value, "setApplicants", {}),
                         shiftplanId: shiftplan.id,
@@ -436,19 +440,22 @@ function CalendarView(props) {
                       if(setApplicantsLenght > Number(value.anzahl))
                         background = "#f5365c";
                       if(setApplicantsLenght < Number(value.anzahl))
+                        background = "#ffd300"
+                      if(setApplicantsLenght === 0)
                         background = "#fb6340"
                       eventsData.push({
                           id: lastId + index + 1,
                           title: row.Wochentag.ShiftName,
                           start: startTime,
                           end: endTime,
-                          filling: _.size(_.get(value, "setApplicants", {})) + "/" + (value.anzahl ? value.anzahl : "0") + " Mitarbeiter",
                           description: "gello",
-                          display: "block",
+                          display: "auto",
                           backgroundColor: background,
                           borderColor: background,
+                          classNames: "p-0 m-0",
                           textColor: "dark",
                           notice: _.get(value, "notice", ""),
+                          anzahl: value.anzahl,
                           position: row.Wochentag.ShiftPosition,
                           applicants: _.get(value, "applicants", {}),
                           setApplicants: _.get(value, "setApplicants", {}),
@@ -561,7 +568,7 @@ function CalendarView(props) {
               <i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-comment"></i>{" "}{_.get(Shift, "notice", "")}
             </div>
             <br/>
-            <i className="fas fa-users"></i>{" "}{eventInfo.event.extendedProps.filling}:
+            <i className="fas fa-users"></i>{" "}{_.size(eventInfo.event.extendedProps.setApplicants) + "/" + eventInfo.event.extendedProps.anzahl + " Mitarbeiter"}:
              {Object.keys(setApplicants).length > 0 ? Object.keys(Shift.setApplicants).map(applicantId => {
                return <>
                         <br/>
@@ -613,15 +620,18 @@ function CalendarView(props) {
     if(shiftplan.id !== "") {
       const Shift = _.get(shiftplan, "plan[" + eventInfo.event.extendedProps.row + "][" + eventInfo.event.extendedProps.day + "]")
       const setApplicants = Shift?.setApplicants || {};
+      if(eventInfo.event.title === "Abend") {
+        console.log(eventInfo.event);
+      }
       return (
         <div id={"Popover" + String(eventInfo.event.id)}>
         <Popover eventInfo={eventInfo}/>
-        <Row className="p-1">
-            <Col>
+        <Row className="pl-1">
+            <Col className="mr-0">
             <b>{eventInfo.timeText}{" Uhr "}<i hidden={_.isBoolean(_.get(Shift, "prio", true))} className="fas fa-user-shield ml-1"></i><i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-comment ml-1"></i></b>
             <br/>
             <br/>
-            <b><i className="fas fa-users"></i>{" "}{eventInfo.event.extendedProps.filling}</b>
+            <b><i className="fas fa-users"></i>{" "}{_.size(eventInfo.event.extendedProps.setApplicants) + "/" + eventInfo.event.extendedProps.anzahl + " Mitarbeiter"}</b>
              {Object.keys(setApplicants).length > 0 ? Object.keys(Shift.setApplicants).map(applicantId => {
                return <>
                         <br/>
@@ -639,7 +649,7 @@ function CalendarView(props) {
             <Col>
              <b>{eventInfo.timeText}</b>
              <br/>
-             <b>{eventInfo.event.extendedProps.filling}</b>
+             <b>{_.size(eventInfo.event.extendedProps.setApplicants) + "/" + eventInfo.event.extendedProps.anzahl + " Mitarbeiter"}:</b>
              <br/>
              <b>{eventInfo.event.title}</b>
            </Col>
@@ -705,8 +715,8 @@ function CalendarView(props) {
           </Col>
         </Row>
         <Row>
-          <div className="col">
-            <Card className="card-calendar">
+          <div className="">
+            <Card className="card-calendar m-0 p-0">
               <CardHeader>
                 <Row>
                   <Col>
@@ -810,7 +820,7 @@ function CalendarView(props) {
                         height="auto"
                         headerToolbar={""}
                         slotMinTime={bussinessHoursStart}
-                        eventMaxStack={1}
+                        eventMaxStack={2}
                         views={{
                           dayGridMonth: { // name of view
                             titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' },
@@ -839,7 +849,6 @@ function CalendarView(props) {
                         locale="de"
                         events={events}
                         eventContent={renderEventContent}
-                        eventDisplay="block"
                         // Add new event
                         select={(info) => {
                             if(viewTimeGridWeek && isWeekEmpty) {
@@ -868,6 +877,8 @@ function CalendarView(props) {
                             dispatch(settingModal("addCalendarShift"))
                             }
                         }}
+                        
+                        eventMouseEnter={(event) => console.log(event)}
                         dateClick={(info) => selectDate(info)}
                         // Edit calendar event action
                         eventClick={({ event }) => {

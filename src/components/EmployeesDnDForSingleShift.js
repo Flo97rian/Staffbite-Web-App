@@ -201,7 +201,7 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
           const empSchichtenWoche = employees[empId].schichtenwoche
           const employeeQualification = employees[empId].erfahrung;
           const currentZeitraumSchichten = employees[empId]?.schichten && employees[empId].schichten[Zeitraum] ? employees[empId].schichten[Zeitraum] : []
-          let alreadySetToday = currentZeitraumSchichten.filter(schicht => schicht.split('#')[2] === day && schicht.split('#')[0] !== shiftIndex && ind === 2);
+          let alreadySetToday = currentZeitraumSchichten.filter(schicht => schicht.split('#')[2] === day && schicht.split('#')[0] !== String(shiftIndex) && ind === 2);
           const empSchichtenWocheBisher = currentZeitraumSchichten.length + dummyshifts;
           return <div className="m-0 px-3 py-2 pr-0">
                   <Row className="">
@@ -234,7 +234,7 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
                         <br/>
                         <i className={"fas fa-user-clock mr-1 "}></i>{ empSchichtenWocheBisher + "/" + empSchichtenWoche }{" Schichten"}
                         <br/>
-                        {alreadySetToday.length > 0 && ind === 2 ? "heute bereits eingetragen" : <></> }
+                        {alreadySetToday.length !== 0 && ind === 2 ? "heute bereits eingetragen" : <></> }
                       </small>
                     </Col>
                   </Row>

@@ -32,6 +32,15 @@ export const AuthenticationFormEmployee = () => {
         }
     }, [employee])
     return (
+        <>
+        <Row className="text-center mt-3">
+            <Col>
+                <h2>Anmeldung für Mitarbeiter</h2>
+                <p className="mt-2">
+                    Als Mitarbeiter kannst du immer den aktuellen Schichtplan einsehen.
+                </p>
+            </Col>
+        </Row>
         <Row>
             <Col className="mx-4">
             <Row>
@@ -85,5 +94,6 @@ export const AuthenticationFormEmployee = () => {
             </Row>
             </Col>
         </Row>
+        </>
     )
 }

@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../../../reducers/modal";
 import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
 import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
-import { settingAuthenticationForAdmin, settingDemoPlans, updateDemoEvent } from "../../../reducers/demo";
+import { resettingDummyShifts, settingAuthenticationForAdmin, settingDemoPlans, updateDemoEvent } from "../../../reducers/demo";
 import { RegistrationForm, RegistrationFormAdmin } from "./Form/RegistrationFormAdmin";
 import { AuthenticationFormEmployee } from "./Form/AuthenticationFormEmployee";
 import { RegistrationFormEmployee } from "./Form/RegistrationFormEmployee";
@@ -67,9 +67,16 @@ export const ModalEditShift = (props) => {
 
         let end = new Date(date.start);
         if(userForm.ShiftEnd !== "") {
-            end = new Date(event.start);
-            end.setHours(userForm.ShiftEnd.split(":")[0])
-            end.setMinutes(userForm.ShiftEnd.split(":")[1])
+            if(userForm.ShiftEnd === "on") {
+                end = new Date(event.start);
+                end.setHours("24")
+                end.setMinutes("00")
+            }
+            if(userForm.ShiftEnd !== "on") {
+                end = new Date(event.start);
+                end.setHours(userForm.ShiftEnd.split(":")[0])
+                end.setMinutes(userForm.ShiftEnd.split(":")[1])
+            }
         }
 
         if(userForm.ShiftEnd === "") {
@@ -95,9 +102,15 @@ export const ModalEditShift = (props) => {
         }
 
         let updateSetApplicants = DnDRef.current;
+        let newSetApplicants = {};
         if(updateSetApplicants) {
-            
+            updateSetApplicants.forEach(applicant => {
+                let applicantId = applicant.id.substring(1);
+                let applicantName = applicant.content;
+                newSetApplicants[applicantId] = applicantName;
+            })
         }
+        dispatch(resettingDummyShifts());
         
 
         let data = {
@@ -113,7 +126,7 @@ export const ModalEditShift = (props) => {
             textColor: "dark",
             notice: "",
             applicants: {},
-            setApplicants: {},
+            setApplicants: newSetApplicants,
             applicantsAfterPublish: {},
         }
         dispatch(resettingTemporaryEventId());
@@ -124,13 +137,18 @@ export const ModalEditShift = (props) => {
 
     }
 
+    const handleCloseModal = () => {
+        dispatch(resettingDummyShifts());
+        dispatch(resettingModal());
+    }
+
       //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
         return (
             <>
             <Modal 
                     size="lg"
                     centered
-                    show={demoEditShift} onHide={() => dispatch(resettingModal())}
+                    show={demoEditShift} onHide={() => handleCloseModal()}
                     className="modal modal-secondary"
             >
                 <Modal.Body className="pt-1">
@@ -206,7 +224,7 @@ export const ModalEditShift = (props) => {
                             </Collapse>
                             <Row className="text-right mt-3">
                                 <Col>
-                                        <Button color="link" onClick={() => dispatch(resettingModal())}>
+                                        <Button color="link" onClick={() => handleCloseModal()}>
                                             Schließen
                                         </Button>
                                         <Button color="success" onClick={() => editShift()}>

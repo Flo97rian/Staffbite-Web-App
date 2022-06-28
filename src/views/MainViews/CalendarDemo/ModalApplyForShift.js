@@ -114,11 +114,13 @@ export const ModalApplyForShift = (props) => {
                     className="modal modal-secondary"
             >
                 <Modal.Body className="pt-1">
-                                <Row className="text-center mt-2">
-                                    <Col>
-                                        <h2>Auf Schicht bewerben</h2>
-                                    </Col>
-                                </Row>
+                                    <Row className="text-center mt-2">
+                                        <Col>
+                                            <h2>Auf Schicht bewerben</h2>
+                                            <p hidden={!event.applicants[employee.id]}>Deine Verfügbarkeit für diese Schicht ist gespeichert.</p>
+                                            <p hidden={!event.setApplicants[employee.id]}>Du bist für diese Schicht eingetragen.</p>
+                                        </Col>
+                                    </Row>
                                 <Card className="bg-secondary border px-2 shadow-none">
                                 <Row className="mt-3 mb-2">
                                     <Col>
@@ -170,8 +172,8 @@ export const ModalApplyForShift = (props) => {
                             <Row className="text-right">
                                 <Col>   
                                         <Button color="link" onClick={() => dispatch(resettingModal())}>Schließen</Button>
-                                        <Button hidden={!event.applicants[employee.id]} color="danger" onClick={() => removeApplyFromShift()}>Zurückziehen</Button>
-                                        <Button hidden={event.applicants[employee.id]} color="success" onClick={() => applyForShift()}>
+                                        <Button hidden={!event.applicants[employee.id] || event.setApplicants[employee.id]} color="danger" onClick={() => removeApplyFromShift()}>Zurückziehen</Button>
+                                        <Button hidden={event.applicants[employee.id] || event.setApplicants[employee.id]} color="success" onClick={() => applyForShift()}>
                                             Bewerben
                                         </Button>
                                 </Col>

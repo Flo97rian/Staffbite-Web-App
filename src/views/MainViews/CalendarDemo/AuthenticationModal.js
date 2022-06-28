@@ -7,7 +7,7 @@ import {
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
-import { resettingModal } from "../../../reducers/modal";
+import { resettingModal, settingModal } from "../../../reducers/modal";
 import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
 import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
 import { settingAuthenticationForAdmin } from "../../../reducers/demo";
@@ -27,7 +27,6 @@ export const ModalDemoEntry = (props) => {
     const userInput = useSelector(state => state.userInput);
     const isAdmin = useSelector(state => state.demo.demoAdmin.isAdmin);
     const demoEntry = useSelector(state => state.modal.demoEntry);
-
     useEffect(() => {
         const urlSearchParams = new URLSearchParams(window.location.search);
         const params = Object.fromEntries(urlSearchParams.entries());
@@ -75,6 +74,10 @@ export const ModalDemoEntry = (props) => {
         }
     }
 
+    const handleShowInvitation = () => {
+        dispatch(resettingModal());
+        dispatch(settingModal("demoInvitation"))
+    }
       //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
         return (
             <>
@@ -85,22 +88,42 @@ export const ModalDemoEntry = (props) => {
                     className="modal modal-secondary"
             >
                 <Modal.Body className="pt-1">
-                <Row className="text-center mt-2">
+                <Row className="text-center mt-3" hidden={!showButtons}>
                     <Col>
                         <h2>Willkommen bei Staffbite</h2>
-                        <p>Leg gleich los und erstelle einen Schichtplan.</p>
+                        <p>
+                            Du hast bereits einen Account erstellt?
+                            <br/>
+                            Du bist ... ?
+                        </p>
                     </Col>
                 </Row>
                 <div hidden={!showButtons}>
-                <Row className="text-center mt-3">
+                <Row className="text-center mt-2">
+                    <Col></Col>
                     <Col>
-                        <Button color="primary" onClick={() => handleShowFormAdmin()}>Ich bin Planer</Button>
+                        <Button size="sm" block color="primary" onClick={() => handleShowFormAdmin()}>Planer</Button>
                     </Col>
+                    <Col></Col>
                 </Row>
                 <Row className="text-center mt-3">
+                    <Col></Col>
                     <Col>
-                        <Button color="success" onClick={() => handleShowFormEmployee()}>Ich bin Mitarbeiter</Button>
+                        <Button size="sm" color="primary" block onClick={() => handleShowFormEmployee()}>Mitarbeiter</Button>
                     </Col>
+                    <Col></Col>
+                </Row>
+                <Row className="text-center mt-5">
+                    <Col>
+                        <small>Ich habe noch keinen Account erstellt!</small>
+                    </Col>
+                </Row>
+                <Row className="text-center mt-0">
+                    <Col></Col>
+                    <Col>
+                        <Button size="sm" block color="link" onClick={() => handleShowInvitation()}>Erste Anmeldung</Button>
+                    </Col>
+                    <Col></Col>
                 </Row>
                 </div>
                 <div hidden={!showAdminAuthentication}>
@@ -117,16 +140,9 @@ export const ModalDemoEntry = (props) => {
                 <div hidden={!showRegistrationEmployee}>
                     <RegistrationFormEmployee />
                 </div>
-                <div>
-                    <Row className="text-center mt-3">
-                        <Col>
-                            <Button color="link" onClick={() => dispatch(resettingModal())}>Abbrechen</Button>
-                        </Col>
-                    </Row>
-                    
-                </div>
                 </Modal.Body>
                 <Modal.Footer>
+                    <Button color="link" onClick={() => dispatch(resettingModal())}>Abbrechen</Button>
                 </Modal.Footer>
             </Modal>
             </>

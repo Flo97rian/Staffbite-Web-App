@@ -13,7 +13,7 @@ import CalendarEditShift from "./CalendarEditShift";
 import { CalendarEditShiftAdvanced } from "./CalendarEditShiftAdvanced";
 import { resettingModal } from "../reducers/modal";
 import { settingApplicants, settingCalenderShift, settingShiftNotice, settingShiftplan } from "../reducers/Shiftplan";
-import { resettingCurrentShiftCustomDays, resettingShiftIsDayly, resettingUserInput, settingShiftIsDayly } from "../reducers/userInput";
+import { resettingCurrentShiftCustomDays, resettingShiftCustomDays, resettingShiftIsDayly, resettingUserInput, settingShiftIsDayly } from "../reducers/userInput";
 import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { deleteingEmployeeShiftFromSchichten, resettingEmployeeDummyShift, resettingEmployeesDummyshifts, settingEmployeeFetching, settingEmployeeShiftInSchichten, setttingEmployeeShiftInSchichten } from "../reducers/DB";
 import { resettingChangeDayOrSelectedDays, settingChangeDayOrSelectedDays, settingTemporaryEmployeeID, settingUpdateType } from "../reducers/temporary";
@@ -35,6 +35,12 @@ const FromEditCalendarShift = (props) => {
     const userInputShiftIsDayly = useSelector(state => state.userInput.shiftIsDayly);
     const userInputCustomDays = useSelector(state => state.userInput.shiftCustomDays);
     const DragAndDropRef = useRef()
+
+    const closeModal = () => {
+        dispatch(resettingShiftIsDayly());
+        dispatch(resettingShiftCustomDays());
+        dispatch(resettingModal());
+    }
 
     const handleCalendarShiftChanges = (changeAllSelectedDays = false) => {
         const updateApplicant = DragAndDropRef.current;
@@ -134,11 +140,12 @@ const FromEditCalendarShift = (props) => {
         </Row>
         <Row className="text-right">
             <Col>
-            <Button color="link" onClick={() => dispatch(resettingModal())}> Schließen </Button>
-                    <Button hidden={((userInputCustomDays.length === 1 && !applicantsSettings) || applicantsSettings)} color="success" onClick={() => handleCalendarShiftChanges(true)}>Alle Schichten ändern</Button>
+            <Button color="link" onClick={() => closeModal()}> Schließen </Button>
+                    <Button hidden={((userInputCustomDays.length === 1 && !applicantsSettings) || applicantsSettings || !userInputShiftIsDayly)} color="success" onClick={() => handleCalendarShiftChanges(true)}>Alle Schichten ändern</Button>
+                    <Button hidden={((userInputCustomDays.length <= 1 && !applicantsSettings) || applicantsSettings || userInputShiftIsDayly)} color="success" onClick={() => handleCalendarShiftChanges(true)}>Ausgewählte Schichten ändern</Button>
                     <Button hidden={((userInputCustomDays.length === 1 && !applicantsSettings)|| applicantsSettings)} color="success" onClick={() => handleCalendarShiftChanges()}>Nur diese Schicht ändern</Button>
                     <Button hidden={((userInputCustomDays.length > 1 && !applicantsSettings) || applicantsSettings || userInputShiftIsDayly)} color="success" onClick={() => handleCalendarShiftChanges()}>Schicht ändern</Button>
-                    <Button hidden={(!applicantsSettings)} color="success" onClick={() => handleChangeEmployees()}>Mitarbeiter ändern</Button>
+                    <Button hidden={(!applicantsSettings)} color="success" onClick={() => handleChangeEmployees()}>Änderungen speichern</Button>
             </Col>
         </Row>
     </>

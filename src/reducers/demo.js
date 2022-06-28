@@ -99,7 +99,87 @@ const demoSlice = createSlice({
             currentEvents.splice(updatedEventIndex, 1, updatedEvent);
             state.demoPlans = currentEvents;
 
+        },
+        settingDummyShifts(state, action) {
+            const employeeId = action.payload;
+            if(state.demoEmployees[employeeId]) {
+
+                if(state.demoEmployees[employeeId].dummyShifts) {
+                    state.demoEmployees[employeeId].dummyShifts += 1;
+                }
+
+                if(!state.demoEmployees[employeeId].dummyShifts) {
+                    state.demoEmployees[employeeId].dummyShifts = 1;
+                }
+            }
+        },
+        resettingDummyShift(state, action) {
+            const employeeId = action.payload;
+            if(state.demoEmployees[employeeId]) {
+
+                if(state.demoEmployees[employeeId].dummyShifts) {
+                    state.demoEmployees[employeeId].dummyShifts -= 1;
+                }
+            }
+        },
+        resettingDummyShifts(state, action) {
+            state.demoEmployees.forEach(employee => {
+                if(state.demoEmployees[employee.id]) {
+                    if(state.demoEmployees[employee.id].dummyShifts) {
+                        delete state.demoEmployees[employee.id].dummyShifts;    
+                    }
+                }
+            })
+        },
+        settingApplicationsCounterForEmployee(state, action) {
+            const employeeId = action.payload;
+            if(state.demoEmployees[employeeId]) {
+
+                if(state.demoEmployees[employeeId].applications) {
+                    state.demoEmployees[employeeId].applications += 1;
+                }
+
+                if(!state.demoEmployees[employeeId].applications) {
+                    state.demoEmployees[employeeId].applications = 1;
+                }
+            }
+        },
+        settingShiftsCounterForEmployee(state, action) {
+            const employeeId = action.payload;
+            if(state.demoEmployees[employeeId]) {
+
+                if(state.demoEmployees[employeeId].shifts) {
+                    state.demoEmployees[employeeId].shifts += 1;
+                }
+
+                if(!state.demoEmployees[employeeId].shifts) {
+                    state.demoEmployees[employeeId].shifts = 1;
+                }
+            }
+        },
+        resettingCouterForEmployees(state) {
+            state.demoEmployees.forEach(employee => {
+                console.log(employee.id);
+                if(state.demoEmployees[employee.id]) {
+                    if(state.demoEmployees[employee.id].shifts) {
+                        delete state.demoEmployees[employee.id].shifts;    
+                    }
+
+                    if(state.demoEmployees[employee.id].applications) {
+                        delete state.demoEmployees[employee.id].applications;    
+                    }
+                }
+            })
+        },
+        deleteEmployee(state, action) {
+            const employeeId = action.payload;
+            const indexOfEmployee = state.demoEmployees.findIndex(employee => employee.id === employeeId);
+            if(indexOfEmployee !== -1) {
+                state.demoEmployees.splice(indexOfEmployee, 1);
+            }
+            
         }
+
     }
 })
 
@@ -118,6 +198,13 @@ export const {
     settingDemoIsAdmin,
     settingDemoIsEmployee,
     resettingDemoIsSignedIn,
+    settingDummyShifts,
+    resettingDummyShift,
+    resettingDummyShifts,
+    settingApplicationsCounterForEmployee,
+    settingShiftsCounterForEmployee,
+    resettingCouterForEmployees,
+    deleteEmployee
 } = demoSlice.actions;
 
 export default demoSlice.reducer;

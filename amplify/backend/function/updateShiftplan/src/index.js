@@ -99,6 +99,8 @@ const updateEmployeesSchichten = async (Plan, type, index, day, user, id) => {
             //update schichten of new applicants
             console.log(newApplicants, removedApplicants);
             for (const applicant of newApplicants) {
+                if(applicant === "TENANT") return;
+                console.log(applicant)
                 let employeeSchichten = await getEmployeeSchichten(user, applicant);
                 if(!employeeSchichten[Plan.zeitraum]) {
                     employeeSchichten[Plan.zeitraum] = [];
@@ -109,7 +111,8 @@ const updateEmployeesSchichten = async (Plan, type, index, day, user, id) => {
             
             //update schichten of removed applicants
             for (const applicant of removedApplicants) {
-                
+                if(applicant === "TENANT") return;
+                console.log(applicant)
                 let employeeSchichten = await getEmployeeSchichten(user, applicant);
                 if(employeeSchichten[Plan.zeitraum]) {
                     

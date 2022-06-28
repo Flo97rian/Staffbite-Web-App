@@ -11,7 +11,7 @@ import {
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
-import { resettingModal } from "../../../reducers/modal";
+import { resettingModal, settingModal } from "../../../reducers/modal";
 import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
 import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
 import { settingAuthenticationForAdmin } from "../../../reducers/demo";
@@ -37,7 +37,10 @@ export const ModalInvitation = (props) => {
             var url = window.location.href;
             setInvitationLink(url + "&invitation=true");
         }
-        
+        if("invitation" in params) {
+            dispatch(resettingModal());
+            dispatch(settingModal("demoInvitation"))
+        }
     }, [])
 
     const handleShowFormEmployee = () => {
@@ -56,34 +59,17 @@ export const ModalInvitation = (props) => {
                     className="modal modal-secondary"
             >
                 <Modal.Body className="pt-1">
-                <Row className="text-center mt-2">
+                <Row className="text-center mt-3">
                     <Col>
                         <h2>Willkommen bei Staffbite</h2>
-                        <p>Lege eine eine Sicherheitsfrage fest. Diese ist wichtig, um dich später wieder anzumelden.</p>
+                        <p>
+                            Lege deinen Namen und eine Sicherheitsfrage fest.
+                            <br/>
+                            Sie werden für die Anmeldung benötigt.
+                        </p>
                     </Col>
                 </Row>
-                <div hidden={!invitationLink || !showButtons}>
-                <Row className="text-center mt-3 mx-9">
-                    <Col>
-                    <Button color={clip ? "success" : "primary"} className="" onClick={() => {
-                        navigator.clipboard.writeText(invitationLink)
-                        setClip(true);
-                        }
-                    }>
-                                {clip ? "Einladungslink kopiert " : "Einladungslink kopieren "}
-                                {clip ? <i className="fas fa-check" /> : <i className="fas fa-copy"></i>}
-                        </Button>
-                    </Col>
-                </Row>
-                </div>
-                <div hidden={!showButtons}>
-                <Row className="text-center mt-4">
-                    <Col>
-                        <Button color="success" onClick={() => handleShowFormEmployee()}>Ich bin Mitarbeiter</Button>
-                    </Col>
-                </Row>
-                </div>
-                <div hidden={!showRegistrationEmployee}>
+                <div>
                     <RegistrationFormEmployee />
                 </div>
                 <div>

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Button, Col, Input, Row } from "reactstrap"
 import { useDispatch, useSelector } from "react-redux";
 import { settingAuthenticationAnswere, settingSelectedAuthenticationIndex } from "../../../../reducers/userInput";
-import { settingAuthenticationForAdmin } from "../../../../reducers/demo";
+import { settingAuthenticateAdmin, settingAuthenticationForAdmin } from "../../../../reducers/demo";
 import { thunkUpdateDemo } from "../../../../store/middleware/UpdateDemo";
 import { resettingModal } from "../../../../reducers/modal";
 
@@ -20,6 +20,12 @@ export const RegistrationFormAdmin = () => {
                 }
             )
         )
+        dispatch(settingAuthenticateAdmin(
+            {
+                authenticationAnswere: userInput.authenticationAnswere,
+                selectedAuthenticationIndex: userInput.selectedAuthenticationIndex
+            }
+        ))
         dispatch(thunkUpdateDemo());
         dispatch(resettingModal());
     }

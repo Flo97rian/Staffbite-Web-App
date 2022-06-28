@@ -38,7 +38,7 @@ export const RegistrationFormEmployee = () => {
                 <Input type="text" onChange={(event) => dispatch(settingEmployeeName(event.target.value))}></Input>
                 </Col>
             </Row>
-            <Row>
+            <Row className="mt-3">
                 <Col>
                     <h4>Wähle eine Sicherheitsfrage aus</h4>
                 </Col>

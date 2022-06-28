@@ -1,7 +1,10 @@
+import { isSameWeek } from "date-fns";
+import { de } from "date-fns/locale";
 import React, { useState, useImperativeHandle, useEffect} from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Col, Row } from "reactstrap";
+import { resettingDummyShift, settingDummyShifts } from "../../../../reducers/demo";
 
 // fake data generator
 const getItems = (employees = {}, index) => {
@@ -100,19 +103,38 @@ const getEmployeeStyle = (empSchichtenWocheBisher, empSchichtenWoche, alreadySet
 const EmployeesDnD = React.forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const employees = useSelector(state => state.demo.demoEmployees);
+  const events = useSelector(state => state.demo.demoPlans);
   const event = useSelector(state => state.demo.demoPlans.find(event => event.id === state.temporary.eventId));
   const [state, setState] = useState([getEmployees(employees, 0), getItems(event.applicants, 1), getItems(event.setApplicants, 2)]);
   const [Employees, setEmployees] = useState(employees);
-  console.log(Employees, state);
   const [showMore, setShowMore] = useState(false);
 
   useImperativeHandle(ref, () => (state[2]), [state]);
+
+  useEffect(() => {
+    createDemoDummyShifts();
+  },[]);
+
 
   useEffect(() => {
     console.log(employees);
     setEmployees(employees);
   }, [employees])
 
+  useEffect(() => {
+    
+  }, [employees])
+
+
+  const createDemoDummyShifts = () => {
+    const currentDnDEventDate = new Date(event.start);
+    let currentWeeksEvents = events.filter(currentEvent => isSameWeek(new Date(currentEvent.start), currentDnDEventDate, {locale: de, weekStartsOn: 1}));
+    currentWeeksEvents.forEach(event => {
+      Object.keys(event.setApplicants).forEach(applicantId => {
+        dispatch(settingDummyShifts(applicantId));
+      })
+    })
+  }
 
   function onDragEnd(result, employees) {
     const { source, destination } = result;
@@ -155,7 +177,7 @@ const EmployeesDnD = React.forwardRef((props, ref) => {
         const newid = droppableDestination.droppableId + empId;
         destClone.splice(droppableDestination.index ,0, {id: newid, content: employee.content});
       }
-      //dispatch(settingEmployeeDummyShift(empId));
+      dispatch(settingDummyShifts(empId));
     }
     const result = {};
     result[droppableSource.droppableId] = sourceClone;
@@ -169,15 +191,14 @@ const EmployeesDnD = React.forwardRef((props, ref) => {
     if (!IsEmpty && employees) {
       if(employees[empId]) {
           let empName = employees[empId].name;
-          let dummyshifts = 0;
-          if(employees[empId]?.dummyshifts) {
-            dummyshifts = dummyshifts + employees[empId].dummyshifts
+          let dummyShifts = 0;
+          if(employees[empId]?.dummyShifts) {
+            dummyShifts = dummyShifts + employees[empId].dummyShifts
           }
           const empSchichtenWoche = employees[empId].schichtenwoche
-          const employeeQualification = employees[empId].erfahrung;
           const currentZeitraumSchichten = []
           let alreadySetToday = [];
-          const empSchichtenWocheBisher = currentZeitraumSchichten.length + dummyshifts;
+          const empSchichtenWocheBisher = currentZeitraumSchichten.length + dummyShifts;
           return <div className="m-0 px-3 py-2 pr-0">
                   <Row className="">
                     <Col xs="8" className="pr-0">
@@ -203,8 +224,7 @@ const EmployeesDnD = React.forwardRef((props, ref) => {
                   <Row>
                     <Col xs="9" className="pr-0">
                       <small className={getEmployeeStyle(empSchichtenWocheBisher, empSchichtenWoche, alreadySetToday)}>
-                        <br/>
-                        <i className={"fas fa-user-clock mr-1 "}></i>{ empSchichtenWocheBisher}{" Schichten"}
+                        <i className={"fas fa-user-clock mr-1 "}></i>{ empSchichtenWocheBisher}{" Schichten / Woche"}
                         <br/>
                         {alreadySetToday.length > 0 && ind === 2 ? "heute bereits eingetragen" : <></> }
                       </small>
@@ -271,8 +291,7 @@ const EmployeesDnD = React.forwardRef((props, ref) => {
       )
     } else if (index === 1) {
       return (
-        <p>
-        </p>
+        <p>{title[index]}</p>
       )
     } else {
       return (
@@ -295,7 +314,7 @@ const EmployeesDnD = React.forwardRef((props, ref) => {
   function handleDelete(ind, index, item) {
     const newState = [...state];
     if(item.id.substring(1) !== "TENANT") {
-      //dispatch(resettingEmployeeDummyShift(item.id.substring(1)));
+      dispatch(resettingDummyShift(item.id.substring(1)));
     }
     if (newState[ind].length === 1) {
       newState[ind][index].id = String(ind);

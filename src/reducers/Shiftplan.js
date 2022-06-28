@@ -67,9 +67,13 @@ const shiftplanSlice = createSlice({
 
       let isRowEmptyNow = true;
       for (const [key, value] of Object.entries(state.plan[index])) {
-        if(key === "Wochentag") return;
-        if(value.frei === true) isRowEmptyNow = false;
+        if(key !== "Wochentag") {
+          if(value.frei === true) {
+            isRowEmptyNow = false
+          };
+        };
       }
+      console.log(isRowEmptyNow);
       if(isRowEmptyNow) {
         state.plan.splice(index, 1);
       }

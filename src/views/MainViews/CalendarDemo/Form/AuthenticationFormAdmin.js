@@ -32,8 +32,17 @@ export const AuthenticationFormAdmin = () => {
 
 
     return (
+        <>
+                <Row className="text-center mt-3">
+                    <Col>
+                        <h2>Anmeldung für Planer</h2>
+                        <p className="mt-2">
+                            Als Planer kannst du Schichtpläne nach deinen Bedürfnissen erstellen.
+                        </p>
+                    </Col>
+                </Row>
         <Row>
-            <Col className="mx-4">
+            <Col className="mx-4 mt-2">
             <Row>
                 <Col>
                     <h4>Wähle deine gewählte Sicherheitsfrage aus</h4>
@@ -68,5 +77,6 @@ export const AuthenticationFormAdmin = () => {
             </Row>
             </Col>
         </Row>
+        </>
     )
 }

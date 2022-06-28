@@ -31,7 +31,7 @@ export function thunkReleaseForApplication() {
         dateKeys.shift();
         if(state?.date?.start) {
                 dateKeys.forEach((day, index) => {
-                    let newDate = addDays(parseISO(state.date.start), index);
+                    let newDate = addDays(new Date(state.date.start), index);
                     dateRow[day] = getDate(newDate) + '.' + (getMonth(newDate) + 1) + '.' + getYear(newDate);
                 });
                 dateRow["Wochentag"] = "Datum";
