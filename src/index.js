@@ -76,6 +76,7 @@ import PaymentDecline from './api/stripe/PaymentDecline';
 import NoAdminPermission from './views/MainViews/Default/NoAdminPermission';
 import LandingTest from './views/MainViews/User/LandingTest';
 import CalendarDemo from './views/MainViews/CalendarDemo';
+import LandingCopy from './views/MainViews/LandingCopy';
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -85,7 +86,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing/>} />
+        <Route path="/" element={<LandingCopy/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/forgotpassword" element={<ForgotPassword/>} />
         <Route path="/setnewpassword" element={<SelectNewPassword/>} />

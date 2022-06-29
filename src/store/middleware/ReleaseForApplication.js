@@ -25,16 +25,17 @@ export function thunkReleaseForApplication() {
         const uuid = uuidv4()
         let name = state.userInput.shiftplanName !== Shiftplan.name ? state.userInput.shiftplanName : Shiftplan.name;
 
+        
         let dateKeys = Object.keys(state.Shiftplan.plan[0]);
         let dateRow = {};
         dateKeys.shift();
-        dateKeys.forEach((day, index) => {
-            if(state?.date?.start) {
-                let newDate = addDays(parseISO(state.date.start), index);
-                dateRow[day] = getDate(newDate) + '.' + (getMonth(newDate) + 1) + '.' + getYear(newDate);
-            }
-        });
-        dateRow["Wochentag"] = "Datum";
+        if(state?.date?.start) {
+                dateKeys.forEach((day, index) => {
+                    let newDate = addDays(new Date(state.date.start), index);
+                    dateRow[day] = getDate(newDate) + '.' + (getMonth(newDate) + 1) + '.' + getYear(newDate);
+                });
+                dateRow["Wochentag"] = "Datum";
+        }
         let newDate = state.date.start ? dateRow : !1;
         let newId = "PLAN#Freigeben#" + uuid
         dispatch(settingProcessingStartRelease());

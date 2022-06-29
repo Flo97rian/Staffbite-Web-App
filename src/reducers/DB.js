@@ -70,7 +70,6 @@ const DBSlice = createSlice({
     },
     settingEmployeeDummyShift(state, action) {
       const employeeId = action.payload;
-      console.log(state.employees[employeeId]);
       if(Object.keys(state.employees[employeeId]).includes("dummyshifts")) {
         state.employees[employeeId].dummyshifts += 1;
       }
@@ -102,31 +101,29 @@ const DBSlice = createSlice({
     createInitialDummyshifts(state, action) {
       const shiftplan = state.plans[action.payload];
       const shiftplanLength = shiftplan.plan.length;
-      const shiftplanIdSplit = shiftplan.id.split('#');
-      if(shiftplanIdSplit.includes("Review") || shiftplanIdSplit.includes("Veröffentlicht")) {
-        shiftplan.plan.forEach((shiftRow, index) => {
-          if (index !== 0 && index !== 1 && index !== shiftplanLength) {
-            for ( const [key, value] of Object.entries(shiftRow)) {
-              if( key !== "Wochentag" && value.setApplicants) {
-                const employeeIds = Object.keys(value.setApplicants);
-                employeeIds.forEach(employeeId => {
-                  if( state.employees[employeeId] && 
-                      Object.keys(state.employees[employeeId]).includes("dummyshifts")
-                    ) {
-                      state.employees[employeeId].dummyshifts += 1;
-                    }
-            
-                  if( state.employees[employeeId] &&
-                      !Object.keys(state.employees[employeeId]).includes("dummyshifts")
-                    ) {
-                      state.employees[employeeId].dummyshifts = 1;
-                    }
-                })
-              }
+      shiftplan.plan.forEach((shiftRow, index) => {
+        if (index !== 0 && index !== 1 && index !== shiftplanLength) {
+          for ( const [key, value] of Object.entries(shiftRow)) {
+            if( key !== "Wochentag" && value?.setApplicants) {
+              const setApplicants = value?.setApplicants || {};
+              const employeeIds = Object.keys(setApplicants);
+              employeeIds.forEach(employeeId => {
+                if( state.employees[employeeId] && 
+                    Object.keys(state.employees[employeeId]).includes("dummyshifts")
+                  ) {
+                    state.employees[employeeId].dummyshifts += 1;
+                  }
+          
+                if( state.employees[employeeId] &&
+                    !Object.keys(state.employees[employeeId]).includes("dummyshifts")
+                  ) {
+                    state.employees[employeeId].dummyshifts = 1;
+                  }
+              })
             }
           }
-        })
-      }
+        }
+      })
     },
     createShiftplanDummyshifts(state, action) {
       const shiftplan = action.payload;
@@ -196,6 +193,29 @@ const DBSlice = createSlice({
     settingMetaRejected(state) {
       state.metaStatus = "rejected";
     },
+    deleteingEmployeeShiftFromSchichten(state, action) {
+      const employeeId = action.payload.employeeId;
+      const zeitraum = action.payload.zeitraum;
+      const shiftIndicator = action.payload.shiftIndicator;
+      if(state.employees[employeeId]?.schichten[zeitraum]) {
+        const shiftIndex = state.employees[employeeId].schichten[zeitraum].indexOf(shiftIndicator);
+        if(shiftIndex !== -1) {
+          state.employees[employeeId]?.schichten[zeitraum].splice(shiftIndex, 1);
+        }
+      }
+    },
+    settingEmployeeShiftInSchichten(state, action) {
+      const employeeId = action.payload.employeeId;
+      const zeitraum = action.payload.zeitraum;
+      const shiftIndicator = action.payload.shiftIndicator;
+      if(employeeId && employeeId !== "TENANT") {
+        if(!state.employees[employeeId]?.schichten[zeitraum]) {
+          state.employees[employeeId].schichten[zeitraum] = [];
+        }
+
+        state.employees[employeeId].schichten[zeitraum].push(shiftIndicator);
+      }
+    },
   }
 })
 
@@ -225,7 +245,9 @@ export const {
   createShiftplanDummyshifts,
   settingMetaFetching,
   settingMetaFulfilled,
-  settingMetaRejected
+  settingMetaRejected,
+  deleteingEmployeeShiftFromSchichten,
+  settingEmployeeShiftInSchichten,
 } = DBSlice.actions;
 
 export default DBSlice.reducer;

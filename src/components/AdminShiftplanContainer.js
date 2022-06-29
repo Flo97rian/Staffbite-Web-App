@@ -155,6 +155,8 @@ const ShiftplanContainer = () => {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
+    dispatch(resettingDisplayShiftplan());
+    dispatch(resettingShiftplan());
     }, []);
 
 
@@ -400,6 +402,7 @@ const ShiftplanContainer = () => {
           onClick={() => {
             dispatch(settingCalendarLayout());
             dispatch(resettingBasicLayout());
+            dispatch(resettingShiftplan());
           }}
           >
             Kalender
@@ -408,6 +411,7 @@ const ShiftplanContainer = () => {
           hidden={DisplayBasicLayout}
           color="link"
           onClick={() => {
+            dispatch(resettingShiftplan());
             dispatch(settingBasicLayout());
             dispatch(resettingCalendarLayout());
           }}

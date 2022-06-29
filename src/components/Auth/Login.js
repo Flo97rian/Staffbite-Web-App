@@ -169,7 +169,6 @@ const Login = () => {
                 let hasLowerChar = lower.test(newpassword);
                 let hasSpecialChar = specialChars.test(newpassword)
                 if (hasCapitalLetter && hasMinEightLetters && hasNumber && hasSpecialChar && hasLowerChar) {
-                    console.log("hier")
                 Auth.completeNewPassword(
                     user,               // the Cognito User Object
                     newpassword,       // the new password

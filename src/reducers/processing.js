@@ -5,6 +5,8 @@ const initialState = {
     releaseStatus: "idle",
     publishStatus: "idle",
     sendReminderForApplication: 'idle',
+    changeShiftDayOrSelectedDays: 'idle',
+    createShiftplan: "idle",
 }
 
 const ProcessingSlice = createSlice({
@@ -47,11 +49,21 @@ const ProcessingSlice = createSlice({
         settingProcessingRejectedSendReminderForApplication(state) {
             state.sendReminderForApplication = "rejected";
         },
+        settingProcessingStartCreateShiftplan(state) {
+            state.createShiftplan = "loading";
+        },
+        settingProcessingFullfilledCreateShiftplan(state) {
+            state.createShiftplan = "fulfilled";
+        },
+        settingProcessingRejectedCreateShiftplan(state) {
+            state.createShiftplan = "rejected";
+        },
         resettingProcessing(state) {
             state.algStatus = "idle";
             state.releaseStatus = "idle";
             state.publishStatus = "idle";
             state.sendReminderForApplication = 'idle';
+            state.createShiftplan = 'idle';
         }
     }
 })
@@ -69,6 +81,9 @@ export const {
     settingProcessingStartAlg,
     settingProcessingStartPublish,
     settingProcessingStartRelease,
+    settingProcessingFullfilledCreateShiftplan,
+    settingProcessingRejectedCreateShiftplan,
+    settingProcessingStartCreateShiftplan,
     resettingProcessing
 } = ProcessingSlice.actions
 

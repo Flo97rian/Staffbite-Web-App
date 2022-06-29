@@ -9,6 +9,8 @@ const initialState = {
     eventId: "",
     calendarFilter: false,
     calenderWeekIndicator: false,
+    changeShiftDayOrSelectedDays: false,
+    updateType : false,
 }
 
 const temporarySlice = createSlice({
@@ -50,6 +52,18 @@ const temporarySlice = createSlice({
         },
         resettingTemporaryCalendarWeekIndicator(state, action) {
             state.calenderWeekIndicator = false;
+        },
+        settingChangeDayOrSelectedDays(state) {
+            state.changeShiftDayOrSelectedDays = true;
+        },
+        resettingChangeDayOrSelectedDays(state) {
+            state.changeShiftDayOrSelectedDays = false;
+        },
+        settingUpdateType(state, action) {
+            state.updateType = action.payload;
+        },
+        resettingUpdateType(state) {
+            state.updateType = false;
         }
     }
 })
@@ -66,7 +80,11 @@ export const {
     settingCalendarFilter,
     resettingCalendarFilter,
     settingTemporaryCalendarWeekIndicator,
-    resettingTemporaryCalendarWeekIndicator
+    resettingTemporaryCalendarWeekIndicator,
+    settingChangeDayOrSelectedDays,
+    resettingChangeDayOrSelectedDays,
+    settingUpdateType,
+    resettingUpdateType
 } = temporarySlice.actions;
 
 export default temporarySlice.reducer;

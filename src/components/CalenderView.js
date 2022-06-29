@@ -16,8 +16,6 @@
 */
 import React, {useState, useRef, useEffect} from "react";
 // nodejs library that concatenates classes
-import classnames from "classnames";
-import { ReactDOM } from "react";
 import isBefore from "date-fns/isBefore";
 // JavaScript library that creates a callendar with events
 import FullCalendar from "@fullcalendar/react"
@@ -29,20 +27,12 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
 // reactstrap components
 import {
   Button,
-  ButtonGroup,
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Modal,
   Container,
   Row,
   Col,
-  Breadcrumb,
-  BreadcrumbItem,
-  Badge,
   Progress,
   PopoverBody,
   UncontrolledPopover,
@@ -52,9 +42,7 @@ import {
 } from "reactstrap";
 // core components
 
-import {events as eventsVariables} from "./CalenderVariables"
 import _, { set } from "lodash";
-import store from "../store";
 import { useSelector, useDispatch } from "react-redux";
 import { weekdays } from "../constants/Weekdays";
 import { resettingModal, settingModal } from "../reducers/modal";
@@ -67,6 +55,15 @@ import { settingShiftStart, settingCompanyPositions } from "../reducers/userInpu
 import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { thunkUpdateShiftPlan } from "../store/middleware/UpdateShiftPlan";
 import { thunkPublishShiftPlan } from "../store/middleware/PublishShiftPlan";
+import { resettingSuccessMessages } from "../reducers/SuccessMessages";
+import { settingDisplayShiftplan } from "../reducers/display";
+import { SUCCESS_FILLING_DONE, SUCCESS_PUBLISHED_DONE, SUCCESS_RELEASE_DONE, SUCCESS_SEND_REMINDER_FOR_APPLICATION } from "../constants/Alerts";
+import { resettingErrorMessages } from "../reducers/ErrorMessages";
+import { settingEnd, settingStart } from "../reducers/DatePicker";
+import { endOfWeek, startOfWeek } from "date-fns";
+import { thunkUploadShiftPlanToDB } from "../store/middleware/UploadShiftPlanToDB";
+import { createInitialDummyshifts, resettingEmployeesDummyshifts } from "../reducers/DB";
+import { thunkReleaseForApplication } from "../store/middleware/ReleaseForApplication";
 const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
 const borderColor = ["border-success", "border-info", "border-light"]
 
@@ -98,6 +95,27 @@ function CalendarView(props) {
   const currentEventId = useSelector(state => state.temporary.eventId);
   const calendarFilter = useSelector(state => state.temporary.calendarFilter);
   const calenderWeekIndicator = useSelector(state => state.temporary.calenderWeekIndicator);
+  const SuccessMessagesKey = useSelector(state => Object.keys(state.successMessage).find(key => state.successMessage[key] === true));
+  const SuccessMessageShow = useSelector(state => Object.values(state.successMessage).includes(true));
+  const ProcessingKeyRejected = useSelector(state => Object.keys(state.processing).find(key => state.processing[key] === "rejected"));
+  const ProcessingKeyLoading = useSelector(state => Object.keys(state.processing).find(key => state.processing[key] === "loading"));
+  const ProcessingShowRejected = useSelector(state => Object.values(state.processing).includes("rejected"));
+  const ProcessingShowLoading = useSelector(state => Object.values(state.processing).includes("loading"));
+  const TemporaryDeleteShiftplanId = useSelector(state => state.temporary.deleteShiftplanId);
+  const TemporaryRemindedShiftplanId = useSelector(state => state.temporary.shiftplanId);
+  const ErrorMessage = useSelector(state => Object.keys(state.ErrorMessages).find(key => state.ErrorMessages[key] === true));
+  const NewShiftPlan = useSelector(state => state.newShiftPlan);
+
+  const AltertSuccessMessages = {
+    reportInProgress: false,
+    employeeCreated: false,
+    emailSend: false,
+    shiftplanReleased: SUCCESS_RELEASE_DONE,
+    shiftplanPublished: SUCCESS_PUBLISHED_DONE,
+    shiftplanFilled: SUCCESS_FILLING_DONE,
+    sendReminderForApplication: SUCCESS_SEND_REMINDER_FOR_APPLICATION,
+    employeeChanged: false,
+  }
 
   
   useEffect(() => {
@@ -108,6 +126,14 @@ function CalendarView(props) {
   }, [])
 
   useEffect(() => {}, [headerTitle])
+
+  useEffect(() => {
+    if(NewShiftPlan.id !== "") {
+      dispatch(settingRemindShiftplanID(NewShiftPlan.id));
+      dispatch(thunkUploadShiftPlanToDB(NewShiftPlan));
+
+    }
+  }, [NewShiftPlan])
 
   useEffect(() => {
     if(calendarRef.current) {
@@ -127,6 +153,7 @@ function CalendarView(props) {
         getPositions();
         getEarlyestShiftStart()
       }
+      setDateOfUploadedWeek()
     }, [shiftplan]);
 
     useEffect(() => {
@@ -148,7 +175,7 @@ function CalendarView(props) {
     useEffect(() => {
       if(ShiftplanChanged) {
         let calendarApi = calendarRef.current.getApi();
-        dispatch(settingTemporaryCalendarWeekIndicator(calendarApi.getDate().toISOString()))
+        dispatch(settingTemporaryCalendarWeekIndicator(calendarApi.getDate().toISOString()));
         dispatch(settingRemindShiftplanID(shiftplan.id));
         dispatch(thunkUpdateShiftPlan(shiftplan));
       }
@@ -166,6 +193,10 @@ function CalendarView(props) {
     // eslint-disable-next-line
   }, [shiftplan])
 
+  useEffect(() => {
+
+  }, [headerBadge])
+
 
   const setCurrentShiftplan = () => {
     let calendarApi = calendarRef.current.getApi();
@@ -175,15 +206,30 @@ function CalendarView(props) {
       const shiftplanIndex = Plans.findIndex(plan => plan.id === filteredEvent.shiftplanId);
       if(shiftplanIndex !== -1) {
         setIsWeekEmpty(false);
+        dispatch(resettingEmployeesDummyshifts());
         dispatch(settingShiftplan(Plans[shiftplanIndex]));  
         dispatch(settingRemindShiftplanID(Plans[shiftplanIndex].id));
+        const shiftplanIdType = Plans[shiftplanIndex].id.split('#')[1];
+        setHeaderBadge(shiftplanIdType);
       }
     }
-    console.log(filteredEvent);
     if(!filteredEvent) {
       setIsWeekEmpty(true);
     }
   }
+
+  const setDateOfUploadedWeek = () => {
+    if(TemporaryRemindedShiftplanId && shiftplan.id !== "" && events) {
+      const shiftplanIndex = Plans.findIndex(plan => plan.id === TemporaryRemindedShiftplanId);
+      if(shiftplanIndex !== -1) {
+        let shiftplanStart = new Date(Plans[shiftplanIndex].startOfWeek);
+        if(shiftplanStart) {
+          goToDate({start: shiftplanStart});
+        }
+      }
+    }
+  };
+
   const filterCurrentShiftplanFromEvents = () => {
     let newEvents = events;
     if(newEvents.length) {
@@ -245,6 +291,16 @@ function CalendarView(props) {
         })
         setPositions(positions);
     };
+
+    const handleSetFilter = (filter) => {
+      if(viewDayGridMonth) {
+        setAllEventsData(filter);
+      }
+
+      if(viewTimeGridWeek) {
+        setEventsData(filter);
+      }
+    }
  
 
     const setAllEventsData = (nextFilter = undefined) => {
@@ -287,13 +343,31 @@ function CalendarView(props) {
         return false;
       });
 
-      let plans = [...plansPublished, ...plansReview, ...plansReleased];
+      const plansEntwurf = Plans.filter(shiftplan => {
+        const id = shiftplan.id.split('#')[2];
+        if( shiftplan.id.split('#').includes("Entwurf") &&
+            !memorizeIDs.includes(shiftplan.id.split('#')[2])
+          ) 
+          {
+          if(shiftplan.startOfWeek) {
+            const planForWeekExists = Plans.filter(plan => (isSameWeek(new Date(plan?.startOfWeek), new Date(shiftplan.startOfWeek), {locale: de, weekStartsOn: 1}) && plan.id.split('#')[1] !== "Entwurf"));
+            if(planForWeekExists.length) {
+              return false;  
+            }
+          }
+          memorizeIDs.push(id);
+          return true;
+        }
+        return false;
+      });
+
+      let plans = [...plansPublished, ...plansReview, ...plansReleased, ...plansEntwurf];
       let index = 0
       plans.forEach((shiftplan, planIndex) => {
         shiftplan.plan.forEach((row, rowIndex) => {
           if (filter === false || row.Wochentag.ShiftPosition === filter) {
             _.forIn(row, function (value, key, row) {
-                if(_.isObject(value) && key !== "Wochentag" && value.frei !== false && !shiftplan.id.split('#').includes("Entwurf")) {
+                if(_.isObject(value) && key !== "Wochentag" && value.frei !== false) {
                     const splittedDate = shiftplan.plan[0][key].split(".");
                     const splittedStartTime = row.Wochentag.ShiftStart.split(":");
                     const splttedEndTime = _.isBoolean(row.Wochentag.ShiftEnd) ? ("24:00").split(":") : row.Wochentag.ShiftEnd.split(":")
@@ -306,19 +380,23 @@ function CalendarView(props) {
                     if(setApplicantsLenght > Number(value.anzahl))
                       background = "#f5365c";
                     if(setApplicantsLenght < Number(value.anzahl))
+                      background = "#ffd300"
+                      //ffcc33
+                      //f5365c
+                    if(setApplicantsLenght === 0)
                       background = "#fb6340"
                     eventsData.push({
                         id: index,
                         title: row.Wochentag.ShiftName,
                         start: startTime,
                         end: endTime,
-                        filling: _.size(_.get(value, "setApplicants", {})) + "/" + value.anzahl + " Mitarbeiter",
                         description: "gello",
                         display: "block",
                         backgroundColor: background,
                         borderColor: background,
                         textColor: "dark",
                         notice: _.get(value, "notice", ""),
+                        anzahl: value.anzahl,
                         applicants: _.get(value, "applicants", {}),
                         setApplicants: _.get(value, "setApplicants", {}),
                         shiftplanId: shiftplan.id,
@@ -341,8 +419,6 @@ function CalendarView(props) {
       const filter = nextFilter !== undefined ? nextFilter : calendarFilter;
       let events = filterCurrentShiftplanFromEvents();
       if(events.length) {
-      const shiftplanIdType = shiftplan.id.split('#')[1];
-      setHeaderBadge(shiftplanIdType);
       const lastId = events[events.length - 1].id;
       let eventsData = [];
       const plan = _.get(shiftplan, "plan", [])
@@ -363,19 +439,22 @@ function CalendarView(props) {
                       if(setApplicantsLenght > Number(value.anzahl))
                         background = "#f5365c";
                       if(setApplicantsLenght < Number(value.anzahl))
+                        background = "#ffd300"
+                      if(setApplicantsLenght === 0)
                         background = "#fb6340"
                       eventsData.push({
                           id: lastId + index + 1,
                           title: row.Wochentag.ShiftName,
                           start: startTime,
                           end: endTime,
-                          filling: _.size(_.get(value, "setApplicants", {})) + "/" + value.anzahl + " Mitarbeiter",
                           description: "gello",
-                          display: "block",
+                          display: "auto",
                           backgroundColor: background,
                           borderColor: background,
+                          classNames: "p-0 m-0",
                           textColor: "dark",
                           notice: _.get(value, "notice", ""),
+                          anzahl: value.anzahl,
                           position: row.Wochentag.ShiftPosition,
                           applicants: _.get(value, "applicants", {}),
                           setApplicants: _.get(value, "setApplicants", {}),
@@ -403,26 +482,31 @@ function CalendarView(props) {
     if(newView === "timeGridWeek") {
       setViewTimeGridWeek(true);
       setViewDayGridMonth(false);
-      const selectedDate = calendarApi.getDate();
-      console.log(calendarApi);
-      console.log(selectedDate);
-      calendarApi.gotoDate(selectedDate);
+      getPositions();
     }
     if(newView === "dayGridMonth") {
-      console.log("setting");
       setViewTimeGridWeek(false);
       setViewDayGridMonth(true);
+      setPositions(Meta.schichten);
       dispatch(resettingShiftplan());
       dispatch(resettingTemporaryCalendarWeekIndicator());
       dispatch(resettingRemindShiftplanID());
     }
   };
 
+  const goToDate = (info) => {
+    let calendarApi = calendarRef.current.getApi();
+    calendarApi.gotoDate(info.start);
+    let newcalendarApi = calendarRef.current.getApi();
+    setHeaderTitle(newcalendarApi.currentDataManager.data.viewTitle)
+  } 
+
   const changeToToday = () => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.changeView("timeGridWeek", new Date().toISOString());
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
     dispatch(resettingTemporaryCalendarWeekIndicator());
+    setCurrentShiftplan();
     setViewTimeGridWeek(true);
     setViewDayGridMonth(false);
   };
@@ -431,22 +515,27 @@ function CalendarView(props) {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.next();
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
-    setCurrentShiftplan();
     setHeaderBadge(null);
+    setCurrentShiftplan();
   };
 
   const changeToPrev = () => {
     let calendarApi = calendarRef.current.getApi();
-    calendarApi.prev();
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
-    setCurrentShiftplan();
+    calendarApi.prev();
     setHeaderBadge(null);
+    setCurrentShiftplan();
   };
 
   const CalendarTitle = () => {
-    return (
-      <h5 className="h3 mb-0">{headerTitle}</h5>
-    )
+    if(calendarRef.current) {
+      let calendarApi = calendarRef.current.getApi();
+      let viewTitle = calendarApi.currentDataManager.data.viewTitle;
+      return (
+        <h5 className="h3 mb-0">{viewTitle}</h5>
+      )
+    }
+    return null;
   }
 
   const Popover = ({eventInfo}) => {
@@ -471,11 +560,14 @@ function CalendarView(props) {
           <PopoverBody>
             <p>
           <i className="fas fa-clock"></i>{" "}{eventInfo.timeText}{" "}Uhr
-             <div className="m-0 p-0" hidden={_.isEmpty(_.get(Shift, "notice", ""))}>
-             <i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-comment"></i>{" "}{_.get(Shift, "notice", "")}
-             </div>
-             <br/>
-             <i className="fas fa-users"></i>{" "}{eventInfo.event.extendedProps.filling}:
+            <div className="m-0 p-0" hidden={_.isBoolean(_.get(Shift, "prio", false))}>
+              <i className="fas fa-user-shield"></i>{" "}{_.get(Shift, "prio", "")}
+            </div>
+            <div className="m-0 p-0" hidden={_.isEmpty(_.get(Shift, "notice", ""))}>
+              <i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-comment"></i>{" "}{_.get(Shift, "notice", "")}
+            </div>
+            <br/>
+            <i className="fas fa-users"></i>{" "}{_.size(eventInfo.event.extendedProps.setApplicants) + "/" + eventInfo.event.extendedProps.anzahl + " Mitarbeiter"}:
              {Object.keys(setApplicants).length > 0 ? Object.keys(Shift.setApplicants).map(applicantId => {
                return <>
                         <br/>
@@ -495,11 +587,11 @@ function CalendarView(props) {
       if(headerBadge === "Veröffentlicht") {
         return <Progress max="100" value="100" style={{height: "18px"}}color="success"><p className="p-0 m-0">Live</p></Progress>
       } else if (headerBadge === "Review") {
-        return <Progress max="100" value="75" style={{height: "18px"}}color="primary"><p className="p-0 m-0">Review</p></Progress>
+        return <Progress max="100" value="80" style={{height: "18px"}}color="primary"><p className="p-0 m-0">Review</p></Progress>
       } else if (headerBadge === "Freigeben") {
-        return <Progress max="100" value="50" style={{height: "18px"}}color="yellow"><p className="p-0 m-0">Bewerbung</p></Progress>
+        return <Progress max="100" value="60" style={{height: "18px"}}color="yellow"><p className="p-0 m-0">Bewerbung</p></Progress>
       } else if (headerBadge === "Entwurf") {
-        return <Progress max="100" value="25" style={{height: "15px"}}color="primary">Entwurf</Progress>
+        return <Progress max="100" value="40" style={{height: "18px"}}color="primary"><p className="p-0 m-0">Entwurf</p></Progress>
       } else {
         return null;
       }
@@ -514,11 +606,9 @@ function CalendarView(props) {
       } else if (headerBadge === "Freigeben") {
         return <Button color="success" onClick={() => dispatch(settingModal("showBefuellungStarten"))}>Zur Befüllung</Button>
       } else if (headerBadge === "Entwurf") {
-        return <Button color="success"onClick={() => dispatch(settingModal("showSchichtplanFreigeben"))}>Zur Freigabe</Button>
+        return <Button color="success"onClick={() => dispatch(thunkReleaseForApplication())}>Zur Freigabe</Button>
       } else if (headerBadge === "Veröffentlicht") {
           return <div className="py-3 pb-4"></div>;
-      } else {
-        return <Button color="primary"onClick={() => dispatch(settingModal("showSchichtplanErstellen"))}>Vorlage anwenden</Button>
       }
     }
     return null;
@@ -530,12 +620,12 @@ function CalendarView(props) {
       return (
         <div id={"Popover" + String(eventInfo.event.id)}>
         <Popover eventInfo={eventInfo}/>
-        <Row className="p-1">
-            <Col>
-            <b>{eventInfo.timeText}{" Uhr "}<i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-comment ml-2"></i></b>
+        <Row className="pl-1">
+            <Col className="mr-0">
+            <b>{eventInfo.timeText}{" Uhr "}<i hidden={_.isBoolean(_.get(Shift, "prio", true))} className="fas fa-user-shield ml-1"></i><i hidden={_.isEmpty(_.get(Shift, "notice", ""))} className="fas fa-comment ml-1"></i></b>
             <br/>
             <br/>
-            <b><i className="fas fa-users"></i>{" "}{eventInfo.event.extendedProps.filling}</b>
+            <b><i className="fas fa-users"></i>{" "}{_.size(eventInfo.event.extendedProps.setApplicants) + "/" + eventInfo.event.extendedProps.anzahl + " Mitarbeiter"}</b>
              {Object.keys(setApplicants).length > 0 ? Object.keys(Shift.setApplicants).map(applicantId => {
                return <>
                         <br/>
@@ -553,7 +643,7 @@ function CalendarView(props) {
             <Col>
              <b>{eventInfo.timeText}</b>
              <br/>
-             <b>{eventInfo.event.extendedProps.filling}</b>
+             <b>{_.size(eventInfo.event.extendedProps.setApplicants) + "/" + eventInfo.event.extendedProps.anzahl + " Mitarbeiter"}:</b>
              <br/>
              <b>{eventInfo.event.title}</b>
            </Col>
@@ -564,6 +654,54 @@ function CalendarView(props) {
   return (
     <>
       {alert}
+      <ReactBSAlert
+      show={SuccessMessageShow}
+      type='success'
+      title="Abgeschlossen"
+      confirmBtnText="Schließen"
+      confirmBtnCssClass="success"
+      onConfirm={() => {
+        dispatch(resettingSuccessMessages());
+        const shiftplanIndex = Plans.findIndex(plan => plan.id === TemporaryRemindedShiftplanId);
+        if(shiftplanIndex !== -1) {
+          dispatch(settingShiftplan(Plans[shiftplanIndex]));
+          dispatch(settingDisplayShiftplan());
+        }
+      }}
+     >
+      <Row>
+        <Col>
+          <p>{AltertSuccessMessages[SuccessMessagesKey]}</p>
+        </Col>
+      </Row>
+      </ReactBSAlert>
+      <ReactBSAlert
+      show={ProcessingShowRejected}
+      type='error'
+      title="Ein Fehler ist aufgetreten."
+      confirmBtnText="Schließen"
+      confirmBtnCssClass="danger"
+      onConfirm={() => {
+        dispatch(resettingErrorMessages());
+      }}
+     >
+      <Row>
+        <Col>
+        </Col>
+      </Row>
+      </ReactBSAlert>
+      <ReactBSAlert
+      show={ProcessingShowLoading}
+      type='info'
+      title="In Bearbeitung"
+      showConfirm={false}
+     >
+      <Row>
+        <Col>
+          <p>Einen Moment noch</p>
+        </Col>
+      </Row>
+     </ReactBSAlert>
       <Container className="mt-3" fluid>
       <Row className="text-right my-2">
           <Col>
@@ -571,8 +709,8 @@ function CalendarView(props) {
           </Col>
         </Row>
         <Row>
-          <div className="col">
-            <Card className="card-calendar">
+          <div className="">
+            <Card className="card-calendar m-0 p-0">
               <CardHeader>
                 <Row>
                   <Col>
@@ -585,10 +723,10 @@ function CalendarView(props) {
                           return (
                             <Button
                                 key={index}
-                                className="btn-neutral"
-                                color="link"
+                                color={(calendarFilter === value) ? "primary" : "link"}
+                                outline={(calendarFilter === value)}
                                 data-calendar-view="basicDay"
-                                onClick={() => setEventsData(value)}
+                                onClick={() => handleSetFilter(value)}
                                 size="sm"
                             >
                             {value}
@@ -596,10 +734,10 @@ function CalendarView(props) {
                           )
                         })}
                         <Button
-                          className="btn-neutral"
-                          color="link"
+                          color={(calendarFilter === false) ? "primary" : "link"}
+                          outline={(calendarFilter === false)}
                           data-calendar-view="basicDay"
-                          onClick={() => setEventsData(!1)}
+                          onClick={() => handleSetFilter(!1)}
                           size="sm"
                         >
                           Alle
@@ -613,6 +751,7 @@ function CalendarView(props) {
                           <Button
                           className="btn-neutral"
                           color="link"
+                          outline
                           data-calendar-view="month"
                           onClick={() => changeView("dayGridMonth")}
                           size="sm"
@@ -675,16 +814,19 @@ function CalendarView(props) {
                         height="auto"
                         headerToolbar={""}
                         slotMinTime={bussinessHoursStart}
-                        eventMaxStack={1}
+                        eventMaxStack={2}
                         views={{
                           dayGridMonth: { // name of view
                             titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' },
                             // other view-specific options here
                             dayMaxEventRows: 2,
-                            moreLinkText: "weitere"
+                            moreLinkText: "weitere Schichten"
                           },
                           timeGridWeek: {
-                            dayHeaderFormat: {weekday: "long", month: 'long', day: 'numeric'}
+                            dayHeaderFormat: {weekday: "long", month: 'long', day: 'numeric'},
+                            titleFormat: { year: 'numeric', month: 'long', day: '2-digit' },
+                            dayMaxEventRows: 2,
+                            moreLinkText: "weitere Schichten"
                           }
                         }}
                         slotLabelFormat= {{
@@ -701,16 +843,22 @@ function CalendarView(props) {
                         locale="de"
                         events={events}
                         eventContent={renderEventContent}
-                        eventDisplay="block"
                         // Add new event
                         select={(info) => {
-                            console.log("add");
                             if(viewTimeGridWeek && isWeekEmpty) {
                               dispatch(settingModal("showCalendarCreateShiftplan"));
+                              const getStartOfWeek = startOfWeek(info.start, {weekStartsOn : 1, locale: de});
+                              const getEndOfWeek = endOfWeek(info.start, {weekStartsOn : 1, locale: de});
+                              let getDay = info.start.getDay();
+                              const day = weekdays[getDay - 1];
+                              dispatch(settingStart(getStartOfWeek.toString()))
+                              dispatch(settingEnd(getEndOfWeek.toString()));
+                              dispatch(settingShiftSlot({day: day}));
                               return;
                             }
                             if(viewDayGridMonth) {
                               changeView("timeGridWeek");
+                              goToDate(info);
                             } 
 
                             if(viewTimeGridWeek) {
@@ -723,11 +871,13 @@ function CalendarView(props) {
                             dispatch(settingModal("addCalendarShift"))
                             }
                         }}
+                        
                         dateClick={(info) => selectDate(info)}
                         // Edit calendar event action
                         eventClick={({ event }) => {
                             if(viewDayGridMonth) {
                               changeView("timeGridWeek");
+                              goToDate(event);
                             }
 
                             if(viewTimeGridWeek) {

@@ -19,6 +19,7 @@ exports.handler = async (event, context, callback) => {
     console.log(event);
     console.log(event.queryStringParameters["id"]);
     let body = JSON.parse(event.body);
+    const id = event.queryStringParameters["id"].includes('#') ? event.queryStringParameters["id"] : "PLAN#Entwurf#" + event.queryStringParameters["id"]
     let user = body.user;
     let plan = body.plan;
           var params = {
@@ -27,7 +28,7 @@ exports.handler = async (event, context, callback) => {
                  S: "ORG#" + user["custom:TenantId"]
                 }, 
                SK: {
-                 S: "PLAN#Entwurf#" + event.queryStringParameters["id"]
+                 S: id
                 }, 
                data: {
                  S:  JSON.stringify(plan)

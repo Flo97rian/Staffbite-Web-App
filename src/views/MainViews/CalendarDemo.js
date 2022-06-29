@@ -18,11 +18,13 @@ import React, {useState, useRef, useEffect} from "react";
 // nodejs library that concatenates classes
 import classnames from "classnames";
 import { ReactDOM } from "react";
+import { Helmet } from "react-helmet";
 import isBefore from "date-fns/isBefore";
 // JavaScript library that creates a callendar with events
 import FullCalendar from "@fullcalendar/react"
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid"
+import listPlugin from '@fullcalendar/list';
 import interaction from "@fullcalendar/interaction";
 // react component used to create sweet alerts
 import ReactBSAlert from "react-bootstrap-sweetalert";
@@ -46,6 +48,11 @@ import {
   Badge,
   Collapse,
   InputGroup,
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledButtonDropdown,
 } from "reactstrap";
 // core components
 
@@ -55,15 +62,30 @@ import { useSelector, useDispatch } from "react-redux";
 import { weekdays } from "../../constants/Weekdays";
 import { settingModal } from "../../reducers/modal";
 import { settingShiftSlot } from "../../reducers/ShiftSlot";
+import { ModalDemoEntry } from "./CalendarDemo/AuthenticationModal";
+import { resettingDemoIsSignedIn, settingDemoId, settingDemoPlans } from "../../reducers/demo";
+import { thunkFetchDemo } from "../../store/middleware/FetchDemo";
+import { ModalInvitation } from "./CalendarDemo/InvitationModal";
+import { ModalIntro } from "./CalendarDemo/IntroModal";
+import { ModalAddShift } from "./CalendarDemo/ModalAddShift";
+import { settingStart } from "../../reducers/DatePicker";
+import { thunkUpdateDemo } from "../../store/middleware/UpdateDemo";
+import { settingTemporaryEventId } from "../../reducers/temporary";
+import { ModalEditShift } from "./CalendarDemo/ModalEditShift";
+import { ModalEmployees } from "./CalendarDemo/ModalEmployees";
+import { isSameWeek } from "date-fns";
+import { de } from "date-fns/locale";
+import { ModalApplyForShift } from "./CalendarDemo/ModalApplyForShift";
+import { ModalSendFeedback } from "./CalendarDemo/ModalSendFeedback";
 const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
 const borderColor = ["border-success", "border-info", "border-light"]
 
 let calendar;
 
 function CalendarDemo(props) {
-  const [events, setEvents] = useState([]);
   const [positions, setPositions] = useState([]);
   const [alert, setAlert] = useState(null);
+  const [showDropdownButtons, setShowDropdownButtons] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
   const [modalChange, setModalChange] = useState(false);
   const [startDate, setStartDate] = useState(null);
@@ -74,22 +96,71 @@ function CalendarDemo(props) {
   const [headerTitle, setHeaderTitle] = useState(null);
   const [headerBadge, setHeaderBadge] = useState(null);
   const [adminSignIn, setAdminSignIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [bussinessHoursStart, setBussinessHoursStart] = useState("00:00")
+  const [viewTimeGridWeek, setViewTimeGridWeek] = useState(true);
+  const [viewDayGridMonth, setViewDayGridMonth] = useState(false);
+  const [viewListWeek, setViewListWeek] = useState(false);
+  const [clip, setClip] = useState(false);
+  const [invitationLink, setInvitationLink] = useState("");
+  const [bussinessHoursStart, setBussinessHoursStart] = useState("12:00")
   const [eventDescription, setEventDescription] = useState(null);
+  const isAdmin = useSelector(state => state.demo.demoAdmin?.isAdmin);
+  const isEmployee = useSelector(state => state.demo.demoEmployee.isEmployee);
+  const isSignedIn = useSelector(state => state.demo.demoSignedIn);
+  const employee = useSelector(state => state.demo.demoEmployee);
+  const events = useSelector(state => state.demo.demoPlans);
+  const EventsChanged = useSelector(state => state.ShiftplanChanged.shiftplanChanged);
   // eslint-disable-next-line
   const [event, setEvent] = useState(null);
-  const [currentDate, setCurrentDate] = useState(null);
   const calendarRef = useRef(null);
+  const containerRef = useRef();
   const dispatch = useDispatch()
-  const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
-  const DisplayBasicLayout = useSelector(state => state.display.displayBasicLayout);
+
 
   
   useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    if("id" in params && !("invitation" in params)) {
+      dispatch(settingModal("demoEntry"));
+      dispatch(settingDemoId(params.id));
+      dispatch(thunkFetchDemo(params.id));
+      var url = window.location.href;
+      setInvitationLink(url + "&invitation=true");
+    }
+    if("id" in params && "invitation" in params) {
+      dispatch(settingModal("demoInvitation"))
+      dispatch(settingDemoId(params.id));
+      dispatch(thunkFetchDemo(params.id));
+    }
+    if(!Object.keys(params).length) {
+      dispatch(settingModal("demoIntro"))
+    }
+    handleShowViewBasedOnWidth()
   }, [])
 
+  useEffect(() => {
+    if(navigator.clipboard.readText() !== invitationLink) {
+      setClip(false);
+    }
+  }, [navigator])
+
   useEffect(() => {}, [headerTitle])
+
+  useEffect(() => {
+    handleShowViewBasedOnWidth()
+  }, [window])
+  useEffect(() => {
+    handleSetBussinessHours();
+  }, [events])
+
+
+  useEffect(() => {
+    if(EventsChanged) {
+      dispatch(thunkUpdateDemo());
+    }
+  }, [EventsChanged])
+
+  
 
   useEffect(() => {
     if(calendarRef.current) {
@@ -98,148 +169,79 @@ function CalendarDemo(props) {
     }
   }, [calendarRef])
 
-  const handleCalendarShiftChanges = () => {
-    //const copyShiftplan = new ShiftPlan({...Shiftplan});
-    //copyShiftplan.updateCalendarShift(userInput, ShiftSlot, DragAndDropRef);
-    //const shiftplan = copyShiftplan.getAllPlanDetails()
-    //dispatch(settingShiftplan(shiftplan))
-    //dispatch(resettingModal())
+
+  const handleShowViewBasedOnWidth = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    if(width < 875) {
+      changeView("listWeek");
+      setViews("listWeek")
+    }
+    if(width > 875) {
+      changeView("timeGridWeek");
+      setViews("timeGridWeek")
+    }
   }
 
+  const setViews = (newView) => {
+    if(newView === "listWeek") {
+      setViewListWeek(true);
+      setViewTimeGridWeek(false);
+      setViewTimeGridWeek(false);
+    }
 
-  const handleCalendarAddShift = () => {
-    //const copyShiftplan = new ShiftPlan({...Shiftplan});
-    //copyShiftplan.addCalendarShift(userInput, ShiftSlot);
-    //const shiftplan = copyShiftplan.getAllPlanDetails();
-    //dispatch(settingShiftplan(shiftplan))
-    //dispatch(resettingModal())
+    if(newView === "timeGridWeek") {
+      setViewTimeGridWeek(true);
+      setViewListWeek(false);
+      setViewDayGridMonth(false);
+    }
+
+    if(newView === "dayGridMonth") {
+      setViewDayGridMonth(true);
+      setViewTimeGridWeek(false);
+      setViewListWeek(false);
+    }
+  };
+
+  const handleSetBussinessHours = () => {
+    const calendarApi = calendarRef.current.getApi();
+    const currentDate = calendarApi.getDate();
+    let currentWeeksEvents = events.filter(event => isSameWeek( new Date(event.start), new Date(currentDate), {locale: de, weekStartsOn: 1}));
+    let currentEarlyestHours = 12;
+    currentWeeksEvents.forEach(event => {
+      if(new Date(event.start).getHours() < currentEarlyestHours) {
+        currentEarlyestHours = new Date(event.start).getHours();
+      }
+    })
+    setBussinessHoursStart(String(currentEarlyestHours) + ":00");
   }
 
   const changeView = (newView) => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.changeView(newView);
+    setViews(newView);
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
   };
 
   const changeToToday = () => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.changeView("timeGridWeek", new Date().toISOString());
+    handleShowViewBasedOnWidth();
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
+    handleSetBussinessHours()
   };
 
   const changeToNext = () => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.next();
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
+    handleSetBussinessHours()
   };
 
   const changeToPrev = () => {
     let calendarApi = calendarRef.current.getApi();
     calendarApi.prev();
     setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
-  };
-  const addNewEvent = () => {
-    var newEvents = events;
-    newEvents.push({
-      title: eventTitle,
-      start: startDate,
-      end: endDate,
-      className: radios,
-      id: events[events.length - 1] + 1,
-    });
-    calendar.addEvent({
-      title: eventTitle,
-      start: startDate,
-      end: endDate,
-      className: radios,
-      id: events[events.length - 1] + 1,
-    });
-    setModalAdd(false);
-    setEvents(newEvents);
-    setStartDate(undefined);
-    setEndDate(undefined);
-    setRadios("bg-info");
-    setEventTitle(undefined);
-  };
-  const changeEvent = () => {
-    var newEvents = events.map((prop, key) => {
-      if (prop.id + "" === eventId + "") {
-        setEvent(undefined);
-        calendar.getEventById(eventId).remove();
-        let saveNewEvent = {
-          ...prop,
-          title: eventTitle,
-          className: radios,
-          description: eventDescription,
-        };
-        calendar.addEvent(saveNewEvent);
-        return {
-          ...prop,
-          title: eventTitle,
-          className: radios,
-          description: eventDescription,
-        };
-      } else {
-        return prop;
-      }
-    });
-    setModalChange(false);
-    setEvents(newEvents);
-    setRadios("bg-info");
-    setEventTitle(undefined);
-    setEventDescription(undefined);
-    setEventId(undefined);
-    setEvent(undefined);
-  };
-  const deleteEventSweetAlert = () => {
-    setAlert(
-      <ReactBSAlert
-        warning
-        style={{ display: "block", marginTop: "-100px" }}
-        title="Bist du dir sicher?"
-        onConfirm={() => {
-          setAlert(false);
-          setRadios("bg-info");
-          setEventTitle(undefined);
-          setEventDescription(undefined);
-          setEventId(undefined);
-        }}
-        onCancel={() => deleteEvent()}
-        confirmBtnCssClass="btn-secondary"
-        cancelBtnBsStyle="danger"
-        confirmBtnText="Cancel"
-        cancelBtnText="Löschen"
-        showCancel
-        btnSize=""
-      >
-        Diese Änderung kannst du nicht rückgängig machen!
-      </ReactBSAlert>
-    );
-  };
-  const deleteEvent = () => {
-    var newEvents = events.filter((prop) => prop.id + "" !== eventId);
-    setEvent(undefined);
-    setAlert(
-      <ReactBSAlert
-        success
-        style={{ display: "block", marginTop: "-100px" }}
-        title="Success"
-        onConfirm={() => setAlert(null)}
-        onCancel={() => setAlert(null)}
-        confirmBtnBsStyle="primary"
-        confirmBtnText="Ok"
-        btnSize=""
-      >
-        Erfolgreich!
-      </ReactBSAlert>
-    );
-    setModalChange(false);
-    setEvents(newEvents);
-    setRadios("bg-info");
-    setEventTitle(undefined);
-    setEventDescription(undefined);
-    setEventId(undefined);
-    setEvent(undefined);
+    handleSetBussinessHours()
   };
 
   const CalendarTitle = () => {
@@ -249,106 +251,212 @@ function CalendarDemo(props) {
   }
 
   const StatusBadge = () => {
-    if(headerBadge === "live") {
-      return <Badge color="success">Live</Badge>
+    if(calendarRef.current && isAdmin) {
+      let calendarApi = calendarRef.current.getApi();
+      let currentDate = calendarApi.getDate();
+      const currentWeeksEvent = events.find(event => isSameWeek(new Date(event.start), new Date(currentDate), {locale: de, weekStartsOn: 1}));
+      if(currentWeeksEvent && currentWeeksEvent.showEmployee) {
+        return (
+          <UncontrolledButtonDropdown className="m-0 p-0">
+            <DropdownToggle caret className="badge p-0 " color="link">
+              <small> <i className="fas fa-eye"></i>{" "}Für Alle einsehbar</small>
+            </DropdownToggle>
+            <DropdownMenu className="m-0 p-0">
+              <DropdownItem className="badge bg-link" onClick={() => setShowEventsToEmployees(false)}>
+                <small> <i className="fas fa-eye"></i>{" "}Für Planer einsehbar</small>
+              </DropdownItem>
+            </DropdownMenu>
+            </UncontrolledButtonDropdown>
+          )
+      }
+      if(currentWeeksEvent) {
+        return (
+          <UncontrolledButtonDropdown className="m-0 p-0">
+            <DropdownToggle caret className="badge p-0 " color="link">
+              <small> <i className="fas fa-eye"></i>{" "}Für Planer einsehbar</small>
+            </DropdownToggle>
+            <DropdownMenu className="m-0 p-0">
+              <DropdownItem className="badge bg-link"  onClick={() => setShowEventsToEmployees(true)}>
+                <small> <i className="fas fa-eye"></i>{" "}Für Alle einsehbar</small>
+              </DropdownItem>
+            </DropdownMenu>
+            </UncontrolledButtonDropdown>
+            )
+      }
+      
     }
     return null;
   }
 
+  const setShowEventsToEmployees = (show) => {
+    let calendarApi = calendarRef.current.getApi();
+    let currentDate = calendarApi.getDate();
+    const newEvents = events.map(event => {
+        const {title, end, start} = event;
+        
+        let startTime = new Date(start);
+        let endTime = new Date(end);
+
+    const currentDayIsSameWeek = isSameWeek(new Date(event.start), new Date(currentDate), {locale: de, weekStartsOn: 1});
+    if(currentDayIsSameWeek) {
+        return {
+          ...event,
+          title, 
+          start: startTime.toString(),
+          end: endTime.toString(), 
+          showEmployee: show,
+        }
+    }
+    if(!currentDayIsSameWeek) {
+      return {
+        ...event,
+        title, 
+        start: startTime.toString(),
+        end: endTime.toString(), 
+      }
+    }
+  })
+  dispatch(settingDemoPlans(newEvents));
+  };
+
+  const formatEvents = () => {
+      return events.map(event => {
+                const {title, end, start} = event;
+    
+                let startTime = new Date(start)
+                let endTime = new Date(end)
+    
+                return {
+                  title, 
+                  start: startTime,
+                  end: endTime, 
+                  extendedProps: {...event}
+                }
+            })
+    }
+
+  const renderEventContent = (eventInfo) => {
+    const { innerWidth: width, innerHeight: height } = window;
+    const displayOnSmallDevices = width < 875;
+    if(isAdmin) {
+    return (
+      <Row className="p-1">
+          <Col>
+           <div hidden={displayOnSmallDevices}>
+           <b>{" "}{eventInfo.timeText}{" "}Uhr</b>
+           <br/>
+           <br/>
+           </div>
+           <b>{eventInfo.event.title}</b>
+           <br/>
+           <b><i className="fas fa-user-clock"></i>{" "}{Object.keys(eventInfo.event.extendedProps.applicants).length} {displayOnSmallDevices && viewDayGridMonth ? "" : "Bewerber"}</b>
+           <br/>
+           <b><i className="fas fa-users"></i>{" "}{Object.keys(eventInfo.event.extendedProps.setApplicants).length + "/" + eventInfo.event.extendedProps.NumberOfEmployees} {displayOnSmallDevices && viewDayGridMonth ? "" : "Mitarbeiter"}</b>
+         </Col>
+      </Row>
+    )
+  }
+  if(isEmployee) {
+    const applyed = eventInfo.event.extendedProps.applicants[employee.id]
+    const isSetInShift = eventInfo.event.extendedProps.setApplicants[employee.id]
+    return (
+      <Row className="p-1">
+          <Col>
+            <div hidden={displayOnSmallDevices}>
+            <b>{" "}{eventInfo.timeText}{" "}Uhr</b>
+            <br/>
+            <br/>
+            </div>
+            <b>{eventInfo.event.title}</b>
+            <div hidden={!applyed}>
+            <br hidden={displayOnSmallDevices}/>
+            <b><i className="fas fa-user-clock"></i>{" "}{displayOnSmallDevices && viewDayGridMonth ? "" : "Beworben"}</b>
+            </div>
+            <div hidden={!isSetInShift}>
+              <br hidden={displayOnSmallDevices}/>
+              <b><i className="fas fa-user-check"></i>{" "}{displayOnSmallDevices && viewDayGridMonth ? "" : "Deine Schicht"}</b>
+            </div>
+         </Col>
+      </Row>
+    )
+  }
+  return null;
+};
   return (
     <>
+        <Helmet>
+          <title>{"Online Schichtpläne erstellen || Ohne Anmeldung. Ohne Risiko ausporbieren"}</title>
+          <meta name="description" charSet="utf-8" content=""/>
+          <meta property="og:title" content=""/>
+          <meta property="og:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatisiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
+          <meta property="og:url" content="https://www.staffbite.de"></meta>
+          <meta property="og:type" content="website"></meta>
+          <meta property="og:site_name" content="Staffbite"></meta>
+          <meta property="twitter:title" content="Staffbite - Digitale Schichtplanung jederzeit online und per App."/>
+          <meta property="twitter:card" content="summary_large_image"/>
+          <meta property="twitter:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatisiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
+          <meta property="twitter:url" content="https://www.staffbite.de"></meta>
+          <meta property="twitter:type" content="website"></meta>
+          <link rel="canonical" href="https://www.staffbite.de" />
+        </Helmet>
       {alert}
-      <Container className="mt-8" fluid>
-          <Row>
+      <Container className="mt-4" fluid ref={containerRef}>
+          <Row hidden={!isAdmin} className="text-center mb-4">
               <Col>
-              <Row>
-                    <Col>
-                        <h3>Informationen</h3>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <p onClick={() => setAdminSignIn(!adminSignIn)}>Admin Ansicht <i className={isAdmin ? "fas fa-lock-open" : "fas fa-lock"}></i></p>
-                        <Collapse isOpen={adminSignIn}>
-                            <Row>
-                                <Col xs="9">
-                                <InputGroup>
-                                    <Input>
-                                    </Input>
-                                    <InputGroupAddon addonType="append">
-                                            <Button 
-                                            color="success" 
-                                            onClick={
-                                                () => {
-                                                    setIsAdmin(true);
-                                                    setAdminSignIn(!adminSignIn)
-                                                }}
-                                            >
-                                                <i className="fas fa-check text-white"></i>
-                                            </Button>
-                                    </InputGroupAddon>  
-                                    <InputGroupAddon addonType="append">
-                                            <Button 
-                                            color="danger" 
-                                            onClick={
-                                                () => {
-                                                        setAdminSignIn(!adminSignIn)
-                                                }}
-                                            >
-                                                <i className="fas fa-ban text-white"></i>
-                                            </Button>
-                                    </InputGroupAddon>  
-                                </InputGroup>
-                                </Col>
-                            </Row>
-                        </Collapse>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <p>Schichtplan-Schlüssel <i className="fas fa-copy"></i></p>
-                    </Col>
-                </Row>
-              </Col>
-              <Col>
-              </Col>
-              <Col>
+                <h3>Planer Ansicht</h3>
+                <Button size="sm" color="link" className="" onClick={() => {
+                        navigator.clipboard.writeText(invitationLink)
+                        setClip(true);
+                        }
+                    }>
+                  {clip ? "Einladungslink kopiert " : "Einladungslink kopieren "}
+                  {clip ? <i className="fas fa-check" /> : <i className="fas fa-copy"></i>}
+                </Button>
               </Col>
           </Row>
-        <Row className="pt-4">
+          <Row hidden={!isEmployee} className="text-center mb-4">
+              <Col>
+                <h3>Mitarbeiter Ansicht</h3>
+              </Col>
+          </Row>
+            <Row>
+              <Col>
+                <Row className="text-left">
+                  <Col>
+                    <Button color="link" onClick={() => dispatch(settingModal("demoSendFeedback"))}>Feedback</Button>
+                  </Col>
+                </Row>
+              </Col>
+              <Col>
+                <Row className="text-right">
+                  <Col>
+                      <UncontrolledButtonDropdown>
+                        <DropdownToggle caret color="primary">
+                          Aktionen
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem hidden={!isAdmin} onClick={() => dispatch(settingModal("demoEmployees"))}>
+                            Team anzeigen
+                          </DropdownItem>
+                          <DropdownItem hidden={!isSignedIn} onClick={() => dispatch(resettingDemoIsSignedIn())}>
+                            Abmelden
+                          </DropdownItem>
+                          <DropdownItem hidden={isSignedIn} onClick={() => dispatch(settingModal("demoEntry"))}>
+                            Anmelden
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </UncontrolledButtonDropdown>
+                    </Col>
+                  </Row>
+              </Col>
+        </Row>
+        <Row className="pt-2">
           <div className="col">
             <Card className="card-calendar">
               <CardHeader>
                 <Row>
                   <Col>
                     <CalendarTitle />
-                  </Col>
-                  <Col>
-                    <Row className="text-center">
-                      <Col>
-                        {positions.map((value, index) => {
-                          return (
-                            <Button
-                                key={index}
-                                className="btn-neutral"
-                                color="link"
-                                data-calendar-view="basicDay"
-                                size="sm"
-                            >
-                            {value}
-                            </Button>
-                          )
-                        })}
-                        <Button
-                          className="btn-neutral"
-                          color="link"
-                          data-calendar-view="basicDay"
-                          size="sm"
-                        >
-                          Alle
-                        </Button>
-                      </Col>
-                    </Row>
                   </Col>
                   <Col>
                     <Row className="text-right">
@@ -366,7 +474,7 @@ function CalendarDemo(props) {
                           className="btn-neutral"
                           color="link"
                           data-calendar-view="basicWeek"
-                          onClick={() => changeView("timeGridWeek")}
+                          onClick={() => handleShowViewBasedOnWidth()}
                           size="sm"
                         >
                           Woche
@@ -379,7 +487,6 @@ function CalendarDemo(props) {
                   <Col>
                         <Row>
                           <Col>
-                            <StatusBadge/>
                           </Col>
                         </Row>
                   </Col>
@@ -402,8 +509,9 @@ function CalendarDemo(props) {
                         data-toggle="calendar"
                         id="calendar"
                         ref={calendarRef}
-                        plugins={[interaction, dayGridPlugin, timeGridPlugin]}
-                        slotDuration="01:00:00"
+                        plugins={[interaction, dayGridPlugin, timeGridPlugin, listPlugin]}
+                        slotDuration="00:30:00"
+                        events={formatEvents()}
                         allDaySlot={false}
                         initialView="timeGridWeek"
                         firstDay={1}
@@ -419,7 +527,7 @@ function CalendarDemo(props) {
                             moreLinkText: "weitere"
                           },
                           timeGridWeek: {
-                            dayHeaderFormat: {weekday: "long", month: 'long', day: 'numeric'}
+                            dayHeaderFormat: {weekday: "long", month: 'long', day: 'numeric'},
                           }
                         }}
                         slotLabelFormat= {{
@@ -429,30 +537,56 @@ function CalendarDemo(props) {
                             meridiem: 'long'
                         }}
                         slotLabelClassNames={["px-3"]}
-                        eventResize={(info) => props.updateCalendarShiftTime(info)}
-                        eventDrop={(info) => props.updateCalendarShiftTime(info)}
+                        eventContent={renderEventContent}
                         selectable={true}
                         editable={true}
+                        windowResize={() => handleShowViewBasedOnWidth()}
                         locale="de"
-                        events={events}
                         eventDisplay="block"
                         // Add new event
                         select={(info) => {
-                            let calendarApi = calendarRef.current.getApi();
-                            if(calendarApi.currentDataManager.state.currentViewType === "dayGridMonth") {
-                              calendarApi.changeView("timeGridWeek")
-                            } else {
-                            let getStartTime = String(info.start.getHours()); 
-                            const startTime = getStartTime.length === 1 ? "0" + getStartTime + ":00" : getStartTime + ":00";
-                            props.handleAddEventSetStart(startTime)
+                          if (viewTimeGridWeek && isAdmin) {
                             let getDay = info.start.getDay();
                             const day = weekdays[getDay];
+                            dispatch(settingStart(info.start.toString()));
                             dispatch(settingShiftSlot({day: day}))
-                            dispatch(settingModal("addCalendarShift"))
-                            }
+                            dispatch(settingModal("demoAddShift"))
+                          }
+                          if(viewDayGridMonth) {
+                            handleShowViewBasedOnWidth();
+                          }
+
                         }}
                         // Edit calendar event action
                         eventClick={({ event }) => {
+                          if (viewTimeGridWeek && isAdmin) {
+                            dispatch(settingTemporaryEventId(event._def.extendedProps.id))
+                            dispatch(settingModal("demoEditShift"))
+                          }
+
+                          if(viewTimeGridWeek && isEmployee) {
+                            if(event._def.extendedProps.setApplicants[employee.id]) {
+                              dispatch(settingTemporaryEventId(event._def.extendedProps.id));
+                              dispatch(settingModal("demoApplyForShift"));
+                            }
+
+                            if(!event._def.extendedProps.setApplicants[employee.id]) {
+                              dispatch(settingTemporaryEventId(event._def.extendedProps.id));
+                              dispatch(settingModal("demoApplyForShift"));
+                            }
+                          }
+
+                          if(viewListWeek && isEmployee) {
+                            if(event._def.extendedProps.setApplicants[employee.id]) {
+                              dispatch(settingTemporaryEventId(event._def.extendedProps.id));
+                              dispatch(settingModal("demoApplyForShift"));
+                            }
+
+                            if(!event._def.extendedProps.setApplicants[employee.id]) {
+                              dispatch(settingTemporaryEventId(event._def.extendedProps.id));
+                              dispatch(settingModal("demoApplyForShift"));
+                            }
+                          }
                         }}
                     />
                   </Col>
@@ -462,6 +596,14 @@ function CalendarDemo(props) {
           </div>
         </Row>
       </Container>
+      <ModalDemoEntry />
+      <ModalInvitation />
+      <ModalIntro />
+      <ModalAddShift />
+      <ModalEditShift />
+      <ModalEmployees calendarRef={calendarRef.current}/>
+      <ModalApplyForShift />
+      <ModalSendFeedback />
     </>
   );
 }
