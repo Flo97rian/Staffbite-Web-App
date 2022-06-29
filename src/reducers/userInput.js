@@ -15,7 +15,7 @@ const initialState = {
     minQualification: !1,
     shiftsPerDay: 1,
     shiftNotice: "",
-    shiftIsDayly: !1,
+    shiftIsDayly: false,
     shiftplanFillingReverse: !1,
     shiftplanFillingFair: !1,
     employeeName: "",
@@ -27,7 +27,10 @@ const initialState = {
     employeeEmail: "",
     newPosition: "",
     reportFilter: {},
-    employeeTargetShiftTrade: ""
+    employeeTargetShiftTrade: "",
+    shiftCustomDays: [],
+    selectedAuthenticationIndex: 0,
+    authenticationAnswere: "",
 }
 
 const userInputSlice = createSlice({
@@ -61,8 +64,11 @@ const userInputSlice = createSlice({
         settingShiftNotice(state, action) {
             state.shiftNotice = action.payload
         },
-        settingShiftIsDayly(state, action) {
-            state.shiftIsDayly = action.payload
+        settingShiftIsDayly(state) {
+            state.shiftIsDayly = true;
+        },
+        resettingShiftIsDayly(state) {
+            state.shiftIsDayly = false;
         },
         settingCompanyPositions(state, action) {
             state.positions = action.payload
@@ -134,34 +140,57 @@ const userInputSlice = createSlice({
         resettingShiftplanCompanyIsOpen(state, action) {
             state.shiftplanCompanyIsOpen = state.shiftplanCompanyIsOpen.filter(day => day !== action.payload);
         },
+        settingCurrentShiftCustomsDays(state, action) {
+            state.shiftCustomDays = action.payload;
+        },
+        resettingCurrentShiftCustomDays(state) {
+            state.shiftCustomDays = initialState.shiftCustomDays;
+        },
+        settingShiftCustomDays(state, action) {
+            state.shiftCustomDays.push(action.payload);
+        },
+        resettingShiftCustomDays(state, action) {
+            const removeDay = action.payload;
+            const filteredDays = state.shiftCustomDays.filter(day => day !== removeDay);
+            state.shiftCustomDays = filteredDays;
+        },
+        settingSelectedAuthenticationIndex(state, action) {
+            state.selectedAuthenticationIndex = action.payload;
+        },
+        settingAuthenticationAnswere(state, action) {
+            state.authenticationAnswere = action.payload;
+        },
         resettingUserInput(state) {
-            state.positions = [];
-            state.companyName = "";
-            state.companySurname = "";
-            state.shiftplanName = "";
-            state.shiftName = "";
-            state.shiftPosition = "";
-            state.shiftStart = "";
-            state.shiftEnd = "";
-            state.numberOfEmployees = 0;
-            state.minQualification = !1;
-            state.shiftsPerDay = 1;
-            state.shiftNotice = "";
-            state.shiftIsDayly = !1;
-            state.shiftplanFillingReverse = !1;
-            state.shiftplanFillingFair = !1;
-            state.employeeName = "";
-            state.employeeShiftsPerWeek = 0;
-            state.employeeQualification = "Anfänger";
-            state.employeePositions = [];
-            state.employeeActive = false;
-            state.employeeFree = false;
-            state.employeeEmail = "";
-            state.newPosition = "";
-            state.reportFilter = {};
-            state.employeeTargetShiftTrade = "";
-            state.shiftplanNumberOfShifts = 1;
-            state.shiftplanCompanyIsOpen = [];
+            state.positions = initialState.positions;
+            state.companyName = initialState.companyName;
+            state.companySurname = initialState.companySurname;
+            state.shiftplanName = initialState.shiftplanName;
+            state.shiftName = initialState.shiftName;
+            state.shiftPosition = initialState.shiftPosition;
+            state.shiftStart = initialState.shiftStart;
+            state.shiftEnd = initialState.shiftEnd;
+            state.numberOfEmployees = initialState.numberOfEmployees;
+            state.minQualification = initialState.minQualification;
+            state.shiftsPerDay = initialState.shiftsPerDay;
+            state.shiftNotice = initialState.shiftNotice;
+            state.shiftIsDayly = initialState.shiftIsDayly;
+            state.shiftplanFillingReverse = initialState.shiftplanFillingReverse;
+            state.shiftplanFillingFair = initialState.shiftplanFillingFair;
+            state.employeeName = initialState.employeeName;
+            state.employeeShiftsPerWeek = initialState.employeeShiftsPerWeek;
+            state.employeeQualification = initialState.employeeQualification;
+            state.employeePositions = initialState.employeePositions;
+            state.employeeActive = initialState.employeeActive;
+            state.employeeFree = initialState.employeeFree;
+            state.employeeEmail = initialState.employeeEmail;
+            state.newPosition = initialState.newPosition;
+            state.reportFilter = initialState.reportFilter;
+            state.employeeTargetShiftTrade = initialState.employeeTargetShiftTrade;
+            state.shiftplanNumberOfShifts = initialState.shiftplanNumberOfShifts;
+            state.shiftplanCompanyIsOpen = initialState.shiftplanCompanyIsOpen;
+            state.shiftCustomDays = initialState.shiftCustomDays;
+            state.authenticationAnswere = initialState.authenticationAnswere;
+            state.selectedAuthenticationIndex = initialState.selectedAuthenticationIndex;
         }
     }
 });
@@ -177,6 +206,7 @@ export const {
     settingShiftsPerDay,
     settingShiftNotice,
     settingShiftIsDayly,
+    resettingShiftIsDayly,
     settingCompanyPositions,
     settingCompanyName,
     settingCompanySurname,
@@ -201,6 +231,12 @@ export const {
     settingShiftplanCompanyIsOpen,
     resettingShiftplanCompanyIsOpen,
     resettingEmployeePositions,
+    settingShiftCustomDays,
+    resettingShiftCustomDays,
+    settingCurrentShiftCustomsDays,
+    resettingCurrentShiftCustomDays,
+    settingAuthenticationAnswere,
+    settingSelectedAuthenticationIndex
 } = userInputSlice.actions;
   
 export default userInputSlice.reducer

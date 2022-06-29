@@ -69,7 +69,7 @@
         },
         "publishShiftplan": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/publishShiftplan-52473250476c71505a46-build.zip"
+          "s3Key": "amplify-builds/publishShiftplan-4e4d6d48687644684a43-build.zip"
         },
         "updateTradeShift": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
@@ -77,11 +77,11 @@
         },
         "updateShiftplan": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/updateShiftplan-397632436e4e74575176-build.zip"
+          "s3Key": "amplify-builds/updateShiftplan-5a35557664624368424e-build.zip"
         },
         "releaseShiftplan": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/releaseShiftplan-31693351347066533156-build.zip"
+          "s3Key": "amplify-builds/releaseShiftplan-69422b4a514f66426565-build.zip"
         },
         "startAlgorithm": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
@@ -97,7 +97,7 @@
         },
         "uploadShiftplan": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/uploadShiftplan-70655166796f34705074-build.zip"
+          "s3Key": "amplify-builds/uploadShiftplan-74614b4a5a4b5066674e-build.zip"
         },
         "postApplication": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
@@ -143,12 +143,24 @@
         },
         "sendReminderForApplication": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/sendReminderForApplication-4966784b566654422f68-build.zip"
+          "s3Key": "amplify-builds/sendReminderForApplication-6d364c5444446a653368-build.zip"
         },
         "settingStripeInvoiceLanguage": {
           "secretsPathAmplifyAppId": "d3p8gdtbc86r0o",
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
           "s3Key": "amplify-builds/settingStripeInvoiceLanguage-764969324c5356426231-build.zip"
+        },
+        "getDemo": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/getDemo-2b75594c6d584357717a-build.zip"
+        },
+        "createDemo": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/createDemo-2b2f415264767258676d-build.zip"
+        },
+        "updateDemo": {
+          "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
+          "s3Key": "amplify-builds/updateDemo-716e4d42676649646556-build.zip"
         }
       },
       "storage": {

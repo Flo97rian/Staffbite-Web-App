@@ -19,7 +19,6 @@ export const Schicht = (props) => {
     function getShiftActive () {
         let active = !1;
         let slot = props.shiftSlot;
-        console.log(props.Schichtplan[slot.row][slot.col])
         if(slot) {
             let isNewShiftplan = typeof props.Schichtplan === "object"
             let isActive;

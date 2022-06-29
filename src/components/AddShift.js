@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Col,
     Row,
@@ -12,11 +12,11 @@ import InputTimeWithSwitch from "./InputTimeWithSwitch";
 import { useSelector, useDispatch } from "react-redux";
 import { INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_POSITION, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../constants/InfoTexts";
 import { settingShiftEnd, settingShiftIsDayly, settingShiftName, settingShiftNumberOfEmployees, settingShiftPosition, settingShiftStart } from "../reducers/userInput";
-const AddShift = () => {
+const AddShift = (props) => {
     const dispatch = useDispatch();
-    const [invalidShiftName, setInvalidShiftName] = useState(false);
     const userInput = useSelector(state => state.userInput);
     const CompanyPositions = useSelector(state => state.Meta.schichten);
+
         return(
             <>            
             <Row>
@@ -27,7 +27,7 @@ const AddShift = () => {
                                     <FormGroup>
                                     <InfoLabel title="Name der Schicht" description={INFO_SHIFTPLAN_SHIFT_NAME}></InfoLabel>
                                     <Input 
-                                        invalid={invalidShiftName}
+                                        invalid={(props.tryCreate && !userInput.shiftName)}
                                         type="text"
                                         className=""
                                         onChange={(event) => dispatch(settingShiftName(event.target.value))}    
@@ -58,10 +58,24 @@ const AddShift = () => {
                         </Row>
                         <Row>
                             <Col>
+                            <FormGroup>
                                 <InputTime info={true} description={INFO_SHIFTPLAN_SHIFT_START}label="Beginn" name="beginn"  placeholder={userInput.shiftStart} onChange={(event) => dispatch(settingShiftStart(event.target.value))}></InputTime>
+                                <FormFeedback
+                                    invalid
+                                    >
+                                        Trage den Beginn ein
+                                    </FormFeedback>
+                            </FormGroup>  
                             </Col>
                             <Col>
+                                <FormGroup>
                                 <InputTimeWithSwitch info={true} description={INFO_SHIFTPLAN_SHIFT_END} label="Ende" name="ende" placeholder={userInput.shiftEnd} onChange={(event) => dispatch(settingShiftEnd(event.target.value))}></InputTimeWithSwitch>
+                                <FormFeedback
+                                    invalid
+                                    >
+                                        Trage das Ende ein
+                                    </FormFeedback>
+                            </FormGroup> 
                             </Col>
                         </Row>
                         </Col>

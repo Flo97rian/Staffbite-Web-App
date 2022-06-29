@@ -335,6 +335,30 @@
                 "open": true
             },
             "policyResourceName": "/settingStripeInvoiceLanguage"
+        },
+        {
+            "name": "/createDemo",
+            "lambdaFunction": "createDemo",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/createDemo"
+        },
+        {
+            "name": "/updateDemo",
+            "lambdaFunction": "updateDemo",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/updateDemo"
+        },
+        {
+            "name": "/getDemo",
+            "lambdaFunction": "getDemo",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/getDemo"
         }
     ],
     "resourceName": "Staffbite",
@@ -426,6 +450,15 @@
         },
         {
             "lambdaFunction": "settingStripeInvoiceLanguage"
+        },
+        {
+            "lambdaFunction": "createDemo"
+        },
+        {
+            "lambdaFunction": "updateDemo"
+        },
+        {
+            "lambdaFunction": "getDemo"
         }
     ],
     "privacy": {
@@ -666,7 +699,31 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "function",
+            "resourceName": "createDemo",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "updateDemo",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "getDemo",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
         }
     ],
-    "uuid": "ad727eed"
+    "uuid": "bc2642b2"
 }

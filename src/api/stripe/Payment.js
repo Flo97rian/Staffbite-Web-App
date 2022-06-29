@@ -37,7 +37,6 @@ function Payment({EmployeesLength, trialEnd}) {
   },[sessionURL])
 
   async function handleCreateCheckoutSession(isYearly) {
-    console.log("create");
     let response;
     let user = await Auth.currentAuthenticatedUser()
     if(_.hasIn(user, "attributes.email")) {

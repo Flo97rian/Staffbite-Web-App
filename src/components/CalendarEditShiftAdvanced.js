@@ -64,7 +64,7 @@ export const CalendarEditShiftAdvanced = (props) => {
                                     Diese Notiz ist zu lang.
                                 </FormFeedback>
                             </FormGroup>
-                            <Button hidden={_.isEmpty(shiftNotice)} className="mt-0" color="warning" size="sm" disabled={isActive} onClick={() => resetShiftNotice()}>Zurücksetzen</Button>
+                            <Button hidden={_.isEmpty(shiftNotice)} className="mt-0" color="warning" size="sm" onClick={() => resetShiftNotice()}>Zurücksetzen</Button>
                     </Col>
                 </Row>
                 <Row className="mt-3">

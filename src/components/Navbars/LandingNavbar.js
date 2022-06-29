@@ -128,16 +128,6 @@ const LandingNavBar = (props) =>  {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-                <Link  to='/demo' onClick={
-                            () => 
-                            ReactGA.event({
-                              category: 'Demo',
-                              action: 'Navbar'
-                            })}>
-                    <p className="nav-link-inner--text text-muted p-0  pt-2 mr-5 m-0">
-                      Demo
-                    </p>
-                </Link>
               <Link to='/pricing' >
                     <p className="nav-link-inner--text text-muted p-0 pt-2 mr-5 m-0">
                       Preise

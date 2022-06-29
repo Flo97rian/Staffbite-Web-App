@@ -425,3 +425,7 @@
 .el-hover:hover {
   
 }
+
+.el-min-width {
+  min-width: 50px;
+}

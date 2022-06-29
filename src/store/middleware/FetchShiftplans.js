@@ -38,7 +38,6 @@ export function thunkFetchShiftplans () {
             // Add your code here
             dispatch(settingShiftplans(plans));
             dispatch(settingPlansFulfilled())
-            dispatch({type: "stopFetchPlansFromDB"});
         }).catch(error => {
             dispatch(settingPlansRejected())
         })        

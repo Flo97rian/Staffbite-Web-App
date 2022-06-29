@@ -179,7 +179,7 @@ function CreateMessageRequestIOS(recipient) {
     if (tokens.length > 0) {
         tokens.forEach(token => {
         messageRequest.Addresses[token] = {
-          'ChannelType' : 'APNS_SANDBOX'
+          'ChannelType' : 'APNS'
         }
     })}
 

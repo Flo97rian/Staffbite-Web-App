@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from 'uuid';
+import addDays from "date-fns/addDays";
+import { weekdays } from "../constants/Weekdays";
 
 const initalShiftplan = [
   {
@@ -87,7 +89,14 @@ const newShiftplanSlice = createSlice({
       state.tauschanfrage = shiftplan.tauschanfrage;
     },
     resettingNewShiftplan(state, action) {
-      state = initialState;
+      state.id = initialState.id;
+      state.name = initialState.name;
+      state.zeitraum = initialState.zeitraum;
+      state.startOfWeek = initialState.startOfWeek;
+      state.endOfWeek = initialState.endOfWeek;
+      state.plan = initialState.plan;
+      state.schichtentag = initialState.schichtentag;
+      state.tauschanfrage = initialState.tauschanfrage;
     },
     settingNewShiftName(state, action) {
       const shiftName = action.payload.shiftName;
@@ -169,18 +178,163 @@ const newShiftplanSlice = createSlice({
     },
     createingNewShiftplanFromExistingShiftplan(state, action) {
       let existingShiftplan = action.payload.existingShiftplan;
-      let newStartDate = action.payload.newStartDate;
+      let newStartDate = new Date(action.payload.newStartDate);
+      let newEndDate = new Date(action.payload.newEndDate);
+      const startString = newStartDate.getDate() + '.' + (Number(newStartDate.getMonth()) + 1)+ '.' + newStartDate.getFullYear();
+      const endString = newEndDate.getDate() + '.' + (Number(newEndDate.getMonth()) + 1) + '.' + newEndDate.getFullYear()
+      const newZeitraum = startString + ' - ' + endString; 
       let newShiftplan = {
-        id: "",
-        name: "",
-        zeitraum: "",
-        startOfWeek: '',
-        endOfWeek: '',
+        id: 'PLAN#Entwurf#' + uuidv4(),
+        name: existingShiftplan.name,
+        zeitraum: newZeitraum,
+        startOfWeek: newStartDate,
+        endOfWeek: newEndDate,
         plan: [],
         schichtentag: 0,
         tauschanfrage: []
       }
+      existingShiftplan.plan.forEach((shiftRow, shiftRowIndex) => {
+
+        if(shiftRowIndex === 0 && shiftRow.Wochentag !== "Datum") {
+          let dateShiftRow = {}
+          dateShiftRow.Wochentag = "Datum";
+          weekdays.forEach((day, index) => {
+            const weekDayDate = addDays(newStartDate, index);
+            const weekDayDateString = weekDayDate.getDate() + '.' + (Number(weekDayDate.getMonth()) + 1) + '.' + weekDayDate.getFullYear();
+            dateShiftRow[day] = weekDayDateString;
+          })
+          newShiftplan.plan.push(dateShiftRow);
+        }
+
+        if(shiftRow.Wochentag === "Wochentag") {
+          newShiftplan.plan.push(shiftRow);
+        }
+
+        if(shiftRow.Wochentag === "Datum") {
+          let dateShiftRow = {}
+          dateShiftRow.Wochentag = "Datum";
+          weekdays.forEach((day, index) => {
+            const weekDayDate = addDays(newStartDate, index);
+            const weekDayDateString = weekDayDate.getDate() + '.' + (Number(weekDayDate.getMonth()) + 1) + '.' + weekDayDate.getFullYear();
+            dateShiftRow[day] = weekDayDateString;
+          })
+          newShiftplan.plan.push(dateShiftRow);
+        }
+
+
+        if(typeof shiftRow.Wochentag === "object") {
+          let newShiftRow = {};
+          weekdays.forEach(day => {
+            let newShift = {
+              frei: shiftRow[day].frei,
+              anzahl: shiftRow[day].anzahl || 1,
+              prio: shiftRow.prio || false,
+              applicants: {},
+              setApplicants: {},
+              applicantsAfterPublish: {},
+              notice: "",
+            };
+            newShiftRow[day] = newShift;
+          })
+          newShiftRow.Wochentag = shiftRow.Wochentag;
+          newShiftplan.plan.push(newShiftRow);
+        }
+
+        if(shiftRow.Wochentag === "Summe") {
+          let newSummeRow = {};
+          newSummeRow.Wochentag = "Summe";
+          weekdays.forEach(day => {
+            newSummeRow[day] = "0";
+          });
+          newShiftplan.plan.push(newSummeRow);
+        }
+      })
+      state.id = newShiftplan.id;
+      state.zeitraum = newShiftplan.zeitraum;
+      state.startOfWeek = String(newShiftplan.startOfWeek);
+      state.endOfWeek = String(newShiftplan.endOfWeek);
+      state.name = newShiftplan.name;
+      state.plan = newShiftplan.plan;
+      state.schichtentag = newShiftplan.schichtentag;
+      state.tauschanfrage = newShiftplan.tauschanfrage;
+    },
+    createingNewShiftplanInCalendar(state, action) {
+      const userInput = action.payload.userInput;
+      const day = action.payload.day;
+      let newStartDate = new Date(action.payload.newStartDate);
+      let newEndDate = new Date(action.payload.newEndDate);
+      const startString = newStartDate.getDate() + '.' + (Number(newStartDate.getMonth()) + 1)+ '.' + newStartDate.getFullYear();
+      const endString = newEndDate.getDate() + '.' + (Number(newEndDate.getMonth()) + 1) + '.' + newEndDate.getFullYear()
+      const newZeitraum = startString + ' - ' + endString; 
+
+      const InputShiftName = userInput.shiftName || "";
+      const InputShiftPosition = userInput.shiftPosition || "";
+      const InputShiftStart = userInput.shiftStart || "";
+      const InputShiftEnd = userInput.shiftEnd === "on" ? true : userInput.shiftEnd;
+      const InputShiftsRequiredNumberOfEmployees = userInput.numberOfEmployees || 0;
+
+      let newShiftplan = {
+        id: 'PLAN#Entwurf#' + uuidv4(),
+        name: userInput.shiftplanName,
+        zeitraum: newZeitraum,
+        startOfWeek: newStartDate,
+        endOfWeek: newEndDate,
+        plan: [],
+        schichtentag: 0,
+        tauschanfrage: []
+      }
+      let shiftRow = {};
+      shiftRow.Wochentag = {
+        ShiftName: InputShiftName,
+        ShiftStart: InputShiftStart,
+        ShiftEnd: InputShiftEnd,
+        ShiftPosition: InputShiftPosition,
+        frei: false,
+      }
+
+      let dateShiftRow = {}
+      dateShiftRow.Wochentag = "Datum";
+      weekdays.forEach((day, index) => {
+        const weekDayDate = addDays(newStartDate, index);
+        const weekDayDateString = weekDayDate.getDate() + '.' + (Number(weekDayDate.getMonth()) + 1) + '.' + weekDayDate.getFullYear();
+        dateShiftRow[day] = weekDayDateString;
+      })
+      newShiftplan.plan.push(dateShiftRow);
+
+      let weekdaysRow = {};
+      weekdaysRow.Wochentag = "Wochentag";
+      weekdays.forEach(weekday => {
+        weekdaysRow[weekday] = String(weekday);
+      });
+      newShiftplan.plan.push(weekdaysRow);
       
+      weekdays.forEach(weekday => {
+        if(day === weekday) {
+          shiftRow[weekday] = {frei: true, anzahl:  String(InputShiftsRequiredNumberOfEmployees), applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""};
+        }
+
+        if(day !== weekday) {
+          shiftRow[weekday] = {frei: false, anzahl:  String(0), applicants: {}, applicantsAfterPublish: {}, setApplicants: {}, prio: false, notice: ""};
+        }
+      });
+
+      newShiftplan.plan.push(shiftRow);
+
+      let newSummeRow = {};
+      newSummeRow.Wochentag = "Summe";
+      weekdays.forEach(day => {
+        newSummeRow[day] = "0";
+      });
+      newShiftplan.plan.push(newSummeRow);
+
+      state.id = newShiftplan.id;
+      state.zeitraum = newShiftplan.zeitraum;
+      state.startOfWeek = String(newShiftplan.startOfWeek);
+      state.endOfWeek = String(newShiftplan.endOfWeek);
+      state.name = newShiftplan.name;
+      state.plan = newShiftplan.plan;
+      state.schichtentag = newShiftplan.schichtentag;
+      state.tauschanfrage = newShiftplan.tauschanfrage;
     }
   }
 })
@@ -193,7 +347,9 @@ export const {
   deletingNewCalendarShift,
   settingNewMinQufalification,
   deleteNewShift,
-  settingNewShiftDescription
+  settingNewShiftDescription,
+  createingNewShiftplanFromExistingShiftplan,
+  createingNewShiftplanInCalendar
 } = newShiftplanSlice.actions;
 
 export default newShiftplanSlice.reducer

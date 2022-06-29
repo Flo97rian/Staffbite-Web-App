@@ -8,8 +8,8 @@ const AdminCalendarContainer = () => {
 
     return (
         <>
-            <Row className="mx-4">
-                <Col>
+            <Row className="mx-0">
+                <Col className="m-0 p-0">
                     <CalendarView/>
                 </Col>
             </Row>

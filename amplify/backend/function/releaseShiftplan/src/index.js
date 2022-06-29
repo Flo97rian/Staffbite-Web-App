@@ -28,17 +28,24 @@ exports.handler = async (event, context, callback) => {
         name = body.name;
     }
     await addNews(body, meta, name);
-    console.log(body)
-    console.log(name, body.name);
     
     let newShiftplan = null;
     let shiftplan = JSON.parse(plan.data["S"])
-    if(body.newDate !== false) {
-        shiftplan.unshift(body.newDate);
+    if(body.newDate !== false && Object.keys(body.newDate).length > 0) {
+        if(shiftplan[0].Wochentag === "Datum") {
+            shiftplan[0] = body.newDate;
+        }
+        
+        if(shiftplan[0].Wochentag === "Wochentag") {
+            shiftplan.unshift(body.newDate);
+        }
     }
-    plan.SK["S"] = "PLAN#Freigeben#" + body.uuid;
-    plan.zeitraum["S"] = shiftplan[0]["Montag"] + " - " + shiftplan[0]["Sonntag"]
+    console.log(shiftplan);
+    let id = "PLAN#Freigeben#" + body.uuid;
+    let zeitraum = shiftplan[0]["Montag"] + " - " + shiftplan[0]["Sonntag"]
     newShiftplan = shiftplan;
+    console.log("ZEITRAUM", zeitraum)
+    console.log("NEWPLAN", newShiftplan);
     
     console.log(plan.data["S"])
           var params = {
@@ -47,7 +54,7 @@ exports.handler = async (event, context, callback) => {
                  S: "ORG#" + user["custom:TenantId"]
                 }, 
                SK: {
-                 S: plan.SK["S"]
+                 S: id
                 }, 
                data: {
                  S:  JSON.stringify(newShiftplan)
@@ -59,7 +66,7 @@ exports.handler = async (event, context, callback) => {
                  N: plan.schichtentag["N"]
                 }, 
                zeitraum: {
-                 S: plan.zeitraum["S"]
+                 S: zeitraum
                 }, 
                tauschanfrage: {
                  S: plan.tauschanfrage["S"]
@@ -71,8 +78,9 @@ exports.handler = async (event, context, callback) => {
      let data = null;
     try {
         data = await dynamodb.putItem(params).promise();
+        console.log(data);
     } catch(error) {
-      console.log(error);
+      console.log("ERROR", error);
       };
          const response = {
         statusCode: 200,
@@ -334,7 +342,7 @@ function CreateMessageRequestIOS(recipient) {
     if (tokens.length > 0) {
         tokens.forEach(token => {
         messageRequest.Addresses[token] = {
-          'ChannelType' : 'APNS_SANDBOX'
+          'ChannelType' : 'APNS'
         }
     })}
 
