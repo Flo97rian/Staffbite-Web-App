@@ -15,7 +15,6 @@ export function thunkFetchEmployees() {
             return API.post(apiName, path, myInit)
             })
             .then(response => {
-                console.log(response);
                 let employees = {};
                     response.Items.forEach(item => {
                         employees[item.SK.S]  = {

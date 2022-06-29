@@ -18,6 +18,7 @@ import React, {useState, useRef, useEffect} from "react";
 // nodejs library that concatenates classes
 import classnames from "classnames";
 import { ReactDOM } from "react";
+import { Helmet } from "react-helmet";
 import isBefore from "date-fns/isBefore";
 // JavaScript library that creates a callendar with events
 import FullCalendar from "@fullcalendar/react"
@@ -165,14 +166,12 @@ function CalendarDemo(props) {
     if(calendarRef.current) {
       const calendarApi = calendarRef.current.getApi();
       setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
-      console.log(calendarRef.current);
     }
   }, [calendarRef])
 
 
   const handleShowViewBasedOnWidth = () => {
     const { innerWidth: width, innerHeight: height } = window;
-    console.log(width);
     if(width < 875) {
       changeView("listWeek");
       setViews("listWeek")
@@ -385,6 +384,21 @@ function CalendarDemo(props) {
 };
   return (
     <>
+        <Helmet>
+          <title>{"Online Schichtpläne erstellen || Ohne Anmeldung. Ohne Risiko ausporbieren"}</title>
+          <meta name="description" charSet="utf-8" content=""/>
+          <meta property="og:title" content=""/>
+          <meta property="og:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatisiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
+          <meta property="og:url" content="https://www.staffbite.de"></meta>
+          <meta property="og:type" content="website"></meta>
+          <meta property="og:site_name" content="Staffbite"></meta>
+          <meta property="twitter:title" content="Staffbite - Digitale Schichtplanung jederzeit online und per App."/>
+          <meta property="twitter:card" content="summary_large_image"/>
+          <meta property="twitter:description" content="Wir bieten die Möglichkeit bequem und von überall Schichtpläne online & per App zu erstellen, automatisiert zu Befüllen. Durch Einfachheit und Übersichtlichkeit kann die Schichtplanung in wenigen Minuten vollendet werden."/>
+          <meta property="twitter:url" content="https://www.staffbite.de"></meta>
+          <meta property="twitter:type" content="website"></meta>
+          <link rel="canonical" href="https://www.staffbite.de" />
+        </Helmet>
       {alert}
       <Container className="mt-4" fluid ref={containerRef}>
           <Row hidden={!isAdmin} className="text-center mb-4">

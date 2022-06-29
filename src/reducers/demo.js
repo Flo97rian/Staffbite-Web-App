@@ -159,7 +159,6 @@ const demoSlice = createSlice({
         },
         resettingCouterForEmployees(state) {
             state.demoEmployees.forEach(employee => {
-                console.log(employee.id);
                 if(state.demoEmployees[employee.id]) {
                     if(state.demoEmployees[employee.id].shifts) {
                         delete state.demoEmployees[employee.id].shifts;    

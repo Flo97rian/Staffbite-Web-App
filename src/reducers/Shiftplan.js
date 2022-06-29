@@ -73,7 +73,6 @@ const shiftplanSlice = createSlice({
           };
         };
       }
-      console.log(isRowEmptyNow);
       if(isRowEmptyNow) {
         state.plan.splice(index, 1);
       }
@@ -478,7 +477,6 @@ const shiftplanSlice = createSlice({
                 activeDays.push(shiftday);
             }
         }; 
-        console.log(currentShiftRow);
         return activeDays; 
       }
 
@@ -507,6 +505,13 @@ const shiftplanSlice = createSlice({
 
       const getDetailsFromShift = (day) => {
         return state.plan[index][day];
+      }
+
+      const getAllApplicantsDetailsOfShift = (index, day) => {
+        const applicants = state.plan[index][day].applicants;
+        const setApplicants = state.plan[index][day].setApplicants;
+        const applicantsAfterPublish = state.plan[index][day].applicantsAfterPublish;
+        return {applicants: applicants, setApplicants: setApplicants, applicantsAfterPublish: applicantsAfterPublish}
       }
 
       const getExistingShiftRow = () => {
@@ -568,7 +573,8 @@ const shiftplanSlice = createSlice({
         const { newNotice } = getChangedShiftNotice();
         const { newMinQualification } = getChangedMinQualification();
         InputShiftCustomDays.forEach((customDay) => {
-          const newDay = {frei: true, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}
+          const {applicants, applicantsAfterPublish, setApplicants} = getAllApplicantsDetailsOfShift(index, day)
+          const newDay = {frei: true, applicants: applicants, setApplicants: setApplicants, applicantsAfterPublish: applicantsAfterPublish, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}
           shiftRow[customDay] = newDay;
         });
         return shiftRow;
@@ -604,7 +610,8 @@ const shiftplanSlice = createSlice({
         const { newNotice } = getChangedShiftNotice();
         const { newMinQualification } = getChangedMinQualification();
         InputShiftCustomDays.forEach((customDay) => {
-          state.plan[index][customDay] = {frei: true, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}
+          const {applicants, applicantsAfterPublish, setApplicants} = getAllApplicantsDetailsOfShift(index, customDay)
+          state.plan[index][customDay] = {frei: true, applicants: applicants, setApplicants: setApplicants, applicantsAfterPublish: applicantsAfterPublish, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}
         });
       }
 
@@ -613,7 +620,8 @@ const shiftplanSlice = createSlice({
         const { newNotice } = getChangedShiftNotice();
         const { newMinQualification } = getChangedMinQualification();
         InputShiftCustomDays.forEach((customDay) => {
-          state.plan[targetIndex][customDay] = {frei: true, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}
+          const {applicants, applicantsAfterPublish, setApplicants} = getAllApplicantsDetailsOfShift(index, customDay)
+          state.plan[targetIndex][customDay] = {frei: true, applicants: applicants, setApplicants: setApplicants, applicantsAfterPublish: applicantsAfterPublish, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}
         });
       }
 
@@ -733,7 +741,8 @@ const shiftplanSlice = createSlice({
           const { newNumberOfEmployees } = getChangedNumberOfEmployees();
           const { newNotice } = getChangedShiftNotice();
           const { newMinQualification } = getChangedMinQualification();
-          state.plan[targetIndex][day] = {frei: true, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}  
+          const {applicants, applicantsAfterPublish, setApplicants} = getAllApplicantsDetailsOfShift(index, day)
+          state.plan[targetIndex][day] = {frei: true, applicants: applicants, setApplicants: setApplicants, applicantsAfterPublish: applicantsAfterPublish, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees}  
         }
 
         if(!haveMatchingRow.length) {
@@ -743,7 +752,8 @@ const shiftplanSlice = createSlice({
           let shiftRow = createNewShiftRow();
 
           //setting new day
-          shiftRow[day] = {frei: true, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees};
+          const {applicants, applicantsAfterPublish, setApplicants} = getAllApplicantsDetailsOfShift(index, day)
+          shiftRow[day] = {frei: true, applicants: applicants, setApplicants: setApplicants, applicantsAfterPublish: applicantsAfterPublish, prio: newMinQualification, notice: newNotice, anzahl: newNumberOfEmployees};
           // resetting old day
           state.plan[index][day] = {frei: false, applicants: {}, setApplicants: {}, applicantsAfterPublish: {}, prio: false, notice: "", anzahl: 0};
           const planLength = state.plan.length;
@@ -751,6 +761,17 @@ const shiftplanSlice = createSlice({
         }
       }
 
+      const settingSetApplicants = (index) => {
+        state.plan[index][day].setApplicants = {};
+        InputSetApplicants.forEach(applicantObject => {
+        const employeeId = applicantObject.id.substring(1);
+        const employeeName = applicantObject.content;
+        if(employeeName !== "Leer") {
+          state.plan[index][day].setApplicants[employeeId] = employeeName;
+        }
+      });
+
+      }
       const changeCurrentNotice = () => {
         state.plan[index][day].notice = getShiftNoticeChanged ? InputShiftsNotice : ShiftsNotice;
       }

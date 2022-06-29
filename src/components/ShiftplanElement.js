@@ -87,8 +87,6 @@ export const ShiftplanElement = (props) => {
     const SecondSetApplicant = _.get(SetApplicants, [SetApplicantsKeys[1]], "");
     if(!_.isEmpty(type)) {
         if(type === "Entwurf") {
-            console.log("moin");
-            console.log(index);
             if (index === 0 && hasDates) {
                 return null;
             } else if ((index === 0 && !hasDates) || (index === 1 && hasDates) || index === ItemLength - 1 ) {

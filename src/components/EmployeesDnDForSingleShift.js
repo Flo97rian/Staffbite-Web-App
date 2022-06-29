@@ -131,7 +131,6 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
   useImperativeHandle(ref, () => (state[2]), [state]);
 
   useEffect(() => {
-    console.log(employees);
     setEmployees(employees);
   }, [employees])
 

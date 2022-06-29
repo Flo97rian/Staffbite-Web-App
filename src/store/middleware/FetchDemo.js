@@ -9,7 +9,6 @@ export function thunkFetchDemo(Id = false) {
         const state = getState();
         const demoId = Id ? Id : state.demo.demoId;
         const isAdmin = state.demo.demoAdmin.isAdmin;
-        console.log(demoId);
         const apiName = API_HOSTNAME; // replace this with your api name.
         const path = FETCH_DEMO; //replace this wi
         const myInit = { // OPTIONAL

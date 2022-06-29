@@ -77,7 +77,6 @@ const FormCalendarImportVorlage = () => {
                 currentPositions.push(shiftPositiion);
             }
         })
-        console.log(currentPositions, positions);
         setPositions(currentPositions);
     }
 
@@ -89,7 +88,6 @@ const FormCalendarImportVorlage = () => {
             if (filter === false || row.Wochentag.ShiftPosition === filter) {
                 _.forIn(row, function (value, key, row) {
                     if(_.isObject(value) && key !== "Wochentag" && value.frei !== false) {
-                        console.log(plan);
                         const splittedDate = plan[0][key].split(".");
                         let startTime;
                         let endTime;
@@ -107,8 +105,6 @@ const FormCalendarImportVorlage = () => {
                             endTime.setHours(splttedEndTime[0]);
                             endTime.setMinutes(splttedEndTime[1])
                         }
-
-                        console.log(splittedDate);
                         
                         let background = "";
                         eventsData.push({

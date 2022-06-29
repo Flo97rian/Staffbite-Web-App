@@ -117,7 +117,6 @@ const EmployeesDnD = React.forwardRef((props, ref) => {
 
 
   useEffect(() => {
-    console.log(employees);
     setEmployees(employees);
   }, [employees])
 

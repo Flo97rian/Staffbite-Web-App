@@ -10,17 +10,12 @@ export function thunkCreateDemo(id = false) {
     const myInit = {
         body: newID
     };
-    console.log(newID);
     return API.post(apiName, path, myInit)
     .then(response => {
-      console.log(newID);
-        console.log(response);
         const urlSearchParams = new URLSearchParams(window.location.search);
         const params = urlSearchParams.entries();
-        console.log(newID);
         urlSearchParams.append("id", newID);
         var url = window.location.href;
-        console.log(newID);
         window.location.href = url + "?" + urlSearchParams;
     })
     .catch(error => {

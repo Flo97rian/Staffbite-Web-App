@@ -5,6 +5,7 @@ import { settingAuthenticationAnswere, settingEmployeeName, settingSelectedAuthe
 import { settingAuthenticationEmployee, settingAuthenticationForAdmin } from "../../../../reducers/demo";
 import { thunkUpdateDemo } from "../../../../store/middleware/UpdateDemo";
 import { resettingModal } from "../../../../reducers/modal";
+import ReactGA from "react-ga";
 
 export const RegistrationFormEmployee = () => {
     const dispatch = useDispatch();
@@ -21,6 +22,10 @@ export const RegistrationFormEmployee = () => {
                 }
             )
         )
+        ReactGA.event({
+            category: 'Demo',
+            action: "Add Employee"
+        });
         dispatch(resettingModal())
         dispatch(thunkUpdateDemo());
 

@@ -81,7 +81,7 @@ export const ModalAddShift = (props) => {
                                        {!plans.length ? <p>Erstelle deine erste Schicht</p> : <></> }
                                     </Col>
                                 </Row>
-                                <Card className="bg-secondary border px-2 shadow-none">
+                                <Card className="bg-secondary px-2 shadow-none border-none">
                                 <Row className="mt-3">
                                     <Col>
                                         <InfoLabel description={INFO_SHIFTPLAN_SHIFT_NAME} title="Name der Schicht"/>
@@ -144,8 +144,6 @@ export const ModalAddShift = (props) => {
                                 </Col>
                             </Row>
                 </Modal.Body>
-                <Modal.Footer>
-                </Modal.Footer>
             </Modal>
             </>
         );

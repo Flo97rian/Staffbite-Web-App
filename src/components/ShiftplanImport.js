@@ -15,7 +15,6 @@ import { settingDisplayShiftplan } from "../reducers/display";
 
 const ShiftplanImport = (props) => {
   const Plans = useSelector(state => state.DB.plans)
-  console.log(Plans);
   const displayShiftplan = useSelector(state => state.display.displayShiftplan);
   const dispatch = useDispatch();
     const setCurrentShiftPlan = (id) => {

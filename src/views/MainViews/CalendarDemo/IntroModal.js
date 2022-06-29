@@ -8,6 +8,7 @@ import {
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../../../reducers/modal";
+import ReactGA from "react-ga";
 import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
 import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
 import { settingAuthenticationForAdmin } from "../../../reducers/demo";
@@ -28,6 +29,13 @@ export const ModalIntro = (props) => {
     const isAdmin = useSelector(state => state.demo.demoAdmin.isAdmin);
     const demoIntro = useSelector(state => state.modal.demoIntro);
 
+    const handleCreateDemo = () => {
+        ReactGA.event({
+            category: 'Demo',
+            action: "Create Shiftplan"
+        });
+        dispatch(thunkCreateDemo());
+    }
       //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
         return (
             <>
@@ -46,7 +54,7 @@ export const ModalIntro = (props) => {
                 </Row>
                 <Row className="text-center">
                     <Col>
-                        <Button color="primary" onClick={() => dispatch(thunkCreateDemo())}>Schichtplan erstellen</Button>
+                        <Button color="primary" onClick={() => handleCreateDemo()}>Schichtplan erstellen</Button>
                     </Col>
                 </Row>
                 </Modal.Body>

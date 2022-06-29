@@ -53,7 +53,6 @@ export const ModalApplyForShift = (props) => {
         let end = endHours + ":" + endMinutes;
 
     const applyForShift = () => {
-        console.log(employee);
         const newApplicants = {...event.applicants};
         newApplicants[employee.id] = employee.name;
 

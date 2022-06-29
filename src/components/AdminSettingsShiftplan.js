@@ -14,7 +14,6 @@ const AdminSettingsShiftplan = (props) => {
         const dispatch = useDispatch();
         const ShiftplanReverse = useSelector(state => state.Meta.reverse);
         const ShiftplanFair = useSelector(state => state.Meta.fair);
-        console.log(ShiftplanFair, ShiftplanReverse);
         const userInput = useSelector(state => state.userInput)
         return (
             <>     

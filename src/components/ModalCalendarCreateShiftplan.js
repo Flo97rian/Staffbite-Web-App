@@ -33,7 +33,6 @@ const ModalCalendarCreateShiftplan = (props) => {
     const day = useSelector(state => state.shiftSlot.day);
     const Plans = useSelector(state => state.DB.plans);
     const [vorlagen, setVorlagen] = useState([...Plans.filter(plan => plan.id.split('#').includes("Veröffentlicht")), ...Plans.filter(plan => plan.id.split('#').includes("Entwurf"))]);
-    console.log(vorlagen);
     const Dates = useSelector(state => state.date);
 
       // Diese Funktion sorgt für die Speicherung eines neuen Schichtplans und schließt im Anschluss das zugehörige Modal

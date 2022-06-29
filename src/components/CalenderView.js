@@ -145,7 +145,6 @@ function CalendarView(props) {
   useEffect(() => {
     if(viewTimeGridWeek && shiftplan.id === "") {
       setCurrentShiftplan();
-      console.log(events);
     }
   }, [viewTimeGridWeek, events])
 
@@ -610,8 +609,6 @@ function CalendarView(props) {
         return <Button color="success"onClick={() => dispatch(thunkReleaseForApplication())}>Zur Freigabe</Button>
       } else if (headerBadge === "Veröffentlicht") {
           return <div className="py-3 pb-4"></div>;
-      } else if (isWeekEmpty) {
-        return <Button color="primary"onClick={() => dispatch(settingModal("showSchichtplanErstellen"))}>Vorlage anwenden</Button>
       }
     }
     return null;
@@ -620,9 +617,6 @@ function CalendarView(props) {
     if(shiftplan.id !== "") {
       const Shift = _.get(shiftplan, "plan[" + eventInfo.event.extendedProps.row + "][" + eventInfo.event.extendedProps.day + "]")
       const setApplicants = Shift?.setApplicants || {};
-      if(eventInfo.event.title === "Abend") {
-        console.log(eventInfo.event);
-      }
       return (
         <div id={"Popover" + String(eventInfo.event.id)}>
         <Popover eventInfo={eventInfo}/>
@@ -878,7 +872,6 @@ function CalendarView(props) {
                             }
                         }}
                         
-                        eventMouseEnter={(event) => console.log(event)}
                         dateClick={(info) => selectDate(info)}
                         // Edit calendar event action
                         eventClick={({ event }) => {

@@ -24,9 +24,10 @@ const FormCalendarCreateShiftplan = () => {
             let endDate = new Date(Dates.end);
             let startOfWeek = startDate.getDate();
             let endOfWeek = endDate.getDate();
-            let startMonthOfWeek = format(endDate, "MMM", {locale: de, weekStartsOn: 1});
+            let startMonthOfWeek = format(startDate, "MMM", {locale: de, weekStartsOn: 1});
             let endMonthOfWeek = format(endDate, "MMM", {locale: de, weekStartsOn: 1});
             shiftplanName = startOfWeek + '. ' + startMonthOfWeek + ' - ' + endOfWeek + '. ' + endMonthOfWeek;  
+            dispatch(settingShiftplanName(shiftplanName));
         }
         return shiftplanName;
 
