@@ -49,10 +49,17 @@ export const ModalIntro = (props) => {
                 <Row className="text-center mt-2">
                     <Col>
                         <h2>Willkommen bei Staffbite</h2>
-                        <p>Leg gleich los und erstelle einen Schichtplan.</p>
+                        <p className="mb-0">
+                            Leg gleich los und erstelle deinen ersten Schichtplan. 
+                        </p>
+                        <small>
+                            Hinweis: Speichere dir den Link zu deinem Schichtplan ab.
+                            <br/>
+                            Ohne den Link geht dein Schichtplan verloren.
+                        </small>
                     </Col>
                 </Row>
-                <Row className="text-center">
+                <Row className="text-center mt-4">
                     <Col>
                         <Button color="primary" onClick={() => handleCreateDemo()}>Schichtplan erstellen</Button>
                     </Col>
