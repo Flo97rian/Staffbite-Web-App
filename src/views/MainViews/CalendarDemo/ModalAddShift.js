@@ -22,6 +22,7 @@ import { AuthenticationFormEmployee } from "./Form/AuthenticationFormEmployee";
 import { RegistrationFormEmployee } from "./Form/RegistrationFormEmployee";
 import InputString from "../../../components/InputString";
 import InputNumber from "../../../components/InputNumber";
+import ReactGA from "react-ga";
 import InputTime from "../../../components/InputTime";
 import InputTimeWithSwitch from "../../../components/InputTimeWithSwitch";
 import InfoLabel from "../../../components/InfoLabel";
@@ -60,6 +61,10 @@ export const ModalAddShift = (props) => {
             setApplicants: {},
             applicantsAfterPublish: {},
         }
+        ReactGA.event({
+            category: 'Demo',
+            action: "Create Shift"
+        });
         dispatch(settingDemoPlans([...plans, data]))
         dispatch(settingShiftplanChanged());
         dispatch(resettingModal());
