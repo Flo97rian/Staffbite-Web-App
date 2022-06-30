@@ -30,10 +30,10 @@ export const ModalIntro = (props) => {
     const demoIntro = useSelector(state => state.modal.demoIntro);
 
     const handleCreateDemo = () => {
-        {/*ReactGA.event({
+        ReactGA.event({
             category: 'Demo',
             action: "Create Shiftplan"
-        });*/}
+        });
         dispatch(settingProcessingStartCreateShiftplan())
         dispatch(thunkCreateDemo());
     }

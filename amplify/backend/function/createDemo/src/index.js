@@ -31,15 +31,21 @@ const createDemo = async (id) => {
                SK: {
                  S: "DEMO#METADATA" + id,
                 },
-                plans: {
+                demoId: {
+                    S: id,
+                },
+                demoPlans: {
                  S:  JSON.stringify([]),
                 }, 
-                meta: {
+                demoMeta: {
                  S: JSON.stringify({}),
                 }, 
-                employees: {
+                demoEmployees: {
                  S: JSON.stringify([])
                 },
+                demoAdmin: {
+                 S: JSON.stringify({}),
+                }
             },
           ReturnConsumedCapacity: "TOTAL", 
           TableName: "Staffbite-DynamoDB"
