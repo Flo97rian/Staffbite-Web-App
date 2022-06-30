@@ -41,7 +41,16 @@ import NotificationAlert from "react-notification-alert";
 import { WARNING_WRONG_MAIL_OR_PASSWORD } from "../../../constants/Alerts";
 
 const LogIn = (props) => { 
+    const [demoId, setDemoId] = useState(localStorage.getItem('demoId'));
     let notificationAlert = useRef(null)
+
+    function goToDemo() {
+        console.log(demoId);
+        var url = window.location.href;
+        var path = window.location.pathname;
+        var newUrl = url.replace(path, "/shiftplan");
+        window.location.href = newUrl + "?id=" + demoId;
+    }
     function Notify (type, title, err) {
         let options = {
           place: "tc",
@@ -92,6 +101,13 @@ const LogIn = (props) => {
                         </div>
                         </CardHeader>
                         <CardBody className="px-lg-5 py-lg-5">
+                        <div hidden={!demoId}>
+                            <Row className="mb-4 text-center">
+                                <Col>
+                                    <Button color="primary"  onClick={() => goToDemo()}>Zum deinem kostenlosen Schichtplan</Button>
+                                </Col>
+                            </Row>
+                        </div>
                         <Form role="form">
                             <FormGroup className="mb-3">
                             <InputGroup className="input-group-alternative">

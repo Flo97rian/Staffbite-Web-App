@@ -22,6 +22,8 @@ const initialState = {
     demoEmployees: [],
     demoAdmin: initialDemoAdmin,
     demoEmployee: initialDemoEmployee,
+    demoProcessingCreateShiftplan: "idle",
+    demoFetched: "idle",
 }
 
 const demoSlice = createSlice({
@@ -177,6 +179,21 @@ const demoSlice = createSlice({
                 state.demoEmployees.splice(indexOfEmployee, 1);
             }
             
+        },
+        settingProcessingStartCreateShiftplan(state) {
+            state.demoProcessingCreateShiftplan = "loading";
+        },
+        settingProcessingFullfilledCreateShiftplan(state) {
+            state.demoProcessingCreateShiftplan = "fullfilled";
+        },
+        resettingProcessingCreateShiftplan(state) {
+            state.demoProcessingCreateShiftplan = "idle";
+        },
+        settingDemoFetched(state) {
+            state.demoFetched = "fulfilled";
+        },
+        resettingDemoFetched(state) {
+            state.demoFetched = "idle";
         }
 
     }
@@ -203,7 +220,12 @@ export const {
     settingApplicationsCounterForEmployee,
     settingShiftsCounterForEmployee,
     resettingCouterForEmployees,
-    deleteEmployee
+    deleteEmployee,
+    settingProcessingFullfilledCreateShiftplan,
+    settingProcessingStartCreateShiftplan,
+    resettingProcessingCreateShiftplan,
+    settingDemoFetched,
+    resettingDemoFetched,
 } = demoSlice.actions;
 
 export default demoSlice.reducer;

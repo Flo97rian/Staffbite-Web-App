@@ -87,14 +87,12 @@ export const ModalDemoEntry = (props) => {
                     show={demoEntry} onHide={() => dispatch(resettingModal())}
                     className="modal modal-secondary"
             >
-                <Modal.Body className="pt-1">
+                <Modal.Body className="pt-1 mb-5">
                 <Row className="text-center mt-3" hidden={!showButtons}>
                     <Col>
                         <h2>Willkommen bei Staffbite</h2>
                         <p>
-                            Du hast bereits einen Account erstellt?
-                            <br/>
-                            Du bist ... ?
+                            Ich bin ... ?
                         </p>
                     </Col>
                 </Row>
@@ -110,18 +108,6 @@ export const ModalDemoEntry = (props) => {
                     <Col></Col>
                     <Col>
                         <Button size="sm" color="primary" block onClick={() => handleShowFormEmployee()}>Mitarbeiter</Button>
-                    </Col>
-                    <Col></Col>
-                </Row>
-                <Row className="text-center mt-5">
-                    <Col>
-                        <small>Ich habe noch keinen Account erstellt!</small>
-                    </Col>
-                </Row>
-                <Row className="text-center mt-0">
-                    <Col></Col>
-                    <Col>
-                        <Button size="sm" block color="link" onClick={() => handleShowInvitation()}>Erste Anmeldung</Button>
                     </Col>
                     <Col></Col>
                 </Row>
@@ -141,9 +127,6 @@ export const ModalDemoEntry = (props) => {
                     <RegistrationFormEmployee />
                 </div>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button color="link" onClick={() => dispatch(resettingModal())}>Abbrechen</Button>
-                </Modal.Footer>
             </Modal>
             </>
         );

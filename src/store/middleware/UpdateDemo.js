@@ -10,8 +10,10 @@ import { resettingShiftplanChanged } from "../../reducers/shiftplanChanged";
 export function thunkUpdateDemo(profile) {
   return async function updateDemo(dispatch, getState) {
     const state = getState();
+    console.log("update")
     const demoAdmin = state.demo.demoAdmin;
     const demo = {...state.demo, demoAdmin: {...demoAdmin, isAdmin: false}};
+    console.log(demo);
       const apiName = API_HOSTNAME; // replace this with your api name.
       const path = UPDATE_DEMO; //replace this with the path you have configured on your API
       const myInit = { // OPTIONAL

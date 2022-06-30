@@ -11,7 +11,7 @@ import { resettingModal } from "../../../reducers/modal";
 import ReactGA from "react-ga";
 import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
 import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
-import { settingAuthenticationForAdmin } from "../../../reducers/demo";
+import { settingAuthenticationForAdmin, settingProcessingStartCreateShiftplan } from "../../../reducers/demo";
 import { RegistrationForm, RegistrationFormAdmin } from "./Form/RegistrationFormAdmin";
 import { AuthenticationFormEmployee } from "./Form/AuthenticationFormEmployee";
 import { RegistrationFormEmployee } from "./Form/RegistrationFormEmployee";
@@ -30,10 +30,11 @@ export const ModalIntro = (props) => {
     const demoIntro = useSelector(state => state.modal.demoIntro);
 
     const handleCreateDemo = () => {
-        ReactGA.event({
+        {/*ReactGA.event({
             category: 'Demo',
             action: "Create Shiftplan"
-        });
+        });*/}
+        dispatch(settingProcessingStartCreateShiftplan())
         dispatch(thunkCreateDemo());
     }
       //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
@@ -52,11 +53,6 @@ export const ModalIntro = (props) => {
                         <p className="mb-0">
                             Leg gleich los und erstelle deinen ersten Schichtplan. 
                         </p>
-                        <small>
-                            Hinweis: Speichere dir den Link zu deinem Schichtplan ab.
-                            <br/>
-                            Ohne den Link geht dein Schichtplan verloren.
-                        </small>
                     </Col>
                 </Row>
                 <Row className="text-center mt-4">

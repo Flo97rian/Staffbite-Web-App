@@ -20,6 +20,8 @@ import classnames from "classnames";
 import { ReactDOM } from "react";
 import { Helmet } from "react-helmet";
 import isBefore from "date-fns/isBefore";
+import { Steps, Hints } from "intro.js-react";
+import "intro.js/introjs.css";
 // JavaScript library that creates a callendar with events
 import FullCalendar from "@fullcalendar/react"
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -75,8 +77,10 @@ import { ModalEditShift } from "./CalendarDemo/ModalEditShift";
 import { ModalEmployees } from "./CalendarDemo/ModalEmployees";
 import { isSameWeek } from "date-fns";
 import { de } from "date-fns/locale";
+import { IntroContent } from "./CalendarDemo/IntroStep";
 import { ModalApplyForShift } from "./CalendarDemo/ModalApplyForShift";
 import { ModalSendFeedback } from "./CalendarDemo/ModalSendFeedback";
+import { ModalInvitationAdmin } from "./CalendarDemo/AdminInvitationModal";
 const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
 const borderColor = ["border-success", "border-info", "border-light"]
 
@@ -104,39 +108,49 @@ function CalendarDemo(props) {
   const [bussinessHoursStart, setBussinessHoursStart] = useState("12:00")
   const [eventDescription, setEventDescription] = useState(null);
   const isAdmin = useSelector(state => state.demo.demoAdmin?.isAdmin);
+  const newAdmin = useSelector(state => (state.demo.demoAdmin?.isAdmin && (state.demo.demoAdmin.securityQuestionId === false || state.demo.demoAdmin.securityQuestionId === undefined)));
   const isEmployee = useSelector(state => state.demo.demoEmployee.isEmployee);
   const isSignedIn = useSelector(state => state.demo.demoSignedIn);
+  const demoFetched = useSelector(state => state.demo.demoFetched === "fulfilled");
   const employee = useSelector(state => state.demo.demoEmployee);
   const events = useSelector(state => state.demo.demoPlans);
+  const CreateingShiftplan = useSelector(state => state.demo.demoProcessingCreateShiftplan === "loading");
   const EventsChanged = useSelector(state => state.ShiftplanChanged.shiftplanChanged);
   // eslint-disable-next-line
   const [event, setEvent] = useState(null);
   const calendarRef = useRef(null);
   const containerRef = useRef();
   const dispatch = useDispatch()
+  const [intro, setIntro] = useState({
+    
+      stepsEnabled: false,
+      initialStep: 0,
+      onExit: () => setIntro({...intro, stepsEnabled: false}),
+      steps: [
+        {
+          element: ".adminView",
+          position: 'bottom',
+          intro:  <IntroContent title="Willkommen" content="In der Planer Ansicht kannst du deine Schichtpläne erstellen & bearbeiten. Und dein Team einladen." />
+        },
+        {
+          element: ".shiftplan",
+          position: 'top',
+          intro:  <IntroContent title="Du willst gleich anfangen?" content="Klicke einfach in den Kalender und erstelle deine erste Schicht." />
+        }
+      ],
+    })
 
 
   
   useEffect(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const params = Object.fromEntries(urlSearchParams.entries());
-    if("id" in params && !("invitation" in params)) {
-      dispatch(settingModal("demoEntry"));
-      dispatch(settingDemoId(params.id));
-      dispatch(thunkFetchDemo(params.id));
-      var url = window.location.href;
-      setInvitationLink(url + "&invitation=true");
-    }
-    if("id" in params && "invitation" in params) {
-      dispatch(settingModal("demoInvitation"))
-      dispatch(settingDemoId(params.id));
-      dispatch(thunkFetchDemo(params.id));
-    }
-    if(!Object.keys(params).length) {
-      dispatch(settingModal("demoIntro"))
-    }
-    handleShowViewBasedOnWidth()
+    handleStart();
   }, [])
+
+  useEffect(() => {
+    if(demoFetched) {
+      handleShowEntries()
+    }
+  }, [demoFetched]);
 
   useEffect(() => {
     if(navigator.clipboard.readText() !== invitationLink) {
@@ -161,6 +175,44 @@ function CalendarDemo(props) {
   }, [EventsChanged])
 
   
+  function handleStart() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    if("id" in params && !("invitation" in params)) {
+      dispatch(settingDemoId(params.id));
+      dispatch(thunkFetchDemo(params.id));
+      var url = window.location.href;
+      setInvitationLink(url + "&invitation=true");
+    }
+    if("id" in params && "invitation" in params) {
+      dispatch(settingDemoId(params.id));
+      dispatch(thunkFetchDemo(params.id));
+    }
+    if(!Object.keys(params).length) {
+      dispatch(settingModal("demoIntro"))
+    }
+    handleShowViewBasedOnWidth()
+  }
+
+  function handleShowEntries() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    if(newAdmin) {
+      setIntro({...intro, stepsEnabled: true});
+    }
+    if("id" in params && !("invitation" in params) && !newAdmin) {
+      dispatch(settingModal("demoEntry"));
+      var url = window.location.href;
+      setInvitationLink(url + "&invitation=true");
+    }
+    if("id" in params && "invitation" in params) {
+      dispatch(settingModal("demoInvitation"))
+    }
+    if(!Object.keys(params).length) {
+      dispatch(settingModal("demoIntro"))
+    }
+    handleShowViewBasedOnWidth()
+  }
 
   useEffect(() => {
     if(calendarRef.current) {
@@ -168,6 +220,10 @@ function CalendarDemo(props) {
       setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
     }
   }, [calendarRef])
+
+
+  useEffect(() => {
+  }, [isAdmin]);
 
 
   const handleShowViewBasedOnWidth = () => {
@@ -181,6 +237,7 @@ function CalendarDemo(props) {
       setViews("timeGridWeek")
     }
   }
+
 
   const setViews = (newView) => {
     if(newView === "listWeek") {
@@ -248,6 +305,16 @@ function CalendarDemo(props) {
     return (
       <h5 className="h3 mb-0">{headerTitle}</h5>
     )
+  }
+
+  const handleInvitationLink = () => {
+    if(newAdmin) {
+      dispatch(settingModal("demoInvitationAdmin"));
+    }
+    if(!newAdmin) {
+      navigator.clipboard.writeText(invitationLink)
+      setClip(true);
+    }
   }
 
   const StatusBadge = () => {
@@ -400,20 +467,45 @@ function CalendarDemo(props) {
           <link rel="canonical" href="https://www.staffbite.de" />
         </Helmet>
       {alert}
-      <Container className="mt-4" fluid ref={containerRef}>
-          <Row hidden={!isAdmin} className="text-center mb-4">
+      <ReactBSAlert
+      show={CreateingShiftplan}
+      type='info'
+      title="In Bearbeitung"
+      showConfirm={false}
+     >
+      <Row>
+        <Col>
+          <p>Dein Schichtplan wird jetzt erstellt</p>
+        </Col>
+      </Row>
+     </ReactBSAlert>
+     <Steps
+          enabled={intro.stepsEnabled}
+          steps={intro.steps}
+          initialStep={intro.initialStep}
+          options={{
+            nextLabel: "Weiter",
+            prevLabel: "Zurück",
+            doneLabel: "Fertig",
+            showProgress: true,
+          }}
+        />
+      <Container  className="mt-4" fluid ref={containerRef}>
+        <div className="adminView">
+          <Row hidden={!isAdmin} className="text-center">
               <Col>
                 <h3>Planer Ansicht</h3>
-                <Button size="sm" color="link" className="" onClick={() => {
-                        navigator.clipboard.writeText(invitationLink)
-                        setClip(true);
-                        }
-                    }>
+              </Col>
+          </Row>
+          <Row hidden={!isAdmin} className="text-center mb-4">
+              <Col>
+                <Button size="sm" color="link" onClick={() => handleInvitationLink()}>
                   {clip ? "Einladungslink kopiert " : "Einladungslink kopieren "}
                   {clip ? <i className="fas fa-check" /> : <i className="fas fa-copy"></i>}
                 </Button>
               </Col>
           </Row>
+          </div>
           <Row hidden={!isEmployee} className="text-center mb-4">
               <Col>
                 <h3>Mitarbeiter Ansicht</h3>
@@ -452,7 +544,7 @@ function CalendarDemo(props) {
         </Row>
         <Row className="pt-2">
           <div className="col">
-            <Card className="card-calendar">
+            <Card className="card-calendar shiftplan">
               <CardHeader>
                 <Row>
                   <Col>
@@ -604,6 +696,7 @@ function CalendarDemo(props) {
       <ModalEmployees calendarRef={calendarRef.current}/>
       <ModalApplyForShift />
       <ModalSendFeedback />
+      <ModalInvitationAdmin />
     </>
   );
 }

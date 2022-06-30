@@ -1,7 +1,7 @@
 import { API, Auth } from "aws-amplify";
 import { API_HOSTNAME, FETCH_DEMO, FETCH_ORGANISATION } from "../../constants/ApiConstants";
 import { settingMetaFetching, settingMetaFulfilled, settingMetaRejected } from "../../reducers/DB";
-import { settingDemoAdmin, settingDemoEmployees, settingDemoId, settingDemoIsAdmin, settingDemoMeta, settingDemoPlans } from "../../reducers/demo";
+import { settingDemoAdmin, settingDemoEmployees, settingDemoFetched, settingDemoId, settingDemoIsAdmin, settingDemoMeta, settingDemoPlans } from "../../reducers/demo";
 import { settingMeta } from "../../reducers/Meta";
 
 export function thunkFetchDemo(Id = false) { 
@@ -24,6 +24,13 @@ export function thunkFetchDemo(Id = false) {
             if(isAdmin) {
                 dispatch(settingDemoIsAdmin());
             }
+            if(response?.Item?.demoAdmin) {
+                let demoAdmin = JSON.parse(response.Item.demoAdmin["S"]);
+                if(!("securityQuestionId" in demoAdmin) || demoAdmin.securityQuestionId === false) {
+                    dispatch(settingDemoIsAdmin());
+                }
+            }
+            dispatch(settingDemoFetched());
           })
 
         .catch(error => {

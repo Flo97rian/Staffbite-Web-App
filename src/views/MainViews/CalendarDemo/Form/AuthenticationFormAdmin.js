@@ -35,7 +35,7 @@ export const AuthenticationFormAdmin = () => {
         <>
                 <Row className="text-center mt-3">
                     <Col>
-                        <h2>Anmeldung für Planer</h2>
+                        <h2>Zugriff für Planer</h2>
                         <p className="mt-2">
                             Als Planer kannst du Schichtpläne nach deinen Bedürfnissen erstellen.
                         </p>
