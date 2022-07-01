@@ -126,11 +126,11 @@ export const ModalApplyForShift = (props) => {
                                         <InfoLabel description={INFO_SHIFTPLAN_SHIFT_NAME} title="Name der Schicht"/>
                                         <Input type="text" name="ShiftName" disabled value={event.title}></Input>
                                         <Row className="mt-2">
-                                            <Col>
+                                            <Col xs="12" md="6">
                                                 <InfoLabel description={INFO_SHIFTPLAN_SHIFT_START} title="Beginn"/>
                                                 <Input type="time" name="beginn" disabled value={start}></Input>
                                             </Col>
-                                            <Col>
+                                            <Col xs="12" md="6">
                                                 <InfoLabel description={INFO_SHIFTPLAN_SHIFT_END} title="Ende"/>
                                                 <Input type="time" name="ende" disabled value={end}></Input>
                                             </Col>

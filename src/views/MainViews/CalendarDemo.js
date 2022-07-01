@@ -135,7 +135,7 @@ function CalendarDemo(props) {
         {
           element: ".shiftplan",
           position: 'top',
-          intro:  <IntroContent title="Du willst gleich anfangen?" content="Klicke einfach in den Kalender und erstelle deine erste Schicht." />
+          intro:  <IntroContent title="Du willst gleich anfangen?" content={viewListWeek ? "Klicke einfach auf das + über dem Schichtplan und erstelle deine erste Schicht":"Klicke einfach in den Kalender und erstelle deine erste Schicht."} />
         }
       ],
     })
@@ -553,7 +553,9 @@ function CalendarDemo(props) {
                   <Col>
                     <Row className="text-right">
                       <Col>
+                          <Button color="link" size="sm" onClick={() => changeToToday()}>Heute</Button>
                           <Button
+                          hidden={viewDayGridMonth}
                           className="btn-neutral"
                           color="link"
                           data-calendar-view="month"
@@ -563,6 +565,7 @@ function CalendarDemo(props) {
                           Monat
                         </Button>
                         <Button
+                        hidden={(viewListWeek || viewTimeGridWeek)}
                           className="btn-neutral"
                           color="link"
                           data-calendar-view="basicWeek"
@@ -585,7 +588,7 @@ function CalendarDemo(props) {
                   <Col>      
                   <Row className="text-right">
                     <Col>
-                        <Button color="link" size="sm" onClick={() => changeToToday()}>Heute</Button>
+                        <Button hidden={(!viewListWeek || !isAdmin)} color="link" size="sm" onClick={() => dispatch(settingModal("demoAddShift"))}><i className="fas fa-plus"/></Button>
                         <Button color="link" size="sm" onClick={() => changeToPrev()}><i className="fas fa-arrow-left"/></Button>
                         <Button color="link" size="sm" onClick={() => changeToNext()}><i className="fas fa-arrow-right"/></Button>
                     </Col>
@@ -620,6 +623,10 @@ function CalendarDemo(props) {
                           },
                           timeGridWeek: {
                             dayHeaderFormat: {weekday: "long", month: 'long', day: 'numeric'},
+                          },
+                          listWeek: {
+                            titleFormat: { month: '2-digit', day: '2-digit' },
+                            dayHeaderFormat: {weekday: "short", month: 'short', day: 'numeric'},
                           }
                         }}
                         slotLabelFormat= {{
@@ -679,6 +686,10 @@ function CalendarDemo(props) {
                               dispatch(settingModal("demoApplyForShift"));
                             }
                           }
+                          if (viewListWeek && isAdmin) {
+                            dispatch(settingTemporaryEventId(event._def.extendedProps.id))
+                            dispatch(settingModal("demoEditShift"))
+                          }
                         }}
                     />
                   </Col>
@@ -691,7 +702,7 @@ function CalendarDemo(props) {
       <ModalDemoEntry />
       <ModalInvitation />
       <ModalIntro />
-      <ModalAddShift />
+      <ModalAddShift isListView={viewListWeek}/>
       <ModalEditShift />
       <ModalEmployees calendarRef={calendarRef.current}/>
       <ModalApplyForShift />

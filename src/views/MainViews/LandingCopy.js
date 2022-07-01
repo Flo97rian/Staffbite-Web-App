@@ -207,14 +207,14 @@ const LandingCopy = (props) => {
                   </Col>
                 </Row>
                 <Row className="mt-3">
-                  <Col>
+                  <Col xs="12" md="4">
                       <h3>Kostenlos</h3>
                       <ul><i className="fas fa-check"></i>{" "}Digitaler Schichtplan</ul>
                       <ul><i className="fas fa-check"></i>{" "}Unbegrenzt Schichtpläne erstellen</ul>
                       <ul><i className="fas fa-check"></i>{" "}Unbegrenzt Mitarbeiter einladen</ul>
                       <ul><i className="fas fa-check"></i>{" "}Alternative zum Excel Schichtplan</ul>
                   </Col>
-                  <Col>
+                  <Col xs="12" md="4">
                       <h3>Pro</h3>
                       <ul><i className="fas fa-check"></i>{" "}Automatisierter Schichtplan</ul>
                       <ul><i className="fas fa-check"></i>{" "}Mitarbeiter App</ul>
@@ -222,7 +222,7 @@ const LandingCopy = (props) => {
                       <ul><i className="fas fa-check"></i>{" "}Tauschanfragen verwalten</ul>
                       <ul><i className="fas fa-check"></i>{" "}Urlaubsplaner (in Entwicklung)</ul>
                   </Col>
-                  <Col>
+                  <Col xs="12" md="4">
                       <br/>
                       <ul><i className="fas fa-check"></i>{" "}Rollen & Berechtigungen</ul>
                       <ul><i className="fas fa-check"></i>{" "}Automatische Team-Benachrichtigungen</ul>

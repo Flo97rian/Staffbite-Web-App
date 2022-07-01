@@ -3,7 +3,6 @@ import {
     Col,
 } from "reactstrap";
 export const IntroContent = (props) => {
-    console.log(props);
     const {title, content} = props;
     return (
       <>

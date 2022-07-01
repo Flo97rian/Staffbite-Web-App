@@ -174,10 +174,10 @@ export const ModalEditShift = (props) => {
                                             </Col>
                                         </Row>
                                         <Row className="mt-2">
-                                            <Col>
+                                            <Col xs="12" md="6">
                                                 <InputTime info={true} placeholder={start} description={INFO_SHIFTPLAN_SHIFT_START}label="Beginn" name="beginn" onChange={(event) => setUserForm({...userForm, ShiftStart: event.target.value})}></InputTime>
                                             </Col>
-                                            <Col>
+                                            <Col xs="12" md="6">
                                                 <InputTimeWithSwitch info={true} placeholder={end} description={INFO_SHIFTPLAN_SHIFT_END} label="Ende" name="ende" onChange={(event) => setUserForm({...userForm, ShiftEnd: event.target.value})}></InputTimeWithSwitch>
                                             </Col>
                                         </Row>

@@ -33,16 +33,26 @@ import { settingShiftplanChanged } from "../../../reducers/shiftplanChanged";
 
 export const ModalAddShift = (props) => {
     const dispatch = useDispatch();
-    const [userForm, setUserForm] = useState({ShiftName: "", NumberOfEmployees: 0, ShiftStart: "", ShiftEnd: ""})
+    const [userForm, setUserForm] = useState({ShiftName: "", NumberOfEmployees: 0, ShiftStart: "", ShiftEnd: "", ShiftDate: ""})
     const plans = useSelector(state => state.demo.demoPlans);
     const userInput = useSelector(state => state.userInput);
     const date = useSelector(state => state.date);
     const demoAddShift = useSelector(state => state.modal.demoAddShift);
     const addShift = () => {
-        let start = new Date(date.start)
+        let start;
+        let end;
+        console.log(userForm);
+        if(props.isListView) {
+            start = new Date(userForm.ShiftDate);
+            end = new Date(date.start);
+        }
+
+        if(!props.isListView) {
+            start = new Date(date.start); 
+            end = new Date(date.start);   
+        }
         start.setHours(userForm.ShiftStart.split(":")[0])
         start.setMinutes(userForm.ShiftStart.split(":")[1])
-        let end = new Date(date.start);
         end.setHours(userForm.ShiftEnd.split(":")[0])
         end.setMinutes(userForm.ShiftEnd.split(":")[1])
         let data = {
@@ -98,10 +108,12 @@ export const ModalAddShift = (props) => {
                                             </Col>
                                         </Row>
                                         <Row className="mt-2">
-                                            <Col>
-                                                <InputTime info={true} placeholder="" description={INFO_SHIFTPLAN_SHIFT_START}label="Beginn" name="beginn" onChange={(event) => setUserForm({...userForm, ShiftStart: event.target.value})}></InputTime>
+                                            <Col xs="12" md="6">
+                                                <InfoLabel title="Beginn" description={INFO_SHIFTPLAN_SHIFT_START}></InfoLabel>
+                                                <Input hidden={!props.isListView} type="date" className=" edit-event--description input-autosize form-control" name="beginn" defaultValue="" onChange={(event) => setUserForm({...userForm, ShiftDate: event.target.value})}></Input>
+                                                <Input type="time" className=" edit-event--description input-autosize form-control" name="beginn" defaultValue="" onChange={(event) => setUserForm({...userForm, ShiftStart: event.target.value})}></Input>
                                             </Col>
-                                            <Col>
+                                            <Col xs="12" md="6">
                                                 <InputTimeWithSwitch info={true} placeholder="" description={INFO_SHIFTPLAN_SHIFT_END} label="Ende" name="ende" onChange={(event) => setUserForm({...userForm, ShiftEnd: event.target.value})}></InputTimeWithSwitch>
                                             </Col>
                                         </Row>
