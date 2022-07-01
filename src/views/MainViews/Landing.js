@@ -326,7 +326,7 @@ const Landing = (props) => {
                       </Row>
                       <p className="lead-text mt-4" style={!isMobile ? { transform: "translateY(10%)"} : {}}>
                       <Row className="text-left">
-                        <Col>Deine Mitarbeiter*innen tragen sich <Link to="/fuer-dein-team" class="stretched-link">online in deinen Schichtplan</Link> ein. Das geht jederzeit per Smartphone, Tablet oder Laptop.
+                        <Col>Deine Mitarbeiter*innen tragen sich <Link to="/fuer-dein-team" className="stretched-link">online in deinen Schichtplan</Link> ein. Das geht jederzeit per Smartphone, Tablet oder Laptop.
                           </Col>
                       </Row>
                       <Row className="mt-4 text-left">
@@ -645,7 +645,7 @@ const Landing = (props) => {
                               <Row>
                                 <Col>
                                 <h3 className="lead-text mb-0 mt-0">
-                                <a href="https://youtu.be/R0SpszGT0k8" class="stretched-link">Einfache Bedienbarkeit</a> <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                <a href="https://youtu.be/R0SpszGT0k8" className="stretched-link">Einfache Bedienbarkeit</a> <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
                                 </h3>
                                 </Col>
                               </Row>
@@ -677,7 +677,7 @@ const Landing = (props) => {
                               <Row>
                                 <Col>
                                 <h3 className="lead-text mb-0 mt-0">
-                                <Link to="/schichtplan-erstellen" class="stretched-link">Flexible Schichtpläne</Link> <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                <Link to="/schichtplan-erstellen" className="stretched-link">Flexible Schichtpläne</Link> <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
                                 </h3>
                                 </Col>
                               </Row>
@@ -709,7 +709,7 @@ const Landing = (props) => {
                               <Row>
                                 <Col>
                                 <h3 className="lead-text mb-0 mt-0">
-                                  <Link to="/automatisierter-schichtplan" class="stretched-link">Automatisierte Zuordnung </Link><i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                  <Link to="/automatisierter-schichtplan" className="stretched-link">Automatisierte Zuordnung </Link><i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
                                 </h3>
                                 </Col>
                               </Row>
@@ -741,7 +741,7 @@ const Landing = (props) => {
                               <Row>
                                 <Col>
                                 <h3 className="lead-text mb-0 mt-0">
-                                <Link to="/pricing" class="stretched-link">Faire Preise</Link>  <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
+                                <Link to="/pricing" className="stretched-link">Faire Preise</Link>  <i className="float-right mt-1 fas fa-arrow-right icon-size-sm text-default"></i>
                                 </h3>
                                 </Col>
                               </Row>

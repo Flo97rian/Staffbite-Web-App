@@ -5,7 +5,6 @@ import {
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import ReportFilter from "../ReportingFilter/ReportFilter";
-import moment from "moment";
 import { resettingModal } from "../../../reducers/modal";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingUserInput } from "../../../reducers/userInput";

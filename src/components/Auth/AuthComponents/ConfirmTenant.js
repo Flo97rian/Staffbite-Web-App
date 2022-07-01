@@ -15,7 +15,6 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect } from "react";
 
 // reactstrap components
 import {
@@ -37,9 +36,7 @@ import {
 
 // core components
 import LandingNavbar from "../../Navbars/LandingNavbar"
-import { Auth } from 'aws-amplify';
-import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { Switch, Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 
 const ConfirmTenant = (props) => {

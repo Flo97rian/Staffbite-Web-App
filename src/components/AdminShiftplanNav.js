@@ -6,7 +6,7 @@ import {
   NavLink,
   Nav
 } from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 function AdminShiftplanNav (props) {

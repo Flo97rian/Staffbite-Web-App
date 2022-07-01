@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { HashLink } from 'react-router-hash-link';
 import NotificationAlert from "react-notification-alert";
 // reactstrap components
@@ -39,9 +39,7 @@ import {
 
 // core components
 import LandingNavbar from "../../Navbars/LandingNavbar"
-import { Auth } from 'aws-amplify';
-import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { Switch, Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 import { WARNING_AGB_NOT_ACCEPTED, WARNING_MAIL_ALREADY_USED, WARNING_MISSING_MAIL, WARNING_MISSING_PASSWORD } from "../../../constants/Alerts";
 

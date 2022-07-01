@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form';
 import { useSelector, useDispatch } from "react-redux";
 import { applyForShiftTrade, deleteTradeShift } from "../reducers/Shiftplan";
 import { thunkUpdateTradeShift } from "../store/middleware/UpdateTradeShift";
-import { isThisWeek, startOfWeek } from "date-fns";
+import { startOfWeek } from "date-fns";
 
 const UserShiftplanTrades = () => {
     const dispatch = useDispatch();

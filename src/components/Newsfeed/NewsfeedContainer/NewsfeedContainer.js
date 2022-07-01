@@ -1,6 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Card, CardBody, Row, CardTitle, Col } from "reactstrap";
+import { Card, CardBody, Row, Col } from "reactstrap";
 import NewsFeedTimeline from "../NewsFeedTimeline/NewsFeedTimeline";
 function NewsfeedContainer () {
     return (

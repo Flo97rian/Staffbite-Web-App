@@ -6,15 +6,12 @@ import {
     Col
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
-import store from "../store";
-import ShiftDetails from "./UserShiftDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
 import { deleteApplicant, settingApplicant } from "../reducers/Shiftplan";
 import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 import InfoLabel from "./InfoLabel";
 import { INFO_USER_NOTICE } from "../constants/InfoTexts";
-import FormNames from "./FormNames";
 
 
 const ModalUserApply = (props) => {

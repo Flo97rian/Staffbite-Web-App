@@ -6,7 +6,6 @@ import {
     FormGroup,
     FormFeedback
 } from "reactstrap"
-import { FEEDBACK_VALID_EMPLOYEE_EMAIL, FEEDBACK_INVALID_EMPLOYEE_EMAIL } from "../constants/FeedbackText";
 
 function InputStringValid (props) {
     let hasInfo = props.info;

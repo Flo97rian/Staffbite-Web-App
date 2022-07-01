@@ -37,17 +37,15 @@ import {
   PopoverBody,
   UncontrolledPopover,
   PopoverHeader,
-  UncontrolledTooltip,
-  Popover
 } from "reactstrap";
 // core components
 
-import _, { set } from "lodash";
+import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { weekdays } from "../constants/Weekdays";
-import { resettingModal, settingModal } from "../reducers/modal";
+import { settingModal } from "../reducers/modal";
 import { settingShiftSlot } from "../reducers/ShiftSlot";
-import { addCalendarShift, resettingShiftplan, settingCalenderShift, settingShiftDescription, settingShiftplan, settingShiftTime } from "../reducers/Shiftplan";
+import { resettingShiftplan, settingShiftplan, settingShiftTime } from "../reducers/Shiftplan";
 import isSameWeek from "date-fns/isSameWeek";
 import { de } from 'date-fns/locale'
 import { resettingRemindShiftplanID, resettingTemporaryCalendarWeekIndicator, settingCalendarFilter, settingRemindShiftplanID, settingTemporaryCalendarWeekIndicator, settingTemporaryEventId } from "../reducers/temporary";
@@ -62,12 +60,8 @@ import { resettingErrorMessages } from "../reducers/ErrorMessages";
 import { settingEnd, settingStart } from "../reducers/DatePicker";
 import { endOfWeek, startOfWeek } from "date-fns";
 import { thunkUploadShiftPlanToDB } from "../store/middleware/UploadShiftPlanToDB";
-import { createInitialDummyshifts, resettingEmployeesDummyshifts } from "../reducers/DB";
+import { resettingEmployeesDummyshifts } from "../reducers/DB";
 import { thunkReleaseForApplication } from "../store/middleware/ReleaseForApplication";
-const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
-const borderColor = ["border-success", "border-info", "border-light"]
-
-let calendar;
 
 function CalendarView(props) {
   const [events, setEvents] = useState([]);
@@ -85,25 +79,15 @@ function CalendarView(props) {
   const Meta = useSelector(state => state.Meta);
   const shiftplan = useSelector(state => state.Shiftplan)
   const Plans = useSelector(state => state.DB.plans);
-  const index = useSelector(state => state.shiftSlot.index);
-  const day = useSelector(state => state.shiftSlot.day);
-  const userInput = useSelector(state => state.userInput);
-  const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
-  const DisplayBasicLayout = useSelector(state => state.display.displayBasicLayout);
   const DisplayCalendarLayout = useSelector(state => state.display.displayCalendarLayout);
   const ShiftplanChanged = useSelector(state => state.ShiftplanChanged.shiftplanChanged);
-  const currentEventId = useSelector(state => state.temporary.eventId);
   const calendarFilter = useSelector(state => state.temporary.calendarFilter);
   const calenderWeekIndicator = useSelector(state => state.temporary.calenderWeekIndicator);
   const SuccessMessagesKey = useSelector(state => Object.keys(state.successMessage).find(key => state.successMessage[key] === true));
   const SuccessMessageShow = useSelector(state => Object.values(state.successMessage).includes(true));
-  const ProcessingKeyRejected = useSelector(state => Object.keys(state.processing).find(key => state.processing[key] === "rejected"));
-  const ProcessingKeyLoading = useSelector(state => Object.keys(state.processing).find(key => state.processing[key] === "loading"));
   const ProcessingShowRejected = useSelector(state => Object.values(state.processing).includes("rejected"));
   const ProcessingShowLoading = useSelector(state => Object.values(state.processing).includes("loading"));
-  const TemporaryDeleteShiftplanId = useSelector(state => state.temporary.deleteShiftplanId);
   const TemporaryRemindedShiftplanId = useSelector(state => state.temporary.shiftplanId);
-  const ErrorMessage = useSelector(state => Object.keys(state.ErrorMessages).find(key => state.ErrorMessages[key] === true));
   const NewShiftPlan = useSelector(state => state.newShiftPlan);
 
   const AltertSuccessMessages = {

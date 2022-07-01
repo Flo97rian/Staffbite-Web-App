@@ -3,7 +3,6 @@ import {
     FormGroup
     } from "reactstrap"
 import Form from 'react-bootstrap/Form';
-import InfoOverlay from "./InfoOverlay";
 import InfoLabel from "./InfoLabel";
 
 export default class ControlQualification extends React.PureComponent {

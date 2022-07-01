@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Row,
     Col,
@@ -7,13 +6,10 @@ import {
     CardBody,
   } from "reactstrap";
 import { planIdColor } from "./PlanIdColor";
-import store from "../store";
-import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { settingShiftplan } from "../reducers/Shiftplan";
 import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 import { settingDisplayShiftplan } from "../reducers/display";
-import { thunkDeleteShiftPlan } from "../store/middleware/DeleteShiftPlan";
 import { createInitialDummyshifts } from "../reducers/DB";
 import { settingDeleteShiftplanID } from "../reducers/temporary";
 

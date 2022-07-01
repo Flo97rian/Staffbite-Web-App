@@ -1,8 +1,6 @@
 import _ from "lodash";
 import React, {useState} from "react";
 import {
-    Col,
-    Row,
     Button,
     Input,
     FormGroup,

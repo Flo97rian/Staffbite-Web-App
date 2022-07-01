@@ -1,5 +1,4 @@
 import React from "react";
-import InfoOverlay from "./InfoOverlay";
 import {
     Input,
     FormGroup,

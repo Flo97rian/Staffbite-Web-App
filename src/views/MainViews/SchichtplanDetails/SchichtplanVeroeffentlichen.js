@@ -73,7 +73,7 @@ function SchichtplanVeroeffentlichen (props) {
                 <Col className="">
                 <Row className="mt-5">
                     <Col>
-                        <h2 class="display-4">Fertigen Schichtplan veröffentlichen</h2>
+                        <h2 className="display-4">Fertigen Schichtplan veröffentlichen</h2>
                         <p className="lead">
                             Nachdem dein Schichtplan automatisch befüllt wurde, kannst du noch letzte Änderungen vornehmen.
                             Anschließend veröffentlichst du den fertigen Plan mit nur einem Klick für dein gesamtes Team.

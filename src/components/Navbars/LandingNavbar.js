@@ -1,15 +1,10 @@
-import React, { useState } from "react";
-import { HashLink } from 'react-router-hash-link';
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Player, Controls } from '@lottiefiles/react-lottie-player';
-import ReactGA from "react-ga";
 // reactstrap components
 import {
   NavbarBrand,
   Navbar,
-  NavItem,
   Nav,
-  Container,
   NavbarToggler,
   DropdownItem,
   Collapse,

@@ -3,7 +3,7 @@ import { de } from "date-fns/locale";
 import React, { useState, useImperativeHandle, useEffect} from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Col, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { resettingDummyShift, settingDummyShifts } from "../../../../reducers/demo";
 
 // fake data generator
@@ -13,11 +13,6 @@ const getItems = (employees = {}, index) => {
   } else {
     return noEmployeesSet(index);
   }};
-
-const validateHasAfterPublish = (isPublished, showAfterPublish, applyed, applicantsAfterPublish) => {
-  if(isPublished && showAfterPublish) return applicantsAfterPublish
-  return applyed
-}
 
   const noEmployeesSet = (index) => {
     const array = [{
@@ -107,7 +102,7 @@ const EmployeesDnD = React.forwardRef((props, ref) => {
   const event = useSelector(state => state.demo.demoPlans.find(event => event.id === state.temporary.eventId));
   const [state, setState] = useState([getEmployees(employees, 0), getItems(event.applicants, 1), getItems(event.setApplicants, 2)]);
   const [Employees, setEmployees] = useState(employees);
-  const [showMore, setShowMore] = useState(false);
+
 
   useImperativeHandle(ref, () => (state[2]), [state]);
 
@@ -299,16 +294,6 @@ const EmployeesDnD = React.forwardRef((props, ref) => {
     }
   }
 
-  function removeEmployee(ind, index) {
-    const newState = [...state];
-    if (newState[ind].length === 1) {
-      newState[ind][index].id = String(ind);
-      newState[ind][index].content = "Leer";
-    } else {
-      newState[ind].splice(index, 1);
-    }
-    setState(newState);
-  }
 
   function handleDelete(ind, index, item) {
     const newState = [...state];

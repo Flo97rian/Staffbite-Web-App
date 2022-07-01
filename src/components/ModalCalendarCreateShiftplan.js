@@ -1,4 +1,4 @@
-import React, {useState}  from "react";
+import {useState}  from "react";
 import {
     Button,
     Col,
@@ -6,13 +6,10 @@ import {
     Row
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
-import SchichtplanErstellen from "./FormCreateShiftplan"
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
-import { createingNewShiftplan, createingNewShiftplanFromExistingShiftplan, createingNewShiftplanInCalendar, createNewShiftplan, settingNewShiftplan } from "../reducers/NewShiftPlan";
+import { createingNewShiftplanFromExistingShiftplan, createingNewShiftplanInCalendar } from "../reducers/NewShiftPlan";
 import { resettingUserInput } from "../reducers/userInput";
-import {settingDisplayNewShiftplan } from "../reducers/display";
-import { settingMissingShiftplanName } from "../reducers/ErrorMessages";
 import FormCalendarImportVorlage from "./FormCalendarImportVorlage";
 import FormCalendarCreateShiftplan from "./FormCalendarCreateShiftplan";
 import { settingProcessingStartCreateShiftplan } from "../reducers/processing";

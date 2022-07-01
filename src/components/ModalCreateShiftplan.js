@@ -1,4 +1,3 @@
-import React, {useState}  from "react";
 import {
     Button,
     Label
@@ -7,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import SchichtplanErstellen from "./FormCreateShiftplan"
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
-import { createingNewShiftplan, createNewShiftplan, settingNewShiftplan } from "../reducers/NewShiftPlan";
+import { createingNewShiftplan } from "../reducers/NewShiftPlan";
 import { resettingUserInput } from "../reducers/userInput";
 import {settingDisplayNewShiftplan } from "../reducers/display";
 import { settingMissingShiftplanName } from "../reducers/ErrorMessages";

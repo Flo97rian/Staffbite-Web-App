@@ -7,8 +7,6 @@ import {
 } from "reactstrap"
 import InfoLabel from "./InfoLabel";
 import Modal from 'react-bootstrap/Modal';
-import store from "../store";
-import ShiftDetails from "./ShiftDetails";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
 import { settingTradeShift } from "../reducers/Shiftplan";
@@ -21,7 +19,6 @@ const ModalTradeShift = (props) => {
     const index = useSelector(state => state.shiftSlot.index);
     const day = useSelector(state => state.shiftSlot.day);
     const Employee = useSelector(state => state.DB.employee);
-    const Shiftplan = useSelector(state => state.Shiftplan);
     const tradeShift = useSelector(state => state.modal.tradeShift);
     const ShiftName = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftStart);
     const ShiftStart = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftStart);

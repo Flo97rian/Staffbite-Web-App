@@ -1,6 +1,5 @@
 
 import store from "../store";
-import { Label } from "reactstrap";
 import PropTypes from "prop-types";
 const InfoLabel = ({title, description}) => {
     return (

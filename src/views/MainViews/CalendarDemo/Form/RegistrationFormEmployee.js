@@ -1,8 +1,7 @@
-import { useState } from "react"
 import { Button, Col, Input, Row } from "reactstrap"
 import { useDispatch, useSelector } from "react-redux";
 import { settingAuthenticationAnswere, settingEmployeeName, settingSelectedAuthenticationIndex } from "../../../../reducers/userInput";
-import { settingAuthenticationEmployee, settingAuthenticationForAdmin } from "../../../../reducers/demo";
+import { settingAuthenticationEmployee } from "../../../../reducers/demo";
 import { thunkUpdateDemo } from "../../../../store/middleware/UpdateDemo";
 import { resettingModal } from "../../../../reducers/modal";
 import ReactGA from "react-ga";

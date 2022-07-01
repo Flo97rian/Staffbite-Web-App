@@ -14,13 +14,11 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useState, useRef, useEffect} from "react";
+import {useState, useRef, useEffect} from "react";
 // nodejs library that concatenates classes
-import classnames from "classnames";
-import { ReactDOM } from "react";
+
 import { Helmet } from "react-helmet";
-import isBefore from "date-fns/isBefore";
-import { Steps, Hints } from "intro.js-react";
+import { Steps } from "intro.js-react";
 import "intro.js/introjs.css";
 // JavaScript library that creates a callendar with events
 import FullCalendar from "@fullcalendar/react"
@@ -33,24 +31,12 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
 // reactstrap components
 import {
   Button,
-  ButtonGroup,
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
-  InputGroupAddon,
-  Form,
-  Input,
-  Modal,
   Container,
   Row,
   Col,
-  Breadcrumb,
-  BreadcrumbItem,
-  Badge,
-  Collapse,
-  InputGroup,
-  ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -58,8 +44,7 @@ import {
 } from "reactstrap";
 // core components
 
-import _, { set } from "lodash";
-import store from "../../store";
+import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { weekdays } from "../../constants/Weekdays";
 import { settingModal } from "../../reducers/modal";
@@ -81,32 +66,17 @@ import { IntroContent } from "./CalendarDemo/IntroStep";
 import { ModalApplyForShift } from "./CalendarDemo/ModalApplyForShift";
 import { ModalSendFeedback } from "./CalendarDemo/ModalSendFeedback";
 import { ModalInvitationAdmin } from "./CalendarDemo/AdminInvitationModal";
-const slotGB = ["bg-success", "bg-info", "bg-light", "bg-light",]
-const borderColor = ["border-success", "border-info", "border-light"]
 
-let calendar;
 
 function CalendarDemo(props) {
-  const [positions, setPositions] = useState([]);
   const [alert, setAlert] = useState(null);
-  const [showDropdownButtons, setShowDropdownButtons] = useState(false);
-  const [modalAdd, setModalAdd] = useState(false);
-  const [modalChange, setModalChange] = useState(false);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [radios, setRadios] = useState(null);
-  const [eventId, setEventId] = useState(null);
-  const [eventTitle, setEventTitle] = useState(null);
   const [headerTitle, setHeaderTitle] = useState(null);
-  const [headerBadge, setHeaderBadge] = useState(null);
-  const [adminSignIn, setAdminSignIn] = useState(false);
   const [viewTimeGridWeek, setViewTimeGridWeek] = useState(true);
   const [viewDayGridMonth, setViewDayGridMonth] = useState(false);
   const [viewListWeek, setViewListWeek] = useState(false);
   const [clip, setClip] = useState(false);
   const [invitationLink, setInvitationLink] = useState("");
   const [bussinessHoursStart, setBussinessHoursStart] = useState("12:00")
-  const [eventDescription, setEventDescription] = useState(null);
   const isAdmin = useSelector(state => state.demo.demoAdmin?.isAdmin);
   const newAdmin = useSelector(state => (state.demo.demoAdmin?.isAdmin && (state.demo.demoAdmin.securityQuestionId === false || state.demo.demoAdmin.securityQuestionId === undefined)));
   const isEmployee = useSelector(state => state.demo.demoEmployee.isEmployee);
@@ -117,7 +87,6 @@ function CalendarDemo(props) {
   const CreateingShiftplan = useSelector(state => state.demo.demoProcessingCreateShiftplan === "loading");
   const EventsChanged = useSelector(state => state.ShiftplanChanged.shiftplanChanged);
   // eslint-disable-next-line
-  const [event, setEvent] = useState(null);
   const calendarRef = useRef(null);
   const containerRef = useRef();
   const dispatch = useDispatch()
@@ -227,7 +196,7 @@ function CalendarDemo(props) {
 
 
   const handleShowViewBasedOnWidth = () => {
-    const { innerWidth: width, innerHeight: height } = window;
+    const { innerWidth: width } = window;
     if(width < 875) {
       changeView("listWeek");
       setViews("listWeek")
@@ -317,43 +286,6 @@ function CalendarDemo(props) {
     }
   }
 
-  const StatusBadge = () => {
-    if(calendarRef.current && isAdmin) {
-      let calendarApi = calendarRef.current.getApi();
-      let currentDate = calendarApi.getDate();
-      const currentWeeksEvent = events.find(event => isSameWeek(new Date(event.start), new Date(currentDate), {locale: de, weekStartsOn: 1}));
-      if(currentWeeksEvent && currentWeeksEvent.showEmployee) {
-        return (
-          <UncontrolledButtonDropdown className="m-0 p-0">
-            <DropdownToggle caret className="badge p-0 " color="link">
-              <small> <i className="fas fa-eye"></i>{" "}Für Alle einsehbar</small>
-            </DropdownToggle>
-            <DropdownMenu className="m-0 p-0">
-              <DropdownItem className="badge bg-link" onClick={() => setShowEventsToEmployees(false)}>
-                <small> <i className="fas fa-eye"></i>{" "}Für Planer einsehbar</small>
-              </DropdownItem>
-            </DropdownMenu>
-            </UncontrolledButtonDropdown>
-          )
-      }
-      if(currentWeeksEvent) {
-        return (
-          <UncontrolledButtonDropdown className="m-0 p-0">
-            <DropdownToggle caret className="badge p-0 " color="link">
-              <small> <i className="fas fa-eye"></i>{" "}Für Planer einsehbar</small>
-            </DropdownToggle>
-            <DropdownMenu className="m-0 p-0">
-              <DropdownItem className="badge bg-link"  onClick={() => setShowEventsToEmployees(true)}>
-                <small> <i className="fas fa-eye"></i>{" "}Für Alle einsehbar</small>
-              </DropdownItem>
-            </DropdownMenu>
-            </UncontrolledButtonDropdown>
-            )
-      }
-      
-    }
-    return null;
-  }
 
   const setShowEventsToEmployees = (show) => {
     let calendarApi = calendarRef.current.getApi();
@@ -403,7 +335,7 @@ function CalendarDemo(props) {
     }
 
   const renderEventContent = (eventInfo) => {
-    const { innerWidth: width, innerHeight: height } = window;
+    const { innerWidth: width } = window;
     const displayOnSmallDevices = width < 875;
     if(isAdmin) {
     return (

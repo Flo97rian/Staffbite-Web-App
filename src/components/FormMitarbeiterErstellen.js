@@ -1,4 +1,3 @@
-import React, {useEffect} from "react";
 import {
     Col,
     Row,
@@ -7,26 +6,16 @@ import {
     Card,
     Badge
 } from "reactstrap";
-import InputString from "./InputString";
-import InputStringValid from "./InputStringValid";
 import InfoLabel from "./InfoLabel";
-import InputNumber from "./InputNumber";
 import Form from 'react-bootstrap/Form';
-import ControlQualification from "./ControlQualification";
-import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_EMPLOYEE_HOURLY_WAGES, INFO_EMPLOYEE_MONTHLY_INCOME, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK } from "../constants/InfoTexts";
-import { FEEDBACK_VALID_EMPLOYEE_EMAIL, FEEDBACK_INVALID_EMPLOYEE_EMAIL, FEEDBACK_VALID_EMPLOYEE_NAME, FEEDBACK_INVALID_EMPLOYEE_NAME } from "../constants/FeedbackText";
-import FormPositions from "./FormPositons";
-import { getMeta, getStundenerfassung, validName, validEmail } from "./ValidInputs";
+import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK } from "../constants/InfoTexts";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingEmployeePositions, settingEmployeeEmail, settingEmployeeName, settingEmployeePosition, settingEmployeeQualification, settingEmployeeShiftsPerWeek } from "../reducers/userInput";
 
 function FormMitarbeiterErstellen (props) {
         const dispatch = useDispatch();
         const CompanyPositions = useSelector(state => state.Meta.schichten);
-        const userInput = useSelector(state => state.userInput)
         const userPositions = useSelector(state => state.userInput.employeePositions);
-        const emailhasAtChar = /[@]/;
-        const emailhasDotChar = /[.]/;
                 return(
                     <>
                         <Row>

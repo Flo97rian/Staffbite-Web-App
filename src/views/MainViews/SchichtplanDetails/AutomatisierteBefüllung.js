@@ -66,14 +66,14 @@ function AutomatisierteBefüllung (props) {
       {/* Page content */}
       <Container className="mt-6">
                     <Row className="justify-content-center ml-0 mt-8">
-                    <h1 class="text-center">Dein digitaler Schichtplan - Automatisierte Befüllung</h1>
+                    <h1 className="text-center">Dein digitaler Schichtplan - Automatisierte Befüllung</h1>
                     </Row>
       </Container>    
 
             <Container className="pb-2">
             <Row className="mt-4">
                 <Col className="mt-6">
-                <h2 class="display-4">Deine Zeit ist zu wertvoll, um sie mit der Schichtplanung zu verbringen</h2>   
+                <h2 className="display-4">Deine Zeit ist zu wertvoll, um sie mit der Schichtplanung zu verbringen</h2>   
                 </Col>
                 </Row>
 

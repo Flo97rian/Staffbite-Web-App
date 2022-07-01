@@ -6,12 +6,6 @@ import {
     Default,
     setShiftDetails,
     editShiftDetails,
-    MultipleApplicants,
-    TwoApplicants,
-    SingleApplicant,
-    MultipleApplicantsWithPrio,
-    TwoApplicantsWithPrio,
-    SingleApplicantWithPrio,
     MultipleSetApplicantsWithPrio,
     MultiSetApplicantsWithoutPrio,
     ZeroApplicantsWithPrio,
@@ -32,7 +26,6 @@ import {
     ProgessSetApplicantsWithoutPrioNotFilled,
 
  } from "./ShiftplanElements";
-import store from "../store";
 import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { settingModal } from "../reducers/modal";

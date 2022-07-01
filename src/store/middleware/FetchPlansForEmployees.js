@@ -1,7 +1,6 @@
-import _ from "lodash";
 import { Auth, API } from "aws-amplify";
-import { API_HOSTNAME, FETCH_ALL_SHIFTPLANS_FOR_EMPLOYEE, FETCH_SHIFTPLAN_FOR_EMPLOYEE } from "../../constants/ApiConstants";
-import { settingEmployees, settingPlansFetching, settingPlansFulfilled, settingPlansRejected, settingShiftplans } from "../../reducers/DB";
+import { API_HOSTNAME, FETCH_ALL_SHIFTPLANS_FOR_EMPLOYEE } from "../../constants/ApiConstants";
+import { settingPlansFetching, settingPlansFulfilled, settingPlansRejected, settingShiftplans } from "../../reducers/DB";
 import { resettingShiftplanChanged } from "../../reducers/shiftplanChanged";
 export function thunkFetchAllShiftplansForEmployee() {
     return async function FetchEmployeePlansFromDB(dispatch, getState) {

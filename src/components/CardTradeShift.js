@@ -9,7 +9,6 @@ import {
     Col
 } from "reactstrap"
 import Form from 'react-bootstrap/Form';
-import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkUpdateShiftPlan } from "../store/middleware/UpdateShiftPlan";
 import { declineShiftTrade, settingShiftTrade } from "../reducers/Shiftplan";

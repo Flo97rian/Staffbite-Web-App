@@ -1,5 +1,4 @@
 import { API, Auth } from "aws-amplify";
-import { isBefore, isFuture, isPast, isThisWeek, startOfWeek } from "date-fns";
 import { FETCH_ALL_PLANS, API_HOSTNAME } from "../../constants/ApiConstants";
 import { settingPlansFetching, settingPlansFulfilled, settingPlansRejected, settingShiftplans } from "../../reducers/DB";
 

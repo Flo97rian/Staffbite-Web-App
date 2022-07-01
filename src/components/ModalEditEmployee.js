@@ -1,7 +1,6 @@
 import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import {
-    Col,
     Button,
     Label
 } from "reactstrap"
@@ -16,7 +15,6 @@ import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 const ModalEditEmployee = (props) => {
     const dispatch = useDispatch();
     const employeeID = useSelector(state => state.temporary.employeeID);
-    const Employee = useSelector(state => state.DB.employees[employeeID]);
     const userInput = useSelector(state => state.userInput);
 
     const updateEmployee = () => {   

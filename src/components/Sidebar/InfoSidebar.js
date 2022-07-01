@@ -16,10 +16,7 @@
 
 */
 /*eslint-disable*/
-import React, { useState } from "react";
-import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
-import { PropTypes } from "prop-types";
 import store from "../../store";
 import "./Sidebar.css"
 

@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react'
+import { useState , useEffect} from 'react'
 // reactstrap components
 import {
   FormGroup,
@@ -8,14 +8,12 @@ import {
   Col,
   Row
 } from "reactstrap";
-import store from '../store';
 // Now react-datetime will be in french
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import 'react-nice-dates/build/style.css'
 // react plugin used to create datetimepicker
 import ReactDatetime from "react-datetime";
 import { settingEnd, settingStart } from '../reducers/DatePicker';
-import moment from "moment";
 
 const Datepicker = (props) => {
   const dispatch = useDispatch()

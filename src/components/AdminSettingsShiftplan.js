@@ -1,20 +1,10 @@
 // Button der 3 Mal belegt werden kann
 // Button um einen erstellten Schichtplan zu auszuwählen
-import Switch from "./Switch";
 import Button from "react-bootstrap/Button";
-import { Row, Col, Card, CardBody, FormGroup } from "reactstrap";
-import Form from 'react-bootstrap/Form';
-import InfoLabel from "./InfoLabel"
-import { INFO_SETTINGS_ALGORITHM_FAIR, INFO_SETTINGS_ALGORITHM_REVERSE } from "../constants/InfoTexts";
-import { useSelector, useDispatch } from "react-redux";
-import userInput, { settingShiftplanFillingFair, settingShiftplanFillingReverse } from "../reducers/userInput";
+import { Row, Col, Card, CardBody } from "reactstrap";
 
 
 const AdminSettingsShiftplan = (props) => {
-        const dispatch = useDispatch();
-        const ShiftplanReverse = useSelector(state => state.Meta.reverse);
-        const ShiftplanFair = useSelector(state => state.Meta.fair);
-        const userInput = useSelector(state => state.userInput)
         return (
             <>     
              <Row className="mt-6">

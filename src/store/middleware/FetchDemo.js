@@ -1,8 +1,6 @@
-import { API, Auth } from "aws-amplify";
-import { API_HOSTNAME, FETCH_DEMO, FETCH_ORGANISATION } from "../../constants/ApiConstants";
-import { settingMetaFetching, settingMetaFulfilled, settingMetaRejected } from "../../reducers/DB";
+import { API } from "aws-amplify";
+import { API_HOSTNAME, FETCH_DEMO } from "../../constants/ApiConstants";
 import { settingDemoAdmin, settingDemoEmployees, settingDemoFetched, settingDemoId, settingDemoIsAdmin, settingDemoMeta, settingDemoPlans } from "../../reducers/demo";
-import { settingMeta } from "../../reducers/Meta";
 
 export function thunkFetchDemo(Id = false) { 
     return async function FetchDemo(dispatch, getState) {

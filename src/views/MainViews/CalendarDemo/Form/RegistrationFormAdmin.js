@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Button, Col, Input, Row } from "reactstrap"
 import { useDispatch, useSelector } from "react-redux";
 import { settingAuthenticationAnswere, settingSelectedAuthenticationIndex } from "../../../../reducers/userInput";

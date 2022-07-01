@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from 'react-bootstrap/Modal';
-import FormMitarbeiterErstellen from "./FormMitarbeiterErstellen";
-import store  from "../store"
 import { useSelector, useDispatch } from "react-redux";
-import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_EMPLOYEE_HOURLY_WAGES, INFO_EMPLOYEE_MONTHLY_INCOME, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK } from "../constants/InfoTexts";
+import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK } from "../constants/InfoTexts";
 import { resettingEmployeePositions, settingEmployeeEmail, settingEmployeeName, settingEmployeePosition, settingEmployeeQualification, settingEmployeeShiftsPerWeek } from "../reducers/userInput";
 import InfoLabel from "./InfoLabel";
 import {

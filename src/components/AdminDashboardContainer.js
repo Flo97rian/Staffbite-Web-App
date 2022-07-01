@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Joyride from 'react-joyride';
@@ -10,12 +10,10 @@ import {
 
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
 import NotificationAlert from "react-notification-alert";
-import store from "../store";
 import OpenModal from "./OpenModal";
-import { WARNING_INVALID_REPORT_INPUT, WARNING_MISSING_REPORT_DATE, WARNING_MISSING_REPORT_FILTER } from "../constants/Alerts"; 
+import { WARNING_MISSING_REPORT_DATE, WARNING_MISSING_REPORT_FILTER } from "../constants/Alerts"; 
 import InfoSidebar from "./Sidebar/InfoSidebar.js";
 import { ONBOARDING_OVERVIEW_SHIFTPLAN, ONBOARDING_OVERVIEW_SHIFTRADE, ONBOARDING_OVERVIEW_TEAM } from "../constants/OnBoardingTexts.js";
-import { isUndefined } from "lodash";
 import NumberOfEmployeesCard from "./NumberOfEmployeesCard";
 import NumberOfTradesCard from "./NumberOfTradesCard";
 import ShiftplanActivitys from "./Newsfeed/NewsfeedContainer/NewsfeedContainer.js";
@@ -28,14 +26,11 @@ import { resettingShiftSlot } from "../reducers/ShiftSlot";
 import { isThisWeek } from "date-fns";
 import { resettingErrorMessages } from "../reducers/ErrorMessages";
 import differenceInDays from 'date-fns/differenceInDays';
-import toDate from "date-fns/toDate";
-import parseISO from "date-fns/parseISO";
 
 
 const AdminDashboardContainer = (props) => {
   
   const dispatch = useDispatch();
-  const [errMsg, setErrMsg] = useState({ InvalidReportInput: !1});
   const [state, setState] = useState({
     run: !1,
     steps: [
@@ -88,7 +83,6 @@ const AdminDashboardContainer = (props) => {
   const Plans = useSelector(selectPlans);
   const SidebarInfo = useSelector(selectInfoSidebar);
   const PlansFetched = useSelector(state => state.DB.plansStatus === "fulfilled");
-  const FreeTrial = useSelector(state => state?.Meta?.tenantCategorie?.trial || true);
   const PaymentDetails = useSelector(state => state?.Meta?.tenantCategorie?.paymentDetails || false)
   const NumberOfEmployees = useSelector(state => Object.keys(state.DB.employees).length);
   const NumberOfTrades = useSelector(state => state.Shiftplan.tauschanfrage.length);

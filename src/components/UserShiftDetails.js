@@ -1,14 +1,10 @@
-import React from "react";
 import {
     Col,
-    Row,
-    Button
-} from "reactstrap"
-import Form from 'react-bootstrap/Form';
+    Row} from "reactstrap"
 import FormNames from "./UserFormNames";
 import InfoLabel from "./InfoLabel";
 import { INFO_USER_NOTICE } from "../constants/InfoTexts";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 const UserShiftDetails = (props) => {

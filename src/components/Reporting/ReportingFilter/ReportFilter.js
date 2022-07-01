@@ -4,10 +4,8 @@ import {
     Row,
     Badge
 } from "reactstrap"
-import InputBadges from "../../InputBadges";
 import Datepicker from "../../DatePicker";
 import InfoLabel from "../../InfoLabel";
-import PropTypes from "prop-types"
 import { useSelector, useDispatch } from "react-redux";
 import { resettingReportFilter, settingReportFilter } from "../../../reducers/userInput";
 

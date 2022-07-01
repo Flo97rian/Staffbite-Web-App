@@ -1,24 +1,19 @@
-import React, { useRef, useState, Component, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
     Row,
     Col,
-    UncontrolledCollapse,
-    Card,
     Collapse,
-    Container,
     Button
 } from "reactstrap"
 import { useSelector, useDispatch } from "react-redux";
 import CalendarEditShift from "./CalendarEditShift";
 import { CalendarEditShiftAdvanced } from "./CalendarEditShiftAdvanced";
 import { resettingModal } from "../reducers/modal";
-import { settingApplicants, settingCalenderShift, settingShiftNotice, settingShiftplan } from "../reducers/Shiftplan";
+import { settingApplicants, settingCalenderShift } from "../reducers/Shiftplan";
 import { resettingCurrentShiftCustomDays, resettingShiftCustomDays, resettingShiftIsDayly, resettingUserInput, settingShiftIsDayly } from "../reducers/userInput";
 import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
-import { deleteingEmployeeShiftFromSchichten, resettingEmployeeDummyShift, resettingEmployeesDummyshifts, settingEmployeeFetching, settingEmployeeShiftInSchichten, setttingEmployeeShiftInSchichten } from "../reducers/DB";
-import { resettingChangeDayOrSelectedDays, settingChangeDayOrSelectedDays, settingTemporaryEmployeeID, settingUpdateType } from "../reducers/temporary";
-import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
-import { thunkFetchEmployees } from "../store/middleware/FetchEmployees";
+import { resettingEmployeesDummyshifts } from "../reducers/DB";
+import { settingUpdateType } from "../reducers/temporary";
 import EmployeesDnDForSingleShift from "./EmployeesDnDForSingleShift";
 
 

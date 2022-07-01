@@ -78,7 +78,7 @@ function VerfügbarkeitenEintragen (props) {
               <Col className="mt-0" xs="12" sm="6" lg="6">
                 <Row className="">
                   <Col>
-                  <h2 class="display-4">Verfügbarkeiten eintragen</h2>
+                  <h2 className="display-4">Verfügbarkeiten eintragen</h2>
                   </Col>
                 </Row>
 

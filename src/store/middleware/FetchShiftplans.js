@@ -1,6 +1,6 @@
 import { API, Auth } from "aws-amplify";
-import { addDays, formatISO, isBefore, isFuture, isPast, isThisWeek, startOfWeek } from "date-fns";
-import { FETCH_ALL_PLANS, API_HOSTNAME, FETCH_SHIFTPLANS } from "../../constants/ApiConstants";
+import { addDays } from "date-fns";
+import { API_HOSTNAME, FETCH_SHIFTPLANS } from "../../constants/ApiConstants";
 import { settingPlansFetching, settingPlansFulfilled, settingPlansRejected, settingShiftplans } from "../../reducers/DB";
 
 export function thunkFetchShiftplans () {

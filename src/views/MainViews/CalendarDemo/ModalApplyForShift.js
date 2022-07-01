@@ -1,42 +1,21 @@
-import React, {useEffect, useState} from "react";
 import {
     Button,
     Card,
     Col,
-    Collapse,
     Input,
-    Label,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
     Row
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../../../reducers/modal";
-import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
-import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
-import { settingAuthenticationForAdmin, settingDemoPlans, updateDemoEvent } from "../../../reducers/demo";
-import { RegistrationForm, RegistrationFormAdmin } from "./Form/RegistrationFormAdmin";
-import { AuthenticationFormEmployee } from "./Form/AuthenticationFormEmployee";
-import { RegistrationFormEmployee } from "./Form/RegistrationFormEmployee";
-import InputString from "../../../components/InputString";
-import InputNumber from "../../../components/InputNumber";
-import InputTime from "../../../components/InputTime";
-import InputTimeWithSwitch from "../../../components/InputTimeWithSwitch";
+import { updateDemoEvent } from "../../../reducers/demo";
 import InfoLabel from "../../../components/InfoLabel";
-import { INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../../../constants/InfoTexts";
-import { settingShiftEnd, settingShiftName, settingShiftNumberOfEmployees, settingShiftStart } from "../../../reducers/userInput";
-import { weekdays } from "../../../constants/Weekdays";
+import { INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_START } from "../../../constants/InfoTexts";
 import { settingShiftplanChanged } from "../../../reducers/shiftplanChanged";
 import { resettingTemporaryEventId } from "../../../reducers/temporary";
 
 export const ModalApplyForShift = (props) => {
     const dispatch = useDispatch();
-    const [userForm, setUserForm] = useState({ShiftName: "", NumberOfEmployees: 0, ShiftStart: "", ShiftEnd: ""})
-    const plans = useSelector(state => state.demo.demoPlans);
-    const userInput = useSelector(state => state.userInput);
-    const date = useSelector(state => state.date);
     const employee = useSelector(state => state.demo.demoEmployee);
     const event = useSelector(state => state.demo.demoPlans.find(event => event.id === state.temporary.eventId));
     const demoApplyForShift = useSelector(state => state.modal.demoApplyForShift);

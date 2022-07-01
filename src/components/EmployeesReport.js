@@ -1,6 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-import * as _ from "lodash";
 import { Row, Col, Card, CardBody } from "reactstrap";
 import Reporting from "./Reporting/ReportingBody/Reporting";
 

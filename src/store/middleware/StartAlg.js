@@ -1,6 +1,6 @@
 import { API, Auth } from "aws-amplify";
 import { thunkFetchShiftplans } from "./FetchShiftplans";
-import { API_HOSTNAME, START_ALGORITHM, TEST_ALGORITHM } from "../../constants/ApiConstants";
+import { API_HOSTNAME, TEST_ALGORITHM } from "../../constants/ApiConstants";
 import { resettingShiftplan } from "../../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
 import { settingAlgResponseStatus } from "../../reducers/DB";

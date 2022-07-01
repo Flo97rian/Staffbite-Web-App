@@ -1,41 +1,19 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {
     Button,
     Card,
     Col,
-    Collapse,
-    Input,
-    Label,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
     Row
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../../../reducers/modal";
-import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
-import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
-import { deleteEmployee, resettingCouterForEmployees, settingApplicationsCounterForEmployee, settingAuthenticationForAdmin, settingDemoPlans, settingShiftsCounterForEmployee, updateDemoEvent } from "../../../reducers/demo";
-import { RegistrationForm, RegistrationFormAdmin } from "./Form/RegistrationFormAdmin";
-import { AuthenticationFormEmployee } from "./Form/AuthenticationFormEmployee";
-import { RegistrationFormEmployee } from "./Form/RegistrationFormEmployee";
-import InputString from "../../../components/InputString";
-import InputNumber from "../../../components/InputNumber";
-import InputTime from "../../../components/InputTime";
-import InputTimeWithSwitch from "../../../components/InputTimeWithSwitch";
-import InfoLabel from "../../../components/InfoLabel";
-import { INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../../../constants/InfoTexts";
-import { settingShiftEnd, settingShiftName, settingShiftNumberOfEmployees, settingShiftStart } from "../../../reducers/userInput";
-import { weekdays } from "../../../constants/Weekdays";
-import { settingShiftplanChanged } from "../../../reducers/shiftplanChanged";
-import { resettingTemporaryEventId } from "../../../reducers/temporary";
+import { deleteEmployee, resettingCouterForEmployees, settingApplicationsCounterForEmployee, settingShiftsCounterForEmployee } from "../../../reducers/demo";
 import { isSameWeek } from "date-fns";
 import { de } from "date-fns/locale";
 
 export const ModalEmployees = (props) => {
     const dispatch = useDispatch();
-    const [userForm, setUserForm] = useState({ShiftName: "", NumberOfEmployees: 0, ShiftStart: "", ShiftEnd: ""})
     const Employees = useSelector(state => state.demo.demoEmployees);
     const demoEmployees = useSelector(state => state.modal.demoEmployees);
     const events = useSelector(state => state.demo.demoPlans);

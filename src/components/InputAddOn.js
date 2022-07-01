@@ -1,17 +1,7 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import InfoOverlay from "./InfoOverlay";
-import InfoLabel from "./InfoLabel";
-import * as _ from 'lodash'
 import {
-    FormFeedback,
-    FormGroup,
-    Input,
     InputGroupAddon,
-    Button,
-    InputGroup
-} from "reactstrap"
-import { useSelector, useDispatch } from "react-redux";
+    Button} from "reactstrap"
+import { useDispatch } from "react-redux";
 
 function InputAddOn (props) {
     const dispatch = useDispatch();

@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink as NavLinkRRD, Link, useNavigate } from "react-router-dom";
 // reactstrap components
 import {
@@ -31,14 +31,13 @@ import {
   Collapse,
   NavLink,
   NavbarBrand,
-  Container,
 } from "reactstrap";
 import { useSelector } from "react-redux";
 import store from "../../store";
 import { Auth } from 'aws-amplify';
 import { thunkFetchEmployee } from "../../store/middleware/FetchUser";
 import { userroutes } from "../../routes";
-import { useLocation, Route, Navigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { thunkUpdateEmployee } from "../../store/middleware/UpdateEmployee";
 
 const UserNavbar = (props) => {

@@ -1,41 +1,25 @@
-import React, {useEffect, useState} from "react";
+import {useState} from "react";
 import {
     Button,
     Card,
     Col,
-    Collapse,
     Input,
-    Label,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
     Row
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../../../reducers/modal";
-import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
-import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
-import { settingAuthenticationForAdmin, settingDemoPlans } from "../../../reducers/demo";
-import { RegistrationForm, RegistrationFormAdmin } from "./Form/RegistrationFormAdmin";
-import { AuthenticationFormEmployee } from "./Form/AuthenticationFormEmployee";
-import { RegistrationFormEmployee } from "./Form/RegistrationFormEmployee";
-import InputString from "../../../components/InputString";
-import InputNumber from "../../../components/InputNumber";
+import { settingDemoPlans } from "../../../reducers/demo";
 import ReactGA from "react-ga";
-import InputTime from "../../../components/InputTime";
 import InputTimeWithSwitch from "../../../components/InputTimeWithSwitch";
 import InfoLabel from "../../../components/InfoLabel";
 import { INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../../../constants/InfoTexts";
-import { settingShiftEnd, settingShiftName, settingShiftNumberOfEmployees, settingShiftStart } from "../../../reducers/userInput";
-import { weekdays } from "../../../constants/Weekdays";
 import { settingShiftplanChanged } from "../../../reducers/shiftplanChanged";
 
 export const ModalAddShift = (props) => {
     const dispatch = useDispatch();
     const [userForm, setUserForm] = useState({ShiftName: "", NumberOfEmployees: 0, ShiftStart: "", ShiftEnd: "", ShiftDate: ""})
     const plans = useSelector(state => state.demo.demoPlans);
-    const userInput = useSelector(state => state.userInput);
     const date = useSelector(state => state.date);
     const demoAddShift = useSelector(state => state.modal.demoAddShift);
     const addShift = () => {

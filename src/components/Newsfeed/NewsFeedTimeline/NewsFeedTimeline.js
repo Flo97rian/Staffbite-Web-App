@@ -15,19 +15,9 @@
 
 */
 // reactstrap components
-import {
-    Badge,
-    Card,
-    CardHeader,
-    CardBody,
-    Container,
-    Row,
-    Col,
-  } from "reactstrap";
   // core components
-  import PropsTypes from "prop-types";
-  import * as _ from "lodash";
-  import { useSelector, useDispatch } from "react-redux";
+import * as _ from "lodash";
+import { useSelector } from "react-redux";
   function NewsFeedTimeline() {
     const Newsfeed = useSelector(state => state.Meta.newsfeed);
 

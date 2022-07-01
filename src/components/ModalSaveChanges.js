@@ -5,8 +5,6 @@ import {
     Label
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
-import store from "../store"
 import { useSelector, useDispatch } from "react-redux";
 import { resettingShiftplan } from "../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";

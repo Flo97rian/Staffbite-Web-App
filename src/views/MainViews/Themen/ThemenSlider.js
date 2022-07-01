@@ -61,7 +61,7 @@ function ThemenSlider (props) {
                         alt="Tablet mit Schichtplan"
                         ></CardImg>
                         <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                        <Link to="/schichtplan-erstellen" class="stretched-link">Einfache und unkomplizierte Schichtpläne</Link>
+                        <Link to="/schichtplan-erstellen" className="stretched-link">Einfache und unkomplizierte Schichtpläne</Link>
                         </CardTitle>
                         <CardSubtitle className="pl-4 p">
                             Mit Staffbite erstellst du deine Schichtpläne innerhalb kürzester Zeit.
@@ -81,7 +81,7 @@ function ThemenSlider (props) {
                         alt="Vier Menschen am Tisch mit Zettel und Block"
                         ></CardImg>
                         <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                        <Link to="/themen/schichtplan-vorlage"class="stretched-link">Schichtplan Vorlage erstellen</Link>
+                        <Link to="/themen/schichtplan-vorlage"className="stretched-link">Schichtplan Vorlage erstellen</Link>
                         </CardTitle>
                         <CardSubtitle className="pl-4 p">
                             Wie erstelle ich eine Schichtplan Vorlage?
@@ -104,7 +104,7 @@ function ThemenSlider (props) {
                   alt="Wolke auf die ein Finger zeigt"
                   ></CardImg>
                   <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                  <Link to="/verfuegbarkeiten-eintragen" class="stretched-link">Verfügbarkeiten eintragen</Link>
+                  <Link to="/verfuegbarkeiten-eintragen" className="stretched-link">Verfügbarkeiten eintragen</Link>
                   </CardTitle>
                   <CardSubtitle className="pl-4 p">
                       Wie kann mein Team sich in den erstellen Schichtplan eintragen?
@@ -125,7 +125,7 @@ function ThemenSlider (props) {
                             alt="Bild eines Kalenders"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/monatsplanung"class="stretched-link">Schichtplanung für einen ganzen Monat</Link>
+                            <Link to="/themen/monatsplanung"className="stretched-link">Schichtplanung für einen ganzen Monat</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4 p">
                                 Wie erstelle ich die Schichtpläne für einen ganzen Monat?
@@ -149,7 +149,7 @@ function ThemenSlider (props) {
                   alt="Vollständig befüllter Schichtplan"
                   ></CardImg>
                   <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                  <Link to="/fuer-dein-team" class="stretched-link">Vorteile für dein Team</Link>
+                  <Link to="/fuer-dein-team" className="stretched-link">Vorteile für dein Team</Link>
                   </CardTitle>
                   <CardSubtitle className="pl-4 p">
                       Noch nicht überzeugt?
@@ -171,7 +171,7 @@ function ThemenSlider (props) {
                             alt="Übersicht der Teammitglieder"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/automatisierter-schichtplan"class="stretched-link">Automatisierte Befüllung</Link>
+                            <Link to="/automatisierter-schichtplan"className="stretched-link">Automatisierte Befüllung</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4 p">
                                 Unsere Automatisierung spart dir jede Menge Zeit & Geld
@@ -196,7 +196,7 @@ function ThemenSlider (props) {
                             alt="Ein Mensch steht vor 3 Wegen"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/schichtplan-erstellen"class="stretched-link">Schichtplan mit Papier, Excel oder Software</Link>
+                            <Link to="/themen/schichtplan-erstellen"className="stretched-link">Schichtplan mit Papier, Excel oder Software</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4 p">
                                 Wie viel kostet dich Staffbite nach dem Probemonat?
@@ -217,7 +217,7 @@ function ThemenSlider (props) {
                               alt="Eine Wage im Gleichgewicht mit einer Uhr und Geld"
                               ></CardImg>
                               <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                              <Link to="/pricing"class="stretched-link">Unsere Preise</Link>
+                              <Link to="/pricing"className="stretched-link">Unsere Preise</Link>
                               </CardTitle>
                               <CardSubtitle className="pl-4 p">
                                   Wie viel kostet dich Staffbite nach dem Probemonat?

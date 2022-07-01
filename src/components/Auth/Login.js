@@ -15,10 +15,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect } from "react";
-import store from "../../store"
+import { useState, useEffect } from "react";
 // reactstrap components
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 // core components
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';

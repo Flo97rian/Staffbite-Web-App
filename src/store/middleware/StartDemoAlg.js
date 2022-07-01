@@ -1,4 +1,4 @@
-import { API, Auth } from "aws-amplify";
+import { API } from "aws-amplify";
 import { API_HOSTNAME, DEMO_ALGORITHM } from "../../constants/ApiConstants";
 
 export function thunkStartDemoAlg(plan, employees) {

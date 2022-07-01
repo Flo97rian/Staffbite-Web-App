@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Button, Col, Input, Row } from "reactstrap"
 import { useDispatch, useSelector } from "react-redux";
 import { resettingUserInput, settingAuthenticationAnswere, settingEmployeeName, settingSelectedAuthenticationIndex } from "../../../../reducers/userInput";
-import { settingAuthenticateAdmin, settingAuthenticateEmployee, settingDemoIsEmployee } from "../../../../reducers/demo";
+import { settingAuthenticateEmployee } from "../../../../reducers/demo";
 import { resettingModal } from "../../../../reducers/modal";
 
 export const AuthenticationFormEmployee = () => {

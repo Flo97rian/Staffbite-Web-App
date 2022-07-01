@@ -120,7 +120,7 @@ function Themen (props) {
                                 <br/>
                                 <br/>
                                 <br/>
-                                <Link to="/themen/positionen" class="stretched-link">Posititionen erstellen und festlegen</Link>
+                                <Link to="/themen/positionen" className="stretched-link">Posititionen erstellen und festlegen</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 
@@ -146,7 +146,7 @@ function Themen (props) {
                             <CardTitle className="pl-4 pt-sm-0 mb-2" tag="h2">
                                 <br/>
                                 <br/>
-                                <Link to="/themen/umfrage" class="stretched-link">Deine Meinung ist gefragt!</Link>
+                                <Link to="/themen/umfrage" className="stretched-link">Deine Meinung ist gefragt!</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 
@@ -180,7 +180,7 @@ function Themen (props) {
                             <CardTitle className="pl-4 pt-sm-0 mb-2" tag="h2">
                                 <br/>
                                 <br/>
-                                <Link to="/themen/app-preview" class="stretched-link">Preview: Staffbite-Apps bald verfügbar</Link>
+                                <Link to="/themen/app-preview" className="stretched-link">Preview: Staffbite-Apps bald verfügbar</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 
@@ -207,7 +207,7 @@ function Themen (props) {
                             <CardTitle className="pl-4 pt-sm-0 mb-2" tag="h2">
                                 <br/>
                                 <br/>
-                                <Link to="/themen/tauschanfragen" class="stretched-link">Schritt für Schritt: Schichten tauschen</Link>
+                                <Link to="/themen/tauschanfragen" className="stretched-link">Schritt für Schritt: Schichten tauschen</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 
@@ -237,7 +237,7 @@ function Themen (props) {
                             width="100%"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-sm-0 mb-2" tag="h2">
-                                <Link to="/themen/team-einladen" class="stretched-link">Schritt für Schritt: Team einladen</Link>
+                                <Link to="/themen/team-einladen" className="stretched-link">Schritt für Schritt: Team einladen</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie kann ich mein Team zu Staffbite einladen?
@@ -263,7 +263,7 @@ function Themen (props) {
                             width="100%"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-sm-5 mb-2" tag="h2">
-                                <Link to="/themen/eintragen" class="stretched-link">Schritt für Schritt: In den Schichtplan eintragen</Link>
+                                <Link to="/themen/eintragen" className="stretched-link">Schritt für Schritt: In den Schichtplan eintragen</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie kann mein Team sich in den Schichtplan eintragen?
@@ -291,7 +291,7 @@ function Themen (props) {
                             width="100%"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                <Link to="/themen/schichtplan-veroeffentlichen" class="stretched-link">Schritt für Schritt: Schichtplan veröffentlichen</Link>
+                                <Link to="/themen/schichtplan-veroeffentlichen" className="stretched-link">Schritt für Schritt: Schichtplan veröffentlichen</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie kann ich meinen fertigen Schichtplan mit meinem Team teilen?
@@ -317,7 +317,7 @@ function Themen (props) {
                             width="100%"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-sm-1 mb-2" tag="h2">
-                                <Link to="/themen/anpassungen-vornehmen" class="stretched-link">Schritt für Schritt: Anpassungen am Schichtplan</Link>
+                                <Link to="/themen/anpassungen-vornehmen" className="stretched-link">Schritt für Schritt: Anpassungen am Schichtplan</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie kann ich Anpassungen am automatisiert befüllten Schichtplan vornehmen?
@@ -348,7 +348,7 @@ function Themen (props) {
                             width="80%"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-sm-1 mb-2" tag="h2">
-                                <Link to="/themen/automatisierte-befuellung-starten" class="stretched-link">Schritt für Schritt: Automatisierte Befüllung starten</Link>
+                                <Link to="/themen/automatisierte-befuellung-starten" className="stretched-link">Schritt für Schritt: Automatisierte Befüllung starten</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie lasse ich meinen Schichtplan automatisiert befüllen?
@@ -372,7 +372,7 @@ function Themen (props) {
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
                                 <br/>
-                                <Link to="/themen/individueller-schichtplan" class="stretched-link">Schritt für Schritt: Dein individueller Schichtplan</Link>
+                                <Link to="/themen/individueller-schichtplan" className="stretched-link">Schritt für Schritt: Dein individueller Schichtplan</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie kann die individuellen Anforderungen meines Betriebs abbilden?
@@ -398,7 +398,7 @@ function Themen (props) {
                             alt="Bild eines Kalenders"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                                    <Link to="/themen/monatsplanung"class="stretched-link">Schritt für Schritt: Schichtplan freigeben</Link>
+                                    <Link to="/themen/monatsplanung"className="stretched-link">Schritt für Schritt: Schichtplan freigeben</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie kann ich Schichtpläne für einen ganzen Monat erstellen?
@@ -419,7 +419,7 @@ function Themen (props) {
                             alt="Vier Menschen am Tisch mit Zettel und Block"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/schichtplan-vorlage"class="stretched-link">Schritt für Schritt: Schichtplan Vorlage erstellen</Link>
+                            <Link to="/themen/schichtplan-vorlage"className="stretched-link">Schritt für Schritt: Schichtplan Vorlage erstellen</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie erstelle ich eine Schichtplan Vorlage?
@@ -449,7 +449,7 @@ function Themen (props) {
                             alt="Bild von drei unterschiedlichen Wegen"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/schichtplan-erstellen"class="stretched-link">Schichtplan mit Papier, Excel oder Software</Link>
+                            <Link to="/themen/schichtplan-erstellen"className="stretched-link">Schichtplan mit Papier, Excel oder Software</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Wie erstelle ich meinen Schichtplan? 
@@ -470,7 +470,7 @@ function Themen (props) {
                             alt="Schreibtisch mit Kaffee, Zettel und Stift"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/automatisierung" class="stretched-link">Automatisierte Befüllung deines Schichtplans</Link>
+                            <Link to="/themen/automatisierung" className="stretched-link">Automatisierte Befüllung deines Schichtplans</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Kann die Befüllung deines Schichtplans automatisiert werden?
@@ -492,7 +492,7 @@ function Themen (props) {
                             alt="Schichtplan online erstellen"
                             ></CardImg>
                             <CardTitle className="pl-4 pt-4 mb-2" tag="h2">
-                            <Link to="/themen/cloud-service" class="stretched-link">Schichtplanung in der Cloud</Link>
+                            <Link to="/themen/cloud-service" className="stretched-link">Schichtplanung in der Cloud</Link>
                             </CardTitle>
                             <CardSubtitle className="pl-4">
                                 Warum ist Staffbite ein Cloud Service und was ist das eigentlich?

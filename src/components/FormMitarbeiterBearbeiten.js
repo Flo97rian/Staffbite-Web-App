@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 
 import {
     Col,
@@ -12,16 +12,9 @@ import {
     Badge
 
 } from "reactstrap"
-import InputString from "./InputString";
-import InputNumber from "./InputNumber";
 import InfoLabel from "./InfoLabel";
-import ControlQualification from "./ControlQualification";
-import Switch from "./Switch";
 import Form from 'react-bootstrap/Form';
-import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_EMPLOYEE_HOURLY_WAGES, INFO_EMPLOYEE_IS_ACTIVE, INFO_EMPLOYEE_MONTHLY_INCOME, INFO_EMPLOYEE_MONTHLY_WORKING_HOURES, INFO_EMPLOYEE_OVERTIME, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK, INFO_EMPLOYEE_VACATION } from "../constants/InfoTexts";
-import FormPositions from "./FormPositons";
-import { FEEDBACK_INVALID_EMPLOYEE_NAME, FEEDBACK_VALID_EMPLOYEE_NAME } from "../constants/FeedbackText";
-import { validName } from "./ValidInputs";
+import { INFO_EMPLOYEE_EMAIL_ADRESS, INFO_EMPLOYEE_FIRSTNAME_AND_LASTNAME, INFO_EMPLOYEE_IS_ACTIVE, INFO_EMPLOYEE_POSITIONS, INFO_EMPLOYEE_QUALIFIKATION, INFO_EMPLOYEE_SHIFTS_PER_WEEK, INFO_EMPLOYEE_VACATION } from "../constants/InfoTexts";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingEmployeeName, resettingEmployeePositions, resettingUserInput, settingEmployeeIsActive, settingEmployeeIsFree, settingEmployeeName, settingEmployeePosition, settingEmployeePositions, settingEmployeeQualification, settingEmployeeShiftsPerWeek } from "../reducers/userInput";
 import InputAddOn from "./InputAddOn";

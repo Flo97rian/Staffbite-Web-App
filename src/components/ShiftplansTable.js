@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 // reactstrap components
 import {
@@ -10,15 +10,12 @@ import {
 import { Badge } from "reactstrap";
 // core components
 import PlanId from "./PlanStatus"
-import _ from "lodash";
 import ShiftplanDnD from "./ShiftplanDnD";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const  ShiftplansTable = (props) => {
-    const dispatch = useDispatch();
     const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);
     const Plans = useSelector(state => state.DB.plans);
-    const currentPlanIndex = useSelector(state => state.currentShiftPlan.currentShiftplanIndex)
     const Shiftplan = useSelector(state => state.Shiftplan);
     const DisplayBasicLayout = useSelector(state => state.display.displayBasicLayout);
     function getLegend() {

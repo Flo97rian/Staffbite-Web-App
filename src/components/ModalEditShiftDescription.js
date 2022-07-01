@@ -10,7 +10,6 @@ import { resettingModal } from "../reducers/modal";
 import { deleteShift, settingShiftDescription } from "../reducers/Shiftplan";
 import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { deleteNewShift, settingNewShiftDescription } from "../reducers/NewShiftPlan";
-import { settingShiftPosition } from "../reducers/userInput";
 
 const ModalEditShiftDescription = (props) => {
     const dispatch = useDispatch();

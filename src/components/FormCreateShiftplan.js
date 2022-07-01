@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Col,
     Row,
@@ -6,14 +5,8 @@ import {
     FormGroup,
     Input
 } from "reactstrap"
-import InputString from "./InputString";
-import InputStringShiftName from "./InputStringShiftplanName"
-import InputNumber from "./InputNumber";
-import Datepicker from "./DatePicker.js";
 import InfoOverlay from "./InfoOverlay";
-import { INFO_SHIFTPLAN_DAYS_IS_CLOSED, INFO_SHIFTPLAN_NAME, INFO_SHIFTPLAN_NUMBER_OF_SHIFTS, INFO_SHIFTPLAN_PERIOD } from "../constants/InfoTexts";
-import { validShiftplanName } from "./ValidInputs";
-import _ from "lodash";
+import { INFO_SHIFTPLAN_DAYS_IS_CLOSED, INFO_SHIFTPLAN_NAME, INFO_SHIFTPLAN_NUMBER_OF_SHIFTS } from "../constants/InfoTexts";
 import { useSelector, useDispatch } from "react-redux";
 import InfoLabel from "./InfoLabel";
 import { resettingShiftplanCompanyIsOpen, settingShiftplanCompanyIsOpen, settingShiftplanName, settingShiftplanNumberOfShifts } from "../reducers/userInput";

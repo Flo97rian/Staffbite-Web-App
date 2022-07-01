@@ -1,17 +1,11 @@
-import React from "react";
 import {
     Row,
     Col,
-    Card,
     Badge,
-    CardBody,
     Button
   } from "reactstrap";
   import ReportingElement from "../ReportingElement/ReportElement";
-  import store from "../../../store";
 import ReportingHeader from "../ReportingHeader/ReportingHeader";
-import PropTypes from "prop-types";
-import * as _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { settingModal } from "../../../reducers/modal";
 

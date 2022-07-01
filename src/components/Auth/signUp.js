@@ -15,37 +15,17 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ReactGA from 'react-ga';
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Alert,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col
-} from "reactstrap";
 
 // core components
-import LandingNavbar from "../Navbars/LandingNavbar"
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { useNavigate, Link } from "react-router-dom";
-import PasswordChecklist from "react-password-checklist";
+import { useNavigate } from "react-router-dom";
 import ConfirmTenant from "./AuthComponents/ConfirmTenant";
-import VerifyTenant from "./AuthComponents/VerifyTenant";
 import Register from "./AuthComponents/Register";
-import { ShowTwoApplicantsWithOutUser } from "../ShiftplanElements";
 import { Helmet } from "react-helmet";
 
 const SignUp = (props) => {

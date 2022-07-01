@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import InfoOverlay from "./InfoOverlay";
 import InfoLabel from "./InfoLabel";
-import * as _ from 'lodash'
 import {
-    FormFeedback,
     FormGroup,
     Input,
     InputGroupAddon,

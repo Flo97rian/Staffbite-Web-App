@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import moment from "moment";
 import 'moment/locale/de';
-import { Link } from "react-router-dom";
 import Joyride from 'react-joyride';
 import {
-    Card,
     Col,
-    CardTitle,
     Row,
-    CardBody,
     Container
   } from "reactstrap";
-import { FetchEmployeePlansFromDB } from "../store/middleware/FetchPlansForEmployees";
-import { getUser } from "../store/middleware/FetchUser";
-import store from "../store";
 import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_OVERVIEW_APPLICATIONS, ONBOARDING_EMPLOYEE_OVERVIEW_TRADE_SHIFT, ONBOARDING_EMPLOYEE_OVERVIEW_SHIFTPLAN } from "../constants/OnBoardingTexts"
-import { thunkFetchOrg } from "../store/middleware/FetchOrg";
 import ShiftplanActivitys from "./Newsfeed/NewsfeedContainer/NewsfeedContainer";
 import { settingShiftplan } from "../reducers/Shiftplan";
 import UserApplicationsCard from "./UserApplicationsCard";
@@ -28,8 +19,6 @@ import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 
 const UserDashboardContainer = (props) => {
   const dispatch = useDispatch();
-  const [ActivePlan, setActivePlan] = useState(!1);
-  const [userShiftCount, setUserShiftCount] = useState(0);
   const [state, setState] = useState({
     run: !1,
     steps: [
@@ -67,12 +56,10 @@ const UserDashboardContainer = (props) => {
   const { run, steps } = state;
 
   //REDUX-Filter für UI-Data
-  const selectMeta = state => state.Meta;
   const selectPlans = state => state.DB.plans;
 
 
   //REDUX-Listener für UI-Data
-  const Meta = useSelector(selectMeta);
   const Plans = useSelector(selectPlans);
   const Employee = useSelector(state => state.DB.employee);
   const OnboardingOverview = useSelector(state => state.DB.employee?.onboarding?.overview || false);

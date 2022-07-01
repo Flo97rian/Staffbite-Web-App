@@ -2,8 +2,6 @@ import {
     DateOrWeekDayRow,
     ShiftDescription,
     CompanyClosed,
-    ProgressEmployeeApplicantsWithPrio,
-    ProgessEmployeeApplicantsWithoutPrio,
     ProgressWithEmployeeApplicantsWithPrio,
     ProgressWithEmployeeApplicantsWithoutPrio,
     ZeroApplicants,
@@ -16,21 +14,6 @@ import {
     ProgressWithoutEmployeeApplicantsWithoutPrioFilled,
     ProgressWithoutEmployeeApplicantsWithPrioFilled,
 } from "./ShiftplanElements";
-import store from "../store";
-import { 
-    getIsObject,
-    getSecondApplicant,
-    getCompanyIsOpen,
-    getAnzahl,
-    getHasApplicants,
-    getApplicantsLength,
-    getFirstApplicant,
-    getUserMatchesPosition,
-    getUserMatchesPrio,
-    getShiftIncludesApplicant,
-    getHasNotice
-    
- } from "./ElementFunctions";
  import { useSelector, useDispatch } from "react-redux";
 import { settingModal } from "../reducers/modal";
 import { settingShiftSlot } from "../reducers/ShiftSlot";

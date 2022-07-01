@@ -1,6 +1,4 @@
-import React from "react";
 // core components
-import store from "../store";
 import { 
     DateOrWeekDayRow,
     ShiftDescription,
@@ -15,19 +13,6 @@ import {
     ProgressWithEmployeeApplicantsWithPrio,
     ProgressWithEmployeeApplicantsWithoutPrio
 } from "./ShiftplanElements";
-import { 
-    getIsObject,
-    getSecondApplicant,
-    getCompanyIsOpen,
-    getAnzahl,
-    getHasApplicants,
-    getApplicantsLength,
-    getFirstApplicant,
-    getUserMatchesPosition,
-    getUserMatchesPrio,
-    getShiftIncludesApplicant,
-    getHasNotice
- } from "./ElementFunctions";
 import * as _ from "lodash";
 import { settingModal } from "../reducers/modal";
 import { useSelector, useDispatch } from "react-redux";

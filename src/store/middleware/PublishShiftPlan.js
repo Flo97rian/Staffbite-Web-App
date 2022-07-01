@@ -4,7 +4,7 @@ import { API_HOSTNAME, PUBLISH_SHIFTPLAN } from "../../constants/ApiConstants";
 import { resettingShiftplan } from "../../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
 import { resettingDisplayShiftplan } from "../../reducers/display";
-import { settingShiftplanPublished, settingShiftplanReleased } from "../../reducers/SuccessMessages";
+import { settingShiftplanPublished } from "../../reducers/SuccessMessages";
 import { settingRemindShiftplanID } from "../../reducers/temporary";
 import { resettingProcessing, settingProcessingRejectedPublish, settingProcessingStartPublish } from "../../reducers/processing";
 

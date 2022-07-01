@@ -1,17 +1,13 @@
 import { 
-    CompanyClosed,
     CompanyClosedEntwurf,
     DateOrWeekDayRow,
-    shiftHasPrio,
     DefaultWithPrio,
     Default,
     setShiftDetails,
     editShiftDetails,
-    shiftSetPrio,
  } from "./ShiftplanElements";
-import store from "../store";
 import _ from "lodash";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { settingModal } from "../reducers/modal";
 import { settingShiftSlot } from "../reducers/ShiftSlot";
 

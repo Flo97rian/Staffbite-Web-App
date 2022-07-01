@@ -1,4 +1,4 @@
-import { API, Auth } from "aws-amplify";
+import { API } from "aws-amplify";
 import { API_HOSTNAME, CREATE_DEMO } from "../../constants/ApiConstants";
 import { v4 as uuidv4 } from 'uuid';
 import { settingDemoIsAdmin, settingProcessingFullfilledCreateShiftplan } from "../../reducers/demo";
@@ -15,7 +15,6 @@ export function thunkCreateDemo(id = false) {
     .then(response => {
         dispatch(settingProcessingFullfilledCreateShiftplan());
         const urlSearchParams = new URLSearchParams(window.location.search);
-        const params = urlSearchParams.entries();
         urlSearchParams.append("id", newID);
         var url = window.location.href;
         dispatch(settingDemoIsAdmin());

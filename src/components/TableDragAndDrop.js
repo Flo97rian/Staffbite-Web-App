@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useImperativeHandle} from "react";
+import { useState, useEffect} from "react";
 import {
   Col,
   Row,
 } from "reactstrap";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { SchichtplanElement } from "../../Admin/SchichtplanErstellen/SchichtplanListe/SchichtplanElement";
-import store from "../store";
-import { handleSwitchShiftOrder } from "../../Admin/SchichtplanErstellen/processing/handleSwitchShiftOrder";
 import Spinner from 'react-bootstrap/Spinner'
 // fake data generator
 const getItems = (shiftsplan) => {

@@ -82,15 +82,15 @@ const Pricing = (props) => {
                         2,50€
                       </h3>
                       <br/>
-                      <span class="text-info ls-1 p">pro Person</span>
+                      <span className="text-info ls-1 p">pro Person</span>
                       
                       <br/>
                       <br/>
-                      <span class="text-info ls-1 p">+ 9,90€ Grundgebühr</span>
+                      <span className="text-info ls-1 p">+ 9,90€ Grundgebühr</span>
                       
                       <br/>
                       <br/>
-                      <span class="text-info ls-1 p">monatlich</span>
+                      <span className="text-info ls-1 p">monatlich</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
                           <Button className="btn-icon btn-3" color="success" type="button"
@@ -119,12 +119,12 @@ const Pricing = (props) => {
                       <br/>
                       <br/>
                       <br/>
-                      <span class="text-white ls-1 p">Festpreis</span>
+                      <span className="text-white ls-1 p">Festpreis</span>
                       
                       <br/>
                       <br/>
                       
-                      <span class="text-white ls-1 p">monatlich</span>
+                      <span className="text-white ls-1 p">monatlich</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
                           <Button className="btn-icon btn-3" color="success" type="button"
@@ -158,7 +158,7 @@ const Pricing = (props) => {
                     <h3 className="h1 text-white display-2">
                         + 2,50€
                       </h3>
-                      <span class="text-white ls-1 p">pro Mitarbeiter*in pro Monat</span>
+                      <span className="text-white ls-1 p">pro Mitarbeiter*in pro Monat</span>
                       <Row className="align-items-center justify-content-center mt-6">
                         <Link to="/signup">
                           <Button className="btn-icon btn-3" color="success" type="button"
@@ -205,42 +205,42 @@ const Pricing = (props) => {
                     <Row className="align-items-center p-1 pt-3">
                       <Col xs="12" lg="6">
                       <Row className="align-items-center">
-                      <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
-                      <p class="text-muted lead m-0 p-0">Digitaler Dienstplan</p>
+                      <i className="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                      <p className="text-muted lead m-0 p-0">Digitaler Dienstplan</p>
                       </Row>
                       </Col>
                       <Col xs="12" lg="6">
                       <Row className="align-items-center">
-                      <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
-                      <p class="text-muted lead m-0 p-0">Kostenloser Probemonat</p>
+                      <i className="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                      <p className="text-muted lead m-0 p-0">Kostenloser Probemonat</p>
                       </Row>
                       </Col>
                     </Row>
                     <Row className="align-items-center p-1">
                       <Col xs="12" lg="6">
                         <Row className="align-items-center"> 
-                        <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
-                        <p class="text-muted lead m-0 p-0">Automatisierte Befüllung der Dienstpläne</p>
+                        <i className="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                        <p className="text-muted lead m-0 p-0">Automatisierte Befüllung der Dienstpläne</p>
                         </Row>
                       </Col>
                       <Col xs="12" lg="6">
                         <Row className="align-items-center">
-                        <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
-                        <p class="text-muted lead m-0 p-0">Nur zwei Wochen Kündigungsfrist</p>
+                        <i className="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                        <p className="text-muted lead m-0 p-0">Nur zwei Wochen Kündigungsfrist</p>
                         </Row>
                       </Col>
                     </Row>
                     <Row className="align-items-center p-1 pb-2">
                       <Col xs="12" lg="6">
                         <Row className="align-items-center">
-                          <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
-                          <p class="text-muted lead m-0 p-0">Support per E-Mail und Telefon</p>
+                          <i className="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                          <p className="text-muted lead m-0 p-0">Support per E-Mail und Telefon</p>
                         </Row>
                       </Col>
                       <Col xs="12" lg="6">
                       <Row className="align-items-center">
-                      <i class="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
-                      <p class="text-muted lead m-0 p-0">Kostenlose Mitarbeitenden-App für dein Team</p>
+                      <i className="fas fa-check ml-3 pl-3 pr-3 text-success"></i>
+                      <p className="text-muted lead m-0 p-0">Kostenlose Mitarbeitenden-App für dein Team</p>
                       </Row>
                       </Col>
                       <Col xs="12" lg="6">

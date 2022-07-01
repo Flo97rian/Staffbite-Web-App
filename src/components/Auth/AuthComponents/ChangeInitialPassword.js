@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 // reactstrap components
 import {
   Button,
@@ -24,7 +24,6 @@ import {
   CardBody,
   FormGroup,
   Form,
-  Alert, 
   Input,
   InputGroupAddon,
   InputGroupText,
@@ -37,12 +36,9 @@ import {
 // core components
 import LandingNavbar from "../../Navbars/LandingNavbar"
 import { Link } from "react-router-dom";
-import { Auth } from 'aws-amplify';
-import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { Switch, Redirect } from "react-router-dom";
 import PasswordChecklist from "react-password-checklist";
 import NotificationAlert from "react-notification-alert";
-import { WARNING_WRONG_MAIL_OR_PASSWORD, WARNING_PASSWORD_NO_CAPITAL_CHAR, WARNING_PASSWORD_NO_LOWER_CHAR, WARNING_PASSWORD_NO_NUMBER, WARNING_PASSWORD_NO_SPECIAL_CHAR, WARNING_PASSWORD_TOO_SHORT } from "../../../constants/Alerts";
+import { WARNING_WRONG_MAIL_OR_PASSWORD, WARNING_PASSWORD_NO_CAPITAL_CHAR, WARNING_PASSWORD_NO_LOWER_CHAR, WARNING_PASSWORD_NO_NUMBER, WARNING_PASSWORD_NO_SPECIAL_CHAR } from "../../../constants/Alerts";
 
 const ChangeInitalPassword = (props) => {
     const handleKeyPress = (event) => {

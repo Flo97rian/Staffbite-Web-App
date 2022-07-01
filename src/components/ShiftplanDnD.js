@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import { useState, useEffect} from "react";
 import {
   Col,
   Row,
@@ -6,7 +6,7 @@ import {
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Spinner from 'react-bootstrap/Spinner';
 import ShiftplanElement from "./ShiftplanElement";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import _ from "lodash";
 // fake data generator
 const getItems = (shiftplan) => {

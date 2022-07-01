@@ -1,13 +1,11 @@
-import React, { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import { useState } from "react"
-import PropTypes from "prop-types"
-import { Row, Col, Card, Badge, Button, UncontrolledCollapse, Input, Label, InputGroupAddon, InputGroupText, InputGroup, InputGroupButtonDropdown, FormFeedback } from "reactstrap"
+import { Row, Col, Card, Badge, Button, UncontrolledCollapse, Input, InputGroupAddon, InputGroup, FormFeedback } from "reactstrap"
 import * as _ from "lodash";
-import store from "../store";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../reducers/modal";
 import { settingNewPosition } from "../reducers/userInput";
-import { addingNewPosition, deletingPosition, resettingAccessPosition, settingAccessPosition } from "../reducers/Meta";
+import { resettingAccessPosition, settingAccessPosition } from "../reducers/Meta";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
 const accesses = [{
     id: "accessAdminView",

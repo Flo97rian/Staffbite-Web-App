@@ -78,7 +78,7 @@ function VorteileTeam (props) {
                 <Col className={isMobile ? "mt-2" : "mt-4"}>
                 <Row className=" justify-content-center mt-4">
                     <Col>
-                        <h2 class="display-4">Vorteile für dein Team</h2>
+                        <h2 className="display-4">Vorteile für dein Team</h2>
                         <p className="lead">
                         In vielen Betrieben sind Schichtpläne ein Streitthema. Unzufriedenheiten des Teams stehen an der Tagesordnung. Wir wollen diese Probleme lösen. Durch Staffbite ist der gesamte Prozess vom grundlegenden Plan bis zum fertigen Schichtplan transparent. Durch die automatisierte Verteilung der Schichten wird niemand bevorzugt und es geschehen weniger Fehler. 
                         </p>

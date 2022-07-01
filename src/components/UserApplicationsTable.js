@@ -12,7 +12,7 @@ from "reactstrap";
 // core components
 import SchichtplanElement from "./UserApplicationShiftplanElements";
 import { Badge } from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const UserApplicationsTable = (props) => {
     const DisplayShiftplan = useSelector(state => state.display.displayShiftplan);

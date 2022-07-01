@@ -2,8 +2,7 @@ import React, { useState, useImperativeHandle, useEffect} from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Col, Row } from "reactstrap";
-import { deleteingEmployeeShiftFromSchichten, resettingEmployeeDummyShift, settingEmployeeDummyShift } from "../reducers/DB";
-import store from "../store";
+import { resettingEmployeeDummyShift, settingEmployeeDummyShift } from "../reducers/DB";
 
 // fake data generator
 const getItems = (employees = {}, index) => {
@@ -117,7 +116,6 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
   const shiftIndex = useSelector(state => state.shiftSlot.index);
   const day = useSelector(state => state.shiftSlot.day);
   const Zeitraum = useSelector(state => state.Shiftplan.zeitraum);
-  const ShiftName = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftName);
   const ShiftPosition = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag.ShiftPosition);
   const ShiftMinQualification = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].prio);
   const applicants = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].applicants);
@@ -126,7 +124,6 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
   const numberOfEmployees = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].anzahl);
   const [state, setState] = useState([getEmployees(employees, 0, ShiftPosition), getItems(validateHasAfterPublish(isPublished, showApplicantsAfterPublish, applicants, applicantsAfterPublish), 1), getItems(setApplicants, 2)]);
   const [Employees, setEmployees] = useState(employees);
-  const [showMore, setShowMore] = useState(false);
 
   useImperativeHandle(ref, () => (state[2]), [state]);
 
@@ -308,17 +305,6 @@ const EmployeesDnDForSingleShift = React.forwardRef((props, ref) => {
         <p>Bewerber</p>
       )
     }
-  }
-
-  function removeEmployee(ind, index) {
-    const newState = [...state];
-    if (newState[ind].length === 1) {
-      newState[ind][index].id = String(ind);
-      newState[ind][index].content = "Leer";
-    } else {
-      newState[ind].splice(index, 1);
-    }
-    setState(newState);
   }
 
   function handleDelete(ind, index, item) {

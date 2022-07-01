@@ -4,7 +4,6 @@ import {
     Label
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
-import store from "../store"
 import DragAndDrop from "./EmployeesDnDForSingleShift";
 import FormSetApplicantsDetails from "./FormSetApplicantsDetails";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,7 +11,7 @@ import { resettingModal } from "../reducers/modal";
 import { resettingUserInput } from "../reducers/userInput";
 import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { settingApplicants, settingShiftNotice } from "../reducers/Shiftplan";
-import { resettingEmployeesDummyshifts, createShiftplanDummyshifts } from "../reducers/DB";
+import { resettingEmployeesDummyshifts } from "../reducers/DB";
 
 const ModalEditEmployeesInShift = (props) => {
     const dispatch = useDispatch();
@@ -20,8 +19,6 @@ const ModalEditEmployeesInShift = (props) => {
     const index = useSelector(state => state.shiftSlot.index);
     const day = useSelector(state => state.shiftSlot.day);
     const shiftNotice = useSelector(state => state.userInput.shiftNotice);
-    const Shiftplan = useSelector(state => state.Shiftplan);
-    const currentShiftplanIndex = useSelector(state => state.currentShiftPlan.currentShiftplanIndex);
 
     const DragAndDropRef = useRef()
     const handleClose = () => {

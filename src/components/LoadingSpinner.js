@@ -1,5 +1,4 @@
 import React from 'react';
-import * as _ from 'lodash';
 import PropTypes from "prop-types"
 import { Spinner } from "reactstrap";
 

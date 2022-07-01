@@ -8,7 +8,7 @@ import { INFO_USER_NOTICE } from "../constants/InfoTexts";
 import FormNames from "./UserFormNames";
 import _ from "lodash";
 import getShiftsNotice from "../libs/getShiftsNotice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const ShiftDetails = (props) => {
     const index = useSelector(state => state.shiftSlot.index);

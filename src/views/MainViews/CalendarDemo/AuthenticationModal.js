@@ -1,17 +1,14 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {
     Button,
     Col,
-    Label,
     Row
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal, settingModal } from "../../../reducers/modal";
-import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
 import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
-import { settingAuthenticationForAdmin } from "../../../reducers/demo";
-import { RegistrationForm, RegistrationFormAdmin } from "./Form/RegistrationFormAdmin";
+import { RegistrationFormAdmin } from "./Form/RegistrationFormAdmin";
 import { AuthenticationFormEmployee } from "./Form/AuthenticationFormEmployee";
 import { RegistrationFormEmployee } from "./Form/RegistrationFormEmployee";
 
@@ -24,8 +21,6 @@ export const ModalDemoEntry = (props) => {
     const [showRegistrationEmployee, setShowRegistrationEmployee] = useState(false);
     const [showButtons, setShowButtons] = useState(true);
     const [hasDemoId, setHasDemoId] = useState(false);
-    const userInput = useSelector(state => state.userInput);
-    const isAdmin = useSelector(state => state.demo.demoAdmin.isAdmin);
     const demoEntry = useSelector(state => state.modal.demoEntry);
     useEffect(() => {
         const urlSearchParams = new URLSearchParams(window.location.search);
@@ -72,11 +67,6 @@ export const ModalDemoEntry = (props) => {
             setShowEmployeeAuthentication(false);
             setShowButtons(false);
         }
-    }
-
-    const handleShowInvitation = () => {
-        dispatch(resettingModal());
-        dispatch(settingModal("demoInvitation"))
     }
       //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
         return (

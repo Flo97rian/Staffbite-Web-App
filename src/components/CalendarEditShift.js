@@ -1,6 +1,5 @@
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
-import getShiftDescriptionDetails from "../libs/getShiftDetails";
+import { useEffect, useState } from "react";
 import {
     Row,
     Col,
@@ -10,7 +9,6 @@ import {
     PaginationItem,
     PaginationLink,
     Input,
-    UncontrolledCollapse,
     Collapse
 } from "reactstrap"
 import InputString from "./InputString";
@@ -19,7 +17,6 @@ import InputNumber from "./InputNumber";
 import InputTimeWithSwitch from "./InputTimeWithSwitch";
 import SelectPosition from "./SelectPosition";
 import { INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_START, INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES } from "../constants/InfoTexts";
-import Switch from "./Switch";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingCurrentShiftCustomDays, resettingShiftCustomDays, resettingShiftIsDayly, settingCurrentShiftCustomsDays, settingShiftCustomDays, settingShiftEnd, settingShiftIsDayly, settingShiftName, settingShiftNumberOfEmployees, settingShiftStart } from "../reducers/userInput";
 import { deletingCalendarShift, deletingCalendarShifts } from "../reducers/Shiftplan";
@@ -36,7 +33,6 @@ const CalendarEditShift = (props) => {
     const shiftDetails = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index].Wochentag);
     const anzahl = useSelector(state => state.Shiftplan.plan[state.shiftSlot.index][state.shiftSlot.day].anzahl);
     const userInputName = useSelector(state => state.userInput.shiftName);
-    const userInputShiftIsDayly = useSelector(state => state.userInput.shiftIsDayly);
     const userInputCustomDays = useSelector(state => state.userInput.shiftCustomDays);
     const userInputIsDayly = useSelector(state => state.userInput.shiftIsDayly)
     const [customRepeat, setCustomRepeat] = useState(false);

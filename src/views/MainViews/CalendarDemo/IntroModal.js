@@ -1,8 +1,6 @@
-import React, {useEffect, useState} from "react";
 import {
     Button,
     Col,
-    Label,
     Row
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
@@ -10,23 +8,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../../../reducers/modal";
 import ReactGA from "react-ga";
 import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
-import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
-import { settingAuthenticationForAdmin, settingProcessingStartCreateShiftplan } from "../../../reducers/demo";
-import { RegistrationForm, RegistrationFormAdmin } from "./Form/RegistrationFormAdmin";
-import { AuthenticationFormEmployee } from "./Form/AuthenticationFormEmployee";
-import { RegistrationFormEmployee } from "./Form/RegistrationFormEmployee";
+import { settingProcessingStartCreateShiftplan } from "../../../reducers/demo";
 
 export const ModalIntro = (props) => {
     const dispatch = useDispatch();
-    const demo = useSelector(state => state.demo);
-    const [showAdminAuthentication, setShowAdminAuthentication] = useState(false);
-    const [showEmployeeAuthentication, setShowEmployeeAuthentication] = useState(false);
-    const [showRegistrationAdmin, setShowRegistrationAdmin] = useState(false);
-    const [showRegistrationEmployee, setShowRegistrationEmployee] = useState(false);
-    const [showButtons, setShowButtons] = useState(true);
-    const [hasDemoId, setHasDemoId] = useState(false);
-    const userInput = useSelector(state => state.userInput);
-    const isAdmin = useSelector(state => state.demo.demoAdmin.isAdmin);
     const demoIntro = useSelector(state => state.modal.demoIntro);
 
     const handleCreateDemo = () => {

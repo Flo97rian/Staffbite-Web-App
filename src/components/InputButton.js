@@ -4,9 +4,8 @@ import {
     Row,
     Button
 } from "reactstrap"
-import store from "../../../../store";
 import UserPlanId from "./UserPlanId";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { settingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 
 const InputButton = (props) => {

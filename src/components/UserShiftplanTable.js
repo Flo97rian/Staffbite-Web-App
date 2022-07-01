@@ -11,7 +11,7 @@ from "reactstrap";
 // core components
 import SchichtplanElementPublished from "./UserShiftplanElementPublish";
 import { Badge } from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { de } from 'date-fns/locale';
 import format from "date-fns/format";
 

@@ -11,7 +11,7 @@ import InputTime from "./InputTime";
 import InputTimeWithSwitch from "./InputTimeWithSwitch";
 import { useSelector, useDispatch } from "react-redux";
 import { INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_POSITION, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../constants/InfoTexts";
-import { settingShiftEnd, settingShiftIsDayly, settingShiftName, settingShiftNumberOfEmployees, settingShiftPosition, settingShiftStart } from "../reducers/userInput";
+import { settingShiftEnd, settingShiftName, settingShiftNumberOfEmployees, settingShiftPosition, settingShiftStart } from "../reducers/userInput";
 const AddShift = (props) => {
     const dispatch = useDispatch();
     const userInput = useSelector(state => state.userInput);

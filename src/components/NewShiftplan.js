@@ -11,7 +11,7 @@ import {
 from "reactstrap";
 // core components
 import TableDnD from "./ShiftplanDnDNew";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const NewShiftplan = (props) => {
         const DisplayNewShiftplan = useSelector(state => state.display.displayNewShiftplan);
         if (DisplayNewShiftplan) {

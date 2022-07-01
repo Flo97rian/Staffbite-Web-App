@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import {useState, useEffect, useRef} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import 'moment/locale/de';
 import {
@@ -8,13 +8,12 @@ import {
 import NotificationAlert from "react-notification-alert";
 import AdminSettingsNavPills from "./AdminSettingsNavPills";
 import Spinner from 'react-bootstrap/Spinner'
-import { thunkFetchOrg } from "../store/middleware/FetchOrg";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
 import store from "../store";
 import InfoSidebar from "./Sidebar/InfoSidebar";
 import Joyride from 'react-joyride';
 import {INFO_CREATED_POSITION, SUCCESS_LOADING_META} from "../constants/Alerts";
-import { ONBOARDING_EINSTELLUNGEN_BETRIEB_NAME, ONBOARDING_EINSTELLUNGEN_POSITIONEN, ONBOARDING_EINSTELLUNGEN_NAV_BETRIEB, ONBOARDING_EINSTELLUNGEN_SHIFTPLAN_REVERSE, ONBOARDING_EINSTELLUNGEN_SHIFTPLAN_ORDER, ONBOARDING_EINSTELLUNGEN_NAV_SHIFTPLAN, ONBOARDING_EINSTELLUNGEN_SPEICHERN } from "../constants/OnBoardingTexts"
+import { ONBOARDING_EINSTELLUNGEN_BETRIEB_NAME, ONBOARDING_EINSTELLUNGEN_POSITIONEN, ONBOARDING_EINSTELLUNGEN_NAV_BETRIEB, ONBOARDING_EINSTELLUNGEN_NAV_SHIFTPLAN, ONBOARDING_EINSTELLUNGEN_SPEICHERN } from "../constants/OnBoardingTexts"
 import _ from "lodash";
 import { resettingShiftplan } from "../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";

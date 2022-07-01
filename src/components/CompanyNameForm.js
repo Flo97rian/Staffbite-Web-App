@@ -7,7 +7,6 @@ import {
     Form,
     Input,
   } from "reactstrap";
-  import PropTypes from "prop-types";
   import { useSelector, useDispatch } from "react-redux";
 import { settingCompanyName } from "../reducers/userInput";
 

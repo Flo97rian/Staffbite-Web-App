@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink as NavLinkRRD, Link, useLocation, useNavigate } from "react-router-dom";
 // reactstrap components
 import {
@@ -35,15 +35,12 @@ import {
 } from "reactstrap";
 import { thunkUpdateProfile } from "../../store/middleware/UpdateProfile";
 import { useSelector, useDispatch } from "react-redux";
-import store from "../../store";
 import { Auth } from 'aws-amplify';
 import { thunkFetchOrg } from "../../store/middleware/FetchOrg";
-import {adminroutes} from "../../routes"
-import _, { replace } from "lodash";
+import _ from "lodash";
 import getCompanyAccess from "../../libs/getCompanyAccess";
 import createCompanyRoutes from "../../libs/createCompanyRoutes";
-import { differenceInDays, differenceInMonths, isBefore } from "date-fns";
-import { resettingOnboarding } from "../../reducers/Meta";
+import { differenceInDays, differenceInMonths } from "date-fns";
 
 const AdminNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);

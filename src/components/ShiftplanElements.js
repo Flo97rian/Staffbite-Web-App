@@ -6,7 +6,6 @@ import {
     Badge,
     ListGroupItemHeading,
     ListGroupItemText,
-    Button,
     Progress
 } from "reactstrap"
 

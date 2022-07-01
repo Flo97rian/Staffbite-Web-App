@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import store from "../store";
-import { getUser } from "../store/middleware/FetchUser";
 import 'moment/locale/de';
 import Joyride from 'react-joyride';
 import {

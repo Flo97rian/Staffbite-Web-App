@@ -3,7 +3,6 @@ import {
     Col,
     Row
 } from "reactstrap"
-import InfoOverlay from "./InfoOverlay";
 
 export default class FormStartFilling extends React.PureComponent {
 

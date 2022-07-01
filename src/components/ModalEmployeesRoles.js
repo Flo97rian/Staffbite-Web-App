@@ -1,17 +1,10 @@
 import React from "react";
-import {
-    Button,
-    Label,
-    ModalBody,
-    Col
-} from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import FormEmployeesRoles from "./FormEmployeesRoles";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const ModalEmployeesRoles = (props) => {
-    const dispatch = useDispatch();
     const showEmployeesRoles = useSelector(state => state.modal.showEmployeesRoles);
         return (
             <>

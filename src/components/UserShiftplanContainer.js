@@ -1,6 +1,5 @@
-import React, { useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import { thunkUploadApplication } from "../store/middleware/UploadApplication";
-import Spinner from 'react-bootstrap/Spinner'
 import { useSelector, useDispatch } from "react-redux";
 import InfoSidebar from "./Sidebar/InfoSidebar";
 import Joyride from 'react-joyride';
@@ -13,7 +12,6 @@ import {
   } from "reactstrap";
 import ShiftplanTable from "./UserShiftplanTable";
 import OpenModal from "./OpenModal";
-import store from "../store";
 import SchichtplanImport from "./ShiftplanImport";
 import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_SCHICHTPLAN } from "../constants/OnBoardingTexts";

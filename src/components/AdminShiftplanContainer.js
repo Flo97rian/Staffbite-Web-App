@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import {useState, useEffect, useRef} from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import 'moment/locale/de';
@@ -11,23 +11,18 @@ import ReactBSAlert from "react-bootstrap-sweetalert";
 import NotificationAlert from "react-notification-alert";
 import Joyride from 'react-joyride';
 import Nav from "./AdminShiftplanNav";
-import { Spinner } from "reactstrap";
 import OpenModal from "./OpenModal";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile";
 import { thunkUpdateShiftPlan } from "../store/middleware/UpdateShiftPlan";
-import { user } from "../store/middleware/user";
 import { thunkUploadShiftPlanToDB } from "../store/middleware/UploadShiftPlanToDB";
 import SetTradeShift from "./CardTradeShift";
 import SchichtplanImport from "./FormImportedShiftplans";
-import store from "../store";
 import { thunkPublishShiftPlan } from "../store/middleware/PublishShiftPlan";
-import { thunkFetchEmployees } from "../store/middleware/FetchEmployees";
-import { SUCCESS_FILLING_DONE, SUCCESS_RELEASE_DONE, SUCCESS_SEND_REMINDER_FOR_APPLICATION, WARNING_MISSING_SHIFTPLAN_DATE, WARNING_MISSING_SHIFTPLAN_NAME, WARNING_MISSING_SHIFT_DETAILS, WARNING_MISSING_SHIFT_POSITION } from "../constants/Alerts";
+import { SUCCESS_FILLING_DONE, SUCCESS_RELEASE_DONE, SUCCESS_SEND_REMINDER_FOR_APPLICATION, WARNING_MISSING_SHIFTPLAN_DATE, WARNING_MISSING_SHIFTPLAN_NAME, WARNING_MISSING_SHIFT_DETAILS } from "../constants/Alerts";
 import ImportSchichtplanTabelle from "./ShiftplansTable";
 import NeuerSchichtplanTabelle from "./NewShiftplan";
 import InfoSidebar from "./Sidebar/InfoSidebar";
 import { ONBOARDING_SHIFTPLAN_VORLAGE_ERSTELLEN, ONBOARDING_SHIFTPLAN_VORLAGE, ONBOARDING_SHIFTPLAN_EINTRAGEN, ONBOARDING_SHIFTPLAN_UEBERPRUEFUNG, ONBOARDING_SHIFTPLAN_VEROEFFENTLICHUNG } from "../constants/OnBoardingTexts"
-import CalendarView from "./CalenderView";
 import _ from "lodash";
 import { resettingUserInput, settingCompanyPositions } from "../reducers/userInput";
 import { resettingShiftplan, settingShiftplan} from "../reducers/Shiftplan";
@@ -37,7 +32,6 @@ import { resettingBasicLayout, resettingCalendarLayout, resettingDisplayNewShift
 import { resettingShiftplanChanged } from "../reducers/shiftplanChanged";
 import { resettingShiftSlot } from "../reducers/ShiftSlot";
 import { resettingEmployeesDummyshifts } from "../reducers/DB";
-import { settingOnboardingShiftplan } from "../reducers/Meta";
 import { resettingSuccessMessages } from "../reducers/SuccessMessages";
 import { thunkFetchAllShiftplans } from "../store/middleware/FetchPlansFromDB";
 import { thunkDeleteShiftPlan } from "../store/middleware/DeleteShiftPlan";
@@ -48,7 +42,6 @@ import { resettingNewShiftplan } from "../reducers/NewShiftPlan";
 const ShiftplanContainer = () => {
   const dispatch = useDispatch();
   const [navIndex, setNavIndex] = useState(1);
-  const [ErrMsng, setErrMsng] = useState({MissingShiftDetails: !1, MissingShiftPosition: !1, ShiftDetailsNotUpToDate: !1});
   const [state, setState] = useState({
     run: !1,
     steps: [
@@ -116,7 +109,6 @@ const ShiftplanContainer = () => {
   const Meta = useSelector(selectMeta);
   const Shiftplan = useSelector(selectShiftplan);
   const NewShiftplan = useSelector(state => state.newShiftPlan);
-  const FetchingPlans = useSelector(state => state.DB.plansStatus === "loading");
   const SidebarInfo = useSelector(selectInfoSidebar);
   const Plans = useSelector(state => state.DB.plans);
   const ShiftplanChanged = useSelector(selectShiftplanChanged);
@@ -127,8 +119,6 @@ const ShiftplanContainer = () => {
   const DisplayCalendarLayout = useSelector(state => state.display.displayCalendarLayout);
   const SuccessMessagesKey = useSelector(state => Object.keys(state.successMessage).find(key => state.successMessage[key] === true));
   const SuccessMessageShow = useSelector(state => Object.values(state.successMessage).includes(true));
-  const ProcessingKeyRejected = useSelector(state => Object.keys(state.processing).find(key => state.processing[key] === "rejected"));
-  const ProcessingKeyLoading = useSelector(state => Object.keys(state.processing).find(key => state.processing[key] === "loading"));
   const ProcessingShowRejected = useSelector(state => Object.values(state.processing).includes("rejected"));
   const ProcessingShowLoading = useSelector(state => Object.values(state.processing).includes("loading"));
   const TemporaryDeleteShiftplanId = useSelector(state => state.temporary.deleteShiftplanId);

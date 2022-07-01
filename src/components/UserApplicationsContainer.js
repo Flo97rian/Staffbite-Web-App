@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from "react";
-import { getUser } from "../store/middleware/FetchUser";
+import {useEffect, useState} from "react";
 import { thunkUploadApplication } from "../store/middleware/UploadApplication";
-import Spinner from 'react-bootstrap/Spinner'
 import InfoSidebar from "./Sidebar/InfoSidebar";
 import { useSelector, useDispatch } from "react-redux";
 import Joyride from 'react-joyride';
@@ -9,22 +7,17 @@ import 'moment/locale/de';
 import {
   Button,
     Col,
-    Container,
     Row,
   } from "reactstrap";
 import ApplicationsTable from "./UserApplicationsTable";
 import OpenModal from "./OpenModal";
-import store from "../store";
 import ApplicationsImport from "./UserApplicationsImport";
-import ShiftPlan from "../libs/Shiftplan";
-import ButtonSave from "./deprecated/ButtonSave";
 import { thunkUpdateEmployee } from "../store/middleware/UpdateEmployee";
 import { ONBOARDING_EMPLOYEE_EINTRAGEN } from "../constants/OnBoardingTexts";
-import { resettingShiftplan, settingApplicant, settingShiftplan } from "../reducers/Shiftplan";
+import { resettingShiftplan } from "../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../reducers/currentShiftPlan";
 import { resettingModal, settingModal } from "../reducers/modal";
-import { resettingDisplayShiftplan, settingDisplayShiftplan } from "../reducers/display";
-import { settingShiftplanChanged } from "../reducers/shiftplanChanged";
+import { resettingDisplayShiftplan } from "../reducers/display";
 
 
 const UserApplicationsContainer = () => {

@@ -6,7 +6,7 @@ import {
     Form
 } from "reactstrap"
 import _ from "lodash";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function InputTimeWithSwitch (props) {
     const index = useSelector(state => state.shiftSlot.index);

@@ -4,7 +4,7 @@ import { API_HOSTNAME, SEND_REMINDER_FOR_APPLICATION } from "../../constants/Api
 import { resettingShiftplan } from "../../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
 import { resettingDisplayShiftplan } from "../../reducers/display";
-import { settingSendReminderForApplication, settingShiftplanReleased } from "../../reducers/SuccessMessages";
+import { settingSendReminderForApplication } from "../../reducers/SuccessMessages";
 import { settingRemindShiftplanID } from "../../reducers/temporary";
 import { resettingProcessing, settingProcessingRejectedSendReminderForApplication, settingProcessingStartSendReminderForApplication } from "../../reducers/processing";
 import { resettingModal } from "../../reducers/modal";

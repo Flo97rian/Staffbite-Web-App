@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import InfoOverlay from "./InfoOverlay";
 import {
     Input
 } from "reactstrap"

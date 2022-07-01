@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
     Col,
     Row,
@@ -8,12 +8,10 @@ import Joyride from 'react-joyride';
 import NotificationAlert from "react-notification-alert";
 import MitarbeiterTabelle from "./EmployeesTable/EmployeesTable.js";
 import OpenModal from "./OpenModal.js";
-import { thunkFetchEmployees } from "../store/middleware/FetchEmployees.js";
-import { thunkFetchOrg } from "../store/middleware/FetchOrg";
 import store from "../store.js";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkUpdateProfile } from "../store/middleware/UpdateProfile.js";
-import { WARNING_INVALID_EMPLOYEE_EMAIL, WARNING_INVALID_EMPLOYEE_NAME, WARNING_MISSING_EMPLOYEE_DETAILS, WARNING_MISSING_EMPLOYEE_POSITION } from "../constants/Alerts.js";
+import { WARNING_INVALID_EMPLOYEE_EMAIL, WARNING_INVALID_EMPLOYEE_NAME, WARNING_MISSING_EMPLOYEE_POSITION } from "../constants/Alerts.js";
 import InfoSidebar from "./Sidebar/InfoSidebar.js";
 import { useLocation } from "react-router-dom";
 import { ONBOARDING_TEAM_INVITE, ONBOARDING_TEAM_OVERVIEW } from "../constants/OnBoardingTexts.js";
@@ -26,7 +24,6 @@ import { resettingErrorMessages } from "../reducers/ErrorMessages.js";
 
 const AdminEmployeesContainer = (props) => {
   const dispatch = useDispatch();
-  const [errMsg, setErrMsg] = useState({InvalidInputForCreation: !1})
   const [state, setState] = useState({
     run: !1,
     steps: [

@@ -73,7 +73,7 @@ function TeamVerwalten (props) {
     <Container className="pt-5 pb-2" fluid>
     <Container className="mt-6">
                 <Row className="justify-content-center ml-0 mt-4">
-                <h1 class="text-center">Dein digitaler Schichtplan - Team verwalten</h1>
+                <h1 className="text-center">Dein digitaler Schichtplan - Team verwalten</h1>
                 </Row>
     </Container>
 
@@ -171,7 +171,7 @@ function TeamVerwalten (props) {
         </Row>
         <Row className=" mt-6">
           <Col>
-          <h2 class="display-4">Behalte dein Team im Blick</h2>
+          <h2 className="display-4">Behalte dein Team im Blick</h2>
           </Col>
         </Row>
             <p className="lead mt-2">

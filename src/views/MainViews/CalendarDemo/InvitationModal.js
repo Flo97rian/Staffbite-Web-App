@@ -1,32 +1,19 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {
     Button,
     Col,
-    Input,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText,
-    Label,
     Row
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal, settingModal } from "../../../reducers/modal";
-import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
-import { AuthenticationFormAdmin } from "./Form/AuthenticationFormAdmin";
-import { settingAuthenticationForAdmin } from "../../../reducers/demo";
-import { RegistrationForm, RegistrationFormAdmin } from "./Form/RegistrationFormAdmin";
-import { AuthenticationFormEmployee } from "./Form/AuthenticationFormEmployee";
 import { RegistrationFormEmployee } from "./Form/RegistrationFormEmployee";
 
 export const ModalInvitation = (props) => {
     const dispatch = useDispatch();
-    const demo = useSelector(state => state.demo);
     const [showEmployeeAuthentication, setShowEmployeeAuthentication] = useState(false);
     const [showRegistrationEmployee, setShowRegistrationEmployee] = useState(false);
     const [showButtons, setShowButtons] = useState(true);
-    const [hasDemoId, setHasDemoId] = useState(false);
-    const [clip, setClip] = useState(false);
     const [invitationLink, setInvitationLink] = useState("");
     const demoInvitation = useSelector(state => state.modal.demoInvitation);
 

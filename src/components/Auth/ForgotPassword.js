@@ -15,29 +15,23 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 // core components
-import LandingNavbar from "../Navbars/LandingNavbar"
 import ReactGA from "react-ga";
 import { Auth } from 'aws-amplify';
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ResetPassword from "./AuthComponents/ResetPassword";
-import SelectNewPassword from "./AuthComponents/SelectNewPassword";
 
 const ForgotPassword = (props) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordAgain, setPasswordAgain] = useState("")
-    const [isValid, setIsValid] = useState(!1)
     const [resetted, setResetted] = useState(!1);
-    const [err, setErr] = useState(null)
-    const [msg, setMsg] = useState(null)
     const [authState, setAuthState] = useState(AuthState.ResetPassword);
     const [user, setUser] = useState();
     const [code, setCode] = useState("");
     const [reset, setReset] = useState(!1);
-    const [tenant, setTenant] = useState(!1);
     const navigate = useNavigate()
     
     useEffect(() => {

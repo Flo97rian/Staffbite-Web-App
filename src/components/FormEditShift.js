@@ -1,16 +1,12 @@
-import _ from "lodash";
-import React from "react";
 import {
     Col,
     Row,
     Badge,
     Button,
     FormGroup,
-    Label,
     Input,
     FormFeedback
 } from "reactstrap"
-import { FEEDBACK_INVALID_NOTICE } from "../constants/FeedbackText";
 import { INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION } from "../constants/InfoTexts";
 import InfoOverlay from "./InfoOverlay";
 import { useSelector, useDispatch } from "react-redux";

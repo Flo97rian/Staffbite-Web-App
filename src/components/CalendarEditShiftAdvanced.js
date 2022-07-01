@@ -1,5 +1,4 @@
 import _ from "lodash";
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     Col,
@@ -7,12 +6,10 @@ import {
     Badge,
     Button,
     FormGroup,
-    Label,
     Input,
     FormFeedback,
     Card
 } from "reactstrap"
-import { FEEDBACK_INVALID_NOTICE } from "../constants/FeedbackText";
 import { INFO_SHIFTPLAN_SHIFT_REQUIRED_QUALIFIKATION } from "../constants/InfoTexts";
 import { resettingShiftNotice, settingMinQufalification } from "../reducers/Shiftplan";
 import { settingShiftNotice } from "../reducers/userInput";
@@ -23,7 +20,6 @@ export const CalendarEditShiftAdvanced = (props) => {
     const isNewShiftplan = useSelector(state => state.Shiftplan.id.length > 0);
     const index = useSelector(state => state.shiftSlot.index);
     const day = useSelector(state => state.shiftSlot.day);
-    const isActive = useSelector(state => state.Shiftplan.plan[index][day].frei);
     const shiftNotice = useSelector(state => state.Shiftplan.plan[index][day].notice);
     const minQualification = useSelector(state => state.Shiftplan.plan[index][day].prio);
     const userInputShiftNotice = useSelector(state => state.userInput.shiftNotice);

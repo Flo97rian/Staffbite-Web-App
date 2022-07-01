@@ -3,7 +3,7 @@ import { API_HOSTNAME, UPLOAD_APPLICATION } from "../../constants/ApiConstants";
 import { resettingShiftplan } from "../../reducers/Shiftplan";
 import { resettingCurrentShiftplanIndex } from "../../reducers/currentShiftPlan";
 import { resettingDisplayShiftplan } from "../../reducers/display";
-import { thunkFetchShiftplansForEmployee, thunkFetchShiftplansForEmployes } from "./FetchShiftplansForEmployee";
+import { thunkFetchShiftplansForEmployee } from "./FetchShiftplansForEmployee";
 
 export function thunkUploadApplication(Shiftplan) {
     return async function uploadApplication(dispatch, getState) {

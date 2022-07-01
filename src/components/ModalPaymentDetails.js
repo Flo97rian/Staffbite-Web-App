@@ -1,8 +1,6 @@
 import React from "react";
 import {
     Button,
-    Label,
-    ModalBody,
     ModalFooter
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
@@ -10,7 +8,6 @@ import Payment from "../api/stripe/Payment";
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from "react-redux";
 import differenceInDays from 'date-fns/differenceInDays';
-import parseISO from "date-fns/parseISO";
 import { resettingModal } from "../reducers/modal";
 
 const ModalPaymentDetails = ({keytrue, modalkey}) => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
     Col,
     Row,
@@ -7,20 +7,11 @@ import {
 } from "reactstrap"
 import Form from 'react-bootstrap/Form';
 import InfoLabel from "./InfoLabel";
-import InputStringShiftName from "./InputStringShiftName"
-import { validShiftName } from "./ValidInputs";
 import InputTime from "./InputTime";
-import InputTimeWithSwitch from "./InputTimeWithSwitch";
 import InputNumber from "./InputNumber";
-import SelectPosition from "./SelectPosition";
 import {INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES,INFO_SHIFTPLAN_SHIFT_POSITION, INFO_SHIFTPLAN_SHIFT_START } from "../constants/InfoTexts";
-import _ from "lodash";
-import getShiftDescriptionDetails from "../libs/getShiftDetails";
-import getShiftsNumberOfEmployees from "../libs/getShiftsNumberOfEmployees";
 import { useSelector, useDispatch } from "react-redux";
 import { resettingShiftEnd, settingShiftEnd, settingShiftName, settingShiftNumberOfEmployees, settingShiftPosition, settingShiftStart } from "../reducers/userInput";
-import InfoOverlayWithSwitch from "./InfoOverlayWithSwitch";
-import { resettingMissingShiftDetails } from "../reducers/ErrorMessages";
 
 
 const EditShiftDescription = (props) => {
