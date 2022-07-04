@@ -45,7 +45,6 @@ const LogIn = (props) => {
     let notificationAlert = useRef(null)
 
     function goToDemo() {
-        console.log(demoId);
         var url = window.location.href;
         var path = window.location.pathname;
         var newUrl = url.replace(path, "/shiftplan");

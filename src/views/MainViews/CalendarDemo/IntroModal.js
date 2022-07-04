@@ -9,9 +9,22 @@ import { resettingModal } from "../../../reducers/modal";
 import ReactGA from "react-ga";
 import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
 import { settingProcessingStartCreateShiftplan } from "../../../reducers/demo";
+import { useState } from "react";
 
 export const ModalIntro = (props) => {
     const dispatch = useDispatch();
+    const [demoId, setDemoId] = useState(localStorage.getItem('demoId'));
+
+    function goToDemo() {
+        var url = window.location.href;
+        var path = window.location.pathname;
+        var newUrl = url.replace(path, "/shiftplan");
+        ReactGA.event({
+            category: 'Demo',
+            action: "Continue Shiftplan"
+        });
+        window.location.href = newUrl + "?id=" + demoId;
+    }
     const demoIntro = useSelector(state => state.modal.demoIntro);
 
     const handleCreateDemo = () => {
@@ -28,7 +41,7 @@ export const ModalIntro = (props) => {
             <Modal 
                     size="lg"
                     centered
-                    show={demoIntro} onHide={() => dispatch(resettingModal())}
+                    show={demoIntro}
                     className="modal modal-secondary"
             >
                 <Modal.Body className="pt-1">
@@ -40,6 +53,13 @@ export const ModalIntro = (props) => {
                         </p>
                     </Col>
                 </Row>
+                <div hidden={!demoId}>
+                    <Row className="mt-4 text-center">
+                        <Col>
+                            <Button color="primary"  onClick={() => goToDemo()}>Fortfahren</Button>
+                        </Col>
+                    </Row>
+                </div>
                 <Row className="text-center mt-4">
                     <Col>
                         <Button color="primary" onClick={() => handleCreateDemo()}>Schichtplan erstellen</Button>
