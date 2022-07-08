@@ -72,8 +72,45 @@ const Pricing = (props) => {
   function showFixPricing() {
     return(
       <Row className="justify-content-center mb-4 mt-6">
-                <Col xs="12" md="6" className="px-4">
-                  <Card className="card-pricing bg-gradient-white zoom-in shadow-lg rounded border-0 text-center mx-6 mb-4 card">
+        <Col xs="12" md="4" className="px-4">
+                  <Card className="card-pricing bg-gradient-white zoom-in shadow-lg rounded border-0 text-center mb-4 card">
+                  <CardHeader className="bg-transparent card-header">
+                      <h2 className="h1 ls-1 text-info lead py-3 mb-0">
+                        Kostenlos
+                        </h2>
+                    </CardHeader>
+                    <CardBody className="p-lg-4">
+                      <h3 className="h1 text-info display-2">
+                        Basic
+                      </h3>
+                      <br/>
+                      <span className="text-info ls-1 p">Digitaler Schichtplan</span>
+                      
+                      <br/>
+                      <br/>
+                      <span className="text-info ls-1 p">unbegrenzt Mitarbeiter</span>
+                      
+                      <br/>
+                      <br/>
+                      <span className="text-info ls-1 p">unbegrenzt Schichtpläne</span>
+                      <Row className="align-items-center justify-content-center mt-6">
+                        <Link to="/shiftplan">
+                          <Button className="btn-icon btn-3" color="success" type="button"
+                          onClick={
+                            () => 
+                            ReactGA.event({
+                              category: 'Pricing',
+                              action: 'Open MVP'
+                            })}
+                          ><p className="p-0 m-0">Auswählen</p></Button>
+                        </Link>
+                      </Row>
+                    </CardBody>
+
+                  </Card>
+                </Col>
+                <Col xs="12" md="4" className="px-4">
+                  <Card className="card-pricing bg-gradient-white zoom-in shadow-lg rounded border-0 text-center mb-4 card">
                   <CardHeader className="bg-transparent card-header">
                       <h2 className="h1 ls-1 text-info lead py-3 mb-0">Bis 25 Mitarbeitende</h2>
                     </CardHeader>
@@ -107,8 +144,8 @@ const Pricing = (props) => {
 
                   </Card>
                 </Col>
-                <Col xs="12" md="6"  className="px-4">
-                  <Card className="card-pricing bg-gradient-info zoom-in shadow-lg rounded border-0 text-center mx-6 mb-4 card">
+                <Col xs="12" md="4"  className="px-4">
+                  <Card className="card-pricing bg-gradient-info zoom-in shadow-lg rounded border-0 text-center mb-4 card">
                   <CardHeader className="bg-transparent card-header">
                       <h2 className="h1 ls-1 text-white lead py-3 mb-0">Ab 26 Mitarbeitende</h2>
                     </CardHeader>
@@ -201,7 +238,7 @@ const Pricing = (props) => {
                 </Container>
                 <Container className="mb-4 pt-4">
                   <Card className="shadow">
-                    <h2 className="h3 pl-3 pt-3 pb-0 mb-0">Diese Funktionalitäten sind in allen Paketen enthalten!</h2>
+                    <h2 className="h3 pl-3 pt-3 pb-0 mb-0">Diese Funktionalitäten sind in Pro enthalten!</h2>
                     <Row className="align-items-center p-1 pt-3">
                       <Col xs="12" lg="6">
                       <Row className="align-items-center">

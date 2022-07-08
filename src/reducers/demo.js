@@ -194,6 +194,11 @@ const demoSlice = createSlice({
         },
         resettingDemoFetched(state) {
             state.demoFetched = "idle";
+        },
+        removeShift(state, action) {
+            const eventId = action.payload;
+            console.log(eventId);
+            state.demoPlans = state.demoPlans.filter(event => event.id !== eventId);
         }
 
     }
@@ -226,6 +231,7 @@ export const {
     resettingProcessingCreateShiftplan,
     settingDemoFetched,
     resettingDemoFetched,
+    removeShift
 } = demoSlice.actions;
 
 export default demoSlice.reducer;

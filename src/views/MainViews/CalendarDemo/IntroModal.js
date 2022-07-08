@@ -19,19 +19,23 @@ export const ModalIntro = (props) => {
         var url = window.location.href;
         var path = window.location.pathname;
         var newUrl = url.replace(path, "/shiftplan");
-        ReactGA.event({
-            category: 'Demo',
-            action: "Continue Shiftplan"
-        });
+        if(process.env.NODE_ENV !== "development") {    
+            ReactGA.event({
+                category: 'Demo',
+                action: "Continue Shiftplan"
+            });
+            }
         window.location.href = newUrl + "?id=" + demoId;
     }
     const demoIntro = useSelector(state => state.modal.demoIntro);
 
     const handleCreateDemo = () => {
+        if(process.env.NODE_ENV !== "development") {    
         ReactGA.event({
             category: 'Demo',
             action: "Create Shiftplan"
         });
+        }
         dispatch(settingProcessingStartCreateShiftplan())
         dispatch(thunkCreateDemo());
     }

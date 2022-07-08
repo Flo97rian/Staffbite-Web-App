@@ -21,10 +21,12 @@ export const RegistrationFormEmployee = () => {
                 }
             )
         )
-        ReactGA.event({
-            category: 'Demo',
-            action: "Add Employee"
-        });
+        if(process.env.NODE_ENV !== "development") {    
+            ReactGA.event({
+                category: 'Demo',
+                action: "Add Employee"
+            });
+        }
         dispatch(resettingModal())
         dispatch(thunkUpdateDemo());
 

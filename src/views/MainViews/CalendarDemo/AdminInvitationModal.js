@@ -17,6 +17,7 @@ export const ModalInvitationAdmin = (props) => {
     const [clip, setClip] = useState(false);
     const userInput = useSelector(state => state.userInput);
     const authenticationAnswere = useSelector(state => state.userInput.authenticationAnswere);
+    const newAdmin = useSelector(state => (state.demo.demoAdmin?.isAdmin && (state.demo.demoAdmin.securityQuestionId === false || state.demo.demoAdmin.securityQuestionId === undefined)));
     const [invitationLink, setInvitationLink] = useState("");
     const demoInvitationAdmin = useSelector(state => state.modal.demoInvitationAdmin);
     const [showInvitationLink, setShowInvitationLink] = useState(false);
@@ -64,6 +65,8 @@ export const ModalInvitationAdmin = (props) => {
                     className="modal modal-secondary"
             >
                 <Modal.Body className="pt-1">
+                {newAdmin ? 
+                <>
                 <Row className="text-center mt-3">
                     <Col>
                         <h2>Willkommen bei Staffbite</h2>
@@ -113,16 +116,31 @@ export const ModalInvitationAdmin = (props) => {
             </Col>
         </Row>
                 </div>
-                <div hidden={!showInvitationLink}>
+                </>
+        :
+            <div>
+                    <Row className="text-center mb-4 mt-4">
+                        <Col>
+                          <h2>Team einladen</h2>  
+                        </Col>
+                    </Row>
                     <Row className="text-center mb-4">
                         <Col>
-                            <Button size="sm" color="link" className="" onClick={() => handleInvitationLink()}>
-                            {clip ? "Einladungslink kopiert " : "Einladungslink kopieren "}
-                            {clip ? <i className="fas fa-check" /> : <i className="fas fa-copy"></i>}
-                            </Button>
+                            <p>Du kannst über diesen Link dein Team einladen.
+                                <br/>
+                                Somit können sie ihre Verfügbarkeiten eintragen und den Schichtplan einsehen. 
+                                <br/>
+                                Hinweis: Dein Team kann keine Schichten erstellen oder bearbeiten.</p>
+                        </Col>
+                    </Row>
+                    <Row className="text-center mb-4">
+                        <Col>
+                            <Input type="url" defaultValue={invitationLink}></Input>
                         </Col>
                     </Row>
                 </div>
+        }
+                
                 <div>
                     <Row className="text-center mt-3">
                         <Col>

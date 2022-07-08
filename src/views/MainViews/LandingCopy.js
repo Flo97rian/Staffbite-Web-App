@@ -155,11 +155,14 @@ const LandingCopy = (props) => {
                         <Link to="/shiftplan">
                         <Button className="btn-icon" color="success" type="button"
                         onClick={
-                            () => 
-                            ReactGA.event({
-                              category: 'Demo',
-                              action: 'Landing CTA Open MVP'
-                            })}
+                            () => {
+                            if(process.env.NODE_ENV !== "development") {    
+                              ReactGA.event({
+                                category: 'Demo',
+                                action: 'Landing CTA Open MVP'
+                              })}
+                              }
+                            }
                           ><p className="p-0 m-0">Schichtplan erstellen</p></Button>
                         </Link>
                         </Col>

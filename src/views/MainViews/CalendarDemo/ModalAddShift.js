@@ -1,9 +1,13 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
     Button,
     Card,
     Col,
+    Collapse,
     Input,
+    Pagination,
+    PaginationItem,
+    PaginationLink,
     Row
 } from "reactstrap"
 import Modal from 'react-bootstrap/Modal';
@@ -15,52 +19,89 @@ import InputTimeWithSwitch from "../../../components/InputTimeWithSwitch";
 import InfoLabel from "../../../components/InfoLabel";
 import { INFO_SHIFTPLAN_SHIFT_END, INFO_SHIFTPLAN_SHIFT_NAME, INFO_SHIFTPLAN_SHIFT_REQUIRED_EMPLOYEES, INFO_SHIFTPLAN_SHIFT_START } from "../../../constants/InfoTexts";
 import { settingShiftplanChanged } from "../../../reducers/shiftplanChanged";
+import { weekdays } from "../../../constants/Weekdays";
+import { eachDayOfInterval, endOfWeek, getDay, startOfWeek } from "date-fns";
+import { de } from "date-fns/locale";
 
 export const ModalAddShift = (props) => {
     const dispatch = useDispatch();
-    const [userForm, setUserForm] = useState({ShiftName: "", NumberOfEmployees: 0, ShiftStart: "", ShiftEnd: "", ShiftDate: ""})
+    const [userForm, setUserForm] = useState({ShiftName: "", NumberOfEmployees: 0, ShiftStart: "", ShiftEnd: "", ShiftDate: "", customDays: []})
     const plans = useSelector(state => state.demo.demoPlans);
     const date = useSelector(state => state.date);
     const demoAddShift = useSelector(state => state.modal.demoAddShift);
-    const addShift = () => {
-        let start;
-        let end;
-        console.log(userForm);
-        if(props.isListView) {
-            start = new Date(userForm.ShiftDate);
-            end = new Date(date.start);
+
+    useEffect(() => {
+        if(demoAddShift) {
+            let weekday = weekdays[getDay(new Date(date.start)) - 1];
+            setUserForm({...userForm, customDays: [...userForm.customDays, weekday]})
+            
+        }
+    }, [demoAddShift])
+
+    const handleEditCustomDays = (weekday) => {
+        if(userForm.customDays.includes(weekday)) {
+            setUserForm({...userForm, customDays: [...userForm.customDays.filter(day => day !== weekday)]})
         }
 
+        if(!(userForm.customDays.includes(weekday))) {
+            setUserForm({...userForm, customDays: [...userForm.customDays, weekday]});
+        }
+
+    }
+    const addShift = () => {
+        let startOfCurrentWeek;
+        let endOfCurrentWeek; 
+        if(props.isListView) {
+            console.log(userForm.ShiftDate)
+            console.log(new Date(userForm.ShiftDate));
+            startOfCurrentWeek = startOfWeek(new Date(userForm.ShiftDate), {locale: de, weekStartsOn: 1});
+            endOfCurrentWeek = endOfWeek(new Date(userForm.ShiftDate), {locale: de, weekStartsOn: 1});
+        }
         if(!props.isListView) {
-            start = new Date(date.start); 
-            end = new Date(date.start);   
+            startOfCurrentWeek = startOfWeek(new Date(date.start), {locale: de, weekStartsOn: 1}); 
+            endOfCurrentWeek = endOfWeek(new Date(date.start), {locale: de, weekStartsOn: 1});   
         }
-        start.setHours(userForm.ShiftStart.split(":")[0])
-        start.setMinutes(userForm.ShiftStart.split(":")[1])
-        end.setHours(userForm.ShiftEnd.split(":")[0])
-        end.setMinutes(userForm.ShiftEnd.split(":")[1])
-        let data = {
-            id: plans.length,
-            title: userForm.ShiftName,
-            start: start.toString(),
-            end: end.toString(),
-            display: "block",
-            description: "Moin",
-            NumberOfEmployees: userForm.NumberOfEmployees,
-            backgroundColor: "#fb6340",
-            borderColor: "#fb6340",
-            textColor: "dark",
-            notice: "",
-            applicants: {},
-            setApplicants: {},
-            applicantsAfterPublish: {},
+        console.log(startOfCurrentWeek);
+        console.log(endOfCurrentWeek);
+        const datesOfWeekDays = eachDayOfInterval({start: startOfCurrentWeek, end: endOfCurrentWeek});
+        console.log(datesOfWeekDays);
+        console.log(userForm);
+        let newShifts = [];
+        userForm.customDays.forEach((day, index) => {
+            let dayIndex = weekdays.indexOf(day);
+            let start = new Date(datesOfWeekDays[dayIndex]);
+            let end = new Date(datesOfWeekDays[dayIndex]);
+            start.setHours(userForm.ShiftStart.split(":")[0])
+            start.setMinutes(userForm.ShiftStart.split(":")[1])
+            end.setHours(userForm.ShiftEnd.split(":")[0])
+            end.setMinutes(userForm.ShiftEnd.split(":")[1])
+            let data = {
+                id: plans.length + index,
+                title: userForm.ShiftName,
+                start: start.toString(),
+                end: end.toString(),
+                display: "block",
+                description: "Moin",
+                NumberOfEmployees: userForm.NumberOfEmployees,
+                backgroundColor: "#fb6340",
+                borderColor: "#fb6340",
+                textColor: "dark",
+                notice: "",
+                applicants: {},
+                setApplicants: {},
+                applicantsAfterPublish: {},
+            }
+            newShifts.push(data);
+        })
+        if(process.env.NODE_ENV !== "development") {    
+            ReactGA.event({
+                category: 'Demo',
+                action: "Create Shift"
+            });
         }
-        ReactGA.event({
-            category: 'Demo',
-            action: "Create Shift"
-        });
-        dispatch(settingDemoPlans([...plans, data]))
+        dispatch(settingDemoPlans([...plans, ...newShifts]))
         dispatch(settingShiftplanChanged());
+        props.updateStepIndex(true)
         dispatch(resettingModal());
 
     }
@@ -101,36 +142,28 @@ export const ModalAddShift = (props) => {
                                                 <InputTimeWithSwitch info={true} placeholder="" description={INFO_SHIFTPLAN_SHIFT_END} label="Ende" name="ende" onChange={(event) => setUserForm({...userForm, ShiftEnd: event.target.value})}></InputTimeWithSwitch>
                                             </Col>
                                         </Row>
-                                        {/*<Row>
+                                        <Row>
                                             <Col>
-                                                <InfoLabel title={"Wiederholen"}/>
-                                                <Input type="select" className=" edit-event--description input-autosize form-control" onChange={(event) => handleSelectRepeat(event.target.value)}>
-                                                    <option key={"Ohne"} value={"Ohne"}>Ohne</option>
-                                                    <option key={"isDayly"} value={"Täglich"} selected={userInputIsDayly}>Täglich</option>
-                                                    <option key={"customRepeat"} value={"Eigene"} selected={customRepeat}>Eigene</option>
-                                                </Input>
+                                                <InfoLabel title={"Wiederholen am"}/>
                                                 <Row>
                                                     <Col>
-                                                        <Collapse isOpen={customRepeat}>
-                                                            <div className="m-4">
-                                                            <Pagination>
-                                                                {weekdays.map((weekday, index) => {
-                                                                    return (
-                                                                        <PaginationItem key={index} active={userInputCustomDays.includes(weekday) ? true: false}>
-                                                                            <PaginationLink onClick={() => handleCustomDays(weekday)}>
-                                                                                {weekday.substring(0, 2)}
-                                                                            </PaginationLink>
-                                                                        </PaginationItem>
-                                                                    )
-                                                                })}
-                                                            </Pagination>
-                                                            </div>
-                                                        </Collapse>
+                                                        <div className="m-2">
+                                                        <Pagination>
+                                                            {weekdays.map((weekday, index) => {
+                                                                return (
+                                                                    <PaginationItem key={index} active={userForm.customDays.includes(weekday) ? true: false}>
+                                                                        <PaginationLink onClick={() => handleEditCustomDays(weekday)}>
+                                                                            {weekday.substring(0, 2)}
+                                                                        </PaginationLink>
+                                                                    </PaginationItem>
+                                                                )
+                                                            })}
+                                                        </Pagination>
+                                                        </div>
                                                     </Col>
                                                 </Row>
                                             </Col>
                                         </Row>
-                                        */}
                                     </Col>
                                 </Row>
                             </Card>

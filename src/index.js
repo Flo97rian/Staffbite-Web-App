@@ -77,6 +77,7 @@ import NoAdminPermission from './views/MainViews/Default/NoAdminPermission';
 import LandingTest from './views/MainViews/User/LandingTest';
 import CalendarDemo from './views/MainViews/CalendarDemo';
 import LandingCopy from './views/MainViews/LandingCopy';
+import GrundlagenSchichtplan from './views/MainViews/Themen/GrundlagenSchichtplan.js'
 
 
 const TRACKING_ID = "UA-213490643-1"; // YOUR_OWN_TRACKING_ID
@@ -122,6 +123,7 @@ ReactDOM.render(
         <Route path="/themen/app-preview" element={<AppPreview />} />
         <Route path="/themen/umfrage" element={<Umfrage />} />
         <Route path="/themen/positionen" element={<Positionen />} />
+        <Route path="/themen/schichtplan-grundlagen" element={<GrundlagenSchichtplan />} />
         <Route path="/themen" element={<Themen />} />
         <Route path="/schichtplan/gastronomie" element={<Gastronomie />} />
         <Route path="/pricing" element={ <Pricing  />} />

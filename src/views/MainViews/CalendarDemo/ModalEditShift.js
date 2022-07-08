@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {
     Button,
     Card,
@@ -10,7 +10,7 @@ import {
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../../../reducers/modal";
-import { resettingDummyShifts, updateDemoEvent } from "../../../reducers/demo";
+import { removeShift, resettingDummyShifts, updateDemoEvent } from "../../../reducers/demo";
 import InputTime from "../../../components/InputTime";
 import InputTimeWithSwitch from "../../../components/InputTimeWithSwitch";
 import InfoLabel from "../../../components/InfoLabel";
@@ -27,6 +27,7 @@ export const ModalEditShift = (props) => {
     const [showEmployees, setShowEmployees] = useState(event?.extendedProps?.showEmployee || false );
     const demoEditShift = useSelector(state => state.modal.demoEditShift);
     const DnDRef = useRef();
+
     if(event) {
         let startHours = String(new Date(event.start).getHours());
         let startMinutes = String(new Date(event.start).getMinutes());
@@ -114,12 +115,20 @@ export const ModalEditShift = (props) => {
             setApplicants: newSetApplicants,
             applicantsAfterPublish: {},
         }
+        props.updateStepIndex(true);
         dispatch(resettingTemporaryEventId());
         dispatch(updateDemoEvent(data));
         dispatch(settingShiftplanChanged());
         dispatch(resettingModal());
 
 
+    }
+
+    const handleRemoveShift = () => {
+        dispatch(removeShift(event.id));
+        dispatch(resettingTemporaryEventId());
+        dispatch(settingShiftplanChanged());
+        dispatch(resettingModal());
     }
 
     const handleCloseModal = () => {
@@ -137,6 +146,7 @@ export const ModalEditShift = (props) => {
                     className="modal modal-secondary"
             >
                 <Modal.Body className="pt-1">
+                    <div id="editfirstShift">
                                 <Row className="text-center mt-2">
                                     <Col>
                                         <h2>Schicht bearbeiten</h2>
@@ -207,19 +217,31 @@ export const ModalEditShift = (props) => {
                             <Collapse isOpen={showEmployees}>
                                 <EmployeesDnD ref={DnDRef}/>
                             </Collapse>
-                            <Row className="text-right mt-3">
+                            <Row className="mt-3">
                                 <Col>
-                                        <Button color="link" onClick={() => handleCloseModal()}>
-                                            Schließen
-                                        </Button>
-                                        <Button color="success" onClick={() => editShift()}>
-                                            Schicht ändern
-                                        </Button>
+                                        <Row className="text-left">
+                                            <Col>
+                                                <Button color="link" onClick={() => handleRemoveShift()}>
+                                                    Löschen
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                </Col>
+                                <Col>
+                                    <Row className="text-right">
+                                            <Col>
+                                                <Button color="link" onClick={() => handleCloseModal()}>
+                                                    Schließen
+                                                </Button>
+                                                <Button color="primary" onClick={() => editShift()}>
+                                                    Schicht ändern
+                                                </Button>
+                                            </Col>
+                                    </Row>
                                 </Col>
                             </Row>
+                            </div>
                 </Modal.Body>
-                <Modal.Footer>
-                </Modal.Footer>
             </Modal>
             </>
         );

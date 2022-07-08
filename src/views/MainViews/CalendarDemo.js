@@ -16,10 +16,8 @@
 */
 import {useState, useRef, useEffect} from "react";
 // nodejs library that concatenates classes
-
+import Joyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 import { Helmet } from "react-helmet";
-import { Steps } from "intro.js-react";
-import "intro.js/introjs.css";
 // JavaScript library that creates a callendar with events
 import FullCalendar from "@fullcalendar/react"
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -47,7 +45,7 @@ import {
 import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { weekdays } from "../../constants/Weekdays";
-import { settingModal } from "../../reducers/modal";
+import { resettingModal, settingModal } from "../../reducers/modal";
 import { settingShiftSlot } from "../../reducers/ShiftSlot";
 import { ModalDemoEntry } from "./CalendarDemo/AuthenticationModal";
 import { resettingDemoIsSignedIn, settingDemoId, settingDemoPlans } from "../../reducers/demo";
@@ -60,12 +58,13 @@ import { thunkUpdateDemo } from "../../store/middleware/UpdateDemo";
 import { settingTemporaryEventId } from "../../reducers/temporary";
 import { ModalEditShift } from "./CalendarDemo/ModalEditShift";
 import { ModalEmployees } from "./CalendarDemo/ModalEmployees";
-import { isSameWeek } from "date-fns";
+import { isSameWeek, startOfWeek } from "date-fns";
 import { de } from "date-fns/locale";
-import { IntroContent } from "./CalendarDemo/IntroStep";
+import { Tooltip } from "./CalendarDemo/IntroStep";
 import { ModalApplyForShift } from "./CalendarDemo/ModalApplyForShift";
 import { ModalSendFeedback } from "./CalendarDemo/ModalSendFeedback";
 import { ModalInvitationAdmin } from "./CalendarDemo/AdminInvitationModal";
+import { IntroTitle } from "./CalendarDemo/IntroTitle";
 
 
 function CalendarDemo(props) {
@@ -89,23 +88,31 @@ function CalendarDemo(props) {
   // eslint-disable-next-line
   const calendarRef = useRef(null);
   const containerRef = useRef();
+  const introJsRef = useRef();
   const dispatch = useDispatch()
   const [intro, setIntro] = useState({
     
       stepsEnabled: false,
       initialStep: 0,
-      onExit: () => setIntro({...intro, stepsEnabled: false}),
+      continue: true,
+      readyToSet: false,
+      alreadyShown: false,
+      stepIndex: 0,
       steps: [
         {
-          element: ".adminView",
-          position: 'bottom',
-          intro:  <IntroContent title="Willkommen" content="In der Planer Ansicht kannst du deine Schichtpläne erstellen & bearbeiten. Und dein Team einladen." />
+          disableBeacon:true,
+          target: '#adminView',
+          placement: 'auto',
+          title: "Willkommen bei Staffbite",
+          content:  <div>Du befindest dich in der <b>Planer Ansicht</b>. In der <b>Planer Ansicht</b> kannst du deinen Schichtplan <b>erstellen & bearbeiten</b>.</div>,
+          highlightClass: "",
+          tooltipClass: "",
+          buttonText: "Los geht's",
+          showButton: false,
+          showSkipButton: false,
+          hideCloseButton: true,
+          hideBackButton: true,
         },
-        {
-          element: ".shiftplan",
-          position: 'top',
-          intro:  <IntroContent title="Du willst gleich anfangen?" content={viewListWeek ? "Klicke einfach auf das + über dem Schichtplan und erstelle deine erste Schicht":"Klicke einfach in den Kalender und erstelle deine erste Schicht."} />
-        }
       ],
     })
 
@@ -120,12 +127,6 @@ function CalendarDemo(props) {
       handleShowEntries()
     }
   }, [demoFetched]);
-
-  useEffect(() => {
-    if(navigator.clipboard.readText() !== invitationLink) {
-      setClip(false);
-    }
-  }, [navigator])
 
   useEffect(() => {}, [headerTitle])
 
@@ -167,7 +168,7 @@ function CalendarDemo(props) {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     if(newAdmin) {
-      setIntro({...intro, stepsEnabled: true});
+      createInitialShift();
     }
     if("id" in params && !("invitation" in params) && !newAdmin) {
       dispatch(settingModal("demoEntry"));
@@ -186,14 +187,148 @@ function CalendarDemo(props) {
   useEffect(() => {
     if(calendarRef.current) {
       const calendarApi = calendarRef.current.getApi();
+      console.log(calendarApi);
       setHeaderTitle(calendarApi.currentDataManager.data.viewTitle)
     }
   }, [calendarRef])
 
+  useEffect(() => {
+    if(intro.steps.length === 2 && !intro.stepsEnabled && intro.readyToSet) {
+      if(!intro.alreadyShown) {
+        setIntro({...intro, stepsEnabled: true});
+      }
+    }
+  }, [intro])
 
   useEffect(() => {
   }, [isAdmin]);
 
+
+  const createInitialShift = () => {
+    if(demoFetched && !events.length) {
+      const calendarApi = calendarRef.current.getApi();
+      const DateOfCurrentWeek = calendarApi.getDate();
+      let StartOfWeek = startOfWeek(new Date(DateOfCurrentWeek), {locale: de, weekStartsOn: 1});
+      let start = new Date(StartOfWeek.setHours("12"));
+      let end = new Date(StartOfWeek.setHours("18"));
+      let initialShift = {
+        id: 0,
+        title: "Erste Schicht",
+        start: start.toString(),
+        end: end.toString(),
+        display: "block",
+        description: "Moin",
+        NumberOfEmployees: 2,
+        backgroundColor: "#fb6340",
+        borderColor: "#fb6340",
+        textColor: "dark",
+        notice: "",
+        applicants: {},
+        setApplicants: {},
+        applicantsAfterPublish: {},
+      };
+      dispatch(settingDemoPlans([...events, initialShift]));
+    }
+  };
+
+  const createTour = () => {
+    if( newAdmin &&
+        intro.stepsEnabled === false &&
+        intro.readyToSet === false &&
+        intro.steps.length === 1
+      ) {
+        const firstShift = {
+          target: '#firstShift',
+          placement: 'auto',
+          title: "Deine erste Schicht",
+          highlightClass: "",
+          content: <div><b>Bearbeite</b> deine <b>erste Schicht</b>. Wähle die Schicht aus, um sie zu <b>bearbeiten</b>.</div>,
+          spotlightClicks: true,
+          showSkipButton: false,
+          hideCloseButton: true,
+          hideBackButton: true,
+        }
+        const editFirstShift = {
+          target: '#editfirstShift',
+          placement: viewListWeek ? "center" : 'auto',
+          title: "Bearbeite deine Schicht",
+          viewMobile: viewListWeek,
+          continue: false,
+          highlightClass: "",
+          buttonText: viewListWeek ? "Los geht's" : "",
+          content:  <div>Passe den <b>Namen</b>, die <b>Anzahl benötigter Mitarbeiter</b>, den <b>Beginn</b> und das <b>Ende</b> für deine Bedürfnisse an. <b>Bestätige</b> anschließend deine ersten Änderungen.</div>,
+          spotlightClicks: true,
+        }
+        const addSecondShift = {
+          target: viewListWeek ? "#addListShift" : "#addCalendarShift",
+          placement: viewListWeek ? "auto" : 'auto',
+          title: "Füge eine Schicht hinzu",
+          viewMobile: viewListWeek,
+          highlightClass: "",
+          content:  <div><b>Füge</b> eine <b>weitere Schicht</b> hinzu. {viewListWeek ? <div>Klicke auf das <i className="fas fa-plus"></i> Symbol, um eine Schicht hinzuzufügen</div> : <div>Klicke auf eine freie Fläche im Kalender, um eine Schicht hinzuzufügen.</div>}</div>,
+          spotlightClicks: true,
+        }
+        const shareShiftplan = {
+          target: "#sharePlan",
+          placement: 'auto',
+          title: "Teile deinen Schichtplan",
+          viewMobile: viewListWeek,
+          highlightClass: "",
+          content:  <div><b>Teile</b> deinen Schichtplan mit deinem Team, damit sich dein Team eintragen kann.</div>,
+          spotlightClicks: true,
+        }
+        const shareShiftplanLink = {
+          target: "#sharePlan",
+          placement: viewListWeek ? "auto" : 'auto',
+          title: "Link teilen",
+          viewMobile: viewListWeek,
+          highlightClass: "",
+          content:  <div>Über den Link, kann deine Team ihre Verfügbarkeiten angeben und den Schichtplan einsehen. Sie können allerdings keine Änderungen vornehmen.</div>,
+          spotlightClicks: true,
+        }
+      setIntro({...intro, stepsEnabled: true, readyToSet: true, steps: [...intro.steps, firstShift, editFirstShift, addSecondShift, shareShiftplan]});
+    }
+  }
+
+  const handleJoyrideCallback = (data) => {
+    const { action, index, status, type, lifecycle } = data;
+    console.log(status);
+    if(lifecycle === "complete") {
+      switch (index) {
+        case 0:
+          setIntro({...intro, stepIndex: index + 1});
+          break;
+        case 2:
+          setIntro({...intro, stepsEnabled: false});
+          break;
+        case 3:
+          setIntro({...intro, stepsEnabled: false});
+          break;
+        case 4:
+          setIntro({...intro, stepsEnabled: false});
+        default:
+          break;
+      
+      }
+    }
+  };
+
+  const updateStepIndex = (restart = false, disable = false) => {
+    if(newAdmin) {
+      if(!intro.stepsEnabled && !restart && !disable) {
+        setIntro({...intro, stepsEnabled: false});
+      }
+      if(!intro.stepsEnabled && restart) {
+        setIntro({...intro, stepsEnabled: true, stepIndex: intro.stepIndex + 1});
+      }
+      if(intro.stepsEnabled && !disable) {
+        setIntro({...intro, stepIndex: intro.stepIndex + 1});
+      }
+      if(intro.stepsEnabled && disable) {
+        setIntro({...intro, stepsEnabled: false});
+      }
+    }
+  }
 
   const handleShowViewBasedOnWidth = () => {
     const { innerWidth: width } = window;
@@ -278,12 +413,12 @@ function CalendarDemo(props) {
 
   const handleInvitationLink = () => {
     if(newAdmin) {
+      updateStepIndex(false, true);
       dispatch(settingModal("demoInvitationAdmin"));
     }
     if(!newAdmin) {
-      navigator.clipboard.writeText(invitationLink)
-      setClip(true);
-    }
+        dispatch(settingModal("demoInvitationAdmin"));
+      }
   }
 
 
@@ -339,20 +474,22 @@ function CalendarDemo(props) {
     const displayOnSmallDevices = width < 875;
     if(isAdmin) {
     return (
-      <Row className="p-1">
-          <Col>
-           <div hidden={displayOnSmallDevices}>
-           <b>{" "}{eventInfo.timeText}{" "}Uhr</b>
-           <br/>
-           <br/>
-           </div>
-           <b>{eventInfo.event.title}</b>
-           <br/>
-           <b><i className="fas fa-user-clock"></i>{" "}{Object.keys(eventInfo.event.extendedProps.applicants).length} {displayOnSmallDevices && viewDayGridMonth ? "" : "Bewerber"}</b>
-           <br/>
-           <b><i className="fas fa-users"></i>{" "}{Object.keys(eventInfo.event.extendedProps.setApplicants).length + "/" + eventInfo.event.extendedProps.NumberOfEmployees} {displayOnSmallDevices && viewDayGridMonth ? "" : "Mitarbeiter"}</b>
-         </Col>
-      </Row>
+      <div id="firstShift" style={{cursor: "pointer"}} onClick={() => updateStepIndex()}>
+        <Row className="p-1">
+            <Col>
+            <div hidden={displayOnSmallDevices}>
+            <b>{" "}{eventInfo.timeText}{" "}Uhr</b>
+            <br/>
+            <br/>
+            </div>
+            <b>{eventInfo.event.title}</b>
+            <br/>
+            <b><i className="fas fa-user-clock"></i>{" "}{Object.keys(eventInfo.event.extendedProps.applicants).length} {displayOnSmallDevices && viewDayGridMonth ? "" : "Bewerber"}</b>
+            <br/>
+            <b><i className="fas fa-users"></i>{" "}{Object.keys(eventInfo.event.extendedProps.setApplicants).length + "/" + eventInfo.event.extendedProps.NumberOfEmployees} {displayOnSmallDevices && viewDayGridMonth ? "" : "Mitarbeiter"}</b>
+          </Col>
+        </Row>
+      </div>
     )
   }
   if(isEmployee) {
@@ -411,33 +548,53 @@ function CalendarDemo(props) {
         </Col>
       </Row>
      </ReactBSAlert>
-     <Steps
-          enabled={intro.stepsEnabled}
+      <Joyride
+          run={intro.stepsEnabled}
+          stepIndex={intro.stepIndex}
+          continuous={intro.continue}
+          locale={{
+            back: "Zurück",
+            next: "Verstanden",
+            skip: "Beenden",
+            last: "Los geht's"
+          }}
+          tooltipComponent={Tooltip}
+          callback={handleJoyrideCallback}
+          showProgress={true}
           steps={intro.steps}
-          initialStep={intro.initialStep}
-          options={{
-            nextLabel: "Weiter",
-            prevLabel: "Zurück",
-            doneLabel: "Fertig",
-            showProgress: true,
+          disableScrolling={true}
+          styles={{
+            options: {
+              zIndex: 10000,
+            },
           }}
         />
-      <Container  className="mt-4" fluid ref={containerRef}>
-        <div className="adminView">
+      <Container className="mt-4" fluid ref={containerRef}>
+        <Row>
+          <Col xs="0" md="4"></Col>
+          <Col xs="12" md="4">
+          <div>
           <Row hidden={!isAdmin} className="text-center">
               <Col>
+              <div  className=" pt-5" id="adminView">
                 <h3>Planer Ansicht</h3>
+              </div>
               </Col>
           </Row>
           <Row hidden={!isAdmin} className="text-center mb-4">
               <Col>
+                <div id="sharePlan">
                 <Button size="sm" color="link" onClick={() => handleInvitationLink()}>
-                  {clip ? "Einladungslink kopiert " : "Einladungslink kopieren "}
-                  {clip ? <i className="fas fa-check" /> : <i className="fas fa-copy"></i>}
+                  Einladungslink teilen
+                  <i className="fas fa-share ml-1"></i>
                 </Button>
+                </div>
               </Col>
           </Row>
           </div>
+          </Col>
+          <Col xs="0" md="4"></Col>
+        </Row>
           <Row hidden={!isEmployee} className="text-center mb-4">
               <Col>
                 <h3>Mitarbeiter Ansicht</h3>
@@ -520,7 +677,12 @@ function CalendarDemo(props) {
                   <Col>      
                   <Row className="text-right">
                     <Col>
-                        <Button hidden={(!viewListWeek || !isAdmin)} color="link" size="sm" onClick={() => dispatch(settingModal("demoAddShift"))}><i className="fas fa-plus"/></Button>
+                        <Button hidden={(!viewListWeek || !isAdmin)} color="link" size="sm"
+                        onClick={() => {
+                          dispatch(settingModal("demoAddShift"));
+                          updateStepIndex();
+                          }}><i className="fas fa-plus" id="addListShift"/>
+                        </Button>
                         <Button color="link" size="sm" onClick={() => changeToPrev()}><i className="fas fa-arrow-left"/></Button>
                         <Button color="link" size="sm" onClick={() => changeToNext()}><i className="fas fa-arrow-right"/></Button>
                     </Col>
@@ -528,7 +690,7 @@ function CalendarDemo(props) {
                   </Col>
                 </Row>
               </CardHeader>
-              <CardBody className="p-0">
+              <CardBody className="p-0 calendarHint" id="addCalendarShift">
                 <Row>
                   <Col>
                   <FullCalendar
@@ -571,6 +733,7 @@ function CalendarDemo(props) {
                         eventContent={renderEventContent}
                         selectable={true}
                         editable={true}
+                        eventDidMount={() => createTour()}
                         windowResize={() => handleShowViewBasedOnWidth()}
                         locale="de"
                         eventDisplay="block"
@@ -581,6 +744,7 @@ function CalendarDemo(props) {
                             const day = weekdays[getDay];
                             dispatch(settingStart(info.start.toString()));
                             dispatch(settingShiftSlot({day: day}))
+                            updateStepIndex(false, true);
                             dispatch(settingModal("demoAddShift"))
                           }
                           if(viewDayGridMonth) {
@@ -634,8 +798,8 @@ function CalendarDemo(props) {
       <ModalDemoEntry />
       <ModalInvitation />
       <ModalIntro />
-      <ModalAddShift isListView={viewListWeek}/>
-      <ModalEditShift />
+      <ModalAddShift isListView={viewListWeek} updateStepIndex={updateStepIndex}/>
+      <ModalEditShift updateStepIndex={updateStepIndex}/>
       <ModalEmployees calendarRef={calendarRef.current}/>
       <ModalApplyForShift />
       <ModalSendFeedback />
