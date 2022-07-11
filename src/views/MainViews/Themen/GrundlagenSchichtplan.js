@@ -186,7 +186,7 @@ function GrundlagenSchichtplan (props) {
                 <Col>
                         <h2>Wer erstellt Schichtpläne?</h2>
                         <p className="lead">
-                          Grundsätzlich wird ein Schichtplan von dem jeweiligen Arbeitgeber erstellt. 
+                          Grundsätzlich wird ein Schichtplan vom jeweiligen Arbeitgeber erstellt. 
                           Bei größeren Betrieben ist in der Regel die Personalabteilung oder die Bereichsleitung für die Erstellung zuständig. 
                           In kleineren Betrieben übernimmt häufig der Inhaber oder ein erfahrener Mitarbeiter die Erstellung des Schichtplans. 
                           <br/>
@@ -260,7 +260,7 @@ function GrundlagenSchichtplan (props) {
                             <Col xs="12" md="4">
                               <ul>
                                 <li>
-                                  Pflege (ambulant & stationär)
+                                  Pflege
                                 </li>
                                 <li>
                                   Krankenhäuser
@@ -334,7 +334,7 @@ function GrundlagenSchichtplan (props) {
                         <br/>
                         <b>Ruhepausen (§ 4 ArbZG)</b>
                         <br/>
-                        Beträgt die Arbeitszeit unter sechs Stunden muss keine Pause gewährt werden. 30 Minuten Pause ist dem Mitarbeiter einzuräumen, wenn die Arbeitszeit zwischen sechs und neun Stunden beträgt. Geht die Arbeitsziet über neuen Stunden hinaus, ist eine Pause von 45 Minuten einzuräumen.
+                        Beträgt die Arbeitszeit unter sechs Stunden muss keine Pause gewährt werden. 30 Minuten Pause ist dem Mitarbeiter einzuräumen, wenn die Arbeitszeit zwischen sechs und neun Stunden beträgt. Geht die Arbeitszeit über neuen Stunden hinaus, ist eine Pause von 45 Minuten einzuräumen.
                         <br/>
                         <br/>
                         <b>Ruhezeiten (§ 5 ArbZG)</b>

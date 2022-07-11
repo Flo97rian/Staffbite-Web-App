@@ -125,7 +125,7 @@
         },
         "stripeCheckout": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/stripeCheckout-3141425542595a754765-build.zip",
+          "s3Key": "amplify-builds/stripeCheckout-6569787664677175664a-build.zip",
           "secretsPathAmplifyAppId": "d3p8gdtbc86r0o"
         },
         "validateStripeNumberOfEmployees": {
@@ -156,7 +156,7 @@
         },
         "createDemo": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",
-          "s3Key": "amplify-builds/createDemo-2b2f415264767258676d-build.zip"
+          "s3Key": "amplify-builds/createDemo-6a36717a627332736852-build.zip"
         },
         "updateDemo": {
           "deploymentBucketName": "amplify-staffbite-dev-180625-deployment",

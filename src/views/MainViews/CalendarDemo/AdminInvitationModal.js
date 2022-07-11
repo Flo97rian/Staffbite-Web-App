@@ -5,6 +5,7 @@ import {
     Input,
     Row
 } from "reactstrap"
+import ReactGA from "react-ga";
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { resettingModal } from "../../../reducers/modal";
@@ -53,6 +54,15 @@ export const ModalInvitationAdmin = (props) => {
     const handleInvitationLink = () => {
         navigator.clipboard.writeText(invitationLink)
         setClip(true);
+    }
+
+    const handleSetBranche = (actionText) => {
+        if(process.env.NODE_ENV !== "development") {
+            ReactGA.event({
+                category: 'Demo',
+                action: actionText,
+            });
+        }
     }
 
       //Diese Funktion sorgt für das Kennzeichnen einer Prioschicht im jeweiligen Schichtplan
@@ -106,6 +116,27 @@ export const ModalInvitationAdmin = (props) => {
             <Row>
                 <Col>
                     <Input type="text" value={authenticationAnswere} placeholer="" name="authenticationAnswere" onChange={(event) => dispatch(settingAuthenticationAnswere(event.target.value))}></Input>
+                </Col>
+            </Row>
+            <Row className="mt-3">
+                <Col>
+                    <h4>Wähle deine Branche aus</h4>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <Input type="select" onChange={(event) => handleSetBranche(event.target.value)}>
+                        <option key={1} value={"Bildung"}>Bildung</option>
+                        <option key={2} value={"Hotel"}>Hotel</option>
+                        <option key={3} value={"Einzelhandel"}>Einzelhandel</option>
+                        <option key={4} value={"Pflege"}>Pflege</option>
+                        <option key={5} value={"Sicherheit"}>Sicherheit</option>
+                        <option key={6} value={"Produktion"}>Produktion</option>
+                        <option key={7} value={"Gesundheitswesen"}>Gesundheitswesen</option>
+                        <option key={8} value={"Gastronomie"}>Gastronomie</option>
+                        <option key={9} value={"Soziale Einrichtung"}>Soziale Einrichtung</option>
+                        <option key={10} value={"weitere"}>Weitere</option>
+                </Input>
                 </Col>
             </Row>
             <Row className="text-center mt-3">

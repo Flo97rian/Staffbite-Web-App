@@ -8,6 +8,7 @@ import {
 import { Player } from "@lottiefiles/react-lottie-player";
 import Author from "../../../assets/img/theme/Daniel Zellmann Profilbild.png";
 import Create_Shift from "../../../assets/json/animation/Create_Shift.json";
+import catchAnalyticsEvent from "./DemoAnalytics";
 
 
 const TooltipBody = ({content}) => {

@@ -22,6 +22,7 @@ import { settingShiftplanChanged } from "../../../reducers/shiftplanChanged";
 import { weekdays } from "../../../constants/Weekdays";
 import { eachDayOfInterval, endOfWeek, getDay, startOfWeek } from "date-fns";
 import { de } from "date-fns/locale";
+import catchAnalyticsEvent from "./DemoAnalytics";
 
 export const ModalAddShift = (props) => {
     const dispatch = useDispatch();
@@ -93,12 +94,7 @@ export const ModalAddShift = (props) => {
             }
             newShifts.push(data);
         })
-        if(process.env.NODE_ENV !== "development") {    
-            ReactGA.event({
-                category: 'Demo',
-                action: "Create Shift"
-            });
-        }
+        catchAnalyticsEvent()
         dispatch(settingDemoPlans([...plans, ...newShifts]))
         dispatch(settingShiftplanChanged());
         props.updateStepIndex(true)

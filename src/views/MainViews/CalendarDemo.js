@@ -65,6 +65,7 @@ import { ModalApplyForShift } from "./CalendarDemo/ModalApplyForShift";
 import { ModalSendFeedback } from "./CalendarDemo/ModalSendFeedback";
 import { ModalInvitationAdmin } from "./CalendarDemo/AdminInvitationModal";
 import { IntroTitle } from "./CalendarDemo/IntroTitle";
+import catchAnalyticsEvent from "./CalendarDemo/DemoAnalytics";
 
 
 function CalendarDemo(props) {
@@ -292,11 +293,11 @@ function CalendarDemo(props) {
 
   const handleJoyrideCallback = (data) => {
     const { action, index, status, type, lifecycle } = data;
-    console.log(status);
     if(lifecycle === "complete") {
       switch (index) {
         case 0:
           setIntro({...intro, stepIndex: index + 1});
+          catchAnalyticsEvent(7);
           break;
         case 2:
           setIntro({...intro, stepsEnabled: false});
@@ -320,9 +321,11 @@ function CalendarDemo(props) {
       }
       if(!intro.stepsEnabled && restart) {
         setIntro({...intro, stepsEnabled: true, stepIndex: intro.stepIndex + 1});
+        catchAnalyticsEvent(9);
       }
       if(intro.stepsEnabled && !disable) {
         setIntro({...intro, stepIndex: intro.stepIndex + 1});
+        catchAnalyticsEvent(8);
       }
       if(intro.stepsEnabled && disable) {
         setIntro({...intro, stepsEnabled: false});
@@ -414,6 +417,7 @@ function CalendarDemo(props) {
   const handleInvitationLink = () => {
     if(newAdmin) {
       updateStepIndex(false, true);
+      catchAnalyticsEvent(4);
       dispatch(settingModal("demoInvitationAdmin"));
     }
     if(!newAdmin) {

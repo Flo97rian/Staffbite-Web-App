@@ -10,6 +10,7 @@ import ReactGA from "react-ga";
 import { thunkCreateDemo } from "../../../store/middleware/CreateDemo";
 import { settingProcessingStartCreateShiftplan } from "../../../reducers/demo";
 import { useState } from "react";
+import catchAnalyticsEvent from "./DemoAnalytics";
 
 export const ModalIntro = (props) => {
     const dispatch = useDispatch();
@@ -19,23 +20,13 @@ export const ModalIntro = (props) => {
         var url = window.location.href;
         var path = window.location.pathname;
         var newUrl = url.replace(path, "/shiftplan");
-        if(process.env.NODE_ENV !== "development") {    
-            ReactGA.event({
-                category: 'Demo',
-                action: "Continue Shiftplan"
-            });
-            }
+        catchAnalyticsEvent(2);
         window.location.href = newUrl + "?id=" + demoId;
     }
     const demoIntro = useSelector(state => state.modal.demoIntro);
 
     const handleCreateDemo = () => {
-        if(process.env.NODE_ENV !== "development") {    
-        ReactGA.event({
-            category: 'Demo',
-            action: "Create Shiftplan"
-        });
-        }
+        catchAnalyticsEvent(1);
         dispatch(settingProcessingStartCreateShiftplan())
         dispatch(thunkCreateDemo());
     }
