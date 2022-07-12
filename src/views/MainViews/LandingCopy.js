@@ -271,7 +271,7 @@ const LandingCopy = (props) => {
                       <Row className="pt-3" style={!isMobile ? { transform: "translateY(50%)"}: {}}>
                         <Col>
                         <Row className="text-right">
-                          <Col xs="0" md="2" className="">
+                          <Col xs="0" md="2" className="d-none d-md-block">
                             <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">1</Badge>
                           </Col>
                           <Col xs="12" md="10">
@@ -280,39 +280,39 @@ const LandingCopy = (props) => {
                           </Row>
                         </Col>
                       </Row>
-                      <Row className={ isMobile ? "text-center mt-4" : ""} style={!isMobile ? { transform: "translateY(10%)"}: {}}>
+                      <Row style={!isMobile ? { transform: "translateY(10%)"}: {}}>
                         <Col>
                           <p className="lead-text mt-2">
                             <Row className="text-left">
-                            <Col xs="0" md="2"></Col>
+                            <Col xs="0" md="2" className="d-none d-md-block"></Col>
                               <Col xs="12" md="10">
                                 Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen"> digitalen Schichtplan</Link> für dich und dein Team.
                               </Col>
                             </Row>
                             <Row className="mt-4 text-left">
-                            <Col xs="0" md="2"></Col>
-                            <Col xs="1" className="mt-0">
-                              <i className="fas fa-check-circle text-success"></i>
-                            </Col>
-                            <Col xs="9">
-                              Name der Schicht festlegen
-                            </Col>
+                              <Col xs="0" md="2" className="d-none d-md-block"></Col>
+                              <Col xs="1" md="1" className="mt-0">
+                                <i className="fas fa-check-circle text-success"></i>
+                              </Col>
+                              <Col xs="10" md="9">
+                                Name der Schicht festlegen
+                              </Col>
                             </Row>
                             <Row className="mt-2 text-left">
-                            <Col xs="0" md="2"></Col>
-                            <Col xs="1" className="mt-0">
+                            <Col xs="0" md="2" className="d-none d-md-block"></Col>
+                            <Col xs="1" md="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
-                            <Col xs="9">
+                            <Col xs="10" md="9">
                               Benötigte Mitarbeiter angeben
                             </Col>
                             </Row>
                             <Row className="mt-2 text-left">
-                            <Col xs="0" md="2"></Col>
-                            <Col xs="1" className="mt-0">
+                            <Col xs="0" md="2" className="d-none d-md-block"></Col>
+                            <Col xs="1" md="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
-                            <Col xs="9">
+                            <Col xs="10" md="9">
                               Beginn & Ende auswählen
                             </Col>
                             </Row>
@@ -337,10 +337,10 @@ const LandingCopy = (props) => {
                 <Row className="text-center">
                   <Col>
                     <Row className="pt-3 text-left">
-                          <Col xs="1" className="">
+                          <Col md="1" className="d-none d-md-block">
                             <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">2</Badge>
                           </Col>
-                          <Col xs="11">
+                          <Col xs="12" md="11">
                             <h2 className="display-4">Dein Team trägt sich ein</h2>
                           </Col>
                       </Row>
@@ -402,10 +402,10 @@ const LandingCopy = (props) => {
                     <Row className="pt-3" style={isMobile ? { transform: "translateY(50%)"}: {}}>
                         <Col>
                         <Row className="text-right">
-                          <Col xs="2" className="">
+                          <Col xs="0" md="2" className="d-none d-md-block">
                             <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">3</Badge>
                           </Col>
-                          <Col xs="10">
+                          <Col xs="12" md="10">
                             <h2 className="display-4 text-left">Automatisierte Befüllung</h2>
                           </Col>
                           </Row>
@@ -419,20 +419,20 @@ const LandingCopy = (props) => {
                           </Col>
                       </Row>
                       <Row className="mt-4 text-left">
-                            <Col xs="0" md="2"></Col>
+                            <Col xs="0" md="2" className="d-none d-md-block"></Col>
                             <Col xs="1" md="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
-                            <Col xs="11" md="9">
+                            <Col xs="10" md="9">
                               Schichtplan auswählen
                             </Col>
                             </Row>
                             <Row className="text-left">
-                            <Col xs="0" md="2"></Col>
+                            <Col xs="0" md="2" className="d-none d-md-block"></Col>
                             <Col xs="1" md="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
-                            <Col xs="11" md="9">
+                            <Col xs="10" md="9">
                               Befüllung starten
                             </Col>
                             </Row>
@@ -457,10 +457,10 @@ const LandingCopy = (props) => {
                     <Row className="pt-0">
                         <Col>
                         <Row className="">
-                          <Col xs="1" className="">
+                          <Col xs="1" md="1"className="d-none d-md-block">
                             <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">4</Badge>
                           </Col>
-                          <Col xs="11">
+                          <Col xs="12" md="11">
                             <h2 className="display-4 text-left">Schichtplan veröffentlichen</h2>
                           </Col>
                           </Row>
@@ -730,7 +730,7 @@ const LandingCopy = (props) => {
                       <hr className="m-2"/>
                     <div>
                         <Row className="">
-                          <Col  xs="12" md="2">
+                          <Col xs="2">
                             <Row className="justify-content-center">
                               <div className=" mb-0 icon icon-shape icon-size-lg p-0 justify-content-center text-center mb-0">
                               🤑
