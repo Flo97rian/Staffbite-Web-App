@@ -48,7 +48,7 @@ export const ModalApplyForShift = (props) => {
             textColor: "dark",
             notice: "",
             applicants: newApplicants,
-            setApplicants: {},
+            setApplicants: event.setApplicants,
             applicantsAfterPublish: {},
         }
         dispatch(resettingTemporaryEventId());

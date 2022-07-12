@@ -111,7 +111,7 @@ export const ModalEditShift = (props) => {
             borderColor: "#fb6340",
             textColor: "dark",
             notice: "",
-            applicants: {},
+            applicants: event.applicants,
             setApplicants: newSetApplicants,
             applicantsAfterPublish: {},
         }

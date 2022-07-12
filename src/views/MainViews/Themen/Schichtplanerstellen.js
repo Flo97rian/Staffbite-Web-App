@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import ReactGA from "react-ga";
@@ -36,6 +36,7 @@ import ThemenSlider from "./ThemenSlider";
 
 function Schichtplanerstellen (props) {
   let mainContent = useRef("mainContent")
+  const [showChapters, setShowChapters] = useState(false);
   useEffect(() => {
     pageViewsTracking()
   },[])
@@ -83,96 +84,150 @@ function Schichtplanerstellen (props) {
                 imgAlt: "Abbildung des Logos von Staffbite",
                 }}/>
       {/* Page content */}
-      <Container className="pt-5" fluid>
-        <Container className="mt-6">
-                    <Row className="justify-content-left ml-0 mt-4">
-                        <h1>Wie kann ich einen Schichtplan erstellen?</h1>
-                    </Row>
-        </Container>
-        <Container className=" mb-4 pt-4">
-              <Row>
+      <Container className="pt-8" fluid>
+      <Row>
+          <Col xs="0" md="3">
+          </Col>
+          <Col xs="12" md="7">
+          <Row className="mt-4 text-center">
                 <Col>
-                    <p className="lead">
-                    Moin zusammen 👋
-                    </p>
-                    <p className="lead">
-                      In unserem Blog werden wir regelmäßig Fragen beantworten, Tipps & Tricks mit euch teilen und auf aktuelle Neuigkeiten eingehen. Wenn du also eine Frage an uns hast, dann schreib gerne eine Mail an info@staffbite.de – wir freuen uns deine Nachricht!
-                    </p>
-                    <p className="lead">
-                    Heute möchte ich euch die verschiedenen Möglichkeiten vorstellen, die es gibt, um einen Schichtplan zu erstellen. Jede dieser Möglichkeiten hat Vor- und Nachteile, die abgewogen werden müssen.  
-                    </p>
-                    <p className="lead">
-                    Im Sommer 2021 habe ich meine Masterthesis über die Schichtplanung in kleinen und mittleren Betrieben geschrieben. Um ein besseres Verständnis für die Probleme und Anforderungen der Personalplaner*innen zu bekommen, habe ich diverse Interviews geführt und mir im Detail den Prozess der Schichtplanung erklären zu lassen.
-                    </p>
-                    
-                    <h2>Was sind die Probleme der Schichtplanung?</h2>
-                    <p className="lead">
-                    Interessant war hierbei, dass bereits das Einholen der Verfügbarkeiten der Mitarbeiter*innen in vielen Betrieben eine Herausforderung darstellt. Es existiert eine Vielzahl an Kommunikationswegen, die die Mitarbeiter*innen nutzen, um mitzuteilen wann sie arbeiten können.
-                    </p>
-                    <p className="lead">
-                    Die Verantwortlichen müssen anschließend eine große Menge WhatsApp-Nachrichten, Mails und Zettel durchsuchen und sich Notizen machen. Häufig gehen hierbei Informationen verloren oder sind bereits veraltet. Das Ergebnis ist ein Schichtplan, der in den meisten Fällen bereits kurz nach der Veröffentlichung wieder angepasst werden muss.
-                    </p>
-                    <p className="lead">
-                    Die Befüllung der Schichtpläne an sich stellt jedoch die größte Herausforderung dar. Es müssen Faktoren wie die Gehaltsvorstellung der Mitarbeiter*innen, die Wunscharbeitszeiten, Überstunden, Urlaub, Positionen und Qualifikationen berücksichtigt werden. In den meisten Fällen haben die Verantwortlichen diese Faktoren im Kopf. Aus diesem Grund kann die manuelle Befüllung der Schichtpläne auch nicht abgegeben werden. Urlaub oder ein Ausfall wegen Krankheit ist kaum möglich.
-                    </p>
-
-                    <h2>Wie werden 2021 Schichtpläne erstellt?</h2>
-                    <p className="lead">
-                    Zu meiner Überraschung gaben viele Betriebe an, dass sie auch im Jahre 2021 immer noch ihre Schichtpläne mit Zettel und Stift erstellen. Hierbei wird meist eine Vorlage verwendet, die vor einigen Monaten erstellt und ausgedruckt wurde. Die Verantwortlichen planten in der Regel einige Stunden am Wochenende ein, um in mühevoller Kleinstarbeit den Schichtplan zu befüllen.
-                    </p>
-                    <p className="lead">
-                    Wird ein Teammitglied krank oder kann aus einem anderen Grund nicht erscheinen, wird erneut der Stift gezückt und der Plan angepasst. Das Ergebnis ist ein schwierig zu verstehender und meist unvollständiger Schichtplan. Dieser Plan muss anschließend nach den Änderungen fotografiert und dem Team zugeschickt werden. Spätestens nach der dritten Änderung hat der Großteil des Teams leider den Überblick verloren.
-                    </p>
-
-                    <Row className="pb-0">
-                <Col className="order-md-2" md="12" lg="6">
-                    <img
-                        alt="Tafel mit drei Plänen"
-                        src={PlanABC}
-                        title="PlanABC"
-                        height="90%"
-                        width="90%"
-                    />
+                    <small>Lesedauer ca. 5 Minuten</small>
                 </Col>
-                </Row>
-
-                    <h2>Schichtplanung mit Excel</h2>
-                    <p className="lead">
-                    Die meisten Betriebe, mit denen ich gesprochen habe, erstellen ihre Schichtpläne mit Excel. Manche verteilen ihre Schichtplanvorlage über eine Dropbox oder die Cloud. Diese Betriebe nutzen bereits die ersten Vorteile der technologischen Entwicklung der letzten Jahre.
-                    </p>                    
-                    <p className="lead">
-                    Das Einholen der Verfügbarkeiten der Mitarbeiter*innen und die Befüllung der Schichtpläne erfolgt jedoch immer noch in manueller Kleinstarbeit und dauert somit mehrere Stunden jede Woche. Zusätzlich sollte erwähnt werden, dass die Excel Vorlagen, die aus dem Internet heruntergeladen werden, nur selten die individuellen Bedürfnisse der Betriebe vollständig abbilden.
-                    </p>                    
-                    <p className="lead">
-                    Dennoch ist die Planung mit Excel sehr beliebt, da kaum Kosten entstehen. Es wird lediglich eine Microsoft Excel Lizenz benötigt, die viele Betriebe sowieso besitzen, da sie für die Buchhaltung benötigt wird. Der hohe manuelle Aufwand kann durch Excel jedoch nicht umgangen werden.    
-                    </p>
-
-                    <h2>Software zur Schichtplanung</h2>
-                    <p className="lead">
-                    Nur ein kleiner Bruchteil der Betriebe, mit denen ich gesprochen habe, verwendet eine professionelle Software, um die Schichtplanung zu erledigen. Die wesentlichen Gründe sind hierbei die hohen Preise, die manche Anbieter aufrufen sowie das fehlende Vertrauen, dass eine Software die vielen individuellen Anforderungen abbilden kann.
-                    </p>
-                    <p className="lead">
-                    Die hohen Preise der Anbieter sind in den meisten Fällen damit zu begründen, dass die Software für große Betriebe und Unternehmensketten konzipiert wurden. Es können Schichtpläne für mehrere Filialen und hunderte Mitarbeiter*innen abgebildet können. Für kleine und mittlere Betriebe sind diese umfassenden Systeme jedoch weder geeignet noch bezahlbar.
-                    </p>                    
-                    
-                    <h2>Die Lösung für kleine und mittlere Betriebe</h2>
-                    <p className="lead">
-                    Wir von Staffbite haben die Anforderungen und Probleme bei der Schichtplanung genau analysiert und bieten eine bezahlbare, flexible und automatisierte Lösung für kleine und mittlere Betriebe. Die Mitarbeiter*innen deines Betriebs erhalten einen Zugang zu unserem System (in Kürze veröffentlichen wir unsere kostenfreie Mitarbeitenden-App) und können dort direkt ihre Verfügbarkeiten eintragen. Auf diese Weise kannst du bereits eine Menge Zeit und Nerven einsparen.
-                    </p>
-                    <p className="lead">
-                    Nachdem sich dein Team in den Schichtplan eingetragen hat, kannst du die automatisierte Befüllung starten. Nach wenigen Sekunden ist dein Schichtplan fertig. Bei Bedarf kannst du Anpassungen vornehmen und den Plan anschließend veröffentlichen.
-                    </p>
-                    <p className="lead">
-                    Dein Team kann jederzeit online den Schichtplan einsehen und weiß genau Bescheid. Jede Änderung im Plan erscheint automatisch auch bei deinen Mitarbeiter*innen. Eine Win-Win-Situation für dich und dein Team.
-                    </p>
-                    
-                    <h2>Starte jetzt deinen kostenfreien Probemonat</h2>
-                    <p className="lead">
-                      Wenn du mehr über unsere online Schichtplanung erfahren willst, dann schau dich gerne auf unserer Website um oder starte direkt mit dem <Link to="/signup" >kostenlosen Probemonat</Link>!</p>
-                  </Col>
-              </Row>
-        </Container>
-        <ThemenSlider></ThemenSlider>
+            </Row>
+            <Row className="mt-4 text-center">
+                <Col>
+                    <h1>Wie kann ich einen Schichtplan erstellen?</h1>
+                </Col>
+            </Row>
+            <Row className="mt-6">
+                <Col>
+                    <h2 onClick={() => setShowChapters(!showChapters)}><i className={showChapters ? "fas fa-angle-down mr-2" : "fas fa-angle-right mr-2"}></i>Inhaltsverzeichnis</h2>
+                    <div hidden={!showChapters} className="ml-2">
+                      <h3><a href="#probleme">Was sind die Probleme der Schichtplanung?</a></h3>
+                      <h3><a href="#2022">Wie werden 2022 Schichtpläne erstellt?</a></h3>
+                      <h3><a href="#software">Software zur Schichtplanung</a></h3>
+                      <h3><a href="#kleinundmittel">Die Lösung für kleine und mittlere Betriebe</a></h3>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                        <p className="lead">
+                        Moin zusammen 👋
+                        <br/>
+                        <br/>
+                        Heute möchte ich euch die verschiedenen Möglichkeiten vorstellen, die es gibt, um einen Schichtplan zu erstellen. Jede dieser Möglichkeiten hat <b>Vor- und Nachteile</b>, die abgewogen werden müssen.
+                        <br/>
+                        <br/>
+                        Im Sommer 2021 habe ich meine <b>Masterthesis über die Schichtplanung in kleinen und mittleren Betrieben</b> geschrieben. Um ein besseres Verständnis für die Probleme und Anforderungen der Personalplaner*innen zu bekommen, habe ich diverse Interviews geführt und mir im Detail den <b>Prozess der Schichtplanung</b> erklären zu lassen.
+                        </p>
+                       
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                        <h2 id="probleme" className="pt-7">Was sind die Probleme der Schichtplanung?</h2>
+                        <p className="lead">
+                        Die <b>größten Probleme</b> bei der Schichtplanung sind:
+                        <br/>
+                        <br/>
+                        <ul>
+                          <li><a href="#verfügbarkeiten">Einholen der Verfügbarkeiten des Teams</a></li>
+                          <li><a href="#befüllung">Befüllung des Schichtplans</a></li>
+                          <li><a href="#änderungen">Spontane Änderungen</a></li>
+                          <li><a href="#datenschutz">Datenschutz & DSGVO</a></li>
+                        </ul>
+                        </p>
+                        <h3 id="verfügbarkeiten" className="pt-7">Einholen der Verfügbarkeiten des Teams</h3>
+                        <p className="lead">
+                        Die Vielzahl an Gesprächen zeigte deutlich, dass die Probleme in der Schichtplanung schon <b>direkt zu Beginn</b> entstehen. Um einen vollständigen Schichtplan zu erstellen, muss die verantwortliche Person genau wissen, <b>wann welcher Mitarbeiter oder Mitarbeiterin zur Verfügung</b> steht. Wird das Team in diesem Schritt nicht einbezogen, kommt es immer wieder zu Problemen im weiteren Verlauf.
+                        <br/>
+                        <br/>
+                        Das <b>Einholen der Verfügbarkeiten</b> der Mitarbeiter*innen stellt in vielen Betrieben jedoch eine Herausforderung dar. Es existiert eine Vielzahl an Kommunikationswegen, die die Mitarbeiter*innen nutzen, um mitzuteilen wann sie arbeiten können: <b>WhatsApp, Signal, Mails, Anrufe, Slack und viele mehr.</b>
+                        <br/>
+                        <br/>
+                        Die Verantwortlichen müssen danach sich durch eine <b>große Menge Nachrichten, Mails und Zettel durchsuchen </b>und sich Notizen machen. <b>Häufig</b> gehen hierbei <b>Informationen verloren</b> oder sind beim Aufschreiben bereits veraltet. <b>Das Ergebnis</b> ist ein Schichtplan, der in den meisten Fällen <b>bereits kurz nach der Veröffentlichung wieder angepasst werden muss</b>.
+                        </p>
+                        <h3 id="befüllung" className="pt-7">Befüllung des Schichtplans</h3>
+                        <p className="lead">
+                          Die <b>Befüllung der Schichtpläne</b> an sich stellt jedoch die <b>größte Herausforderung</b> dar. Es müssen Faktoren wie 
+                        <br/>
+                        <br/>
+                        <ul>
+                          <li>die Gehaltsvorstellung der Mitarbeiter*innen</li>
+                          <li>die Wunscharbeitszeiten</li>
+                          <li>Überstunden</li>
+                          <li>Urlaub</li>
+                          <li>Positionen und Qualifikationen</li>
+                        </ul>
+                        berücksichtigt werden. In den meisten Fällen haben die Verantwortlichen diese Faktoren im Kopf. Aus diesem Grund kann die <b>manuelle Befüllung der Schichtpläne</b> auch nicht abgegeben werden. Urlaub oder ein Ausfall wegen Krankheit ist für die Verantwortlichen so kaum möglich.
+                        <br/>
+                        <br/>
+                        Je größer ein Betrieb ist, umso mehr steigt die <b>Komplexität</b> im Schichtplan. Individuelle Vorlieben der Mitarbeiter und Mitarbeiterinnen kann eine einzelne Person so kaum im Kopf behalten und anschließend im Schichtplan berücksichtigen.
+                        <br/>
+                        <br/>
+                        Aber auch in kleineren Betrieben ist es schwierig gleichzeitig die <b>Wunschzeiten des Teams</b> umzusetzen und gleichzeitig den <b>Schichtplan vollständig befüllt</b> zu bekommen. Ohne eine transparente Schichtplanung führt dies meist zu Spannungen zwischen den Verantwortlichen und dem Team. Wie du die Transparenz in der Schichtplanung erhöhen kannst, zeige ich dir später in diesem Artikel.
+                        </p>
+                        <p className="lead">
+                        <h3 id="änderungen" className="pt-7">Spontane Änderungen</h3>
+                        Wer kennt es nicht? Kaum nachdem der Schichtplan mit dem Team geteilt wurde, kommen die ersten <b>Nachrichten und Anrufe</b>, dass Jemand aus dem Team eine Schicht nicht wahrnehmen kann. Die verantwortliche Person muss sich also wieder an den Schreibtisch setzen und hoffen, dass schnell Ersatz gefunden werden kann.
+                        <br/>
+                        <br/>
+                        Dies passiert jedoch nicht nur nach der ersten Veröffentlichung des Plans, sondern auch <b>mehrfach pro Woche</b>. Krankheit, Prüfungen und Geburtstage von Verwandten sind die häufigsten Gründe, weshalb sich die Verantwortlichen fast jeden Tag wieder an den Schichtplan setzen müssen.
+                        <br/>
+                        <br/>
+                        Jede Änderung muss anschließend im Schichtplan abgebildet werden, damit das Team und die Schichtleitungen immer Bescheid wissen, wer wann arbeitet. Die verschiedenen Versionen des Schichtplans werden anschließend wieder mit dem Team geteilt. Dabei den Überblick zu behalten ist für beide Seiten nicht leicht.
+                        </p>
+                        <h3 id="datenschutz" className="pt-7">Datenschutz & DSGVO</h3>
+                        <p className="lead">
+                          Der Datenschutz und das Einhalten der <b>DSGVO-Richtlinien</b> ist inzwischen für jeden Betrieb mit einem Schichtplan ein wichtiges Kriterium. Einen Schichtplan im Betrieb auszuhängen, der den Vor- und Nachnamen der Mitarbeiter*innen und ihre Arbeitszeiten beinhaltet, ist nicht zu empfehlen. Werden diese Daten von Kunden oder Anderen im Laden eingesehen, kann dies als Verstoß gegen den Datenschutz geahndet werden.
+                        <br/>
+                        <br/>
+                          Ebenfalls muss beachtet werden, dass nicht jeder Anbieter für digitale Schichtpläne die DSGVO-Richtlinien eingehalten werden. Hier sollte darauf geachtet werden einen Anbieter aus Deutschland oder zumindest Europa auszuwählen. Ein kurzer Blick in das Impressum der Website gibt hier erste Informationen, ob es sich um ein deutsches Unternehmen handelt.
+                        </p>
+                        <h2 id="2022" className="pt-7">Wie werden 2022 Schichtpläne erstellt?</h2>
+                        <p className="lead">
+                          Zu meiner Überraschung gaben <b>viele Betriebe</b> an, dass sie auch im Jahre 2021 immer noch ihre Schichtpläne mit <b>Zettel und Stift</b> erstellen. Dies ist im Jahr 2022 ebenfalls der Fall. Meistens wird eine Vorlage verwendet, die vor einigen Monaten erstellt und ausgedruckt wurde. Die Verantwortlichen planten in der Regel <b>einige Stunden am Wochenende</b> ein, um <b>in mühevoller Kleinstarbeit</b> den Schichtplan zu befüllen.
+                        <br/>
+                        <br/>
+                          Wird ein Teammitglied krank oder kann aus einem anderen Grund nicht erscheinen, wird erneut der Stift gezückt und der Plan angepasst. Das Ergebnis ist ein schwierig zu verstehender und meist unvollständiger Schichtplan. Dieser Plan muss anschließend nach den Änderungen fotografiert und dem Team zugeschickt werden. Spätestens nach der dritten Änderung hat der Großteil des Teams leider den Überblick verloren.
+                        </p>
+                        <Row>
+                          <Col>
+                          <img
+                            alt="Tafel mit drei Plänen"
+                            src={PlanABC}
+                            title="PlanABC"
+                            height="90%"
+                            width="90%"
+                        />
+                          </Col>
+                        </Row>
+                        <h2 id="software" className="pt-7">Software zur Schichtplanung</h2>
+                        <p className="lead">
+                          Nur ein <b>kleiner Bruchteil der Betriebe</b>, mit denen ich gesprochen habe, verwendet eine <b>professionelle Software</b>, um die Schichtplanung zu erledigen. Die wesentlichen Gründe sind hierbei die hohen Preise, die Anbieter aufrufen sowie das fehlende Vertrauen, dass eine Software die vielen individuellen Anforderungen abbilden kann.
+                        <br/>
+                        <br/>
+                          Die <b>hohen Preise</b> der Anbieter sind in den meisten Fällen damit zu begründen, dass die Software für große Betriebe und Unternehmensketten konzipiert wurden. Es können Schichtpläne für mehrere Filialen und hunderte Mitarbeiter*innen abgebildet können. Für <b>kleine und mittlere Betriebe</b> sind diese umfassenden Systeme jedoch <b>weder geeignet noch bezahlbar</b>.
+                        </p>
+                        <h2 id="kleinundmittel" className="pt-7">Die Lösung für kleine und mittlere Betriebe</h2>
+                        <p className="lead">
+                          Wir von Staffbite haben die <b>Anforderungen und Probleme bei der Schichtplanung genau analysiert</b> und bieten eine bezahlbare, flexible und automatisierte Lösung für kleine und mittlere Betriebe. Die Mitarbeiter*innen deines Betriebs erhalten einen Zugang zu unserem System (in Kürze veröffentlichen wir unsere <b>kostenfreie Mitarbeitenden-App</b>) und können dort direkt ihre <b>Verfügbarkeiten eintragen</b>. Auf diese Weise kannst du bereits eine Menge Zeit und Nerven einsparen.
+                        <br/>
+                        <br/>
+                          Nachdem sich dein Team in den Schichtplan eingetragen hat, kannst du die <b>automatisierte Befüllung</b> starten. <b>Nach wenigen Sekunden ist dein Schichtplan fertig</b>. Bei Bedarf kannst du Anpassungen vornehmen und den Plan anschließend veröffentlichen.
+                        <br/>
+                        <br/>
+                          <b>Dein Team kann jederzeit online den Schichtplan einsehen</b> und weiß genau Bescheid. Jede Änderung im Plan erscheint automatisch auch bei deinen Mitarbeiter*innen. Eine Win-Win-Situation für dich und dein Team.
+                        </p>
+                        <h3>Starte jetzt und erstelle deinen digitalen Schichtplan</h3>
+                        <p className="lead">
+                          Wenn du mehr über online Schichtplanung erfahren willst, dann geh auf www.staffbite.de und erstelle deinen kostenlosen online Schichtplan. Du kannst sofort loslegen! Nachdem du deinen Schichtplan erstellt hast, kannst du einen Link mit deinem Team teilen. Mit diesem Link tragen sich deine Mitarbeiter*innen einfach und unkompliziert in den Plan ein.
+                        </p>
+                </Col>
+            </Row>
+            </Col>
+          </Row>
       </Container>
       <LandingFooter></LandingFooter>
     </div>

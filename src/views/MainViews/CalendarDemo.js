@@ -66,6 +66,7 @@ import { ModalSendFeedback } from "./CalendarDemo/ModalSendFeedback";
 import { ModalInvitationAdmin } from "./CalendarDemo/AdminInvitationModal";
 import { IntroTitle } from "./CalendarDemo/IntroTitle";
 import catchAnalyticsEvent from "./CalendarDemo/DemoAnalytics";
+import DemoNavbar from "./CalendarDemo/DemoNavbar";
 
 
 function CalendarDemo(props) {
@@ -459,15 +460,24 @@ function CalendarDemo(props) {
 
   const formatEvents = () => {
       return events.map(event => {
-                const {title, end, start} = event;
+                const {title, end, start, NumberOfEmployees, setApplicants} = event;
     
                 let startTime = new Date(start)
                 let endTime = new Date(end)
-    
+                let background;
+                let setApplicantsLenght = Object.keys(setApplicants).length;
+                if(setApplicantsLenght === Number(NumberOfEmployees))
+                  background = "#2dce89";
+                if(setApplicantsLenght > Number(NumberOfEmployees))
+                  background = "#f5365c";
+                if(setApplicantsLenght < Number(NumberOfEmployees))
+                  background = "#ffd300"
                 return {
                   title, 
                   start: startTime,
                   end: endTime, 
+                  backgroundColor: background,
+                  borderColor: background,
                   extendedProps: {...event}
                 }
             })
@@ -491,6 +501,19 @@ function CalendarDemo(props) {
             <b><i className="fas fa-user-clock"></i>{" "}{Object.keys(eventInfo.event.extendedProps.applicants).length} {displayOnSmallDevices && viewDayGridMonth ? "" : "Bewerber"}</b>
             <br/>
             <b><i className="fas fa-users"></i>{" "}{Object.keys(eventInfo.event.extendedProps.setApplicants).length + "/" + eventInfo.event.extendedProps.NumberOfEmployees} {displayOnSmallDevices && viewDayGridMonth ? "" : "Mitarbeiter"}</b>
+            {Object.keys(eventInfo.event.extendedProps.setApplicants).length ?
+            Object.keys(eventInfo.event.extendedProps.setApplicants).map(id => {
+              let name = eventInfo.event.extendedProps.setApplicants[id];
+              return (
+                <>
+                <br/>
+                {name}
+                </>
+              )
+            })
+            :
+            <></>
+            }
           </Col>
         </Row>
       </div>
@@ -573,8 +596,9 @@ function CalendarDemo(props) {
             },
           }}
         />
-      <Container className="mt-4" fluid ref={containerRef}>
-        <Row>
+      <Container fluid ref={containerRef}>
+      <DemoNavbar/>
+        <Row className="mt-7">
           <Col xs="0" md="4"></Col>
           <Col xs="12" md="4">
           <div>

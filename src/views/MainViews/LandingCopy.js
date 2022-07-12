@@ -28,10 +28,12 @@ import BildSchichtplanErstellen from "../../assets/img/theme/Schichtplan-erstell
 import SchichtplanBeispiel from "../../assets/img/theme/Schichtplan-befüllen.png"
 import BefuellungStarten from "../../assets/img/landing/Befuellung-starten.png"
 import LandingSchichtErstellen from "../../assets/img/landing/LandingSchichtErstellen.png"
-import SchichtplanVeroeffentlichen from "../../assets/img/landing/Schichtplan-veroeffentlichen.png"
+import SchichtplanVeroeffentlichen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtplanFertig.png"
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
 import LottieCalendar from '../../assets/json/animation/LottieCalendar.json';
 import {isMobile} from 'react-device-detect';
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 
 // reactstrap components
@@ -60,7 +62,7 @@ import SchichtplanVorlage from "../../assets/img/theme/Vorlage-erstellen.png";
 import LogoWTSH from "../../assets/img/landing/Netzwerk/LogoWTSH.png";
 import LogoGS from "../../assets/img/landing/Netzwerk/LogoGS.png";
 import LogoVentureWaerft from "../../assets/img/landing/Netzwerk/LogoVentureWaerft.png";
-import SchichtEintragen from "../../assets/img/landing/VerfügbarkeitenEintragen/SchichtEintragenMitFinger.png";
+import SchichtEintragen from "../../assets/img/landing/SchichtplanErstellen/SchichtplanEintragen.png";
 import AppEintragen from "../../assets/img/app/App-eintragen-uebersicht-smartphone.png";
 import ThemenSlider from "./Themen/ThemenSlider";
 import TrialBanner from "./sub/TrialBanner";
@@ -216,21 +218,24 @@ const LandingCopy = (props) => {
                       <ul><i className="fas fa-check"></i>{" "}Unbegrenzt Schichtpläne erstellen</ul>
                       <ul><i className="fas fa-check"></i>{" "}Unbegrenzt Mitarbeiter einladen</ul>
                       <ul><i className="fas fa-check"></i>{" "}Alternative zum Excel Schichtplan</ul>
-                  </Col>
-                  <Col xs="12" md="4">
-                      <h3>Pro</h3>
-                      <ul><i className="fas fa-check"></i>{" "}Automatisierter Schichtplan</ul>
-                      <ul><i className="fas fa-check"></i>{" "}Mitarbeiter App</ul>
-                      <ul><i className="fas fa-check"></i>{" "}Push-Benachrichtigungen</ul>
-                      <ul><i className="fas fa-check"></i>{" "}Tauschanfragen verwalten</ul>
-                      <ul><i className="fas fa-check"></i>{" "}Urlaubsplaner (in Entwicklung)</ul>
+                      <ul><i className="fas fa-check"></i>{" "}Automatisierter Schichtplan (bald verfügbar)</ul>
                   </Col>
                   <Col xs="12" md="4">
                       <br/>
+                      <ul><i className="fas fa-check"></i>{" "}Verfügbarkeiten eintragen</ul>
+                      <ul><i className="fas fa-check"></i>{" "}Planer Ansicht</ul>
+                      <ul><i className="fas fa-check"></i>{" "}Mitarbeiter Ansicht</ul>
+                      <ul><i className="fas fa-check"></i>{" "}Mitarbeiter eintragen per Drag & Drop</ul>
+                      <ul><i className="fas fa-check"></i>{" "}Tauschanfragen verwalten</ul>
+                  </Col>
+                  <Col xs="12" md="4">
+                      
+                      <h3>Vollversion</h3>
                       <ul><i className="fas fa-check"></i>{" "}Rollen & Berechtigungen</ul>
-                      <ul><i className="fas fa-check"></i>{" "}Automatische Team-Benachrichtigungen</ul>
-                      <ul><i className="fas fa-check"></i>{" "}Selbst eintragen</ul>
-                      <ul><i className="fas fa-check"></i>{" "}Zeiterfassung (in Entwicklung)</ul>
+                      <ul><i className="fas fa-check"></i>{" "}Push-Benachrichtigungen</ul>
+                      <ul><i className="fas fa-check"></i>{" "}Mitarbeiter App</ul>
+                      <ul><i className="fas fa-check"></i>{" "}Urlaubsplaner (bald verfügbar)</ul>
+                      <ul><i className="fas fa-check"></i>{" "}Zeiterfassung (bald verfügbar)</ul>
                   </Col>
                 </Row>
               </Container>
@@ -250,24 +255,26 @@ const LandingCopy = (props) => {
                 <Row className="text-center">
                     <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6" className="order-sm-2 order-md-1">
                       <Card className="bg-transparent shadow-none mb-5 mt-5">
-                      <img
-                          className="shadow"
-                          alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
-                          src={LandingSchichtErstellen}
-                          title="Schichtplan Vorlage"
-                          height="100%"
-                          width="100%"
-                          ></img>
+                        <Zoom>
+                          <img
+                            className="shadow"
+                            alt="Abbildung einer anpassbaren Schichtplan Vorlage von Staffbite"
+                            src={LandingSchichtErstellen}
+                            title="Schichtplan Vorlage"
+                            height="100%"
+                            width="100%"
+                            ></img>
+                          </Zoom>
                           </Card>
                     </Col>
                     <Col xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6" className={isMobile ? "order-0": ""}>
                       <Row className="pt-3" style={!isMobile ? { transform: "translateY(50%)"}: {}}>
                         <Col>
                         <Row className="text-right">
-                          <Col xs="2" className="">
+                          <Col xs="0" md="2" className="">
                             <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">1</Badge>
                           </Col>
-                          <Col xs="10" >
+                          <Col xs="12" md="10">
                             <h2 className="display-4 text-left">Erstelle deinen Schichtplan</h2>
                           </Col>
                           </Row>
@@ -278,7 +285,7 @@ const LandingCopy = (props) => {
                           <p className="lead-text mt-2">
                             <Row className="text-left">
                             <Col xs="0" md="2"></Col>
-                              <Col xs="10">
+                              <Col xs="12" md="10">
                                 Mit wenigen Klicks erstellst du deinen <Link to="/schichtplan-erstellen"> digitalen Schichtplan</Link> für dich und dein Team.
                               </Col>
                             </Row>
@@ -328,71 +335,58 @@ const LandingCopy = (props) => {
                 <Row className="mx-4">
                 <Col>
                 <Row className="text-center">
-                    <Col xs="12" md="6">
-                    <Row className="pt-3" style={!isMobile ? { transform: "translateY(50%)"}: {}}>
-                        <Col>
-                        <Row className="text-left">
-                          <Col xs="2" className="text-center">
+                  <Col>
+                    <Row className="pt-3 text-left">
+                          <Col xs="1" className="">
                             <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">2</Badge>
                           </Col>
-                          <Col xs="10">
+                          <Col xs="11">
                             <h2 className="display-4">Dein Team trägt sich ein</h2>
                           </Col>
-                          </Row>
-                        </Col>
                       </Row>
-                      <p className="lead-text mt-4" style={!isMobile ? { transform: "translateY(10%)"} : {}}>
+                      <p className="lead-text " style={!isMobile ? { transform: "translateY(10%)"} : {}}>
                       <Row className="text-left">
-                        <Col>Deine Mitarbeiter*innen tragen sich <Link to="/fuer-dein-team" className="stretched-link">online in deinen Schichtplan</Link> ein. Das geht jederzeit per Smartphone, Tablet oder Laptop.
+                        <Col md="1" xs="0"></Col>
+                        <Col >Deine Mitarbeiter*innen tragen sich <Link to="/fuer-dein-team" className="stretched-link">online in deinen Schichtplan</Link> ein. Das geht jederzeit per Smartphone, Tablet oder Laptop.
                           </Col>
                       </Row>
-                      <Row className="mt-4 text-left">
-                            <Col xs="1" className="mt-0">
-                              <i className="fas fa-check-circle text-success"></i>
-                            </Col>
-                            <Col xs="9">
-                              Schichtplan auswählen
-                            </Col>
-                            </Row>
-                            <Row className="mt-2 text-left">
-                            <Col xs="1" className="mt-0">
-                              <i className="fas fa-check-circle text-success"></i>
-                            </Col>
-                            <Col xs="9">
-                              In Wunschschichten eintragen
-                            </Col>
-                            </Row>
                       </p>
-                      { isMobile ? 
-                      <></>
-                      :
-                       <Row className="float-right">
-                      <svg height="300" width="300">
-                        <path d=" M 300 100 A 200 200 200 0 0 150 300" stroke="Gainsboro" stroke-width="3" fill="none" stroke-dasharray="10, 10" />
-                    </svg>
+                      <Row>
+                        <Col md="1" xs="0"></Col>
+                        <Col>
+                          <Card className="bg-transparent shadow-none border-rounded mt-3 pt-4 text-center">
+                          <Zoom>
+                            <img
+                                className="shadow"
+                                alt="Abbildung eines Schichtplans von Staffbite"
+                                src={SchichtEintragen}
+                                title="Eintragen in den Schichtplan"
+                                height="100%"
+                                width="100%"
+                                ></img>
+                            </Zoom>
+                            </Card>
+                            { isMobile ? 
+                            <></>
+                            :
+                            <Row className="float-left">
+                            <svg height="300" width="300">
+                              <path d=" M 300 100 A 200 200 200 0 0 150 300" stroke="Gainsboro" stroke-width="3" fill="none" stroke-dasharray="10, 10" />
+                          </svg>
+                            </Row>
+                            }
+                        </Col>
                       </Row>
-                      }
-                    </Col>
-                    <Col xs="12" md="6" className="px-0 pt-5">
-                    <Card className="bg-transparent shadow-none">
-                      <img
-                          className="shadow"
-                          alt="Abbildung eines Schichtplans von Staffbite"
-                          src={SchichtEintragen}
-                          title="Eintragen in den Schichtplan"
-                          height="50%"
-                          width="100%"
-                          ></img>
-                      </Card>
                     </Col>
                   </Row>
                   </Col>
                   </Row>
-                  <Row className=" mx-4">
+                  <Row className="mx-4">
                 <Col>
                 <Row className="text-center mt-0">
                     <Col xs={isMobile ? {span:12, order: 2}: {span: 12, order: 1}} md="6">
                     <Card className="bg-transparent shadow-none">
+                    <Zoom>
                       <img
                           className="shadow mb-3"
                           alt="Abbildung der Befüllung des Schichtplans"
@@ -401,6 +395,7 @@ const LandingCopy = (props) => {
                           height={isMobile ? "80%" : "50%"}
                           width="100%"
                           ></img>
+                      </Zoom>
                           </Card>
                     </Col>
                     <Col xs={isMobile ? {span:12, order: 1}: {span: 12, order: 2}} md="6">
@@ -423,21 +418,21 @@ const LandingCopy = (props) => {
                           Dein Schichtplan wird per Mausklick innerhalb weniger Sekunden <Link to="/automatisierter-schichtplan">automatisiert befüllt</Link>. Auf diese Weise sparst du mehrere Stunden Arbeit jede Woche!
                           </Col>
                       </Row>
-                      <Row className="text-left mt-4">
-                          {!isMobile ? <Col xs="2"></Col> : <></>}
-                            <Col xs="1" className="mt-0">
+                      <Row className="mt-4 text-left">
+                            <Col xs="0" md="2"></Col>
+                            <Col xs="1" md="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
-                            <Col xs="9">
+                            <Col xs="11" md="9">
                               Schichtplan auswählen
                             </Col>
                             </Row>
                             <Row className="text-left">
-                            {!isMobile ? <Col xs="2"></Col> : <></>}
-                            <Col xs="1" className="mt-0">
+                            <Col xs="0" md="2"></Col>
+                            <Col xs="1" md="1" className="mt-0">
                               <i className="fas fa-check-circle text-success"></i>
                             </Col>
-                            <Col xs="9">
+                            <Col xs="11" md="9">
                               Befüllung starten
                             </Col>
                             </Row>
@@ -457,55 +452,45 @@ const LandingCopy = (props) => {
                   </Row>
                   <Row className="mx-4">
                 <Col>
-                <Row className="text-center mt-3">
-                    <Col xs="12" md="6">
-                    <Row className="pt-0" style={isMobile ? { transform: "translateY(50%)"}: {}}>
+                <Row className="mt-3">
+                    <Col xs="12" md="12">
+                    <Row className="pt-0">
                         <Col>
-                        <Row className="text-center">
-                          <Col xs="2" className="">
+                        <Row className="">
+                          <Col xs="1" className="">
                             <Badge color="primary" className="badge-lg lead-text badge-circle badge-outline badge-floating border-white mt-0 ">4</Badge>
                           </Col>
-                          <Col xs="10">
+                          <Col xs="11">
                             <h2 className="display-4 text-left">Schichtplan veröffentlichen</h2>
                           </Col>
                           </Row>
                         </Col>
                       </Row>
-                      <p className="lead-text mt-4 pt-0">
-                      <Row className="text-left mt-0 pt-0" style={isMobile ? { transform: "translateY(10%)"}: {}}>
+                      <Row className="text-left mt-0 pt-0">
+                        <Col xs="0" md="1"></Col>
                         <Col className="">
-                          Nach der Befüllung kannst du entweder letzte Anpassungen vornehmen oder du veröffentlichst den <Link to="/schichtplan-veroeffentlichen">fertigen Schichtplan</Link> mit einem Klick.
+                          <p className="lead-text mt-4 pt-0">
+                            Nach der Befüllung kannst du entweder letzte Anpassungen vornehmen oder du veröffentlichst den <Link to="/schichtplan-veroeffentlichen">fertigen Schichtplan</Link> mit einem Klick. Der Schichtplan ist jederzeit einsehbar. Alles auf einen Blick.
+                          </p>
                           </Col>
                       </Row>
-                      <Row className="mt-4 text-left">
-                            <Col xs="1" className="mt-0">
-                              <i className="fas fa-check-circle text-success"></i>
-                            </Col>
-                            <Col xs="9">
-                              Jederzeit einsehbar
-                            </Col>
-                            </Row>
-                            <Row className="mt-2 text-left">
-                            <Col xs="1" className="mt-0">
-                              <i className="fas fa-check-circle text-success"></i>
-                            </Col>
-                            <Col xs="9">
-                              Tauschanfragen direkt im Plan verwalten
-                            </Col>
-                            </Row>
-                    </p>
-                    </Col>
-                    <Col xs="12" md="6">
-                    <Card className="bg-transparent shadow-none">
-                      <img
-                            className="mb-3"
-                            alt="Abbildung der Buttons zum Veröffentlichen des Schichtplans von Staffbite"
-                            src={SchichtplanVeroeffentlichen}
-                            title="Schichtplan veröffentlichen"
-                            height={isMobile ? "70%" : "30%"}
-                            width="100%"
-                            ></img>
-                      </Card>
+                      <Row>
+                      <Col xs="0" md="1"></Col>
+                      <Col>
+                        <Card className="bg-transparent shadow-none border-rounded">
+                        <Zoom>
+                        <img
+                              className="mb-3"
+                              alt="Abbildung der Buttons zum Veröffentlichen des Schichtplans von Staffbite"
+                              src={SchichtplanVeroeffentlichen}
+                              title="Schichtplan veröffentlichen"
+                              height={"100%"}
+                              width="100%"
+                              ></img>
+                          </Zoom>
+                        </Card>
+                      </Col>
+                      </Row>
                     </Col>
                   </Row>
                   </Col>
